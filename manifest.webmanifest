@@ -1,0 +1,33 @@
+{
+  "name": "King Walk",
+  "short_name": "King Walk",
+  "description": "Free chess puzzles that grow with you. 53,000 puzzles from real games, with a rating that tracks your level. No account needed.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#edf1ef",
+  "theme_color": "#edf1ef",
+  "categories": [
+    "games",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
