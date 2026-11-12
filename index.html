@@ -430,7 +430,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>Solve a puzzle with no mistakes and no hints and your puzzle rating goes up. The next puzzles get harder.</li>
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
               <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
-              <li>Missed puzzles come back later for another try. Second tries do not change your rating.</li>
+              <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
               <li>Progress is saved in this browser only. There are no accounts.</li>
               <li>The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.</li>
             </ul>
@@ -549,6 +549,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 const BANDS = []; for (let b = 400; b <= 2400; b += 100) BANDS.push(b);   /* one puzzle file per 100 rating points */
 const MIN_R = 400, MAX_R = 2499;
 const START_RATING = 600;
+const REVIEW_GAP = 30;                 /* new puzzles between a miss and its one second try */
 const MODES = { easy: -300, normal: -50, hard: 100 };                     /* puzzle rating minus player rating */
 const MODE_INDEX = { easy: 0, normal: 1, hard: 2 };
 const RANKS = [[0, "Pawn", "p"], [700, "Knight", "n"], [1000, "Bishop", "b"], [1300, "Rook", "r"], [1600, "Queen", "q"], [1900, "King", "k"]];
@@ -889,7 +890,7 @@ async function nextPuzzle() {
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
   $("stLevel").hidden = !cur.review;
   renderPuzzleInfo();
-  setStatus("info", (orient === "w" ? "Black" : "White") + " moves first", "", "wait");
+  setStatus("info", cur.review ? "You've seen this one before" : (orient === "w" ? "Black" : "White") + " moves first", cur.review ? "Second try" : "", "wait");
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
@@ -979,9 +980,8 @@ function finish(solvedIt) {
     markSeen(cur.band, cur.i, cur.size);
   }
   if (score === 1) { p.solved++; p.streak++; p.best = Math.max(p.best, p.streak); } else if (score === 0) p.streak = 0;
-  if (score < 1) {          /* bring it back about six puzzles later, at most twice */
-    const tries = (cur.tries || 0) + 1;
-    if (tries <= 2) { p.review.push({ b: cur.band, i: cur.i, due: p.n + 6, tries }); if (p.review.length > 20) p.review.shift(); }
+  if (score < 1 && !cur.review) {          /* a missed puzzle comes back once, about 30 new puzzles later */
+    p.review.push({ b: cur.band, i: cur.i, due: p.n + REVIEW_GAP, tries: 1 }); if (p.review.length > 20) p.review.shift();
   }
   delete p.now;
   save();
@@ -995,8 +995,8 @@ function finish(solvedIt) {
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   }
   else if (score === 0.5) { setStatus("good", "Solved with a hint", "", "good"); sfx.good(); }
-  else if (solvedIt) setStatus("bad", "Solved after a miss", "It will come back later", "turn");
-  else setStatus("bad", "That was the answer", "It will come back later", "turn");
+  else if (solvedIt) setStatus("bad", "Solved after a miss", cur.review ? "" : "It will come back later", "turn");
+  else setStatus("bad", "That was the answer", cur.review ? "" : "It will come back later", "turn");
   $("stLevel").hidden = true;
   const d = $("delta");
   d.textContent = cur.review ? "practice" : (delta > 0 ? "+" : "") + delta;
