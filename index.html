@@ -38,9 +38,11 @@
   --coord-on-dark: #e9ecd6;
   --shadow-card: 0 1px 2px rgba(16, 40, 36, 0.06), 0 10px 28px -14px rgba(16, 40, 36, 0.22);
   --shadow-board: 0 2px 4px rgba(16, 40, 36, 0.12), 0 18px 40px -18px rgba(16, 40, 36, 0.45);
-  /* one spacing step and two corner sizes, used everywhere */
-  --gap: 8px;          /* between blocks */
-  --pad: 12px;         /* inside cards */
+  /* one spacing unit and two corner sizes, used everywhere */
+  --u: 12px;           /* page edges, gaps between blocks, padding inside cards */
+  --gap: var(--u);
+  --pad: var(--u);
+  --bar: 40px;         /* height of the header row: logo and settings button are this size */
   --r: 14px;           /* blocks: status line, board frame, cards */
   --r-ctl: 10px;       /* controls and tiles */
   --frame-pad: 6px;
@@ -55,7 +57,7 @@
     --bg: #111817; --card: #1b2524; --tile: #232f2e; --fg: #e7efed; --muted: #9bb0ac; --line: #2e3b39;
     --accent: #56c2ad; --accent-deep: #2f8f7d; --accent-soft: #1d3833; --on-accent: #0d1f1c;
     --good: #72d48d; --good-soft: #1c3a26; --gold-soft: #3b3312; --bad: #f28d81; --bad-soft: #472420;
-    --frame: #0b1211; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
+    --frame: #2f4a43; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.6);
     --shadow-board: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.8);
     color-scheme: dark;
@@ -65,7 +67,7 @@
   --bg: #111817; --card: #1b2524; --tile: #232f2e; --fg: #e7efed; --muted: #9bb0ac; --line: #2e3b39;
   --accent: #56c2ad; --accent-deep: #2f8f7d; --accent-soft: #1d3833; --on-accent: #0d1f1c;
   --good: #72d48d; --good-soft: #1c3a26; --gold-soft: #3b3312; --bad: #f28d81; --bad-soft: #472420;
-  --frame: #0b1211; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
+  --frame: #2f4a43; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.6);
   --shadow-board: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.8);
   color-scheme: dark;
@@ -78,13 +80,13 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
 /* --bw is the width of the board column. Phones: the full width. Larger screens: capped so the board,
    status line and controls fit the screen height. */
 .wrap {
-  max-width: 1040px; margin: 0 auto; padding-block: var(--gap) 24px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  max-width: 1040px; margin: 0 auto; padding-block: var(--u) calc(var(--u) * 2);
+  padding-left: max(var(--u), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--u), env(safe-area-inset-right, 0px));
   display: grid; grid-template-columns: minmax(0, 1fr);
-  --bw: min(100%, 616px, max(276px, calc(100vh - 168px)));
+  --bw: min(100%, 616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 88px)));
 }
-@supports (height: 100dvh) { .wrap { --bw: min(100%, 616px, max(276px, calc(100dvh - 168px))); } }
+@supports (height: 100dvh) { .wrap { --bw: min(100%, 616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px))); } }
 @media (max-width: 519.98px) { .wrap { --bw: 100%; } }
 .main {
   display: grid; gap: var(--gap) 22px; align-items: start; margin-top: var(--gap);
@@ -94,12 +96,12 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
 /* one column: every block shares the board's width */
 .top, .menu, .status, .frame, .actions, .progress { width: var(--bw); justify-self: center; }
 @media (min-width: 840px) {
-  .wrap { --bw: min(616px, max(276px, calc(100vh - 168px)), calc(100vw - 32px - 366px)); }
+  .wrap { --bw: min(616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); }
   .main { grid-template-columns: var(--bw) 344px; justify-content: center; grid-template-areas: "status progress" "board progress" "actions progress"; grid-template-rows: auto auto 1fr; }
   .top, .menu { width: calc(var(--bw) + 366px); }
   .progress { width: 100%; }
 }
-@supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - 168px)), calc(100vw - 32px - 366px)); } } }
+@supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); } } }
 /* phone held sideways: board on the left sized to the screen height, everything else on the right */
 @media (max-width: 839.98px) and (orientation: landscape) and (max-height: 520px) {
   .wrap { --bw: max(230px, calc(100vh - 16px)); padding-bottom: var(--gap); }
@@ -109,10 +111,10 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
 @supports (height: 100dvh) { @media (max-width: 839.98px) and (orientation: landscape) and (max-height: 520px) { .wrap { --bw: max(230px, calc(100dvh - 16px)); } } }
 
 /* ---------- header ---------- */
-.top { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); min-height: 36px; }
-.brand { display: flex; align-items: center; gap: var(--gap); min-width: 0; }
-.mark { width: 28px; height: 28px; flex: none; display: block; }
-h1 { font: 700 clamp(19px, 4.4vw, 23px)/1 var(--font-display); margin: 0; letter-spacing: -0.01em; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); height: var(--bar); }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.mark { width: var(--bar); height: var(--bar); flex: none; display: block; border-radius: var(--r-ctl); }
+h1 { font: 700 clamp(20px, 4.6vw, 24px)/1 var(--font-display); margin: 0; letter-spacing: -0.01em; }
 
 /* ---------- buttons and inputs ---------- */
 button, select, input, textarea { font: 600 15px var(--font-display); color: inherit; touch-action: manipulation; }
@@ -129,7 +131,7 @@ button, select, input, textarea { font: 600 15px var(--font-display); color: inh
 .btn.danger { background: var(--miss-frame); border-color: var(--miss-frame); color: #fff; box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25); }
 .btn.danger:disabled { opacity: 0.6; }
 .btn.small { min-height: 34px; padding: 0 12px; font-size: 14px; }
-.btn.icon { min-height: 36px; width: 36px; padding: 0; box-shadow: none; }
+.btn.icon { min-height: var(--bar); height: var(--bar); width: var(--bar); padding: 0; box-shadow: none; }
 .btn.icon:active:not(:disabled) { transform: scale(0.94); }
 .btn svg.ic { width: 20px; height: 20px; flex: none; }
 .btn .arrow { transition: transform 0.25s var(--spring); }
@@ -183,7 +185,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 
 /* ---------- status line above the board: whose turn, the goal, and all feedback ---------- */
 .status {
-  display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 10px; border-radius: var(--r);
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px var(--u); border-radius: var(--r);
   background: var(--card); border: 1px solid var(--line); color: var(--fg);
   transition: background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
 }
@@ -400,7 +402,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="116" fill="#f2c230"/><rect x="118.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="212.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="212.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="306.0" y="121.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><svg x="160.0" y="55.4" width="178.0" height="178.0" viewBox="0 0 100 100"><g stroke-linejoin="round" stroke-linecap="round"><g fill="#1c2826" stroke="#1c2826" stroke-width="5"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#fdfbf2"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><mask id="icon-ms-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-14 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.1)" mask="url(#icon-ms-wk)"/><mask id="icon-mc-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-6.5 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.15)" mask="url(#icon-mc-wk)"/><g fill="none" stroke="#1c2826" stroke-width="3"><circle cx="41" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="50" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="59" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><path d="M50 33 V44"/></g></g></svg></svg>
+      <svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="128" fill="#f2c230"/><rect x="118.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="212.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="212.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="306.0" y="121.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><svg x="160.0" y="55.4" width="178.0" height="178.0" viewBox="0 0 100 100"><g stroke-linejoin="round" stroke-linecap="round"><g fill="#1c2826" stroke="#1c2826" stroke-width="5"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#fdfbf2"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><mask id="icon-ms-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-14 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.1)" mask="url(#icon-ms-wk)"/><mask id="icon-mc-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-6.5 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.15)" mask="url(#icon-mc-wk)"/><g fill="none" stroke="#1c2826" stroke-width="3"><circle cx="41" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="50" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="59" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><path d="M50 33 V44"/></g></g></svg></svg>
       <h1>King Walk</h1>
     </div>
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
