@@ -69,17 +69,18 @@
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.45; -webkit-tap-highlight-color: transparent; }
 .wrap {
-  max-width: 1040px; margin: 0 auto; padding-block: 18px 40px;
+  max-width: 1040px; margin: 0 auto; padding-block: 10px 32px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: grid; gap: 16px;
+  display: grid; gap: 10px;
 }
 
 /* Header */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.mark { width: 38px; height: 38px; flex: none; display: block; }
-h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 5vw, 30px); line-height: 1; margin: 0; letter-spacing: -0.01em; }
+.mark { width: 32px; height: 32px; flex: none; display: block; }
+.top .btn.icon { min-height: 38px; width: 38px; border-radius: 11px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 4.6vw, 26px); line-height: 1; margin: 0; letter-spacing: -0.01em; }
 .top-right { display: flex; gap: 8px; align-items: center; }
 
 /* Buttons */
@@ -121,7 +122,7 @@ select, input[type="text"], textarea {
 .label { font: 600 12px var(--font-display); color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin: 0; }
 
 /* Players drawer */
-.collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s var(--ease-io), opacity 0.25s; opacity: 0; margin-top: -16px; }
+.collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s var(--ease-io), opacity 0.25s; opacity: 0; margin-top: -10px; }
 .collapse.open { grid-template-rows: 1fr; opacity: 1; margin-top: 0; }
 .collapse > div { overflow: hidden; min-height: 0; }
 .players { display: grid; gap: 6px; }
@@ -143,11 +144,11 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 
 /* Main grid */
 .main {
-  display: grid; gap: 12px 22px; align-items: start; grid-template-columns: minmax(0, 1fr);
+  display: grid; gap: 10px 22px; align-items: start; grid-template-columns: minmax(0, 1fr);
   grid-template-areas: "status" "board" "actions" "rating";
-  --bw: min(100%, 616px, max(276px, calc(100vh - 236px)));
+  --bw: min(100%, 616px, max(276px, calc(100vh - 186px)));
 }
-@supports (height: 100dvh) { .main { --bw: min(100%, 616px, max(276px, calc(100dvh - 236px))); } }
+@supports (height: 100dvh) { .main { --bw: min(100%, 616px, max(276px, calc(100dvh - 186px))); } }
 #status { grid-area: status; } .frame { grid-area: board; } .actions { grid-area: actions; } .rating-card { grid-area: rating; }
 #status, .frame, .actions { width: var(--bw); justify-self: center; }
 @media (min-width: 840px) {
@@ -163,7 +164,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 
 /* Status line above the board: whose turn, the goal, and all feedback */
 .status {
-  display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 8px 12px; border-radius: 14px;
+  display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 6px 12px; border-radius: 13px;
   background: var(--card); border: 1px solid var(--line); color: var(--fg);
   transition: background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
 }
@@ -183,7 +184,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .status.swap .st-ic { animation: popIn 0.34s var(--spring) both; }
 .status.swap .st-main, .status.swap .st-sub { animation: rise 0.26s var(--ease-out) both; }
 .actions { display: grid; gap: 10px; }
-@media (max-width: 480px) { .status { gap: 7px; padding: 8px 10px; } .st-text { gap: 0 7px; } .st-main { font-size: 17px; } .st-sub { font-size: 15.5px; } .status .chip { font-size: 12px; padding: 2px 8px; } }
+@media (max-width: 480px) { .status { gap: 7px; padding: 6px 10px; } .st-text { gap: 0 7px; } .st-main { font-size: 17px; } .st-sub { font-size: 15.5px; } .status .chip { font-size: 12px; padding: 2px 8px; } }
 
 /* Board */
 .frame {
@@ -293,7 +294,19 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 @keyframes dot { from { opacity: 0.25; transform: translateY(0); } to { opacity: 1; transform: translateY(-3px); } }
 .btns { display: flex; gap: 8px; flex-wrap: wrap; }
 .btns .btn { flex: 1 1 auto; }
-#playBtns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.bar-row { display: flex; align-items: center; gap: 10px; min-height: 52px; }
+.rate { display: flex; align-items: center; gap: 9px; min-width: 0; margin-right: auto; }
+.rate .rank-ic { width: 44px; height: 44px; }
+.rate .rank-ic svg { width: 38px; height: 38px; }
+.rate.bump .rank-ic { animation: bump 0.4s var(--spring); }
+.rate-txt { display: grid; gap: 3px; }
+.rate-txt b { font: 700 26px/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.rate-txt span { font: 600 11px/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+#playBtns { flex: none; flex-wrap: nowrap; }
+#playBtns .btn { flex: none; min-height: 48px; padding: 0 14px; }
+#doneBtns { flex: 1 1 auto; max-width: 340px; }
+#doneBtns .btn { min-height: 48px; font-size: 17px; }
+@media (max-width: 479.98px) { #playBtns .bl { display: none; } #playBtns .btn { width: 52px; padding: 0; } #playBtns .btn svg.ic { width: 24px; height: 24px; } }
 #playBtns .btn { padding: 0 12px; white-space: nowrap; }
 .btns.enter { animation: rise 0.3s var(--ease-out) both; }
 #nextBtn { width: 100%; }
@@ -350,6 +363,27 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .help { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; }
 .help a, .note a { color: var(--accent); font-weight: 700; }
 .menu-sec { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.qbtn { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); color: var(--muted); font: 700 16px/1 var(--font-display); cursor: pointer; padding: 0; transition: border-color 0.16s, color 0.16s, background-color 0.16s, transform 0.12s var(--ease-out); }
+.qbtn[aria-expanded="true"] { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+.qbtn:active { transform: scale(0.92); }
+.qbtn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+@media (hover: hover) { .qbtn:hover { border-color: var(--accent); color: var(--accent); } }
+.card .collapse { margin-top: -12px; }
+.card .collapse.open { margin-top: 0; }
+.explain { display: grid; gap: 10px; background: var(--tile); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; line-height: 1.4; }
+.explain h3 { margin: 0 0 2px; font: 600 15px var(--font-display); }
+.explain p { margin: 0; }
+.ladder { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.lad { position: relative; aspect-ratio: 1; border-radius: 12px; background: var(--tile); display: grid; place-items: center; }
+.lad svg { width: 82%; height: 82%; opacity: 0.28; filter: grayscale(1); transition: opacity 0.3s; }
+.lad.done, .lad.cur { background: var(--accent-soft); }
+.lad.done svg, .lad.cur svg { opacity: 1; filter: none; }
+.lad.cur { box-shadow: inset 0 0 0 2.5px var(--accent); }
+.lad.pop { animation: rankPop 0.7s var(--spring); }
+.lad-names { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; font: 600 11px var(--font-display); color: var(--muted); text-align: center; margin-top: -6px; }
+.lad-names span { overflow: hidden; text-overflow: ellipsis; }
+.lad-names .on { color: var(--accent); }
 .foot { color: var(--muted); font-size: 13px; max-width: 72ch; margin: 0; }
 .foot a { color: var(--accent); font-weight: 700; }
 
@@ -401,7 +435,6 @@ body { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area
       <h1>King Walk</h1>
     </div>
     <div class="top-right">
-      <span class="pill" id="ratingPill" title="Puzzle rating"><svg viewBox="0 0 100 100" aria-hidden="true"><use id="pillUse" href="#pc-wp"/></svg><span id="pillNum">600</span></span>
       <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </header>
@@ -482,32 +515,48 @@ body { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area
     </div>
 
     <div class="actions">
-      <div class="btns" id="playBtns">
-        <button type="button" id="hintBtn" class="btn" disabled>Hint</button>
-        <button type="button" id="answerBtn" class="btn" disabled>Show answer</button>
-      </div>
-      <div class="btns" id="doneBtns" hidden>
-        <button type="button" id="nextBtn" class="btn primary big"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="bar-row">
+        <div class="rate" id="ratingPill" title="Puzzle rating">
+          <span class="rank-ic" aria-hidden="true"><svg viewBox="0 0 100 100"><use id="pillUse" href="#pc-wp"/></svg></span>
+          <span class="rate-txt"><b id="rating">600</b><span>puzzle rating</span></span>
+        </div>
+        <div class="btns" id="playBtns">
+          <button type="button" id="hintBtn" class="btn" aria-label="Hint" title="Hint" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.3 1 2.2h5.2c0-.9.4-1.7 1-2.2A6 6 0 0 0 12 3z"/></svg><span class="bl" id="hintLabel">Hint</span></button>
+          <button type="button" id="answerBtn" class="btn" aria-label="Show answer" title="Show answer" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="bl">Answer</span></button>
+        </div>
+        <div class="btns" id="doneBtns" hidden>
+          <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="chips" id="themes"></div>
     </div>
 
-    <section class="card stack rating-card" aria-label="Puzzle rating">
-      <div>
-        <p class="label">Puzzle rating</p>
-        <div class="rating" id="rating">600</div>
+    <section class="card stack rating-card" aria-label="Progress">
+      <div class="card-head">
+        <p class="label">Progress</p>
+        <button type="button" class="qbtn" id="helpBtn" aria-expanded="false" aria-controls="rankHelp" aria-label="How ranks and ratings work">?</button>
       </div>
-      <div class="rank">
-        <span class="rank-ic" id="rankIcon" aria-hidden="true"><svg viewBox="0 0 100 100"><use id="rankUse" href="#pc-wp"/></svg></span>
-        <div class="rank-txt">
-          <div class="rank-line"><span id="rankName">Pawn</span><span id="rankNext"></span></div>
-          <div class="bar"><i id="rankBar"></i></div>
+      <div class="collapse" id="rankHelp" inert>
+        <div>
+          <div class="explain">
+            <div><h3>Ranks</h3><p>You start as a Pawn. As your puzzle rating goes up you earn the next rank: Knight at 700, Bishop at 1000, Rook at 1300, Queen at 1600 and King at 1900.</p></div>
+            <div><h3>Your puzzle rating</h3><p>Every puzzle has a number that says how hard it is. You have a number too. Solve a puzzle and you win some points. Miss one and you give some back.</p></div>
+            <div><h3>Hard puzzles are worth more</h3><p>Beating a puzzle rated above you earns a lot of points. Beating an easy one earns only a few. Missing an easy one costs more than missing a hard one.</p></div>
+            <div><h3>It finds your level</h3><p>The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.</p></div>
+            <div><h3>Where this comes from</h3><p>This way of rating is called Elo, after Arpad Elo, who invented it to rank chess players. Yours is a puzzle rating, so it usually reads higher than a rating earned by playing full games.</p></div>
+          </div>
         </div>
+      </div>
+      <div class="ladder" id="ladder"></div>
+      <div class="lad-names" id="ladNames" aria-hidden="true"></div>
+      <div class="rank-txt">
+        <div class="rank-line"><span id="rankName">Pawn</span><span id="rankNext"></span></div>
+        <div class="bar"><i id="rankBar"></i></div>
       </div>
       <div class="stats">
         <div class="stat"><b id="stSolved">0</b><span>solved</span></div>
         <div class="stat"><b id="stStreak">0</b><span>in a row</span></div>
-        <div class="stat"><b id="stAcc">-</b><span>last 20</span></div>
+        <div class="stat"><b id="stAcc">-</b><span>of last 20</span></div>
       </div>
       <div>
         <div class="chart-wrap">
@@ -792,7 +841,7 @@ function goalText() {
 function showTurn() { setStatus("turn", (orient === "w" ? "White" : "Black") + " to play", goalText(), "token"); }
 function setButtons(on) {
   $("hintBtn").disabled = !on || hintLevel >= 2; $("answerBtn").disabled = !on;
-  $("hintBtn").textContent = hintLevel === 0 ? "Hint" : "More help";
+  const hl = hintLevel === 0 ? "Hint" : "More help"; $("hintLabel").textContent = hl; $("hintBtn").setAttribute("aria-label", hl); $("hintBtn").title = hl;
 }
 
 async function nextPuzzle() {
@@ -1026,10 +1075,16 @@ function tweenNumber(el, from, to) {
 }
 function renderPanel(fromRating) {
   const p = me();
-  $("pillNum").textContent = p.rating;
   tweenNumber($("rating"), fromRating === undefined ? p.rating : fromRating, p.rating);
   const ri = rankIndex(p.rating), lo = ri === 0 ? 400 : RANKS[ri][0], nxt = RANKS[ri + 1];
-  $("rankName").textContent = RANKS[ri][1] + " rank"; $("rankUse").setAttribute("href", "#pc-w" + RANKS[ri][2]); $("pillUse").setAttribute("href", "#pc-w" + RANKS[ri][2]);
+  $("rankName").textContent = RANKS[ri][1] + " rank"; $("pillUse").setAttribute("href", "#pc-w" + RANKS[ri][2]);
+  const lad = $("ladder"), names = $("ladNames"); lad.textContent = ""; names.textContent = "";
+  RANKS.forEach((r, i) => {
+    const t = document.createElement("div"); t.className = "lad" + (i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[1] + (r[0] ? " at " + r[0] : "");
+    if (i === ri) t.id = "rankIcon";
+    t.append(pieceSvg("w" + r[2])); lad.append(t);
+    const n = document.createElement("span"); n.textContent = r[1]; if (i === ri) n.className = "on"; names.append(n);
+  });
   if (nxt) { $("rankNext").textContent = (nxt[0] - p.rating) + " to " + nxt[1]; $("rankBar").style.width = Math.max(4, Math.min(100, (p.rating - lo) / (nxt[0] - lo) * 100)) + "%"; }
   else { $("rankNext").textContent = "Top rank"; $("rankBar").style.width = "100%"; }
   $("stSolved").textContent = p.solved; $("stStreak").textContent = p.streak;
@@ -1053,6 +1108,10 @@ $("hintBtn").addEventListener("click", showHint);
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", nextPuzzle);
 $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderSound(); if (S.sound) sfx.move(); });
+$("helpBtn").addEventListener("click", () => {
+  const d = $("rankHelp"), open = !d.classList.contains("open");
+  d.classList.toggle("open", open); d.toggleAttribute("inert", !open); $("helpBtn").setAttribute("aria-expanded", String(open));
+});
 $("menuBtn").addEventListener("click", () => {
   const d = $("menu"), open = !d.classList.contains("open");
   d.classList.toggle("open", open); d.toggleAttribute("inert", !open); $("menuBtn").setAttribute("aria-expanded", String(open));
