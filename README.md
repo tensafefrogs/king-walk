@@ -1,6 +1,6 @@
 # King Walk
 
-A free chess puzzle game that adapts to the player. It has 53,000 puzzles from real games. Solve puzzles and your rating goes up and the puzzles get harder. Miss them and the puzzles get easier.
+A free chess puzzle game that adapts to the player. It has 53,000 puzzles from real games. Solve puzzles and your puzzle rating goes up and the puzzles get harder. Miss them and the puzzles get easier.
 
 It is a static web page with no server, no accounts and no tracking. Progress is saved in the browser. It works with a mouse or a touchscreen, can be installed to a phone or tablet home screen, and keeps working offline for puzzle levels it has already loaded.
 
@@ -10,7 +10,7 @@ The name comes from chess: a king walk is when a king marches up the board to he
 
 - **Puzzle rating.** Each player has a puzzle rating and each puzzle has a rating. A clean solve (no mistakes, no hints) raises the player's rating. A miss lowers it. The size of the change follows the Elo formula, so beating a hard puzzle is worth more than beating an easy one. The rating moves faster during the first 30 puzzles so it finds the player's level quickly.
 - **Puzzle choice.** The game picks a puzzle the player has not seen, rated about 50 points below the player. By the rating formula that is a success rate of a little over half, and in practice somewhat more, because the game shows the goal of each puzzle. The "Easier" and "Harder" settings shift the target to 300 below or 100 above.
-- **What the number means.** Puzzle ratings come from Lichess, where they are set by how real players did on each puzzle. The player's number is on that same puzzle scale. It measures puzzle solving, not game play, and it usually reads higher than a rating earned by playing games. Treat it as a way to track progress, not as an official Elo rating.
+- **What the number means.** Puzzle ratings come from Lichess, where they are set by how real players did on each puzzle. The player's number is on that same puzzle scale. It measures puzzle solving, not game play, and it usually reads higher than a rating earned by playing games. Treat it as a way to track progress, not as an official Elo rating. Each puzzle links to its page on Lichess at the bottom of the progress card.
 - **Hints.** The first hint circles the piece to move. The second circles where it goes. A puzzle solved with a hint counts as half a solve.
 - **Second tries.** A missed puzzle comes back about six puzzles later as practice. Practice puzzles do not change the rating.
 - **Ranks.** Pawn (below 700), Knight (700), Bishop (1000), Rook (1300), Queen (1600), King (1900).

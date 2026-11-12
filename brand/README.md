@@ -13,11 +13,11 @@ Everything here is MIT licensed with the rest of the project.
 | `logo-on-dark.svg`, `logo-on-dark.png` | Icon plus name, for dark backgrounds. |
 | `wordmark.svg`, `wordmark-on-dark.svg` | The name on its own. The letters are outlines, so no font is needed. |
 
-The icon is a staircase of board squares on gold. It was drawn to look different from other chess apps, which mostly use a knight, pawn or king on green, black or wood.
+The icon is a white king walking up a staircase of board squares, on gold. It shows the name: a king walk is a king marching up the board. At very small sizes (16 to 32 pixels) the king is hard to see and the staircase carries the shape.
 
 Rules of thumb:
 
-- Keep clear space around the logo equal to one tile of the staircase.
+- Keep clear space around the logo equal to one square of the staircase.
 - Do not go below 24 px for the icon or 120 px wide for the full logo.
 - Do not recolor the tiles, rotate the icon, or put the gold icon on a yellow background.
 
