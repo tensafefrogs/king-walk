@@ -1,6 +1,6 @@
 // Makes the App Store screenshots: loads the game with a saved player partway up the ranks, poses five moments,
 // captures the screen at the exact device size, then frames each with a caption.
-// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-table]   (default: all). Needs Playwright.
+// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table]   (default: all). Needs Playwright.
 // Output: ios/store/screenshots/<device>-<n>.png (captioned, upload these) and raw/<device>-<n>.png.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
@@ -8,14 +8,16 @@ const server = require("../../testing/server");
 const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
-  // iPhone Duo: open flat, and propped up like a laptop (q fakes the fold across the middle; see Fold in index.html)
+  // iPhone Duo: open flat, held like a book and propped up like a laptop (q fakes the fold; see Fold in index.html)
   "duo-inner": { viewport: { width: 669, height: 951 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+  "duo-book": { viewport: { width: 669, height: 951 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=v" },
   "duo-table": { viewport: { width: 951, height: 669 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=h" },
 };
 const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56, sub: 28, top: 0.15, r: 22 },   // caption sizes, caption band height, corner radius
-  "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 } };
+  "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-book": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 } };
 // captions that say what a half-open iPhone Duo does, in place of the usual ones
 const CAPTIONS = {
+  "duo-book": { 1: { caption: "Open it like a <b>book</b>", sub: "The board on one page, the notes on the other." } },
   "duo-table": { 1: { caption: "Prop it up like a <b>laptop</b>", sub: "The board lies flat under your hands. Your progress stands up to read." } },
 };
 const SHOTS = [

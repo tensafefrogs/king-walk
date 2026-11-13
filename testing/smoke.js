@@ -74,15 +74,18 @@ async function run(b, url, app) {
     }
     console.log(name, "rating", r.rating, app ? "messages " + [...new Set(r.sent)].join(", ") : "");
   }
-  // a fold across the screen (iPhone Duo propped up): the board stays below it
-  for (const [w, h, q, cls] of [[951, 669, "?fold=h", "fold-h"]]) {
+  // the board's side: right for right-handed players, left with the Left-handed layout; on screen, off the fold.
+  // Held like a book (fold-v), propped up like a laptop (fold-h, the board below the fold too), a phone on its side
+  for (const lefty of [false, true]) for (const [w, h, q, name] of [[669, 951, "?fold=v", "book"], [951, 669, "?fold=h", "laptop"], [844, 390, "", "sideways"]]) {
     const ctx = await b.newContext({ viewport: { width: w, height: h } }), p = await ctx.newPage();
-    await p.route(/zgo\.at|goatcounter/, r => r.abort()); await p.goto(srv.url + q); await p.waitForTimeout(800);
-    const f = await p.evaluate(() => { const r = $("frame").getBoundingClientRect(), g = $("status").getBoundingClientRect();
-      return { cls: document.documentElement.className, board: [r.left, r.top, r.right, r.bottom], status: [g.left, g.top, g.right, g.bottom], w: innerWidth, h: innerHeight }; });
-    const mid = cls === "fold-v" ? f.w / 2 : f.h / 2, [a, , c] = cls === "fold-v" ? [f.board[0], 0, f.board[2]] : [f.board[1], 0, f.board[3]];
-    const ok = f.cls.includes(cls) && (c <= mid + 1 || a >= mid - 1) && f.board[2] <= f.w + 1 && f.board[3] <= f.h + 1;
-    if (!ok) { bad++; console.log("FAIL", cls, "board crosses the fold or the screen edge", JSON.stringify(f)); } else console.log(cls, "board on one side of the fold");
+    await p.route(/zgo\.at|goatcounter/, r => r.abort());
+    if (lefty) await p.addInitScript(() => { if (!sessionStorage.getItem("s")) { sessionStorage.setItem("s", 1); localStorage.setItem("chess-climb-v1", JSON.stringify({ v: 2, updatedAt: 1, cur: 0, sound: true, lefty: true, players: [{ rating: 600, hist: [600] }] })); } });
+    await p.goto(srv.url + q); await p.waitForTimeout(900);
+    const f = await p.evaluate(() => { const r = $("frame").getBoundingClientRect(); return { l: r.left, t: r.top, r: r.right, b: r.bottom, w: innerWidth, h: innerHeight }; });
+    const onLeft = f.r <= f.w / 2 + 1, onRight = f.l >= f.w / 2 - 1, below = f.t >= f.h / 2 - 1;
+    const ok = (lefty ? onLeft : onRight) && f.r <= f.w + 1 && f.b <= f.h + 1 && (name !== "laptop" || below);
+    const label = name + (lefty ? ", left-handed" : "");
+    if (!ok) { bad++; console.log("FAIL", label, "board in the wrong place", JSON.stringify(f)); } else console.log(label + ": board on the " + (lefty ? "left" : "right"));
     await ctx.close();
   }
   await b.close(); srv.close();

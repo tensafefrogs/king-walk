@@ -104,11 +104,13 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
   .progress { width: 100%; }
 }
 @supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); } } }
-/* phone held sideways: board on the left sized to the screen height, everything else on the right
-   (the header moves to the right column too, so the board can use the whole height; the board stays put as the right side scrolls) */
+/* phone held sideways: the board on one side sized to the screen height, everything else beside it. The board is on
+   the right, under a right thumb; the Left-handed layout setting (html.board-left) puts it on the left. The header
+   moves into the other column, so the board can use the whole height; the board stays put as that column scrolls. */
 @media (orientation: landscape) and (max-height: 520px) {
-  .wrap { --bw: max(230px, calc(100vh - var(--u) * 2)); max-width: 1100px; grid-template-columns: var(--bw) minmax(0, 1fr); column-gap: 14px; align-items: start;
-    grid-template-areas: "board top" "board menu" "board status" "board actions" "board progress"; grid-template-rows: auto auto auto auto 1fr; }
+  .wrap { --bw: max(230px, calc(100vh - var(--u) * 2)); max-width: 1100px; grid-template-columns: minmax(0, 1fr) var(--bw); column-gap: 14px; align-items: start;
+    grid-template-areas: "top board" "menu board" "status board" "actions board" "progress board"; grid-template-rows: auto auto auto auto 1fr; }
+  html.board-left .wrap { grid-template-columns: var(--bw) minmax(0, 1fr); grid-template-areas: "board top" "board menu" "board status" "board actions" "board progress"; }
   .main { display: contents; }
   .main > * + * { margin-top: var(--gap); }
   .top { grid-area: top; } .menu { grid-area: menu; }
@@ -122,7 +124,8 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
    its buttons lie on the bottom half, under your hands. Nothing sits on the fold. --fold-a is where the fold starts
    from the top of the screen and --fold-w how tall it is. The page's blocks become cells of one grid (.main's
    display: contents), so the halves can mix blocks from the header and the main area. A fold from top to bottom
-   (held like a book) keeps the usual layout. */
+   (held like a book) has its own layout below. The board is on the right half, or the left with the Left-handed
+   layout setting (html.board-left). */
 html.fold-h { overflow: hidden; }
 html.fold-h body { padding: 0; }
 html.fold-h body::before { display: none; }
@@ -133,7 +136,7 @@ html.fold-h .wrap {
   --bw: min(calc(100dvh - var(--fold-a) - var(--fold-w) - var(--u) * 2), calc(55vw - var(--u) * 2));
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto auto minmax(0, 1fr) var(--fold-w) calc(100dvh - var(--fold-a) - var(--fold-w));
-  grid-template-areas: "top top" "status status" "progress progress" ". ." "board actions";
+  grid-template-areas: "top top" "status status" "progress progress" ". ." "actions board";
   column-gap: var(--u);
 }
 html.fold-h .top { grid-area: top; width: auto; justify-self: stretch; margin: var(--u) var(--u) var(--gap); }
@@ -147,9 +150,44 @@ html.fold-h .progress > :nth-child(1) { grid-area: head; }
 html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .lad-names { grid-area: names; }
 html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
 html.fold-h .progress > :nth-child(6) { grid-area: chart; align-self: center; } html.fold-h .progress > .note { grid-area: info; }
-html.fold-h .frame { width: var(--bw); align-self: center; justify-self: end; }
-html.fold-h .actions { width: auto; align-self: center; margin-right: var(--u); max-width: 420px; }
+html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
+html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
+/* left-handed: the board on the left half, the buttons on the right */
+html.fold-h.board-left .wrap { grid-template-areas: "top top" "status status" "progress progress" ". ." "board actions"; }
+html.fold-h.board-left .frame { justify-self: end; }
+html.fold-h.board-left .actions { justify-self: start; margin-left: 0; margin-right: var(--u); }
 html.fold-h .actions .bar-row { flex-wrap: wrap; }
+/* ---------- a fold from top to bottom (iPhone Duo or another foldable, held like a book) ----------
+   Two pages, each a column (foldLayout moves the blocks into them): the board page has the status, the board, its
+   buttons and the rank ladder with the stats; the other page has the header and the rest of the progress card, its
+   rating chart grown to fill the page. The board page is on the right, or the left with the Left-handed layout. */
+html.fold-v { overflow: hidden; }
+html.fold-v body { padding: 0; }
+html.fold-v body::before { display: none; }
+html.fold-v .wrap { display: flex; max-width: none; height: 100vh; height: 100dvh; padding: 0; gap: var(--fold-w); }
+html.fold-v .wrap > .main { display: none; }
+.page { display: none; }
+html.fold-v .page { display: flex; flex-direction: column; gap: var(--gap); flex: none; height: 100%; box-sizing: border-box; padding: var(--u); overflow: auto; }
+html.fold-v .page > * { width: auto; margin: 0; justify-self: auto; }
+html.fold-v .page.notes { order: 1; width: var(--fold-a); }
+html.fold-v .page.board { order: 2; width: calc(100vw - var(--fold-a) - var(--fold-w)); justify-content: center; }
+html.fold-v.board-left .page.board { order: 1; width: var(--fold-a); }
+html.fold-v.board-left .page.notes { order: 2; width: calc(100vw - var(--fold-a) - var(--fold-w)); }
+html.fold-v .page.board .frame { width: 100%; }
+html.fold-v .page.notes .progress { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+html.fold-v .page.notes .progress > div:has(.chart-wrap) { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 140px; }
+html.fold-v .page.notes .chart-wrap { flex: 1 1 auto; height: auto; min-height: 120px; max-height: 240px; }
+html.fold-v .page.notes .progress > div:has(.chart-wrap) { max-height: 280px; }
+/* the notes page also shows how ranks and ratings work, open, like the commentary beside a diagram */
+html.fold-v .page.notes #rankHelp { grid-template-rows: 1fr; opacity: 1; margin-top: var(--gap); }
+html.fold-v .page.notes #helpBtn { display: none; }
+html.fold-v .page.board .play-btns .btn svg.ic { display: none; }
+html.fold-v .page.board .play-btns .btn { padding: 0 12px; }
+html.fold-v .page.board .bar-row { flex-wrap: wrap; row-gap: var(--gap); }
+html.fold-v .page.board .done-btns { flex: 1 1 100%; max-width: none; }
+html.fold-v .page.notes .menu { flex: none; }
+.ranks-card { display: none; }
+html.fold-v .page.board .ranks-card { display: grid; }
 /* tablets held upright (iPad): one column with a big board, the progress card below it */
 @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) {
   .wrap { max-width: none; --bw: min(calc(100vw - var(--u) * 2), calc(100vh - 470px), 900px); }
@@ -472,6 +510,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="card stack">
         <p class="label">Settings</p>
         <div class="setrow"><span id="soundLabel">Sound</span><button type="button" id="soundBtn" class="switch" aria-pressed="true" aria-labelledby="soundLabel"></button></div>
+        <div class="setrow" title="With the phone on its side or folded, put the board on the left instead of the right"><span id="leftyLabel">Left-handed layout</span><button type="button" id="leftyBtn" class="switch" aria-pressed="false" aria-labelledby="leftyLabel"></button></div>
         <div class="setrow" id="hapticsRow" hidden><span id="hapticsLabel">Haptics</span><button type="button" id="hapticsBtn" class="switch" aria-pressed="true" aria-labelledby="hapticsLabel"></button></div>
         <div class="setrow"><span>Puzzle difficulty</span>
           <div class="seg" id="modeSeg">
@@ -670,11 +709,11 @@ function cleanState(raw) {
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, rateAsked: +raw.rateAsked || 0, players };
+  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
-let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, rateAsked: 0, players: [newPlayer(START_RATING)] };
+let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, rateAsked: 0, players: [newPlayer(START_RATING)] };
 if (S.updatedAt) writeLocal();          /* store the cleaned copy */
 const me = () => S.players[S.cur];
 function save() { S.updatedAt = Date.now(); writeLocal(); }
@@ -1339,6 +1378,8 @@ function renderPanel(fromRating) {
   $("modeSeg").style.setProperty("--i", MODE_INDEX[p.mode]);
   $("soundBtn").setAttribute("aria-pressed", String(S.sound));
   $("hapticsBtn").setAttribute("aria-pressed", String(S.haptics !== false));
+  $("leftyBtn").setAttribute("aria-pressed", String(!!S.lefty));
+  document.documentElement.classList.toggle("board-left", !!S.lefty);
   /* chart: every value is a number from cleanState or finish, so building the markup from them is safe */
   const h = p.hist, mn = Math.min(...h), mx = Math.max(...h), span = Math.max(40, mx - mn);
   const X = i => h.length < 2 ? 296 : 4 + i / (h.length - 1) * 292, Y = v => 56 - (v - mn) / span * 48;
@@ -1356,6 +1397,7 @@ $("nextBtn").addEventListener("click", nextPuzzle);
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
 $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); else track("sound-off"); haptic("toggle"); });
+$("leftyBtn").addEventListener("click", () => { S.lefty = !S.lefty; save(); renderPanel(); haptic("toggle"); track(S.lefty ? "lefty-on" : "lefty-off"); });
 $("hapticsBtn").addEventListener("click", () => { S.haptics = S.haptics === false; save(); renderPanel(); if (S.haptics) haptic("toggle"); else track("haptics-off"); });
 $("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined && me().mode !== b.dataset.mode) { me().mode = b.dataset.mode; save(); renderPanel(); haptic("toggle"); track("mode/" + b.dataset.mode); } });
 $("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
@@ -1407,7 +1449,7 @@ $("loadCode").addEventListener("click", () => {
 /* ---------- a fold (see the CSS) ----------
    The iOS app on iPhone Duo reports the fold with window.kingWalkFold({x, y, w, h}) in CSS pixels (null when there
    is none); other foldables report it through the browser's viewport segments. ?fold=h fakes one across the
-   middle of the screen, for testing and the store screenshots (?fold=v, one from top to bottom, changes nothing). */
+   middle of the screen (?fold=v one from top to bottom), for testing and the store screenshots. */
 const Fold = { app: null, fake: (location.search.match(/[?&]fold=([vh])/) || [])[1], key: "" };
 function foldRect() {
   if (Fold.app) return Fold.app;
@@ -1420,16 +1462,33 @@ function foldRect() {
   if (Fold.fake === "h") return { x: 0, y: innerHeight / 2, w: innerWidth, h: 0 };
   return null;
 }
+/* Held like a book, the blocks move into two page columns (see the CSS), and back when the fold goes */
+const Book = { moved: [], pages: null };
+function bookPages(on) {
+  if (on === !!Book.moved.length) return;
+  if (!on) { while (Book.moved.length) { const [n, parent, next] = Book.moved.pop(); parent.insertBefore(n, next); } return; }
+  if (!Book.pages) {
+    const mk = cls => { const d = document.createElement("div"); d.className = "page " + cls; document.querySelector(".wrap").append(d); return d; };
+    const ranks = document.createElement("section"); ranks.className = "card stack ranks-card"; ranks.setAttribute("aria-label", "Rank");
+    Book.pages = { notes: mk("notes"), board: mk("board"), ranks };
+  }
+  const move = (n, to) => { Book.moved.push([n, n.parentNode, n.nextSibling]); to.append(n); };
+  const P = Book.pages, prog = document.querySelector(".progress");
+  move(document.querySelector(".top"), P.notes); move($("menu"), P.notes); move(prog, P.notes);
+  move($("status"), P.board); move(frameEl, P.board); move(document.querySelector(".actions"), P.board); move(P.ranks, P.board);
+  for (const sel of [".ladder", ".lad-names", ".rank-txt", ".stats"]) move(prog.querySelector(sel), P.ranks);
+}
 function foldLayout() {
   const f = foldRect(), root = document.documentElement;
-  const kind = f && f.w > f.h ? "h" : "";          /* only a fold across the screen changes the layout (see the CSS) */
+  const kind = f ? (f.w > f.h ? "h" : "v") : "";          /* across: laptop; top to bottom: book (see the CSS) */
   const key = kind + (f ? [f.x, f.y, f.w, f.h].map(Math.round).join() : "");
   if (key === Fold.key) return;
   const changed = !!Fold.key !== !!kind || Fold.key[0] !== kind;
   Fold.key = key;
-  root.classList.toggle("fold-h", kind === "h");
-  if (kind) { root.style.setProperty("--fold-a", Math.max(0, f.y) + "px"); root.style.setProperty("--fold-w", Math.max(0, f.h) + "px"); }
-  if (changed && kind) { track("fold/table"); haptic("toggle"); }
+  root.classList.toggle("fold-h", kind === "h"); root.classList.toggle("fold-v", kind === "v");
+  if (kind) { root.style.setProperty("--fold-a", Math.max(0, kind === "v" ? f.x : f.y) + "px"); root.style.setProperty("--fold-w", Math.max(0, kind === "v" ? f.w : f.h) + "px"); }
+  bookPages(kind === "v");
+  if (changed && kind) { track(kind === "v" ? "fold/book" : "fold/table"); haptic("toggle"); }
 }
 window.kingWalkFold = r => { Fold.app = r && (r.w > 0 || r.h > 0 || r.x > 0 || r.y > 0) ? r : null; foldLayout(); };
 foldLayout(); addEventListener("resize", foldLayout);
