@@ -2,7 +2,7 @@
 #   ios/scripts/prepare-web.sh && (cd ios && xcodegen generate)
 name: KingWalk
 options:
-  bundleIdPrefix: com.geoffstearns
+  bundleIdPrefix: com.example
   deploymentTarget:
     iOS: "16.0"
   createIntermediateGroups: true
@@ -12,6 +12,11 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1,2"
+    # The app's bundle ID. The widget's is this plus .widget, and the app group they share is group. plus this.
+    # The official build passes the BUNDLE_ID Actions variable (ios/scripts/upload.sh); this placeholder is for
+    # simulator builds and copies that haven't set their own (README, "Your own copy").
+    KW_BUNDLE_ID: com.example.kingwalk
+    KW_APP_GROUP: group.$(KW_BUNDLE_ID)
 targets:
   KingWalk:
     type: application
@@ -36,20 +41,24 @@ targets:
         com.apple.developer.game-center: true
         # shared with the widget, which shows the player's rank (WidgetData.swift)
         com.apple.security.application-groups:
-          - group.com.geoffstearns.kingwalk
+          - $(KW_APP_GROUP)
     info:
       path: KingWalk/Info.plist
       properties:
         CFBundleDisplayName: King Walk
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        KingWalkAppGroup: $(KW_APP_GROUP)
         LSRequiresIPhoneOS: true
         LSApplicationCategoryType: public.app-category.board-games
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen:
           UIColorName: LaunchBackground
+        # landscape too: iPhone Duo's inner screen propped up like a laptop is landscape (the page has layouts for both)
         UISupportedInterfaceOrientations~iphone:
           - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
         UISupportedInterfaceOrientations~ipad:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
@@ -59,7 +68,7 @@ targets:
         UIViewControllerBasedStatusBarAppearance: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.geoffstearns.kingwalk
+        PRODUCT_BUNDLE_IDENTIFIER: $(KW_BUNDLE_ID)
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
         CODE_SIGN_STYLE: Automatic
@@ -74,17 +83,18 @@ targets:
       path: KingWalkWidget/KingWalkWidget.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.com.geoffstearns.kingwalk
+          - $(KW_APP_GROUP)
     info:
       path: KingWalkWidget/Info.plist
       properties:
         CFBundleDisplayName: King Walk
+        KingWalkAppGroup: $(KW_APP_GROUP)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.geoffstearns.kingwalk.widget
+        PRODUCT_BUNDLE_IDENTIFIER: $(KW_BUNDLE_ID).widget
         CODE_SIGN_STYLE: Automatic
         SKIP_INSTALL: YES

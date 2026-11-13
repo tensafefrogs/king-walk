@@ -6,7 +6,10 @@ ASC_KEY_PATH (its path). Needs PyJWT with cryptography (pip install pyjwt crypto
 import json, os, sys, time, urllib.error, urllib.request
 import jwt
 
-BUNDLE_ID = 'com.geoffstearns.kingwalk'
+# the app's bundle ID, from the BUNDLE_ID Actions variable (README, "Your own copy")
+BUNDLE_ID = os.environ.get('BUNDLE_ID', '').strip()
+if not BUNDLE_ID:
+    sys.exit('Set BUNDLE_ID (the app\'s bundle ID, a GitHub Actions variable). See ios/README.md.')
 API = 'https://api.appstoreconnect.apple.com'
 
 

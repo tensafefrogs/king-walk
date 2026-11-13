@@ -1,15 +1,23 @@
 // Makes the App Store screenshots: loads the game with a saved player partway up the ranks, poses five moments,
 // captures the screen at the exact device size, then frames each with a caption.
-// usage: node ios/store/screenshots.js [iphone|ipad]   (default: both). Needs Playwright.
+// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-table]   (default: all). Needs Playwright.
 // Output: ios/store/screenshots/<device>-<n>.png (captioned, upload these) and raw/<device>-<n>.png.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const server = require("../../testing/server");
-const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752
+const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
+  // iPhone Duo: open flat, and propped up like a laptop (q fakes the fold across the middle; see Fold in index.html)
+  "duo-inner": { viewport: { width: 669, height: 951 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+  "duo-table": { viewport: { width: 951, height: 669 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=h" },
 };
-const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56, sub: 28, top: 0.15, r: 22 } };   // caption sizes, caption band height, corner radius
+const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56, sub: 28, top: 0.15, r: 22 },   // caption sizes, caption band height, corner radius
+  "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 } };
+// captions that say what a half-open iPhone Duo does, in place of the usual ones
+const CAPTIONS = {
+  "duo-table": { 1: { caption: "Prop it up like a <b>laptop</b>", sub: "The board lies flat under your hands. Your progress stands up to read." } },
+};
 const SHOTS = [
   { id: 1, caption: "Chess puzzles that <b>grow with you</b>", sub: "Solve one and the next gets harder. Miss one and it eases off." },
   { id: 2, caption: "<b>53,000 puzzles</b> from real games", sub: "Forks, pins, mates in two, and the rest." },
@@ -35,7 +43,8 @@ function savedPlayer() {
 }
 
 async function newGame(b, name, dark, seed) {
-  const ctx = await b.newContext({ ...DEVICES[name], colorScheme: dark ? "dark" : "light", reducedMotion: "no-preference" });
+  const { q, ...dev } = DEVICES[name];
+  const ctx = await b.newContext({ ...dev, colorScheme: dark ? "dark" : "light", reducedMotion: "no-preference" });
   const p = await ctx.newPage(), errs = [];
   p.on("pageerror", e => errs.push(e.message));
   await p.route(/zgo\.at|goatcounter/, r => r.abort());
@@ -43,7 +52,7 @@ async function newGame(b, name, dark, seed) {
     let a = seed; Math.random = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
     if (!sessionStorage.getItem("seeded")) { sessionStorage.setItem("seeded", "1"); localStorage.setItem("chess-climb-v1", JSON.stringify(save)); }
   }, [savedPlayer(), seed]);
-  await p.goto(srv.url);
+  await p.goto(srv.url + (q || ""));
   await p.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 20000 });
   await p.waitForTimeout(500);
   return { ctx, p, errs };
@@ -87,7 +96,8 @@ async function capture(b, name) {
 async function caption(b, name) {
   const d = DEVICES[name], W = d.viewport.width, H = d.viewport.height, F = FRAME[name];
   const ctx = await b.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: d.deviceScaleFactor }); const p = await ctx.newPage();
-  for (const s of SHOTS) {
+  for (const s0 of SHOTS) {
+    const s = Object.assign({}, s0, (CAPTIONS[name] || {})[s0.id]);
     const f = path.join(raw, `${name}-${s.id}.png`); if (!fs.existsSync(f)) continue;
     const img = "data:image/png;base64," + fs.readFileSync(f).toString("base64");
     const top = Math.round(H * F.top), iw = Math.round(Math.min(W * 0.86, (H - top - H * 0.035) * W / H));

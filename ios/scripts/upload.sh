@@ -2,17 +2,20 @@
 # Archives the app and uploads it to App Store Connect (it shows up in TestFlight after processing).
 # Signing is automatic: Xcode uses the App Store Connect API key to create the profiles and a
 # cloud-managed distribution certificate, so no certificate needs to be stored anywhere.
-# Needs: ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_P8 (the .p8 file's contents), APPLE_TEAM_ID, BUILD_NUMBER.
+# Needs: ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_P8 (the .p8 file's contents), APPLE_TEAM_ID, BUNDLE_ID (the app's bundle ID,
+# like com.example.kingwalk; the widget gets BUNDLE_ID.widget and the app group group.BUNDLE_ID), BUILD_NUMBER.
 # Optional: MARKETING_VERSION (the app version, like 1.0.1; default: project.yml's).
 # Run from the repo root after prepare-web.sh and xcodegen.
 set -euo pipefail
-for v in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8 APPLE_TEAM_ID BUILD_NUMBER; do
+for v in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8 APPLE_TEAM_ID BUNDLE_ID BUILD_NUMBER; do
   [ -n "${!v:-}" ] || { echo "Missing $v. See ios/README.md."; exit 1; }
 done
 # Pasted secrets often carry a trailing newline or spaces; IDs must be exact
 ASC_KEY_ID=$(printf '%s' "$ASC_KEY_ID" | tr -d '[:space:]')
 ASC_ISSUER_ID=$(printf '%s' "$ASC_ISSUER_ID" | tr -d '[:space:]')
 APPLE_TEAM_ID=$(printf '%s' "$APPLE_TEAM_ID" | tr -d '[:space:]')
+BUNDLE_ID=$(printf '%s' "$BUNDLE_ID" | tr -d '[:space:]')
+group="group.$BUNDLE_ID"
 tmp=${RUNNER_TEMP:-$(mktemp -d)}
 key="$tmp/AuthKey_$ASC_KEY_ID.p8"
 printf '%s\n' "$ASC_KEY_P8" > "$key"
@@ -29,7 +32,8 @@ else
 fi
 xcodebuild -project ios/KingWalk.xcodeproj -scheme KingWalk -configuration Release \
   -destination 'generic/platform=iOS' -archivePath "$tmp/KingWalk.xcarchive" \
-  DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+  DEVELOPMENT_TEAM="$APPLE_TEAM_ID" KW_BUNDLE_ID="$BUNDLE_ID" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+  SWIFT_ACTIVE_COMPILATION_CONDITIONS="\$(inherited) ${KINGWALK_SWIFT_FLAGS:-}" \
   ${MARKETING_VERSION:+MARKETING_VERSION="$MARKETING_VERSION"} \
   "${signing[@]}" archive
 echo "--- entitlements in the archive"
@@ -59,10 +63,10 @@ ent=$(codesign -d --entitlements :- "$app" 2>/dev/null || true)
 wext=$(codesign -d --entitlements :- "$app/PlugIns/KingWalkWidget.appex" 2>/dev/null || true)
 echo "--- app entitlements"; echo "$ent"
 missing=""
-for e in com.apple.developer.game-center com.apple.developer.ubiquity-kvstore-identifier group.com.geoffstearns.kingwalk; do
+for e in com.apple.developer.game-center com.apple.developer.ubiquity-kvstore-identifier "$group"; do
   grep -q "$e" <<<"$ent" || missing="$missing $e"
 done
-grep -q group.com.geoffstearns.kingwalk <<<"$wext" || missing="$missing widget:group.com.geoffstearns.kingwalk"
+grep -q "$group" <<<"$wext" || missing="$missing widget:$group"
 if [ -n "$missing" ]; then
   echo "::error::The signed app is missing:$missing. See ios/README.md, One-time setup (App ID capabilities)."
   exit 1

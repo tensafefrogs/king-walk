@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# Copies the game into ios/KingWalk/web for the app bundle, with the app's changes:
-# the analytics script loads over https and doesn't count a page view (the app sends its own events, under king-walk-ios/).
+# Copies the game into ios/KingWalk/web for the app bundle, and writes its config.js from these environment
+# variables (GitHub Actions variables in the workflows; all optional):
+#   GOATCOUNTER_URL  the GoatCounter count URL for the stats (none sent without it)
+#   SITE_URL         the website, for Share and the Support/Privacy/Terms links
+#   APP_STORE_ID     the app's Apple ID in App Store Connect, so Share links to the App Store page
 # The service worker isn't needed (the files are in the app) and isn't copied.
 # Run before generating the Xcode project.
 set -euo pipefail
@@ -12,9 +15,13 @@ mkdir -p "$web"
 cp "$root/index.html" "$root/chess.js" "$root/manifest.webmanifest" "$web/"
 cp -R "$root/p" "$root/fonts" "$root/icons" "$web/"
 f="$web/index.html"
-# perl, not sed: the same command works on macOS and Linux
-perl -pi -e 's#<script data-goatcounter="([^"]+)" async src="//gc\.zgo\.at/#<script data-goatcounter="$1" data-goatcounter-settings=\x27{"no_onload":true}\x27 async src="https://gc.zgo.at/#' "$f"
-grep -q 'src="https://gc.zgo.at/' "$f" || { echo "Could not point analytics at https in $f"; exit 1; }
-grep -q 'no_onload' "$f" || { echo "Could not turn off the page view count in $f"; exit 1; }
 grep -q 'messageHandlers.kingwalk' "$f" || { echo "index.html has no app bridge (window.webkit.messageHandlers.kingwalk)"; exit 1; }
+python3 - "$web/config.js" <<'PY'
+import json, os, sys
+cfg = {'goatcounter': os.environ.get('GOATCOUNTER_URL', '').strip(), 'site': os.environ.get('SITE_URL', '').strip(),
+       'appStoreId': os.environ.get('APP_STORE_ID', '').strip()}
+if cfg['site'] and not cfg['site'].endswith('/'): cfg['site'] += '/'
+open(sys.argv[1], 'w').write('/* written by ios/scripts/prepare-web.sh */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
+print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
+PY
 echo "Copied the game to $web ($(du -sh "$web" | cut -f1))"

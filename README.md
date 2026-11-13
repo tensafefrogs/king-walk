@@ -41,7 +41,20 @@ Plays a few puzzles in a browser (Playwright) on the web and in a simulated iOS 
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `fold/table`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+
+## Your own copy
+
+Nothing in the code points at the owner's accounts. Accounts and IDs come from GitHub Actions variables and secrets (Settings → Secrets and variables → Actions), so a copy of this repo builds and runs as its own game and sends nothing anywhere until you set your own:
+
+| Variable | What it's for | Example |
+| --- | --- | --- |
+| `GOATCOUNTER_URL` | Anonymous stats (optional; none are sent without it) | `https://example.goatcounter.com/count` |
+| `SITE_URL` | Where the website lives: the app's Share link and its Support, Privacy and Terms links | `https://example.github.io/king-walk/` |
+| `BUNDLE_ID` | The iOS app's bundle ID (the widget gets `.widget` on the end, the app group `group.` in front) | `com.example.kingwalk` |
+| `APP_STORE_ID` | The app's Apple ID in App Store Connect, so the app's Share link goes to its App Store page (optional) | `1234567890` |
+
+The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) are in `ios/README.md`. The website deploys through `.github/workflows/pages.yml`, which writes `config.js` from the variables: set Settings → Pages → Source to **GitHub Actions**. To run it somewhere else, fill in `config.js` by hand.
 
 ## Install it
 

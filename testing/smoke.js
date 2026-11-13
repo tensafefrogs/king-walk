@@ -31,6 +31,7 @@ async function run(b, url, app) {
   });
   await p.goto(url);
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
+  const share = await p.evaluate(() => shareText(lastResult));
   const r = await p.evaluate(() => ({ n: me().n, solved: me().solved, rating: me().rating, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
     sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent }));
   // a wrong move, a hint and the answer
@@ -46,22 +47,25 @@ async function run(b, url, app) {
   await p.waitForFunction(() => done, null, { timeout: 20000 });
   const after = await p.evaluate(() => ({ n: me().n, streak: me().streak, review: me().review.length, sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : "")) : null }));
   await ctx.close();
-  return { r, after, errs };
+  return { r, after, errs, share };
 }
 
 (async () => {
   const srv = await server.start(), b = await chromium.launch();
   let bad = 0;
   for (const app of [false, true]) {
-    const { r, after, errs } = await run(b, srv.url, app);
+    const { r, after, errs, share } = await run(b, srv.url, app);
     const name = app ? "iOS app (simulated)" : "web";
     const check = (ok, what) => { if (!ok) { bad++; console.log("FAIL", name, what); } };
     check(r.n === 3 && r.solved === 3, "three puzzles solved: " + JSON.stringify(r));
     check(r.rating > 600, "rating went up");
     check(after.n === 4 && after.streak === 0 && after.review === 1, "a missed puzzle counts as a miss and comes back: " + JSON.stringify(after));
     check(!errs.length, "no page errors: " + errs.join(" | "));
+    check(/King Walk \u00b7 \w+ \u00b7 \d+/.test(share) && /\u2705\u2705\u2705/.test(share) && /3 solved/.test(share), "share text: " + JSON.stringify(share));
+    if (!app) check(share.includes("http://127.0.0.1") === false && !/apps\.apple/.test(share), "web share links to the site, not the App Store");
     if (app) {
-      for (const op of ["haptic:pick", "haptic:move", "haptic:opp", "haptic:solve", "score:rating", "score:streak", "achieve:first_solve", "widget"]) check(r.sent.includes(op), "sent " + op);
+      check(r.sent.includes("haptic:move") || r.sent.includes("haptic:take"), "sent haptic:move or haptic:take");
+      for (const op of ["haptic:pick", "haptic:opp", "haptic:solve", "score:rating", "score:streak", "achieve:first_solve", "widget"]) check(r.sent.includes(op), "sent " + op);
       for (const op of ["haptic:wrong", "haptic:hint"]) check(after.sent.includes(op), "sent " + op);
       check(r.haptics && r.gc, "Haptics and Game Center rows shown");
       check(/iCloud/.test(r.help), "the help text mentions iCloud");
@@ -69,6 +73,17 @@ async function run(b, url, app) {
       check(!r.gc, "no Game Center row on the web");
     }
     console.log(name, "rating", r.rating, app ? "messages " + [...new Set(r.sent)].join(", ") : "");
+  }
+  // a fold across the screen (iPhone Duo propped up): the board stays below it
+  for (const [w, h, q, cls] of [[951, 669, "?fold=h", "fold-h"]]) {
+    const ctx = await b.newContext({ viewport: { width: w, height: h } }), p = await ctx.newPage();
+    await p.route(/zgo\.at|goatcounter/, r => r.abort()); await p.goto(srv.url + q); await p.waitForTimeout(800);
+    const f = await p.evaluate(() => { const r = $("frame").getBoundingClientRect(), g = $("status").getBoundingClientRect();
+      return { cls: document.documentElement.className, board: [r.left, r.top, r.right, r.bottom], status: [g.left, g.top, g.right, g.bottom], w: innerWidth, h: innerHeight }; });
+    const mid = cls === "fold-v" ? f.w / 2 : f.h / 2, [a, , c] = cls === "fold-v" ? [f.board[0], 0, f.board[2]] : [f.board[1], 0, f.board[3]];
+    const ok = f.cls.includes(cls) && (c <= mid + 1 || a >= mid - 1) && f.board[2] <= f.w + 1 && f.board[3] <= f.h + 1;
+    if (!ok) { bad++; console.log("FAIL", cls, "board crosses the fold or the screen edge", JSON.stringify(f)); } else console.log(cls, "board on one side of the fold");
+    await ctx.close();
   }
   await b.close(); srv.close();
   console.log(bad ? bad + " failed" : "all passed");

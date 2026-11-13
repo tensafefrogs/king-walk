@@ -74,6 +74,8 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
+/* no double-tap zoom (quick taps on the board would zoom the page); pinch zoom still works */
+html { touch-action: manipulation; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.45; -webkit-tap-highlight-color: transparent; }
 
 /* ---------- page grid ---------- */
@@ -102,13 +104,52 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
   .progress { width: 100%; }
 }
 @supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); } } }
-/* phone held sideways: board on the left sized to the screen height, everything else on the right */
-@media (max-width: 839.98px) and (orientation: landscape) and (max-height: 520px) {
-  .wrap { --bw: max(230px, calc(100vh - 16px)); padding-bottom: var(--gap); }
-  .main { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "board status" "board actions" "board progress"; grid-template-rows: auto auto 1fr; gap: var(--gap) 12px; }
+/* phone held sideways: board on the left sized to the screen height, everything else on the right
+   (the header moves to the right column too, so the board can use the whole height; the board stays put as the right side scrolls) */
+@media (orientation: landscape) and (max-height: 520px) {
+  .wrap { --bw: max(230px, calc(100vh - var(--u) * 2)); max-width: 1100px; grid-template-columns: var(--bw) minmax(0, 1fr); column-gap: 14px; align-items: start;
+    grid-template-areas: "board top" "board menu" "board status" "board actions" "board progress"; grid-template-rows: auto auto auto auto 1fr; }
+  .main { display: contents; }
+  .main > * + * { margin-top: var(--gap); }
+  .top { grid-area: top; } .menu { grid-area: menu; }
+  .frame { position: sticky; top: var(--u); margin-top: 0; }
   .top, .menu, .status, .actions, .progress { width: 100%; }
+  .status { margin-top: var(--gap); }
 }
-@supports (height: 100dvh) { @media (max-width: 839.98px) and (orientation: landscape) and (max-height: 520px) { .wrap { --bw: max(230px, calc(100dvh - 16px)); } } }
+@supports (height: 100dvh) { @media (orientation: landscape) and (max-height: 520px) { .wrap { --bw: max(230px, calc(100dvh - var(--u) * 2)); } } }
+/* ---------- a fold across the screen (iPhone Duo or another foldable, propped up like a laptop) ----------
+   The status and a scoreboard (the progress card laid out in a row) stand up on the top half to read; the board and
+   its buttons lie on the bottom half, under your hands. Nothing sits on the fold. --fold-a is where the fold starts
+   from the top of the screen and --fold-w how tall it is. The page's blocks become cells of one grid (.main's
+   display: contents), so the halves can mix blocks from the header and the main area. A fold from top to bottom
+   (held like a book) keeps the usual layout. */
+html.fold-h { overflow: hidden; }
+html.fold-h body { padding: 0; }
+html.fold-h body::before { display: none; }
+html.fold-h .main { display: contents; }
+html.fold-h .wrap > *, html.fold-h .main > * { margin: 0; min-width: 0; }
+html.fold-h .wrap {
+  max-width: none; height: 100vh; height: 100dvh; padding: 0; box-sizing: border-box;
+  --bw: min(calc(100dvh - var(--fold-a) - var(--fold-w) - var(--u) * 2), calc(55vw - var(--u) * 2));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) var(--fold-w) calc(100dvh - var(--fold-a) - var(--fold-w));
+  grid-template-areas: "top top" "status status" "progress progress" ". ." "board actions";
+  column-gap: var(--u);
+}
+html.fold-h .top { grid-area: top; width: auto; justify-self: stretch; margin: var(--u) var(--u) var(--gap); }
+html.fold-h .menu { grid-row: 2 / 4; grid-column: 1 / -1; z-index: 5; align-self: start; max-height: 100%; overflow: auto; margin: 0 var(--u); width: auto; }
+html.fold-h .menu.open { background: var(--bg); }
+html.fold-h .status { width: auto; justify-self: stretch; margin: 0 var(--u) var(--gap); }
+html.fold-h .progress { width: auto; justify-self: stretch; align-self: start; max-height: calc(100% - var(--u)); overflow: auto; margin: 0 var(--u);
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.2fr); column-gap: 18px; row-gap: 6px; align-items: start;
+  grid-template-areas: "head head head" "ladder stats chart" "names stats chart" "rank stats chart" "info info info"; }
+html.fold-h .progress > :nth-child(1) { grid-area: head; }
+html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .lad-names { grid-area: names; }
+html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
+html.fold-h .progress > :nth-child(6) { grid-area: chart; align-self: center; } html.fold-h .progress > .note { grid-area: info; }
+html.fold-h .frame { width: var(--bw); align-self: center; justify-self: end; }
+html.fold-h .actions { width: auto; align-self: center; margin-right: var(--u); max-width: 420px; }
+html.fold-h .actions .bar-row { flex-wrap: wrap; }
 /* tablets held upright (iPad): one column with a big board, the progress card below it */
 @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) {
   .wrap { max-width: none; --bw: min(calc(100vw - var(--u) * 2), calc(100vh - 470px), 900px); }
@@ -381,8 +422,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 <meta name="theme-color" content="#edf1ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111817" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
-<!-- Anonymous event counts (no cookies, nothing about the person). Events: testing/STATS.md -->
-<script data-goatcounter="https://geoffstearns.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- Settings for this copy: the stats address, the site and App Store links (see config.js) -->
+<script src="config.js"></script>
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -480,7 +521,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <p class="note" id="saveNote" aria-live="polite"></p>
             </div>
           </details>
-          <nav class="links" aria-label="About"><a href="support.html" target="_blank" rel="noopener">Support</a><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></nav>
+          <nav class="links" id="links" aria-label="About"><a href="support.html" target="_blank" rel="noopener">Support</a><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></nav>
         </div>
       </div>
     </div>
@@ -512,7 +553,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <button type="button" id="answerBtn" class="btn" aria-label="Show answer" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Answer</span></button>
         </div>
         <div class="done-btns" id="doneBtns" hidden>
-          <button type="button" id="shareRankBtn" class="btn" hidden>Share</button>
+          <button type="button" id="shareRankBtn" class="btn">Share</button>
           <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
@@ -742,7 +783,19 @@ const APP = (() => {
     return Object.assign({ platform: "iphone", gameCenter: false, widget: false }, window.kingWalkApp || {}, { post: m => { try { h.postMessage(m); } catch (e) {} } });
   } catch (e) { return null; }
 })();
-const SITE = "https://geoffstearns.com/king-walk/";
+/* Settings for this copy (config.js, written from GitHub Actions variables when the site deploys and the app builds) */
+const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "" }, window.KING_WALK_CONFIG || {});
+/* The website's address: on the web, wherever this page is; in the app, the configured site */
+const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
+  ? location.origin + location.pathname.replace(/index\.html$/, "") : CONFIG.site;
+/* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web */
+const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE || CONFIG.site;
+if (CONFIG.goatcounter) {          /* the stats script, only when this copy has a GoatCounter address */
+  const gs = document.createElement("script");
+  gs.async = true; gs.src = "https://gc.zgo.at/count.js"; gs.dataset.goatcounter = CONFIG.goatcounter;
+  if (APP) gs.dataset.goatcounterSettings = '{"no_onload":true}';          /* the app sends its own events, not a page view */
+  document.head.appendChild(gs);
+}
 
 /* Haptics. In the app each kind maps to an iOS feedback generator (ios/KingWalk/Haptics.swift). On Android the
    vibration API only buzzes on and off, so each kind is a length or a pattern. Safari and desktops have neither. */
@@ -811,12 +864,25 @@ function reportProgress(p, puzzle) {
 }
 
 /* Sharing: the iOS share sheet in the app, the system share sheet where the browser has one, or the clipboard. */
-function shareText() {
-  const p = me(), ri = rankIndex(p.rating);
-  return "I'm at " + RANKS[ri][1] + " rank in King Walk, with a puzzle rating of " + p.rating + " after " + p.n + (p.n === 1 ? " puzzle" : " puzzles") + ". Chess puzzles that grow with you: " + SITE;
+/* A short, emoji summary, like:
+     ♗ King Walk · Bishop · 1123 (+11)
+     ✅✅💡❌✅✅✅✅✅✅
+     🔥 6 in a row · 118 solved
+     https://...
+   `last` is the puzzle just finished, when shared from under the board. */
+const RANK_GLYPH = ["\u2659", "\u2658", "\u2657", "\u2656", "\u2655", "\u2654"];          /* ♙ ♘ ♗ ♖ ♕ ♔ */
+let lastResult = null;
+function shareText(last) {
+  const p = me(), ri = rankIndex(p.rating), lines = [];
+  lines.push(RANK_GLYPH[ri] + " King Walk \u00b7 " + RANKS[ri][1] + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
+  if (last && last.rankUp) lines.push("\ud83c\udf89 New rank: " + RANKS[ri][1] + "!");
+  if (p.last.length) lines.push(p.last.slice(-10).map(v => v === 1 ? "\u2705" : v ? "\ud83d\udca1" : "\u274c").join(""));
+  lines.push((p.streak >= 2 ? "\ud83d\udd25 " + p.streak + " in a row \u00b7 " : "") + p.solved + " solved");
+  if (SHARE_URL) lines.push(SHARE_URL);
+  return lines.join("\n");
 }
-function shareProgress(btn) {
-  const text = shareText();
+function shareProgress(btn, last) {
+  const text = shareText(last);
   track("share");
   if (APP) { APP.post({ op: "share", text }); return; }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
@@ -994,7 +1060,7 @@ async function nextPuzzle() {
   clearTimers(); closePromo();
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
-  $("doneBtns").hidden = true; $("shareRankBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
+  $("doneBtns").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
   $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
@@ -1134,7 +1200,7 @@ function finish(solvedIt) {
   void d.offsetWidth; d.classList.add("show");
   const box = $("themes"); box.textContent = ""; let n = 0;
   for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = THEME_LABEL[t]; c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
-  $("shareRankBtn").hidden = !rankUp;
+  lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
   if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(before);
@@ -1293,7 +1359,7 @@ $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); rend
 $("hapticsBtn").addEventListener("click", () => { S.haptics = S.haptics === false; save(); renderPanel(); if (S.haptics) haptic("toggle"); else track("haptics-off"); });
 $("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined && me().mode !== b.dataset.mode) { me().mode = b.dataset.mode; save(); renderPanel(); haptic("toggle"); track("mode/" + b.dataset.mode); } });
 $("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
-$("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn")));
+$("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn"), lastResult));
 $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter" }); track("gamecenter"); } });
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
@@ -1302,6 +1368,7 @@ if (APP) {          /* in the app the save also goes to the player's iCloud, so 
   $("saveHelp").textContent = "Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.";
   /* the policy pages open in Safari from the website, so they are the current versions */
   for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href");
+  $("links").hidden = !SITE;          /* no site configured: nothing to link to */
 }
 
 /* Start over: the first tap turns the button red. It only becomes active after a pause, so a double tap cannot erase progress. */
@@ -1336,6 +1403,36 @@ $("loadCode").addEventListener("click", () => {
   delete btn.dataset.sure; btn.textContent = "Load pasted code";
   S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = "Loaded."; nextPuzzle(); track("save-code/load"); reportProgress(me());
 });
+
+/* ---------- a fold (see the CSS) ----------
+   The iOS app on iPhone Duo reports the fold with window.kingWalkFold({x, y, w, h}) in CSS pixels (null when there
+   is none); other foldables report it through the browser's viewport segments. ?fold=h fakes one across the
+   middle of the screen, for testing and the store screenshots (?fold=v, one from top to bottom, changes nothing). */
+const Fold = { app: null, fake: (location.search.match(/[?&]fold=([vh])/) || [])[1], key: "" };
+function foldRect() {
+  if (Fold.app) return Fold.app;
+  const seg = window.viewport && window.viewport.segments;
+  if (seg && seg.length === 2) {
+    const [a, b] = seg;
+    return Math.abs(a.top - b.top) < 2 ? { x: a.right, y: 0, w: Math.max(0, b.left - a.right), h: innerHeight } : { x: 0, y: a.bottom, w: innerWidth, h: Math.max(0, b.top - a.bottom) };
+  }
+  if (Fold.fake === "v") return { x: innerWidth / 2, y: 0, w: 0, h: innerHeight };
+  if (Fold.fake === "h") return { x: 0, y: innerHeight / 2, w: innerWidth, h: 0 };
+  return null;
+}
+function foldLayout() {
+  const f = foldRect(), root = document.documentElement;
+  const kind = f && f.w > f.h ? "h" : "";          /* only a fold across the screen changes the layout (see the CSS) */
+  const key = kind + (f ? [f.x, f.y, f.w, f.h].map(Math.round).join() : "");
+  if (key === Fold.key) return;
+  const changed = !!Fold.key !== !!kind || Fold.key[0] !== kind;
+  Fold.key = key;
+  root.classList.toggle("fold-h", kind === "h");
+  if (kind) { root.style.setProperty("--fold-a", Math.max(0, f.y) + "px"); root.style.setProperty("--fold-w", Math.max(0, f.h) + "px"); }
+  if (changed && kind) { track("fold/table"); haptic("toggle"); }
+}
+window.kingWalkFold = r => { Fold.app = r && (r.w > 0 || r.h > 0 || r.x > 0 || r.y > 0) ? r : null; foldLayout(); };
+foldLayout(); addEventListener("resize", foldLayout);
 
 /* ---------- startup ---------- */
 renderPanel();

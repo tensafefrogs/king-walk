@@ -1,7 +1,7 @@
 # Builds the iOS app on a GitHub macOS runner. No Mac needed.
 # - On pushes to main that change the app or the game: a simulator build, to check that the app compiles (no signing, no secrets).
 # - Run it by hand (Actions → iOS app → Run workflow) to build, sign and upload to TestFlight.
-#   Needs the repository secrets listed in ios/README.md (the three IDs can also be Actions variables).
+#   Needs the repository secrets and variables listed in ios/README.md.
 # - The App Store release workflow (release.yml) calls it to build and upload too.
 name: iOS app
 
@@ -15,9 +15,14 @@ on:
         description: Upload to TestFlight
         type: boolean
         default: true
+      xcode27:
+        description: Build with Xcode 27.1 (iPhone Duo support; runs on GitHub's xcode-27 preview machines)
+        type: boolean
+        default: true
   workflow_call:
     inputs:
       upload: {type: boolean, default: true}
+      xcode27: {type: boolean, default: true}
       version: {type: string, default: '', description: 'App version (CFBundleShortVersionString); empty keeps project.yml''s'}
     outputs:
       build_number:
@@ -31,18 +36,42 @@ defaults:
 
 jobs:
   build:
-    # Apple requires App Store uploads to be built with a recent Xcode; macos-26 ships Xcode 26.
-    runs-on: macos-26
+    # Apple requires App Store uploads to be built with a recent Xcode; macos-26 ships Xcode 26. Xcode 27 is only on
+    # GitHub's xcode-27 preview machines, used when asked (inputs are empty on a push, so a push builds on macos-26).
+    runs-on: ${{ inputs.xcode27 && 'xcode-27' || 'macos-26' }}
     timeout-minutes: 30
     outputs:
       build_number: ${{ steps.number.outputs.build_number }}
     steps:
       - uses: actions/checkout@v4
+      - name: Use Xcode 27.1 if this runner has it
+        # Needed for iPhone Duo: built with an older SDK the app runs in a phone-sized frame on the inner screen,
+        # and the fold APIs aren't there. KINGWALK_SDK_27_1 turns on the fold code in GameViewController.swift.
+        env:
+          WANT_27: ${{ inputs.xcode27 }}
+        run: |
+          # exactly 27.1, released or release candidate (App Store Connect accepts both), never a beta
+          x=""
+          for c in /Applications/Xcode_27.1.app /Applications/Xcode_27.1.0.app /Applications/Xcode_27.1_Release_Candidate.app; do
+            [ -d "$c" ] && { x=$c; break; }
+          done
+          if [ -n "$x" ]; then
+            sudo xcode-select -s "$x"
+            echo 'KINGWALK_SWIFT_FLAGS=KINGWALK_SDK_27_1' >> "$GITHUB_ENV"
+          elif [ "$WANT_27" = true ]; then
+            echo "::error::Xcode 27.1 isn't on this runner"; ls -d /Applications/Xcode*.app; exit 1
+          else
+            echo "::notice::Building with $(xcodebuild -version | head -1), without the iPhone Duo fold code"
+          fi
       - name: Install XcodeGen
         run: |
           brew install xcodegen
           xcodebuild -version
       - name: Copy the game and generate the Xcode project
+        env:   # the app's config.js (ios/scripts/prepare-web.sh); all optional
+          GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          APP_STORE_ID: ${{ vars.APP_STORE_ID }}
         run: |
           ios/scripts/prepare-web.sh
           cd ios && xcodegen generate
@@ -50,7 +79,8 @@ jobs:
         if: ${{ !inputs.upload }}
         run: |
           xcodebuild -project ios/KingWalk.xcodeproj -scheme KingWalk -configuration Release \
-            -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO -derivedDataPath ios/build build > ios/build.log 2>&1 || { grep -E 'error:' ios/build.log | sort -u | head -40; tail -60 ios/build.log; exit 1; }
+            -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO -derivedDataPath ios/build \
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS="\$(inherited) ${KINGWALK_SWIFT_FLAGS:-}" build > ios/build.log 2>&1 || { grep -E 'error:' ios/build.log | sort -u | head -40; tail -60 ios/build.log; exit 1; }
           tail -5 ios/build.log
           echo '--- warnings'; grep -i 'warning:' ios/build.log | sort -u | head -30 || true
           app=$(find ios/build -name 'KingWalk.app' -path '*Release-iphonesimulator*' | head -1)
@@ -66,6 +96,7 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID || vars.ASC_ISSUER_ID }}
           ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID || vars.APPLE_TEAM_ID }}
+          BUNDLE_ID: ${{ vars.BUNDLE_ID }}
           BUILD_NUMBER: ${{ steps.number.outputs.build_number }}
           MARKETING_VERSION: ${{ inputs.version }}
           ARCHIVE_SIGNING: ${{ vars.ARCHIVE_SIGNING }}   # optional: 'automatic' (see ios/scripts/upload.sh)

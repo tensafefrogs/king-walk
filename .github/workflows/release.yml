@@ -31,6 +31,7 @@ jobs:
     outputs:
       build: ${{ steps.read.outputs.build }}
       version: ${{ steps.read.outputs.version }}
+      xcode27: ${{ steps.read.outputs.xcode27 }}
       act: ${{ steps.read.outputs.act }}
       ready: ${{ steps.read.outputs.ready }}
     steps:
@@ -39,7 +40,7 @@ jobs:
         env:
           EVENT: ${{ github.event_name }}
           # nothing to do until the App Store Connect secrets are set (ios/README.md, One-time setup)
-          READY: ${{ secrets.ASC_KEY_P8 != '' }}
+          READY: ${{ secrets.ASC_KEY_P8 != '' && vars.BUNDLE_ID != '' }}
           STATUS_ONLY: ${{ inputs.status_only }}
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
@@ -48,6 +49,7 @@ jobs:
           act = os.environ['EVENT'] != 'schedule' and os.environ.get('STATUS_ONLY') != 'true'   # the schedule only reports status
           print('build=' + str(bool(act and c.get('build'))).lower())
           print('version=' + c['version'])
+          print('xcode27=' + str(c.get('xcode27', True)).lower())
           print('act=' + str(act).lower())
           print('ready=' + os.environ['READY'])
           PY
@@ -59,6 +61,7 @@ jobs:
     uses: ./.github/workflows/ios.yml
     with:
       upload: true
+      xcode27: ${{ needs.plan.outputs.xcode27 == 'true' }}
       version: ${{ needs.plan.outputs.version }}
     secrets: inherit
 
@@ -74,6 +77,7 @@ jobs:
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID || vars.ASC_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID || vars.ASC_ISSUER_ID }}
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+      BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
       - uses: actions/checkout@v4
       - run: pip install pyjwt cryptography

@@ -1,0 +1,58 @@
+# Publishes the website to GitHub Pages from main, with config.js written from this repository's Actions variables
+# (all optional): GOATCOUNTER_URL (the stats; none are sent without it), SITE_URL and APP_STORE_ID. So the owner's
+# accounts aren't in the code, and a copy of the repo sends nothing anywhere until its owner sets their own.
+# Needs Settings → Pages → Build and deployment → Source: GitHub Actions.
+name: Website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the site
+        env:
+          GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          APP_STORE_ID: ${{ vars.APP_STORE_ID }}
+        run: |
+          mkdir _site
+          # the game, its pages, the brand and press kit, and the store images the press kit links to
+          cp -R index.html chess.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html .nojekyll p fonts icons brand press _site/
+          mkdir -p _site/ios/store _site/ios/KingWalk/Assets.xcassets
+          cp -R ios/store/screenshots ios/store/header _site/ios/store/ && rm -rf _site/ios/store/screenshots/raw
+          cp -R ios/KingWalk/Assets.xcassets/AppIcon.appiconset _site/ios/KingWalk/Assets.xcassets/
+          python3 - <<'PY'
+          import json, os
+          cfg = {'goatcounter': os.environ.get('GOATCOUNTER_URL', '').strip(), 'site': os.environ.get('SITE_URL', '').strip(),
+                 'appStoreId': os.environ.get('APP_STORE_ID', '').strip()}
+          open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
+          print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
+          PY
+          du -sh _site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
