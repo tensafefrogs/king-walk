@@ -1324,6 +1324,16 @@ function endDrag(e, cancel) {
   paint();
 }
 boardEl.addEventListener("pointerup", e => endDrag(e, false));
+/* Safari zooms the page on a quick second tap, and ignores both the viewport's no-zoom setting and the board's
+   touch-action for it, so tapping a piece twice (pick it up, put it down) zoomed in. Cancelling the second touchend
+   stops that; the pointer events the board listens to have already arrived. Buttons and text fields are left alone,
+   since cancelling their touchend would cancel their click. */
+let lastTouchEnd = 0;
+document.addEventListener("touchend", e => {
+  const quick = e.timeStamp - lastTouchEnd < 400;
+  lastTouchEnd = e.timeStamp;
+  if (quick && e.cancelable && e.touches.length === 0 && !e.target.closest("button, a, input, textarea, select, summary, label")) e.preventDefault();
+}, { passive: false });
 boardEl.addEventListener("pointercancel", e => endDrag(e, true));
 boardEl.addEventListener("pointerleave", () => { if (!drag) for (const [, o] of els) o.el.classList.remove("lift"); });
 
