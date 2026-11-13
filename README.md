@@ -2,7 +2,9 @@
 
 A free chess puzzle game that adapts to the player. It has 53,000 puzzles from real games. Solve puzzles and your puzzle rating goes up and the puzzles get harder. Miss them and the puzzles get easier.
 
-It is a static web page with no server, no accounts and no tracking. Progress is saved in the browser. It works with a mouse or a touchscreen, can be installed to a phone or tablet home screen, and keeps working offline for puzzle levels it has already loaded.
+It is a static web page with no server and no accounts. Progress is saved in the browser. It works with a mouse or a touchscreen, can be installed to a phone or tablet home screen, and keeps working offline for puzzle levels it has already loaded. It counts a few anonymous events (see Stats below).
+
+There is also an iOS app for iPhone and iPad (`ios/`), which plays the same page offline and adds haptics, Game Center, a widget and iCloud sync. See `ios/README.md`.
 
 The name comes from chess: a king walk is when a king marches up the board to help win the game. The best-known example is Short vs. Timman, Tilburg 1991. In this game you start at Pawn rank and work your way up to King.
 
@@ -29,9 +31,21 @@ Then open http://localhost:8000. To publish it, turn on GitHub Pages for the rep
 
 The live copy is at https://geoffstearns.com/king-walk/. The social preview tags in `index.html` use that full address. If you host a copy somewhere else, replace that address everywhere it appears in `index.html`.
 
+## Test it
+
+```
+node testing/smoke.js
+```
+
+Plays a few puzzles in a browser (Playwright) on the web and in a simulated iOS app, and checks the app gets its messages. GitHub runs it on every push.
+
+## Stats
+
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+
 ## Install it
 
-- **iPhone or iPad:** open the site in Safari, tap Share, then "Add to Home Screen".
+- **iPhone or iPad:** get the app (`ios/`), or open the site in Safari, tap Share, then "Add to Home Screen".
 - **Android or desktop Chrome:** use "Install app" in the browser menu.
 
 ## Files
@@ -43,6 +57,10 @@ The live copy is at https://geoffstearns.com/king-walk/. The social preview tags
 - `fonts/` - the two typefaces, bundled so the game makes no outside requests.
 - `og.png` - the preview image shown when the link is shared.
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`.
+- `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store).
+- `ios/` - the iOS app, its App Store listing and the release tooling. See `ios/README.md`.
+- `press/` - the press kit page, at /king-walk/press/ (not linked from the game).
+- `testing/` - the browser test and the stats notes.
 
 ## License
 

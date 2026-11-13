@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "build": true,
+  "testflight": {
+    "groups": ["Internal"],
+    "whats_new": "The first build of King Walk for iPhone and iPad. Please try: solving a few puzzles (tap or drag), a hint, a wrong move, Share, the Game Center button in the menu, the widget (home screen and Lock Screen), dark mode, and progress syncing to a second device. Menu > Haptics turns haptics off."
+  },
+  "app_store": null,
+  "release_now": false,
+  "note": "First TestFlight build. Runs once the App Store Connect secrets are set (ios/README.md, One-time setup); change this note to run it again."
+}
