@@ -11,7 +11,7 @@ The text, URLs, categories, age rating, review notes and screenshots are uploade
 | App icon (light, dark, tinted) | 1024×1024 | `node ios/scripts/art.js` from `brand/mark-square.svg` | Done: `ios/KingWalk/Assets.xcassets/AppIcon.appiconset/` |
 | iPhone screenshots, 6.9" | 1320×2868, 3 to 10 | `node ios/store/screenshots.js iphone` | Done: `screenshots/iphone-1` to `5` |
 | iPad screenshots, 13" | 2064×2752, 3 to 10 | `node ios/store/screenshots.js ipad` | Done: `screenshots/ipad-1` to `5` |
-| iPhone Duo screenshots | inner screen 2007×2853 (open) and 2853×2007 (propped up) | `node ios/store/screenshots.js duo-inner`, `duo-table` | Done: one set of five, `APP_IPHONE_DUO` in `listing.json` |
+| iPhone Duo screenshots | inner screen 2007×2853 (open, or held like a book) and 2853×2007 (propped up) | `node ios/store/screenshots.js duo-inner`, `duo-book`, `duo-table` | Done: one set of five, `APP_IPHONE_DUO` in `listing.json` |
 | App preview video (iPhone, also used for iPhone Duo) | 886×1920, 15 to 30 s, stereo audio track | `node scripts/trailer.js --preview` | `previews/iphone-1.mp4` |
 | Product page header and search results art (iOS 27) | 5244×2950 (16:9), no alpha | `node ios/store/header.js` | Done: `header/universal-16x9.png` (+ 21:9 and 3:2 cuts) |
 | Game Center achievement images | 512×512, 13 of them | `node ios/scripts/art.js` | Done: `gamecenter/*.png` |
@@ -57,7 +57,8 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 > • Game Center leaderboards and achievements
 > • A home screen and Lock Screen widget with your rank and rating
 > • Share your progress: your rank, rating and last ten puzzles in a few emoji
-> • On iPhone Duo, prop it up like a laptop: the board lies flat under your hands and your progress stands up to read
+> • On iPhone Duo, prop it up like a laptop (the board lies flat under your hands) or hold it like a book (the board on one page, the notes on the other)
+> • A left-handed layout that puts the board on the left when your phone is on its side or folded
 > • Progress syncs between your iPhone and iPad with iCloud
 > • Haptics, light and dark mode, and a board you can tap or drag
 > • Plays fully offline
@@ -85,7 +86,7 @@ Five per device, in this order. Each is the real game at the device's size, fram
 | 4 | Walk up from Pawn to King | The progress card right after reaching Rook: the ladder, stats and chart |
 | 5 | Light or dark. No account. No ads. | Dark mode, a piece picked up with its moves shown |
 
-**iPhone Duo** (one set, `APP_IPHONE_DUO`): `duo-table-1` ("Prop it up like a laptop": the board on the flat half, the scoreboard on the upright half), `duo-inner-2`, `duo-table-4`, `duo-inner-3`, `duo-table-5`. The other `duo-*` files are there to swap in. If Apple's API refuses the Duo type, the upload skips that set and says so; it can go up by hand.
+**iPhone Duo** (one set, `APP_IPHONE_DUO`): `duo-table-1` ("Prop it up like a laptop": the board on the flat half, the scoreboard on the upright half), `duo-book-2` (held like a book: the board on the right page), `duo-table-4`, `duo-inner-3`, `duo-table-5`. The other `duo-*` files are there to swap in. If Apple's API refuses the Duo type, the upload skips that set and says so; it can go up by hand.
 
 Ideas for later sets: the widget on a home screen (needs a real device screenshot), Game Center achievements, an iPad landscape shot, the emoji share text in Messages.
 
@@ -135,7 +136,7 @@ Uploaded from `review_notes` in `listing.json` (App Review Information → Notes
 > - Home screen and Lock Screen widget: shows the player's rank and rating.
 >
 > WHAT THE APP ADDS ON iOS
-> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards (puzzle rating, best streak) and 13 achievements; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo half open like a laptop, a layout with the board on the flat half and progress on the upright half; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
+> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards (puzzle rating, best streak) and 13 achievements; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo, layouts for half open like a laptop (the board on the flat half, progress on the upright half) and like a book (the board on one page, notes on the other), with a left-handed option; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
 >
 > EXTERNAL SERVICES
 > None are needed to play. Optional: Game Center (Apple), iCloud key-value storage (Apple) for syncing progress, and GoatCounter, which receives anonymous event counts (for example, "reached Bishop rank") with no personal data, no identifiers and no cookies. Each puzzle has a link to its page on lichess.org, which opens in Safari.
