@@ -83,7 +83,7 @@ async function run(b, url, app) {
     await p.goto(srv.url + q); await p.waitForTimeout(900);
     const f = await p.evaluate(() => { const r = $("frame").getBoundingClientRect(); return { l: r.left, t: r.top, r: r.right, b: r.bottom, w: innerWidth, h: innerHeight }; });
     const onLeft = f.r <= f.w / 2 + 1, onRight = f.l >= f.w / 2 - 1, below = f.t >= f.h / 2 - 1;
-    const ok = (lefty ? onLeft : onRight) && f.r <= f.w + 1 && f.b <= f.h + 1 && (name !== "laptop" || below);
+    const ok = (lefty ? onLeft : onRight) && f.r <= f.w + 1 && f.b <= f.h - (name === "sideways" ? 8 : -1) && (name !== "laptop" || below);   // sideways: a margin under the board
     const label = name + (lefty ? ", left-handed" : "");
     if (!ok) { bad++; console.log("FAIL", label, "board in the wrong place", JSON.stringify(f)); } else console.log(label + ": board on the " + (lefty ? "left" : "right"));
     await ctx.close();
