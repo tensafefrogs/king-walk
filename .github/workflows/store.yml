@@ -1,0 +1,46 @@
+# Uploads the App Store listing (ios/store/listing.json), screenshots, creative assets and the Game Center setup
+# (ios/store/gamecenter.json) to App Store Connect whenever they change on main, so the store matches the repo.
+# Runs on Linux (cheap). Uses the same secrets as the iOS app build.
+# Only the version being prepared can change; when there isn't one, the version part is skipped.
+name: App Store listing
+
+on:
+  push:
+    branches: [main]
+    paths: ['ios/store/listing.json', 'ios/store/screenshots/*.png', 'ios/store/upload_listing.py', 'ios/store/creative.py',
+            'ios/store/header/*', 'ios/store/previews/*', 'ios/store/gamecenter.json', 'ios/store/gamecenter/*', 'ios/store/gamecenter.py',
+            '.github/workflows/store.yml']
+  workflow_dispatch:
+    inputs:
+      discover:
+        description: Only print what the Asset Library API accepts (creative.py --discover)
+        type: boolean
+        default: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    env:
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the secrets are set
+        id: secrets
+        run: |
+          if [ -z "$ASC_KEY_P8" ]; then echo "::notice::App Store Connect secrets aren't set yet (ios/README.md, One-time setup); nothing uploaded."; echo ok=false >> "$GITHUB_OUTPUT"; else echo ok=true >> "$GITHUB_OUTPUT"; fi
+      - run: pip install pyjwt cryptography
+        if: steps.secrets.outputs.ok == 'true'
+      - name: Upload listing and screenshots
+        if: steps.secrets.outputs.ok == 'true' && !inputs.discover
+        run: python3 ios/store/upload_listing.py
+      - name: Game Center leaderboards and achievements
+        if: steps.secrets.outputs.ok == 'true' && !inputs.discover
+        continue-on-error: true   # a newer part of the API: a failure is reported without stopping the rest
+        run: python3 ios/store/gamecenter.py
+      - name: Creative assets (header, search results, app previews)
+        # a new API (App Store Connect API 4.5): a failure here is reported but doesn't fail the listing
+        if: steps.secrets.outputs.ok == 'true'
+        continue-on-error: true
+        run: python3 ios/store/creative.py ${{ inputs.discover && '--discover' || '' }}

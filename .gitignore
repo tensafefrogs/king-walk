@@ -1,0 +1,8 @@
+# the iOS app's copy of the game and Xcode's generated files (ios/README.md)
+ios/KingWalk/web/
+ios/*.xcodeproj/
+ios/build/
+ios/build.log
+ios/store/screenshots/raw/
+node_modules/
+.DS_Store

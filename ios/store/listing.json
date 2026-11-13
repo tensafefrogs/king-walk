@@ -1,0 +1,69 @@
+{
+  "app_info": {
+    "name": "King Walk: Chess Puzzles",
+    "subtitle": "Puzzles that grow with you",
+    "privacy_policy_url": "https://geoffstearns.com/king-walk/privacy.html",
+    "category": "GAMES",
+    "subcategories": [
+      "GAMES_BOARD",
+      "GAMES_PUZZLE"
+    ],
+    "secondary_category": "EDUCATION"
+  },
+  "version": {
+    "copyright": "2026 Geoff Stearns",
+    "promotional_text": "53,000 chess puzzles from real games, with a rating that finds your level. Solve one and the next gets harder. Walk your king up from Pawn to King.",
+    "description": "King Walk is a chess puzzle trainer that adapts to you. Every puzzle is a moment from a real game where there is one strong move, or a short line of them, to find.\n\nSolve a puzzle cleanly and your puzzle rating goes up, so the next puzzles get harder. Miss one and the rating comes down a little, and the puzzles ease off. Within a few dozen puzzles the game settles on your level, and from there it climbs as you improve.\n\nYou start at Pawn rank. Raise your rating and you earn Knight, Bishop, Rook, Queen and finally King: the king walks up the board.\n\n• 53,000 puzzles from real games: forks, pins, skewers, back rank mates, mates in one, two and three, endgames and more\n• A puzzle rating that follows your level, with a chart of how far you've come\n• Hints when you're stuck: the first circles the piece to move, the second shows where it goes\n• Missed puzzles come back later for a second try\n• Easier, Just right or Harder, to set the pace\n• Game Center leaderboards and achievements\n• A home screen and Lock Screen widget with your rank and rating\n• Progress syncs between your iPhone and iPad with iCloud\n• Haptics, light and dark mode, and a board you can tap or drag\n• Plays fully offline\n• No account, no ads, no in-app purchases\n\nThe puzzles come from the public-domain Lichess puzzle database. King Walk is not made or endorsed by Lichess.",
+    "keywords": "tactics,checkmate,mate in 2,elo,rating,trainer,strategy,board,brain,logic,fork,pin,endgame,daily",
+    "support_url": "https://geoffstearns.com/king-walk/support.html",
+    "marketing_url": "https://geoffstearns.com/king-walk/"
+  },
+  "age_rating": {},
+  "review_notes": "King Walk is a single-player chess puzzle game. No account, no login, no in-app purchases, no ads, no user-generated content, no chat.\n\nPURPOSE AND AUDIENCE\nFor anyone who wants to get better at chess tactics, from beginners to club players. Each puzzle is a position from a real game where there is one best line. The player's puzzle rating goes up with clean solves and down with misses, and the next puzzles are chosen near that rating, so the difficulty follows the player.\n\nHOW TO USE IT (no setup needed)\n- Launch the app. The first puzzle loads right away: the other side moves first, then it is your turn (\"White to play\", with the goal, e.g. \"Checkmate in 2\").\n- Tap a piece, then tap where it goes (or drag it). A wrong move is shown and taken back.\n- Hint circles the piece to move; a second hint circles where it goes. Answer plays the solution.\n- After each puzzle: Next puzzle. The Progress card shows the rating, the rank ladder (Pawn to King), stats and a rating chart.\n- Menu (top right): Sound, Haptics, puzzle difficulty, Share (iOS share sheet), Game Center (leaderboards and achievements), Start over, How it works, Credits, Advanced (a save code to move progress to the website), and Support / Privacy / Terms links.\n- Home screen and Lock Screen widget: shows the player's rank and rating.\n\nWHAT THE APP ADDS ON iOS\nHaptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards (puzzle rating, best streak) and 13 achievements; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet; light and dark appearance. All 53,000 puzzles are bundled, so it plays fully offline.\n\nEXTERNAL SERVICES\nNone are needed to play. Optional: Game Center (Apple), iCloud key-value storage (Apple) for syncing progress, and GoatCounter, which receives anonymous event counts (for example, \"reached Bishop rank\") with no personal data, no identifiers and no cookies. Each puzzle has a link to its page on lichess.org, which opens in Safari.\n\nREGIONS\nThe app works the same in every region. English only.\n\nTHIRD-PARTY MATERIAL\nThe puzzles come from the Lichess puzzle database, which Lichess released into the public domain (CC0): https://database.lichess.org/#puzzles. The app is not made or endorsed by Lichess and says so in Credits. Chess rules: chess.js (BSD license). Fonts: Fredoka and Nunito (SIL Open Font License). The pieces, icon and artwork are original.",
+  "screenshots": {
+    "APP_IPHONE_67": [
+      "screenshots/iphone-1.png",
+      "screenshots/iphone-2.png",
+      "screenshots/iphone-3.png",
+      "screenshots/iphone-4.png",
+      "screenshots/iphone-5.png"
+    ],
+    "APP_IPAD_PRO_3GEN_129": [
+      "screenshots/ipad-1.png",
+      "screenshots/ipad-2.png",
+      "screenshots/ipad-3.png",
+      "screenshots/ipad-4.png",
+      "screenshots/ipad-5.png"
+    ]
+  },
+  "creative": [
+    {
+      "name": "King Walk header (universal 16:9)",
+      "file": "header/universal-16x9.png",
+      "kind": "image",
+      "category": "CREATIVE_ASSETS",
+      "placements": [
+        [
+          "PRODUCT_PAGE_HEADER_ASSET",
+          "DEFAULT_PROFILE"
+        ],
+        [
+          "APP_STORE_SEARCH_RESULTS_ASSET",
+          "DEFAULT_PROFILE"
+        ]
+      ]
+    },
+    {
+      "name": "King Walk preview (iPhone, 886x1920)",
+      "file": "previews/iphone-1.mp4",
+      "kind": "video",
+      "category": "APP_SCREENSHOTS_AND_PREVIEWS",
+      "placements": [
+        [
+          "APP_PREVIEW",
+          "IPHONE_DYNAMIC_ISLAND_LARGE_PROFILE"
+        ]
+      ]
+    }
+  ]
+}

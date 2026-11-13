@@ -109,6 +109,18 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
   .top, .menu, .status, .actions, .progress { width: 100%; }
 }
 @supports (height: 100dvh) { @media (max-width: 839.98px) and (orientation: landscape) and (max-height: 520px) { .wrap { --bw: max(230px, calc(100dvh - 16px)); } } }
+/* tablets held upright (iPad): one column with a big board, the progress card below it */
+@media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) {
+  .wrap { max-width: none; --bw: min(calc(100vw - var(--u) * 2), calc(100vh - 470px), 900px); }
+  .main { grid-template-columns: minmax(0, 1fr); grid-template-areas: "status" "board" "actions" "progress"; grid-template-rows: none; }
+  .top, .menu, .progress { width: var(--bw); }
+}
+@supports (height: 100dvh) { @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) { .wrap { --bw: min(calc(100vw - var(--u) * 2), calc(100dvh - 470px), 900px); } } }
+/* big screens (iPad on its side, desktops): let the board grow past 616px when there is room */
+@media (min-width: 1180px) and (min-height: 820px) and (orientation: landscape) {
+  .wrap { max-width: 1280px; --bw: min(820px, calc(100vh - var(--u) * 6 - var(--bar) - 88px), calc(100vw - var(--u) * 2 - 366px)); }
+}
+@supports (height: 100dvh) { @media (min-width: 1180px) and (min-height: 820px) and (orientation: landscape) { .wrap { --bw: min(820px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px), calc(100vw - var(--u) * 2 - 366px)); } } }
 
 /* ---------- header ---------- */
 .top { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); height: var(--bar); }
@@ -181,6 +193,10 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .setup { font-size: 14px; display: grid; gap: 3px; }
 .setup b { font-family: var(--font-display); font-weight: 600; }
 .save-box { display: grid; gap: 8px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.links a { color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
+.links a:hover { text-decoration: underline; }
+.done-btns #shareRankBtn { width: auto; flex: none; }
 .row { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ---------- status line above the board: whose turn, the goal, and all feedback ---------- */
@@ -365,6 +381,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 <meta name="theme-color" content="#edf1ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111817" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
+<!-- Anonymous event counts (no cookies, nothing about the person). Events: testing/STATS.md -->
+<script data-goatcounter="https://geoffstearns.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -413,6 +431,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="card stack">
         <p class="label">Settings</p>
         <div class="setrow"><span id="soundLabel">Sound</span><button type="button" id="soundBtn" class="switch" aria-pressed="true" aria-labelledby="soundLabel"></button></div>
+        <div class="setrow" id="hapticsRow" hidden><span id="hapticsLabel">Haptics</span><button type="button" id="hapticsBtn" class="switch" aria-pressed="true" aria-labelledby="hapticsLabel"></button></div>
         <div class="setrow"><span>Puzzle difficulty</span>
           <div class="seg" id="modeSeg">
             <button type="button" data-mode="easy" aria-pressed="false">Easier</button>
@@ -420,7 +439,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <button type="button" data-mode="hard" aria-pressed="false">Harder</button>
           </div>
         </div>
-        <div class="setrow"><span>Progress</span><button type="button" id="resetBtn" class="btn small">Start over</button></div>
+        <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
+        <div class="setrow" id="gcRow" hidden><span>Game Center</span><button type="button" id="gcBtn" class="btn small">Leaderboards and achievements</button></div>
         <div class="menu-sec">
           <details>
             <summary>How it works</summary>
@@ -431,7 +451,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
               <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
               <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
-              <li>Progress is saved in this browser only. There are no accounts.</li>
+              <li id="helpSaved">Progress is saved in this browser only. There are no accounts.</li>
               <li>The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.</li>
             </ul>
           </details>
@@ -451,7 +471,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <summary>Advanced</summary>
             <div class="body save-box">
               <p class="label">Move progress to another device</p>
-              <p class="note">Progress is saved in this browser only. To move it, copy the save code here, then paste it on the other device and press Load.</p>
+              <p class="note" id="saveHelp">Progress is saved in this browser only. To move it, copy the save code here, then paste it on the other device and press Load.</p>
               <textarea id="saveCode" aria-label="Save code" spellcheck="false" autocomplete="off" placeholder="Paste a save code here"></textarea>
               <div class="row">
                 <button type="button" id="copyCode" class="btn small">Copy my save code</button>
@@ -460,6 +480,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <p class="note" id="saveNote" aria-live="polite"></p>
             </div>
           </details>
+          <nav class="links" aria-label="About"><a href="support.html" target="_blank" rel="noopener">Support</a><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></nav>
         </div>
       </div>
     </div>
@@ -491,6 +512,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <button type="button" id="answerBtn" class="btn" aria-label="Show answer" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Answer</span></button>
         </div>
         <div class="done-btns" id="doneBtns" hidden>
+          <button type="button" id="shareRankBtn" class="btn" hidden>Share</button>
           <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
@@ -584,7 +606,7 @@ function toggleSection(btn, section) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal" };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0 };
 }
 const count = v => Math.max(0, v | 0);
 /* Rebuild saved data field by field so a damaged save or a hand-edited save code cannot break the game. */
@@ -602,15 +624,16 @@ function cleanState(raw) {
     if (p.seen && typeof p.seen === "object") for (const b of BANDS) if (typeof p.seen[b] === "string" && p.seen[b].length < 4000) q.seen[b] = p.seen[b];
     if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(0, 20).map(r => ({ b: r.b, i: count(r.i), due: count(r.due), tries: clamp(count(r.tries), 0, 3) }));
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
+    q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, players };
+  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
-let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, players: [newPlayer(START_RATING)] };
+let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, rateAsked: 0, players: [newPlayer(START_RATING)] };
 if (S.updatedAt) writeLocal();          /* store the cleaned copy */
 const me = () => S.players[S.cur];
 function save() { S.updatedAt = Date.now(); writeLocal(); }
@@ -707,6 +730,107 @@ const sfx = {
   rank: () => { tone(523, 0, 0.1); tone(659, 0.09, 0.1); tone(784, 0.18, 0.1); tone(1047, 0.27, 0.34); },
   bad: () => tone(150, 0, 0.24, "sawtooth", 0.06)
 };
+
+/* ---------- the iOS app, haptics, Game Center, sharing, stats ----------
+   The iOS app (ios/) serves this page from inside the app, sets window.kingWalkApp before it runs, and listens on
+   window.webkit.messageHandlers.kingwalk. On the web none of the app parts run; Android browsers get haptics
+   through the vibration API instead. */
+const APP = (() => {
+  try {
+    const h = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kingwalk;
+    if (!h) return null;
+    return Object.assign({ platform: "iphone", gameCenter: false, widget: false }, window.kingWalkApp || {}, { post: m => { try { h.postMessage(m); } catch (e) {} } });
+  } catch (e) { return null; }
+})();
+const SITE = "https://geoffstearns.com/king-walk/";
+
+/* Haptics. In the app each kind maps to an iOS feedback generator (ios/KingWalk/Haptics.swift). On Android the
+   vibration API only buzzes on and off, so each kind is a length or a pattern. Safari and desktops have neither. */
+const canVibrate = !APP && typeof navigator.vibrate === "function" && !!(window.matchMedia && matchMedia("(pointer: coarse)").matches);
+const BUZZ = { pick: 6, tick: 4, move: 10, take: 18, opp: 6, wrong: [40, 50, 40], solve: [14, 60, 26], rank: [20, 60, 20, 60, 70], hint: 8, toggle: 8 };
+function haptic(kind) {
+  if (S.haptics === false) return;
+  if (APP) { APP.post({ op: "haptic", kind }); return; }
+  if (!canVibrate || !BUZZ[kind]) return;
+  try { navigator.vibrate(BUZZ[kind]); } catch (e) {}
+}
+
+/* Anonymous event counts (GoatCounter: no cookies, nothing about the person). The list and how to read them:
+   testing/STATS.md. Events wait until the script has loaded (it loads in the background), then go out in order;
+   if it never loads (offline or blocked) they are dropped. */
+const PLATFORM = (() => {
+  if (APP) return String(APP.platform || "iphone");
+  try {
+    const ua = navigator.userAgent || "", touch = navigator.maxTouchPoints > 1;
+    if (/iPad/.test(ua) || /Macintosh/.test(ua) && touch) return "ipad";
+    if (/iPhone|iPod/.test(ua)) return "iphone";
+    if (/Android/.test(ua)) return /Mobile/.test(ua) ? "android-phone" : "android-tablet";
+    if (/CrOS/.test(ua)) return "chromeos";
+    if (/Windows/.test(ua)) return "windows";
+    if (/Macintosh/.test(ua)) return "mac";
+    if (/Linux/.test(ua)) return "linux";
+  } catch (e) {}
+  return "other";
+})();
+const TRACK_PREFIX = APP ? "king-walk-ios/" : "king-walk/";
+const trackQ = [];
+let trackTimer = 0;
+function track(name) { trackQ.push(name); flushTrack(); }
+function flushTrack() {
+  try {
+    const gc = window.goatcounter;
+    if (gc && gc.count) { while (trackQ.length) { const n = trackQ.shift(); gc.count({ path: TRACK_PREFIX + n, title: n, event: true }); } return; }
+  } catch (e) { return; }
+  if (!trackTimer && trackQ.length) {
+    let tries = 0;
+    trackTimer = setInterval(() => { if (++tries > 60 || (window.goatcounter && window.goatcounter.count)) { clearInterval(trackTimer); trackTimer = 0; if (tries <= 60) flushTrack(); } }, 1000);
+  }
+}
+const PLAYED_MARKS = [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500];
+
+/* Game Center (iOS app only). Achievement and leaderboard ids match ios/store/gamecenter.json; the desktop-style
+   achieve() name is kept so another wrapper could pick the same calls up. Game Center ignores repeats. */
+const ACH_RANK = ["", "rank_knight", "rank_bishop", "rank_rook", "rank_queen", "rank_king"];
+function achieve(id) { if (APP && APP.gameCenter) APP.post({ op: "achieve", id }); }
+function reportProgress(p, puzzle) {
+  if (!APP) return;
+  if (APP.gameCenter) {
+    if (p.n > 0) APP.post({ op: "score", board: "rating", value: p.rating });
+    if (p.best > 0) APP.post({ op: "score", board: "streak", value: p.best });
+    if (p.solved >= 1) achieve("first_solve");
+    for (const [n, id] of [[50, "solved_50"], [250, "solved_250"], [1000, "solved_1000"]]) if (p.solved >= n) achieve(id);
+    for (const [n, id] of [[5, "streak_5"], [10, "streak_10"], [20, "streak_20"]]) if (p.best >= n) achieve(id);
+    for (let i = 1; i <= rankIndex(p.peak); i++) achieve(ACH_RANK[i]);
+    if (puzzle && puzzle.clean && puzzle.r - puzzle.before >= 300) achieve("giant_slayer");
+  }
+  if (APP.widget) {
+    const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
+    APP.post({ op: "widget", data: { rating: p.rating, rank: RANKS[ri][1], piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
+      solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now() } });
+  }
+}
+
+/* Sharing: the iOS share sheet in the app, the system share sheet where the browser has one, or the clipboard. */
+function shareText() {
+  const p = me(), ri = rankIndex(p.rating);
+  return "I'm at " + RANKS[ri][1] + " rank in King Walk, with a puzzle rating of " + p.rating + " after " + p.n + (p.n === 1 ? " puzzle" : " puzzles") + ". Chess puzzles that grow with you: " + SITE;
+}
+function shareProgress(btn) {
+  const text = shareText();
+  track("share");
+  if (APP) { APP.post({ op: "share", text }); return; }
+  if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
+  const done = () => { const old = btn.textContent; btn.textContent = "Copied"; setTimeout(() => { btn.textContent = old; }, 1600); };
+  try { navigator.clipboard.writeText(text).then(done, () => window.prompt("Copy this:", text)); } catch (e) { window.prompt("Copy this:", text); }
+}
+
+/* The App Store rating prompt: only in the app, only right after a clean solve, only once someone has solved 20
+   puzzles, and at most every 4 months. iOS decides whether it actually shows (and limits it further). */
+function maybeAskForRating(p) {
+  if (!APP || p.solved < 20 || Date.now() - (S.rateAsked || 0) < 120 * 864e5) return;
+  S.rateAsked = Date.now(); save(); track("rate-ask");
+  setTimeout(() => APP.post({ op: "review" }), 1600);
+}
 
 /* ---------- board: 64 fixed squares, and pieces that slide between them ---------- */
 const FILES = "abcdefgh", SVGNS = "http://www.w3.org/2000/svg";
@@ -870,7 +994,7 @@ async function nextPuzzle() {
   clearTimers(); closePromo();
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
-  $("doneBtns").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
+  $("doneBtns").hidden = true; $("shareRankBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
   $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
@@ -906,7 +1030,7 @@ function playUci(uci) {
   const from = uci.slice(0, 2), to = uci.slice(2, 4);
   if (!game.move({ from, to, promotion: uci[4] })) return;
   lastMove = [from, to]; sel = null; hintSq = []; wrongSq = null;
-  const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move();
+  const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic("opp");
 }
 /* The player tries a move. */
 function tryMove(from, to) {
@@ -925,14 +1049,14 @@ function commit(from, to, promo) {
   sel = null; hintSq = []; overSq = null;
   if (uci === want || mated) {          /* any checkmate counts, even if it is not the listed move */
     lastMove = [from, to]; wrongSq = null; idx++;
-    const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move();
+    const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move");
     locked = true; setButtons(false);
     if (mated || idx >= cur.pz.moves.length) { later(() => finish(true), 260); return; }
     setStatus("good", "Good move! Keep going.", "", "good");
     later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; setButtons(true); showTurn(); }, 280); }, 560);
   } else {          /* wrong: show it, then take it back */
     failed = true; markNow(); locked = true; wrongSq = to; lastMove = [];
-    syncPieces({ from, to }); paint(); sfx.bad();
+    syncPieces({ from, to }); paint(); sfx.bad(); haptic("wrong");
     const o = els.get(to); if (o) later(() => restart(o.el, "nope"), 200);
     restart(frameEl, "shake");
     setStatus("bad", "Not that one. Try again.", "", "bad");
@@ -950,7 +1074,7 @@ function showHint() {
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
   setStatus("hint", hintLevel === 1 ? "Move the piece in the gold circle" : "Move it to the other gold circle", "", "hint");
-  setButtons(true); paint(); markNow();
+  setButtons(true); paint(); markNow(); haptic("hint");
 }
 function showAnswer() {
   if (locked || done) return;
@@ -968,7 +1092,7 @@ const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (
 /* The puzzle is over: update the rating, save, and show the result. */
 function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
-  const p = me(), before = p.rating, rankBefore = rankIndex(p.rating);
+  const p = me(), before = p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
   let delta = 0;
   if (!cur.review) {          /* second tries are practice and leave the rating alone */
@@ -988,16 +1112,19 @@ function finish(solvedIt) {
   }
   delete p.now;
   save();
+  if (!cur.review && PLAYED_MARKS.includes(p.n)) track("played/" + p.n);
+  for (let i = peakRankBefore + 1; i <= rankIndex(p.peak); i++) track("rank/" + RANKS[i][1].toLowerCase());
+  reportProgress(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before });
 
   const rankUp = rankIndex(p.rating) > rankBefore;
   frameEl.classList.add(score > 0 ? "ok" : "miss");
   if (score === 1) {
     setStatus("good", "Solved!", rankUp ? "New rank: " + RANKS[rankIndex(p.rating)][1] : cur.review ? "You got it this time" : "", "good");
-    rankUp ? sfx.rank() : sfx.good();
+    rankUp ? sfx.rank() : sfx.good(); haptic(rankUp ? "rank" : "solve");
     restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   }
-  else if (score === 0.5) { setStatus("good", "Solved with a hint", "", "good"); sfx.good(); }
+  else if (score === 0.5) { setStatus("good", "Solved with a hint", "", "good"); sfx.good(); haptic("solve"); }
   else if (solvedIt) setStatus("bad", "Solved after a miss", cur.review ? "" : "It will come back later", "turn");
   else setStatus("bad", "That was the answer", cur.review ? "" : "It will come back later", "turn");
   $("stLevel").hidden = true;
@@ -1007,7 +1134,9 @@ function finish(solvedIt) {
   void d.offsetWidth; d.classList.add("show");
   const box = $("themes"); box.textContent = ""; let n = 0;
   for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = THEME_LABEL[t]; c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
+  $("shareRankBtn").hidden = !rankUp;
   $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(before);
   if (rankUp) { const cu = document.querySelector(".lad.cur"); if (cu) restart(cu, "pop"); }
   if (delta) restart($("rate"), "bump");
@@ -1049,7 +1178,7 @@ boardEl.addEventListener("pointerdown", e => {
   const p = game.get(sq), o = els.get(sq);
   if (p && p.color === orient && o) {
     const was = sel === sq;
-    sel = sq; paint();
+    sel = sq; paint(); if (!was) haptic("pick");
     drag = { id: e.pointerId, from: sq, x: e.clientX, y: e.clientY, o, moved: false, was, touch: e.pointerType === "touch" };
     try { boardEl.setPointerCapture(e.pointerId); } catch (err) {}
   } else { sel = null; paint(); }
@@ -1071,7 +1200,7 @@ boardEl.addEventListener("pointermove", e => {
     const r = boardEl.getBoundingClientRect(), cell = r.width / 8;
     drag.o.el.style.transform = "translate(" + (e.clientX - r.left - cell / 2) + "px," + (e.clientY - r.top - cell / 2) + "px)";
     const sq = sqAt(e.clientX, e.clientY), over = sq && sq !== drag.from && canGo(drag.from, sq) ? sq : null;
-    if (over !== overSq) { overSq = over; paint(); }
+    if (over !== overSq) { overSq = over; paint(); if (over) haptic("tick"); }
   }
 });
 function endDrag(e, cancel) {
@@ -1143,6 +1272,7 @@ function renderPanel(fromRating) {
   for (const b of $("modeSeg").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.mode === p.mode));
   $("modeSeg").style.setProperty("--i", MODE_INDEX[p.mode]);
   $("soundBtn").setAttribute("aria-pressed", String(S.sound));
+  $("hapticsBtn").setAttribute("aria-pressed", String(S.haptics !== false));
   /* chart: every value is a number from cleanState or finish, so building the markup from them is safe */
   const h = p.hist, mn = Math.min(...h), mx = Math.max(...h), span = Math.max(40, mx - mn);
   const X = i => h.length < 2 ? 296 : 4 + i / (h.length - 1) * 292, Y = v => 56 - (v - mn) / span * 48;
@@ -1159,8 +1289,20 @@ $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", nextPuzzle);
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
-$("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); });
-$("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined) { me().mode = b.dataset.mode; save(); renderPanel(); } });
+$("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); else track("sound-off"); haptic("toggle"); });
+$("hapticsBtn").addEventListener("click", () => { S.haptics = S.haptics === false; save(); renderPanel(); if (S.haptics) haptic("toggle"); else track("haptics-off"); });
+$("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined && me().mode !== b.dataset.mode) { me().mode = b.dataset.mode; save(); renderPanel(); haptic("toggle"); track("mode/" + b.dataset.mode); } });
+$("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
+$("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn")));
+$("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter" }); track("gamecenter"); } });
+$("hapticsRow").hidden = !APP && !canVibrate;
+$("gcRow").hidden = !(APP && APP.gameCenter);
+if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
+  $("helpSaved").textContent = "Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.";
+  $("saveHelp").textContent = "Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.";
+  /* the policy pages open in Safari from the website, so they are the current versions */
+  for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href");
+}
 
 /* Start over: the first tap turns the button red. It only becomes active after a pause, so a double tap cannot erase progress. */
 let resetTimers = [];
@@ -1169,7 +1311,7 @@ $("resetBtn").addEventListener("click", () => {
   const b = $("resetBtn");
   if (b.dataset.armed) {
     resetIdle();
-    S.players = [newPlayer(START_RATING)]; S.cur = 0; seenCache = {}; save(); renderPanel(); nextPuzzle();
+    S.players = [newPlayer(START_RATING)]; S.cur = 0; seenCache = {}; save(); renderPanel(); nextPuzzle(); track("reset"); reportProgress(me());
     return;
   }
   b.classList.add("danger"); b.textContent = "Erase progress?"; b.disabled = true;
@@ -1184,6 +1326,7 @@ $("copyCode").addEventListener("click", () => {
   const ok = () => { $("saveNote").textContent = "Copied. Paste it on the other device and press Load."; };
   const manual = () => { $("saveNote").textContent = "The code is selected above. Copy it, then paste it on the other device."; };
   try { navigator.clipboard.writeText(code).then(ok, manual); } catch (e) { manual(); }
+  track("save-code/copy");
 });
 $("loadCode").addEventListener("click", () => {
   const btn = $("loadCode"); let next = null;
@@ -1191,11 +1334,21 @@ $("loadCode").addEventListener("click", () => {
   if (!next) { $("saveNote").textContent = "That code did not work. Copy the whole code and try again."; delete btn.dataset.sure; btn.textContent = "Load pasted code"; return; }
   if (!btn.dataset.sure) { btn.dataset.sure = "1"; btn.textContent = "Replace progress here?"; $("saveNote").textContent = "This replaces the progress saved in this browser."; return; }
   delete btn.dataset.sure; btn.textContent = "Load pasted code";
-  S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = "Loaded."; nextPuzzle();
+  S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = "Loaded."; nextPuzzle(); track("save-code/load"); reportProgress(me());
 });
 
 /* ---------- startup ---------- */
 renderPanel();
+{
+  const p = me(), fresh = !S.updatedAt;
+  if (fresh) { track("start"); track("platform/" + PLATFORM); }
+  else {
+    if (!p.since) { p.since = Date.now(); save(); }          /* a save from before this was recorded: count from now */
+    const days = (Date.now() - p.since) / 864e5;
+    [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); } });
+  }
+  if (APP) setTimeout(() => reportProgress(p), 1500);          /* after Game Center has had a moment to sign in */
+}
 if (typeof Chess !== "function") {
   setStatus("bad", "The game could not load", "Reload the page", "bad");
 } else {
