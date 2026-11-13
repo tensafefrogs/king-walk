@@ -24,12 +24,13 @@ jobs:
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+      BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Check the secrets are set
         id: secrets
         run: |
-          if [ -z "$ASC_KEY_P8" ]; then echo "::notice::App Store Connect secrets aren't set yet (ios/README.md, One-time setup); nothing uploaded."; echo ok=false >> "$GITHUB_OUTPUT"; else echo ok=true >> "$GITHUB_OUTPUT"; fi
+          if [ -z "$ASC_KEY_P8" ] || [ -z "$BUNDLE_ID" ]; then echo "::notice::App Store Connect secrets or the BUNDLE_ID variable aren't set yet (ios/README.md, One-time setup); nothing uploaded."; echo ok=false >> "$GITHUB_OUTPUT"; else echo ok=true >> "$GITHUB_OUTPUT"; fi
       - run: pip install pyjwt cryptography
         if: steps.secrets.outputs.ok == 'true'
       - name: Upload listing and screenshots

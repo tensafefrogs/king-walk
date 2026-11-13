@@ -18,7 +18,9 @@ struct Progress: Codable, Equatable {
     var hist: [Int]         // the last 30 ratings, oldest first
     var at: Double          // when, in milliseconds since 1970
 
-    static let appGroup = "group.com.geoffstearns.kingwalk"
+    /// The app group the app and the widget share: group.<bundle ID>, from the KW_BUNDLE_ID build setting (project.yml),
+    /// written into each target's Info.plist
+    static let appGroup = Bundle.main.object(forInfoDictionaryKey: "KingWalkAppGroup") as? String ?? ""
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
 
@@ -37,7 +39,7 @@ struct Progress: Codable, Equatable {
                                  at: Date().timeIntervalSince1970 * 1000)
 
     static func load() -> Progress? {
-        guard let data = UserDefaults(suiteName: appGroup)?.data(forKey: key) else { return nil }
+        guard !appGroup.isEmpty, let data = UserDefaults(suiteName: appGroup)?.data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(Progress.self, from: data)
     }
 }

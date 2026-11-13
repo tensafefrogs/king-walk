@@ -50,6 +50,39 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         GameCenter.shared.signIn()
     }
 
+    // MARK: iPhone Duo fold
+
+    #if KINGWALK_SDK_27_1   // set by the build when Xcode 27.1 or later is used (see .github/workflows/ios.yml)
+    // Half open, the fold divides the inner screen. Tell the page where it is, so it can lay out each half on its own
+    // (window.kingWalkFold in index.html): held like a book, the board on one page and progress on the other; propped
+    // up like a laptop, the board on the flat half and progress on the upright half. Coordinates are the web view's
+    // points, which are the page's CSS pixels.
+    private var lastFold = ""
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sendFold()
+    }
+
+    private func sendFold(force: Bool = false) {
+        let js: String
+        var fold: CGRect?
+        if #available(iOS 27.1, *) { fold = view.reservedRegions(kind: .division).first?.frame }   // the app still runs on iOS 16
+        if let f = fold {
+            js = String(format: "window.kingWalkFold&&kingWalkFold({x:%.1f,y:%.1f,w:%.1f,h:%.1f})", f.minX, f.minY, f.width, f.height)
+        } else {
+            js = "window.kingWalkFold&&kingWalkFold(null)"
+        }
+        guard force || js != lastFold else { return }
+        lastFold = js
+        webView.evaluateJavaScript(js)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        sendFold(force: true)
+    }
+    #endif
+
     // MARK: Messages from the page
 
     func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
