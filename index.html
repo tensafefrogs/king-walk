@@ -679,6 +679,9 @@ async function pickPuzzle(resume) {
 let actx = null;
 function wakeAudio() {
   if (!S.sound) return;
+  /* iOS mutes web sound when the ring switch is on silent. "playback" tells it to treat the game's sound like
+     media, so it plays anyway. The Sound switch in the game's settings turns it off. */
+  try { if (navigator.audioSession && navigator.audioSession.type !== "playback") navigator.audioSession.type = "playback"; } catch (e) {}
   try {
     if (!actx) {
       actx = new (window.AudioContext || window.webkitAudioContext)();
