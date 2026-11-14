@@ -44,7 +44,8 @@ def upload(lib_id, kind, path, category, name):
     """An image or video in the library with this reference name, uploading it first when it isn't there yet."""
     res = 'appAssetLibraryImages' if kind == 'image' else 'appAssetLibraryVideos'
     rel = 'images' if kind == 'image' else 'videos'
-    for a in call('GET', f'/v1/appAssetLibraries/{lib_id}/{rel}?filter[referenceName]={urllib.parse.quote(name)}')['data']:
+    for a in call('GET', f'/v1/appAssetLibraries/{lib_id}/{rel}?limit=200')['data']:
+        if a['attributes'].get('referenceName') != name: continue
         if a['attributes']['state'] not in ('FAILED', 'AWAITING_UPLOAD'):
             print(f'{name}: already in the library ({a["attributes"]["state"]})')
             return a
