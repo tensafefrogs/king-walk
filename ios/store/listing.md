@@ -104,6 +104,8 @@ Ideas for later sets: the widget on a home screen (needs a real device screensho
 
 `gamecenter.json` lists the 10 leaderboards (Puzzle Rating, Best Streak, Hardest Solve, Daily Streak and a streak for each rank), 22 achievements (all 1000 points allowed) and 7 challenges (each rank's streak, and Hardest Solve), with names, descriptions and images. `gamecenter.py` turns Game Center on for the app, creates whatever is missing and adds Game Center to the version being prepared. Ids are `kingwalk.<id>`. Achievements and leaderboards can't be deleted, and points can't change, once they're live, so settle them before the first release.
 
+Challenge images are 3840x2160 (Apple turned 1920x1080 down as IMAGE_INCORRECT_DIMENSIONS); the script prints whether Apple accepted each one. The order challenges appear in can't be set through the API.
+
 If the script can't do a step (it says which), do it in App Store Connect → the app → Features → Game Center: add each leaderboard and achievement with the id, name, description and image from `gamecenter.json` and `gamecenter/`, then on the version page under Game Center, turn it on and add them all.
 
 ## App Privacy
