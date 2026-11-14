@@ -293,7 +293,7 @@ struct DailyWidgetView: View {
             switch family {
             case .accessoryCircular:
                 ZStack {
-                    AccessoryWidgetBackgroundCompat()
+                    AccessoryWidgetBackground()
                     VStack(spacing: 0) {
                         Image(systemName: done ? "checkmark" : "calendar").font(.system(size: 14, weight: .bold))
                         Text(count).font(.system(size: 15, weight: .bold, design: .rounded)).minimumScaleFactor(0.6)
@@ -334,11 +334,6 @@ struct DailyWidgetView: View {
         .widgetBackground(family.isAccessory ? AnyView(Color.clear)
                           : AnyView(LinearGradient(colors: [done ? Palette.deepTeal : Color(red: 0x1c / 255, green: 0x78 / 255, blue: 0x68 / 255), Palette.ink], startPoint: .top, endPoint: .bottom)))
     }
-}
-
-/// the lock screen's round backing, where iOS has it
-struct AccessoryWidgetBackgroundCompat: View {
-    var body: some View { AccessoryWidgetBackground() }
 }
 
 // MARK: Control Center
