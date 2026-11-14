@@ -327,6 +327,11 @@ html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outl
 html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs > summary { color: var(--muted); min-height: 34px; }
+/* the first puzzle's hint */
+.tip { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; padding: 8px 6px 8px 14px; border-radius: var(--r-ctl); background: var(--gold-soft); font: 600 15px/1.3 var(--font-display); animation: rise 0.3s var(--ease-out) both; }
+.tip[hidden] { display: none; }
+.tip span { flex: 1; }
+.tip-x { all: unset; cursor: pointer; font-size: 22px; line-height: 1; padding: 4px 8px; color: var(--muted); border-radius: 8px; }
 .runs > summary .label { flex: 1; }
 .runs-sum { font: 700 13px var(--font-display); color: var(--muted); }
 .runs[open] > .run-row { margin-top: 8px; animation: rise 0.28s var(--ease-out) both; }
@@ -526,7 +531,7 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 </style>
-<meta name="description" content="Free chess puzzles that grow with you. 53,000 puzzles from real games, with a rating that tracks your level. No account needed.">
+<meta name="description" content="Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.">
 <meta name="theme-color" content="#edf1ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111817" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
@@ -541,16 +546,17 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
 <meta property="og:title" content="King Walk">
-<meta property="og:description" content="Free chess puzzles that grow with you. 53,000 puzzles from real games, with a rating that tracks your level. No account needed.">
-<meta property="og:url" content="https://geoffstearns.com/king-walk/">
-<meta property="og:image" content="https://geoffstearns.com/king-walk/og.png">
+<meta property="og:description" content="Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.">
+<!-- link previews: the website build (pages.yml) makes these addresses absolute from the SITE_URL variable -->
+<meta property="og:url" content="./">
+<meta property="og:image" content="og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="King Walk: chess puzzles that grow with you.">
+<meta property="og:image:alt" content="King Walk: chess puzzles that fight back.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="King Walk">
-<meta name="twitter:description" content="Free chess puzzles that grow with you. 53,000 puzzles from real games, with a rating that tracks your level. No account needed.">
-<meta name="twitter:image" content="https://geoffstearns.com/king-walk/og.png">
+<meta name="twitter:description" content="Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.">
+<meta name="twitter:image" content="og.png">
 <style>
 @font-face{font-family:'Fredoka';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/fredoka-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Fredoka';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/fredoka-latin-600-normal.woff2) format('woff2')}
@@ -607,6 +613,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
               <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
               <li>The daily puzzle is the same for everyone each day. Monday's is gentle, and each day gets a little harder, up to Sunday. Solve it every day to grow your daily streak. It doesn't touch your rating.</li>
+              <li>Every 7 days in a row earns a streak freeze (you can hold 2). Skip a day and one is used, so your streak keeps going.</li>
               <li>Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.</li>
               <li id="helpSaved">Progress is saved in this browser only. There are no accounts.</li>
               <li>The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.</li>
@@ -677,6 +684,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
+      <p class="tip" id="tip" hidden><span>Find the best move: tap a piece, then tap where it goes.</span><button type="button" class="tip-x" id="tipX" aria-label="Close">×</button></p>
     </div>
 
     <section class="card stack progress" aria-label="Progress">
@@ -801,14 +809,15 @@ const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
   return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily() };
 }
-function newDaily() { return { streak: 0, best: 0, last: 0, days: {} }; }
+function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
+const FREEZE_MAX = 2;          /* streak freezes a player can hold */
 const count = v => Math.max(0, v | 0);
 const MARKS = "gyrx";          /* a daily puzzle move: g first try, y with a hint, r after a wrong try, x shown */
 function cleanDaily(d) {
   const q = newDaily(); if (!d || typeof d !== "object") return q;
-  q.streak = count(d.streak); q.best = Math.max(count(d.best), q.streak); q.last = count(d.last);
+  q.streak = count(d.streak); q.best = Math.max(count(d.best), q.streak); q.last = count(d.last); q.freezes = clamp(count(d.freezes), 0, FREEZE_MAX);
   if (d.days && typeof d.days === "object") for (const k of Object.keys(d.days).map(Number).filter(n => n > 0).sort((a, b) => a - b).slice(-60)) {
-    const v = d.days[k]; if (v && typeof v.m === "string" && /^[gyrx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
+    const v = d.days[k]; if (v && v.fz === true) q.days[k] = { fz: true }; else if (v && typeof v.m === "string" && /^[gyrx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
   }
   if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400) };
   return q;
@@ -835,7 +844,7 @@ function cleanState(raw) {
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, remind: Number.isInteger(raw.remind) && raw.remind >= -1 && raw.remind < 24 ? raw.remind : -1,
+  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, tip: raw.tip === true, remind: Number.isInteger(raw.remind) && raw.remind >= -1 && raw.remind < 24 ? raw.remind : -1,
     awards: Array.isArray(raw.awards) ? raw.awards.filter(a => typeof a === "string" && a.length < 40).slice(0, 64) : null, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
@@ -1027,7 +1036,7 @@ function reportProgress(p, puzzle) {
     APP.post({ op: "widget", data: { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
       labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
       solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now(),
-      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyN: dayNumber(), dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily") } });
+      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyN: dayNumber(), dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0 } });
   }
 }
 
@@ -1060,7 +1069,12 @@ function shareText(last) {
 function shareProgress(btn, last) {
   const text = shareText(last);
   track("share");
-  if (APP) { APP.post({ op: "share", text }); return; }
+  const img = last && last.daily && dailyImg && dailyImg.n === last.daily.n ? dailyImg : null;          /* the daily: its picture too */
+  if (APP) { APP.post(img ? { op: "share", text, image: img.url } : { op: "share", text }); return; }
+  if (img && navigator.canShare) {
+    const file = new File([img.blob], "king-walk-daily-" + img.n + ".png", { type: "image/png" });
+    if (navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text }).catch(() => {}); return; }
+  }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
   const done = () => { const old = btn.textContent; btn.textContent = T("Copied"); setTimeout(() => { btn.textContent = old; }, 1600); };
   try { navigator.clipboard.writeText(text).then(done, () => window.prompt(T("Copy this:"), text)); } catch (e) { window.prompt(T("Copy this:"), text); }
@@ -1279,7 +1293,7 @@ async function nextPuzzle() {
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
-    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY) DAILY.t0 = Date.now(); }, 300);
+    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY) DAILY.t0 = Date.now(); showTip(); }, 300);
   }, REDUCED ? 300 : 760);
 }
 
@@ -1302,7 +1316,11 @@ function tryMove(from, to) {
   }
   commit(from, to, "");
 }
+/* the very first puzzle: one line on how to play, until the first move or the close button */
+function showTip() { $("tip").hidden = !!S.tip || me().n > 0 || !!RUN || !!DAILY; }
+function hideTip() { if (S.tip) return; $("tip").hidden = true; S.tip = true; save(); }
 function commit(from, to, promo) {
+  hideTip();
   const want = cur.pz.moves[idx], uci = from + to + promo;
   const mv = game.move({ from, to, promotion: promo || undefined });
   if (!mv) { sel = null; syncPieces(); paint(); return; }
@@ -1434,6 +1452,7 @@ const AWARDS = {
   daily_3: ["Achievement", "Hat Trick", "The daily puzzle, solved 3 days in a row.", { number: 3, daily: true }],
   daily_7: ["Achievement", "Full Week", "The daily puzzle, solved 7 days in a row.", { number: 7, daily: true }],
   daily_30: ["Achievement", "Thirty Days", "The daily puzzle, solved 30 days in a row.", { number: 30, daily: true }],
+  freeze_used: ["Streak freeze", "Streak saved!", "A streak freeze kept your {n}-day streak going.", { ice: true, n: 0 }],
   giant_slayer: ["Achievement", "Giant Slayer", "You cleanly solved a puzzle rated 300 or more above you.", { slayer: true }],
 };
 RANKS.forEach((r, i) => {
@@ -1465,12 +1484,15 @@ function checkAwards(p, puzzle) {
 
 /* the poster at the top of the celebration screen, 300 x 220 */
 function posterSvg(art) {
-  const sky = art.gold ? "var(--p-gold)" : art.daily ? "var(--p-coral)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
-  const rayColor = art.gold ? "var(--p-sun)" : art.number ? "rgba(253,251,242,0.16)" : "var(--p-cream)";
+  const sky = art.ice ? "#cfe9f5" : art.gold ? "var(--p-gold)" : art.daily ? "var(--p-coral)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
+  const rayColor = art.ice ? "#eef8fc" : art.gold ? "var(--p-sun)" : art.number ? "rgba(253,251,242,0.16)" : "var(--p-cream)";
   let rays = ""; for (let i = 0; i < 16; i++) { const a0 = i / 16 * Math.PI * 2, a1 = (i + 0.5) / 16 * Math.PI * 2;
     rays += `M150,120 L${150 + Math.cos(a0) * 260},${120 + Math.sin(a0) * 260} L${150 + Math.cos(a1) * 260},${120 + Math.sin(a1) * 260} Z`; }
   let fg = "";
-  if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 134 : 140}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
+  if (art.ice) fg = `<path d="M0,182 C80,164 220,164 300,182 L300,220 L0,220 Z" fill="#8ccbe8"/>`          /* a blue flame on the ice */
+    + `<g class="cele-piece"><path d="M150,28 C188,72 214,104 206,148 C200,182 176,198 150,198 C124,198 100,182 94,148 C88,116 110,96 120,66 C128,96 138,104 148,106 C142,78 138,56 150,28 Z" fill="#3d9bd8" stroke="var(--p-ink)" stroke-width="5" stroke-linejoin="round"/>`
+    + `<path d="M150,96 C168,118 178,134 174,156 C171,172 162,180 150,180 C138,180 129,172 126,156 C123,138 136,126 142,112 C146,124 150,128 154,128 C152,116 148,106 150,96 Z" fill="#cfe9f5"/></g>`;
+  else if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 134 : 140}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
     + `<path d="M0,190 C80,170 220,170 300,190 L300,220 L0,220 Z" fill="var(--p-mint)"/>`;
   else if (art.slayer) fg = `<circle cx="205" cy="80" r="40" fill="var(--p-gold)"/><path d="M0,180 C90,150 210,150 300,180 L300,220 L0,220 Z" fill="var(--p-teal)"/>`
     + `<g class="cele-piece"><svg x="150" y="40" width="130" height="130" viewBox="0 0 100 100"><use href="#pc-bk"/></svg><svg x="40" y="104" width="64" height="64" viewBox="0 0 100 100"><use href="#pc-wp"/></svg></g>`;
@@ -1577,25 +1599,47 @@ function leaveDaily() {
   DAILY = null; resumeMain = true; nextPuzzle(); renderPanel();
 }
 /* a day's result into p.daily: solved after yesterday's grows the streak, after a gap starts it again at 1,
-   and showing the answer ends it */
+   and showing the answer ends it. Every 7 days in a row earns a streak freeze (up to FREEZE_MAX); returns
+   true when this one did. */
 function recordDaily(D, n, m, t, ok) {
   D.days[n] = { m, t, ok }; delete D.now;
   const keys = Object.keys(D.days).map(Number).sort((a, b) => a - b); while (keys.length > 60) delete D.days[keys.shift()];
+  const before = D.streak;
   if (ok) { D.streak = D.last === n - 1 ? D.streak + 1 : D.last === n ? D.streak : 1; D.last = n; D.best = Math.max(D.best, D.streak); }
   else D.streak = 0;
+  if (ok && D.streak > before && D.streak % 7 === 0 && (D.freezes || 0) < FREEZE_MAX) { D.freezes = (D.freezes || 0) + 1; return true; }
+  return false;
+}
+/* Skipped days, covered by streak freezes: when the days missed since the last solve are no more than the
+   freezes held, each one uses a freeze and the streak carries on (frozen days don't add to it). Returns the
+   number used. Called at launch and when a new day starts while the game is open. */
+function applyFreezes(p, n = dayNumber()) {
+  const D = p.daily, gap = n - 1 - D.last;
+  if (!D.streak || !D.last || gap <= 0 || gap > (D.freezes || 0)) return 0;
+  for (let k = D.last + 1; k < n; k++) D.days[k] = { fz: true };
+  D.freezes -= gap; D.last = n - 1;
+  return gap;
+}
+function checkFreezes() {
+  const p = me(), used = applyFreezes(p);
+  if (!used) return;
+  save(); track("daily/freeze-used"); reportProgress(p);
+  AWARDS.freeze_used[3].n = p.daily.streak;
+  setTimeout(() => celebrate(["freeze_used"]), REDUCED ? 300 : 1200);
 }
 function finishDaily(solved) {
   const d = DAILY, p = me(), D = p.daily, t = dailySpent(), moves = (cur.pz.moves.length) >> 1;
   /* solved: the moves played (a different mate can end it early); shown: every move */
   const m = Array.from({ length: solved ? Math.max(1, d.marks.length) : moves }, (_, j) => d.marks[j] || (solved ? "g" : "x")).join("");
-  recordDaily(D, d.n, m, t, solved); save();
+  const froze = recordDaily(D, d.n, m, t, solved); save();
+  if (froze) track("daily/freeze-earned");
   track(solved ? "daily/solved" : "daily/missed");
   if (solved && [3, 7, 14, 30, 50, 100, 365].includes(D.streak)) track("daily/streak/" + D.streak);
   if (APP && APP.gameCenter && solved) APP.post({ op: "score", board: "daily_streak", value: D.streak });
   checkAwards(p);
   frameEl.classList.add(solved ? "ok" : "miss");
   if (solved) {
-    setStatus("good", T("Daily #{n} solved!", { n: d.n }), D.streak >= 2 ? T("{n} days in a row", { n: D.streak }) : T("Come back tomorrow for the next one"), "good");
+    setStatus("good", T("Daily #{n} solved!", { n: d.n }), froze ? "\ud83e\uddca " + T("Streak freeze earned") : D.streak >= 2 ? T("{n} days in a row", { n: D.streak }) : T("Come back tomorrow for the next one"), "good");
     sfx.rank(); haptic("rank"); restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
@@ -1604,7 +1648,7 @@ function finishDaily(solved) {
   lastResult = { daily: { n: d.n } };
   $("nextLabel").textContent = T("Next puzzle");
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
-  renderPanel(); sendDaily();
+  renderPanel(); sendDaily(); prepareDailyImage(d.n);
   $("shareRankBtn").focus({ preventScroll: true });
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
@@ -1621,14 +1665,54 @@ function dailyShareText(n) {
   if (SHARE_URL) lines.push(APP ? SHARE_URL : SHARE_URL + "#daily");
   return lines.join("\n");
 }
+/* The daily result as a square picture (1080x1080) for the share sheet, alongside the text: the number and day,
+   a square per move in the share's colours, the time and the streak. Made ahead of the tap (when the daily is
+   finished, or the game opens with it done), since browsers only allow sharing straight from a tap. */
+let dailyImg = null;          /* { n, blob, url } */
+const IMG_COLOR = { g: "#56c2ad", y: "#f2c230", r: "#e2704f", x: "#5b6b68" };
+async function prepareDailyImage(n) {
+  const p = me(), r = dailyDone(p, n);
+  if (!r || !r.m || (dailyImg && dailyImg.n === n && dailyImg.m === r.m)) return;
+  try {
+    await Promise.all(["700 120px Fredoka", "600 48px Fredoka", "700 34px Nunito"].map(f => document.fonts.load(f).catch(() => {})));
+    const S = 1080, c = document.createElement("canvas"); c.width = c.height = S; const g = c.getContext("2d");
+    const bg = g.createRadialGradient(S * 0.3, S * 0.25, 40, S * 0.5, S * 0.5, S * 0.85); bg.addColorStop(0, "#1f8572"); bg.addColorStop(0.55, "#165547"); bg.addColorStop(1, "#0e2f29");
+    g.fillStyle = bg; g.fillRect(0, 0, S, S);
+    const mark = new Image(); mark.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(document.querySelector(".brand .mark").outerHTML.replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"'));
+    await new Promise(res => { mark.onload = res; mark.onerror = res; });
+    try { g.drawImage(mark, 80, 80, 110, 110); } catch (e) {}
+    g.fillStyle = "#fdfbf2"; g.textBaseline = "middle";
+    g.font = "600 56px Fredoka, sans-serif"; g.fillText("King Walk", 215, 138);
+    g.textAlign = "center";
+    g.font = "700 128px Fredoka, sans-serif"; g.fillText(T("Daily #{n}", { n }), S / 2, 360);
+    g.fillStyle = "rgba(253,251,242,0.75)"; g.font = "600 48px Fredoka, sans-serif";
+    g.fillText(new Intl.DateTimeFormat(LANG, { weekday: "long", day: "numeric", month: "long" }).format(dayDate(n)), S / 2, 455);
+    const k = r.m.length, size = Math.min(150, (S - 200 - (k - 1) * 28) / k), w = k * size + (k - 1) * 28;
+    for (let i = 0; i < k; i++) {
+      const x = (S - w) / 2 + i * (size + 28), y = 560;
+      g.fillStyle = IMG_COLOR[r.m[i]] || IMG_COLOR.x; g.beginPath(); g.roundRect(x, y, size, size, size * 0.2); g.fill();
+      g.lineWidth = 8; g.strokeStyle = "#16302c"; g.stroke();
+    }
+    const st = p.daily.last === n ? p.daily.streak : 0;
+    g.fillStyle = "#fdfbf2"; g.font = "600 64px Fredoka, sans-serif";
+    g.fillText("\u23f1 " + fmtTime(r.t) + (st >= 2 ? "     \ud83d\udd25 " + st : ""), S / 2, 820);
+    g.fillStyle = "#f2c230"; g.font = "700 34px Nunito, sans-serif";
+    g.fillText(SHARE_URL ? SHARE_URL.replace(/^https?:\/\//, "").replace(/\/$/, "") : T("Chess puzzles that fight back."), S / 2, 980);
+    const blob = await new Promise(res => c.toBlob(res, "image/png"));
+    const url = APP ? await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); }) : "";
+    if (blob) dailyImg = { n, m: r.m, blob, url };
+  } catch (e) {}
+}
 /* the header button: Daily, filled, while today's puzzle waits; once it's done, the daily streak (tapping it shares the
    result); Puzzles while the daily is being played */
 function renderDaily() {
   const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p);
   const playing = !!DAILY && !today;
+  if (today) prepareDailyImage(dayNumber());
   b.classList.toggle("on", playing); b.classList.toggle("todo", !DAILY && !today);
-  $("dailyBtnTxt").textContent = playing ? T("Puzzles") : today ? "\ud83d\udd25 " + st : T("Daily");
-  b.setAttribute("aria-label", playing ? T("Back to puzzles") : today ? T("Daily puzzle") + ". " + T("Done today.") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + " " + T("Share") : T("Daily puzzle"));
+  const fz = p.daily.freezes || 0;
+  $("dailyBtnTxt").textContent = playing ? T("Puzzles") : today ? "\ud83d\udd25 " + st + (fz ? " \ud83e\uddca" + (fz > 1 ? fz : "") : "") : T("Daily");
+  b.setAttribute("aria-label", playing ? T("Back to puzzles") : today ? T("Daily puzzle") + ". " + T("Done today.") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + (fz ? " " + T("Streak freezes: {n}", { n: fz }) + "." : "") + " " + T("Share") : T("Daily puzzle"));
 }
 const renderDailyBtn = renderDaily;
 /* the app: the widget's daily line and the reminders for the next week */
@@ -1968,11 +2052,12 @@ function renderPanel(fromRating) {
 }
 
 $("hintBtn").addEventListener("click", showHint);
+$("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY) leaveDaily(); else nextPuzzle(); });
 $("dailyBtn").addEventListener("click", () => { haptic("toggle"); if (DAILY && !dailyDone(me())) leaveDaily(); else startDaily(); });          /* done today: startDaily shares */
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
-setInterval(() => { renderDaily(); }, 60000);          /* the countdown, and a new day */
+setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
 $("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
 $("endRunBtn").addEventListener("click", () => { if (RUN) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
@@ -2098,6 +2183,7 @@ renderPanel();
     [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); } });
   }
   if (!S.awards) { S.awards = earnedAwards(p); if (S.updatedAt) save(); }
+  checkFreezes();
   if (APP) setTimeout(() => { reportProgress(p); sendDaily(); }, 1500);          /* after Game Center has had a moment to sign in */
 }
 if (typeof Chess !== "function") {

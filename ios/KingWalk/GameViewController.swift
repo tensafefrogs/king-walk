@@ -132,7 +132,11 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         case "haptic":
             if let kind = body["kind"] as? String { Haptics.play(kind) }
         case "share":
-            if let text = body["text"] as? String { share(text) }
+            // the daily puzzle's result also comes as a picture (a PNG data URL), shared with the text
+            var image: UIImage?
+            if let url = body["image"] as? String, let comma = url.firstIndex(of: ","),
+               let data = Data(base64Encoded: String(url[url.index(after: comma)...])) { image = UIImage(data: data) }
+            if let text = body["text"] as? String { share(text, image: image) }
         case "review":
             // The page decides when (after a clean solve, once the player has solved 20); iOS decides whether to show it
             if let scene = view.window?.windowScene { AppStore.requestReview(in: scene) }
@@ -158,8 +162,8 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
     }
 
     /// The iOS share sheet for "Share"
-    private func share(_ text: String) {
-        let sheet = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+    private func share(_ text: String, image: UIImage? = nil) {
+        let sheet = UIActivityViewController(activityItems: image.map { [$0, text] } ?? [text], applicationActivities: nil)
         if let popover = sheet.popoverPresentationController {   // iPad: anchored near the top right, where the menu is
             popover.sourceView = view
             popover.sourceRect = CGRect(x: view.bounds.maxX - 40, y: view.safeAreaInsets.top + 40, width: 1, height: 1)
