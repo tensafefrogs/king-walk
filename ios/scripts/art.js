@@ -75,7 +75,8 @@ function badge(a) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="${sky}"/>${scene}</svg>`;
 }
 
-/* A challenge image, 1920x1080, no text: Game Center shows the challenge's name over it. Its card crops to about the
+/* A challenge image, drawn at 1920x1080 and saved at 3840x2160 (Apple rejects 1920x1080 as IMAGE_INCORRECT_DIMENSIONS;
+   3840x2160 is the size Game Center's game activities take), no text: Game Center shows the challenge's name over it. Its card crops to about the
    middle three quarters and darkens the bottom third under the name, so the piece stands big in the middle, high up.
    Each rank has its own colours, from a pale morning for Pawn to a starry night for King; Hardest Solve is a gold
    sky over one tall peak. */
@@ -149,8 +150,8 @@ function challengeArt(kind, t) {
   try { fs.unlinkSync(path.join(gc, "challenge-streak.png")); } catch (e) {}
   const arts = [["challenge-hardest.png", challengeArt("hardest")], ...["p", "n", "b", "r", "q", "k"].map(t => [`challenge-streak-${t}.png`, challengeArt("streak", t)])];
   for (const [name, svg] of arts) {
-    await p.setViewportSize({ width: 1920, height: 1080 });
-    await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block}</style>${svg}`);
+    await p.setViewportSize({ width: 3840, height: 2160 });
+    await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block;width:3840px;height:2160px}</style>${svg}`);
     await p.screenshot({ path: path.join(gc, name) });
   }
   await b.close();

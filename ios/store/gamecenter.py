@@ -5,7 +5,7 @@ from gamecenter/), and adds Game Center to the version being prepared. What's al
 that names and descriptions are brought up to date.
 
 usage: python3 ios/store/gamecenter.py [--dry-run]
-At the end it puts the challenges in gamecenter.json's order and prints what App Store Connect holds for each one.
+At the end it prints what App Store Connect holds for each challenge, including whether Apple accepted its image.
 Credentials as in asc.py. The App Store listing workflow runs it when gamecenter.json or the images change.
 
 Ids: the page reports short names (index.html: achieve() and reportProgress()); the app adds the prefix "kingwalk."
@@ -44,8 +44,9 @@ def every(path):
 
 
 def changed(image, file):
-    """the uploaded image isn't this file (compared by size, which any new artwork changes)"""
-    return (image.get('attributes') or {}).get('fileSize') not in (None, os.path.getsize(file))
+    """the uploaded image isn't this file (compared by size, which any new artwork changes), or Apple rejected it"""
+    a = image.get('attributes') or {}
+    return a.get('fileSize') not in (None, os.path.getsize(file)) or ((a.get('assetDeliveryState') or {}).get('state') == 'FAILED')
 
 
 def post_with(kind, attrs, parent_kind, parent_id, rel_names, what):
@@ -93,20 +94,6 @@ def languages():
     for f in sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json'))):
         t = json.load(open(f)); out.append((t['locale'], t.get('gamecenter', {})))
     return out
-
-
-def order_challenges(did, cfg):
-    """Game Center lists challenges in the order of gamecenter.json (the ranks, Pawn first, then Hardest Solve).
-    Leaderboards and achievements are ordered the same way, by replacing the relationship list in order."""
-    have = {c['attributes'].get('vendorIdentifier'): c['id'] for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges')}
-    ids = [have[PREFIX + c['id']] for c in cfg.get('challenges', []) if PREFIX + c['id'] in have]
-    if not ids or DRY: return
-    try:
-        request('PATCH', f'/v1/gameCenterDetails/{did}/relationships/gameCenterChallenges',
-                {'data': [{'type': 'gameCenterChallenges', 'id': i} for i in ids]})
-        log('Challenges ordered:', ', '.join(c['id'] for c in cfg['challenges']))
-    except ApiError as e:
-        log('Challenges not ordered (set the order in App Store Connect → Game Center → Challenges):', e.code, e.body[:300])
 
 
 def report_challenges(did):
@@ -254,7 +241,7 @@ def main():
                     upload_image('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} {locale} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
-    order_challenges(did, cfg)
+    # (Their order can't be set through the API: Apple allows reading the list only.)
     report_challenges(did)
 
     # Challenges no longer in gamecenter.json: removed (only possible before they go live)
