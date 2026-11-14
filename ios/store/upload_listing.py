@@ -71,8 +71,12 @@ def main():
     if listing.get('review_notes'):
         try:
             detail = request('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreReviewDetail")['data']
-            request('PATCH', f"/v1/appStoreReviewDetails/{detail['id']}",
-                    {'data': {'type': 'appStoreReviewDetails', 'id': detail['id'], 'attributes': {'notes': listing['review_notes']}}})
+            if detail:
+                request('PATCH', f"/v1/appStoreReviewDetails/{detail['id']}",
+                        {'data': {'type': 'appStoreReviewDetails', 'id': detail['id'], 'attributes': {'notes': listing['review_notes']}}})
+            else:   # a new version has none yet
+                request('POST', '/v1/appStoreReviewDetails', {'data': {'type': 'appStoreReviewDetails', 'attributes': {'notes': listing['review_notes']},
+                        'relationships': {'appStoreVersion': {'data': {'type': 'appStoreVersions', 'id': ver['id']}}}}})
             print('App Review notes set')
         except ApiError as e:
             print('App Review notes not set:', e)
