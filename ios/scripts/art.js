@@ -66,6 +66,24 @@ function badge(a) {
   for (const a of ACH) {
     await render(badge(a).replace("<svg ", '<svg style="background:#143f38" '), 512, path.join(gc, a.id + ".png"), false);
   }
+  // Game Center challenge art (1920x1080, no text: Game Center shows the challenge's name over it)
+  const W = 1920, H = 1080, bg = `<defs><radialGradient id="cbg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#1f8572"/><stop offset=".55" stop-color="#165547"/><stop offset="1" stop-color="#0e2f29"/></radialGradient></defs><rect width="${W}" height="${H}" fill="url(#cbg)"/>`;
+  const pc = (code, x, y, size) => `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 100 100">${pieceSvg(code).replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg>`;
+  // Longest Streak: the ranks walking up a staircase of gold tiles, the brand's own picture
+  let stairs = "";
+  "pnbrqk".split("").forEach((t, i) => {
+    const step = 180, x = 330 + i * step, top = 860 - i * 95;
+    stairs += `<rect x="${x}" y="${top}" width="${step - 16}" height="${H}" rx="22" fill="${i % 2 ? "#fdfbf2" : "#f2c230"}" opacity="${0.92}"/>`;
+    stairs += pc("w" + t, x - 8, top - 172, 180);
+  });
+  // Hardest Solve: a white king alone on a gold disc with a glow, the top of the climb
+  const king = `<circle cx="960" cy="540" r="330" fill="#f2c230" opacity=".18"/><circle cx="960" cy="540" r="250" fill="#f2c230"/>${pc("wk", 760, 330, 400)}`
+    + Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2; return `<line x1="${960 + Math.cos(a) * 360}" y1="${540 + Math.sin(a) * 360}" x2="${960 + Math.cos(a) * 470}" y2="${540 + Math.sin(a) * 470}" stroke="#f2c230" stroke-width="10" stroke-linecap="round" opacity=".55"/>`; }).join("");
+  for (const [name, inner] of [["challenge-streak.png", stairs], ["challenge-hardest.png", king]]) {
+    await p.setViewportSize({ width: W, height: H });
+    await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block}</style><svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bg}${inner}</svg>`);
+    await p.screenshot({ path: path.join(gc, name) });
+  }
   await b.close();
-  console.log("saved the app icon, widget pieces and", ACH.length, "achievement images");
+  console.log("saved the app icon, widget pieces,", ACH.length, "achievement images and 2 challenge images");
 })();

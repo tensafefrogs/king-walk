@@ -895,7 +895,12 @@ function reportProgress(p, puzzle) {
   if (!APP) return;
   if (APP.gameCenter) {
     if (p.n > 0) APP.post({ op: "score", board: "rating", value: p.rating });
-    if (p.best > 0) APP.post({ op: "score", board: "streak", value: p.best });
+    /* Streak and Hardest Solve are also Game Center challenges, which count only scores sent while a challenge runs:
+       so these send what this solve achieved (the current run, this puzzle's rating), never an old best */
+    if (puzzle && puzzle.clean) {
+      APP.post({ op: "score", board: "streak", value: p.streak });
+      APP.post({ op: "score", board: "hardest", value: puzzle.r });
+    }
     if (p.solved >= 1) achieve("first_solve");
     for (const [n, id] of [[50, "solved_50"], [250, "solved_250"], [1000, "solved_1000"]]) if (p.solved >= n) achieve(id);
     for (const [n, id] of [[5, "streak_5"], [10, "streak_10"], [20, "streak_20"]]) if (p.best >= n) achieve(id);
