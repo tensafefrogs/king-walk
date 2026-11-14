@@ -345,6 +345,9 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .sq.tc::after { width: 88%; height: 88%; background: none; border: 1.1cqw solid var(--dot); opacity: 1; transform: none; }
 .sq .ring { position: absolute; inset: 5%; border-radius: 50%; border: 1cqw solid var(--gold); box-shadow: 0 0 2.4cqw rgba(242, 194, 48, 0.9); opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.3s var(--spring); z-index: 4; pointer-events: none; }
 .sq.hint .ring { opacity: 1; transform: none; animation: pulse 1s var(--ease-io) 0.3s infinite alternate; }
+.sq:focus { outline: none; }
+.sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; z-index: 3; }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .coord { position: absolute; font: 800 2.3cqw var(--font-body); pointer-events: none; opacity: 0.9; }
 .coord.f { right: 5%; bottom: 2%; }
 .coord.r { left: 5%; top: 3%; }
@@ -397,6 +400,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .play-btns.enter, .done-btns.enter { animation: rise 0.3s var(--ease-out) both; }
 /* phones show words, not icons, so the buttons are clear. Very narrow screens drop the small caption to make room. */
 @media (max-width: 479.98px) { .play-btns .btn svg.ic { display: none; } .play-btns .btn { padding: 0 13px; } }
+/* very narrow (a small phone, or large text in the app): the buttons take their own line under the rating */
+@media (max-width: 329.98px) { .bar-row { flex-wrap: wrap; row-gap: var(--gap); } .play-btns, .done-btns { flex: 1 1 100%; max-width: none; } .play-btns .btn { flex: 1 1 0; } }
 @media (max-width: 349.98px) { .rate-txt span { display: none; } .play-btns .btn { padding: 0 11px; } }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .chips:empty { display: none; }
@@ -505,7 +510,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
   </header>
 
-  <div class="collapse menu" id="menu" inert>
+  <div class="collapse menu" id="menu" role="region" aria-label="Settings and help" inert>
     <div>
       <div class="card stack">
         <p class="label">Settings</p>
@@ -567,6 +572,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   </div>
 
   <main class="main">
+    <p class="sr" id="boardHelp">Each square says what is on it. Choose one of your pieces, then the square it goes to. With a keyboard, the arrow keys move between squares and Enter or Space chooses.</p>
+    <p class="sr" id="announce" aria-live="assertive" aria-atomic="true"></p>
     <div class="status" id="status" aria-live="polite">
       <span class="st-ic" id="stIc"></span>
       <span class="st-text"><span class="st-main" id="stMain">Getting the puzzles ready</span><span class="st-sub" id="stSub"></span></span>
@@ -574,9 +581,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
 
     <div class="frame" id="frame">
-      <div class="board loading" id="board" aria-label="Chess board">
+      <div class="board loading" id="board" role="group" aria-label="Chess board" aria-describedby="boardHelp">
         <div class="squares" id="squares"></div>
-        <div class="pieces" id="pieces"></div>
+        <div class="pieces" id="pieces" aria-hidden="true"></div>
       </div>
       <canvas id="fx"></canvas>
     </div>
@@ -589,7 +596,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
         <div class="play-btns" id="playBtns">
           <button type="button" id="hintBtn" class="btn" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.3 1 2.2h5.2c0-.9.4-1.7 1-2.2A6 6 0 0 0 12 3z"/></svg><span id="hintLabel">Hint</span></button>
-          <button type="button" id="answerBtn" class="btn" aria-label="Show answer" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Answer</span></button>
+          <button type="button" id="answerBtn" class="btn" aria-label="Answer: show the solution" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Answer</span></button>
         </div>
         <div class="done-btns" id="doneBtns" hidden>
           <button type="button" id="shareRankBtn" class="btn">Share</button>
@@ -960,8 +967,9 @@ function buildSquares() {
   for (let row = 0; row < 8; row++) for (let col = 0; col < 8; col++) {
     const f = orient === "w" ? col : 7 - col, r = orient === "w" ? 8 - row : row + 1, sq = FILES[f] + r;
     const d = document.createElement("div"); d.className = "sq " + ((f + r) % 2 ? "l" : "d");
-    if (row === 7) { const c = document.createElement("span"); c.className = "coord f"; c.textContent = FILES[f]; d.append(c); }
-    if (col === 0) { const c = document.createElement("span"); c.className = "coord r"; c.textContent = r; d.append(c); }
+    d.dataset.sq = sq; d.setAttribute("role", "button"); d.tabIndex = -1;
+    if (row === 7) { const c = document.createElement("span"); c.className = "coord f"; c.textContent = FILES[f]; c.setAttribute("aria-hidden", "true"); d.append(c); }
+    if (col === 0) { const c = document.createElement("span"); c.className = "coord r"; c.textContent = r; c.setAttribute("aria-hidden", "true"); d.append(c); }
     const ring = document.createElement("i"); ring.className = "ring"; d.append(ring);
     squaresEl.append(d); sqEls[sq] = d;
   }
@@ -984,7 +992,10 @@ function paint() {
     c.toggle("over", overSq === sq); c.toggle("touch", overSq === sq && !!(drag && drag.touch));
     c.toggle("t", targets[sq] === "t"); c.toggle("tc", targets[sq] === "tc");
     const pc = els.get(sq); c.toggle("own", !!(pc && pc.code[0] === orient));
+    sqEls[sq].setAttribute("aria-label", squareName(sq, targets[sq], chk === sq));
+    sqEls[sq].setAttribute("aria-pressed", String(sel === sq));
   }
+  keepFocusable();
   for (const [, o] of els) o.el.classList.toggle("mine", o.code[0] === orient);
 }
 function addPiece(sq, code, delay) {
@@ -1133,7 +1144,9 @@ async function nextPuzzle() {
 /* Play a move from the puzzle's own move list (the other side's moves, and the answer when shown). */
 function playUci(uci) {
   const from = uci.slice(0, 2), to = uci.slice(2, 4);
-  if (!game.move({ from, to, promotion: uci[4] })) return;
+  const mv = game.move({ from, to, promotion: uci[4] });
+  if (!mv) return;
+  announce(describeMove(mv) + (mv.color === orient ? "" : ". Your move."));
   lastMove = [from, to]; sel = null; hintSq = []; wrongSq = null;
   const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic("opp");
 }
@@ -1149,14 +1162,17 @@ function tryMove(from, to) {
 }
 function commit(from, to, promo) {
   const want = cur.pz.moves[idx], uci = from + to + promo;
-  if (!game.move({ from, to, promotion: promo || undefined })) { sel = null; syncPieces(); paint(); return; }
+  const mv = game.move({ from, to, promotion: promo || undefined });
+  if (!mv) { sel = null; syncPieces(); paint(); return; }
   const mated = game.in_checkmate();
+  const said = describeMove(mv);
   sel = null; hintSq = []; overSq = null;
   if (uci === want || mated) {          /* any checkmate counts, even if it is not the listed move */
     lastMove = [from, to]; wrongSq = null; idx++;
     const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move");
     locked = true; setButtons(false);
-    if (mated || idx >= cur.pz.moves.length) { later(() => finish(true), 260); return; }
+    if (mated || idx >= cur.pz.moves.length) { announce(said); later(() => finish(true), 260); return; }
+    announce(said + ". Good move.");
     setStatus("good", "Good move! Keep going.", "", "good");
     later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; setButtons(true); showTurn(); }, 280); }, 560);
   } else {          /* wrong: show it, then take it back */
@@ -1165,6 +1181,7 @@ function commit(from, to, promo) {
     const o = els.get(to); if (o) later(() => restart(o.el, "nope"), 200);
     restart(frameEl, "shake");
     setStatus("bad", "Not that one. Try again.", "", "bad");
+    announce(said + ". Not that one. It goes back; try again.");
     later(() => {
       game.undo(); wrongSq = null;
       const h = game.history({ verbose: true }).pop(); lastMove = h ? [h.from, h.to] : [];
@@ -1249,6 +1266,70 @@ function finish(solvedIt) {
   $("nextBtn").focus({ preventScroll: true });
 }
 
+/* ---------- playing without a pointer: VoiceOver, Switch Control, Voice Control, a keyboard ----------
+   Each square is a button whose name says what is on it and what it means now ("e4, white knight, selected",
+   "f6, empty, can move here"). One square is in the tab order at a time; the arrow keys move between them the way
+   the board faces, and Enter or Space chooses, like a tap. Moves are announced in #announce. */
+const COLOR_NAME = { w: "white", b: "black" };
+function squareName(sq, target, inCheck) {
+  const p = game && game.get(sq), parts = [sq + ","];
+  parts.push(p ? COLOR_NAME[p.color] + " " + PIECE_NAME[p.type].toLowerCase() : "empty");
+  if (sel === sq) parts.push(", selected");
+  if (target) parts.push(target === "tc" ? ", can take here" : ", can move here");
+  if (hintSq.includes(sq)) parts.push(", hint");
+  if (inCheck) parts.push(", in check");
+  if (lastMove.includes(sq) && !target) parts.push(", last move");
+  return parts.join(" ").replace(/ ,/g, ",");
+}
+let focusSq = null;          /* the square in the tab order */
+function keepFocusable() {
+  if (!sqEls[focusSq]) {
+    focusSq = sel || (lastMove[1] && sqEls[lastMove[1]] ? lastMove[1] : null);
+    if (!focusSq) for (const sq in sqEls) { const p = game && game.get(sq); if (p && p.color === orient) { focusSq = sq; break; } }
+    if (!focusSq) focusSq = Object.keys(sqEls)[0];
+  }
+  for (const sq in sqEls) sqEls[sq].tabIndex = sq === focusSq ? 0 : -1;
+}
+function announce(text) { const a = $("announce"); a.textContent = ""; setTimeout(() => { a.textContent = text; }, 30); }
+/* "Black knight from g8 to f6, takes pawn, check" */
+function describeMove(m) {
+  let t = COLOR_NAME[m.color] + " " + PIECE_NAME[m.piece].toLowerCase() + " from " + m.from + " to " + m.to;
+  if (m.captured) t += ", takes " + PIECE_NAME[m.captured].toLowerCase();
+  if (m.promotion) t += ", becomes a " + PIECE_NAME[m.promotion].toLowerCase();
+  if (m.flags.indexOf("k") >= 0) t = COLOR_NAME[m.color] + " castles king side";
+  if (m.flags.indexOf("q") >= 0) t = COLOR_NAME[m.color] + " castles queen side";
+  if (game.in_checkmate()) t += ", checkmate"; else if (game.in_check()) t += ", check";
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+/* a tap, from the keyboard or an assistive technology: choose a piece, choose its square, or put it down */
+function activateSquare(sq) {
+  if (locked || done || !game) return;
+  if (statusMode === "bad") showTurn();
+  if (sel && sel !== sq && canGo(sel, sq)) { focusSq = sq; tryMove(sel, sq); return; }
+  const p = game.get(sq);
+  if (p && p.color === orient) {
+    if (sel === sq) { sel = null; paint(); announce("Put down"); return; }
+    sel = sq; paint(); haptic("pick");
+    const n = game.moves({ square: sq, verbose: true }).length;
+    announce(PIECE_NAME[p.type] + " on " + sq + " selected. " + (n ? n + (n === 1 ? " square" : " squares") + " it can move to." : "It has no moves."));
+  } else if (sel) { sel = null; paint(); announce("Not a move. Put down."); }
+}
+squaresEl.addEventListener("keydown", e => {
+  const sq = e.target.dataset && e.target.dataset.sq; if (!sq) return;
+  const keys = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+  if (keys[e.key]) {
+    e.preventDefault();
+    const [x, y] = xy(sq), nx = clamp(x + keys[e.key][0], 0, 7), ny = clamp(y + keys[e.key][1], 0, 7);
+    const next = orient === "w" ? FILES[nx] + (8 - ny) : FILES[7 - nx] + (ny + 1);
+    focusSq = next; keepFocusable(); sqEls[next].focus();
+  } else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateSquare(sq); }
+  else if (e.key === "Escape" && sel) { sel = null; paint(); announce("Put down"); }
+});
+/* clicks that don't come from a finger or mouse on the board (VoiceOver's double tap, Voice Control, Switch Control)
+   have no pointer events before them; detail 0 marks them */
+squaresEl.addEventListener("click", e => { const sq = e.target.closest(".sq"); if (sq && e.detail === 0) activateSquare(sq.dataset.sq); });
+squaresEl.addEventListener("focusin", e => { if (e.target.dataset && e.target.dataset.sq) { focusSq = e.target.dataset.sq; keepFocusable(); } });
+
 /* ---------- input ---------- */
 function askPromotion(cb, cancel) {
   closePromo();
@@ -1264,6 +1345,7 @@ function askPromotion(cb, cancel) {
   promoCancel = () => { closePromo(); cancel(); };
   ov.addEventListener("click", e => { if (e.target === ov && promoCancel) promoCancel(); });
   box.append(cap, row); ov.append(box); boardEl.append(ov);
+  ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "Turn the pawn into"); row.firstChild.focus({ preventScroll: true });
 }
 document.addEventListener("keydown", e => { if (e.key === "Escape" && promoCancel) promoCancel(); });
 
