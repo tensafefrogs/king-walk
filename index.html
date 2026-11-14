@@ -1605,7 +1605,8 @@ function showDailyDone() {
   const st = dailyStreak(p), left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000));
   track("daily/done-card");
   openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: T("Today's puzzle: done"), closeLabel: T("Close"),
-    text: [r.m ? Array.from(r.m, c => SQUARE[c]).join("") + "  \u23f1 " + fmtTime(r.t) + (st ? "  \ud83d\udd25 " + st : "") : "",
+    /* the time and the streak in words: the share's squares (one per move) read like days next to a streak */
+    text: ["\u23f1 " + fmtTime(r.t) + (st >= 2 ? "  \u00b7  \ud83d\udd25 " + T("{n} days in a row", { n: st }) : ""),
            T("Come back tomorrow for the next one"), T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })].filter(Boolean),
     onShare: sh => shareProgress(sh, { daily: { n } }) });
 }
@@ -1616,7 +1617,7 @@ function showDailyDone() {
    (days in a row solved without showing the answer), the best, and the last 60 results; p.daily.now is today's
    puzzle while it's being played, so leaving and coming back keeps its marks. DAILY is the one on the board.
    The pick depends on the puzzle files (p/): changing them changes the daily puzzles from then on. */
-const DAILY_EPOCH = Date.UTC(2026, 10, 14);          /* Daily #1 */
+const DAILY_EPOCH = Date.UTC(2026, 10, 13);          /* Daily #1: 13 November 2026, the day before the website had it, so no time zone is ever before it */
 const DAILY_RANGE = [[1700, 1899], [500, 699], [700, 899], [900, 1099], [1100, 1299], [1300, 1499], [1500, 1699]];          /* by weekday, Sunday first */
 const dayIndex = (d = new Date()) => Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - DAILY_EPOCH) / 864e5) + 1;
 const dayNumber = d => Math.max(1, dayIndex(d));

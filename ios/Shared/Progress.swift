@@ -102,7 +102,7 @@ enum SharedStore {
     }
 }
 
-/// The daily puzzle's calendar, as the page counts it (dayNumber in index.html): Daily #1 is 14 November 2026,
+/// The daily puzzle's calendar, as the page counts it (dayNumber in index.html): Daily #1 is 13 November 2026,
 /// and a new one starts at midnight, local time.
 enum Daily {
     static func key(_ date: Date) -> String {
@@ -115,7 +115,7 @@ enum Daily {
     }
     static func number(_ date: Date = Date()) -> Int {
         let cal = Calendar.current
-        guard let first = cal.date(from: DateComponents(year: 2026, month: 11, day: 14)) else { return 1 }
+        guard let first = cal.date(from: DateComponents(year: 2026, month: 11, day: 13)) else { return 1 }
         return max(1, (cal.dateComponents([.day], from: cal.startOfDay(for: first), to: cal.startOfDay(for: date)).day ?? 0) + 1)
     }
     static func nextMidnight(after date: Date = Date()) -> Date {

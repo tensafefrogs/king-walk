@@ -22,9 +22,9 @@ function dailyWeek() {
 }
 
 // The date the store screenshots and trailers are set on (the page's clock is fixed to it), so the daily puzzle and its
-// week are the same whenever they're made: Saturday 21 November 2026, Daily #8
+// week are the same whenever they're made: Saturday 21 November 2026, Daily #9
 const SHOT_DATE = new Date(2026, 10, 21, 10, 0);
-const DAY = 864e5, dayNumber = d => Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(2026, 10, 14)) / DAY) + 1;
+const DAY = 864e5, dayNumber = d => Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(2026, 10, 13)) / DAY) + 1;
 
 // An init script (page.addInitScript(seedRandom, seed)): Math.random becomes mulberry32 from this seed
 function seedRandom(seed) {

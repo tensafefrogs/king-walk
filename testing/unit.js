@@ -108,7 +108,7 @@ function translations() {
   check(dp.every(d => d.same), "a date always gives the same daily puzzle", dp.filter(d => !d.same));
   check(dp.every(d => d.r >= d.range[0] && d.r <= d.range[1] && d.len <= 8), "daily puzzles fit their weekday's range and length", dp.filter(d => !(d.r >= d.range[0] && d.r <= d.range[1] && d.len <= 8)));
   check(new Set(dp.map(d => d.id)).size === dp.length, "three weeks of daily puzzles, no repeats", dp.map(d => d.id));
-  check(await p.evaluate(() => dayNumber(new Date(2026, 10, 14, 23, 59)) === 1 && dayNumber(new Date(2026, 10, 15, 0, 1)) === 2 && dayKey(2) === "2026-11-15"), "daily numbers change at local midnight");
+  check(await p.evaluate(() => dayNumber(new Date(2026, 10, 13, 23, 59)) === 1 && dayNumber(new Date(2026, 10, 14, 0, 1)) === 2 && dayKey(3) === "2026-11-15"), "daily numbers change at local midnight");
   // the daily streak: yesterday's solve grows it, a gap restarts it, showing the answer ends it, a skipped day lapses it
   const ds = await p.evaluate(() => {
     const D = newDaily(), log = [];
