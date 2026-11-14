@@ -64,7 +64,7 @@ function badge(a) {
     const streak = /row/.test(art.label || ""), daily = /day/.test(art.label || "");
     sky = daily ? C.coral : streak ? C.deep : C.teal;
     scene = sunRays(256, 236, 150, 270, 16, daily ? C.sun : streak ? C.teal : C.sea) + `<circle cx="256" cy="236" r="150" fill="${C.gold}"/>`
-      + `<text x="256" y="${String(art.number).length > 3 ? 280 : 292}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(art.number).length > 3 ? 120 : 150}" fill="${C.ink}">${art.number}</text>`
+      + `<text x="256" y="${String(art.number).length > 3 ? 277 : 288}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(art.number).length > 3 ? 120 : 150}" fill="${C.ink}">${art.number}</text>`
       + (daily ? Array.from({ length: 7 }, (_, i) => `<rect x="${103 + i * 44}" y="408" width="36" height="36" rx="9" fill="${i < art.number % 8 || art.number >= 7 ? C.gold : C.cream}" stroke="${C.ink}" stroke-width="4"/>`).join("")
          : streak ? Array.from({ length: 5 }, (_, i) => `<rect x="${126 + i * 54}" y="${420 - i * 14}" width="44" height="${40 + i * 14}" rx="8" fill="${i % 2 ? C.cream : C.gold}"/>`).join("")
                 : hill(S, 470, 256, 410, C.mint, 0.9));
