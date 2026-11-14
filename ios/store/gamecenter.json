@@ -331,13 +331,6 @@
   ],
   "challenges": [
     {
-      "id": "hardest_challenge",
-      "leaderboard": "hardest",
-      "name": "Hardest Solve",
-      "description": "Cleanly solve the highest-rated puzzle you can. Turn on Harder in the menu to see tougher ones.",
-      "image": "challenge-hardest.png"
-    },
-    {
       "id": "streak_p_challenge",
       "leaderboard": "streak_p",
       "name": "Pawn Streak",
@@ -378,6 +371,13 @@
       "name": "King Streak",
       "description": "15 puzzles that climb from 1900 to 2300. No hints, and one miss ends the run. Who gets furthest?",
       "image": "challenge-streak-k.png"
+    },
+    {
+      "id": "hardest_challenge",
+      "leaderboard": "hardest",
+      "name": "Hardest Solve",
+      "description": "Cleanly solve the highest-rated puzzle you can. Turn on Harder in the menu to see tougher ones.",
+      "image": "challenge-hardest.png"
     }
   ]
 }

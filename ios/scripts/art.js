@@ -75,23 +75,42 @@ function badge(a) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="${sky}"/>${scene}</svg>`;
 }
 
-/* A challenge image, 1920x1080, no text: Game Center shows the challenge's name over it */
+/* A challenge image, 1920x1080, no text: Game Center shows the challenge's name over it. Its card crops to about the
+   middle three quarters and darkens the bottom third under the name, so the piece stands big in the middle, high up.
+   Each rank has its own colours, from a pale morning for Pawn to a starry night for King; Hardest Solve is a gold
+   sky over one tall peak. */
+const RANK_SKY = {
+  p: { sky: C.sky, sun: C.gold, rays: C.cream, back: C.mint, front: C.teal },
+  n: { sky: C.mint, sun: C.cream, rays: "#7fd3c2", back: C.sea, front: C.deep },
+  b: { sky: C.sun, sun: C.coral, rays: "#fbe39a", back: C.sea, front: C.teal },
+  r: { sky: C.coral, sun: C.gold, rays: "#ec8c6f", back: C.teal, front: C.deep },
+  q: { sky: C.teal, sun: C.gold, rays: C.sea, back: C.deep, front: C.ink },
+  k: { sky: C.deep, sun: C.cream, rays: "#1d4c43", back: C.teal, front: C.ink, stars: true },
+};
+// the brand piece in colour (white with its ink outline), placed at x, y
+const colourPiece = (t, x, y, size) => pieceSvg("w" + t).replace(/^<svg\b([^>]*)>/, (m, attrs) =>
+  `<svg x="${x}" y="${y}" width="${size}" height="${size}"${attrs.replace(/\s(width|height|x|y)="[^"]*"/g, "")}>`);
 function challengeArt(kind, t) {
   const W = 1920, H = 1080;
-  let sky = C.sky, scene = "";
-  if (kind === "hardest") {          // a king alone on the highest peak, a huge sun behind
+  let sky, scene = "";
+  if (kind === "hardest") {          // one tall peak under a huge coral sun, the king on its summit
     sky = C.gold;
-    scene = sunRays(1260, 420, 260, 1100, 18, C.sun) + `<circle cx="1260" cy="420" r="250" fill="${C.coral}"/>`
-      + mountain(1260, 330, 1100, 900, C.deep, C.cream) + mountain(560, 520, 900, 700, C.teal) + mountain(1800, 560, 800, 600, C.teal)
-      + hill(W, 1000, 900, 860, C.mint, 0.8) + silhouette("k", 1165, 160, 190, C.ink);
-  } else {          // a rank streak: 15 steps zigzag up a hill to the rank's piece on the top
-    scene = sunRays(1500, 330, 200, 900, 16, C.cream) + `<circle cx="1500" cy="330" r="190" fill="${C.gold}"/>`
-      + hill(W, 1080, 300, 640, C.mint, 0.7) + hill(W, 1080, 1180, 420, C.teal, 0.9) + hill(W, 1180, 1700, 820, C.sea, 0.6);
+    scene = sunRays(960, 330, 280, 1300, 18, C.sun) + `<circle cx="960" cy="330" r="270" fill="${C.coral}"/>`
+      + mountain(400, 560, 1000, 700, C.teal) + mountain(1560, 600, 1000, 640, C.teal)
+      + mountain(960, 520, 1300, 760, C.deep, C.cream) + hill(W, 1080, 960, 940, C.mint, 1.2)
+      + colourPiece("k", 960 - 190, 150, 380);
+  } else {          // the rank's piece on a hilltop, 15 steps zigzagging up to it
+    const P = RANK_SKY[t];
+    sky = P.sky;
+    if (P.stars) for (let i = 0; i < 46; i++) { const x = (i * 397) % W, y = 40 + (i * 211) % 460, r = 3 + (i % 3) * 2; scene += `<circle cx="${x}" cy="${y}" r="${r}" fill="${C.cream}" opacity="${0.5 + (i % 4) * 0.15}"/>`; }
+    scene += sunRays(960, 380, 300, 1300, 16, P.rays) + `<circle cx="960" cy="380" r="290" fill="${P.sun}"/>`
+      + hill(W, 1080, 260, 660, P.back, 0.8) + hill(W, 1080, 1680, 640, P.back, 0.8)
+      + hill(W, 1180, 960, 600, P.front, 0.75);
     for (let i = 0; i < 15; i++) {
-      const k = i / 14, x = 300 + k * 860 + (i % 2 ? 40 : -40) * (1 - k), y = 1000 - k * 520;
-      scene += `<rect x="${x - 34}" y="${y - 14}" width="68" height="28" rx="10" fill="${i % 2 ? C.cream : C.gold}"/>`;
+      const k = i / 14, j = i % 6, zig = (j <= 3 ? j : 6 - j) / 1.5 - 1, x = 960 + zig * 180 * (1 - k * 0.85), y = 1060 - k * 450, w = 96 - 44 * k, h = 30 - 12 * k;
+      scene += `<rect x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}" rx="${h / 2.6}" fill="${i % 2 ? C.cream : C.gold}"/>`;
     }
-    scene += silhouette(t, 1070, 225, 220, C.ink);
+    scene += colourPiece(t, 960 - 210, 190, 420);
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${sky}"/>${scene}</svg>`;
 }

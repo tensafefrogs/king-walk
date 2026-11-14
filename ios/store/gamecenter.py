@@ -5,6 +5,7 @@ from gamecenter/), and adds Game Center to the version being prepared. What's al
 that names and descriptions are brought up to date.
 
 usage: python3 ios/store/gamecenter.py [--dry-run]
+At the end it puts the challenges in gamecenter.json's order and prints what App Store Connect holds for each one.
 Credentials as in asc.py. The App Store listing workflow runs it when gamecenter.json or the images change.
 
 Ids: the page reports short names (index.html: achieve() and reportProgress()); the app adds the prefix "kingwalk."
@@ -60,10 +61,10 @@ def post_with(kind, attrs, parent_kind, parent_id, rel_names, what):
             problems.append(f'{what}: {e.code} {e.body[:400]}'); log('  failed:', what, e.code, e.body[:400]); return None
 
 
-def all_related(path, names):
+def all_related(path, names, many=True):
     for name in names:
         try:
-            r = request('GET', f'{path}/{name}')
+            r = request('GET', f'{path}/{name}' + ('?limit=200' if many else ''))
             return r['data'] if isinstance(r.get('data'), list) else ([r['data']] if r.get('data') else [])
         except ApiError as e:
             if e.code == 404: continue
@@ -72,7 +73,7 @@ def all_related(path, names):
 
 
 def first_related(path, names):
-    found = all_related(path, names)
+    found = all_related(path, names, many=False)
     return found[0] if found else None
 
 
@@ -92,6 +93,49 @@ def languages():
     for f in sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json'))):
         t = json.load(open(f)); out.append((t['locale'], t.get('gamecenter', {})))
     return out
+
+
+def order_challenges(did, cfg):
+    """Game Center lists challenges in the order of gamecenter.json (the ranks, Pawn first, then Hardest Solve).
+    Leaderboards and achievements are ordered the same way, by replacing the relationship list in order."""
+    have = {c['attributes'].get('vendorIdentifier'): c['id'] for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges')}
+    ids = [have[PREFIX + c['id']] for c in cfg.get('challenges', []) if PREFIX + c['id'] in have]
+    if not ids or DRY: return
+    try:
+        request('PATCH', f'/v1/gameCenterDetails/{did}/relationships/gameCenterChallenges',
+                {'data': [{'type': 'gameCenterChallenges', 'id': i} for i in ids]})
+        log('Challenges ordered:', ', '.join(c['id'] for c in cfg['challenges']))
+    except ApiError as e:
+        log('Challenges not ordered (set the order in App Store Connect → Game Center → Challenges):', e.code, e.body[:300])
+
+
+def report_challenges(did):
+    """What App Store Connect holds for each challenge: its versions and their state, and each language's image.
+    Printed every run, since this part of the API is new and its relationship names aren't all documented."""
+    log('Challenge report:')
+    for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges'):
+        vid = c['attributes'].get('vendorIdentifier')
+        try:
+            versions = request('GET', f"/v1/gameCenterChallenges/{c['id']}/versions?limit=50")['data']
+        except ApiError as e:
+            log(' ', vid, 'versions: error', e.code); continue
+        for v in versions:
+            try:
+                locs = request('GET', f"/v1/gameCenterChallengeVersions/{v['id']}/localizations?limit=50")['data']
+            except ApiError as e:
+                locs = []; log('   localizations: error', e.code, e.body[:200])
+            log(' ', vid, 'version', v['id'][:8], json.dumps(v.get('attributes')), f'{len(locs)} languages')
+            for l in locs[:2] + [x for x in locs if x['attributes'].get('locale') == 'en-US'][:1]:
+                for name in ('image', 'gameCenterChallengeImage'):
+                    try:
+                        r = request('GET', f"/v1/gameCenterChallengeLocalizations/{l['id']}/{name}")
+                        d = r.get('data')
+                        a = (d or {}).get('attributes') or {}
+                        log('   ', l['attributes'].get('locale'), name + ':', 'none' if not d else
+                            json.dumps({k: a.get(k) for k in ('fileName', 'fileSize', 'assetDeliveryState', 'imageAsset')})[:300])
+                        break
+                    except ApiError as e:
+                        log('   ', l['attributes'].get('locale'), name + ':', e.code)
 
 
 def main():
@@ -126,10 +170,10 @@ def main():
         for locale, tr in [('en-US', b)] + [(lc, t.get('leaderboards', {}).get(b['id'])) for lc, t in LANGS]:
             if not tr: continue
             loc_attrs = {'name': tr['name'], 'formatterSuffix': tr.get('suffix'), 'formatterSuffixSingular': tr.get('suffix_singular')}
-            have = locs.get(locale)
-            if have:
-                if any(have['attributes'].get(k) != v for k, v in loc_attrs.items()):
-                    api('PATCH', f"/v1/gameCenterLeaderboardLocalizations/{have['id']}", {'data': {'type': 'gameCenterLeaderboardLocalizations', 'id': have['id'], 'attributes': loc_attrs}}, f'{vid} {locale} text')
+            old = locs.get(locale)          # (not `have`: that's the list of leaderboards)
+            if old:
+                if any(old['attributes'].get(k) != v for k, v in loc_attrs.items()):
+                    api('PATCH', f"/v1/gameCenterLeaderboardLocalizations/{old['id']}", {'data': {'type': 'gameCenterLeaderboardLocalizations', 'id': old['id'], 'attributes': loc_attrs}}, f'{vid} {locale} text')
             else:
                 api('POST', '/v1/gameCenterLeaderboardLocalizations', {'data': {'type': 'gameCenterLeaderboardLocalizations', 'attributes': dict(loc_attrs, locale=locale),
                     'relationships': {'gameCenterLeaderboard': {'data': {'type': 'gameCenterLeaderboards', 'id': lb['id']}}}}}, f'{vid} {locale} text')
@@ -173,8 +217,7 @@ def main():
     # Challenges: friendly competitions on a leaderboard (iOS 26 and later). A newer part of the API.
     boards = {l['attributes']['vendorIdentifier']: l for l in every(f'/v1/gameCenterDetails/{did}/gameCenterLeaderboards')}
     have_ch = {}
-    r = api('GET', f'/v1/gameCenterDetails/{did}/gameCenterChallenges?limit=200', what='list challenges')
-    if r: have_ch = {c['attributes'].get('vendorIdentifier'): c for c in r['data']}
+    have_ch = {c['attributes'].get('vendorIdentifier'): c for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges')}
     for c in cfg.get('challenges', []):
         vid, lb = PREFIX + c['id'], boards.get(PREFIX + c['leaderboard'])
         if not lb: log('Challenge', vid, 'skipped: no leaderboard', PREFIX + c['leaderboard']); continue
@@ -210,6 +253,9 @@ def main():
                 if not img:
                     upload_image('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} {locale} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
+
+    order_challenges(did, cfg)
+    report_challenges(did)
 
     # Challenges no longer in gamecenter.json: removed (only possible before they go live)
     wanted = {PREFIX + c['id'] for c in cfg.get('challenges', [])}
