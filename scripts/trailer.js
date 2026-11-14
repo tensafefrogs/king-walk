@@ -229,7 +229,7 @@ const T=window.T={
     await solve(); await wait(2200); await end();
   }
 
-  // 4. a hint: the first circles the piece, the second where it goes
+  // 4. a hint: the first lights up the piece, the second draws an arrow to where it goes
   if (preview) { await E(s => T.win().__reseed(s), SEEDS.hint); await G("nextPuzzle()"); await p.waitForTimeout(1500); }
   await rec(); await E(() => T.caption("Stuck? <b>Take a hint.</b> No judgment."));
   if (!preview) { await wait(600); await E(s => T.win().__reseed(s), SEEDS.hint); await E(() => T.press("#nextBtn")); }
