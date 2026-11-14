@@ -47,6 +47,14 @@ def main():
         rel['secondaryCategory'] = {'data': {'type': 'appCategories', 'id': a['secondary_category']}}
     patch('appInfos', info['id'], relationships=rel)
     print('App information: name, subtitle, privacy URL, category')
+    # Content rights (App Information): the puzzles are the Lichess database (public domain), so third-party content
+    # the app has the rights to. App Store Connect won't take a submission until this is answered.
+    if a.get('content_rights'):
+        try:
+            request('PATCH', f"/v1/apps/{app['id']}", {'data': {'type': 'apps', 'id': app['id'], 'attributes': {'contentRightsDeclaration': a['content_rights']}}})
+            print('Content rights:', a['content_rights'])
+        except ApiError as e:
+            print('Content rights not set (App Store Connect → App Information → Content Rights):', e.code, e.body[:200])
 
     # Age rating: every question None (or No), except the ones listed in listing.json
     decl = call('GET', f"/v1/appInfos/{info['id']}/ageRatingDeclaration")['data']

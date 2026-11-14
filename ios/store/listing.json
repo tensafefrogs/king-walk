@@ -8,7 +8,8 @@
       "GAMES_BOARD",
       "GAMES_PUZZLE"
     ],
-    "secondary_category": "EDUCATION"
+    "secondary_category": "EDUCATION",
+    "content_rights": "USES_THIRD_PARTY_CONTENT"
   },
   "version": {
     "copyright": "2026 Geoff Stearns",
