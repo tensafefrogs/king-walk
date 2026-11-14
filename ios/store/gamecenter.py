@@ -130,6 +130,45 @@ def main():
             log('  (dry run) image', a['id'] + '.png')
         log('Achievement ready:', vid, f"({a['points']} points)")
 
+    # Challenges: friendly competitions on a leaderboard (iOS 26 and later). A newer part of the API.
+    boards = {l['attributes']['vendorIdentifier']: l for l in every(f'/v1/gameCenterDetails/{did}/gameCenterLeaderboards')}
+    have_ch = {}
+    r = api('GET', f'/v1/gameCenterDetails/{did}/gameCenterChallenges?limit=200', what='list challenges')
+    if r: have_ch = {c['attributes'].get('vendorIdentifier'): c for c in r['data']}
+    for c in cfg.get('challenges', []):
+        vid, lb = PREFIX + c['id'], boards.get(PREFIX + c['leaderboard'])
+        if not lb: log('Challenge', vid, 'skipped: no leaderboard', PREFIX + c['leaderboard']); continue
+        ch = have_ch.get(vid)
+        if not ch:
+            r = api('POST', '/v1/gameCenterChallenges', {'data': {'type': 'gameCenterChallenges', 'attributes': {
+                'referenceName': c['name'], 'vendorIdentifier': vid, 'challengeType': 'LEADERBOARD'},
+                'relationships': {'gameCenterDetail': {'data': {'type': 'gameCenterDetails', 'id': did}},
+                                  'leaderboard': {'data': {'type': 'gameCenterLeaderboards', 'id': lb['id']}}}}}, f'challenge {vid}')
+            if not r: continue
+            ch = r['data']; log('Challenge created:', vid)
+        if ch['id'] == 'dry': continue
+        # its versions and English text: the API keeps them on the challenge's current version when it has one
+        loc_rel = f"/v1/gameCenterChallenges/{ch['id']}/localizations"
+        vers = api('GET', f"/v1/gameCenterChallenges/{ch['id']}/versions", what=f'{vid} versions')
+        if vers and vers.get('data'):
+            loc_rel = f"/v1/gameCenterChallengeVersions/{vers['data'][0]['id']}/localizations"
+        locs = api('GET', loc_rel, what=f'{vid} localizations')
+        en = next((l for l in (locs or {}).get('data', []) if l['attributes'].get('locale') == 'en-US'), None)
+        attrs = {'name': c['name'], 'description': c['description']}
+        if en:
+            api('PATCH', f"/v1/gameCenterChallengeLocalizations/{en['id']}", {'data': {'type': 'gameCenterChallengeLocalizations', 'id': en['id'], 'attributes': attrs}}, f'{vid} English text')
+        else:
+            rel = ({'version': {'data': {'type': 'gameCenterChallengeVersions', 'id': vers['data'][0]['id']}}} if vers and vers.get('data')
+                   else {'gameCenterChallenge': {'data': {'type': 'gameCenterChallenges', 'id': ch['id']}}})
+            r = api('POST', '/v1/gameCenterChallengeLocalizations', {'data': {'type': 'gameCenterChallengeLocalizations',
+                    'attributes': dict(attrs, locale='en-US'), 'relationships': rel}}, f'{vid} English text')
+            en = r and r['data']
+        if en and c.get('image'):
+            img = api('GET', f"/v1/gameCenterChallengeLocalizations/{en['id']}/image", what=f'{vid} image')
+            if not (img and img.get('data')):
+                upload_image('gameCenterChallengeImages', en['id'], 'gameCenterChallengeLocalization', os.path.join(HERE, 'gamecenter', c['image']))
+        log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
+
     # Game Center on the version being prepared, so App Review sees it with the build
     vers = api('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")
     for v in (vers or {}).get('data', []):

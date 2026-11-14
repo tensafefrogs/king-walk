@@ -1,22 +1,186 @@
 {
-  "_comment": "Game Center leaderboards and achievements. ios/store/gamecenter.py creates them in App Store Connect; ids get the prefix kingwalk. (the page sends the short names: achieve() and reportProgress() in index.html). Images: node ios/scripts/art.js. Points add up to at most 1000.",
+  "_comment": "Game Center leaderboards and achievements. ios/store/gamecenter.py creates them in App Store Connect; ids get the prefix kingwalk. (the page sends the short names: achieve() and reportProgress() in index.html). Images: node ios/scripts/art.js. Points add up to at most 1000. Challenges are friendly competitions on a leaderboard for a few days; their leaderboards only get scores from solves made then (reportProgress in index.html).",
   "leaderboards": [
-    {"id": "rating", "name": "Puzzle Rating", "format": "INTEGER", "sort": "DESC", "submission": "BEST_SCORE", "suffix": " rating", "suffix_singular": " rating"},
-    {"id": "streak", "name": "Best Streak", "format": "INTEGER", "sort": "DESC", "submission": "BEST_SCORE", "suffix": " in a row", "suffix_singular": " in a row"}
+    {
+      "id": "rating",
+      "name": "Puzzle Rating",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " rating",
+      "suffix_singular": " rating"
+    },
+    {
+      "id": "streak",
+      "name": "Best Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "hardest",
+      "name": "Hardest Solve",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " puzzle rating",
+      "suffix_singular": " puzzle rating"
+    }
   ],
   "achievements": [
-    {"id": "first_solve", "name": "First Steps", "earned": "You solved your first puzzle with no mistakes and no hints.", "before": "Solve a puzzle with no mistakes and no hints.", "points": 10, "art": {"piece": "p"}},
-    {"id": "solved_50", "name": "Fifty Solved", "earned": "You solved 50 puzzles cleanly.", "before": "Solve 50 puzzles with no mistakes and no hints.", "points": 30, "art": {"number": 50, "label": "solved"}},
-    {"id": "solved_250", "name": "Puzzle Habit", "earned": "You solved 250 puzzles cleanly.", "before": "Solve 250 puzzles with no mistakes and no hints.", "points": 60, "art": {"number": 250, "label": "solved"}},
-    {"id": "solved_1000", "name": "A Thousand Puzzles", "earned": "You solved 1,000 puzzles cleanly.", "before": "Solve 1,000 puzzles with no mistakes and no hints.", "points": 100, "art": {"number": 1000, "label": "solved"}},
-    {"id": "streak_5", "name": "On a Roll", "earned": "You solved 5 puzzles in a row.", "before": "Solve 5 puzzles in a row.", "points": 20, "art": {"number": 5, "label": "in a row"}},
-    {"id": "streak_10", "name": "Ten in a Row", "earned": "You solved 10 puzzles in a row.", "before": "Solve 10 puzzles in a row.", "points": 50, "art": {"number": 10, "label": "in a row"}},
-    {"id": "streak_20", "name": "Unstoppable", "earned": "You solved 20 puzzles in a row.", "before": "Solve 20 puzzles in a row.", "points": 100, "art": {"number": 20, "label": "in a row"}},
-    {"id": "rank_knight", "name": "Knight", "earned": "You reached Knight rank: a puzzle rating of 700.", "before": "Reach a puzzle rating of 700.", "points": 30, "art": {"piece": "n"}},
-    {"id": "rank_bishop", "name": "Bishop", "earned": "You reached Bishop rank: a puzzle rating of 1000.", "before": "Reach a puzzle rating of 1000.", "points": 50, "art": {"piece": "b"}},
-    {"id": "rank_rook", "name": "Rook", "earned": "You reached Rook rank: a puzzle rating of 1300.", "before": "Reach a puzzle rating of 1300.", "points": 80, "art": {"piece": "r"}},
-    {"id": "rank_queen", "name": "Queen", "earned": "You reached Queen rank: a puzzle rating of 1600.", "before": "Reach a puzzle rating of 1600.", "points": 100, "art": {"piece": "q"}},
-    {"id": "rank_king", "name": "King Walk", "earned": "You reached King rank: a puzzle rating of 1900. The king has walked all the way up.", "before": "Reach a puzzle rating of 1900.", "points": 100, "art": {"piece": "k"}},
-    {"id": "giant_slayer", "name": "Giant Slayer", "earned": "You cleanly solved a puzzle rated 300 or more above you.", "before": "Cleanly solve a puzzle rated 300 or more above your rating.", "points": 50, "art": {"slayer": true}}
+    {
+      "id": "first_solve",
+      "name": "First Steps",
+      "earned": "You solved your first puzzle with no mistakes and no hints.",
+      "before": "Solve a puzzle with no mistakes and no hints.",
+      "points": 10,
+      "art": {
+        "piece": "p"
+      }
+    },
+    {
+      "id": "solved_50",
+      "name": "Fifty Solved",
+      "earned": "You solved 50 puzzles cleanly.",
+      "before": "Solve 50 puzzles with no mistakes and no hints.",
+      "points": 30,
+      "art": {
+        "number": 50,
+        "label": "solved"
+      }
+    },
+    {
+      "id": "solved_250",
+      "name": "Puzzle Habit",
+      "earned": "You solved 250 puzzles cleanly.",
+      "before": "Solve 250 puzzles with no mistakes and no hints.",
+      "points": 60,
+      "art": {
+        "number": 250,
+        "label": "solved"
+      }
+    },
+    {
+      "id": "solved_1000",
+      "name": "A Thousand Puzzles",
+      "earned": "You solved 1,000 puzzles cleanly.",
+      "before": "Solve 1,000 puzzles with no mistakes and no hints.",
+      "points": 100,
+      "art": {
+        "number": 1000,
+        "label": "solved"
+      }
+    },
+    {
+      "id": "streak_5",
+      "name": "On a Roll",
+      "earned": "You solved 5 puzzles in a row.",
+      "before": "Solve 5 puzzles in a row.",
+      "points": 20,
+      "art": {
+        "number": 5,
+        "label": "in a row"
+      }
+    },
+    {
+      "id": "streak_10",
+      "name": "Ten in a Row",
+      "earned": "You solved 10 puzzles in a row.",
+      "before": "Solve 10 puzzles in a row.",
+      "points": 50,
+      "art": {
+        "number": 10,
+        "label": "in a row"
+      }
+    },
+    {
+      "id": "streak_20",
+      "name": "Unstoppable",
+      "earned": "You solved 20 puzzles in a row.",
+      "before": "Solve 20 puzzles in a row.",
+      "points": 100,
+      "art": {
+        "number": 20,
+        "label": "in a row"
+      }
+    },
+    {
+      "id": "rank_knight",
+      "name": "Knight",
+      "earned": "You reached Knight rank: a puzzle rating of 700.",
+      "before": "Reach a puzzle rating of 700.",
+      "points": 30,
+      "art": {
+        "piece": "n"
+      }
+    },
+    {
+      "id": "rank_bishop",
+      "name": "Bishop",
+      "earned": "You reached Bishop rank: a puzzle rating of 1000.",
+      "before": "Reach a puzzle rating of 1000.",
+      "points": 50,
+      "art": {
+        "piece": "b"
+      }
+    },
+    {
+      "id": "rank_rook",
+      "name": "Rook",
+      "earned": "You reached Rook rank: a puzzle rating of 1300.",
+      "before": "Reach a puzzle rating of 1300.",
+      "points": 80,
+      "art": {
+        "piece": "r"
+      }
+    },
+    {
+      "id": "rank_queen",
+      "name": "Queen",
+      "earned": "You reached Queen rank: a puzzle rating of 1600.",
+      "before": "Reach a puzzle rating of 1600.",
+      "points": 100,
+      "art": {
+        "piece": "q"
+      }
+    },
+    {
+      "id": "rank_king",
+      "name": "King Walk",
+      "earned": "You reached King rank: a puzzle rating of 1900. The king has walked all the way up.",
+      "before": "Reach a puzzle rating of 1900.",
+      "points": 100,
+      "art": {
+        "piece": "k"
+      }
+    },
+    {
+      "id": "giant_slayer",
+      "name": "Giant Slayer",
+      "earned": "You cleanly solved a puzzle rated 300 or more above you.",
+      "before": "Cleanly solve a puzzle rated 300 or more above your rating.",
+      "points": 50,
+      "art": {
+        "slayer": true
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "streak_challenge",
+      "leaderboard": "streak",
+      "name": "Longest Streak",
+      "description": "Solve as many puzzles in a row as you can, with no mistakes and no hints.",
+      "image": "challenge-streak.png"
+    },
+    {
+      "id": "hardest_challenge",
+      "leaderboard": "hardest",
+      "name": "Hardest Solve",
+      "description": "Cleanly solve the highest-rated puzzle you can. Turn on Harder in the menu to see tougher ones.",
+      "image": "challenge-hardest.png"
+    }
   ]
 }
