@@ -18,6 +18,10 @@ struct Progress: Codable, Equatable {
     var played: Int
     var hist: [Int]         // the last 30 ratings, oldest first
     var at: Double          // when, in milliseconds since 1970
+    // the same in the player's language, as the page writes them (missing from saves made before the game was translated)
+    var rankLine: String?   // "Bishop rank"
+    var nextLine: String?   // "176 to Rook", or "Top rank"
+    var labels: [String: String]?   // chart, solved, inRow, best
 
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
@@ -32,9 +36,12 @@ struct Progress: Codable, Equatable {
         return min(1, max(0.04, Double(rating - lo) / Double(max(1, hi - lo))))
     }
 
+    /// a label the page sent, or the widget's own translation of the English one
+    func label(_ key: String, _ english: String) -> String { labels?[key] ?? NSLocalizedString(english, comment: "") }
+
     static let sample = Progress(rating: 1124, rank: "Bishop", piece: "b", next: "Rook", toNext: 176, solved: 142, streak: 4, best: 11,
                                  played: 210, hist: [1020, 1031, 1018, 1044, 1052, 1047, 1066, 1071, 1063, 1080, 1092, 1088, 1101, 1097, 1112, 1124],
-                                 at: Date().timeIntervalSince1970 * 1000)
+                                 at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil)
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }

@@ -149,7 +149,9 @@ html.fold-h .progress { width: auto; justify-self: stretch; align-self: start; m
 html.fold-h .progress > :nth-child(1) { grid-area: head; }
 html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .lad-names { grid-area: names; }
 html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
-html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; } html.fold-h .progress > .note { grid-area: info; }
+html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; }
+html.fold-h .runs .note, html.fold-h .runs .label { display: none; }
+html.fold-h .run-btn { grid-template-columns: auto auto; column-gap: 4px; align-items: center; padding: 3px 4px; } html.fold-h .run-btn svg { width: 18px; height: 18px; grid-row: span 2; } html.fold-h .progress > .note { grid-area: info; }
 html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
 html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
 /* left-handed: the board on the left half, the buttons on the right */
@@ -560,9 +562,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <details>
             <summary>Credits</summary>
             <div class="body stack">
-              <p class="note">The 53,000 puzzles come from real games in the public-domain <a href="https://database.lichess.org/#puzzles" target="_blank" rel="noopener">Lichess puzzle database</a>. This game is not made or endorsed by Lichess.</p>
-              <p class="note">Chess rules by <a href="https://github.com/jhlywa/chess.js" target="_blank" rel="noopener">chess.js</a> (Jeff Hlywa, BSD license). Fonts: Fredoka and Nunito (Open Font License).</p>
-              <p class="note">The pieces, icon and code are original to this game and free to reuse under the MIT license.</p>
+              <p class="note" data-t>The 53,000 puzzles come from real games in the public-domain <a href="https://database.lichess.org/#puzzles" target="_blank" rel="noopener">Lichess puzzle database</a>. This game is not made or endorsed by Lichess.</p>
+              <p class="note" data-t>Chess rules by <a href="https://github.com/jhlywa/chess.js" target="_blank" rel="noopener">chess.js</a> (Jeff Hlywa, BSD license). Fonts: Fredoka and Nunito (Open Font License).</p>
+              <p class="note" data-t>The pieces, icon and code are original to this game and free to reuse under the MIT license.</p>
             </div>
           </details>
           <details>
@@ -669,10 +671,41 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <noscript><p style="padding:16px;font-family:sans-serif">King Walk needs JavaScript turned on to run.</p></noscript>
 
 <script src="chess.js"></script>
+<script src="lang.js"></script>
 <script>
 "use strict";
 /* King Walk: adaptive chess puzzles. One file, no build step. Sections:
    settings, saved state, puzzle data, sound, board, puzzle play, input, panels, startup. */
+
+/* ---------- languages ----------
+   T("English text") looks the text up in this language's table (lang.js, KW_STRINGS[LANG]) and fills {name}
+   placeholders from v. Missing entries stay English. The page's own markup is translated at startup (localizePage):
+   whole text nodes and aria-label / title / placeholder values whose English text is a key, and elements marked
+   data-t, whose inner HTML is the key (for sentences with links in them). */
+const LANGS = ["en", "es", "fr", "de", "it", "pt", "nl", "ru", "ja", "ko", "zh"];
+const LANG = (() => {
+  const q = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];          /* ?lang=de, for testing and screenshots */
+  if (q && LANGS.includes(q)) return q;
+  for (const l of navigator.languages || [navigator.language || "en"]) { const c = String(l).toLowerCase().slice(0, 2); if (LANGS.includes(c)) return c; }
+  return "en";
+})();
+const DICT = (window.KW_STRINGS || {})[LANG] || {};
+function T(text, v) {
+  let t = DICT[text] || text;
+  if (v) t = t.replace(/\{(\w+)\}/g, (m, k) => v[k] !== undefined ? v[k] : m);
+  return t;
+}
+const cap1 = t => t ? t.charAt(0).toLocaleUpperCase(LANG) + t.slice(1) : t;
+function localizePage() {
+  document.documentElement.lang = LANG;
+  if (LANG === "en") return;
+  const norm = t => t.replace(/\s+/g, " ").trim();
+  for (const el of document.querySelectorAll("[data-t]")) { const k = norm(el.innerHTML); if (DICT[k]) el.innerHTML = DICT[k]; }
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentNode.closest("script, style, [data-t]") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  for (let n; (n = walk.nextNode());) { const k = norm(n.nodeValue); if (k && DICT[k]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DICT[k]); }
+  for (const attr of ["aria-label", "title", "placeholder"]) for (const el of document.querySelectorAll("[" + attr + "]")) { const k = norm(el.getAttribute(attr)); if (DICT[k]) el.setAttribute(attr, DICT[k]); }
+  const d = document.querySelector('meta[name="description"]'); if (d && DICT[d.content]) d.content = DICT[d.content];
+}
 
 /* ---------- settings ---------- */
 const BANDS = []; for (let b = 400; b <= 2400; b += 100) BANDS.push(b);   /* one puzzle file per 100 rating points */
@@ -686,6 +719,11 @@ const STREAK_LEN = 15;
 const RUN_RANGE = [[400, 699], [700, 999], [1000, 1299], [1300, 1599], [1600, 1899], [1900, 2300]];
 const RANKS = [[0, "Pawn", "p"], [700, "Knight", "n"], [1000, "Bishop", "b"], [1300, "Rook", "r"], [1600, "Queen", "q"], [1900, "King", "k"]];
 const PIECE_NAME = { k: "King", q: "Queen", r: "Rook", b: "Bishop", n: "Knight", p: "Pawn" };
+const PIECE_LOWER = { k: "king", q: "queen", r: "rook", b: "bishop", n: "knight", p: "pawn" };
+const PIECE_PLURAL = { k: "Kings", q: "Queens", r: "Rooks", b: "Bishops", n: "Knights", p: "Pawns" };
+const COLORED = { w: { k: "white king", q: "white queen", r: "white rook", b: "white bishop", n: "white knight", p: "white pawn" },
+                  b: { k: "black king", q: "black queen", r: "black rook", b: "black bishop", n: "black knight", p: "black pawn" } };
+const rankName = i => T(RANKS[i][1]);
 const THEME_LABEL = {
   mateIn1: "Checkmate in 1", mateIn2: "Checkmate in 2", mateIn3: "Checkmate in 3", mateIn4: "Checkmate in 4", mateIn5: "Long checkmate",
   fork: "Fork", pin: "Pin", skewer: "Skewer", hangingPiece: "Free piece", backRankMate: "Back rank mate", smotheredMate: "Smothered mate",
@@ -933,7 +971,8 @@ function reportProgress(p, puzzle) {
   }
   if (APP.widget) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
-    APP.post({ op: "widget", data: { rating: p.rating, rank: RANKS[ri][1], piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
+    APP.post({ op: "widget", data: { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
+      labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
       solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now() } });
   }
 }
@@ -950,16 +989,16 @@ let lastResult = null;
 function shareText(last) {
   const p = me(), ri = rankIndex(p.rating), lines = [];
   if (last && last.run) {
-    const r = last.run, rk = RANKS[r.rank];
-    lines.push(RANK_GLYPH[r.rank] + " King Walk \u00b7 " + rk[1] + " streak");
-    lines.push(r.cleared ? "\ud83d\udc51 Cleared! " + STREAK_LEN + " of " + STREAK_LEN : "\u2705".repeat(r.step) + (r.over ? "\u274c" : "") + " " + r.step + " of " + STREAK_LEN);
+    const r = last.run;
+    lines.push(RANK_GLYPH[r.rank] + " King Walk \u00b7 " + T("{rank} streak", { rank: rankName(r.rank) }));
+    lines.push(r.cleared ? "\ud83d\udc51 " + T("Cleared! {n} of {total}", { n: STREAK_LEN, total: STREAK_LEN }) : "\u2705".repeat(r.step) + (r.over ? "\u274c" : "") + " " + T("{n} of {total}", { n: r.step, total: STREAK_LEN }));
     if (SHARE_URL) lines.push(SHARE_URL);
     return lines.join("\n");
   }
-  lines.push(RANK_GLYPH[ri] + " King Walk \u00b7 " + RANKS[ri][1] + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
-  if (last && last.rankUp) lines.push("\ud83c\udf89 New rank: " + RANKS[ri][1] + "!");
+  lines.push(RANK_GLYPH[ri] + " King Walk \u00b7 " + rankName(ri) + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
+  if (last && last.rankUp) lines.push("\ud83c\udf89 " + T("New rank: {rank}", { rank: rankName(ri) }) + "!");
   if (p.last.length) lines.push(p.last.slice(-10).map(v => v === 1 ? "\u2705" : v ? "\ud83d\udca1" : "\u274c").join(""));
-  lines.push((p.streak >= 2 ? "\ud83d\udd25 " + p.streak + " in a row \u00b7 " : "") + p.solved + " solved");
+  lines.push((p.streak >= 2 ? "\ud83d\udd25 " + T("{n} in a row", { n: p.streak }) + " \u00b7 " : "") + T("{n} solved", { n: p.solved }));
   if (SHARE_URL) lines.push(SHARE_URL);
   return lines.join("\n");
 }
@@ -968,8 +1007,8 @@ function shareProgress(btn, last) {
   track("share");
   if (APP) { APP.post({ op: "share", text }); return; }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
-  const done = () => { const old = btn.textContent; btn.textContent = "Copied"; setTimeout(() => { btn.textContent = old; }, 1600); };
-  try { navigator.clipboard.writeText(text).then(done, () => window.prompt("Copy this:", text)); } catch (e) { window.prompt("Copy this:", text); }
+  const done = () => { const old = btn.textContent; btn.textContent = T("Copied"); setTimeout(() => { btn.textContent = old; }, 1600); };
+  try { navigator.clipboard.writeText(text).then(done, () => window.prompt(T("Copy this:"), text)); } catch (e) { window.prompt(T("Copy this:"), text); }
 }
 
 /* The App Store rating prompt: only in the app, only right after a clean solve, only once someone has solved 20
@@ -1129,12 +1168,12 @@ function setStatus(mode, main, sub, icon) {
 }
 function goalText() {
   const th = cur.pz.th, mate = th.find(t => /^mateIn\d$/.test(t));
-  return mate ? "Checkmate in " + mate.slice(6) : th.includes("mate") ? "Find the checkmate" : "Find the best move";
+  return mate ? T("Checkmate in {n}", { n: mate.slice(6) }) : th.includes("mate") ? T("Find the checkmate") : T("Find the best move");
 }
-function showTurn() { setStatus("turn", (orient === "w" ? "White" : "Black") + " to play", goalText(), "token"); }
+function showTurn() { setStatus("turn", T(orient === "w" ? "White to play" : "Black to play"), goalText(), "token"); }
 function setButtons(on) {
   $("hintBtn").disabled = !on || hintLevel >= 2; $("answerBtn").disabled = !on;
-  $("hintLabel").textContent = hintLevel === 0 ? "Hint" : "Hint 2";
+  $("hintLabel").textContent = T(hintLevel === 0 ? "Hint" : "Hint 2");
 }
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
 function markNow() { if (RUN) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
@@ -1156,11 +1195,11 @@ async function nextPuzzle() {
   try { [pick] = await Promise.all([RUN ? pickRunPuzzle() : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
-    setStatus("bad", "The puzzles could not load", "Check the connection", "bad");
-    $("nextLabel").textContent = "Try again"; $("doneBtns").hidden = false; $("playBtns").hidden = true; return;
+    setStatus("bad", T("The puzzles could not load"), T("Check the connection"), "bad");
+    $("nextLabel").textContent = T("Try again"); $("doneBtns").hidden = false; $("playBtns").hidden = true; return;
   }
   if (gen !== puzzleGen) return;          /* a newer load took over while this one waited */
-  $("nextLabel").textContent = "Next puzzle";
+  $("nextLabel").textContent = T("Next puzzle");
   cur = pick; idx = 0; first = false;
   const p = me();
   if (pick.resumed) { failed = p.now.f; hintLevel = p.now.h; }
@@ -1169,10 +1208,10 @@ async function nextPuzzle() {
   orient = game.turn() === "w" ? "b" : "w";          /* the other side moves first, then the player answers */
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
-  $("stLevel").textContent = RUN ? RANKS[RUN.rank][1] + " " + (RUN.step + 1) + "/" + STREAK_LEN : "Second try";
+  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : T("Second try");
   $("stLevel").hidden = !cur.review && !RUN;
   renderPuzzleInfo();
-  setStatus("info", RUN ? RANKS[RUN.rank][1] + " streak, puzzle " + (RUN.step + 1) + " of " + STREAK_LEN : cur.review ? "You've seen this one before" : (orient === "w" ? "Black" : "White") + " moves first", RUN ? "No hints. One miss ends the run." : cur.review ? "Second try" : "", "wait");
+  setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : T(orient === "w" ? "Black moves first" : "White moves first"), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
@@ -1185,7 +1224,7 @@ function playUci(uci) {
   const from = uci.slice(0, 2), to = uci.slice(2, 4);
   const mv = game.move({ from, to, promotion: uci[4] });
   if (!mv) return;
-  announce(describeMove(mv) + (mv.color === orient ? "" : ". Your move."));
+  announce(mv.color === orient ? describeMove(mv) : T("{move}. Your move.", { move: describeMove(mv) }));
   lastMove = [from, to]; sel = null; hintSq = []; wrongSq = null;
   const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic("opp");
 }
@@ -1211,16 +1250,16 @@ function commit(from, to, promo) {
     const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move");
     locked = true; setButtons(false);
     if (mated || idx >= cur.pz.moves.length) { announce(said); later(() => finish(true), 260); return; }
-    announce(said + ". Good move.");
-    setStatus("good", "Good move! Keep going.", "", "good");
+    announce(T("{move}. Good move.", { move: said }));
+    setStatus("good", T("Good move! Keep going."), "", "good");
     later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; setButtons(true); showTurn(); }, 280); }, 560);
   } else {          /* wrong: show it, then take it back */
     failed = true; markNow(); locked = true; wrongSq = to; lastMove = [];
     syncPieces({ from, to }); paint(); sfx.bad(); haptic("wrong");
     const o = els.get(to); if (o) later(() => restart(o.el, "nope"), 200);
     restart(frameEl, "shake");
-    setStatus("bad", "Not that one. Try again.", "", "bad");
-    announce(said + ". Not that one. It goes back; try again.");
+    setStatus("bad", T("Not that one. Try again."), "", "bad");
+    announce(T("{move}. Not that one. It goes back; try again.", { move: said }));
     later(() => {
       game.undo(); wrongSq = null;
       const h = game.history({ verbose: true }).pop(); lastMove = h ? [h.from, h.to] : [];
@@ -1235,13 +1274,13 @@ function showHint() {
   hintLevel++;
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
-  setStatus("hint", hintLevel === 1 ? "Move the piece in the gold circle" : "Move it to the other gold circle", "", "hint");
+  setStatus("hint", T(hintLevel === 1 ? "Move the piece in the gold circle" : "Move it to the other gold circle"), "", "hint");
   setButtons(true); paint(); markNow(); haptic("hint");
 }
 function showAnswer() {
   if (locked || done || (RUN && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false);
-  setStatus("info", "Watch the answer", "", "wait");
+  setStatus("info", T("Watch the answer"), "", "wait");
   const step = () => {
     if (idx >= cur.pz.moves.length) { finish(false); return; }
     playUci(cur.pz.moves[idx]); idx++;
@@ -1282,22 +1321,22 @@ function finish(solvedIt) {
   const rankUp = rankIndex(p.rating) > rankBefore;
   frameEl.classList.add(score > 0 ? "ok" : "miss");
   if (score === 1) {
-    setStatus("good", "Solved!", rankUp ? "New rank: " + RANKS[rankIndex(p.rating)][1] : cur.review ? "You got it this time" : "", "good");
+    setStatus("good", T("Solved!"), rankUp ? T("New rank: {rank}", { rank: rankName(rankIndex(p.rating)) }) : cur.review ? T("You got it this time") : "", "good");
     rankUp ? sfx.rank() : sfx.good(); haptic(rankUp ? "rank" : "solve");
     restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   }
-  else if (score === 0.5) { setStatus("good", "Solved with a hint", "", "good"); sfx.good(); haptic("solve"); }
-  else if (solvedIt) setStatus("bad", "Solved after a miss", cur.review ? "" : "It will come back later", "turn");
-  else setStatus("bad", "That was the answer", cur.review ? "" : "It will come back later", "turn");
-  $("stLevel").textContent = "Second try"; $("stLevel").hidden = true;
-  $("nextLabel").textContent = "Next puzzle";
+  else if (score === 0.5) { setStatus("good", T("Solved with a hint"), "", "good"); sfx.good(); haptic("solve"); }
+  else if (solvedIt) setStatus("bad", T("Solved after a miss"), cur.review ? "" : T("It will come back later"), "turn");
+  else setStatus("bad", T("That was the answer"), cur.review ? "" : T("It will come back later"), "turn");
+  $("stLevel").textContent = T("Second try"); $("stLevel").hidden = true;
+  $("nextLabel").textContent = T("Next puzzle");
   const d = $("delta");
-  d.textContent = cur.review ? "practice" : (delta > 0 ? "+" : "") + delta;
+  d.textContent = cur.review ? T("practice") : (delta > 0 ? "+" : "") + delta;
   d.className = "delta" + (cur.review ? "" : delta > 0 ? " up" : delta < 0 ? " down" : "");
   void d.offsetWidth; d.classList.add("show");
   const box = $("themes"); box.textContent = ""; let n = 0;
-  for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = THEME_LABEL[t]; c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
+  for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = T(THEME_LABEL[t]); c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
   if (score === 1 && !rankUp) maybeAskForRating(p);
@@ -1349,26 +1388,26 @@ function finishRun(clean) {
   const cleared = clean && r.step >= STREAK_LEN;
   frameEl.classList.add(clean ? "ok" : "miss");
   if (clean && !cleared) {
-    setStatus("good", "Solved! " + r.step + " in a row", "Next one is a little harder", "good");
+    setStatus("good", T("Solved! {n} in a row", { n: r.step }), T("Next one is a little harder"), "good");
     sfx.good(); haptic("solve"); restart(frameEl, "won");
     if (lastMove[1]) confetti(lastMove[1]);
   } else {
     r.over = true;
     if (cleared) {
-      setStatus("good", rk[1] + " cleared!", STREAK_LEN + " in a row", "good");
+      setStatus("good", T("{rank} cleared!", { rank: rankName(r.rank) }), T("{n} in a row", { n: STREAK_LEN }), "good");
       sfx.rank(); haptic("rank"); restart(frameEl, "won");
       if (lastMove[1]) confetti(lastMove[1]);
       track("run/cleared/" + rk[1].toLowerCase());
       if (APP) achieve("clear_" + rk[1].toLowerCase());
     } else {
-      setStatus("bad", "Streak over: " + r.step + " in a row", "Best at " + rk[1] + ": " + (p.runs[rk[2]] || 0) + " of " + STREAK_LEN, "turn");
+      setStatus("bad", T("Streak over: {n} in a row", { n: r.step }), T("Best at {rank}: {n} of {total}", { rank: rankName(r.rank), n: p.runs[rk[2]] || 0, total: STREAK_LEN }), "turn");
       track("run/end/" + rk[1].toLowerCase() + "/" + r.step);
     }
   }
-  $("stLevel").textContent = rk[1] + " " + r.step + "/" + STREAK_LEN; $("stLevel").hidden = false;
+  $("stLevel").textContent = rankName(r.rank) + " " + r.step + "/" + STREAK_LEN; $("stLevel").hidden = false;
   $("delta").className = "delta";
   lastResult = { run: { rank: r.rank, step: r.step, over: r.over, cleared } };
-  $("nextLabel").textContent = r.over ? "Back to puzzles" : "Next puzzle";
+  $("nextLabel").textContent = T(r.over ? "Back to puzzles" : "Next puzzle");
   $("againBtn").hidden = !r.over;
   $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
   renderPanel();
@@ -1379,9 +1418,9 @@ function renderRuns() {
   RANKS.forEach((r, i) => {
     const best = p.runs[r[2]] || 0, cleared = best >= STREAK_LEN;
     const b = document.createElement("button"); b.type = "button"; b.className = "run-btn" + (cleared ? " cleared" : "");
-    b.setAttribute("aria-label", r[1] + " streak. " + (cleared ? "Cleared." : best ? "Best " + best + " of " + STREAK_LEN + "." : "Not tried yet.") + " Start");
+    b.setAttribute("aria-label", T("{rank} streak", { rank: rankName(i) }) + ". " + (cleared ? T("Cleared.") : best ? T("Best {n} of {total}.", { n: best, total: STREAK_LEN }) : T("Not tried yet.")) + " " + T("Start"));
     b.append(pieceSvg("w" + r[2]));
-    const n = document.createElement("span"); n.textContent = r[1];
+    const n = document.createElement("span"); n.textContent = rankName(i);
     const t = document.createElement("b"); t.textContent = cleared ? "♔ " + STREAK_LEN : best + "/" + STREAK_LEN;
     b.append(n, t);
     b.addEventListener("click", () => startRun(i));
@@ -1395,14 +1434,14 @@ function renderRuns() {
    the board faces, and Enter or Space chooses, like a tap. Moves are announced in #announce. */
 const COLOR_NAME = { w: "white", b: "black" };
 function squareName(sq, target, inCheck) {
-  const p = game && game.get(sq), parts = [sq + ","];
-  parts.push(p ? COLOR_NAME[p.color] + " " + PIECE_NAME[p.type].toLowerCase() : "empty");
-  if (sel === sq) parts.push(", selected");
-  if (target) parts.push(target === "tc" ? ", can take here" : ", can move here");
-  if (hintSq.includes(sq)) parts.push(", hint");
-  if (inCheck) parts.push(", in check");
-  if (lastMove.includes(sq) && !target) parts.push(", last move");
-  return parts.join(" ").replace(/ ,/g, ",");
+  const p = game && game.get(sq);
+  let t = sq + ", " + (p ? T(COLORED[p.color][p.type]) : T("empty"));
+  if (sel === sq) t += T(", selected");
+  if (target) t += T(target === "tc" ? ", can take here" : ", can move here");
+  if (hintSq.includes(sq)) t += T(", hint");
+  if (inCheck) t += T(", in check");
+  if (lastMove.includes(sq) && !target) t += T(", last move");
+  return t;
 }
 let focusSq = null;          /* the square in the tab order */
 function keepFocusable() {
@@ -1416,13 +1455,13 @@ function keepFocusable() {
 function announce(text) { const a = $("announce"); a.textContent = ""; setTimeout(() => { a.textContent = text; }, 30); }
 /* "Black knight from g8 to f6, takes pawn, check" */
 function describeMove(m) {
-  let t = COLOR_NAME[m.color] + " " + PIECE_NAME[m.piece].toLowerCase() + " from " + m.from + " to " + m.to;
-  if (m.captured) t += ", takes " + PIECE_NAME[m.captured].toLowerCase();
-  if (m.promotion) t += ", becomes a " + PIECE_NAME[m.promotion].toLowerCase();
-  if (m.flags.indexOf("k") >= 0) t = COLOR_NAME[m.color] + " castles king side";
-  if (m.flags.indexOf("q") >= 0) t = COLOR_NAME[m.color] + " castles queen side";
-  if (game.in_checkmate()) t += ", checkmate"; else if (game.in_check()) t += ", check";
-  return t.charAt(0).toUpperCase() + t.slice(1);
+  let t = T("{piece} from {from} to {to}", { piece: T(COLORED[m.color][m.piece]), from: m.from, to: m.to });
+  if (m.flags.indexOf("k") >= 0) t = T(m.color === "w" ? "White castles king side" : "Black castles king side");
+  if (m.flags.indexOf("q") >= 0) t = T(m.color === "w" ? "White castles queen side" : "Black castles queen side");
+  if (m.captured) t += T(", takes {piece}", { piece: T(PIECE_LOWER[m.captured]) });
+  if (m.promotion) t += T(", becomes a {piece}", { piece: T(PIECE_LOWER[m.promotion]) });
+  if (game.in_checkmate()) t += T(", checkmate"); else if (game.in_check()) t += T(", check");
+  return cap1(t);
 }
 /* a tap, from the keyboard or an assistive technology: choose a piece, choose its square, or put it down */
 function activateSquare(sq) {
@@ -1431,11 +1470,11 @@ function activateSquare(sq) {
   if (sel && sel !== sq && canGo(sel, sq)) { focusSq = sq; tryMove(sel, sq); return; }
   const p = game.get(sq);
   if (p && p.color === orient) {
-    if (sel === sq) { sel = null; paint(); announce("Put down"); return; }
+    if (sel === sq) { sel = null; paint(); announce(T("Put down")); return; }
     sel = sq; paint(); haptic("pick");
     const n = game.moves({ square: sq, verbose: true }).length;
-    announce(PIECE_NAME[p.type] + " on " + sq + " selected. " + (n ? n + (n === 1 ? " square" : " squares") + " it can move to." : "It has no moves."));
-  } else if (sel) { sel = null; paint(); announce("Not a move. Put down."); }
+    announce(T("{piece} on {sq} selected.", { piece: T(PIECE_NAME[p.type]), sq }) + " " + (n === 1 ? T("1 square it can move to.") : n ? T("{n} squares it can move to.", { n }) : T("It has no moves.")));
+  } else if (sel) { sel = null; paint(); announce(T("Not a move. Put down.")); }
 }
 squaresEl.addEventListener("keydown", e => {
   const sq = e.target.dataset && e.target.dataset.sq; if (!sq) return;
@@ -1446,7 +1485,7 @@ squaresEl.addEventListener("keydown", e => {
     const next = orient === "w" ? FILES[nx] + (8 - ny) : FILES[7 - nx] + (ny + 1);
     focusSq = next; keepFocusable(); sqEls[next].focus();
   } else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateSquare(sq); }
-  else if (e.key === "Escape" && sel) { sel = null; paint(); announce("Put down"); }
+  else if (e.key === "Escape" && sel) { sel = null; paint(); announce(T("Put down")); }
 });
 /* clicks that don't come from a finger or mouse on the board (VoiceOver's double tap, Voice Control, Switch Control)
    have no pointer events before them; detail 0 marks them */
@@ -1457,9 +1496,9 @@ squaresEl.addEventListener("focusin", e => { if (e.target.dataset && e.target.da
 function askPromotion(cb, cancel) {
   closePromo();
   const ov = document.createElement("div"), box = document.createElement("div"), row = document.createElement("div"), cap = document.createElement("p");
-  ov.className = "promo"; box.className = "promo-box"; row.className = "promo-row"; cap.textContent = "Turn the pawn into";
+  ov.className = "promo"; box.className = "promo-box"; row.className = "promo-row"; cap.textContent = T("Turn the pawn into");
   for (const t of ["q", "r", "b", "n"]) {
-    const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", PIECE_NAME[t]);
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", T(PIECE_NAME[t]));
     b.append(pieceSvg(orient + t));
     b.addEventListener("click", e => { e.stopPropagation(); closePromo(); cb(t); });
     row.append(b);
@@ -1468,7 +1507,7 @@ function askPromotion(cb, cancel) {
   promoCancel = () => { closePromo(); cancel(); };
   ov.addEventListener("click", e => { if (e.target === ov && promoCancel) promoCancel(); });
   box.append(cap, row); ov.append(box); boardEl.append(ov);
-  ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "Turn the pawn into"); row.firstChild.focus({ preventScroll: true });
+  ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", T("Turn the pawn into")); row.firstChild.focus({ preventScroll: true });
 }
 document.addEventListener("keydown", e => { if (e.key === "Escape" && promoCancel) promoCancel(); });
 
@@ -1549,16 +1588,17 @@ function renderSetup() {
   const groups = { w: {}, b: {} };
   eachPiece((sq, p) => { (groups[p.color][p.type] = groups[p.color][p.type] || []).push(sq); });
   for (const [c, label] of [["w", "White"], ["b", "Black"]]) {
-    const row = document.createElement("div"), b = document.createElement("b"); b.textContent = label + ": ";
-    const parts = []; for (const t of "kqrbnp") if (groups[c][t]) parts.push(PIECE_NAME[t] + (groups[c][t].length > 1 ? "s " : " ") + groups[c][t].join(", "));
+    const row = document.createElement("div"), b = document.createElement("b"); b.textContent = T(label) + ": ";
+    const parts = []; for (const t of "kqrbnp") if (groups[c][t]) parts.push(T(groups[c][t].length > 1 ? PIECE_PLURAL[t] : PIECE_NAME[t]) + " " + groups[c][t].join(", "));
     row.append(b, parts.join("; ")); box.append(row);
   }
-  const turn = document.createElement("div"); turn.textContent = (game.turn() === "w" ? "White" : "Black") + " moves next."; box.append(turn);
+  const turn = document.createElement("div"); turn.textContent = T(game.turn() === "w" ? "White moves next." : "Black moves next."); box.append(turn);
 }
 function renderPuzzleInfo() {
   const box = $("pzInfo"), a = document.createElement("a");
   a.href = "https://lichess.org/training/" + encodeURIComponent(cur.pz.id); a.target = "_blank"; a.rel = "noopener"; a.textContent = "#" + cur.pz.id;
-  box.textContent = ""; box.append("This puzzle: ", a, " on Lichess, rated " + cur.pz.r + ".");
+  const [before, after] = T("This puzzle: {link} on Lichess, rated {r}.", { r: cur.pz.r }).split("{link}");
+  box.textContent = ""; box.append(before, a, after || "");
 }
 let tweenId = 0;
 function tweenNumber(el, from, to) {
@@ -1578,15 +1618,15 @@ function renderPanel(fromRating) {
   tweenNumber($("rating"), fromRating === undefined ? p.rating : fromRating, p.rating);
   const ri = rankIndex(p.rating), lo = ri === 0 ? 400 : RANKS[ri][0], nxt = RANKS[ri + 1];
   $("rateUse").setAttribute("href", "#pc-w" + RANKS[ri][2]);
-  $("rankName").textContent = RANKS[ri][1] + " rank";
+  $("rankName").textContent = T("{rank} rank", { rank: rankName(ri) });
   const lad = $("ladder"), names = $("ladNames"); lad.textContent = ""; names.textContent = "";
   RANKS.forEach((r, i) => {
-    const t = document.createElement("div"); t.className = "lad" + (i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[1] + (r[0] ? " at " + r[0] : "");
+    const t = document.createElement("div"); t.className = "lad" + (i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[0] ? T("{rank} at {n}", { rank: rankName(i), n: r[0] }) : rankName(i);
     t.append(pieceSvg("w" + r[2])); lad.append(t);
-    const n = document.createElement("span"); n.textContent = r[1]; if (i === ri) n.className = "on"; names.append(n);
+    const n = document.createElement("span"); n.textContent = rankName(i); if (i === ri) n.className = "on"; names.append(n);
   });
-  if (nxt) { $("rankNext").textContent = (nxt[0] - p.rating) + " to " + nxt[1]; $("rankBar").style.width = clamp((p.rating - lo) / (nxt[0] - lo) * 100, 4, 100) + "%"; }
-  else { $("rankNext").textContent = "Top rank"; $("rankBar").style.width = "100%"; }
+  if (nxt) { $("rankNext").textContent = T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }); $("rankBar").style.width = clamp((p.rating - lo) / (nxt[0] - lo) * 100, 4, 100) + "%"; }
+  else { $("rankNext").textContent = T("Top rank"); $("rankBar").style.width = "100%"; }
   $("stSolved").textContent = p.solved; $("stStreak").textContent = p.streak;
   $("stAcc").textContent = p.last.length ? Math.round(p.last.reduce((a, b) => a + b, 0) / p.last.length * 100) + "%" : "-";
   for (const b of $("modeSeg").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.mode === p.mode));
@@ -1604,7 +1644,7 @@ function renderPanel(fromRating) {
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
   renderRuns();
-  $("chartLo").textContent = "low " + mn; $("chartHi").textContent = "high " + mx;
+  $("chartLo").textContent = T("low {n}", { n: mn }); $("chartHi").textContent = T("high {n}", { n: mx });
 }
 
 $("hintBtn").addEventListener("click", showHint);
@@ -1624,8 +1664,8 @@ $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecent
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
-  $("helpSaved").textContent = "Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.";
-  $("saveHelp").textContent = "Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.";
+  $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");
+  $("saveHelp").textContent = T("Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.");
   /* the policy pages open in Safari from the website, so they are the current versions */
   for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href");
   $("links").hidden = !SITE;          /* no site configured: nothing to link to */
@@ -1633,7 +1673,7 @@ if (APP) {          /* in the app the save also goes to the player's iCloud, so 
 
 /* Start over: the first tap turns the button red. It only becomes active after a pause, so a double tap cannot erase progress. */
 let resetTimers = [];
-function resetIdle() { const b = $("resetBtn"); resetTimers.forEach(clearTimeout); resetTimers = []; delete b.dataset.armed; b.disabled = false; b.classList.remove("danger"); b.textContent = "Start over"; }
+function resetIdle() { const b = $("resetBtn"); resetTimers.forEach(clearTimeout); resetTimers = []; delete b.dataset.armed; b.disabled = false; b.classList.remove("danger"); b.textContent = T("Start over"); }
 $("resetBtn").addEventListener("click", () => {
   const b = $("resetBtn");
   if (b.dataset.armed) {
@@ -1641,7 +1681,7 @@ $("resetBtn").addEventListener("click", () => {
     S.players = [newPlayer(START_RATING)]; S.cur = 0; seenCache = {}; save(); renderPanel(); nextPuzzle(); track("reset"); reportProgress(me());
     return;
   }
-  b.classList.add("danger"); b.textContent = "Erase progress?"; b.disabled = true;
+  b.classList.add("danger"); b.textContent = T("Erase progress?"); b.disabled = true;
   resetTimers.push(setTimeout(() => { b.disabled = false; b.dataset.armed = "1"; }, 1200));
   resetTimers.push(setTimeout(resetIdle, 6200));
 });
@@ -1650,18 +1690,18 @@ $("resetBtn").addEventListener("click", () => {
 $("copyCode").addEventListener("click", () => {
   const code = btoa(JSON.stringify(S)), ta = $("saveCode");
   ta.value = code; ta.select();
-  const ok = () => { $("saveNote").textContent = "Copied. Paste it on the other device and press Load."; };
-  const manual = () => { $("saveNote").textContent = "The code is selected above. Copy it, then paste it on the other device."; };
+  const ok = () => { $("saveNote").textContent = T("Copied. Paste it on the other device and press Load."); };
+  const manual = () => { $("saveNote").textContent = T("The code is selected above. Copy it, then paste it on the other device."); };
   try { navigator.clipboard.writeText(code).then(ok, manual); } catch (e) { manual(); }
   track("save-code/copy");
 });
 $("loadCode").addEventListener("click", () => {
   const btn = $("loadCode"); let next = null;
   try { next = cleanState(JSON.parse(atob($("saveCode").value.trim()))); } catch (e) {}
-  if (!next) { $("saveNote").textContent = "That code did not work. Copy the whole code and try again."; delete btn.dataset.sure; btn.textContent = "Load pasted code"; return; }
-  if (!btn.dataset.sure) { btn.dataset.sure = "1"; btn.textContent = "Replace progress here?"; $("saveNote").textContent = "This replaces the progress saved in this browser."; return; }
-  delete btn.dataset.sure; btn.textContent = "Load pasted code";
-  S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = "Loaded."; nextPuzzle(); track("save-code/load"); reportProgress(me());
+  if (!next) { $("saveNote").textContent = T("That code did not work. Copy the whole code and try again."); delete btn.dataset.sure; btn.textContent = T("Load pasted code"); return; }
+  if (!btn.dataset.sure) { btn.dataset.sure = "1"; btn.textContent = T("Replace progress here?"); $("saveNote").textContent = T("This replaces the progress saved in this browser."); return; }
+  delete btn.dataset.sure; btn.textContent = T("Load pasted code");
+  S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = T("Loaded."); nextPuzzle(); track("save-code/load"); reportProgress(me());
 });
 
 /* ---------- a fold (see the CSS) ----------
@@ -1687,7 +1727,7 @@ function bookPages(on) {
   if (!on) { while (Book.moved.length) { const [n, parent, next] = Book.moved.pop(); parent.insertBefore(n, next); } return; }
   if (!Book.pages) {
     const mk = cls => { const d = document.createElement("div"); d.className = "page " + cls; document.querySelector(".wrap").append(d); return d; };
-    const ranks = document.createElement("section"); ranks.className = "card stack ranks-card"; ranks.setAttribute("aria-label", "Rank");
+    const ranks = document.createElement("section"); ranks.className = "card stack ranks-card"; ranks.setAttribute("aria-label", T("Rank"));
     Book.pages = { notes: mk("notes"), board: mk("board"), ranks };
   }
   const move = (n, to) => { Book.moved.push([n, n.parentNode, n.nextSibling]); to.append(n); };
@@ -1712,6 +1752,7 @@ window.kingWalkFold = r => { Fold.app = r && (r.w > 0 || r.h > 0 || r.x > 0 || r
 foldLayout(); addEventListener("resize", foldLayout);
 
 /* ---------- startup ---------- */
+localizePage();
 renderPanel();
 {
   const p = me(), fresh = !S.updatedAt;
@@ -1724,10 +1765,10 @@ renderPanel();
   if (APP) setTimeout(() => reportProgress(p), 1500);          /* after Game Center has had a moment to sign in */
 }
 if (typeof Chess !== "function") {
-  setStatus("bad", "The game could not load", "Reload the page", "bad");
+  setStatus("bad", T("The game could not load"), T("Reload the page"), "bad");
 } else {
   game = new Chess(); buildSquares(); dealPieces(); paint();
-  setStatus("info", "Getting the puzzles ready", "", "wait");
+  setStatus("info", T("Getting the puzzles ready"), "", "wait");
   nextPuzzle();
 }
 </script>

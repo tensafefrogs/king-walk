@@ -1,0 +1,1 @@
+window.KW_STRINGS = {};

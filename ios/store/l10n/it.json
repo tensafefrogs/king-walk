@@ -1,0 +1,186 @@
+{
+  "locale": "it",
+  "listing": {
+    "name": "King Walk: Problemi di scacchi",
+    "subtitle": "Problemi che crescono con te",
+    "promotional_text": "53.000 problemi di scacchi da partite vere, con un punteggio che trova il tuo livello. Risolvine uno e il successivo è più difficile. Porta il tuo re da Pedone a Re.",
+    "description": "King Walk è un allenatore di problemi di scacchi che si adatta a te. Ogni problema è un momento di una partita vera in cui c'è una mossa forte da trovare, o una breve sequenza di mosse.\n\nRisolvi un problema senza errori e il tuo punteggio problemi sale, così i problemi successivi diventano più difficili. Sbagliane uno e il punteggio scende un po', e i problemi si fanno più facili. In poche decine di problemi il gioco trova il tuo livello, e da lì sale man mano che migliori.\n\nParti dal grado di Pedone. Alza il tuo punteggio e conquisti Cavallo, Alfiere, Torre, Donna e infine Re: il re risale la scacchiera.\n\n• 53.000 problemi da partite vere: forchette, inchiodature, infilate, matti sull'ultima traversa, matti in una, due e tre mosse, finali e altro ancora\n• Un punteggio problemi che segue il tuo livello, con un grafico dei tuoi progressi\n• Suggerimenti quando sei bloccato: il primo cerchia il pezzo da muovere, il secondo mostra dove va\n• I problemi sbagliati tornano più tardi per un secondo tentativo\n• Serie per grado: 15 problemi che salgono attraverso un grado, senza suggerimenti, e un errore chiude la serie. Supera tutti i gradi, da Pedone a Re\n• Più facile, Giusto o Più difficile, per scegliere il ritmo\n• Classifiche, obiettivi e sfide di Game Center: sfida i tuoi amici a battere la tua serie Cavallo\n• Un widget per la schermata Home e la schermata di blocco con il tuo grado e il tuo punteggio\n• Condividi i tuoi progressi: grado, punteggio e ultimi dieci problemi in poche emoji\n• Su iPhone Duo, aprilo come un portatile (la scacchiera resta piatta sotto le tue mani) o tienilo come un libro (la scacchiera su una pagina, le note sull'altra)\n• Un layout per mancini che mette la scacchiera a sinistra quando il telefono è in orizzontale o piegato\n• I progressi si sincronizzano tra iPhone e iPad con iCloud\n• Feedback aptico, modalità chiara e scura, e una scacchiera su cui puoi toccare o trascinare\n• Si gioca completamente offline\n• Nessun account, nessuna pubblicità, nessun acquisto in-app\n\nI problemi provengono dal database dei problemi di Lichess, di pubblico dominio. King Walk non è realizzato né approvato da Lichess.",
+    "keywords": "tattica,scacco matto,matto in 2,elo,punteggio,allenamento,strategia,logica,forchetta,finali,esercizi"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Punteggio problemi",
+        "suffix": " punti",
+        "suffix_singular": " punto"
+      },
+      "streak": {
+        "name": "Serie migliore",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "hardest": {
+        "name": "Problema più difficile",
+        "suffix": " punti",
+        "suffix_singular": " punto"
+      },
+      "streak_p": {
+        "name": "Serie Pedone",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "streak_n": {
+        "name": "Serie Cavallo",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "streak_b": {
+        "name": "Serie Alfiere",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "streak_r": {
+        "name": "Serie Torre",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "streak_q": {
+        "name": "Serie Donna",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      },
+      "streak_k": {
+        "name": "Serie Re",
+        "suffix": " di fila",
+        "suffix_singular": " di fila"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Primi passi",
+        "before": "Risolvi un problema senza errori e senza suggerimenti.",
+        "earned": "Hai risolto il tuo primo problema senza errori e senza suggerimenti."
+      },
+      "solved_50": {
+        "name": "Cinquanta risolti",
+        "before": "Risolvi 50 problemi senza errori e senza suggerimenti.",
+        "earned": "Hai risolto 50 problemi senza errori."
+      },
+      "solved_250": {
+        "name": "Abitudine tattica",
+        "before": "Risolvi 250 problemi senza errori e senza suggerimenti.",
+        "earned": "Hai risolto 250 problemi senza errori."
+      },
+      "solved_1000": {
+        "name": "Mille problemi",
+        "before": "Risolvi 1.000 problemi senza errori e senza suggerimenti.",
+        "earned": "Hai risolto 1.000 problemi senza errori."
+      },
+      "streak_5": {
+        "name": "Lanciato",
+        "before": "Risolvi 5 problemi di fila.",
+        "earned": "Hai risolto 5 problemi di fila."
+      },
+      "streak_10": {
+        "name": "Dieci di fila",
+        "before": "Risolvi 10 problemi di fila.",
+        "earned": "Hai risolto 10 problemi di fila."
+      },
+      "streak_20": {
+        "name": "Inarrestabile",
+        "before": "Risolvi 20 problemi di fila.",
+        "earned": "Hai risolto 20 problemi di fila."
+      },
+      "rank_knight": {
+        "name": "Cavallo",
+        "before": "Raggiungi un punteggio problemi di 700.",
+        "earned": "Hai raggiunto il grado Cavallo: un punteggio problemi di 700."
+      },
+      "rank_bishop": {
+        "name": "Alfiere",
+        "before": "Raggiungi un punteggio problemi di 1000.",
+        "earned": "Hai raggiunto il grado Alfiere: un punteggio problemi di 1000."
+      },
+      "rank_rook": {
+        "name": "Torre",
+        "before": "Raggiungi un punteggio problemi di 1300.",
+        "earned": "Hai raggiunto il grado Torre: un punteggio problemi di 1300."
+      },
+      "rank_queen": {
+        "name": "Donna",
+        "before": "Raggiungi un punteggio problemi di 1600.",
+        "earned": "Hai raggiunto il grado Donna: un punteggio problemi di 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Raggiungi un punteggio problemi di 1900.",
+        "earned": "Hai raggiunto il grado Re: un punteggio problemi di 1900. Il re ha risalito tutta la scacchiera."
+      },
+      "giant_slayer": {
+        "name": "Ammazzagiganti",
+        "before": "Risolvi senza errori un problema con un punteggio di almeno 300 punti sopra il tuo.",
+        "earned": "Hai risolto senza errori un problema con un punteggio di almeno 300 punti sopra il tuo."
+      },
+      "clear_pawn": {
+        "name": "Pedone superato",
+        "before": "Supera la serie Pedone: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Pedone: 15 problemi di fila da 400 a 699, senza suggerimenti."
+      },
+      "clear_knight": {
+        "name": "Cavallo superato",
+        "before": "Supera la serie Cavallo: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Cavallo: 15 problemi di fila da 700 a 999, senza suggerimenti."
+      },
+      "clear_bishop": {
+        "name": "Alfiere superato",
+        "before": "Supera la serie Alfiere: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Alfiere: 15 problemi di fila da 1000 a 1299, senza suggerimenti."
+      },
+      "clear_rook": {
+        "name": "Torre superata",
+        "before": "Supera la serie Torre: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Torre: 15 problemi di fila da 1300 a 1599, senza suggerimenti."
+      },
+      "clear_queen": {
+        "name": "Donna superata",
+        "before": "Supera la serie Donna: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Donna: 15 problemi di fila da 1600 a 1899, senza suggerimenti."
+      },
+      "clear_king": {
+        "name": "Re superato",
+        "before": "Supera la serie Re: 15 problemi di fila, senza suggerimenti.",
+        "earned": "Hai superato la serie Re: 15 problemi di fila da 1900 a 2300, senza suggerimenti."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Problema più difficile",
+        "description": "Risolvi senza errori il problema col punteggio più alto possibile. Attiva Harder nel menu per vederne di più difficili."
+      },
+      "streak_p_challenge": {
+        "name": "Serie Pedone",
+        "description": "15 problemi che salgono da 400 a 699. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      },
+      "streak_n_challenge": {
+        "name": "Serie Cavallo",
+        "description": "15 problemi che salgono da 700 a 999. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      },
+      "streak_b_challenge": {
+        "name": "Serie Alfiere",
+        "description": "15 problemi che salgono da 1000 a 1299. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      },
+      "streak_r_challenge": {
+        "name": "Serie Torre",
+        "description": "15 problemi che salgono da 1300 a 1599. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      },
+      "streak_q_challenge": {
+        "name": "Serie Donna",
+        "description": "15 problemi che salgono da 1600 a 1899. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      },
+      "streak_k_challenge": {
+        "name": "Serie Re",
+        "description": "15 problemi che salgono da 1900 a 2300. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
+      }
+    }
+  }
+}

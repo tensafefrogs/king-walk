@@ -1,0 +1,186 @@
+{
+  "locale": "de-DE",
+  "listing": {
+    "name": "King Walk: Schachrätsel",
+    "subtitle": "Aufgaben, die mit dir wachsen",
+    "promotional_text": "53.000 Schachaufgaben aus echten Partien, mit einer Wertung, die dein Niveau findet. Löst du eine, wird die nächste schwerer. Bring deinen König vom Bauern zum König.",
+    "description": "King Walk ist ein Trainer für Schachaufgaben, der sich an dich anpasst. Jede Aufgabe ist ein Moment aus einer echten Partie, in dem es einen starken Zug zu finden gilt, oder eine kurze Folge davon.\n\nLöst du eine Aufgabe fehlerfrei, steigt deine Aufgabenwertung, und die nächsten Aufgaben werden schwerer. Verpasst du eine, sinkt die Wertung ein wenig, und die Aufgaben werden leichter. Nach ein paar Dutzend Aufgaben hat das Spiel dein Niveau gefunden, und von da an steigt es mit, während du besser wirst.\n\nDu beginnst im Rang Bauer. Steigere deine Wertung und du erreichst Springer, Läufer, Turm, Dame und schließlich König: Der König wandert das Brett hinauf.\n\n• 53.000 Aufgaben aus echten Partien: Gabeln, Fesselungen, Spieße, Grundreihenmatts, Matt in eins, zwei und drei, Endspiele und mehr\n• Eine Aufgabenwertung, die deinem Niveau folgt, mit einem Diagramm deines Fortschritts\n• Hinweise, wenn du feststeckst: Der erste markiert die Figur, die ziehen soll, der zweite zeigt, wohin sie zieht\n• Verpasste Aufgaben kommen später für einen zweiten Versuch zurück\n• Rang-Serien: 15 Aufgaben, die durch einen Rang aufsteigen, ohne Hinweise, ein Fehler beendet den Lauf. Schaffe jeden Rang vom Bauern bis zum König\n• Leichter, Genau richtig oder Schwerer, um das Tempo festzulegen\n• Game Center-Bestenlisten, -Erfolge und -Herausforderungen: Fordere deine Freunde heraus, deine Springer-Serie zu schlagen\n• Ein Widget für Home-Bildschirm und Sperrbildschirm mit deinem Rang und deiner Wertung\n• Teile deinen Fortschritt: dein Rang, deine Wertung und deine letzten zehn Aufgaben in ein paar Emojis\n• Auf dem iPhone Duo stellst du es wie einen Laptop auf (das Brett liegt flach unter deinen Händen) oder hältst es wie ein Buch (das Brett auf der einen Seite, die Notizen auf der anderen)\n• Ein Linkshänder-Layout, das das Brett links zeigt, wenn dein Handy quer liegt oder gefaltet ist\n• Dein Fortschritt wird über iCloud zwischen iPhone und iPad synchronisiert\n• Haptisches Feedback, heller und dunkler Modus und ein Brett, auf dem du tippen oder ziehen kannst\n• Komplett offline spielbar\n• Kein Konto, keine Werbung, keine In-App-Käufe\n\nDie Aufgaben stammen aus der gemeinfreien Aufgabendatenbank von Lichess. King Walk wird nicht von Lichess entwickelt oder unterstützt.",
+    "keywords": "schach,taktik,schachmatt,matt in 2,elo,wertung,schachaufgaben,training,strategie,gabel,endspiel"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Aufgabenwertung",
+        "suffix": " Wertung",
+        "suffix_singular": " Wertung"
+      },
+      "streak": {
+        "name": "Beste Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "hardest": {
+        "name": "Schwerste gelöste Aufgabe",
+        "suffix": " Aufgabenwertung",
+        "suffix_singular": " Aufgabenwertung"
+      },
+      "streak_p": {
+        "name": "Bauern-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "streak_n": {
+        "name": "Springer-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "streak_b": {
+        "name": "Läufer-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "streak_r": {
+        "name": "Turm-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "streak_q": {
+        "name": "Damen-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      },
+      "streak_k": {
+        "name": "Königs-Serie",
+        "suffix": " in Folge",
+        "suffix_singular": " in Folge"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Erste Schritte",
+        "before": "Löse eine Aufgabe ohne Fehler und ohne Hinweise.",
+        "earned": "Du hast deine erste Aufgabe ohne Fehler und ohne Hinweise gelöst."
+      },
+      "solved_50": {
+        "name": "Fünfzig gelöst",
+        "before": "Löse 50 Aufgaben ohne Fehler und ohne Hinweise.",
+        "earned": "Du hast 50 Aufgaben fehlerfrei gelöst."
+      },
+      "solved_250": {
+        "name": "Taktik-Routine",
+        "before": "Löse 250 Aufgaben ohne Fehler und ohne Hinweise.",
+        "earned": "Du hast 250 Aufgaben fehlerfrei gelöst."
+      },
+      "solved_1000": {
+        "name": "Tausend Aufgaben",
+        "before": "Löse 1.000 Aufgaben ohne Fehler und ohne Hinweise.",
+        "earned": "Du hast 1.000 Aufgaben fehlerfrei gelöst."
+      },
+      "streak_5": {
+        "name": "In Fahrt",
+        "before": "Löse 5 Aufgaben in Folge.",
+        "earned": "Du hast 5 Aufgaben in Folge gelöst."
+      },
+      "streak_10": {
+        "name": "Zehn in Folge",
+        "before": "Löse 10 Aufgaben in Folge.",
+        "earned": "Du hast 10 Aufgaben in Folge gelöst."
+      },
+      "streak_20": {
+        "name": "Unaufhaltsam",
+        "before": "Löse 20 Aufgaben in Folge.",
+        "earned": "Du hast 20 Aufgaben in Folge gelöst."
+      },
+      "rank_knight": {
+        "name": "Springer",
+        "before": "Erreiche eine Aufgabenwertung von 700.",
+        "earned": "Du hast den Rang Springer erreicht: eine Aufgabenwertung von 700."
+      },
+      "rank_bishop": {
+        "name": "Läufer",
+        "before": "Erreiche eine Aufgabenwertung von 1000.",
+        "earned": "Du hast den Rang Läufer erreicht: eine Aufgabenwertung von 1000."
+      },
+      "rank_rook": {
+        "name": "Turm",
+        "before": "Erreiche eine Aufgabenwertung von 1300.",
+        "earned": "Du hast den Rang Turm erreicht: eine Aufgabenwertung von 1300."
+      },
+      "rank_queen": {
+        "name": "Dame",
+        "before": "Erreiche eine Aufgabenwertung von 1600.",
+        "earned": "Du hast den Rang Dame erreicht: eine Aufgabenwertung von 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Erreiche eine Aufgabenwertung von 1900.",
+        "earned": "Du hast den Rang König erreicht: eine Aufgabenwertung von 1900. Der König ist das ganze Brett hinaufgewandert."
+      },
+      "giant_slayer": {
+        "name": "Riesenbezwinger",
+        "before": "Löse fehlerfrei eine Aufgabe, deren Wertung 300 oder mehr über deiner liegt.",
+        "earned": "Du hast fehlerfrei eine Aufgabe gelöst, deren Wertung 300 oder mehr über deiner lag."
+      },
+      "clear_pawn": {
+        "name": "Bauer geschafft",
+        "before": "Schaffe die Bauern-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Bauern-Serie geschafft: 15 Aufgaben in Folge von 400 bis 699, ohne Hinweise."
+      },
+      "clear_knight": {
+        "name": "Springer geschafft",
+        "before": "Schaffe die Springer-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Springer-Serie geschafft: 15 Aufgaben in Folge von 700 bis 999, ohne Hinweise."
+      },
+      "clear_bishop": {
+        "name": "Läufer geschafft",
+        "before": "Schaffe die Läufer-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Läufer-Serie geschafft: 15 Aufgaben in Folge von 1000 bis 1299, ohne Hinweise."
+      },
+      "clear_rook": {
+        "name": "Turm geschafft",
+        "before": "Schaffe die Turm-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Turm-Serie geschafft: 15 Aufgaben in Folge von 1300 bis 1599, ohne Hinweise."
+      },
+      "clear_queen": {
+        "name": "Dame geschafft",
+        "before": "Schaffe die Damen-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Damen-Serie geschafft: 15 Aufgaben in Folge von 1600 bis 1899, ohne Hinweise."
+      },
+      "clear_king": {
+        "name": "König geschafft",
+        "before": "Schaffe die Königs-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
+        "earned": "Du hast die Königs-Serie geschafft: 15 Aufgaben in Folge von 1900 bis 2300, ohne Hinweise."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Schwerste gelöste Aufgabe",
+        "description": "Löse fehlerfrei die höchstbewertete Aufgabe, die du schaffst. Schalte im Menü Harder ein, um schwerere zu sehen."
+      },
+      "streak_p_challenge": {
+        "name": "Bauern-Serie",
+        "description": "15 Aufgaben, die von 400 bis 699 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      },
+      "streak_n_challenge": {
+        "name": "Springer-Serie",
+        "description": "15 Aufgaben, die von 700 bis 999 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      },
+      "streak_b_challenge": {
+        "name": "Läufer-Serie",
+        "description": "15 Aufgaben, die von 1000 bis 1299 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      },
+      "streak_r_challenge": {
+        "name": "Turm-Serie",
+        "description": "15 Aufgaben, die von 1300 bis 1599 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      },
+      "streak_q_challenge": {
+        "name": "Damen-Serie",
+        "description": "15 Aufgaben, die von 1600 bis 1899 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      },
+      "streak_k_challenge": {
+        "name": "Königs-Serie",
+        "description": "15 Aufgaben, die von 1900 bis 2300 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
+      }
+    }
+  }
+}

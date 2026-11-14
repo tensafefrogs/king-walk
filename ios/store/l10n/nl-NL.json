@@ -1,0 +1,186 @@
+{
+  "locale": "nl-NL",
+  "listing": {
+    "name": "King Walk: Schaakpuzzels",
+    "subtitle": "Puzzels die met je meegroeien",
+    "promotional_text": "53.000 schaakpuzzels uit echte partijen, met een rating die jouw niveau vindt. Los er een op en de volgende wordt moeilijker. Breng je koning van Pion naar Koning.",
+    "description": "King Walk is een trainer voor schaakpuzzels die zich aan jou aanpast. Elke puzzel is een moment uit een echte partij waarin één sterke zet te vinden is, of een korte reeks zetten.\n\nLos een puzzel foutloos op en je puzzelrating stijgt, zodat de volgende puzzels moeilijker worden. Mis je er een, dan daalt de rating een beetje en worden de puzzels makkelijker. Binnen een paar dozijn puzzels vindt het spel je niveau, en vanaf daar stijgt het mee terwijl je beter wordt.\n\nJe begint in de rang Pion. Verhoog je rating en je verdient Paard, Loper, Toren, Dame en ten slotte Koning: de koning loopt het bord op.\n\n• 53.000 puzzels uit echte partijen: vorken, penningen, spiesen, matten op de achterste rij, mat in één, twee en drie, eindspelen en meer\n• Een puzzelrating die je niveau volgt, met een grafiek van je vooruitgang\n• Hints als je vastzit: de eerste omcirkelt het stuk dat moet zetten, de tweede laat zien waar het heen gaat\n• Gemiste puzzels komen later terug voor een tweede poging\n• Rangreeksen: 15 puzzels die door een rang omhoog klimmen, zonder hints, en één fout beëindigt de reeks. Haal elke rang, van Pion tot Koning\n• Makkelijker, Precies goed of Moeilijker, om het tempo te bepalen\n• Game Center-ranglijsten, -prestaties en -uitdagingen: daag je vrienden uit om je Paard-reeks te verslaan\n• Een widget voor het beginscherm en het toegangsscherm met je rang en rating\n• Deel je voortgang: je rang, rating en laatste tien puzzels in een paar emoji\n• Op de iPhone Duo zet je hem neer als een laptop (het bord ligt plat onder je handen) of houd je hem vast als een boek (het bord op de ene pagina, de notities op de andere)\n• Een indeling voor linkshandigen die het bord links zet als je telefoon op zijn kant ligt of gevouwen is\n• Je voortgang wordt via iCloud gesynchroniseerd tussen je iPhone en iPad\n• Haptische feedback, lichte en donkere modus, en een bord waarop je kunt tikken of slepen\n• Speelt volledig offline\n• Geen account, geen advertenties, geen in-app-aankopen\n\nDe puzzels komen uit de puzzeldatabase van Lichess, die in het publieke domein is. King Walk is niet gemaakt of goedgekeurd door Lichess.",
+    "keywords": "schaak,schaken,tactiek,schaakmat,mat in 2,elo,rating,training,strategie,denksport,vork,eindspel"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Puzzelrating",
+        "suffix": " rating",
+        "suffix_singular": " rating"
+      },
+      "streak": {
+        "name": "Beste reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "hardest": {
+        "name": "Moeilijkste puzzel",
+        "suffix": " puzzelrating",
+        "suffix_singular": " puzzelrating"
+      },
+      "streak_p": {
+        "name": "Pion-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "streak_n": {
+        "name": "Paard-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "streak_b": {
+        "name": "Loper-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "streak_r": {
+        "name": "Toren-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "streak_q": {
+        "name": "Dame-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      },
+      "streak_k": {
+        "name": "Koning-reeks",
+        "suffix": " op rij",
+        "suffix_singular": " op rij"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Eerste stappen",
+        "before": "Los een puzzel op zonder fouten en zonder hints.",
+        "earned": "Je hebt je eerste puzzel opgelost zonder fouten en zonder hints."
+      },
+      "solved_50": {
+        "name": "Vijftig opgelost",
+        "before": "Los 50 puzzels op zonder fouten en zonder hints.",
+        "earned": "Je hebt 50 puzzels foutloos opgelost."
+      },
+      "solved_250": {
+        "name": "Puzzelgewoonte",
+        "before": "Los 250 puzzels op zonder fouten en zonder hints.",
+        "earned": "Je hebt 250 puzzels foutloos opgelost."
+      },
+      "solved_1000": {
+        "name": "Duizend puzzels",
+        "before": "Los 1.000 puzzels op zonder fouten en zonder hints.",
+        "earned": "Je hebt 1.000 puzzels foutloos opgelost."
+      },
+      "streak_5": {
+        "name": "Op dreef",
+        "before": "Los 5 puzzels op rij op.",
+        "earned": "Je hebt 5 puzzels op rij opgelost."
+      },
+      "streak_10": {
+        "name": "Tien op rij",
+        "before": "Los 10 puzzels op rij op.",
+        "earned": "Je hebt 10 puzzels op rij opgelost."
+      },
+      "streak_20": {
+        "name": "Onstuitbaar",
+        "before": "Los 20 puzzels op rij op.",
+        "earned": "Je hebt 20 puzzels op rij opgelost."
+      },
+      "rank_knight": {
+        "name": "Paard",
+        "before": "Bereik een puzzelrating van 700.",
+        "earned": "Je hebt de rang Paard bereikt: een puzzelrating van 700."
+      },
+      "rank_bishop": {
+        "name": "Loper",
+        "before": "Bereik een puzzelrating van 1000.",
+        "earned": "Je hebt de rang Loper bereikt: een puzzelrating van 1000."
+      },
+      "rank_rook": {
+        "name": "Toren",
+        "before": "Bereik een puzzelrating van 1300.",
+        "earned": "Je hebt de rang Toren bereikt: een puzzelrating van 1300."
+      },
+      "rank_queen": {
+        "name": "Dame",
+        "before": "Bereik een puzzelrating van 1600.",
+        "earned": "Je hebt de rang Dame bereikt: een puzzelrating van 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Bereik een puzzelrating van 1900.",
+        "earned": "Je hebt de rang Koning bereikt: een puzzelrating van 1900. De koning is het hele bord op gelopen."
+      },
+      "giant_slayer": {
+        "name": "Reuzendoder",
+        "before": "Los foutloos een puzzel op met een rating van 300 of meer boven de jouwe.",
+        "earned": "Je hebt foutloos een puzzel opgelost met een rating van 300 of meer boven de jouwe."
+      },
+      "clear_pawn": {
+        "name": "Pion gehaald",
+        "before": "Haal de Pion-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Pion-reeks gehaald: 15 puzzels op rij van 400 tot 699, zonder hints."
+      },
+      "clear_knight": {
+        "name": "Paard gehaald",
+        "before": "Haal de Paard-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Paard-reeks gehaald: 15 puzzels op rij van 700 tot 999, zonder hints."
+      },
+      "clear_bishop": {
+        "name": "Loper gehaald",
+        "before": "Haal de Loper-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Loper-reeks gehaald: 15 puzzels op rij van 1000 tot 1299, zonder hints."
+      },
+      "clear_rook": {
+        "name": "Toren gehaald",
+        "before": "Haal de Toren-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Toren-reeks gehaald: 15 puzzels op rij van 1300 tot 1599, zonder hints."
+      },
+      "clear_queen": {
+        "name": "Dame gehaald",
+        "before": "Haal de Dame-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Dame-reeks gehaald: 15 puzzels op rij van 1600 tot 1899, zonder hints."
+      },
+      "clear_king": {
+        "name": "Koning gehaald",
+        "before": "Haal de Koning-reeks: 15 puzzels op rij, zonder hints.",
+        "earned": "Je hebt de Koning-reeks gehaald: 15 puzzels op rij van 1900 tot 2300, zonder hints."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Moeilijkste puzzel",
+        "description": "Los foutloos de hoogst gewaardeerde puzzel op die je kunt. Zet Harder aan in het menu voor moeilijkere puzzels."
+      },
+      "streak_p_challenge": {
+        "name": "Pion-reeks",
+        "description": "15 puzzels die klimmen van 400 tot 699. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      },
+      "streak_n_challenge": {
+        "name": "Paard-reeks",
+        "description": "15 puzzels die klimmen van 700 tot 999. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      },
+      "streak_b_challenge": {
+        "name": "Loper-reeks",
+        "description": "15 puzzels die klimmen van 1000 tot 1299. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      },
+      "streak_r_challenge": {
+        "name": "Toren-reeks",
+        "description": "15 puzzels die klimmen van 1300 tot 1599. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      },
+      "streak_q_challenge": {
+        "name": "Dame-reeks",
+        "description": "15 puzzels die klimmen van 1600 tot 1899. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      },
+      "streak_k_challenge": {
+        "name": "Koning-reeks",
+        "description": "15 puzzels die klimmen van 1900 tot 2300. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
+      }
+    }
+  }
+}

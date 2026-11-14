@@ -1,0 +1,186 @@
+{
+  "locale": "fr-FR",
+  "listing": {
+    "name": "King Walk : Problèmes d'échecs",
+    "subtitle": "Des problèmes à votre mesure",
+    "promotional_text": "53 000 problèmes d'échecs issus de vraies parties, avec un classement qui trouve votre niveau. Résolvez-en un, le suivant est plus dur. Menez votre roi de Pion à Roi.",
+    "description": "King Walk est un entraîneur de problèmes d'échecs qui s'adapte à vous. Chaque problème est un moment d'une vraie partie où il faut trouver un coup fort, ou une courte suite de coups.\n\nRésolvez un problème sans faute et votre classement de problèmes monte : les problèmes suivants sont plus difficiles. Ratez-en un et le classement baisse un peu, et les problèmes deviennent plus faciles. En quelques dizaines de problèmes, le jeu trouve votre niveau, puis il monte à mesure que vous progressez.\n\nVous commencez au rang de Pion. Augmentez votre classement et vous obtenez Cavalier, Fou, Tour, Dame et enfin Roi : le roi remonte l'échiquier.\n\n• 53 000 problèmes issus de vraies parties : fourchettes, clouages, enfilades, mats du couloir, mats en un, deux et trois coups, finales et plus encore\n• Un classement de problèmes qui suit votre niveau, avec un graphique de vos progrès\n• Des indices quand vous bloquez : le premier entoure la pièce à jouer, le second montre où elle va\n• Les problèmes ratés reviennent plus tard pour une seconde chance\n• Séries par rang : 15 problèmes qui montent à travers un rang, sans indice, et une erreur met fin à la série. Validez tous les rangs, du Pion au Roi\n• Plus facile, Adapté ou Plus difficile, pour régler le rythme\n• Classements, succès et défis Game Center : défiez vos amis de battre votre série Cavalier\n• Un widget pour l'écran d'accueil et l'écran verrouillé avec votre rang et votre classement\n• Partagez vos progrès : votre rang, votre classement et vos dix derniers problèmes en quelques emoji\n• Sur iPhone Duo, posez-le comme un ordinateur portable (l'échiquier à plat sous vos mains) ou tenez-le comme un livre (l'échiquier sur une page, les notes sur l'autre)\n• Une disposition pour gauchers qui place l'échiquier à gauche quand le téléphone est à l'horizontale ou plié\n• Votre progression se synchronise entre votre iPhone et votre iPad avec iCloud\n• Retour haptique, mode clair et sombre, et un échiquier où vous pouvez toucher ou faire glisser les pièces\n• Fonctionne entièrement hors ligne\n• Pas de compte, pas de publicité, pas d'achats intégrés\n\nLes problèmes proviennent de la base de données de problèmes de Lichess, qui est dans le domaine public. King Walk n'est ni conçu ni approuvé par Lichess.",
+    "keywords": "tactique,mat en 2,échec et mat,elo,puzzle,entraînement,stratégie,logique,fourchette,clouage,finale"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Classement problèmes",
+        "suffix": " de classement",
+        "suffix_singular": " de classement"
+      },
+      "streak": {
+        "name": "Meilleure série",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "hardest": {
+        "name": "Problème le plus dur",
+        "suffix": " de classement",
+        "suffix_singular": " de classement"
+      },
+      "streak_p": {
+        "name": "Série Pion",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "streak_n": {
+        "name": "Série Cavalier",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "streak_b": {
+        "name": "Série Fou",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "streak_r": {
+        "name": "Série Tour",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "streak_q": {
+        "name": "Série Dame",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      },
+      "streak_k": {
+        "name": "Série Roi",
+        "suffix": " d'affilée",
+        "suffix_singular": " d'affilée"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Premiers pas",
+        "before": "Résolvez un problème sans erreur et sans indice.",
+        "earned": "Vous avez résolu votre premier problème sans erreur et sans indice."
+      },
+      "solved_50": {
+        "name": "Cinquante résolus",
+        "before": "Résolvez 50 problèmes sans erreur et sans indice.",
+        "earned": "Vous avez résolu 50 problèmes sans faute."
+      },
+      "solved_250": {
+        "name": "L'habitude des problèmes",
+        "before": "Résolvez 250 problèmes sans erreur et sans indice.",
+        "earned": "Vous avez résolu 250 problèmes sans faute."
+      },
+      "solved_1000": {
+        "name": "Mille problèmes",
+        "before": "Résolvez 1 000 problèmes sans erreur et sans indice.",
+        "earned": "Vous avez résolu 1 000 problèmes sans faute."
+      },
+      "streak_5": {
+        "name": "Sur une lancée",
+        "before": "Résolvez 5 problèmes d'affilée.",
+        "earned": "Vous avez résolu 5 problèmes d'affilée."
+      },
+      "streak_10": {
+        "name": "Dix d'affilée",
+        "before": "Résolvez 10 problèmes d'affilée.",
+        "earned": "Vous avez résolu 10 problèmes d'affilée."
+      },
+      "streak_20": {
+        "name": "Inarrêtable",
+        "before": "Résolvez 20 problèmes d'affilée.",
+        "earned": "Vous avez résolu 20 problèmes d'affilée."
+      },
+      "rank_knight": {
+        "name": "Cavalier",
+        "before": "Atteignez un classement de problèmes de 700.",
+        "earned": "Vous avez atteint le rang de Cavalier : un classement de problèmes de 700."
+      },
+      "rank_bishop": {
+        "name": "Fou",
+        "before": "Atteignez un classement de problèmes de 1000.",
+        "earned": "Vous avez atteint le rang de Fou : un classement de problèmes de 1000."
+      },
+      "rank_rook": {
+        "name": "Tour",
+        "before": "Atteignez un classement de problèmes de 1300.",
+        "earned": "Vous avez atteint le rang de Tour : un classement de problèmes de 1300."
+      },
+      "rank_queen": {
+        "name": "Dame",
+        "before": "Atteignez un classement de problèmes de 1600.",
+        "earned": "Vous avez atteint le rang de Dame : un classement de problèmes de 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Atteignez un classement de problèmes de 1900.",
+        "earned": "Vous avez atteint le rang de Roi : un classement de problèmes de 1900. Le roi a remonté tout l'échiquier."
+      },
+      "giant_slayer": {
+        "name": "Tueur de géants",
+        "before": "Résolvez sans faute un problème classé au moins 300 points au-dessus de vous.",
+        "earned": "Vous avez résolu sans faute un problème classé au moins 300 points au-dessus de vous."
+      },
+      "clear_pawn": {
+        "name": "Pion validé",
+        "before": "Terminez la série Pion : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Pion : 15 problèmes d'affilée de 400 à 699, sans indice."
+      },
+      "clear_knight": {
+        "name": "Cavalier validé",
+        "before": "Terminez la série Cavalier : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Cavalier : 15 problèmes d'affilée de 700 à 999, sans indice."
+      },
+      "clear_bishop": {
+        "name": "Fou validé",
+        "before": "Terminez la série Fou : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Fou : 15 problèmes d'affilée de 1000 à 1299, sans indice."
+      },
+      "clear_rook": {
+        "name": "Tour validée",
+        "before": "Terminez la série Tour : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Tour : 15 problèmes d'affilée de 1300 à 1599, sans indice."
+      },
+      "clear_queen": {
+        "name": "Dame validée",
+        "before": "Terminez la série Dame : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Dame : 15 problèmes d'affilée de 1600 à 1899, sans indice."
+      },
+      "clear_king": {
+        "name": "Roi validé",
+        "before": "Terminez la série Roi : 15 problèmes d'affilée, sans indice.",
+        "earned": "Vous avez terminé la série Roi : 15 problèmes d'affilée de 1900 à 2300, sans indice."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Problème le plus dur",
+        "description": "Résolvez sans faute le problème le mieux classé possible. Activez Harder dans le menu pour en voir de plus durs."
+      },
+      "streak_p_challenge": {
+        "name": "Série Pion",
+        "description": "15 problèmes qui montent de 400 à 699. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      },
+      "streak_n_challenge": {
+        "name": "Série Cavalier",
+        "description": "15 problèmes qui montent de 700 à 999. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      },
+      "streak_b_challenge": {
+        "name": "Série Fou",
+        "description": "15 problèmes qui montent de 1000 à 1299. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      },
+      "streak_r_challenge": {
+        "name": "Série Tour",
+        "description": "15 problèmes qui montent de 1300 à 1599. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      },
+      "streak_q_challenge": {
+        "name": "Série Dame",
+        "description": "15 problèmes qui montent de 1600 à 1899. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      },
+      "streak_k_challenge": {
+        "name": "Série Roi",
+        "description": "15 problèmes qui montent de 1900 à 2300. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
+      }
+    }
+  }
+}

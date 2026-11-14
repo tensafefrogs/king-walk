@@ -122,12 +122,12 @@ struct SmallView: View {
                 }
             }
             Spacer(minLength: 2)
-            Text("\(p.rank) rank").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
+            Text(p.rankLine ?? "\(p.rank)").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
             Text("\(p.rating)").font(.system(size: 34, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
                 .minimumScaleFactor(0.7).lineLimit(1)
             RankBar(fraction: p.rankFraction)
-            Text(p.next.isEmpty ? "Top rank" : "\(p.toNext) to \(p.next)").font(.system(size: 12, weight: .semibold, design: .rounded))
-                .foregroundColor(Palette.cream.opacity(0.7)).lineLimit(1)
+            Text(p.nextLine ?? (p.next.isEmpty ? NSLocalizedString("Top rank", comment: "") : "\(p.toNext) → \(p.next)")).font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundColor(Palette.cream.opacity(0.7)).lineLimit(1).minimumScaleFactor(0.8)
         }
     }
 }
@@ -138,12 +138,12 @@ struct MediumView: View {
         HStack(spacing: 14) {
             SmallView(p: p).frame(maxWidth: 130)
             VStack(alignment: .leading, spacing: 6) {
-                Text("Rating over time").font(.system(size: 12, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.7))
+                Text(p.label("chart", "Rating over time")).font(.system(size: 12, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.7))
                 Sparkline(values: p.hist).frame(maxHeight: .infinity)
                 HStack(spacing: 14) {
-                    Stat(value: p.solved, label: "solved")
-                    Stat(value: p.streak, label: "in a row")
-                    Stat(value: p.best, label: "best run")
+                    Stat(value: p.solved, label: p.label("solved", "solved"))
+                    Stat(value: p.streak, label: p.label("inRow", "in a row"))
+                    Stat(value: p.best, label: p.label("best", "best run"))
                 }
             }
         }
@@ -214,7 +214,7 @@ struct RectangularView: View {
         VStack(alignment: .leading, spacing: 1) {
             Text("King Walk").font(.system(size: 12, weight: .semibold, design: .rounded)).widgetAccentable()
             Text("\(p.rank) · \(p.rating)").font(.system(size: 17, weight: .bold, design: .rounded))
-            Text(p.next.isEmpty ? "Top rank" : "\(p.toNext) to \(p.next)").font(.system(size: 12, weight: .medium, design: .rounded))
+            Text(p.nextLine ?? (p.next.isEmpty ? NSLocalizedString("Top rank", comment: "") : "\(p.toNext) → \(p.next)")).font(.system(size: 12, weight: .medium, design: .rounded))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
