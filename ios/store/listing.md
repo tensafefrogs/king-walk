@@ -51,12 +51,14 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 >
 > • 53,000 puzzles from real games: forks, pins, skewers and sneaky back-rank mates
 > • A rating that finds your level and climbs with you
+> • A daily puzzle, the same for everyone. Keep the streak alive, brag in emoji
 > • Rank streaks: 15 puzzles, no hints, one miss and you're out
 > • Challenge friends in Game Center and settle who's actually good
 > • Stuck? Take a hint. We won't tell anyone.
 > • Missed one? It comes back later for a rematch
 > • Big, loud celebrations every time you rank up
-> • A home screen widget to show off your rank
+> • Widgets for your Home Screen, Lock Screen and StandBy
+> • A daily reminder, if you want one
 > • Haptics, dark mode, VoiceOver and larger text
 > • Works offline. No account, no ads, no in-app purchases
 >
@@ -76,11 +78,15 @@ Five per device, in this order. Each is the real game at the device's size, fram
 
 | # | Caption | Shows |
 | --- | --- | --- |
-| 1 | Chess puzzles that grow with you | A puzzle, the player's turn, with the goal |
-| 2 | 53,000 puzzles from real games | Solved: confetti, the rating going up, the puzzle's themes |
-| 3 | Stuck? Take a hint | Both hint circles on the board |
-| 4 | Walk up from Pawn to King | The progress card right after reaching Rook: the ladder, stats and chart |
-| 5 | Light or dark. No account. No ads. | Dark mode, a piece picked up with its moves shown |
+| 1 | Chess puzzles that fight back | A puzzle, the player's turn, with the goal |
+| 2 | 53,000 real-game puzzles | Solved: confetti, the rating going up, the puzzle's themes |
+| 3 | Stuck? Take a hint. | Both hint circles on the board |
+| 4 | Pawn to King. Go. | The new-rank celebration on reaching Rook |
+| 5 | A new puzzle every day | Dark mode, the daily puzzle just solved, a week of daily puzzles in a row |
+
+The page's clock is fixed to Saturday 21 November 2026 (`SHOT_DATE` in `testing/media.js`), so the daily puzzle and its week look the same whenever the screenshots are made.
+
+**Other languages:** the App Store listing workflow makes each language's set (`screenshots.js --lang <locale>`: the game in that language, with the captions from `l10n/<locale>.json` → `screenshots`) and uploads it to that language's page. They aren't committed; each run keeps them as a workflow artifact for 30 days, to look at.
 
 **iPhone Duo** (one set, `APP_IPHONE_DUO`): `duo-table-1` ("Prop it up like a laptop": the board on the flat half, the scoreboard on the upright half), `duo-book-2` (held like a book: the board on the right page), `duo-table-4`, `duo-inner-3`, `duo-table-5`. The other `duo-*` files are there to swap in. If Apple's API refuses the Duo type, the upload skips that set and says so; it can go up by hand.
 
@@ -96,7 +102,7 @@ Ideas for later sets: the widget on a home screen (needs a real device screensho
 
 ## Game Center
 
-`gamecenter.json` lists the 9 leaderboards (Puzzle Rating, Best Streak, Hardest Solve and a streak for each rank), 19 achievements (970 points of the 1000 allowed) and 7 challenges (each rank's streak, and Hardest Solve), with names, descriptions and images. `gamecenter.py` turns Game Center on for the app, creates whatever is missing and adds Game Center to the version being prepared. Ids are `kingwalk.<id>`. Achievements and leaderboards can't be deleted, and points can't change, once they're live, so settle them before the first release.
+`gamecenter.json` lists the 10 leaderboards (Puzzle Rating, Best Streak, Hardest Solve, Daily Streak and a streak for each rank), 22 achievements (all 1000 points allowed) and 7 challenges (each rank's streak, and Hardest Solve), with names, descriptions and images. `gamecenter.py` turns Game Center on for the app, creates whatever is missing and adds Game Center to the version being prepared. Ids are `kingwalk.<id>`. Achievements and leaderboards can't be deleted, and points can't change, once they're live, so settle them before the first release.
 
 If the script can't do a step (it says which), do it in App Store Connect → the app → Features → Game Center: add each leaderboard and achievement with the id, name, description and image from `gamecenter.json` and `gamecenter/`, then on the version page under Game Center, turn it on and add them all.
 
@@ -128,18 +134,19 @@ Uploaded from `review_notes` in `listing.json` (App Review Information → Notes
 > - Tap a piece, then tap where it goes (or drag it). A wrong move is shown and taken back.
 > - Hint circles the piece to move; a second hint circles where it goes. Answer plays the solution.
 > - After each puzzle: Next puzzle. The Progress card shows the rating, the rank ladder (Pawn to King), stats and a rating chart.
+> - Daily puzzle: the Daily button (top right) or the Daily puzzle card under the board. One puzzle a day, the same for everyone (picked from the date, no server). Hints are allowed; Answer ends it for the day. Solving it on consecutive days builds a daily streak. Afterwards, Share sends a row of coloured squares and the time, with no moves.
 > - Rank streaks (under Progress): tap a rank for 15 puzzles that climb through it, with Hint and Answer off; a wrong move ends the run. They don't change the rating, and are the Game Center challenges (Pawn Streak to King Streak, plus Hardest Solve).
-> - After each puzzle: Share (iOS share sheet). Menu (top right): Sound, Haptics, puzzle difficulty, Share, Game Center (leaderboards and achievements), Start over, How it works, Credits, Advanced (a save code to move progress to the website), and Support / Privacy / Terms links.
-> - Home screen and Lock Screen widget: shows the player's rank and rating.
+> - After each puzzle: Share (iOS share sheet). Menu (top right): Sound, Left-handed layout, Haptics, Daily reminder (off unless the player picks a time; a local notification), puzzle difficulty, Share, Game Center (leaderboards and achievements), Start over, How it works, Credits, Advanced (a save code to move progress to the website), and Support / Privacy / Terms links.
+> - Widgets: rank (Home Screen and Lock Screen) and daily puzzle (Home Screen, Lock Screen, StandBy). Control Center control and Siri / Shortcuts action "Play today's puzzle"; long press the app icon for "Today's puzzle".
 >
 > WHAT THE APP ADDS ON iOS
-> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards, 19 achievements and 7 challenges; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo, layouts for half open like a laptop (the board on the flat half, progress on the upright half) and like a book (the board on one page, notes on the other), with a left-handed option; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
+> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards, 22 achievements and 7 challenges; Home Screen, Lock Screen and StandBy widgets; a Control Center control and a Siri / Shortcuts action; an optional daily reminder (a local notification, scheduled on the device); iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo, layouts for half open like a laptop (the board on the flat half, progress on the upright half) and like a book (the board on one page, notes on the other), with a left-handed option; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
 >
 > EXTERNAL SERVICES
 > None are needed to play. Optional: Game Center (Apple), iCloud key-value storage (Apple) for syncing progress, and GoatCounter, which receives anonymous event counts (for example, "reached Bishop rank") with no personal data, no identifiers and no cookies. Each puzzle has a link to its page on lichess.org, which opens in Safari.
 >
 > REGIONS
-> The app works the same in every region. English only.
+> The app works the same in every region. The game is in English, Spanish, French, German, Italian, Portuguese (Brazil), Dutch, Russian, Japanese, Korean and Chinese (Simplified), following the device's language.
 >
 > THIRD-PARTY MATERIAL
 > The puzzles come from the Lichess puzzle database, which Lichess released into the public domain (CC0): https://database.lichess.org/#puzzles. The app is not made or endorsed by Lichess and says so in Credits. Chess rules: chess.js (BSD license). Fonts: Fredoka and Nunito (SIL Open Font License). The pieces, icon and artwork are original.

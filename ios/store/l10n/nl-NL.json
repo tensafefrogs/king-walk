@@ -4,7 +4,7 @@
     "name": "King Walk: Schaakpuzzels",
     "subtitle": "Puzzels die terugvechten",
     "promotional_text": "Spot de vork. Vind het mat. Overleef de reeks. 53.000 puzzels uit echte partijen die moeilijker worden naarmate jij beter wordt. Vandaag Pion, ooit Koning.",
-    "description": "Denk je drie zetten vooruit te kunnen kijken? Bewijs het maar.\n\nKing Walk vuurt echte schaakpuzzels op je af, 53.000 stuks, uit echte partijen. Los er een op en de volgende wordt pittiger. Mis je er een, dan doet hij een stapje terug. Na een paar dozijn puzzels weet hij precies hoe goed je bent. Dan begint het echte werk.\n\nJe begint als Pion. Verdien Paard, Loper, Toren en Dame. Word Koning en je hebt het hele bord afgelopen.\n\n• 53.000 puzzels uit echte partijen: vorken, penningen, spiesen en geniepige matjes op de achterste rij\n• Een rating die je niveau vindt en met je meegroeit\n• Rangreeksen: 15 puzzels, geen hints, één fout en je ligt eruit\n• Daag vrienden uit in Game Center en zoek uit wie er echt goed is\n• Vast? Neem een hint. We vertellen het aan niemand.\n• Eentje gemist? Die komt later terug voor een revanche\n• Grote, luide feestjes elke keer dat je een rang stijgt\n• Een widget voor je beginscherm om op te scheppen over je rang\n• Haptische feedback, donkere modus, VoiceOver en grotere tekst\n• Werkt offline. Geen account, geen advertenties, geen in-app aankopen\n\nDe puzzels komen uit de puzzeldatabase van Lichess, die in het publieke domein is. King Walk is niet gemaakt of goedgekeurd door Lichess.",
+    "description": "Denk je drie zetten vooruit te kunnen kijken? Bewijs het maar.\n\nKing Walk vuurt echte schaakpuzzels op je af, 53.000 stuks, uit echte partijen. Los er een op en de volgende wordt pittiger. Mis je er een, dan doet hij een stapje terug. Na een paar dozijn puzzels weet hij precies hoe goed je bent. Dan begint het echte werk.\n\nJe begint als Pion. Verdien Paard, Loper, Toren en Dame. Word Koning en je hebt het hele bord afgelopen.\n\n• 53.000 puzzels uit echte partijen: vorken, penningen, spiesen en geniepige matjes op de achterste rij\n• Een rating die je niveau vindt en met je meegroeit\n• Een dagelijkse puzzel, voor iedereen dezelfde. Houd je reeks in leven en schep op met emoji\n• Rangreeksen: 15 puzzels, geen hints, één fout en je ligt eruit\n• Daag vrienden uit in Game Center en zoek uit wie er echt goed is\n• Vast? Neem een hint. We vertellen het aan niemand.\n• Eentje gemist? Die komt later terug voor een revanche\n• Grote, luide feestjes elke keer dat je een rang stijgt\n• Widgets voor je beginscherm, toegangsscherm en StandBy\n• Een dagelijkse herinnering, als je dat wilt\n• Haptische feedback, donkere modus, VoiceOver en grotere tekst\n• Werkt offline. Geen account, geen advertenties, geen in-app aankopen\n\nDe puzzels komen uit de puzzeldatabase van Lichess, die in het publieke domein is. King Walk is niet gemaakt of goedgekeurd door Lichess.",
     "keywords": "schaak,schaken,tactiek,schaakmat,mat in 2,elo,rating,training,strategie,denksport,vork,eindspel"
   },
   "gamecenter": {
@@ -53,6 +53,11 @@
         "name": "Koning-reeks",
         "suffix": " op rij",
         "suffix_singular": " op rij"
+      },
+      "daily_streak": {
+        "name": "Dagreeks",
+        "suffix": " dagen",
+        "suffix_singular": " dag"
       }
     },
     "achievements": {
@@ -150,6 +155,21 @@
         "name": "Koning gehaald",
         "before": "Haal de Koning-reeks: 15 puzzels op rij, zonder hints.",
         "earned": "Je hebt de Koning-reeks gehaald: 15 puzzels op rij van 1900 tot 2300, zonder hints."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Los de puzzel van de dag 3 dagen op rij op.",
+        "earned": "Je hebt de puzzel van de dag 3 dagen op rij opgelost."
+      },
+      "daily_7": {
+        "name": "Volle week",
+        "before": "Los de puzzel van de dag 7 dagen op rij op.",
+        "earned": "Je hebt de puzzel van de dag 7 dagen op rij opgelost."
+      },
+      "daily_30": {
+        "name": "Dertig dagen",
+        "before": "Los de puzzel van de dag 30 dagen op rij op.",
+        "earned": "Je hebt de puzzel van de dag 30 dagen op rij opgelost."
       }
     },
     "challenges": {
@@ -181,6 +201,36 @@
         "name": "Koning-reeks",
         "description": "15 puzzels die klimmen van 1900 tot 2300. Geen hints, en één fout beëindigt de reeks. Wie komt het verst?"
       }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Puzzels die <b>terugvechten</b>",
+      "sub": "Opgelost? De volgende is pittiger. Fout? Dan wordt het makkelijker."
+    },
+    "2": {
+      "caption": "<b>53.000</b> puzzels uit echte partijen",
+      "sub": "Vorken, penningen, spiesen en geniepige matjes."
+    },
+    "3": {
+      "caption": "Vast? <b>Neem een hint.</b>",
+      "sub": "We vertellen het aan niemand."
+    },
+    "4": {
+      "caption": "Van Pion naar <b>Koning</b>. Gaan!",
+      "sub": "Stijg in rang. Haal de reeksen. Schep op."
+    },
+    "5": {
+      "caption": "<b>Elke dag</b> een nieuwe puzzel",
+      "sub": "Voor iedereen dezelfde. Houd je reeks in leven."
+    },
+    "duo-book-1": {
+      "caption": "Vouw hem als een <b>boek</b>",
+      "sub": "Het bord op de ene pagina. Notities op de andere."
+    },
+    "duo-table-1": {
+      "caption": "Zet hem rechtop. <b>Laptopmodus.</b>",
+      "sub": "Het bord plat onder je handen, de stand bovenaan."
     }
   }
 }

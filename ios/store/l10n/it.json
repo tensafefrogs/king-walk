@@ -4,7 +4,7 @@
     "name": "King Walk: Problemi di scacchi",
     "subtitle": "Enigmi che contrattaccano",
     "promotional_text": "Trova la forchetta. Dai matto. Tieni la serie. 53.000 problemi da partite vere che si fanno più tosti man mano che migliori. Oggi Pedone, un giorno Re.",
-    "description": "Pensi di vedere tre mosse avanti? Dimostralo.\n\nKing Walk ti lancia contro veri problemi di scacchi, 53.000, presi da partite reali. Ne risolvi uno e il prossimo è più tosto. Ne sbagli uno e rallenta. Dopo qualche decina di problemi sa esattamente quanto sei forte. E lì comincia a spingere.\n\nParti da Pedone. Conquista Cavallo, Alfiere, Torre e Donna. Arriva a Re e avrai attraversato tutta la scacchiera.\n\n• 53.000 problemi da partite reali: forchette, inchiodature, infilate e subdoli matti del corridoio\n• Un punteggio che trova il tuo livello e sale con te\n• Serie di grado: 15 problemi, niente suggerimenti, un errore e sei fuori\n• Sfida gli amici su Game Center e scoprite chi è forte davvero\n• Non sai che fare? Chiedi un suggerimento. Non lo diciamo a nessuno.\n• Sbagliato? Il problema torna più tardi per la rivincita\n• Feste grandi e rumorose ogni volta che sali di grado\n• Un widget per la schermata Home per sfoggiare il tuo grado\n• Feedback aptico, modalità scura, VoiceOver e testo più grande\n• Funziona offline. Niente account, niente pubblicità, niente acquisti in-app\n\nI problemi provengono dal database dei problemi di Lichess, di pubblico dominio. King Walk non è realizzato né approvato da Lichess.",
+    "description": "Pensi di vedere tre mosse avanti? Dimostralo.\n\nKing Walk ti lancia contro veri problemi di scacchi, 53.000, presi da partite reali. Ne risolvi uno e il prossimo è più tosto. Ne sbagli uno e rallenta. Dopo qualche decina di problemi sa esattamente quanto sei forte. E lì comincia a spingere.\n\nParti da Pedone. Conquista Cavallo, Alfiere, Torre e Donna. Arriva a Re e avrai attraversato tutta la scacchiera.\n\n• 53.000 problemi da partite reali: forchette, inchiodature, infilate e subdoli matti del corridoio\n• Un punteggio che trova il tuo livello e sale con te\n• Un problema del giorno, uguale per tutti. Tieni viva la serie, vantati a colpi di emoji\n• Serie di grado: 15 problemi, niente suggerimenti, un errore e sei fuori\n• Sfida gli amici su Game Center e scoprite chi è forte davvero\n• Non sai che fare? Chiedi un suggerimento. Non lo diciamo a nessuno.\n• Sbagliato? Il problema torna più tardi per la rivincita\n• Feste grandi e rumorose ogni volta che sali di grado\n• Widget per la schermata Home, la schermata di blocco e StandBy\n• Un promemoria giornaliero, se ti va\n• Feedback aptico, modalità scura, VoiceOver e testo più grande\n• Funziona offline. Niente account, niente pubblicità, niente acquisti in-app\n\nI problemi provengono dal database dei problemi di Lichess, di pubblico dominio. King Walk non è realizzato né approvato da Lichess.",
     "keywords": "tattica,scacco matto,matto in 2,elo,punteggio,allenamento,strategia,logica,forchetta,finali,esercizi"
   },
   "gamecenter": {
@@ -53,6 +53,11 @@
         "name": "Serie Re",
         "suffix": " di fila",
         "suffix_singular": " di fila"
+      },
+      "daily_streak": {
+        "name": "Serie giornaliera",
+        "suffix": " giorni",
+        "suffix_singular": " giorno"
       }
     },
     "achievements": {
@@ -150,6 +155,21 @@
         "name": "Re superato",
         "before": "Supera la serie Re: 15 problemi di fila, senza suggerimenti.",
         "earned": "Hai superato la serie Re: 15 problemi di fila da 1900 a 2300, senza suggerimenti."
+      },
+      "daily_3": {
+        "name": "Tripletta",
+        "before": "Risolvi il problema del giorno 3 giorni di fila.",
+        "earned": "Hai risolto il problema del giorno 3 giorni di fila."
+      },
+      "daily_7": {
+        "name": "Settimana piena",
+        "before": "Risolvi il problema del giorno 7 giorni di fila.",
+        "earned": "Hai risolto il problema del giorno 7 giorni di fila."
+      },
+      "daily_30": {
+        "name": "Trenta giorni",
+        "before": "Risolvi il problema del giorno 30 giorni di fila.",
+        "earned": "Hai risolto il problema del giorno 30 giorni di fila."
       }
     },
     "challenges": {
@@ -181,6 +201,36 @@
         "name": "Serie Re",
         "description": "15 problemi che salgono da 1900 a 2300. Senza suggerimenti, e un errore chiude la serie. Chi arriva più lontano?"
       }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Enigmi che <b>contrattaccano</b>",
+      "sub": "Ne risolvi uno? Il prossimo è più tosto. Sbagli? Si calma."
+    },
+    "2": {
+      "caption": "<b>53.000</b> problemi da partite vere",
+      "sub": "Forchette, inchiodature, infilate e matti subdoli."
+    },
+    "3": {
+      "caption": "Bloccato? <b>Chiedi un aiutino.</b>",
+      "sub": "Non lo diciamo a nessuno."
+    },
+    "4": {
+      "caption": "Da Pedone a <b>Re</b>. Via!",
+      "sub": "Sali di grado. Supera le serie. Fatti notare."
+    },
+    "5": {
+      "caption": "Un nuovo problema <b>ogni giorno</b>",
+      "sub": "Uguale per tutti. Tieni viva la serie."
+    },
+    "duo-book-1": {
+      "caption": "Piegalo come un <b>libro</b>",
+      "sub": "La scacchiera su una pagina. Gli appunti sull'altra."
+    },
+    "duo-table-1": {
+      "caption": "Tienilo in piedi. <b>Modo laptop.</b>",
+      "sub": "La scacchiera piatta sotto le mani, il punteggio in alto."
     }
   }
 }

@@ -3,6 +3,8 @@
 category, age rating, the editable version's text and URLs, and the screenshots (replacing any already there).
 
 usage: python3 ios/store/upload_listing.py [--no-screenshots]
+       python3 ios/store/upload_listing.py --locale de-DE   only that language's screenshots, from screenshots/l10n/de-DE/
+                                                            (made by screenshots.js --lang de-DE; the workflow does both)
 Credentials, from the environment: ASC_KEY_ID, ASC_ISSUER_ID, and ASC_KEY_P8 (the .p8 file's contents)
 or ASC_KEY_PATH (its path). Needs PyJWT with cryptography (pip install pyjwt cryptography).
 
@@ -21,6 +23,8 @@ REQUIRED = {'APP_IPHONE_67', 'APP_IPAD_PRO_3GEN_129'}
 
 def main():
     listing = json.load(open(os.path.join(HERE, 'listing.json')))
+    if '--locale' in sys.argv:
+        return localized_screenshots(listing, sys.argv[sys.argv.index('--locale') + 1])
     app = get_app()
     print('App:', app['attributes']['name'], app['id'])
 
@@ -86,9 +90,29 @@ def main():
 
     if '--no-screenshots' in sys.argv:
         return
-    # Screenshots: replace each set with the current files
-    sets = {s['attributes']['screenshotDisplayType']: s for s in call('GET', f"/v1/appStoreVersionLocalizations/{vloc['id']}/appScreenshotSets")['data']}
-    for display, files in listing['screenshots'].items():
+    upload_screenshots(vloc['id'], listing['screenshots'], HERE)
+
+
+def localized_screenshots(listing, locale):
+    """One language's screenshots, on that language's page of the version being prepared (localizations() makes the page)"""
+    app = get_app()
+    versions = call('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
+    if not versions:
+        print('No version is being prepared, so the screenshots were left as they are.'); return
+    loc = next((l for l in call('GET', f"/v1/appStoreVersions/{versions[0]['id']}/appStoreVersionLocalizations")['data'] if l['attributes']['locale'] == locale), None)
+    if not loc:
+        print(f'{locale}: no page for this language yet (the listing upload makes it); skipped'); return
+    base = os.path.join(HERE, 'screenshots', 'l10n', locale)
+    shots = {d: [os.path.join(base, os.path.basename(f)) for f in files] for d, files in listing['screenshots'].items()}
+    shots = {d: files for d, files in shots.items() if all(os.path.exists(f) for f in files)}
+    print(locale + ':', ', '.join(shots) or 'no screenshots found in ' + base)
+    upload_screenshots(loc['id'], shots, HERE)
+
+
+def upload_screenshots(vloc_id, screenshots, base):
+    """Replace each screenshot set on a version's language page with these files ({display type: [paths]})"""
+    sets = {s['attributes']['screenshotDisplayType']: s for s in call('GET', f"/v1/appStoreVersionLocalizations/{vloc_id}/appScreenshotSets")['data']}
+    for display, files in screenshots.items():
         try:
             if display in sets:
                 for shot in call('GET', f"/v1/appScreenshotSets/{sets[display]['id']}/appScreenshots")['data']:
@@ -96,9 +120,9 @@ def main():
                 set_id = sets[display]['id']
             else:
                 set_id = call('POST', '/v1/appScreenshotSets', {'data': {'type': 'appScreenshotSets', 'attributes': {'screenshotDisplayType': display},
-                              'relationships': {'appStoreVersionLocalization': {'data': {'type': 'appStoreVersionLocalizations', 'id': vloc['id']}}}}})['data']['id']
+                              'relationships': {'appStoreVersionLocalization': {'data': {'type': 'appStoreVersionLocalizations', 'id': vloc_id}}}}})['data']['id']
             for f in files:
-                blob = open(os.path.join(HERE, f), 'rb').read()
+                blob = open(os.path.join(base, f), 'rb').read()
                 shot = call('POST', '/v1/appScreenshots', {'data': {'type': 'appScreenshots',
                             'attributes': {'fileName': os.path.basename(f), 'fileSize': len(blob)},
                             'relationships': {'appScreenshotSet': {'data': {'type': 'appScreenshotSets', 'id': set_id}}}}})['data']
@@ -113,7 +137,7 @@ def main():
 
 def localizations(info, ver, listing):
     """The listing in other languages, from l10n/<locale>.json: name and subtitle, and the version's text and URLs.
-    Screenshots aren't localized: App Store Connect shows the English ones for every language."""
+    Their screenshots are uploaded by localized_screenshots (--locale), after screenshots.js has made them."""
     import glob
     files = sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json')))
     if not files: return
