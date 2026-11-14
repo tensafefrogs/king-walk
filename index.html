@@ -326,7 +326,10 @@ html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outl
 .run-btn.cleared b { color: var(--fg); }
 html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
-.runs { display: grid; gap: 6px; }
+.runs > summary { color: var(--muted); min-height: 34px; }
+.runs > summary .label { flex: 1; }
+.runs-sum { font: 700 13px var(--font-display); color: var(--muted); }
+.runs[open] > .run-row { margin-top: 8px; animation: rise 0.28s var(--ease-out) both; }
 /* the daily puzzle's header button: filled while today's waits, the streak once it's done */
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
 .daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; font-size: 15px; }
@@ -708,10 +711,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="stat"><b id="stStreak">0</b><span>in a row</span></div>
         <div class="stat"><b id="stAcc">-</b><span>of last 20</span></div>
       </div>
-      <div class="runs">
-        <p class="label">Rank streaks</p>
+      <details class="runs" id="runsBox">
+        <summary><span class="label">Rank streaks</span><span class="runs-sum" id="runsSum"></span></summary>
         <div class="run-row" id="runRow"></div>
-      </div>
+      </details>
       <div class="chart-box">
         <div class="chart-wrap">
           <svg class="chart" id="chart" viewBox="0 0 300 64" preserveAspectRatio="none" role="img" aria-label="Rating over time"></svg>
@@ -1726,6 +1729,7 @@ function finishRun(clean) {
 }
 function renderRuns() {
   const row = $("runRow"), p = me(); row.textContent = "";
+  $("runsSum").textContent = T("{n} of {total} cleared", { n: RANKS.filter(r => (p.runs[r[2]] || 0) >= STREAK_LEN).length, total: RANKS.length });
   RANKS.forEach((r, i) => {
     const best = p.runs[r[2]] || 0, cleared = best >= STREAK_LEN, frac = best / STREAK_LEN;
     const b = document.createElement("button"); b.type = "button"; b.className = "run-btn" + (cleared ? " cleared" : best ? "" : " untried");

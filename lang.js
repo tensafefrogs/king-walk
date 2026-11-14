@@ -2,6 +2,7 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "{n} of {total} cleared": "{n} de {total} superadas",
     ", becomes a {piece}": ", se convierte en {piece}",
     ", can move here": ", se puede mover aquí",
     ", can take here": ", se puede capturar aquí",
@@ -281,6 +282,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "{n} of {total} cleared": "{n} sur {total} réussies",
     ", becomes a {piece}": ", promu en {piece}",
     ", can move here": ", déplacement possible",
     ", can take here": ", prise possible",
@@ -560,6 +562,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "{n} of {total} cleared": "{n} von {total} geschafft",
     ", becomes a {piece}": ", Umwandlung in {piece}",
     ", can move here": ", Zug hierhin möglich",
     ", can take here": ", Schlagen hier möglich",
@@ -839,6 +842,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "{n} of {total} cleared": "{n} su {total} superate",
     ", becomes a {piece}": ", promosso a {piece}",
     ", can move here": ", puoi muovere qui",
     ", can take here": ", puoi catturare qui",
@@ -1118,6 +1122,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "{n} of {total} cleared": "{n} de {total} concluídas",
     ", becomes a {piece}": ", promove a {piece}",
     ", can move here": ", pode ir para cá",
     ", can take here": ", pode capturar aqui",
@@ -1397,6 +1402,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "{n} of {total} cleared": "{n} van {total} gehaald",
     ", becomes a {piece}": ", promoveert tot {piece}",
     ", can move here": ", hierheen mogelijk",
     ", can take here": ", slaan mogelijk",
@@ -1676,6 +1682,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "{n} of {total} cleared": "Пройдено: {n} из {total}",
     ", becomes a {piece}": ", превращается в {piece}",
     ", can move here": ", можно пойти сюда",
     ", can take here": ", можно взять здесь",
@@ -1955,6 +1962,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "{n} of {total} cleared": "{total}中{n}クリア",
     ", becomes a {piece}": "、{piece}に昇格",
     ", can move here": "、ここへ移動できます",
     ", can take here": "、ここで取れます",
@@ -2234,6 +2242,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "{n} of {total} cleared": "{total}개 중 {n}개 클리어",
     ", becomes a {piece}": ", {piece} 승진",
     ", can move here": ", 이동 가능",
     ", can take here": ", 잡기 가능",
@@ -2513,6 +2522,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "{n} of {total} cleared": "已通关 {n}/{total}",
     ", becomes a {piece}": "，升变为{piece}",
     ", can move here": "，可以走到这里",
     ", can take here": "，可以在这里吃子",
