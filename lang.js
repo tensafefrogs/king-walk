@@ -2,6 +2,11 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "Puzzles or the daily puzzle": "Problemas o el problema del día",
+    "not played": "sin jugar",
+    "missed": "fallado",
+    "Solve today's to start a streak.": "Resuelve el de hoy para empezar una racha.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Hoy todos tienen el mismo problema. El del lunes es suave; cada día es más difícil, hasta el domingo.",
     "Next puzzle in {h}h {m}m": "Siguiente problema en {h} h {m} min",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "También en iPhone y iPad, con widgets, Game Center y sincronización con iCloud.",
     "{n} of {total} cleared": "{n} de {total} superadas",
@@ -292,6 +297,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "Puzzles or the daily puzzle": "Problèmes ou le problème du jour",
+    "not played": "pas joué",
+    "missed": "raté",
+    "Solve today's to start a streak.": "Résous celui du jour pour lancer une série.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Aujourd'hui, tout le monde a le même problème. Celui du lundi est facile ; chaque jour est plus dur, jusqu'au dimanche.",
     "Next puzzle in {h}h {m}m": "Prochain problème dans {h} h {m} min",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Aussi sur iPhone et iPad, avec widgets, Game Center et synchronisation iCloud.",
     "{n} of {total} cleared": "{n} sur {total} réussies",
@@ -582,6 +592,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "Puzzles or the daily puzzle": "Aufgaben oder die Aufgabe des Tages",
+    "not played": "nicht gespielt",
+    "missed": "verpasst",
+    "Solve today's to start a streak.": "Löse die heutige, um eine Serie zu starten.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Heute bekommen alle dieselbe Aufgabe. Montags ist sie leicht, jeden Tag etwas schwerer, bis Sonntag.",
     "Next puzzle in {h}h {m}m": "Nächste Aufgabe in {h} Std. {m} Min.",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Auch für iPhone und iPad, mit Widgets, Game Center und iCloud-Sync.",
     "{n} of {total} cleared": "{n} von {total} geschafft",
@@ -872,6 +887,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "Puzzles or the daily puzzle": "Problemi o il problema del giorno",
+    "not played": "non giocato",
+    "missed": "mancato",
+    "Solve today's to start a streak.": "Risolvi quello di oggi per iniziare una serie.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Oggi tutti hanno lo stesso problema. Quello del lunedì è facile; ogni giorno è più difficile, fino alla domenica.",
     "Next puzzle in {h}h {m}m": "Prossimo problema tra {h} h {m} min",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Anche su iPhone e iPad, con widget, Game Center e sincronizzazione iCloud.",
     "{n} of {total} cleared": "{n} su {total} superate",
@@ -1162,6 +1182,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "Puzzles or the daily puzzle": "Problemas ou o problema do dia",
+    "not played": "não jogado",
+    "missed": "errado",
+    "Solve today's to start a streak.": "Resolva o de hoje para começar uma sequência.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Hoje todo mundo recebe o mesmo problema. O de segunda é tranquilo; cada dia fica mais difícil, até domingo.",
     "Next puzzle in {h}h {m}m": "Próximo problema em {h} h {m} min",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Também no iPhone e iPad, com widgets, Game Center e sincronização com o iCloud.",
     "{n} of {total} cleared": "{n} de {total} concluídas",
@@ -1452,6 +1477,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "Puzzles or the daily puzzle": "Puzzels of de puzzel van de dag",
+    "not played": "niet gespeeld",
+    "missed": "gemist",
+    "Solve today's to start a streak.": "Los die van vandaag op om een reeks te beginnen.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Vandaag krijgt iedereen dezelfde puzzel. Die van maandag is makkelijk; elke dag wordt moeilijker, tot zondag.",
     "Next puzzle in {h}h {m}m": "Volgende puzzel over {h} u {m} min",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Ook op iPhone en iPad, met widgets, Game Center en iCloud-synchronisatie.",
     "{n} of {total} cleared": "{n} van {total} gehaald",
@@ -1742,6 +1772,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "Puzzles or the daily puzzle": "Задачи или задача дня",
+    "not played": "не сыграна",
+    "missed": "не решена",
+    "Solve today's to start a streak.": "Решите сегодняшнюю, чтобы начать серию.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Сегодня у всех одна и та же задача. В понедельник — лёгкая, дальше каждый день сложнее, до воскресенья.",
     "Next puzzle in {h}h {m}m": "Следующая задача через {h} ч {m} мин",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Также на iPhone и iPad: виджеты, Game Center и синхронизация через iCloud.",
     "{n} of {total} cleared": "Пройдено: {n} из {total}",
@@ -2032,6 +2067,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "Puzzles or the daily puzzle": "パズルかデイリーパズル",
+    "not played": "未プレイ",
+    "missed": "失敗",
+    "Solve today's to start a streak.": "今日のパズルを解いて連続記録をスタート。",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "今日は全員が同じパズル。月曜はやさしく、日曜に向けて毎日少しずつ難しくなります。",
     "Next puzzle in {h}h {m}m": "次のパズルまで{h}時間{m}分",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone・iPad版もあります。ウィジェット、Game Center、iCloud同期に対応。",
     "{n} of {total} cleared": "{total}中{n}クリア",
@@ -2322,6 +2362,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "Puzzles or the daily puzzle": "퍼즐 또는 데일리 퍼즐",
+    "not played": "안 함",
+    "missed": "실패",
+    "Solve today's to start a streak.": "오늘 퍼즐을 풀고 연속 기록을 시작하세요.",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "오늘은 모두 같은 퍼즐을 풉니다. 월요일은 쉽고, 일요일까지 매일 조금씩 어려워져요.",
     "Next puzzle in {h}h {m}m": "다음 퍼즐까지 {h}시간 {m}분",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone과 iPad에서도 즐기세요. 위젯, Game Center, iCloud 동기화 지원.",
     "{n} of {total} cleared": "{total}개 중 {n}개 클리어",
@@ -2612,6 +2657,11 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "Puzzles or the daily puzzle": "谜题或每日谜题",
+    "not played": "未玩",
+    "missed": "未解出",
+    "Solve today's to start a streak.": "解出今天的题，开始连胜。",
+    "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "今天所有人做同一道题。周一最简单，之后每天更难一点，直到周日。",
     "Next puzzle in {h}h {m}m": "下一题还有 {h} 小时 {m} 分钟",
     "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "也有 iPhone 和 iPad 版，支持小组件、Game Center 和 iCloud 同步。",
     "{n} of {total} cleared": "已通关 {n}/{total}",

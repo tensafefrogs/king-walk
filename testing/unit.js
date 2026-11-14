@@ -160,10 +160,10 @@ function translations() {
     DAILY = null; done = true; return { dropped, kept }; });
   check(st.dropped && st.kept === 1, "yesterday's finished daily steps aside; no freeze for the day being played", st);
   // "Copied" replaces a button's label, not its icon
-  const cp = await p.evaluate(async () => { const b = $("dailyBtn"); const hadIcon = !!b.querySelector("svg"); Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
+  const cp = await p.evaluate(async () => { const b = $("dailyBtn"); const hadIcon = !!b.querySelector("span"); Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
     try { Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.resolve() }, configurable: true }); } catch (e) {}
-    shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("svg"), span: !!$("dailyBtnTxt") }; });
-  check(cp.icon && cp.span, "Copied keeps the Daily button's icon and label element", cp);
+    shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("span") && !!$("dailyDot"), span: true }; });
+  check(cp.icon && cp.span, "Copied keeps the Daily button's label and dot", cp);
   // the daily done: the Daily button opens a card saying so, with Share on it, not a share sheet
   const dc = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gg", 33, true); DAILY = null; let shared = 0;
     const real = window.shareProgress; window.shareProgress = () => { shared++; };
@@ -172,6 +172,14 @@ function translations() {
     card.querySelector(".sh").click(); r.sharedFromCard = shared; card.querySelector(".go").click(); await new Promise(r2 => setTimeout(r2, 400));
     r.closed = !document.querySelector(".cele"); window.shareProgress = real; return r; });
   check(dc.card && dc.title === "Today's puzzle: done" && dc.sharedOnTap === 0 && dc.sharedFromCard === 1 && dc.closed, "a done daily shows its card, Share is on the card", dc);
+  // the mode switch: Daily on while the daily is played (coral frame, the daily's card), Puzzles back
+  const ms = await p.evaluate(async () => { const n = dayNumber(); delete me().daily.days[n]; DAILY = null; done = true; renderDaily();
+    const before = { puzzles: $("puzzlesBtn").getAttribute("aria-pressed"), mode: document.documentElement.classList.contains("daily") };
+    $("dailyBtn").click(); await new Promise(r => setTimeout(r, 300));
+    const during = { daily: $("dailyBtn").getAttribute("aria-pressed"), mode: document.documentElement.classList.contains("daily"), card: getComputedStyle($("dailyInfo")).display !== "none", rate: getComputedStyle($("rate")).display };
+    $("puzzlesBtn").click(); await new Promise(r => setTimeout(r, 300));
+    return { before, during, after: document.documentElement.classList.contains("daily") }; });
+  check(ms.before.puzzles === "true" && !ms.before.mode && ms.during.daily === "true" && ms.during.mode && ms.during.card && ms.during.rate === "none" && !ms.after, "the Puzzles | Daily switch", ms);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };

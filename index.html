@@ -340,10 +340,35 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 .runs[open] > .run-row { margin-top: 8px; animation: rise 0.28s var(--ease-out) both; }
 /* the daily puzzle's header button: filled while today's waits, the streak once it's done */
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
-.daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; font-size: 15px; }
-.daily-btn.todo, .daily-btn.on { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
-@media (max-width: 359px) { .daily-btn.todo, .daily-btn.on { width: var(--bar); padding: 0; } .daily-btn.todo span, .daily-btn.on span { display: none; } }          /* the smallest phones: the icon only, so the name stays on one line */
-html.fold-v .daily-btn.todo, html.fold-v .daily-btn.on { width: var(--bar); padding: 0; } html.fold-v .daily-btn.todo span, html.fold-v .daily-btn.on span { display: none; }          /* the book's narrow page too */
+/* Puzzles | Daily: the side that's on is filled (coral for the daily) */
+.mode-switch { display: flex; height: var(--bar); box-sizing: border-box; padding: 3px; gap: 2px; border-radius: var(--r-ctl); background: var(--tile); box-shadow: inset 0 0 0 1px var(--line); }
+.mode-switch button { border: 0; background: none; cursor: pointer; padding: 0 12px; border-radius: 9px; font: 600 15px var(--font-display); color: var(--muted); display: flex; align-items: center; gap: 5px; transition: background-color 0.2s, color 0.2s; white-space: nowrap; }
+.mode-switch button[aria-pressed="true"] { background: var(--card); color: var(--fg); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22); }
+.mode-switch #dailyBtn[aria-pressed="true"] { background: var(--p-coral); color: #fff; }
+.mode-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--p-coral); flex: none; }
+h1 { white-space: nowrap; }
+@media (max-width: 379px) { h1 { display: none; } .mode-switch button { padding: 0 10px; } }          /* small phones: the mark, then the switch */
+html.fold-v h1 { display: none; }          /* the book's narrow page too */
+/* the daily puzzle: a coral frame, no rating (it doesn't change it), and the daily's card in place of Progress */
+html.daily { --frame: #e2704f; }
+@media (prefers-color-scheme: dark) { html.daily:not([data-theme="light"]) { --frame: #b85a3e; } }
+html.daily[data-theme="dark"] { --frame: #b85a3e; }
+html.daily .rate { display: none; }
+html.daily .play-btns, html.daily .done-btns { margin-left: auto; }
+.daily-info { display: none; gap: 10px; }
+html.daily .daily-info { display: grid; }
+html.daily .progress > :not(.daily-info), html.daily .ranks-card { display: none !important; }          /* over the fold layouts' own rules */
+html.fold-h.daily .progress { display: block; }
+.daily-day { font: 600 14px var(--font-display); color: var(--muted); }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; text-align: center; margin: 0; padding: 0; list-style: none; }
+.week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
+.week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
+.week .ok i { background: var(--p-gold); border-color: var(--p-gold); }
+.week .fz i { background: #cfe9f5; border-color: #8ccbe8; }
+.week .miss i { background: var(--tile); color: var(--muted); }
+.week .today i { border-color: var(--p-coral); border-width: 3px; }
+.week .today { color: var(--fg); }
+.di-streak { margin: 0; font: 700 16px var(--font-display); }
 .setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
@@ -593,7 +618,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <h1>King Walk</h1>
     </div>
     <div class="top-btns">
-    <button type="button" id="dailyBtn" class="btn daily-btn" aria-label="Daily puzzle"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span id="dailyBtnTxt">Daily</span></button>
+    <div class="mode-switch" role="group" aria-label="Puzzles or the daily puzzle">
+      <button type="button" id="puzzlesBtn" aria-pressed="true">Puzzles</button>
+      <button type="button" id="dailyBtn" aria-pressed="false" aria-label="Daily puzzle"><span>Daily</span><i class="mode-dot" id="dailyDot" hidden></i></button>
+    </div>
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
     </div>
   </header>
@@ -741,6 +769,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="chart-cap"><span>rating over time</span></div>
       </div>
       <p class="note" id="pzInfo"></p>
+      <div class="daily-info" id="dailyInfo">
+        <div class="card-head"><p class="label" id="diTitle">Daily puzzle</p><span class="daily-day" id="diDay"></span></div>
+        <ol class="week" id="diWeek"></ol>
+        <p class="di-streak" id="diStreak"></p>
+        <p class="note">Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.</p>
+      </div>
       <p class="note" id="appPromo" hidden><span>Also on iPhone and iPad, with widgets, Game Center and iCloud sync.</span> <a id="appLink" target="_blank" rel="noopener">App Store ›</a></p>
     </section>
   </main>
@@ -1787,15 +1821,30 @@ async function makeDailyImage(n) {
 /* the header button: Daily, filled, while today's puzzle waits; once it's done, the daily streak (tapping it shares the
    result); Puzzles while the daily is being played */
 function renderDaily() {
-  const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p);
   dropStaleDaily();
+  const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p), fz = p.daily.freezes || 0, n = dayNumber();
+  if (today) prepareDailyImage(n);
   b.hidden = !dailyOpen();
-  const playing = !!DAILY && !today;
-  if (today) prepareDailyImage(dayNumber());
-  b.classList.toggle("on", playing); b.classList.toggle("todo", !DAILY && !today);
-  const fz = p.daily.freezes || 0;
-  $("dailyBtnTxt").textContent = playing ? T("Puzzles") : today ? "\ud83d\udd25 " + st + (fz ? " \ud83e\uddca" + (fz > 1 ? fz : "") : "") : T("Daily");
-  b.setAttribute("aria-label", playing ? T("Back to puzzles") : today ? T("Daily puzzle") + ". " + T("Done today.") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + (fz ? " " + T("Streak freezes: {n}", { n: fz }) + "." : "") + " " + T("Share") : T("Daily puzzle"));
+  document.documentElement.classList.toggle("daily", !!DAILY);
+  b.setAttribute("aria-pressed", String(!!DAILY)); $("puzzlesBtn").setAttribute("aria-pressed", String(!DAILY));
+  $("dailyDot").hidden = !!today || !!DAILY;
+  b.setAttribute("aria-label", T("Daily puzzle") + (today ? ". " + T("Done today.") : "") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + (fz ? " " + T("Streak freezes: {n}", { n: fz }) + "." : ""));
+  if (!DAILY) return;
+  /* the daily's card: the number and day, the last seven days, the streak */
+  const dn = DAILY.n, full = new Intl.DateTimeFormat(LANG, { weekday: "long" }), narrow = new Intl.DateTimeFormat(LANG, { weekday: "narrow" });
+  $("diTitle").textContent = T("Daily puzzle #{n}", { n: dn }); $("diDay").textContent = full.format(dayDate(dn));
+  const wk = $("diWeek"); wk.textContent = "";
+  for (let k = dn - 6; k <= dn; k++) {
+    const r = k > 0 && p.daily.days[k], li = document.createElement("li"), i = document.createElement("i");
+    li.className = (r ? (r.fz ? "fz" : r.ok ? "ok" : "miss") : "") + (k === dn ? " today" : "");
+    i.textContent = r ? (r.fz ? "\u2744" : r.ok ? "\u2713" : "\u00d7") : ""; i.setAttribute("aria-hidden", "true");
+    li.append(i, narrow.format(dayDate(k)));
+    li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.fz ? T("Streak freeze") : r.ok ? T("solved") : T("missed")) : T("not played")));
+    wk.append(li);
+  }
+  /* the streak: in words from 2 days ("{n} days in a row" needs a plural), plus freezes held */
+  const fire = st >= 2 ? T("{n} days in a row", { n: st }) : st ? "1" : "";
+  $("diStreak").textContent = st ? "\ud83d\udd25 " + fire + (fz ? "   \ud83e\uddca " + T("Streak freezes: {n}", { n: fz }) : "") : T("Solve today's to start a streak.");
 }
 /* the app: the widget's daily line and the reminders for the next week */
 function sendDaily() {
@@ -2148,7 +2197,9 @@ $("hintBtn").addEventListener("click", showHint);
 $("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */
-$("dailyBtn").addEventListener("click", () => { haptic("toggle"); dropStaleDaily(); if (DAILY && !dailyDone(me())) leaveDaily(); else startDaily(); });          /* done today: startDaily shares */
+/* Puzzles | Daily: the side that's off switches to it; the daily, when it's done, shows its card */
+$("puzzlesBtn").addEventListener("click", () => { if (!DAILY) return; haptic("toggle"); leaveDaily(); });
+$("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY && !dailyDone(me())) return; haptic("toggle"); startDaily(); });
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
 $("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
