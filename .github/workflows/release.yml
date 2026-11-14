@@ -60,6 +60,17 @@ jobs:
               print('::warning::Not set yet: ' + ', '.join(missing) + ' (ios/README.md, One-time setup). Nothing is built or uploaded until they are.', file=sys.stderr)
           PY
           cat "$GITHUB_OUTPUT"
+      # Log in to App Store Connect with the key before anything is built, so a wrong key fails in seconds
+      - name: Check the App Store Connect key
+        if: steps.read.outputs.ready == 'true'
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID || vars.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID || vars.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+        run: |
+          pip install -q pyjwt cryptography
+          cd ios/store && python3 check_key.py
 
   build:
     needs: plan
