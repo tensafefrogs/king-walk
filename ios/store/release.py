@@ -71,9 +71,18 @@ def wait_for_build(app_id, version, number, minutes=45):
 
 # ---------- TestFlight ----------
 
+def plain_notes(text):
+    """Release notes as App Store Connect takes them: it turns down characters outside the Basic Multilingual Plane
+    (most emoji, such as 🧊 and 🔥) as INVALID_TEXT, failing the release; they're dropped, with a warning."""
+    kept = ''.join(c for c in text if ord(c) <= 0xFFFF)
+    if kept != text:
+        log('Release notes: dropped characters App Store Connect refuses:', ' '.join(sorted({c for c in text if ord(c) > 0xFFFF})))
+    return kept.replace('  ', ' ').strip()
+
+
 def testflight(app_id, build, cfg):
     groups = {g['attributes']['name']: g for g in call('GET', f'/v1/apps/{app_id}/betaGroups?limit=50')['data']}
-    notes = cfg.get('whats_new', '').strip()
+    notes = plain_notes(cfg.get('whats_new', ''))
     if notes:   # "What to Test", shown to testers
         locs = call('GET', f"/v1/builds/{build['id']}/betaBuildLocalizations")['data']
         en = next((l for l in locs if l['attributes']['locale'] == 'en-US'), None)
@@ -231,7 +240,7 @@ def app_store(app_id, build, cfg):
         call('PATCH', f"/v1/appStoreVersions/{v['id']}/relationships/build", {'data': {'type': 'builds', 'id': build['id']}})
         patch('appStoreVersions', v['id'], {'releaseType': release_type})
         log(f"App Store: build {build['attributes']['version']} attached to {version}, release {release_type.lower().replace('_', ' ')}")
-        notes = cfg.get('whats_new', '').strip()
+        notes = plain_notes(cfg.get('whats_new', ''))
         if notes:
             loc = next(l for l in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']
                        if l['attributes']['locale'] == 'en-US')
