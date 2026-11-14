@@ -17,6 +17,11 @@ on:
         type: boolean
         default: false
 
+# one run at a time: a second waits, so two never edit App Store Connect at once
+concurrency:
+  group: app-store-listing
+  cancel-in-progress: false
+
 jobs:
   upload:
     runs-on: ubuntu-latest
