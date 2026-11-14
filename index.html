@@ -800,7 +800,9 @@ const COLORED = { w: { k: "white king", q: "white queen", r: "white rook", b: "w
 const rankName = i => T(RANKS[i][1]);
 const ICONS = {
   good: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-  bad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>',
+  /* not an x, which reads as a close button: a wrong move goes back (an undo arrow), a failure is an alert */
+  retry: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
+  bad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.6" r="0.6" fill="currentColor"/></svg>',
   hint: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.3 1 2.2h5.2c0-.9.4-1.7 1-2.2A6 6 0 0 0 12 3z"/></svg>',
   turn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   wait: '<span class="dots"><i></i><i></i><i></i></span>'
@@ -1373,7 +1375,7 @@ function commit(from, to, promo) {
     syncPieces({ from, to }); paint(); sfx.bad(); haptic("wrong");
     const o = els.get(to); if (o) later(() => restart(o.el, "nope"), 200);
     restart(frameEl, "shake");
-    setStatus("bad", T("Not that one. Try again."), "", "bad");
+    setStatus("bad", T("Not that one. Try again."), "", "retry");
     announce(T("{move}. Not that one. It goes back; try again.", { move: said }));
     later(() => {
       game.undo(); wrongSq = null;
