@@ -60,6 +60,51 @@ def upload_image(kind, loc_id, rel_name, file):
     log('  image uploaded:', os.path.basename(file))
 
 
+def unknown_rel(e):
+    return e and 'RELATIONSHIP.UNKNOWN' in e
+
+
+def post_with(kind, attrs, parent_kind, parent_id, rel_names, what):
+    """POST a resource related to its parent, trying the relationship names Apple might use, in order"""
+    for name in rel_names:
+        body = {'data': {'type': kind, 'relationships': {name: {'data': {'type': parent_kind, 'id': parent_id}}}}}
+        if attrs: body['data']['attributes'] = attrs
+        try:
+            if DRY: log('  (dry run) POST', kind, name); return {'id': 'dry', 'attributes': {}}
+            return request('POST', f'/v1/{kind}', body)['data']
+        except ApiError as e:
+            if 'RELATIONSHIP.UNKNOWN' in e.body and name != rel_names[-1]: continue
+            problems.append(f'{what}: {e.code} {e.body[:400]}'); log('  failed:', what, e.code, e.body[:400]); return None
+
+
+def all_related(path, names):
+    for name in names:
+        try:
+            r = request('GET', f'{path}/{name}')
+            return r['data'] if isinstance(r.get('data'), list) else ([r['data']] if r.get('data') else [])
+        except ApiError as e:
+            if e.code == 404: continue
+            raise
+    return []
+
+
+def first_related(path, names):
+    found = all_related(path, names)
+    return found[0] if found else None
+
+
+def upload_image_with(kind, parent_kind, parent_id, rel_names, file, what):
+    blob = open(file, 'rb').read()
+    img = post_with(kind, {'fileName': os.path.basename(file), 'fileSize': len(blob)}, parent_kind, parent_id, rel_names, what)
+    if not img or DRY: return
+    for op in img['attributes'].get('uploadOperations') or []:
+        req = urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']], method=op['method'],
+                                     headers={h['name']: h['value'] for h in op['requestHeaders']})
+        urllib.request.urlopen(req, timeout=120).read()
+    api('PATCH', f'/v1/{kind}/{img["id"]}', {'data': {'type': kind, 'id': img['id'], 'attributes': {'uploaded': True}}}, f'finish {what}')
+    log('  image uploaded:', os.path.basename(file))
+
+
 def main():
     cfg = json.load(open(os.path.join(HERE, 'gamecenter.json')))
     app = get_app()
@@ -147,26 +192,21 @@ def main():
             if not r: continue
             ch = r['data']; log('Challenge created:', vid)
         if ch['id'] == 'dry': continue
-        # its versions and English text: the API keeps them on the challenge's current version when it has one
-        loc_rel = f"/v1/gameCenterChallenges/{ch['id']}/localizations"
-        vers = api('GET', f"/v1/gameCenterChallenges/{ch['id']}/versions", what=f'{vid} versions')
-        if vers and vers.get('data'):
-            loc_rel = f"/v1/gameCenterChallengeVersions/{vers['data'][0]['id']}/localizations"
-        locs = api('GET', loc_rel, what=f'{vid} localizations')
-        en = next((l for l in (locs or {}).get('data', []) if l['attributes'].get('locale') == 'en-US'), None)
+        # The English name, description and image live on a version of the challenge: find or make one, then its text
+        version = first_related(f"/v1/gameCenterChallenges/{ch['id']}", ['versions', 'gameCenterChallengeVersions'])
+        if not version:
+            version = post_with('gameCenterChallengeVersions', {}, 'gameCenterChallenges', ch['id'], ['challenge', 'gameCenterChallenge'], f'{vid} version')
+        if not version: continue
+        en = next((l for l in all_related(f"/v1/gameCenterChallengeVersions/{version['id']}", ['localizations', 'gameCenterChallengeLocalizations'])
+                   if l['attributes'].get('locale') == 'en-US'), None)
         attrs = {'name': c['name'], 'description': c['description']}
         if en:
             api('PATCH', f"/v1/gameCenterChallengeLocalizations/{en['id']}", {'data': {'type': 'gameCenterChallengeLocalizations', 'id': en['id'], 'attributes': attrs}}, f'{vid} English text')
         else:
-            rel = ({'version': {'data': {'type': 'gameCenterChallengeVersions', 'id': vers['data'][0]['id']}}} if vers and vers.get('data')
-                   else {'gameCenterChallenge': {'data': {'type': 'gameCenterChallenges', 'id': ch['id']}}})
-            r = api('POST', '/v1/gameCenterChallengeLocalizations', {'data': {'type': 'gameCenterChallengeLocalizations',
-                    'attributes': dict(attrs, locale='en-US'), 'relationships': rel}}, f'{vid} English text')
-            en = r and r['data']
-        if en and c.get('image'):
-            img = api('GET', f"/v1/gameCenterChallengeLocalizations/{en['id']}/image", what=f'{vid} image')
-            if not (img and img.get('data')):
-                upload_image('gameCenterChallengeImages', en['id'], 'gameCenterChallengeLocalization', os.path.join(HERE, 'gamecenter', c['image']))
+            en = post_with('gameCenterChallengeLocalizations', dict(attrs, locale='en-US'), 'gameCenterChallengeVersions', version['id'], ['version', 'gameCenterChallengeVersion'], f'{vid} English text')
+        if en and c.get('image') and not first_related(f"/v1/gameCenterChallengeLocalizations/{en['id']}", ['image', 'gameCenterChallengeImage']):
+            upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'],
+                              os.path.join(HERE, 'gamecenter', c['image']), f'{vid} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
     # Game Center on the version being prepared, so App Review sees it with the build
