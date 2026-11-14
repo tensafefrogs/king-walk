@@ -24,3 +24,25 @@ if not apps:
     sys.exit(f'::error::The key works, but there is no app with the bundle ID {BUNDLE_ID} in App Store Connect. '
              'Create the app record (ios/README.md, One-time setup), or check the BUNDLE_ID variable.')
 print(f"App Store Connect key OK. App: {apps[0]['attributes']['name']} ({apps[0]['id']})")
+
+# Signing needs the developer portal side too (App IDs, certificates, profiles): only Admin keys can create them
+try:
+    ids = request('GET', f'/v1/bundleIds?filter[identifier]={BUNDLE_ID},{BUNDLE_ID}.widget&include=bundleIdCapabilities')
+except ApiError as e:
+    sys.exit(f'::error::The key can read App Store Connect but not the developer portal ({e.code}), so Xcode cannot sign. '
+             'Use a key with the Admin role (Users and Access → Integrations → Team Keys).')
+found = {b['attributes']['identifier']: b for b in ids['data']}
+caps = {}
+for c in ids.get('included', []):
+    caps.setdefault(c['relationships']['bundleId']['data']['id'] if 'relationships' in c and c['relationships'].get('bundleId', {}).get('data') else c['id'].split('_')[0], []).append(c['attributes'].get('capabilityType'))
+for ident in (BUNDLE_ID, BUNDLE_ID + '.widget'):
+    b = found.get(ident)
+    if not b:
+        print(f'::warning::No App ID {ident} in the developer portal yet. Automatic signing should register it; if the build fails, add it by hand (ios/README.md).')
+    else:
+        print(f"App ID {ident}: capabilities {', '.join(sorted(x for x in caps.get(b['id'], []) if x)) or 'none listed'}")
+try:
+    certs = request('GET', '/v1/certificates?limit=50')['data']
+    print('Certificates on the team:', ', '.join(sorted({c['attributes']['certificateType'] for c in certs})) or 'none')
+except ApiError as e:
+    sys.exit(f'::error::The key cannot list signing certificates ({e.code}). Signing needs a key with the Admin role.')
