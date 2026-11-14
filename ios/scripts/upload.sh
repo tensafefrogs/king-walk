@@ -21,14 +21,15 @@ key="$tmp/AuthKey_$ASC_KEY_ID.p8"
 printf '%s\n' "$ASC_KEY_P8" > "$key"
 auth=(-allowProvisioningUpdates -authenticationKeyPath "$key" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID")
 
-# The archive is signed "to run locally" (ad hoc, no certificate needed), which still puts the entitlements (iCloud,
-# Game Center, the app group the widget shares) into it. The export step then signs it for the App Store with a
-# cloud-managed certificate and profiles that Xcode creates through the API key.
-# ARCHIVE_SIGNING=automatic signs the archive with automatic signing instead (Xcode makes a development certificate).
+# The archive is built unsigned (as Spark's is), then its app and widget are signed "to run locally" (ad hoc) here
+# with their entitlements: iCloud, Game Center and the app group the widget shares. Xcode's own ad hoc signing isn't
+# allowed with the iOS 27.1 SDK, but codesign's is. The export step then signs it for the App Store with a
+# cloud-managed certificate and profiles that Xcode creates through the API key, keeping those entitlements (the
+# check after the export makes sure). ARCHIVE_SIGNING=automatic signs the archive with automatic signing instead.
 if [ "${ARCHIVE_SIGNING:-adhoc}" = automatic ]; then
   signing=(CODE_SIGN_STYLE=Automatic "${auth[@]}")
 else
-  signing=(CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=- CODE_SIGNING_REQUIRED=NO PROVISIONING_PROFILE_SPECIFIER=)
+  signing=(CODE_SIGNING_ALLOWED=NO)
 fi
 xcodebuild -project ios/KingWalk.xcodeproj -scheme KingWalk -configuration Release \
   -destination 'generic/platform=iOS' -archivePath "$tmp/KingWalk.xcarchive" \
@@ -36,8 +37,32 @@ xcodebuild -project ios/KingWalk.xcodeproj -scheme KingWalk -configuration Relea
   SWIFT_ACTIVE_COMPILATION_CONDITIONS="\$(inherited) ${KINGWALK_SWIFT_FLAGS:-}" \
   ${MARKETING_VERSION:+MARKETING_VERSION="$MARKETING_VERSION"} \
   "${signing[@]}" archive
+
+app_in_archive="$tmp/KingWalk.xcarchive/Products/Applications/KingWalk.app"
+if [ "${ARCHIVE_SIGNING:-adhoc}" != automatic ]; then
+  # the entitlements, as ios/project.yml lists them, with the team and bundle ID filled in
+  cat > "$tmp/app.entitlements" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>com.apple.developer.ubiquity-kvstore-identifier</key><string>$APPLE_TEAM_ID.$BUNDLE_ID</string>
+  <key>com.apple.developer.game-center</key><true/>
+  <key>com.apple.security.application-groups</key><array><string>$group</string></array>
+</dict></plist>
+PLIST
+  cat > "$tmp/widget.entitlements" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>com.apple.security.application-groups</key><array><string>$group</string></array>
+</dict></plist>
+PLIST
+  # the widget first: the app's signature covers what's inside it
+  codesign --force --sign - --entitlements "$tmp/widget.entitlements" "$app_in_archive/PlugIns/KingWalkWidget.appex"
+  codesign --force --sign - --entitlements "$tmp/app.entitlements" "$app_in_archive"
+fi
 echo "--- entitlements in the archive"
-codesign -d --entitlements :- "$tmp/KingWalk.xcarchive/Products/Applications/KingWalk.app" 2>/dev/null || true
+codesign -d --entitlements :- "$app_in_archive" 2>/dev/null || true
 
 cat > "$tmp/export.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
