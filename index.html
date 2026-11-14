@@ -177,9 +177,8 @@ html.fold-v.board-left .page.board { order: 1; width: var(--fold-a); }
 html.fold-v.board-left .page.notes { order: 2; width: calc(100vw - var(--fold-a) - var(--fold-w)); }
 html.fold-v .page.board .frame { width: 100%; }
 html.fold-v .page.notes .progress { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
-html.fold-v .page.notes .progress > div:has(.chart-wrap) { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 140px; }
+html.fold-v .page.notes .progress > .chart-box { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 140px; max-height: 280px; }
 html.fold-v .page.notes .chart-wrap { flex: 1 1 auto; height: auto; min-height: 120px; max-height: 240px; }
-html.fold-v .page.notes .progress > div:has(.chart-wrap) { max-height: 280px; }
 /* the notes page also shows how ranks and ratings work, open, like the commentary beside a diagram */
 html.fold-v .page.notes #rankHelp { grid-template-rows: 1fr; opacity: 1; margin-top: var(--gap); }
 html.fold-v .page.notes #helpBtn { display: none; }
@@ -317,14 +316,13 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 }
 /* rank streak badges: a little poster in a ring; the ring fills with your best; cleared ones get gold and a ribbon */
 .run-btn { all: unset; box-sizing: border-box; display: grid; justify-items: center; gap: 2px; cursor: pointer; text-align: center; padding: 2px 0 4px; border-radius: 12px; }
-.run-btn svg.badge { width: 100%; max-width: 62px; height: auto; overflow: visible; }
+.run-btn svg.badge { width: 100%; max-width: 62px; height: auto; overflow: visible; transition: transform 0.2s var(--ease-out); }
 .run-btn span { font: 700 11px var(--font-display); color: var(--fg); }
 .run-btn b { font: 700 11px var(--font-display); color: var(--muted); }
 .run-btn.untried svg.badge .scene { filter: grayscale(1); opacity: 0.45; }
 .run-btn.cleared b { color: var(--fg); }
 .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
-.run-btn svg.badge { transition: transform 0.2s var(--ease-out); }
 .runs { display: grid; gap: 6px; }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
@@ -942,7 +940,7 @@ const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "" }, wind
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
   ? location.origin + location.pathname.replace(/index\.html$/, "") : CONFIG.site;
 /* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web */
-const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE || CONFIG.site;
+const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE;
 if (CONFIG.goatcounter) {          /* the stats script, only when this copy has a GoatCounter address */
   const gs = document.createElement("script");
   gs.async = true; gs.src = "https://gc.zgo.at/count.js"; gs.dataset.goatcounter = CONFIG.goatcounter;
@@ -996,19 +994,18 @@ const PLAYED_MARKS = [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500];
 
 /* Game Center (iOS app only). Achievement and leaderboard ids match ios/store/gamecenter.json; the desktop-style
    achieve() name is kept so another wrapper could pick the same calls up. Game Center ignores repeats. */
-const ACH_RANK = ["", "rank_knight", "rank_bishop", "rank_rook", "rank_queen", "rank_king"];
 function achieve(id) { if (APP && APP.gameCenter) APP.post({ op: "achieve", id }); }
 function reportProgress(p, puzzle) {
   if (!APP) return;
   if (APP.gameCenter) {
     if (p.n > 0) APP.post({ op: "score", board: "rating", value: p.rating });
-    /* Streak and Hardest Solve are also Game Center challenges, which count only scores sent while a challenge runs:
+    /* Hardest Solve (and each rank streak) are Game Center challenges, which count only scores sent while a challenge runs:
        so these send what this solve achieved (the current run, this puzzle's rating), never an old best */
     if (puzzle && puzzle.clean) {
       APP.post({ op: "score", board: "streak", value: p.streak });
       APP.post({ op: "score", board: "hardest", value: puzzle.r });
     }
-    earnedAwards(p, puzzle).forEach(achieve);          /* Game Center ignores ones it already has */
+    if (!puzzle) earnedAwards(p).forEach(achieve);          /* at launch, catch Game Center up; after a puzzle, checkAwards sends new ones */
   }
   if (APP.widget) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
@@ -1211,10 +1208,10 @@ function goalText() {
   const th = cur.pz.th, mate = th.find(t => /^mateIn\d$/.test(t));
   return mate ? T("Checkmate in {n}", { n: mate.slice(6) }) : th.includes("mate") ? T("Find the checkmate") : T("Find the best move");
 }
-function showTurn() { setStatus("turn", T(orient === "w" ? "White to play" : "Black to play"), goalText(), "token"); }
+function showTurn() { setStatus("turn", (orient === "w" ? T("White to play") : T("Black to play")), goalText(), "token"); }
 function setButtons(on) {
   $("hintBtn").disabled = !on || hintLevel >= 2; $("answerBtn").disabled = !on;
-  $("hintLabel").textContent = T(hintLevel === 0 ? "Hint" : "Hint 2");
+  $("hintLabel").textContent = (hintLevel === 0 ? T("Hint") : T("Hint 2"));
 }
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
 function markNow() { if (RUN) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
@@ -1252,7 +1249,7 @@ async function nextPuzzle() {
   $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : T("Second try");
   $("stLevel").hidden = !cur.review && !RUN;
   renderPuzzleInfo();
-  setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : T(orient === "w" ? "Black moves first" : "White moves first"), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
+  setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
@@ -1315,7 +1312,7 @@ function showHint() {
   hintLevel++;
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
-  setStatus("hint", T(hintLevel === 1 ? "Move the piece in the gold circle" : "Move it to the other gold circle"), "", "hint");
+  setStatus("hint", (hintLevel === 1 ? T("Move the piece in the gold circle") : T("Move it to the other gold circle")), "", "hint");
   setButtons(true); paint(); markNow(); haptic("hint");
 }
 function showAnswer() {
@@ -1330,6 +1327,15 @@ function showAnswer() {
   later(step, 350);
 }
 
+/* Elo: the change in the player's rating after a puzzle rated puzzleRating, for score 1 (clean), 0.5 (hint) or 0 (miss).
+   It moves fast for the first puzzles so it finds the player's level, then settles; a clean solve always gains. */
+const RATING_FLOOR = 300;
+function ratingChange(rating, puzzleRating, score, played) {
+  const expect = 1 / (1 + Math.pow(10, (puzzleRating - rating) / 400));
+  const K = played < 10 ? 48 : played < 30 ? 36 : 24;
+  const delta = Math.round(K * (score - expect));
+  return score === 1 ? Math.max(1, delta) : delta;
+}
 const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (r >= RANKS[i][0]) ri = i; return ri; };
 /* The puzzle is over: update the rating, save, and show the result. */
 function finish(solvedIt) {
@@ -1339,11 +1345,8 @@ function finish(solvedIt) {
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
   let delta = 0;
   if (!cur.review) {          /* second tries are practice and leave the rating alone */
-    const expect = 1 / (1 + Math.pow(10, (cur.pz.r - p.rating) / 400));          /* the Elo expected score */
-    const K = p.n < 10 ? 48 : p.n < 30 ? 36 : 24;          /* move fast at first, then settle */
-    delta = Math.round(K * (score - expect));
-    if (score === 1 && delta < 1) delta = 1;
-    p.rating = Math.max(300, p.rating + delta);
+    delta = ratingChange(p.rating, cur.pz.r, score, p.n);
+    p.rating = Math.max(RATING_FLOOR, p.rating + delta);
     p.n++; p.hist.push(p.rating); if (p.hist.length > 300) p.hist.shift();
     p.last.push(score); if (p.last.length > 20) p.last.shift();
     p.peak = Math.max(p.peak, p.rating);
@@ -1480,7 +1483,8 @@ function celebrate(ids) {
   el.querySelector(".cele-text").textContent = body;
   const go = el.querySelector(".go"), sh = el.querySelector(".sh");
   go.textContent = T("Continue"); sh.textContent = T("Share");
-  const close = () => { el.classList.add("out"); setTimeout(() => { el.remove(); if (ids.length) celebrate(ids); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); document.removeEventListener("keydown", onKey); };
+  let closed = false;
+  const close = () => { if (closed) return; closed = true; el.classList.add("out"); setTimeout(() => { el.remove(); if (ids.length) celebrate(ids); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); document.removeEventListener("keydown", onKey); };
   const onKey = e => { if (e.key === "Escape") close(); };
   go.addEventListener("click", close);
   sh.addEventListener("click", () => { const t = "♔ King Walk · " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
@@ -1552,7 +1556,7 @@ function finishRun(clean) {
   $("stLevel").textContent = rankName(r.rank) + " " + r.step + "/" + STREAK_LEN; $("stLevel").hidden = false;
   $("delta").className = "delta";
   lastResult = { run: { rank: r.rank, step: r.step, over: r.over, cleared } };
-  $("nextLabel").textContent = T(r.over ? "Back to puzzles" : "Next puzzle");
+  $("nextLabel").textContent = (r.over ? T("Back to puzzles") : T("Next puzzle"));
   $("againBtn").hidden = !r.over;
   $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
   renderPanel();
@@ -1588,12 +1592,11 @@ function renderRuns() {
    Each square is a button whose name says what is on it and what it means now ("e4, white knight, selected",
    "f6, empty, can move here"). One square is in the tab order at a time; the arrow keys move between them the way
    the board faces, and Enter or Space chooses, like a tap. Moves are announced in #announce. */
-const COLOR_NAME = { w: "white", b: "black" };
 function squareName(sq, target, inCheck) {
   const p = game && game.get(sq);
   let t = sq + ", " + (p ? T(COLORED[p.color][p.type]) : T("empty"));
   if (sel === sq) t += T(", selected");
-  if (target) t += T(target === "tc" ? ", can take here" : ", can move here");
+  if (target) t += (target === "tc" ? T(", can take here") : T(", can move here"));
   if (hintSq.includes(sq)) t += T(", hint");
   if (inCheck) t += T(", in check");
   if (lastMove.includes(sq) && !target) t += T(", last move");
@@ -1612,8 +1615,8 @@ function announce(text) { const a = $("announce"); a.textContent = ""; setTimeou
 /* "Black knight from g8 to f6, takes pawn, check" */
 function describeMove(m) {
   let t = T("{piece} from {from} to {to}", { piece: T(COLORED[m.color][m.piece]), from: m.from, to: m.to });
-  if (m.flags.indexOf("k") >= 0) t = T(m.color === "w" ? "White castles king side" : "Black castles king side");
-  if (m.flags.indexOf("q") >= 0) t = T(m.color === "w" ? "White castles queen side" : "Black castles queen side");
+  if (m.flags.indexOf("k") >= 0) t = (m.color === "w" ? T("White castles king side") : T("Black castles king side"));
+  if (m.flags.indexOf("q") >= 0) t = (m.color === "w" ? T("White castles queen side") : T("Black castles queen side"));
   if (m.captured) t += T(", takes {piece}", { piece: T(PIECE_LOWER[m.captured]) });
   if (m.promotion) t += T(", becomes a {piece}", { piece: T(PIECE_LOWER[m.promotion]) });
   if (game.in_checkmate()) t += T(", checkmate"); else if (game.in_check()) t += T(", check");
@@ -1748,7 +1751,7 @@ function renderSetup() {
     const parts = []; for (const t of "kqrbnp") if (groups[c][t]) parts.push(T(groups[c][t].length > 1 ? PIECE_PLURAL[t] : PIECE_NAME[t]) + " " + groups[c][t].join(", "));
     row.append(b, parts.join("; ")); box.append(row);
   }
-  const turn = document.createElement("div"); turn.textContent = T(game.turn() === "w" ? "White moves next." : "Black moves next."); box.append(turn);
+  const turn = document.createElement("div"); turn.textContent = (game.turn() === "w" ? T("White moves next.") : T("Black moves next.")); box.append(turn);
 }
 function renderPuzzleInfo() {
   const box = $("pzInfo"), a = document.createElement("a");
@@ -1827,6 +1830,12 @@ if (APP) {          /* in the app the save also goes to the player's iCloud, so 
   $("links").hidden = !SITE;          /* no site configured: nothing to link to */
 }
 
+/* New progress (Start over, or a pasted save code): end any streak and start from its puzzle */
+function replaceProgress(next) {
+  S = next; RUN = null; seenCache = {}; first = true;
+  if (!S.awards) S.awards = earnedAwards(me());          /* a code from before awards: no flood of celebrations */
+  save(); renderPanel(); nextPuzzle(); reportProgress(me());
+}
 /* Start over: the first tap turns the button red. It only becomes active after a pause, so a double tap cannot erase progress. */
 let resetTimers = [];
 function resetIdle() { const b = $("resetBtn"); resetTimers.forEach(clearTimeout); resetTimers = []; delete b.dataset.armed; b.disabled = false; b.classList.remove("danger"); b.textContent = T("Start over"); }
@@ -1834,7 +1843,7 @@ $("resetBtn").addEventListener("click", () => {
   const b = $("resetBtn");
   if (b.dataset.armed) {
     resetIdle();
-    S.players = [newPlayer(START_RATING)]; S.cur = 0; seenCache = {}; save(); renderPanel(); nextPuzzle(); track("reset"); reportProgress(me());
+    replaceProgress(Object.assign(S, { players: [newPlayer(START_RATING)], cur: 0, awards: [] })); track("reset");
     return;
   }
   b.classList.add("danger"); b.textContent = T("Erase progress?"); b.disabled = true;
@@ -1857,7 +1866,7 @@ $("loadCode").addEventListener("click", () => {
   if (!next) { $("saveNote").textContent = T("That code did not work. Copy the whole code and try again."); delete btn.dataset.sure; btn.textContent = T("Load pasted code"); return; }
   if (!btn.dataset.sure) { btn.dataset.sure = "1"; btn.textContent = T("Replace progress here?"); $("saveNote").textContent = T("This replaces the progress saved in this browser."); return; }
   delete btn.dataset.sure; btn.textContent = T("Load pasted code");
-  S = next; seenCache = {}; first = true; save(); renderPanel(); $("saveNote").textContent = T("Loaded."); nextPuzzle(); track("save-code/load"); reportProgress(me());
+  replaceProgress(next); $("saveNote").textContent = T("Loaded."); track("save-code/load");
 });
 
 /* ---------- a fold (see the CSS) ----------
@@ -1880,6 +1889,7 @@ function foldRect() {
 const Book = { moved: [], pages: null };
 function bookPages(on) {
   if (on === !!Book.moved.length) return;
+  $("rankHelp").toggleAttribute("inert", !on && !$("rankHelp").classList.contains("open"));          /* the book shows the notes open */
   if (!on) { while (Book.moved.length) { const [n, parent, next] = Book.moved.pop(); parent.insertBefore(n, next); } return; }
   if (!Book.pages) {
     const mk = cls => { const d = document.createElement("div"); d.className = "page " + cls; document.querySelector(".wrap").append(d); return d; };

@@ -15,6 +15,8 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `back/1d`, `back/7d`, `back/30d` | The game is opened 1, 7 or 30 days or more after the player's first visit (once each) | startup |
 | `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed | the difficulty buttons |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
+| `award/<id>` | An award is earned for the first time (the ids in `ios/store/gamecenter.json`, e.g. `award/rank_knight`, `award/clear_pawn`) | `checkAwards()` |
+| `share/award` | Share is pressed on an award's celebration screen | `celebrate()` |
 | `fold/table`, `fold/book` | The screen is folded across like a laptop, or top to bottom like a book (iPhone Duo or another foldable), once per fold | `foldLayout()` |
 | `run/start/<rank>` | A rank streak starts (`pawn` … `king`) | `startRun()` |
 | `run/end/<rank>/<n>` | A rank streak ends on a miss after n solves | `finishRun()` |

@@ -1,7 +1,7 @@
 {
   "app_info": {
     "name": "King Walk: Chess Puzzles",
-    "subtitle": "Puzzles that grow with you",
+    "subtitle": "Chess puzzles that fight back",
     "privacy_policy_url": "https://geoffstearns.com/king-walk/privacy.html",
     "category": "GAMES",
     "subcategories": [
@@ -12,8 +12,8 @@
   },
   "version": {
     "copyright": "2026 Geoff Stearns",
-    "promotional_text": "53,000 chess puzzles from real games, with a rating that finds your level. Solve one and the next gets harder. Walk your king up from Pawn to King.",
-    "description": "King Walk is a chess puzzle trainer that adapts to you. Every puzzle is a moment from a real game where there is one strong move, or a short line of them, to find.\n\nSolve a puzzle cleanly and your puzzle rating goes up, so the next puzzles get harder. Miss one and the rating comes down a little, and the puzzles ease off. Within a few dozen puzzles the game settles on your level, and from there it climbs as you improve.\n\nYou start at Pawn rank. Raise your rating and you earn Knight, Bishop, Rook, Queen and finally King: the king walks up the board.\n\n• 53,000 puzzles from real games: forks, pins, skewers, back rank mates, mates in one, two and three, endgames and more\n• A puzzle rating that follows your level, with a chart of how far you've come\n• Hints when you're stuck: the first circles the piece to move, the second shows where it goes\n• Missed puzzles come back later for a second try\n• Rank streaks: 15 puzzles that climb through a rank, no hints, one miss ends the run. Clear every rank from Pawn to King\n• Easier, Just right or Harder, to set the pace\n• Game Center leaderboards, achievements and challenges: dare your friends to beat your Knight streak\n• A home screen and Lock Screen widget with your rank and rating\n• Share your progress: your rank, rating and last ten puzzles in a few emoji\n• On iPhone Duo, prop it up like a laptop (the board lies flat under your hands) or hold it like a book (the board on one page, the notes on the other)\n• A left-handed layout that puts the board on the left when your phone is on its side or folded\n• Progress syncs between your iPhone and iPad with iCloud\n• Haptics, light and dark mode, and a board you can tap or drag\n• Plays fully offline\n• No account, no ads, no in-app purchases\n\nThe puzzles come from the public-domain Lichess puzzle database. King Walk is not made or endorsed by Lichess.",
+    "promotional_text": "Spot the fork. Find the mate. Survive the streak. 53,000 puzzles from real games that get harder as you get better. Pawn today, King someday.",
+    "description": "Think you can see three moves ahead? Prove it.\n\nKing Walk throws real chess puzzles at you, 53,000 of them, pulled from actual games. Solve one and the next gets tougher. Miss one and it backs off. A few dozen puzzles in, it knows exactly how good you are. Then it starts pushing.\n\nYou start as a Pawn. Earn Knight, Bishop, Rook and Queen. Reach King and you've walked the whole board.\n\n• 53,000 puzzles from real games: forks, pins, skewers and sneaky back-rank mates\n• A rating that finds your level and climbs with you\n• Rank streaks: 15 puzzles, no hints, one miss and you're out\n• Challenge friends in Game Center and settle who's actually good\n• Stuck? Take a hint. We won't tell anyone.\n• Missed one? It comes back later for a rematch\n• Big, loud celebrations every time you rank up\n• A home screen widget to show off your rank\n• Haptics, dark mode, VoiceOver and larger text\n• Works offline. No account, no ads, no in-app purchases\n\nThe puzzles come from the public-domain Lichess puzzle database. King Walk is not made or endorsed by Lichess.",
     "keywords": "tactics,checkmate,mate in 2,elo,rating,trainer,strategy,board,brain,logic,fork,pin,endgame,daily",
     "support_url": "https://geoffstearns.com/king-walk/support.html",
     "marketing_url": "https://geoffstearns.com/king-walk/"

@@ -37,11 +37,11 @@ The live copy is at https://geoffstearns.com/king-walk/. The social preview tags
 node testing/smoke.js
 ```
 
-Plays a few puzzles in a browser (Playwright) on the web and in a simulated iOS app, and checks the app gets its messages. GitHub runs it on every push.
+Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: tap and keyboard play, a rank streak, the foldable and sideways layouts. `node testing/unit.js` checks the rules one at a time: the rating, damaged saves, save codes, streak puzzles, awards, and that every language has every string. GitHub runs both on every push.
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
 
 ## Your own copy
 

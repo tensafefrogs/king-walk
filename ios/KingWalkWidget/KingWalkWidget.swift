@@ -41,8 +41,6 @@ enum Palette {
     static let cream = Color(red: 0xfd / 255, green: 0xfb / 255, blue: 0xf2 / 255)
     static let deepTeal = Color(red: 0x14 / 255, green: 0x3f / 255, blue: 0x38 / 255)
     static let mint = Color(red: 0x56 / 255, green: 0xc2 / 255, blue: 0xad / 255)
-    static let good = Color(red: 0x3f / 255, green: 0xb9 / 255, blue: 0x6b / 255)
-    static let bad = Color(red: 0xe0 / 255, green: 0x6a / 255, blue: 0x5e / 255)
 }
 
 struct ProgressWidgetView: View {
@@ -126,7 +124,7 @@ struct SmallView: View {
             Text("\(p.rating)").font(.system(size: 34, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
                 .minimumScaleFactor(0.7).lineLimit(1)
             RankBar(fraction: p.rankFraction)
-            Text(p.nextLine ?? (p.next.isEmpty ? NSLocalizedString("Top rank", comment: "") : "\(p.toNext) → \(p.next)")).font(.system(size: 12, weight: .semibold, design: .rounded))
+            Text(p.nextText).font(.system(size: 12, weight: .semibold, design: .rounded))
                 .foregroundColor(Palette.cream.opacity(0.7)).lineLimit(1).minimumScaleFactor(0.8)
         }
     }
@@ -214,7 +212,7 @@ struct RectangularView: View {
         VStack(alignment: .leading, spacing: 1) {
             Text("King Walk").font(.system(size: 12, weight: .semibold, design: .rounded)).widgetAccentable()
             Text("\(p.rank) · \(p.rating)").font(.system(size: 17, weight: .bold, design: .rounded))
-            Text(p.nextLine ?? (p.next.isEmpty ? NSLocalizedString("Top rank", comment: "") : "\(p.toNext) → \(p.next)")).font(.system(size: 12, weight: .medium, design: .rounded))
+            Text(p.nextText).font(.system(size: 12, weight: .medium, design: .rounded))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

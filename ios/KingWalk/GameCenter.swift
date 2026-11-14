@@ -15,8 +15,6 @@ final class GameCenter: NSObject, GKGameCenterControllerDelegate {
     private var loadedAchievements = false
     weak var presenter: UIViewController?
 
-    var isSignedIn: Bool { GKLocalPlayer.local.isAuthenticated }
-
     func signIn() {
         GKLocalPlayer.local.authenticateHandler = { [weak self] controller, _ in
             guard let self else { return }
@@ -65,7 +63,7 @@ final class GameCenter: NSObject, GKGameCenterControllerDelegate {
         let list = todo.map { id -> GKAchievement in
             let a = GKAchievement(identifier: id)
             a.percentComplete = 100
-            a.showsCompletionBanner = true
+            a.showsCompletionBanner = false   // the game plays its own celebration (celebrate() in index.html)
             return a
         }
         completed.formUnion(todo)

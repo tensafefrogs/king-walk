@@ -13,17 +13,13 @@ leaderboard can't be deleted once live, so get them right before the first relea
 If a step fails here (a new part of Apple's API), it says so; the same can be done by hand in App Store Connect →
 the app → Features → Game Center (see listing.md, "Game Center").
 """
-import hashlib, json, os, sys, urllib.request
-from asc import ApiError, app as get_app, request
+import json, os, sys
+from asc import ApiError, app as get_app, log, request, upload_parts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PREFIX = 'kingwalk.'
 DRY = '--dry-run' in sys.argv
 problems = []
-
-
-def log(*a):
-    print(*a, flush=True)
 
 
 def api(method, path, body=None, what=''):
@@ -46,27 +42,9 @@ def every(path):
     return out
 
 
-def upload_image(kind, loc_id, rel_name, file):
-    blob = open(file, 'rb').read()
-    r = api('POST', f'/v1/{kind}', {'data': {'type': kind, 'attributes': {'fileName': os.path.basename(file), 'fileSize': len(blob)},
-            'relationships': {rel_name: {'data': {'type': rel_name + 's', 'id': loc_id}}}}}, f'image {os.path.basename(file)}')
-    if not r or DRY: return
-    img = r['data']
-    for op in img['attributes'].get('uploadOperations') or []:
-        req = urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']], method=op['method'],
-                                     headers={h['name']: h['value'] for h in op['requestHeaders']})
-        urllib.request.urlopen(req, timeout=120).read()
-    api('PATCH', f'/v1/{kind}/{img["id"]}', {'data': {'type': kind, 'id': img['id'], 'attributes': {'uploaded': True}}}, f'finish image {file}')
-    log('  image uploaded:', os.path.basename(file))
-
-
 def changed(image, file):
     """the uploaded image isn't this file (compared by size, which any new artwork changes)"""
     return (image.get('attributes') or {}).get('fileSize') not in (None, os.path.getsize(file))
-
-
-def unknown_rel(e):
-    return e and 'RELATIONSHIP.UNKNOWN' in e
 
 
 def post_with(kind, attrs, parent_kind, parent_id, rel_names, what):
@@ -98,14 +76,11 @@ def first_related(path, names):
     return found[0] if found else None
 
 
-def upload_image_with(kind, parent_kind, parent_id, rel_names, file, what):
+def upload_image(kind, parent_kind, parent_id, rel_names, file, what):
     blob = open(file, 'rb').read()
     img = post_with(kind, {'fileName': os.path.basename(file), 'fileSize': len(blob)}, parent_kind, parent_id, rel_names, what)
     if not img or DRY: return
-    for op in img['attributes'].get('uploadOperations') or []:
-        req = urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']], method=op['method'],
-                                     headers={h['name']: h['value'] for h in op['requestHeaders']})
-        urllib.request.urlopen(req, timeout=120).read()
+    upload_parts(blob, img['attributes'].get('uploadOperations'))
     api('PATCH', f'/v1/{kind}/{img["id"]}', {'data': {'type': kind, 'id': img['id'], 'attributes': {'uploaded': True}}}, f'finish {what}')
     log('  image uploaded:', os.path.basename(file))
 
@@ -192,7 +167,7 @@ def main():
                 if img and img.get('data') and changed(img['data'], file):          # new artwork: replace it
                     api('DELETE', f"/v1/gameCenterAchievementImages/{img['data']['id']}", what=f"replace image {a['id']} {locale}"); img = None
                 if not (img and img.get('data')):
-                    upload_image('gameCenterAchievementImages', en['id'], 'gameCenterAchievementLocalization', file)
+                    upload_image('gameCenterAchievementImages', 'gameCenterAchievementLocalizations', en['id'], ['gameCenterAchievementLocalization'], file, f"{a['id']} {locale} image")
         log('Achievement ready:', vid, f"({a['points']} points)")
 
     # Challenges: friendly competitions on a leaderboard (iOS 26 and later). A newer part of the API.
@@ -233,7 +208,7 @@ def main():
                 if img and changed(img, file):          # new artwork: replace it
                     api('DELETE', f"/v1/gameCenterChallengeImages/{img['id']}", what=f'replace image {vid} {locale}'); img = None
                 if not img:
-                    upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} {locale} image')
+                    upload_image('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} {locale} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
     # Challenges no longer in gamecenter.json: removed (only possible before they go live)

@@ -1,4 +1,5 @@
-# Plays a few puzzles in a browser on every push and pull request: on the web and in the iOS app (simulated).
+# On every push and pull request: plays puzzles in a browser (on the web and in a simulated iOS app), then checks
+# the game's rules one by one (rating, saves, streaks, awards, translations).
 name: Test
 
 on:
@@ -14,3 +15,4 @@ jobs:
         with: {node-version: 22}
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - run: node testing/smoke.js
+      - run: node testing/unit.js

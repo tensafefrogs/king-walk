@@ -12,8 +12,8 @@ uploads nothing and says so. Run it again (or re-run the workflow) once the vers
 Not covered by the API, so done in App Store Connect: App Privacy answers, App Review contact details, and
 submitting for review. See listing.md.
 """
-import hashlib, json, os, sys, urllib.request
-from asc import API, BUNDLE_ID, ApiError, call, patch, request
+import hashlib, json, os, sys
+from asc import ApiError, app as get_app, call, patch, request, upload_parts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REQUIRED = {'APP_IPHONE_67', 'APP_IPAD_PRO_3GEN_129'}
@@ -21,7 +21,7 @@ REQUIRED = {'APP_IPHONE_67', 'APP_IPAD_PRO_3GEN_129'}
 
 def main():
     listing = json.load(open(os.path.join(HERE, 'listing.json')))
-    app = call('GET', f'/v1/apps?filter[bundleId]={BUNDLE_ID}')['data'][0]
+    app = get_app()
     print('App:', app['attributes']['name'], app['id'])
 
     # App information: the parts that apply to every version
@@ -102,11 +102,7 @@ def main():
                 shot = call('POST', '/v1/appScreenshots', {'data': {'type': 'appScreenshots',
                             'attributes': {'fileName': os.path.basename(f), 'fileSize': len(blob)},
                             'relationships': {'appScreenshotSet': {'data': {'type': 'appScreenshotSets', 'id': set_id}}}}})['data']
-                for op in shot['attributes']['uploadOperations']:
-                    part = blob[op['offset']:op['offset'] + op['length']]
-                    req = urllib.request.Request(op['url'], data=part, method=op['method'],
-                                                 headers={h['name']: h['value'] for h in op['requestHeaders']})
-                    urllib.request.urlopen(req, timeout=120).read()
+                upload_parts(blob, shot['attributes']['uploadOperations'])
                 patch('appScreenshots', shot['id'], {'uploaded': True, 'sourceFileChecksum': hashlib.md5(blob).hexdigest()})
             print('Screenshots:', display, len(files), 'uploaded')
         except Exception as e:

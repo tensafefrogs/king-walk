@@ -7,6 +7,7 @@
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path"), { execFileSync } = require("child_process");
 const server = require("../../testing/server");
+const { seedRandom } = require("../../testing/media");
 const ROOT = path.join(__dirname, "..", "..");
 const out = path.join(__dirname, "header"); fs.mkdirSync(out, { recursive: true });
 const b64 = f => fs.readFileSync(path.join(ROOT, f)).toString("base64");
@@ -18,7 +19,7 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
   const g = await b.newContext({ viewport: { width: 900, height: 1000 }, deviceScaleFactor: 3 });
   const gp = await g.newPage();
   await gp.route(/zgo\.at|goatcounter/, r => r.abort());
-  await gp.addInitScript(() => { let a = 5; Math.random = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; });
+  await gp.addInitScript(seedRandom, 5);
   await gp.goto(srv.url);
   await gp.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 20000 });
   await gp.evaluate(() => { const m = cur.pz.moves[idx]; sel = m.slice(0, 2); paint(); });
@@ -44,7 +45,7 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
     .tag{font:600 74px/1.12 Fredoka,sans-serif;color:#fdfbf2;margin:0;letter-spacing:-.01em}.tag b{color:#f2c230;font-weight:600}
     </style></head><body><div class="grid"></div>
     <div class="board"><img src="data:image/png;base64,${board.toString("base64")}"></div>
-    <div class="side"><div class="mark">${mark}</div><div class="word">${word}</div><p class="tag">Chess puzzles that<br><b>grow with you.</b></p></div>
+    <div class="side"><div class="mark">${mark}</div><div class="word">${word}</div><p class="tag">Chess puzzles that<br><b>fight back.</b></p></div>
     </body></html>`);
   await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
   await p.screenshot({ path: path.join(out, "raw-16x9.png") });

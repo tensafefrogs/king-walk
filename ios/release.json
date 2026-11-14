@@ -6,7 +6,7 @@
     "groups": [
       "Internal"
     ],
-    "whats_new": "Accessibility: play with VoiceOver (each square says what's on it, moves are announced), Voice Control (\"Tap e4\"), a keyboard or Switch Control, and the app follows your text size up to the largest accessibility sizes. Also: the widget now gets its data a new way, Share after every puzzle, the board on the right when sideways or folded (Menu > Left-handed layout to swap), no zoom on double tap. Please try VoiceOver and the largest text size."
+    "whats_new": "Thanks for trying King Walk! Chess puzzles that adapt to you: solve one and the next gets harder, miss one and it eases off. Walk your king from Pawn rank up to King.\n\nThings to try:\n• Solve a few puzzles. Tap or drag the pieces. Stuck? Take a hint.\n• Rank streaks, under Progress: 15 puzzles in a row, no hints, one miss and you're out.\n• Share your progress after a puzzle.\n• Game Center: leaderboards, achievements, and challenges to send a friend.\n• The widget, on your home screen or Lock Screen.\n• Turn your phone sideways, try dark mode, or switch your phone's language.\n\nTell me anything that's broken, confusing or no fun. Screenshots help."
   },
   "app_store": null,
   "release_now": false,
