@@ -44,6 +44,9 @@ const out = LOCALE ? path.join(__dirname, "screenshots", "l10n", LOCALE) : path.
 fs.mkdirSync(raw, { recursive: true });
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
 const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, name.toLowerCase() + "-latin-" + w + "-normal.woff2")).toString("base64")})}`;
+// Cyrillic captions: Nunito's Cyrillic letters, for both families (Fredoka has none)
+const cyrillic = (name, w, file) => `@font-face{font-family:${name};font-weight:${w};unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, file)).toString("base64")})}`;
+const CAPTION_FONTS = font("Fredoka", 600) + font("Nunito", 700) + cyrillic("Fredoka", 600, "nunito-cyrillic-800-normal.woff2") + cyrillic("Nunito", 700, "nunito-cyrillic-700-normal.woff2");
 
 async function newGame(b, name, dark, seed) {
   const { q, ...dev } = DEVICES[name];
@@ -113,7 +116,7 @@ async function caption(b, name) {
     const f = path.join(raw, `${name}-${s.id}.png`); if (!fs.existsSync(f)) continue;
     const img = "data:image/png;base64," + fs.readFileSync(f).toString("base64");
     const top = Math.round(H * F.top), iw = Math.round(Math.min(W * 0.86, (H - top - H * 0.035) * W / H));
-    await p.setContent(`<!doctype html><html><head><style>${font("Fredoka", 600)}${font("Nunito", 700)}
+    await p.setContent(`<!doctype html><html><head><style>${CAPTION_FONTS}
       body{margin:0;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(130% 80% at 50% 0%,#1c7868,#143f38 55%,#0d2925)}
       .cap{height:${top}px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:${Math.round(F.sub * 0.5)}px;padding:0 ${Math.round(W * 0.07)}px;box-sizing:border-box;text-align:center}
       h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,"Noto Sans CJK JP","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
