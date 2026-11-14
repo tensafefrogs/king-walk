@@ -82,7 +82,7 @@ Five per device, in this order. Each is the real game at the device's size, fram
 | 2 | 53,000 real-game puzzles | Solved: confetti, the rating going up, the puzzle's themes |
 | 3 | Stuck? Take a hint. | Both hint circles on the board |
 | 4 | Pawn to King. Go. | The new-rank celebration on reaching Rook |
-| 5 | A new puzzle every day | Dark mode, the daily puzzle just solved, a week of daily puzzles in a row |
+| 5 | A new puzzle every day | Dark mode, the daily puzzle just solved: a seventh day in a row |
 
 The page's clock is fixed to Saturday 21 November 2026 (`SHOT_DATE` in `testing/media.js`), so the daily puzzle and its week look the same whenever the screenshots are made.
 
@@ -134,7 +134,7 @@ Uploaded from `review_notes` in `listing.json` (App Review Information → Notes
 > - Tap a piece, then tap where it goes (or drag it). A wrong move is shown and taken back.
 > - Hint circles the piece to move; a second hint circles where it goes. Answer plays the solution.
 > - After each puzzle: Next puzzle. The Progress card shows the rating, the rank ladder (Pawn to King), stats and a rating chart.
-> - Daily puzzle: the Daily button (top right) or the Daily puzzle card under the board. One puzzle a day, the same for everyone (picked from the date, no server). Hints are allowed; Answer ends it for the day. Solving it on consecutive days builds a daily streak. Afterwards, Share sends a row of coloured squares and the time, with no moves.
+> - Daily puzzle: the Daily button (top right). Once it's done, the button shows the daily streak and shares the result. One puzzle a day, the same for everyone (picked from the date, no server). Hints are allowed; Answer ends it for the day. Solving it on consecutive days builds a daily streak. Afterwards, Share sends a row of coloured squares and the time, with no moves.
 > - Rank streaks (under Progress): tap a rank for 15 puzzles that climb through it, with Hint and Answer off; a wrong move ends the run. They don't change the rating, and are the Game Center challenges (Pawn Streak to King Streak, plus Hardest Solve).
 > - After each puzzle: Share (iOS share sheet). Menu (top right): Sound, Left-handed layout, Haptics, Daily reminder (off unless the player picks a time; a local notification), puzzle difficulty, Share, Game Center (leaderboards and achievements), Start over, How it works, Credits, Advanced (a save code to move progress to the website), and Support / Privacy / Terms links.
 > - Widgets: rank (Home Screen and Lock Screen) and daily puzzle (Home Screen, Lock Screen, StandBy). Control Center control and Siri / Shortcuts action "Play today's puzzle"; long press the app icon for "Today's puzzle".
