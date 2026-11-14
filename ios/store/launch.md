@@ -27,11 +27,11 @@ In App Store Connect (not possible through the API):
 Then submit, by changing `ios/release.json` and pushing to `main`:
 
 ```json
-"build": false,
+"build": true,
 "app_store": {"submit": true, "release": "manual"}
 ```
 
-`build: false` submits the newest TestFlight build; `manual` keeps the release in your hands after approval. Review usually takes a day or two. `ios/store/status.md` shows the state; App Review's messages arrive by email and in App Store Connect.
+`build: true` builds `main` as it is now, so the submission has every change, puts it on TestFlight, and submits it (`build: false` would submit the newest build already uploaded, if nothing has changed since). `manual` keeps the release in your hands after approval. Review usually takes a day or two. `ios/store/status.md` shows the state; App Review's messages arrive by email and in App Store Connect.
 
 ## 2. After approval, before launch day
 
