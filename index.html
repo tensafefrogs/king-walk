@@ -145,12 +145,11 @@ html.fold-h .menu.open { background: var(--bg); }
 html.fold-h .status { width: auto; justify-self: stretch; margin: 0 var(--u) var(--gap); }
 html.fold-h .progress { width: auto; justify-self: stretch; align-self: start; max-height: calc(100% - var(--u)); overflow: auto; margin: 0 var(--u);
   display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.2fr); column-gap: 18px; row-gap: 6px; align-items: start;
-  grid-template-areas: "head head head" "ladder stats chart" "names stats chart" "rank stats chart" "runs runs runs" "info info info"; }
+  grid-template-areas: "head head head" "ladder stats chart" "rank stats chart" "runs runs runs" "info info info"; }
 html.fold-h .progress > :nth-child(1) { grid-area: head; }
-html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .lad-names { grid-area: names; }
-html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
+html.fold-h .progress > .ladder { grid-area: ladder; }
+html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; flex-direction: column; }
 html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; }
-html.fold-h .runs .note, html.fold-h .runs .label { display: none; }
 html.fold-h .run-btn { grid-template-columns: auto auto; column-gap: 4px; align-items: center; } html.fold-h .run-btn svg.badge { width: 30px; grid-row: span 2; } html.fold-h .progress > .note { grid-area: info; }
 html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
 html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
@@ -281,6 +280,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 :root { --p-gold: #f2c230; --p-sun: #f7d35a; --p-ink: #16302c; --p-deep: #143f38; --p-teal: #1c7868; --p-sea: #2f9c86; --p-mint: #56c2ad; --p-sky: #cfe9df; --p-cream: #fdfbf2; --p-coral: #e2704f; }
 .cele { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden; background: rgba(22, 48, 44, 0.62); animation: cele-fade 0.25s ease-out both; }
 .cele.out { animation: cele-fade-out 0.28s ease-in both; }
+.cele-swipe { position: absolute; inset: 0; pointer-events: none; }          /* out of the grid, so the card centres on the screen */
 .cele-swipe i { position: absolute; left: -10vw; width: 140vw; height: 30vh; transform: translateX(-140%) skewX(-24deg); animation: cele-swipe 0.62s cubic-bezier(0.75, 0, 0.25, 1) both; }
 .cele-swipe i:nth-child(1) { top: 6vh; background: var(--p-gold); }
 .cele-swipe i:nth-child(2) { top: 36vh; background: var(--p-coral); animation-delay: 0.07s; }
@@ -356,7 +356,7 @@ html.fold-v .daily-btn.todo, html.fold-v .daily-btn.on { width: var(--bar); padd
 .status.good { background: var(--good-soft); border-color: transparent; color: var(--good); }
 .status.bad { background: var(--bad-soft); border-color: transparent; color: var(--bad); }
 .status.hint { background: var(--gold-soft); border-color: transparent; }
-.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; position: relative; top: 1px; }          /* Fredoka sits low in its line box: the text moves up 2px (below) and the icon meets its middle */
+.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; position: relative; top: -2px; }          /* Fredoka sits low in its line box: the text moves up 2px (below) and the icon meets its middle */
 .st-ic svg { width: 22px; height: 22px; }
 .st-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; min-width: 0; flex: 1 1 auto; position: relative; top: -2px; }
 .st-main { font: 600 18px/1.2 var(--font-display); }
@@ -484,26 +484,23 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 .explain { display: grid; gap: 10px; background: var(--tile); border-radius: var(--r-ctl); padding: var(--pad); font-size: 14.5px; line-height: 1.4; }
 .explain h3 { margin: 0 0 2px; font: 600 15px var(--font-display); }
 .explain p { margin: 0; }
-.ladder, .lad-names { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.ladder { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 .lad { aspect-ratio: 1; border-radius: var(--r-ctl); background: var(--tile); display: grid; place-items: center; }
 .lad svg { width: 82%; height: 82%; opacity: 0.28; filter: grayscale(1); }
 .lad.done, .lad.cur { background: var(--accent-soft); }
 .lad.done svg, .lad.cur svg { opacity: 1; filter: none; }
 .lad.cur { box-shadow: inset 0 0 0 2.5px var(--accent); }
 .lad.pop { animation: rankPop 0.7s var(--spring); }
-.lad-names { font: 600 11px var(--font-display); color: var(--muted); text-align: center; margin-top: -6px; }
-.lad-names span { overflow: hidden; text-overflow: ellipsis; }
-.lad-names .on { color: var(--accent); }
 .rank-txt { display: grid; gap: 5px; }
 .rank-line { display: flex; justify-content: space-between; gap: 8px; font: 600 14px var(--font-display); }
 .rank-line span:last-child { color: var(--muted); }
 .bar { height: 8px; border-radius: 999px; background: var(--tile); overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
 .bar > i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width 0.7s var(--ease-out); }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); text-align: center; }
-.stat { background: var(--tile); border-radius: var(--r-ctl); padding: 8px 4px; }
-.stat b { display: block; font: 700 21px/1.15 var(--font-display); font-variant-numeric: tabular-nums; }
+.stats { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; }          /* three numbers on one quiet line */
+.stat { display: flex; align-items: baseline; gap: 5px; }
+.stat b { font: 700 17px/1.2 var(--font-display); font-variant-numeric: tabular-nums; }
 .stat b.bump { animation: bump 0.4s var(--spring); }
-.stat span { font-size: 12px; color: var(--muted); font-weight: 600; }
+.stat span { font-size: 13px; color: var(--muted); font-weight: 600; }
 .chart-wrap { position: relative; height: 64px; }
 .chart { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
 .chart-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--card); transition: left 0.5s var(--ease-out), top 0.5s var(--ease-out); }
@@ -701,7 +698,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
       </div>
       <div class="ladder" id="ladder"></div>
-      <div class="lad-names" id="ladNames" aria-hidden="true"></div>
       <div class="rank-txt">
         <div class="rank-line"><span id="rankName">Pawn rank</span><span id="rankNext"></span></div>
         <div class="bar"><i id="rankBar"></i></div>
@@ -720,7 +716,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <svg class="chart" id="chart" viewBox="0 0 300 64" preserveAspectRatio="none" role="img" aria-label="Rating over time"></svg>
           <span class="chart-dot" id="chartDot"></span>
         </div>
-        <div class="chart-cap"><span id="chartLo"></span><span>rating over time</span><span id="chartHi"></span></div>
+        <div class="chart-cap"><span>rating over time</span></div>
       </div>
       <p class="note" id="pzInfo"></p>
     </section>
@@ -1944,11 +1940,11 @@ function renderPanel(fromRating) {
   const ri = rankIndex(p.rating), lo = ri === 0 ? 400 : RANKS[ri][0], nxt = RANKS[ri + 1];
   $("rateUse").setAttribute("href", "#pc-w" + RANKS[ri][2]);
   $("rankName").textContent = T("{rank} rank", { rank: rankName(ri) });
-  const lad = $("ladder"), names = $("ladNames"); lad.textContent = ""; names.textContent = "";
+  const lad = $("ladder"); lad.textContent = "";
   RANKS.forEach((r, i) => {
     const t = document.createElement("div"); t.className = "lad" + (i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[0] ? T("{rank} at {n}", { rank: rankName(i), n: r[0] }) : rankName(i);
+    t.setAttribute("role", "img"); t.setAttribute("aria-label", t.title + (i === ri ? ", " + T("{rank} rank", { rank: rankName(i) }) : ""));
     t.append(pieceSvg("w" + r[2])); lad.append(t);
-    const n = document.createElement("span"); n.textContent = rankName(i); if (i === ri) n.className = "on"; names.append(n);
   });
   if (nxt) { $("rankNext").textContent = T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }); $("rankBar").style.width = clamp((p.rating - lo) / (nxt[0] - lo) * 100, 4, 100) + "%"; }
   else { $("rankNext").textContent = T("Top rank"); $("rankBar").style.width = "100%"; }
@@ -1969,7 +1965,6 @@ function renderPanel(fromRating) {
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
   renderRuns(); renderDaily(); renderRemind();
-  $("chartLo").textContent = T("low {n}", { n: mn }); $("chartHi").textContent = T("high {n}", { n: mx });
 }
 
 $("hintBtn").addEventListener("click", showHint);
@@ -2070,7 +2065,7 @@ function bookPages(on) {
   const P = Book.pages, prog = document.querySelector(".progress");
   move(document.querySelector(".top"), P.notes); move($("menu"), P.notes); move(prog, P.notes);
   move($("status"), P.board); move(frameEl, P.board); move(document.querySelector(".actions"), P.board); move(P.ranks, P.board);
-  for (const sel of [".ladder", ".lad-names", ".rank-txt", ".stats"]) move(prog.querySelector(sel), P.ranks);
+  for (const sel of [".ladder", ".rank-txt", ".stats"]) move(prog.querySelector(sel), P.ranks);
 }
 function foldLayout() {
   const f = foldRect(), root = document.documentElement;
