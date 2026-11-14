@@ -51,7 +51,7 @@ Nothing in the code points at the owner's accounts. Accounts and IDs come from G
 | --- | --- | --- |
 | `GOATCOUNTER_URL` | Anonymous stats (optional; none are sent without it) | `https://example.goatcounter.com/count` |
 | `SITE_URL` | Where the website lives: the app's Share link and its Support, Privacy and Terms links | `https://example.github.io/king-walk/` |
-| `BUNDLE_ID` | The iOS app's bundle ID (the widget gets `.widget` on the end, the app group `group.` in front) | `com.example.kingwalk` |
+| `BUNDLE_ID` | The iOS app's bundle ID (the widget gets `.widget` on the end) | `com.example.kingwalk` |
 | `APP_STORE_ID` | The app's Apple ID in App Store Connect, so the app's Share link goes to its App Store page (optional) | `1234567890` |
 
 The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) are in `ios/README.md`. The website deploys through `.github/workflows/pages.yml`, which writes `config.js` from the variables: set Settings → Pages → Source to **GitHub Actions**. To run it somewhere else, fill in `config.js` by hand.

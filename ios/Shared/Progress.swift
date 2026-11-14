@@ -1,10 +1,11 @@
 import Foundation
+import Security
 #if canImport(WidgetKit)
 import WidgetKit
 #endif
 
 /// The player's progress as the home screen widget shows it. The page sends it after each puzzle
-/// (reportProgress in index.html); the app stores it in the app group the widget can read.
+/// (reportProgress in index.html); the app stores it where the widget can read it (SharedStore below).
 struct Progress: Codable, Equatable {
     var rating: Int
     var rank: String        // Pawn, Knight, Bishop, Rook, Queen, King
@@ -18,9 +19,6 @@ struct Progress: Codable, Equatable {
     var hist: [Int]         // the last 30 ratings, oldest first
     var at: Double          // when, in milliseconds since 1970
 
-    /// The app group the app and the widget share: group.<bundle ID>, from the KW_BUNDLE_ID build setting (project.yml),
-    /// written into each target's Info.plist
-    static let appGroup = Bundle.main.object(forInfoDictionaryKey: "KingWalkAppGroup") as? String ?? ""
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
 
@@ -39,7 +37,35 @@ struct Progress: Codable, Equatable {
                                  at: Date().timeIntervalSince1970 * 1000)
 
     static func load() -> Progress? {
-        guard !appGroup.isEmpty, let data = UserDefaults(suiteName: appGroup)?.data(forKey: key) else { return nil }
+        guard let data = SharedStore.read(key) else { return nil }
         return try? JSONDecoder().decode(Progress.self, from: data)
+    }
+}
+
+/// A keychain item the app and its widget share (their entitlements list the same keychain access group,
+/// <team>.<bundle ID>.shared, first, so items go there by default). An app group would be the usual way, but
+/// Xcode can't set one up when it signs with an App Store Connect API key, as the GitHub build does.
+enum SharedStore {
+    private static let service = "KingWalkShared"
+
+    private static func query(_ account: String) -> [String: Any] {
+        [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: account]
+    }
+
+    static func write(_ account: String, _ data: Data) {
+        let attributes: [String: Any] = [kSecValueData as String: data,
+                                         kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock]
+        if SecItemUpdate(query(account) as CFDictionary, attributes as CFDictionary) == errSecItemNotFound {
+            SecItemAdd(query(account).merging(attributes) { $1 } as CFDictionary, nil)
+        }
+    }
+
+    static func read(_ account: String) -> Data? {
+        var q = query(account)
+        q[kSecReturnData as String] = true
+        q[kSecMatchLimit as String] = kSecMatchLimitOne
+        var result: CFTypeRef?
+        guard SecItemCopyMatching(q as CFDictionary, &result) == errSecSuccess else { return nil }
+        return result as? Data
     }
 }
