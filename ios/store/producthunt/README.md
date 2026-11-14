@@ -14,7 +14,7 @@ Everything for King Walk's Product Hunt page, ready to go into a draft. Nothing 
 - **Maker:** the owner, solo maker, bootstrapped, open source (MIT)
 - **X account:** @tensafefrogs
 - **Thumbnail:** `thumbnail.png` (the app icon, 240x240)
-- **Gallery, in order:** `gallery-1.png` (the key art), `gallery-2.png` (the first puzzle, and the daily puzzle), `gallery-3.png` (puzzles from real games, a rank-up), `gallery-4.png` (iPad, iPhone Duo held like a book). All 1270x760.
+- **Gallery, in order:** `gallery-1.png` (the key art), `gallery-2.png` (the first puzzle, and the daily puzzle), `gallery-3.png` (puzzles from real games, a hint), `gallery-4.png` (iPad, iPhone Duo held like a book). All 1270x760.
 - **Video:** optional; the trailer (`press/king-walk-trailer.mp4`) would need to be on YouTube first.
 
 ## First comment (the maker's)
