@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "xcode27": true,
-  "build": true,
+  "build": false,
   "testflight": {
     "groups": [
       "Internal"
@@ -10,5 +10,5 @@
   },
   "app_store": null,
   "release_now": false,
-  "note": "First TestFlight build (2026-11-14)."
+  "note": "Give build 2611140125 (already uploaded and processed) to the Internal TestFlight group."
 }
