@@ -32,6 +32,12 @@ enum Haptics {
             for (i, strength) in [1.0, 0.8, 1.0].enumerated() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.22 + Double(i) * 0.12) { heavy.impactOccurred(intensity: CGFloat(strength)) }
             }
+        case "celebrate":   // the awards screen: ticks as the bands swipe, a thump as the piece lands, taps as the letters slam in
+            let at = { (t: Double, f: @escaping () -> Void) in DispatchQueue.main.asyncAfter(deadline: .now() + t, execute: f) }
+            for t in [0.0, 0.07, 0.14] { at(t) { light.impactOccurred(intensity: 0.7) } }
+            at(0.62) { heavy.impactOccurred(intensity: 1) }
+            for i in 0..<8 { at(0.8 + Double(i) * 0.045) { rigid.impactOccurred(intensity: 0.55) } }
+            at(1.15) { notice.notificationOccurred(.success) }
         case "hint":
             light.impactOccurred(intensity: 0.5)
         case "toggle":  // a switch in the menu

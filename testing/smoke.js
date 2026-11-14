@@ -32,7 +32,8 @@ async function run(b, url, app) {
   await p.goto(url);
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
   const share = await p.evaluate(() => shareText(lastResult));
-  const r = await p.evaluate(() => ({ n: me().n, solved: me().solved, rating: me().rating, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
+  await p.waitForTimeout(1200);          // the first-solve celebration comes a moment after the solve
+  const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], n: me().n, solved: me().solved, rating: me().rating, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
     sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent }));
   // a wrong move, a hint and the answer
   await p.waitForFunction(() => !locked && !done, null, { timeout: 15000 });
@@ -52,6 +53,11 @@ async function run(b, url, app) {
 
 (async () => {
   const srv = await server.start(), b = await chromium.launch();
+  // award celebrations cover the board: count each one and press Continue, so play can go on
+  const newContext = b.newContext.bind(b);
+  b.newContext = async o => { const c = await newContext(o); await c.addInitScript(() => {
+    new MutationObserver(() => { const g = document.querySelector(".cele:not(.out) .go"); if (g && !g.dataset.seen) { g.dataset.seen = 1; window.celebrated = (window.celebrated || []).concat(document.querySelector(".cele-title").getAttribute("aria-label")); g.click(); } })
+      .observe(document, { childList: true, subtree: true }); }); return c; };
   let bad = 0;
   for (const app of [false, true]) {
     const { r, after, errs, share } = await run(b, srv.url, app);
@@ -59,6 +65,7 @@ async function run(b, url, app) {
     const check = (ok, what) => { if (!ok) { bad++; console.log("FAIL", name, what); } };
     check(r.n === 3 && r.solved === 3, "three puzzles solved: " + JSON.stringify(r));
     check(r.rating > 600, "rating went up");
+    check(r.celebrated.includes("First Steps"), "the first clean solve is celebrated: " + JSON.stringify(r.celebrated));
     check(after.n === 4 && after.streak === 0 && after.review === 1, "a missed puzzle counts as a miss and comes back: " + JSON.stringify(after));
     check(!errs.length, "no page errors: " + errs.join(" | "));
     check(/King Walk \u00b7 \w+ \u00b7 \d+/.test(share) && /\u2705\u2705\u2705/.test(share) && /3 solved/.test(share), "share text: " + JSON.stringify(share));
