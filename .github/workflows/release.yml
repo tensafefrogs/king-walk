@@ -41,6 +41,8 @@ jobs:
           EVENT: ${{ github.event_name }}
           # nothing to do until the App Store Connect secrets are set (ios/README.md, One-time setup)
           READY: ${{ secrets.ASC_KEY_P8 != '' && vars.BUNDLE_ID != '' }}
+          # which of the settings are there (yes/no only, never the values), so a skipped run says what's missing
+          HAVE: "ASC_KEY_ID=${{ secrets.ASC_KEY_ID != '' }} ASC_ISSUER_ID=${{ secrets.ASC_ISSUER_ID != '' }} ASC_KEY_P8=${{ secrets.ASC_KEY_P8 != '' }} APPLE_TEAM_ID=${{ secrets.APPLE_TEAM_ID != '' || vars.APPLE_TEAM_ID != '' }} BUNDLE_ID=${{ vars.BUNDLE_ID != '' }}"
           STATUS_ONLY: ${{ inputs.status_only }}
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
@@ -52,6 +54,10 @@ jobs:
           print('xcode27=' + str(c.get('xcode27', True)).lower())
           print('act=' + str(act).lower())
           print('ready=' + os.environ['READY'])
+          missing = [kv.split('=')[0] for kv in os.environ['HAVE'].split() if kv.endswith('=false')]
+          if missing:   # to the log (stderr), not the step's outputs
+              import sys
+              print('::warning::Not set yet: ' + ', '.join(missing) + ' (ios/README.md, One-time setup). Nothing is built or uploaded until they are.', file=sys.stderr)
           PY
           cat "$GITHUB_OUTPUT"
 
