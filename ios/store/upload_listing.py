@@ -81,6 +81,8 @@ def main():
         except ApiError as e:
             print('App Review notes not set:', e)
 
+    accessibility(app['id'], listing.get('accessibility'))
+
     if '--no-screenshots' in sys.argv:
         return
     # Screenshots: replace each set with the current files
@@ -110,6 +112,28 @@ def main():
             # the iPhone and iPad sets are required; any others are skipped with a note rather than stopping the release
             if display in REQUIRED: raise
             print('Screenshots:', display, 'skipped:', e)
+
+
+def accessibility(app_id, cfg):
+    """Accessibility Nutrition Labels: one declaration per device family, created or updated, published if asked.
+    A newer part of the API: a failure is reported without stopping the listing."""
+    if not cfg: return
+    try:
+        have = {d['attributes']['deviceFamily']: d for d in request('GET', f'/v1/apps/{app_id}/accessibilityDeclarations')['data']}
+        for fam in cfg['devices']:
+            attrs = dict(cfg['supports'])
+            if fam in have:
+                d = have[fam]
+                request('PATCH', f"/v1/accessibilityDeclarations/{d['id']}", {'data': {'type': 'accessibilityDeclarations', 'id': d['id'],
+                        'attributes': dict(attrs, publish=bool(cfg.get('publish')))}})
+            else:
+                d = request('POST', '/v1/accessibilityDeclarations', {'data': {'type': 'accessibilityDeclarations',
+                            'attributes': dict(attrs, deviceFamily=fam), 'relationships': {'app': {'data': {'type': 'apps', 'id': app_id}}}}})['data']
+                if cfg.get('publish'):
+                    request('PATCH', f"/v1/accessibilityDeclarations/{d['id']}", {'data': {'type': 'accessibilityDeclarations', 'id': d['id'], 'attributes': {'publish': True}}})
+            print('Accessibility:', fam, 'published' if cfg.get('publish') else 'saved as a draft')
+    except ApiError as e:
+        print('Accessibility labels not set (set them in App Store Connect → App Accessibility):', e.code, e.body[:300])
 
 
 if __name__ == '__main__':

@@ -74,6 +74,41 @@ async function run(b, url, app) {
     }
     console.log(name, "rating", r.rating, app ? "messages " + [...new Set(r.sent)].join(", ") : "");
   }
+  // without a pointer: a whole puzzle played with the arrow keys and Enter, as a keyboard, Switch Control or a screen
+  // reader user would; the squares have names and the moves are announced
+  {
+    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } }), p = await ctx.newPage(), errs = [];
+    p.on("pageerror", e => errs.push(e.message));
+    await p.route(/zgo\.at|goatcounter/, r => r.abort()); await p.goto(srv.url);
+    await p.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 15000 });
+    const heard = [];
+    await p.exposeFunction("hear", t => heard.push(t));
+    await p.evaluate(() => new MutationObserver(() => { const t = $("announce").textContent; if (t) hear(t); }).observe($("announce"), { childList: true, characterData: true, subtree: true }));
+    const opening = await p.evaluate(() => $("announce").textContent);
+    await p.focus("#squares .sq[tabindex='0']");
+    const goTo = async target => {
+      for (let i = 0; i < 20; i++) {
+        const [at, want] = await p.evaluate(t => [document.activeElement.dataset.sq, t], target);
+        if (at === want) return;
+        const d = await p.evaluate(([a, t]) => { const [ax, ay] = xy(a), [tx, ty] = xy(t); return tx > ax ? "ArrowRight" : tx < ax ? "ArrowLeft" : ty > ay ? "ArrowDown" : "ArrowUp"; }, [at, want]);
+        await p.keyboard.press(d);
+      }
+    };
+    while (!(await p.evaluate(() => done))) {
+      await p.waitForFunction(() => done || !locked, null, { timeout: 15000 });
+      if (await p.evaluate(() => done)) break;
+      const m = await p.evaluate(() => cur.pz.moves[idx]);
+      await goTo(m.slice(0, 2)); await p.keyboard.press("Enter");
+      await goTo(m.slice(2, 4)); await p.keyboard.press("Enter");
+      if (m.length > 4) { await p.waitForTimeout(200); await p.keyboard.press("Enter"); }   // the promotion picker opens on the queen
+      await p.waitForTimeout(400);
+    }
+    const r = await p.evaluate(() => ({ solved: me().solved, name: document.querySelector("#squares .sq").getAttribute("aria-label"), tabbable: document.querySelectorAll("#squares .sq[tabindex='0']").length }));
+    const ok = r.solved === 1 && /^[a-h][1-8], (empty|white|black)/.test(r.name) && r.tabbable === 1 && /from [a-h][1-8] to [a-h][1-8]/.test(opening) && heard.some(t => /selected/.test(t)) && !errs.length;
+    if (!ok) { bad++; console.log("FAIL keyboard play", JSON.stringify({ r, opening, heard: heard.slice(0, 6), errs })); }
+    else console.log("keyboard: solved a puzzle; heard \"" + opening + "\" and \"" + heard.find(t => /selected/.test(t)) + "\"");
+    await ctx.close();
+  }
   // the board's side: right for right-handed players, left with the Left-handed layout; on screen, off the fold.
   // Held like a book (fold-v), propped up like a laptop (fold-h, the board below the fold too), a phone on its side
   for (const lefty of [false, true]) for (const [w, h, q, name] of [[669, 951, "?fold=v", "book"], [951, 669, "?fold=h", "laptop"], [844, 390, "", "sideways"]]) {

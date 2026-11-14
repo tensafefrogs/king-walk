@@ -1,14 +1,14 @@
 {
   "version": "1.0",
   "xcode27": true,
-  "build": false,
+  "build": true,
   "testflight": {
     "groups": [
       "Internal"
     ],
-    "whats_new": "The first build of King Walk for iPhone and iPad. Please try: solving a few puzzles (tap or drag), a hint, a wrong move, Share, the Game Center button in the menu, the widget (home screen and Lock Screen), dark mode, and progress syncing to a second device. Menu > Haptics turns haptics off."
+    "whats_new": "Accessibility: play with VoiceOver (each square says what's on it, moves are announced), Voice Control (\"Tap e4\"), a keyboard or Switch Control, and the app follows your text size up to the largest accessibility sizes. Also: the widget now gets its data a new way, Share after every puzzle, the board on the right when sideways or folded (Menu > Left-handed layout to swap), no zoom on double tap. Please try VoiceOver and the largest text size."
   },
   "app_store": null,
   "release_now": false,
-  "note": "Give build 2611140125 (already uploaded and processed) to the Internal TestFlight group."
+  "note": "Second TestFlight build: accessibility."
 }

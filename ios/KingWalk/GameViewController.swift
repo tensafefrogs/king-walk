@@ -45,10 +45,30 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTextSize()
+        NotificationCenter.default.addObserver(self, selector: #selector(textSizeChanged),
+                                               name: UIContentSizeCategory.didChangeNotification, object: nil)
         webView.load(URLRequest(url: startURL))
         GameCenter.shared.presenter = self
         GameCenter.shared.signIn()
     }
+
+    // MARK: Larger text
+
+    /// The page follows the text size in Settings → Accessibility → Display & Text Size → Larger Text: the whole page
+    /// is zoomed, the way a browser zooms, so the layout reflows around bigger text (the page has layouts down to
+    /// 195 CSS pixels wide, which is a 390-point iPhone at 2x).
+    private static let textScale: [UIContentSizeCategory: CGFloat] = [
+        .extraSmall: 0.85, .small: 0.9, .medium: 0.95, .large: 1, .extraLarge: 1.1, .extraExtraLarge: 1.2,
+        .extraExtraExtraLarge: 1.3, .accessibilityMedium: 1.45, .accessibilityLarge: 1.6, .accessibilityExtraLarge: 1.75,
+        .accessibilityExtraExtraLarge: 1.9, .accessibilityExtraExtraExtraLarge: 2,
+    ]
+
+    private func applyTextSize() {
+        webView.pageZoom = Self.textScale[UIApplication.shared.preferredContentSizeCategory] ?? 1
+    }
+
+    @objc private func textSizeChanged() { applyTextSize() }
 
     // MARK: iPhone Duo fold
 

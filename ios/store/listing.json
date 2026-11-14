@@ -76,5 +76,24 @@
         ]
       ]
     }
-  ]
+  ],
+  "accessibility": {
+    "_comment": "Accessibility Nutrition Labels on the product page, per device. Uploaded by upload_listing.py as a draft; set publish to true once each one has been checked on a device (testing/ACCESSIBILITY.md).",
+    "publish": false,
+    "devices": [
+      "IPHONE",
+      "IPAD"
+    ],
+    "supports": {
+      "supportsVoiceover": true,
+      "supportsVoiceControl": true,
+      "supportsLargerText": true,
+      "supportsDarkInterface": true,
+      "supportsDifferentiateWithoutColorAlone": true,
+      "supportsSufficientContrast": true,
+      "supportsReducedMotion": true,
+      "supportsCaptions": false,
+      "supportsAudioDescriptions": false
+    }
+  }
 }
