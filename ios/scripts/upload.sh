@@ -3,7 +3,7 @@
 # Signing is automatic: Xcode uses the App Store Connect API key to create the profiles and a
 # cloud-managed distribution certificate, so no certificate needs to be stored anywhere.
 # Needs: ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_P8 (the .p8 file's contents), APPLE_TEAM_ID, BUNDLE_ID (the app's bundle ID,
-# like com.example.kingwalk; the widget gets BUNDLE_ID.widget and the app group group.BUNDLE_ID), BUILD_NUMBER.
+# like com.example.kingwalk; the widget gets BUNDLE_ID.widget), BUILD_NUMBER.
 # Optional: MARKETING_VERSION (the app version, like 1.0.1; default: project.yml's).
 # Run from the repo root after prepare-web.sh and xcodegen.
 set -euo pipefail
@@ -15,7 +15,7 @@ ASC_KEY_ID=$(printf '%s' "$ASC_KEY_ID" | tr -d '[:space:]')
 ASC_ISSUER_ID=$(printf '%s' "$ASC_ISSUER_ID" | tr -d '[:space:]')
 APPLE_TEAM_ID=$(printf '%s' "$APPLE_TEAM_ID" | tr -d '[:space:]')
 BUNDLE_ID=$(printf '%s' "$BUNDLE_ID" | tr -d '[:space:]')
-group="group.$BUNDLE_ID"
+shared="$APPLE_TEAM_ID.$BUNDLE_ID.shared"   # the keychain group the app and widget share
 tmp=${RUNNER_TEMP:-$(mktemp -d)}
 key="$tmp/AuthKey_$ASC_KEY_ID.p8"
 # Write the key in the standard .p8 layout (64-character lines between the BEGIN and END lines): a key pasted into
@@ -31,7 +31,7 @@ print("-----END PRIVATE KEY-----")' > "$key"
 auth=(-allowProvisioningUpdates -authenticationKeyPath "$key" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID")
 
 # The archive is built unsigned (as Spark's is), then its app and widget are signed "to run locally" (ad hoc) here
-# with their entitlements: iCloud, Game Center and the app group the widget shares. Xcode's own ad hoc signing isn't
+# with their entitlements: iCloud, Game Center and the keychain group the widget shares. Xcode's own ad hoc signing isn't
 # allowed with the iOS 27.1 SDK, but codesign's is. The export step then signs it for the App Store with a
 # cloud-managed certificate and profiles that Xcode creates through the API key, keeping those entitlements (the
 # check after the export makes sure). ARCHIVE_SIGNING=automatic signs the archive with automatic signing instead.
@@ -56,14 +56,14 @@ if [ "${ARCHIVE_SIGNING:-adhoc}" != automatic ]; then
 <plist version="1.0"><dict>
   <key>com.apple.developer.ubiquity-kvstore-identifier</key><string>$APPLE_TEAM_ID.$BUNDLE_ID</string>
   <key>com.apple.developer.game-center</key><true/>
-  <key>com.apple.security.application-groups</key><array><string>$group</string></array>
+  <key>keychain-access-groups</key><array><string>$shared</string></array>
 </dict></plist>
 PLIST
   cat > "$tmp/widget.entitlements" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-  <key>com.apple.security.application-groups</key><array><string>$group</string></array>
+  <key>keychain-access-groups</key><array><string>$shared</string></array>
 </dict></plist>
 PLIST
   # the widget first: the app's signature covers what's inside it
@@ -104,10 +104,10 @@ ent=$(codesign -d --entitlements :- "$app" 2>/dev/null || true)
 wext=$(codesign -d --entitlements :- "$app/PlugIns/KingWalkWidget.appex" 2>/dev/null || true)
 echo "--- app entitlements"; echo "$ent"
 missing=""
-for e in com.apple.developer.game-center com.apple.developer.ubiquity-kvstore-identifier "$group"; do
+for e in com.apple.developer.game-center com.apple.developer.ubiquity-kvstore-identifier "$shared"; do
   grep -q "$e" <<<"$ent" || missing="$missing $e"
 done
-grep -q "$group" <<<"$wext" || missing="$missing widget:$group"
+grep -q "$shared" <<<"$wext" || missing="$missing widget:$shared"
 if [ -n "$missing" ]; then
   echo "::error::The signed app is missing:$missing. See ios/README.md, One-time setup (App ID capabilities)."
   exit 1

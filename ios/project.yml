@@ -12,11 +12,10 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1,2"
-    # The app's bundle ID. The widget's is this plus .widget, and the app group they share is group. plus this.
+    # The app's bundle ID. The widget's is this plus .widget.
     # The official build passes the BUNDLE_ID Actions variable (ios/scripts/upload.sh); this placeholder is for
     # simulator builds and copies that haven't set their own (README, "Your own copy").
     KW_BUNDLE_ID: com.example.kingwalk
-    KW_APP_GROUP: group.$(KW_BUNDLE_ID)
 targets:
   KingWalk:
     type: application
@@ -39,16 +38,15 @@ targets:
         com.apple.developer.ubiquity-kvstore-identifier: $(TeamIdentifierPrefix)$(CFBundleIdentifier)
         # Game Center: leaderboards and achievements (GameCenter.swift)
         com.apple.developer.game-center: true
-        # shared with the widget, which shows the player's rank (WidgetData.swift)
-        com.apple.security.application-groups:
-          - $(KW_APP_GROUP)
+        # a keychain group shared with the widget, which shows the player's rank (Shared/Progress.swift, SharedStore)
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)$(KW_BUNDLE_ID).shared
     info:
       path: KingWalk/Info.plist
       properties:
         CFBundleDisplayName: King Walk
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
-        KingWalkAppGroup: $(KW_APP_GROUP)
         LSRequiresIPhoneOS: true
         LSApplicationCategoryType: public.app-category.board-games
         ITSAppUsesNonExemptEncryption: false
@@ -82,13 +80,12 @@ targets:
     entitlements:
       path: KingWalkWidget/KingWalkWidget.entitlements
       properties:
-        com.apple.security.application-groups:
-          - $(KW_APP_GROUP)
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)$(KW_BUNDLE_ID).shared
     info:
       path: KingWalkWidget/Info.plist
       properties:
         CFBundleDisplayName: King Walk
-        KingWalkAppGroup: $(KW_APP_GROUP)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:

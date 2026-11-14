@@ -27,7 +27,7 @@ The page talks to the app through `window.webkit.messageHandlers.kingwalk`; the 
 
 - **Haptics** (`Haptics.swift`): a tick when you pick up a piece and as you drag it over squares it can go to, a click when it lands (firmer for a capture), a soft tap for the other side's move, an error buzz for a wrong move, a success for a solve, and a short drumroll for a new rank. Menu → Haptics turns them off. On the website, Android browsers get the same moments as simple vibrations.
 - **Game Center** (`GameCenter.swift`): signs in at launch (iOS shows the banner or sign-in sheet when it decides to), then submits the puzzle rating and best streak to two leaderboards and unlocks 13 achievements (first solve, solved 50/250/1000, streaks of 5/10/20, each rank, and solving a puzzle rated 300+ above you). Menu → Game Center opens the dashboard. On launch the page reports what an existing save has already earned. Leaderboards and achievements are set up in App Store Connect by `store/gamecenter.py`.
-- **Widget** (`KingWalkWidget/`): home screen (small, medium) and Lock Screen (circular, rectangular, inline). Shows the rank with its piece, the rating, progress to the next rank, and on the medium size the rating chart and stats. The page sends the numbers after each puzzle; the app saves them in the app group (`group.` + the bundle ID) and refreshes the widget.
+- **Widget** (`KingWalkWidget/`): home screen (small, medium) and Lock Screen (circular, rectangular, inline). Shows the rank with its piece, the rating, progress to the next rank, and on the medium size the rating chart and stats. The page sends the numbers after each puzzle; the app saves them in a keychain item it shares with the widget (`SharedStore` in `Shared/Progress.swift`) and refreshes the widget. Not an app group: Xcode can't set those up when it signs with an App Store Connect API key, as the GitHub build does.
 - **iCloud saves** (`SaveStore.swift`): the save is copied to iCloud key-value storage, and on launch the newer copy wins, so progress carries over between the player's iPhone and iPad.
 - **Share sheet**: the Share button under the board after each puzzle (and Menu → Share) opens the iOS share sheet with an emoji summary: rank, rating, the last ten puzzles and the streak, linking to the App Store page (`APP_STORE_ID`), or the website until that is set. On the web, Share uses the browser's share sheet or copies the text, linking to the website.
 - **iPhone Duo**: built with Xcode 27.1, the app fills the inner screen and reports the fold to the page. Propped up like a laptop, the board and its buttons lie on the flat half and the status and progress stand up on the other. Held like a book, the board, its buttons, the ladder and stats are on one page and the rating chart and the notes on how ranks work on the other. The board is on the right (the flat half's right side, or the right page), or on the left with Menu → Left-handed layout, which also decides its side with a phone held sideways. The app also turns to landscape on iPhone.
@@ -40,10 +40,9 @@ The page talks to the app through `window.webkit.messageHandlers.kingwalk`; the 
 Below, `BUNDLE_ID` is your app's bundle ID (for this game's own release, the value of the `BUNDLE_ID` Actions variable).
 
 1. **Register the App IDs.** In developer.apple.com → Certificates, IDs & Profiles → Identifiers:
-   - **App Groups:** click **+** → App Groups → `group.BUNDLE_ID` (description: King Walk).
-   - **The app:** **+** → App IDs → App, Bundle ID (Explicit) `BUNDLE_ID`. Capabilities: tick **App Groups** (then Configure → `group.BUNDLE_ID`), **iCloud** (key-value storage is enough; CloudKit isn't needed) and **Game Center** (on by default).
-   - **The widget:** **+** → App IDs → App, Bundle ID `BUNDLE_ID.widget`. Capabilities: **App Groups** → `group.BUNDLE_ID`.
-   Xcode's automatic signing can register these itself during the upload, but doing it by hand first avoids a failed first build.
+   - **The app:** **+** → App IDs → App, Bundle ID (Explicit) `BUNDLE_ID`. Capabilities: **iCloud** (key-value storage is enough; CloudKit isn't needed) and **Game Center** (on by default).
+   - **The widget:** **+** → App IDs → App, Bundle ID `BUNDLE_ID.widget`. No capabilities needed.
+   Xcode's automatic signing can register these itself during the upload, but doing it by hand first avoids a failed first build. No app group is needed.
 2. **Create the app record.** In App Store Connect → Apps, click **+** → New App: Platform iOS, Name **King Walk: Chess Puzzles**, Primary language English (U.S.), Bundle ID `BUNDLE_ID`, SKU `king-walk`. The name under the icon on the home screen is "King Walk". Note the app's **Apple ID** (App Information → General): it's `APP_STORE_ID` below.
 3. **TestFlight group.** In the app's TestFlight tab, add an internal group called **Internal** and add yourself. (`release.json` gives new builds to it.)
 4. **API key.** App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → generate a key with the **Admin** role (needed so the build can create its own signing certificate), download the `.p8` (only once), and note the Key ID and Issuer ID. An existing team key works too (keys belong to the team, not an app).
@@ -58,7 +57,7 @@ Below, `BUNDLE_ID` is your app's bundle ID (for this game's own release, the val
 
    | Variable | Value |
    | --- | --- |
-   | `BUNDLE_ID` | The app's bundle ID. Required for uploads and the store scripts; simulator builds use `com.example.kingwalk` |
+   | `BUNDLE_ID` | The app's bundle ID (the widget's is this plus `.widget`). Required for uploads and the store scripts; simulator builds use `com.example.kingwalk` |
    | `SITE_URL` | The website, for the app's Share link and its Support/Privacy/Terms links |
    | `APP_STORE_ID` | The app's Apple ID from step 2, so the app's Share link goes to its App Store page (until it's set, Share links to the website) |
    | `GOATCOUNTER_URL` | Optional: your GoatCounter count URL, for anonymous stats from the website and the app |
