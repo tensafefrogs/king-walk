@@ -51,4 +51,4 @@ Both are in `../fonts/` under the SIL Open Font License.
 
 ## Preview image
 
-`../og.png` (1200 x 630) is the image shown when the link is shared. Tagline: "Chess puzzles that grow with you."
+`../og.png` (1200 x 630) is the image shown when the link is shared, made by `node ios/store/header.js` with the store header art. Tagline: "Chess puzzles that fight back."

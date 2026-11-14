@@ -119,6 +119,30 @@ function translations() {
     return { log, live, lapsed: dailyStreak(p) };
   });
   check(ds.log.join() === "3,1,3,0,3,14" && ds.live === 4 && ds.lapsed === 0, "daily streak rules", ds);
+  // streak freezes: one per 7 days in a row (at most 2), each covers one skipped day; more skipped days than freezes ends it
+  const fz = await p.evaluate(() => {
+    const D = newDaily(); let earned = [];
+    for (let n = 1; n <= 14; n++) earned.push(recordDaily(D, n, "g", 10, true));
+    const atFourteen = { streak: D.streak, freezes: D.freezes, earnedOn: earned.map((e, i) => e ? i + 1 : 0).filter(Boolean) };
+    for (let n = 15; n <= 21; n++) recordDaily(D, n, "g", 10, true);          /* a third week: still 2 held */
+    const held = D.freezes, pl = newPlayer(600), today = dayNumber();
+    Object.assign(pl.daily, { streak: 9, best: 9, last: today - 3, freezes: 2, days: {} });
+    const used = applyFreezes(pl), after = { streak: dailyStreak(pl), freezes: pl.daily.freezes, frozen: [today - 2, today - 1].every(k => pl.daily.days[k] && pl.daily.days[k].fz) };
+    recordDaily(pl.daily, today, "g", 5, true);
+    const pl2 = newPlayer(600); Object.assign(pl2.daily, { streak: 9, best: 9, last: today - 4, freezes: 2, days: {} });
+    return { atFourteen, held, used, after, grew: pl.daily.streak, tooLong: applyFreezes(pl2), lapsed: dailyStreak(pl2), kept: cleanDaily({ freezes: 9, days: { 3: { fz: true } } }) };
+  });
+  check(fz.atFourteen.streak === 14 && fz.atFourteen.earnedOn.join() === "7,14" && fz.held === 2, "a freeze every 7 days, at most 2", fz.atFourteen);
+  check(fz.used === 2 && fz.after.streak === 9 && fz.after.freezes === 0 && fz.after.frozen && fz.grew === 10, "freezes cover skipped days and the streak carries on", fz);
+  check(fz.tooLong === 0 && fz.lapsed === 0, "more skipped days than freezes ends the streak", fz);
+  check(fz.kept.freezes === 2 && fz.kept.days[3].fz === true, "saved freezes are kept and capped", fz.kept);
+  // the first puzzle's hint shows once, and goes after the first move
+  const tip = await p.evaluate(() => { S.tip = false; const pl = me(), n0 = pl.n; pl.n = 0; showTip(); const shown = !$("tip").hidden; hideTip(); const gone = $("tip").hidden && S.tip; showTip(); pl.n = n0; return { shown, gone, again: !$("tip").hidden }; });
+  check(tip.shown && tip.gone && !tip.again, "the first-puzzle hint shows once", tip);
+  // the daily result's picture: a square PNG
+  const img = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gyr", 61, true); dailyImg = null; await prepareDailyImage(n);
+    if (!dailyImg) return null; const bm = await createImageBitmap(dailyImg.blob); return { w: bm.width, h: bm.height, type: dailyImg.blob.type }; });
+  check(img && img.w === 1080 && img.h === 1080 && img.type === "image/png", "the daily share picture is a 1080 square PNG", img);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };

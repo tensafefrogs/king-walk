@@ -28,6 +28,7 @@ struct Progress: Codable, Equatable {
     var dailyTodo: String?  // "Today's puzzle is ready", in the player's language
     var dailyDone: String?  // "Today's puzzle: done"
     var dailyLabel: String? // "Daily"
+    var dailyFreezes: Int?  // streak freezes held: each covers one skipped day
 
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
@@ -36,9 +37,10 @@ struct Progress: Codable, Equatable {
     /// whether today's daily puzzle is solved, and the daily streak as it stands on this date (a skipped day ends it)
     func dailySolved(on date: Date = Date()) -> Bool { dailyDay == Daily.key(date) }
     func dailyStreakNow(on date: Date = Date()) -> Int {
-        guard let day = dailyDay, !day.isEmpty, let streak = dailyStreak else { return 0 }
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
-        return day == Daily.key(date) || day == Daily.key(yesterday) ? streak : 0
+        guard let day = dailyDay, !day.isEmpty, let streak = dailyStreak, let last = Daily.date(day) else { return 0 }
+        let cal = Calendar.current
+        let skipped = (cal.dateComponents([.day], from: cal.startOfDay(for: last), to: cal.startOfDay(for: date)).day ?? 99) - 1
+        return skipped <= (dailyFreezes ?? 0) ? streak : 0          // the game uses a freeze per skipped day
     }
     var dailyTodoText: String { dailyTodo ?? "Today's puzzle is ready" }
     var dailyDoneText: String { dailyDone ?? "Today's puzzle: done" }
@@ -63,7 +65,7 @@ struct Progress: Codable, Equatable {
     static let sample = Progress(rating: 1124, rank: "Bishop", piece: "b", next: "Rook", toNext: 176, solved: 142, streak: 4, best: 11,
                                  played: 210, hist: [1020, 1031, 1018, 1044, 1052, 1047, 1066, 1071, 1063, 1080, 1092, 1088, 1101, 1097, 1112, 1124],
                                  at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil,
-                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil)
+                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1)
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }
@@ -105,6 +107,10 @@ enum Daily {
     static func key(_ date: Date) -> String {
         let c = Calendar.current.dateComponents([.year, .month, .day], from: date)
         return String(format: "%04d-%02d-%02d", c.year ?? 0, c.month ?? 0, c.day ?? 0)
+    }
+    static func date(_ key: String) -> Date? {
+        let p = key.split(separator: "-").compactMap { Int($0) }
+        return p.count == 3 ? Calendar.current.date(from: DateComponents(year: p[0], month: p[1], day: p[2])) : nil
     }
     static func number(_ date: Date = Date()) -> Int {
         let cal = Calendar.current

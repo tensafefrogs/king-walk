@@ -41,6 +41,14 @@ jobs:
                  'appStoreId': os.environ.get('APP_STORE_ID', '').strip()}
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
+          # link previews need absolute addresses: the site's, when it's set
+          site = cfg['site'].rstrip('/') + '/' if cfg['site'] else ''
+          if site:
+              html = open('_site/index.html').read()
+              html = html.replace('<meta property="og:url" content="./">', f'<meta property="og:url" content="{site}">')
+              html = html.replace('content="og.png"', f'content="{site}og.png"')
+              open('_site/index.html', 'w').write(html)
+              print('link previews point at', site)
           PY
           du -sh _site
       - uses: actions/upload-pages-artifact@v3

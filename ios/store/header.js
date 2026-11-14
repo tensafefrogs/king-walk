@@ -1,5 +1,6 @@
 // Makes the App Store header and search results art (creative assets, iOS 27 and later), also the press kit's key art:
 // a real puzzle board from the game, tilted, beside the King Walk icon, name and tagline, on the brand's deep teal.
+// Also the website's link preview, og.png (1200x630): the same board and tagline, laid out for a wide card.
 // usage: node ios/store/header.js     Needs Playwright.
 // Output in ios/store/header/: universal-16x9.png (5244x2950, fills both placements), header-21x9.png (3840x1646)
 // and search-3x2.png (3840x2560), both cut from the middle. Everything that matters stays inside the area both cuts
@@ -51,6 +52,26 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
     </body></html>`);
   await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
   await p.screenshot({ path: path.join(out, "raw-16x9.png") });
+
+  // 3. the link preview: 1200x630, drawn at 2x
+  const o = await (await b.newContext({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 2 })).newPage();
+  await o.setContent(`<!doctype html><html><head><style>${font("Fredoka", 600)}${font("Nunito", 700)}
+    html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+    body{background:radial-gradient(80% 110% at 25% 40%,#1f8572 0%,#165547 50%,#0e2f29 100%);position:relative;font-family:Nunito,sans-serif}
+    .board{position:absolute;left:640px;top:70px;width:560px;transform:perspective(1800px) rotateY(-14deg) rotateX(4deg) rotate(3deg);
+      filter:drop-shadow(0 30px 50px rgba(0,0,0,.5))}
+    .board img{display:block;width:100%}
+    .side{position:absolute;left:76px;top:0;bottom:0;width:560px;display:flex;flex-direction:column;justify-content:center;gap:22px}
+    .mark{width:112px;height:112px}.mark svg{width:100%;height:100%}
+    .word svg{width:440px;height:auto;display:block}
+    .tag{font:600 44px/1.1 Fredoka,sans-serif;color:#fdfbf2;margin:0}.tag b{color:#f2c230;font-weight:600}
+    .chips{display:flex;gap:12px}.chips span{font:700 21px Nunito,sans-serif;color:#fdfbf2;background:rgba(253,251,242,.12);padding:8px 16px;border-radius:999px}
+    .chips span:first-child{background:#f2c230;color:#16302c}</style></head><body>
+    <div class="board"><img src="data:image/png;base64,${board.toString("base64")}"></div>
+    <div class="side"><div class="mark">${mark}</div><div class="word">${word}</div><p class="tag">Chess puzzles that<br><b>fight back.</b></p>
+      <div class="chips"><span>53,000 puzzles</span><span>A daily puzzle</span><span>Free</span></div></div></body></html>`);
+  await o.evaluate(() => document.fonts.ready); await o.waitForTimeout(300);
+  await o.screenshot({ path: path.join(ROOT, "og.png") });
   await b.close(); srv.close();
   execFileSync("python3", ["-c", `
 from PIL import Image

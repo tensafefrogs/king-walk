@@ -1,7 +1,7 @@
 {
   "name": "King Walk",
   "short_name": "King Walk",
-  "description": "Free chess puzzles that grow with you. 53,000 puzzles from real games, with a rating that tracks your level. No account needed.",
+  "description": "Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
