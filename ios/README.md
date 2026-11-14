@@ -17,7 +17,7 @@ A native app for iPhone and iPad that plays the game offline. It shows the same 
 - `scripts/upload.sh`: archives the app, checks its entitlements, and uploads it to App Store Connect.
 - `scripts/art.js`: makes the app icon (light, dark and tinted), the widget's piece images and the Game Center achievement images from `brand/`.
 - `store/`: the App Store listing, screenshots, header art, app preview, Game Center setup and the scripts that upload them. See `store/listing.md`.
-- `release.json`: what the App Store release workflow should do (below).
+- `release.json`: what the App Store release workflow should do (below). `store/launch.md`: the launch checklist and post drafts.
 - `../.github/workflows/`: `ios.yml` (build, upload), `release.yml` (release from `release.json`), `store.yml` (listing, screenshots, Game Center), `test.yml` (plays puzzles in a browser on every push).
 
 The app always bundles the game as it is on the branch being built. To ship a game change to iOS, push it to `main` and make a new build. The website is the repo root on GitHub Pages; the `ios/` folder rides along there but nothing links to it.
