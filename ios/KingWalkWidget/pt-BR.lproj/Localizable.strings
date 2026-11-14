@@ -1,7 +1,11 @@
+"King Walk" = "King Walk";
 "Your rank and puzzle rating." = "Sua patente e sua pontuação de problemas.";
 "Solve a puzzle to see your rank here." = "Resolva um problema para ver sua patente aqui.";
+"Top rank" = "Patente máxima";
 "Rating over time" = "Pontuação ao longo do tempo";
 "solved" = "resolvidos";
 "in a row" = "seguidos";
 "best run" = "melhor sequência";
-"Top rank" = "Patente máxima";
+"Daily puzzle" = "Problema do dia";
+"Today's puzzle and your daily streak." = "O problema de hoje e sua sequência diária.";
+"Opens today's puzzle." = "Abre o problema de hoje.";

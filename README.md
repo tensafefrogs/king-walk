@@ -4,7 +4,9 @@ A chess puzzle game that adapts to the player, free on the web. It has 53,000 pu
 
 It is a static web page with no server and no accounts. Progress is saved in the browser. It works with a mouse or a touchscreen, can be installed to a phone or tablet home screen, and keeps working offline for puzzle levels it has already loaded. It counts a few anonymous events (see Stats below).
 
-There is also an iOS app for iPhone and iPad (`ios/`), which plays the same page offline and adds haptics, Game Center, a widget and iCloud sync. See `ios/README.md`.
+There is also an iOS app for iPhone and iPad (`ios/`), which plays the same page offline and adds haptics, Game Center, iCloud sync, widgets (rank and daily puzzle, including StandBy and the Lock Screen), a Control Center button, a Siri and Shortcuts action, a Home Screen quick action and an optional daily reminder. See `ios/README.md`.
+
+Every day there's a daily puzzle, the same for everyone, picked from the date with no server (`dailyPuzzle` in `index.html`). What's planned next is in `ROADMAP.md`.
 
 The name comes from chess: a king walk is when a king marches up the board to help win the game. The best-known example is Short vs. Timman, Tilburg 1991. In this game you start at Pawn rank and work your way up to King.
 
@@ -41,7 +43,7 @@ Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: t
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `daily/start`, `daily/resume`, `daily/later`, `daily/solved`, `daily/missed`, `daily/streak/<n>`, `remind/<hour>`, `remind/off`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
 
 ## Your own copy
 

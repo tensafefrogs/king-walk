@@ -22,9 +22,27 @@ struct Progress: Codable, Equatable {
     var rankLine: String?   // "Bishop rank"
     var nextLine: String?   // "176 to Rook", or "Top rank"
     var labels: [String: String]?   // chart, solved, inRow, best
+    // the daily puzzle (missing from saves made before it existed)
+    var dailyDay: String?   // the local date of the last daily solved, yyyy-MM-dd, or ""
+    var dailyStreak: Int?   // days in a row, as of that day
+    var dailyTodo: String?  // "Today's puzzle is ready", in the player's language
+    var dailyDone: String?  // "Today's puzzle: done"
+    var dailyLabel: String? // "Daily"
 
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
+    static let dailyKind = "KingWalkDaily"
+
+    /// whether today's daily puzzle is solved, and the daily streak as it stands on this date (a skipped day ends it)
+    func dailySolved(on date: Date = Date()) -> Bool { dailyDay == Daily.key(date) }
+    func dailyStreakNow(on date: Date = Date()) -> Int {
+        guard let day = dailyDay, !day.isEmpty, let streak = dailyStreak else { return 0 }
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
+        return day == Daily.key(date) || day == Daily.key(yesterday) ? streak : 0
+    }
+    var dailyTodoText: String { dailyTodo ?? "Today's puzzle is ready" }
+    var dailyDoneText: String { dailyDone ?? "Today's puzzle: done" }
+    var dailyLabelText: String { dailyLabel ?? "Daily" }
 
     /// The rating each rank starts at, by its piece letter (rank names come translated), for the bar to the next rank
     static let rankFloors: [String: Int] = ["p": 400, "n": 700, "b": 1000, "r": 1300, "q": 1600, "k": 1900]
@@ -44,7 +62,8 @@ struct Progress: Codable, Equatable {
 
     static let sample = Progress(rating: 1124, rank: "Bishop", piece: "b", next: "Rook", toNext: 176, solved: 142, streak: 4, best: 11,
                                  played: 210, hist: [1020, 1031, 1018, 1044, 1052, 1047, 1066, 1071, 1063, 1080, 1092, 1088, 1101, 1097, 1112, 1124],
-                                 at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil)
+                                 at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil,
+                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil)
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }
@@ -77,5 +96,35 @@ enum SharedStore {
         var result: CFTypeRef?
         guard SecItemCopyMatching(q as CFDictionary, &result) == errSecSuccess else { return nil }
         return result as? Data
+    }
+}
+
+/// The daily puzzle's calendar, as the page counts it (dayNumber in index.html): Daily #1 is 14 November 2026,
+/// and a new one starts at midnight, local time.
+enum Daily {
+    static func key(_ date: Date) -> String {
+        let c = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        return String(format: "%04d-%02d-%02d", c.year ?? 0, c.month ?? 0, c.day ?? 0)
+    }
+    static func number(_ date: Date = Date()) -> Int {
+        let cal = Calendar.current
+        guard let first = cal.date(from: DateComponents(year: 2026, month: 11, day: 14)) else { return 1 }
+        return max(1, (cal.dateComponents([.day], from: cal.startOfDay(for: first), to: cal.startOfDay(for: date)).day ?? 0) + 1)
+    }
+    static func nextMidnight(after date: Date = Date()) -> Date {
+        Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: date)) ?? date.addingTimeInterval(86400)
+    }
+    /// the link widgets open: the app plays today's puzzle (kingwalkgame is in the app's URL types)
+    static let url = URL(string: "kingwalkgame://daily")!
+}
+
+/// Something asked the app to open a part of the game (a widget, a control, Siri, a notification, a Home Screen
+/// quick action). The game's view passes it to the page once the page is ready (GameViewController).
+enum Launch {
+    static let notification = Notification.Name("KingWalkOpen")
+    static var pending: String?
+    static func open(_ what: String) {
+        pending = what
+        NotificationCenter.default.post(name: notification, object: nil)
     }
 }

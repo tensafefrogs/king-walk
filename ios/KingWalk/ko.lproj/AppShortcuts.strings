@@ -1,0 +1,3 @@
+"Play today's ${applicationName} puzzle" = "${applicationName}에서 오늘의 퍼즐 풀기";
+"Open the ${applicationName} daily puzzle" = "${applicationName} 데일리 퍼즐 열기";
+"${applicationName} daily puzzle" = "${applicationName} 데일리 퍼즐";

@@ -61,11 +61,12 @@ function badge(a) {
       + `<rect x="300" y="150" width="7" height="70" fill="${C.ink}"/><path d="M307,150 L352,163 L307,176 Z" fill="${C.coral}"/>`
       + silhouette(art.piece, 196, 92, 120, C.ink);
   } else if (art.number) {          // a count: the number big on a sun
-    const streak = /row/.test(art.label || "");
-    sky = streak ? C.deep : C.teal;
-    scene = sunRays(256, 236, 150, 270, 16, streak ? C.teal : C.sea) + `<circle cx="256" cy="236" r="150" fill="${C.gold}"/>`
+    const streak = /row/.test(art.label || ""), daily = /day/.test(art.label || "");
+    sky = daily ? C.coral : streak ? C.deep : C.teal;
+    scene = sunRays(256, 236, 150, 270, 16, daily ? C.sun : streak ? C.teal : C.sea) + `<circle cx="256" cy="236" r="150" fill="${C.gold}"/>`
       + `<text x="256" y="${String(art.number).length > 3 ? 280 : 292}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(art.number).length > 3 ? 120 : 150}" fill="${C.ink}">${art.number}</text>`
-      + (streak ? Array.from({ length: 5 }, (_, i) => `<rect x="${126 + i * 54}" y="${420 - i * 14}" width="44" height="${40 + i * 14}" rx="8" fill="${i % 2 ? C.cream : C.gold}"/>`).join("")
+      + (daily ? Array.from({ length: 7 }, (_, i) => `<rect x="${103 + i * 44}" y="408" width="36" height="36" rx="9" fill="${i < art.number % 8 || art.number >= 7 ? C.gold : C.cream}" stroke="${C.ink}" stroke-width="4"/>`).join("")
+         : streak ? Array.from({ length: 5 }, (_, i) => `<rect x="${126 + i * 54}" y="${420 - i * 14}" width="44" height="${40 + i * 14}" rx="8" fill="${i % 2 ? C.cream : C.gold}"/>`).join("")
                 : hill(S, 470, 256, 410, C.mint, 0.9));
   } else if (art.slayer) {          // a small pawn facing a giant king
     scene = `<circle cx="330" cy="180" r="80" fill="${C.gold}"/>` + hill(S, 520, 256, 420, C.teal, 0.9)

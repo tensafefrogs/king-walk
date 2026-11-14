@@ -1,7 +1,11 @@
+"King Walk" = "King Walk";
 "Your rank and puzzle rating." = "Your rank and puzzle rating.";
 "Solve a puzzle to see your rank here." = "Solve a puzzle to see your rank here.";
+"Top rank" = "Top rank";
 "Rating over time" = "Rating over time";
 "solved" = "solved";
 "in a row" = "in a row";
 "best run" = "best run";
-"Top rank" = "Top rank";
+"Daily puzzle" = "Daily puzzle";
+"Today's puzzle and your daily streak." = "Today's puzzle and your daily streak.";
+"Opens today's puzzle." = "Opens today's puzzle.";

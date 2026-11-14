@@ -19,7 +19,7 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         // what the app offers the page, read by APP in index.html. platform is for the analytics event platform/<name>
         // (an iPad app on a Mac reports an iPad otherwise)
         let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "mac" : UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
-        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true};",
+        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true,reminders:true};",
                                            injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box)
         content.addUserScript(WKUserScript(source: """
@@ -51,6 +51,19 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         webView.load(URLRequest(url: startURL))
         GameCenter.shared.presenter = self
         GameCenter.shared.signIn()
+        NotificationCenter.default.addObserver(self, selector: #selector(openRequested), name: Launch.notification, object: nil)
+    }
+
+    // MARK: Opening a part of the game (Launch, in Shared/Progress.swift)
+
+    private var pageReady = false
+
+    /// pass a request on to the page once it has started (it posts "ready"); until then it waits in Launch.pending
+    @objc private func openRequested() {
+        guard pageReady, let what = Launch.pending else { return }
+        Launch.pending = nil
+        let safe = what.filter { $0.isLetter }   // "daily"
+        webView.evaluateJavaScript("window.kingWalkOpen&&kingWalkOpen('\(safe)')")
     }
 
     // MARK: Larger text
@@ -129,6 +142,14 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
             if let id = body["id"] as? String { GameCenter.shared.achieve(id) }
         case "gamecenter":
             GameCenter.shared.showDashboard()
+        case "ready":
+            pageReady = true
+            openRequested()
+        case "reminders":
+            let hour = body["hour"] as? Int ?? -1
+            Reminders.schedule(hour: hour, items: body["items"] as? [[String: Any]] ?? []) { [weak self] allowed in
+                self?.webView.evaluateJavaScript("window.kingWalkReminders&&kingWalkReminders(\(allowed))")
+            }
         case "widget":
             if let data = body["data"] as? [String: Any] { WidgetData.save(data) }
         default:
@@ -167,6 +188,7 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
 
     // If iOS stops the web content process (memory pressure), bring the game back
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        pageReady = false
         webView.load(URLRequest(url: startURL))
     }
 

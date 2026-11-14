@@ -1,7 +1,11 @@
+"King Walk" = "King Walk";
 "Your rank and puzzle rating." = "Il tuo grado e il tuo punteggio problemi.";
 "Solve a puzzle to see your rank here." = "Risolvi un problema per vedere qui il tuo grado.";
+"Top rank" = "Grado massimo";
 "Rating over time" = "Punteggio nel tempo";
 "solved" = "risolti";
 "in a row" = "di fila";
 "best run" = "serie migliore";
-"Top rank" = "Grado massimo";
+"Daily puzzle" = "Problema del giorno";
+"Today's puzzle and your daily streak." = "Il problema di oggi e la tua serie giornaliera.";
+"Opens today's puzzle." = "Apre il problema di oggi.";
