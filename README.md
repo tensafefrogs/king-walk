@@ -1,6 +1,6 @@
 # King Walk
 
-A free chess puzzle game that adapts to the player. It has 53,000 puzzles from real games. Solve puzzles and your puzzle rating goes up and the puzzles get harder. Miss them and the puzzles get easier.
+A chess puzzle game that adapts to the player, free on the web. It has 53,000 puzzles from real games. Solve puzzles and your puzzle rating goes up and the puzzles get harder. Miss them and the puzzles get easier.
 
 It is a static web page with no server and no accounts. Progress is saved in the browser. It works with a mouse or a touchscreen, can be installed to a phone or tablet home screen, and keeps working offline for puzzle levels it has already loaded. It counts a few anonymous events (see Stats below).
 
