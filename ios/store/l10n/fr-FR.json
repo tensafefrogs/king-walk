@@ -4,7 +4,7 @@
     "name": "King Walk : Problèmes d'échecs",
     "subtitle": "Des énigmes qui ripostent",
     "promotional_text": "Repère la fourchette. Trouve le mat. Tiens la série. 53 000 problèmes tirés de vraies parties, qui se corsent quand tu progresses. Pion aujourd'hui, Roi demain.",
-    "description": "Tu crois voir trois coups à l'avance ? Prouve-le.\n\nKing Walk te balance de vrais problèmes d'échecs, 53 000 en tout, tirés de vraies parties. Résous-en un, le suivant est plus dur. Rates-en un, il lève le pied. Après quelques dizaines de problèmes, il connaît ton niveau par cœur. Et là, il commence à pousser.\n\nTu commences Pion. Décroche Cavalier, Fou, Tour et Dame. Deviens Roi et tu auras traversé tout l'échiquier.\n\n• 53 000 problèmes tirés de vraies parties : fourchettes, clouages, enfilades et mats du couloir bien sournois\n• Un classement qui trouve ton niveau et monte avec toi\n• Séries de rang : 15 problèmes, sans indice, une erreur et c'est fini\n• Défie tes amis dans Game Center et voyez qui est vraiment fort\n• Tu sèches ? Prends un indice. On ne le dira à personne.\n• Raté ? Le problème revient plus tard pour la revanche\n• De grosses fêtes bien bruyantes à chaque montée de rang\n• Un widget d'écran d'accueil pour frimer avec ton rang\n• Retour haptique, mode sombre, VoiceOver et texte plus grand\n• Fonctionne hors ligne. Pas de compte, pas de pub, pas d'achats intégrés\n\nLes problèmes proviennent de la base de données de problèmes de Lichess, qui est dans le domaine public. King Walk n'est ni conçu ni approuvé par Lichess.",
+    "description": "Tu crois voir trois coups à l'avance ? Prouve-le.\n\nKing Walk te balance de vrais problèmes d'échecs, 53 000 en tout, tirés de vraies parties. Résous-en un, le suivant est plus dur. Rates-en un, il lève le pied. Après quelques dizaines de problèmes, il connaît ton niveau par cœur. Et là, il commence à pousser.\n\nTu commences Pion. Décroche Cavalier, Fou, Tour et Dame. Deviens Roi et tu auras traversé tout l'échiquier.\n\n• 53 000 problèmes tirés de vraies parties : fourchettes, clouages, enfilades et mats du couloir bien sournois\n• Un classement qui trouve ton niveau et monte avec toi\n• Un problème du jour, le même pour tout le monde. Garde ta série en vie, frime en emojis\n• Séries de rang : 15 problèmes, sans indice, une erreur et c'est fini\n• Défie tes amis dans Game Center et voyez qui est vraiment fort\n• Tu sèches ? Prends un indice. On ne le dira à personne.\n• Raté ? Le problème revient plus tard pour la revanche\n• De grosses fêtes bien bruyantes à chaque montée de rang\n• Des widgets pour l'écran d'accueil, l'écran verrouillé et le mode En veille\n• Un rappel quotidien, si tu veux\n• Retour haptique, mode sombre, VoiceOver et texte plus grand\n• Fonctionne hors ligne. Pas de compte, pas de pub, pas d'achats intégrés\n\nLes problèmes proviennent de la base de données de problèmes de Lichess, qui est dans le domaine public. King Walk n'est ni conçu ni approuvé par Lichess.",
     "keywords": "tactique,mat en 2,échec et mat,elo,puzzle,entraînement,stratégie,logique,fourchette,clouage,finale"
   },
   "gamecenter": {
@@ -53,6 +53,11 @@
         "name": "Série Roi",
         "suffix": " d'affilée",
         "suffix_singular": " d'affilée"
+      },
+      "daily_streak": {
+        "name": "Série quotidienne",
+        "suffix": " jours",
+        "suffix_singular": " jour"
       }
     },
     "achievements": {
@@ -150,6 +155,21 @@
         "name": "Roi validé",
         "before": "Terminez la série Roi : 15 problèmes d'affilée, sans indice.",
         "earned": "Vous avez terminé la série Roi : 15 problèmes d'affilée de 1900 à 2300, sans indice."
+      },
+      "daily_3": {
+        "name": "Coup du chapeau",
+        "before": "Résolvez le problème du jour 3 jours d'affilée.",
+        "earned": "Vous avez résolu le problème du jour 3 jours d'affilée."
+      },
+      "daily_7": {
+        "name": "Semaine complète",
+        "before": "Résolvez le problème du jour 7 jours d'affilée.",
+        "earned": "Vous avez résolu le problème du jour 7 jours d'affilée."
+      },
+      "daily_30": {
+        "name": "Trente jours",
+        "before": "Résolvez le problème du jour 30 jours d'affilée.",
+        "earned": "Vous avez résolu le problème du jour 30 jours d'affilée."
       }
     },
     "challenges": {
@@ -181,6 +201,36 @@
         "name": "Série Roi",
         "description": "15 problèmes qui montent de 1900 à 2300. Sans indice, et une erreur met fin à la série. Qui ira le plus loin ?"
       }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Des énigmes qui <b>ripostent</b>",
+      "sub": "Résous-en un, le suivant est plus dur. Rates-en un, il lève le pied."
+    },
+    "2": {
+      "caption": "<b>53 000</b> problèmes de vraies parties",
+      "sub": "Fourchettes, clouages, enfilades et mats sournois."
+    },
+    "3": {
+      "caption": "Tu sèches ? <b>Prends un indice.</b>",
+      "sub": "On ne le dira à personne."
+    },
+    "4": {
+      "caption": "Du Pion au <b>Roi</b>. C'est parti !",
+      "sub": "Monte en rang. Boucle les séries. Frime."
+    },
+    "5": {
+      "caption": "Un nouveau problème <b>chaque jour</b>",
+      "sub": "Le même pour tout le monde. Garde ta série en vie."
+    },
+    "duo-book-1": {
+      "caption": "Plie-le comme un <b>livre</b>",
+      "sub": "L'échiquier sur une page. Les notes sur l'autre."
+    },
+    "duo-table-1": {
+      "caption": "Pose-le debout. <b>Mode portable.</b>",
+      "sub": "L'échiquier à plat sous tes mains, le score en haut."
     }
   }
 }

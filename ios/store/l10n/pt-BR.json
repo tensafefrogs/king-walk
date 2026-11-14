@@ -4,7 +4,7 @@
     "name": "King Walk: Problemas de xadrez",
     "subtitle": "Desafios que não dão moleza",
     "promotional_text": "Ache o garfo. Encontre o mate. Sobreviva à sequência. 53.000 problemas de partidas reais que ficam mais difíceis conforme você melhora. Hoje Peão, um dia Rei.",
-    "description": "Acha que consegue ver três lances à frente? Então prova.\n\nKing Walk manda pra você problemas de xadrez de verdade, 53.000, tirados de partidas reais. Resolveu um, o próximo fica mais difícil. Errou um, ele alivia. Depois de algumas dezenas de problemas, ele sabe exatamente o seu nível. Aí ele começa a apertar.\n\nVocê começa como Peão. Conquiste Cavalo, Bispo, Torre e Dama. Chegue a Rei e você terá atravessado o tabuleiro inteiro.\n\n• 53.000 problemas de partidas reais: garfos, cravadas, espetos e mates do corredor traiçoeiros\n• Um rating que encontra o seu nível e sobe com você\n• Sequências de categoria: 15 problemas, sem dicas, errou uma vez, tá fora\n• Desafie amigos no Game Center e descubram quem é bom de verdade\n• Travou? Pede uma dica. A gente não conta pra ninguém.\n• Errou? O problema volta mais tarde pra revanche\n• Comemorações enormes e barulhentas a cada nova categoria\n• Um widget na Tela de Início pra mostrar sua categoria pra todo mundo\n• Retorno tátil, modo escuro, VoiceOver e texto maior\n• Funciona offline. Sem conta, sem anúncios, sem compras dentro do app\n\nOs problemas vêm do banco de dados de problemas do Lichess, de domínio público. King Walk não é feito nem endossado pelo Lichess.",
+    "description": "Acha que consegue ver três lances à frente? Então prova.\n\nKing Walk manda pra você problemas de xadrez de verdade, 53.000, tirados de partidas reais. Resolveu um, o próximo fica mais difícil. Errou um, ele alivia. Depois de algumas dezenas de problemas, ele sabe exatamente o seu nível. Aí ele começa a apertar.\n\nVocê começa como Peão. Conquiste Cavalo, Bispo, Torre e Dama. Chegue a Rei e você terá atravessado o tabuleiro inteiro.\n\n• 53.000 problemas de partidas reais: garfos, cravadas, espetos e mates do corredor traiçoeiros\n• Um rating que encontra o seu nível e sobe com você\n• Um problema do dia, o mesmo pra todo mundo. Mantenha a sequência viva e se gabe com emojis\n• Sequências de categoria: 15 problemas, sem dicas, errou uma vez, tá fora\n• Desafie amigos no Game Center e descubram quem é bom de verdade\n• Travou? Pede uma dica. A gente não conta pra ninguém.\n• Errou? O problema volta mais tarde pra revanche\n• Comemorações enormes e barulhentas a cada nova categoria\n• Widgets para a Tela de Início, a Tela Bloqueada e o modo Em Espera\n• Um lembrete diário, se você quiser\n• Retorno tátil, modo escuro, VoiceOver e texto maior\n• Funciona offline. Sem conta, sem anúncios, sem compras dentro do app\n\nOs problemas vêm do banco de dados de problemas do Lichess, de domínio público. King Walk não é feito nem endossado pelo Lichess.",
     "keywords": "tática,xeque-mate,mate em 2,elo,rating,quebra-cabeça,treino,estratégia,tabuleiro,lógica,garfo,final"
   },
   "gamecenter": {
@@ -53,6 +53,11 @@
         "name": "Sequência de Rei",
         "suffix": " seguidos",
         "suffix_singular": " seguido"
+      },
+      "daily_streak": {
+        "name": "Sequência diária",
+        "suffix": " dias",
+        "suffix_singular": " dia"
       }
     },
     "achievements": {
@@ -150,6 +155,21 @@
         "name": "Rei concluído",
         "before": "Conclua a sequência de Rei: 15 problemas seguidos, sem dicas.",
         "earned": "Você concluiu a sequência de Rei: 15 problemas seguidos de 1900 a 2300, sem dicas."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Resolva o problema do dia 3 dias seguidos.",
+        "earned": "Você resolveu o problema do dia 3 dias seguidos."
+      },
+      "daily_7": {
+        "name": "Semana completa",
+        "before": "Resolva o problema do dia 7 dias seguidos.",
+        "earned": "Você resolveu o problema do dia 7 dias seguidos."
+      },
+      "daily_30": {
+        "name": "Trinta dias",
+        "before": "Resolva o problema do dia 30 dias seguidos.",
+        "earned": "Você resolveu o problema do dia 30 dias seguidos."
       }
     },
     "challenges": {
@@ -181,6 +201,36 @@
         "name": "Sequência de Rei",
         "description": "15 problemas que sobem de 1900 a 2300. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
       }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Desafios que <b>não dão moleza</b>",
+      "sub": "Resolveu? O próximo fica mais difícil. Errou? Ele pega leve."
+    },
+    "2": {
+      "caption": "<b>53.000</b> problemas de partidas reais",
+      "sub": "Garfos, cravadas, espetos e mates traiçoeiros."
+    },
+    "3": {
+      "caption": "Travou? <b>Pede uma dica.</b>",
+      "sub": "A gente não conta pra ninguém."
+    },
+    "4": {
+      "caption": "De Peão a <b>Rei</b>. Bora!",
+      "sub": "Suba de patente. Vença as sequências. Mostre quem manda."
+    },
+    "5": {
+      "caption": "Um problema novo <b>todo dia</b>",
+      "sub": "O mesmo pra todo mundo. Mantenha a sequência viva."
+    },
+    "duo-book-1": {
+      "caption": "Dobre como um <b>livro</b>",
+      "sub": "O tabuleiro numa página. As anotações na outra."
+    },
+    "duo-table-1": {
+      "caption": "Deixe em pé. <b>Modo notebook.</b>",
+      "sub": "O tabuleiro deitado sob suas mãos, o placar no alto."
     }
   }
 }

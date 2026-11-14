@@ -328,7 +328,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
 .daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; position: relative; font-size: 15px; }
 .daily-btn .dot { position: absolute; top: 6px; right: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--card); }
-@media (max-width: 359px) { .daily-btn { width: var(--bar); padding: 0; } .daily-btn span { display: none; } }          /* the smallest phones: the icon only, so the name stays on one line */
+@media (max-width: 359px) { .daily-btn { width: var(--bar); padding: 0; } .daily-btn span { display: none; } }
+html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn span { display: none; }          /* the book's narrow page too */          /* the smallest phones: the icon only, so the name stays on one line */
 .daily-btn.on, .daily-btn.on:hover { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
 .daily { display: grid; gap: 8px; padding-bottom: var(--pad); border-bottom: 1px solid var(--line); }
 .daily.pop { animation: bump 0.4s var(--spring); }
@@ -477,6 +478,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 /* phones show words, not icons, so the buttons are clear. Very narrow screens drop the small caption to make room. */
 @media (max-width: 479.98px) { .play-btns .btn svg.ic { display: none; } .play-btns .btn { padding: 0 13px; } }
 /* very narrow (a small phone, or large text in the app): the buttons take their own line under the rating */
+/* long labels (some languages) that don't fit beside the rating: the buttons get a row of their own (fitBar) */
+.bar-row.tight { flex-wrap: wrap; row-gap: var(--gap); } .bar-row.tight .play-btns, .bar-row.tight .done-btns { flex: 1 1 100%; max-width: none; } .bar-row.tight .play-btns .btn { flex: 1 1 0; }
 @media (max-width: 329.98px) { .bar-row { flex-wrap: wrap; row-gap: var(--gap); } .play-btns, .done-btns { flex: 1 1 100%; max-width: none; } .play-btns .btn { flex: 1 1 0; } }
 @media (max-width: 349.98px) { .rate-txt span { display: none; } .play-btns .btn { padding: 0 11px; } }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -1254,6 +1257,13 @@ function goalText() {
   return mate ? T("Checkmate in {n}", { n: mate.slice(6) }) : th.includes("mate") ? T("Find the checkmate") : T("Find the best move");
 }
 function showTurn() { setStatus("turn", (orient === "w" ? T("White to play") : T("Black to play")), goalText(), "token"); }
+function fitBar() {
+  const row = document.querySelector(".actions .bar-row"); if (!row) return;
+  row.classList.remove("tight");
+  const edge = row.parentElement.getBoundingClientRect().right + 1;
+  if ([...row.querySelectorAll(".btn")].some(b => b.offsetParent && (b.getBoundingClientRect().right > edge || b.scrollWidth > b.clientWidth + 1))) row.classList.add("tight");
+}
+addEventListener("resize", () => fitBar());
 function setButtons(on) {
   $("hintBtn").disabled = !on || hintLevel >= 2; $("answerBtn").disabled = !on;
   $("hintLabel").textContent = (hintLevel === 0 ? T("Hint") : T("Hint 2"));
@@ -1269,7 +1279,7 @@ async function nextPuzzle() {
   clearTimers(); closePromo();
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
-  $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
+  $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
   $("playBtns").classList.toggle("run", !!RUN);
   renderDailyBtn();
   $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
@@ -1280,7 +1290,7 @@ async function nextPuzzle() {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
     setStatus("bad", T("The puzzles could not load"), T("Check the connection"), "bad");
-    $("nextLabel").textContent = T("Try again"); $("doneBtns").hidden = false; $("playBtns").hidden = true; return;
+    $("nextLabel").textContent = T("Try again"); $("doneBtns").hidden = false; fitBar(); $("playBtns").hidden = true; return;
   }
   if (gen !== puzzleGen) return;          /* a newer load took over while this one waited */
   $("nextLabel").textContent = T("Next puzzle");
@@ -1432,7 +1442,7 @@ function finish(solvedIt) {
   const box = $("themes"); box.textContent = ""; let n = 0;
   for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = T(THEME_LABEL[t]); c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
-  $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(before);
   if (rankUp) { const cu = document.querySelector(".lad.cur"); if (cu) restart(cu, "pop"); }
@@ -1626,7 +1636,7 @@ function finishDaily(solved) {
   $("delta").className = "delta";
   lastResult = { daily: { n: d.n } };
   $("nextLabel").textContent = T("Next puzzle");
-  $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   renderPanel(); sendDaily();
   $("shareRankBtn").focus({ preventScroll: true });
 }
@@ -1769,7 +1779,7 @@ function finishRun(clean) {
   lastResult = { run: { rank: r.rank, step: r.step, over: r.over, cleared } };
   $("nextLabel").textContent = (r.over ? T("Back to puzzles") : T("Next puzzle"));
   $("againBtn").hidden = !r.over;
-  $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   renderPanel();
   $("nextBtn").focus({ preventScroll: true });
 }

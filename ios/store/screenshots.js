@@ -1,11 +1,17 @@
 // Makes the App Store screenshots: loads the game with a saved player partway up the ranks, poses five moments,
 // captures the screen at the exact device size, then frames each with a caption.
-// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table]   (default: all). Needs Playwright.
+// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table] [--lang <locale>]   (default: all devices,
+//        in English). Needs Playwright.
 // Output: ios/store/screenshots/<device>-<n>.png (captioned, upload these) and raw/<device>-<n>.png.
+// --lang de-DE (a file in l10n/): the game in that language with the captions from that file's "screenshots", saved to
+// screenshots/l10n/<locale>/ (not committed: the App Store listing workflow makes them before it uploads them).
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const server = require("../../testing/server");
-const { savedPlayer, seedRandom } = require("../../testing/media");
+const { savedPlayer, seedRandom, SHOT_DATE } = require("../../testing/media");
+const LOCALE = (process.argv.find((a, i) => process.argv[i - 1] === "--lang") || "");
+const L10N = LOCALE ? JSON.parse(fs.readFileSync(path.join(__dirname, "l10n", LOCALE + ".json"), "utf8")) : null;
+const PAGE_LANG = LOCALE ? ({ "zh-Hans": "zh", "pt-BR": "pt" }[LOCALE] || LOCALE.split("-")[0]) : "";
 const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -26,9 +32,15 @@ const SHOTS = [
   { id: 2, caption: "<b>53,000</b> real-game puzzles", sub: "Forks, pins, skewers and sneaky mates." },
   { id: 3, caption: "Stuck? <b>Take a hint.</b>", sub: "We won't tell anyone." },
   { id: 4, caption: "Pawn to <b>King</b>. Go.", sub: "Climb the ranks. Clear the streaks. Show off." },
-  { id: 5, caption: "Night owl? <b>Dark mode.</b>", sub: "No account. No ads. Works offline." },
+  { id: 5, caption: "A new puzzle <b>every day</b>", sub: "Same one for everyone. Keep your streak alive." },
 ];
-const out = path.join(__dirname, "screenshots"), raw = path.join(out, "raw");
+// another language: its captions (l10n/<locale>.json, "screenshots": {"1": {caption, sub}, ..., "duo-book-1", "duo-table-1"})
+if (L10N) {
+  const t = L10N.screenshots || {};
+  for (const s of SHOTS) if (t[s.id]) Object.assign(s, t[s.id]); else console.log(LOCALE, "has no caption", s.id, "(English used)");
+  for (const d of ["duo-book", "duo-table"]) if (t[d + "-1"]) Object.assign(CAPTIONS[d][1], t[d + "-1"]);
+}
+const out = LOCALE ? path.join(__dirname, "screenshots", "l10n", LOCALE) : path.join(__dirname, "screenshots"), raw = path.join(out, "raw");
 fs.mkdirSync(raw, { recursive: true });
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
 const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, name.toLowerCase() + "-latin-" + w + "-normal.woff2")).toString("base64")})}`;
@@ -37,13 +49,14 @@ async function newGame(b, name, dark, seed) {
   const { q, ...dev } = DEVICES[name];
   const ctx = await b.newContext({ ...dev, colorScheme: dark ? "dark" : "light", reducedMotion: "no-preference" });
   const p = await ctx.newPage(), errs = [];
+  await p.clock.setFixedTime(SHOT_DATE);
   p.on("pageerror", e => errs.push(e.message));
   await p.route(/zgo\.at|goatcounter/, r => r.abort());
   await p.addInitScript(seedRandom, seed);
   await p.addInitScript(save => {
     if (!sessionStorage.getItem("seeded")) { sessionStorage.setItem("seeded", "1"); localStorage.setItem("chess-climb-v1", JSON.stringify(save)); }
   }, savedPlayer());
-  await p.goto(srv.url + (q || ""));
+  await p.goto(srv.url + (q || "") + (PAGE_LANG ? (q ? "&" : "?") + "lang=" + PAGE_LANG : ""));
   await p.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 20000 });
   await p.waitForTimeout(500);
   return { ctx, p, errs };
@@ -76,9 +89,17 @@ async function capture(b, name) {
   await solve(g.p);
   await g.p.waitForSelector(".cele .cele-btns", { timeout: 10000 }); await g.p.waitForTimeout(2200);
   await shot(g.p, name, 4); await g.ctx.close();
-  // 5: dark mode, a puzzle in progress with a piece picked up
+  // 5: dark mode, the daily puzzle just solved: a seventh day in a row
   g = await newGame(b, name, true, SEEDS[5]);
-  await g.p.evaluate(() => { const m = cur.pz.moves[idx]; sel = m.slice(0, 2); paint(); }); await g.p.waitForTimeout(300); await shot(g.p, name, 5);
+  await g.p.evaluate(() => startDaily());
+  await g.p.waitForFunction(() => DAILY && cur && cur.daily && !locked, null, { timeout: 20000 });
+  await g.p.evaluate(() => { DAILY.spent = 52; });          /* the page's clock is fixed, so time the solve by hand */
+  await solve(g.p);
+  /* the seventh day earns Full Week: close its celebration (shot 4 shows one) to show the board and the week */
+  await g.p.waitForSelector(".cele .go", { timeout: 6000 }).then(() => g.p.waitForTimeout(1400)).then(() => g.p.click(".cele .go")).catch(() => {});
+  await g.p.waitForFunction(() => !document.querySelector(".cele"), null, { timeout: 5000 });
+  await g.p.evaluate(() => document.activeElement && document.activeElement.blur());
+  await g.p.waitForTimeout(500); await shot(g.p, name, 5);
   if (g.errs.length) console.log(name, "page errors", g.errs);
   await g.ctx.close();
   console.log(name, "captured");
@@ -95,8 +116,8 @@ async function caption(b, name) {
     await p.setContent(`<!doctype html><html><head><style>${font("Fredoka", 600)}${font("Nunito", 700)}
       body{margin:0;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(130% 80% at 50% 0%,#1c7868,#143f38 55%,#0d2925)}
       .cap{height:${top}px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:${Math.round(F.sub * 0.5)}px;padding:0 ${Math.round(W * 0.07)}px;box-sizing:border-box;text-align:center}
-      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
-      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 Nunito,sans-serif;color:rgba(253,251,242,.78)}
+      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,"Noto Sans CJK JP","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
+      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 Nunito,"Noto Sans CJK JP","Noto Sans",sans-serif;color:rgba(253,251,242,.78)}
       img{display:block;margin:0 auto;width:${iw}px;border-radius:${F.r}px;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 70px rgba(0,0,0,.45)}</style></head>
       <body><div class="cap"><h1>${s.caption}</h1><p>${s.sub}</p></div><img src="${img}"></body></html>`);
     await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);
@@ -106,7 +127,7 @@ async function caption(b, name) {
 }
 
 (async () => {
-  const which = process.argv[2] ? [process.argv[2]] : Object.keys(DEVICES);
+  const named = process.argv.slice(2).filter(a => DEVICES[a]), which = named.length ? named : Object.keys(DEVICES);
   srv = await server.start(); const b = await chromium.launch();
   for (const n of which) { await capture(b, n); await caption(b, n); }
   await b.close(); srv.close(); console.log("saved to", out);

@@ -7,7 +7,7 @@ name: App Store listing
 on:
   push:
     branches: [main]
-    paths: ['ios/store/listing.json', 'ios/store/screenshots/*.png', 'ios/store/upload_listing.py', 'ios/store/creative.py',
+    paths: ['ios/store/listing.json', 'ios/store/l10n/*', 'ios/store/screenshots/*.png', 'ios/store/screenshots.js', 'ios/store/upload_listing.py', 'ios/store/creative.py',
             'ios/store/header/*', 'ios/store/previews/*', 'ios/store/gamecenter.json', 'ios/store/gamecenter/*', 'ios/store/gamecenter.py',
             '.github/workflows/store.yml']
   workflow_dispatch:
@@ -20,6 +20,8 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.secrets.outputs.ok }}
     env:
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
@@ -45,3 +47,39 @@ jobs:
         if: steps.secrets.outputs.ok == 'true'
         continue-on-error: true
         run: python3 ios/store/creative.py ${{ inputs.discover && '--discover' || '' }}
+
+  # The screenshots in each other language: the game in that language with translated captions (l10n/<locale>.json),
+  # made here rather than kept in the repo, then uploaded to that language's page. One job per language, side by side.
+  # Each job keeps its images as a workflow artifact for 30 days, to look at.
+  screenshots:
+    needs: upload
+    if: needs.upload.outputs.ok == 'true' && !inputs.discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: [de-DE, es-ES, es-MX, fr-FR, it, ja, ko, nl-NL, pt-BR, ru, zh-Hans]
+    env:
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+      BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Playwright, and fonts for Japanese, Korean and Chinese
+        run: |
+          npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Make the screenshots
+        run: node ios/store/screenshots.js --lang ${{ matrix.locale }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ matrix.locale }}
+          path: ios/store/screenshots/l10n/${{ matrix.locale }}/*.png
+          retention-days: 30
+      - run: pip install pyjwt cryptography
+      - name: Upload them
+        run: python3 ios/store/upload_listing.py --locale ${{ matrix.locale }}

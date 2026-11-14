@@ -4,7 +4,7 @@
     "name": "King Walk: Schachrätsel",
     "subtitle": "Aufgaben, die zurückschlagen",
     "promotional_text": "Finde die Gabel. Setz das Matt. Überleb die Serie. 53.000 Aufgaben aus echten Partien, die härter werden, je besser du wirst. Heute Bauer, irgendwann König.",
-    "description": "Du siehst drei Züge voraus? Beweis es.\n\nKing Walk feuert echte Schachaufgaben auf dich ab, 53.000 Stück, alle aus echten Partien. Löst du eine, wird die nächste härter. Verpasst du eine, geht es einen Schritt zurück. Nach ein paar Dutzend Aufgaben weiß das Spiel genau, wie gut du bist. Dann legt es richtig los.\n\nDu startest als Bauer. Hol dir Springer, Läufer, Turm und Dame. Wirst du König, bist du einmal übers ganze Brett gelaufen.\n\n• 53.000 Aufgaben aus echten Partien: Gabeln, Fesselungen, Spieße und fiese Grundreihenmatts\n• Eine Wertung, die dein Niveau findet und mit dir steigt\n• Rang-Serien: 15 Aufgaben, keine Tipps, ein Fehler und du bist raus\n• Fordere Freunde in Game Center heraus und klärt, wer es wirklich draufhat\n• Du hängst fest? Hol dir einen Tipp. Wir verraten es keinem.\n• Daneben? Die Aufgabe kommt später zur Revanche zurück\n• Große, laute Feiern bei jedem Aufstieg\n• Ein Widget für den Home-Bildschirm, mit dem du deinen Rang zeigen kannst\n• Haptik, Dunkelmodus, VoiceOver und größere Schrift\n• Funktioniert offline. Kein Konto, keine Werbung, keine In-App-Käufe\n\nDie Aufgaben stammen aus der gemeinfreien Aufgabendatenbank von Lichess. King Walk wird nicht von Lichess entwickelt oder unterstützt.",
+    "description": "Du siehst drei Züge voraus? Beweis es.\n\nKing Walk feuert echte Schachaufgaben auf dich ab, 53.000 Stück, alle aus echten Partien. Löst du eine, wird die nächste härter. Verpasst du eine, geht es einen Schritt zurück. Nach ein paar Dutzend Aufgaben weiß das Spiel genau, wie gut du bist. Dann legt es richtig los.\n\nDu startest als Bauer. Hol dir Springer, Läufer, Turm und Dame. Wirst du König, bist du einmal übers ganze Brett gelaufen.\n\n• 53.000 Aufgaben aus echten Partien: Gabeln, Fesselungen, Spieße und fiese Grundreihenmatts\n• Eine Wertung, die dein Niveau findet und mit dir steigt\n• Eine tägliche Aufgabe, für alle dieselbe. Halte die Serie am Leben, prahle mit Emojis\n• Rang-Serien: 15 Aufgaben, keine Tipps, ein Fehler und du bist raus\n• Fordere Freunde in Game Center heraus und klärt, wer es wirklich draufhat\n• Du hängst fest? Hol dir einen Tipp. Wir verraten es keinem.\n• Daneben? Die Aufgabe kommt später zur Revanche zurück\n• Große, laute Feiern bei jedem Aufstieg\n• Widgets für Home-Bildschirm, Sperrbildschirm und StandBy\n• Eine tägliche Erinnerung, wenn du magst\n• Haptik, Dunkelmodus, VoiceOver und größere Schrift\n• Funktioniert offline. Kein Konto, keine Werbung, keine In-App-Käufe\n\nDie Aufgaben stammen aus der gemeinfreien Aufgabendatenbank von Lichess. King Walk wird nicht von Lichess entwickelt oder unterstützt.",
     "keywords": "schach,taktik,schachmatt,matt in 2,elo,wertung,schachaufgaben,training,strategie,gabel,endspiel"
   },
   "gamecenter": {
@@ -53,6 +53,11 @@
         "name": "Königs-Serie",
         "suffix": " in Folge",
         "suffix_singular": " in Folge"
+      },
+      "daily_streak": {
+        "name": "Tagesserie",
+        "suffix": " Tage",
+        "suffix_singular": " Tag"
       }
     },
     "achievements": {
@@ -150,6 +155,21 @@
         "name": "König geschafft",
         "before": "Schaffe die Königs-Serie: 15 Aufgaben in Folge, ohne Hinweise.",
         "earned": "Du hast die Königs-Serie geschafft: 15 Aufgaben in Folge von 1900 bis 2300, ohne Hinweise."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Löse die Aufgabe des Tages 3 Tage in Folge.",
+        "earned": "Du hast die Aufgabe des Tages 3 Tage in Folge gelöst."
+      },
+      "daily_7": {
+        "name": "Volle Woche",
+        "before": "Löse die Aufgabe des Tages 7 Tage in Folge.",
+        "earned": "Du hast die Aufgabe des Tages 7 Tage in Folge gelöst."
+      },
+      "daily_30": {
+        "name": "Dreißig Tage",
+        "before": "Löse die Aufgabe des Tages 30 Tage in Folge.",
+        "earned": "Du hast die Aufgabe des Tages 30 Tage in Folge gelöst."
       }
     },
     "challenges": {
@@ -181,6 +201,36 @@
         "name": "Königs-Serie",
         "description": "15 Aufgaben, die von 1900 bis 2300 steigen. Keine Hinweise, ein Fehler beendet den Lauf. Wer kommt am weitesten?"
       }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Aufgaben, die <b>zurückschlagen</b>",
+      "sub": "Gelöst? Die nächste wird härter. Daneben? Sie wird leichter."
+    },
+    "2": {
+      "caption": "<b>53.000</b> Aufgaben aus echten Partien",
+      "sub": "Gabeln, Fesselungen, Spieße und fiese Matts."
+    },
+    "3": {
+      "caption": "Hängst du? <b>Nimm einen Tipp.</b>",
+      "sub": "Wir verraten es keinem."
+    },
+    "4": {
+      "caption": "Vom Bauern zum <b>König</b>. Los!",
+      "sub": "Steig im Rang auf. Knack die Serien. Gib an."
+    },
+    "5": {
+      "caption": "<b>Jeden Tag</b> eine neue Aufgabe",
+      "sub": "Für alle dieselbe. Halte deine Serie am Leben."
+    },
+    "duo-book-1": {
+      "caption": "Aufklappen wie ein <b>Buch</b>",
+      "sub": "Auf einer Seite das Brett, auf der anderen Notizen."
+    },
+    "duo-table-1": {
+      "caption": "Aufstellen. <b>Laptop-Modus.</b>",
+      "sub": "Das Brett flach unter deinen Händen, der Stand oben."
     }
   }
 }

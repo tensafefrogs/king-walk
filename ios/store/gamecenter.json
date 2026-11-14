@@ -81,6 +81,15 @@
       "submission": "BEST_SCORE",
       "suffix": " in a row",
       "suffix_singular": " in a row"
+    },
+    {
+      "id": "daily_streak",
+      "name": "Daily Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " days",
+      "suffix_singular": " day"
     }
   ],
   "achievements": [
@@ -208,6 +217,39 @@
       "points": 100,
       "art": {
         "piece": "k"
+      }
+    },
+    {
+      "id": "daily_3",
+      "name": "Hat Trick",
+      "earned": "You solved the daily puzzle 3 days in a row.",
+      "before": "Solve the daily puzzle 3 days in a row.",
+      "points": 5,
+      "art": {
+        "number": 3,
+        "label": "days"
+      }
+    },
+    {
+      "id": "daily_7",
+      "name": "Full Week",
+      "earned": "You solved the daily puzzle 7 days in a row.",
+      "before": "Solve the daily puzzle 7 days in a row.",
+      "points": 10,
+      "art": {
+        "number": 7,
+        "label": "days"
+      }
+    },
+    {
+      "id": "daily_30",
+      "name": "Thirty Days",
+      "earned": "You solved the daily puzzle 30 days in a row.",
+      "before": "Solve the daily puzzle 30 days in a row.",
+      "points": 15,
+      "art": {
+        "number": 30,
+        "label": "days"
       }
     },
     {
