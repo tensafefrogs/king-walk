@@ -14,5 +14,6 @@ enum WidgetData {
         last = withoutTime
         SharedStore.write(Progress.key, data)
         WidgetCenter.shared.reloadTimelines(ofKind: Progress.widgetKind)
+        WidgetCenter.shared.reloadTimelines(ofKind: Progress.dailyKind)
     }
 }

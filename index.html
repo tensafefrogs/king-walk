@@ -324,6 +324,26 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs { display: grid; gap: 6px; }
+/* the daily puzzle: header button, and the panel with the last 7 days */
+.top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
+.daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; position: relative; font-size: 15px; }
+.daily-btn .dot { position: absolute; top: 6px; right: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--card); }
+@media (max-width: 359px) { .daily-btn { width: var(--bar); padding: 0; } .daily-btn span { display: none; } }          /* the smallest phones: the icon only, so the name stays on one line */
+.daily-btn.on, .daily-btn.on:hover { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
+.daily { display: grid; gap: 8px; padding-bottom: var(--pad); border-bottom: 1px solid var(--line); }
+.daily.pop { animation: bump 0.4s var(--spring); }
+.daily-fire { font: 700 15px var(--font-display); white-space: nowrap; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; text-align: center; margin: 0; padding: 0; list-style: none; }
+.week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
+.week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
+.week .ok i { background: var(--p-gold); border-color: var(--p-gold); }
+.week .miss i { background: var(--tile); color: var(--muted); }
+.week .today i { border-color: var(--accent); border-width: 3px; }
+.week .today { color: var(--fg); }
+.daily-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.daily-note { margin: 0; font-size: 14px; font-weight: 700; min-width: 0; }
+.daily-note span { display: block; font-weight: 600; font-size: 12.5px; color: var(--muted); }
+.setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
 .play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
@@ -563,7 +583,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <svg class="mark" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="128" fill="#f2c230"/><rect x="118.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="212.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="212.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="309.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><rect x="306.0" y="215.6" width="88.0" height="88.0" rx="16.0" fill="#fdfbf2"/><rect x="306.0" y="121.6" width="88.0" height="88.0" rx="16.0" fill="#16302c"/><svg x="160.0" y="55.4" width="178.0" height="178.0" viewBox="0 0 100 100"><g stroke-linejoin="round" stroke-linecap="round"><g fill="#1c2826" stroke="#1c2826" stroke-width="5"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#fdfbf2"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><mask id="icon-ms-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-14 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.1)" mask="url(#icon-ms-wk)"/><mask id="icon-mc-wk"><g fill="#fff"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g><g fill="#000" transform="translate(-6.5 -1)"><rect x="46" y="4" width="8" height="24" rx="2.5"/><rect x="38" y="9" width="24" height="8" rx="2.5"/><path d="M23 31 C23 21 41 20 50 31 C59 20 77 21 77 31 C77 40 71 46 67 51 L33 51 C29 46 23 40 23 31 Z"/><rect x="31" y="47" width="38" height="8.5" rx="4.25"/><path d="M38 53 L62 53 L60 61 L40 61 Z"/><rect x="32" y="58" width="36" height="7.5" rx="3.75"/><path d="M39 63 L61 63 C61 69 66 74 70 79 L30 79 C34 74 39 69 39 63 Z"/><rect x="22" y="77" width="56" height="13" rx="6.5"/></g></mask><rect width="100" height="100" fill="rgba(24,44,40,0.15)" mask="url(#icon-mc-wk)"/><g fill="none" stroke="#1c2826" stroke-width="3"><circle cx="41" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="50" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><circle cx="59" cy="51.2" r="1.9" stroke="none" fill="#1c2826"/><path d="M50 33 V44"/></g></g></svg></svg>
       <h1>King Walk</h1>
     </div>
+    <div class="top-btns">
+    <button type="button" id="dailyBtn" class="btn daily-btn" aria-label="Daily puzzle"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span id="dailyBtnTxt">Daily</span><i class="dot" id="dailyDot" hidden></i></button>
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
   </header>
 
   <div class="collapse menu" id="menu" role="region" aria-label="Settings and help" inert>
@@ -581,6 +604,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           </div>
         </div>
         <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
+        <div class="setrow" id="remindRow" hidden><span id="remindLabel">Daily reminder</span><select id="remindSel" aria-labelledby="remindLabel"></select></div>
+        <p class="note" id="remindNote" hidden>Notifications are off for King Walk. Turn them on in the Settings app.</p>
         <div class="setrow" id="gcRow" hidden><span>Game Center</span><button type="button" id="gcBtn" class="btn small">Leaderboards and achievements</button></div>
         <div class="menu-sec">
           <details>
@@ -592,6 +617,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
               <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
               <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
+              <li>The daily puzzle is the same for everyone each day. Monday's is gentle, and each day gets a little harder, up to Sunday. Solve it every day to grow your daily streak. It doesn't touch your rating.</li>
               <li>Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.</li>
               <li id="helpSaved">Progress is saved in this browser only. There are no accounts.</li>
               <li>The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.</li>
@@ -666,6 +692,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
 
     <section class="card stack progress" aria-label="Progress">
+      <div class="daily" id="dailyBox">
+        <div class="card-head"><p class="label">Daily puzzle</p><span class="daily-fire" id="dailyFire"></span></div>
+        <ol class="week" id="dailyWeek"></ol>
+        <div class="daily-row"><p class="daily-note" id="dailyNote"></p><button type="button" id="dailyPlay" class="btn small primary">Play</button></div>
+      </div>
       <div>
         <div class="card-head">
           <p class="label">Progress</p>
@@ -796,9 +827,20 @@ function toggleSection(btn, section) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {} };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily() };
 }
+function newDaily() { return { streak: 0, best: 0, last: 0, days: {} }; }
 const count = v => Math.max(0, v | 0);
+const MARKS = "gyrx";          /* a daily puzzle move: g first try, y with a hint, r after a wrong try, x shown */
+function cleanDaily(d) {
+  const q = newDaily(); if (!d || typeof d !== "object") return q;
+  q.streak = count(d.streak); q.best = Math.max(count(d.best), q.streak); q.last = count(d.last);
+  if (d.days && typeof d.days === "object") for (const k of Object.keys(d.days).map(Number).filter(n => n > 0).sort((a, b) => a - b).slice(-60)) {
+    const v = d.days[k]; if (v && typeof v.m === "string" && /^[gyrx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
+  }
+  if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400) };
+  return q;
+}
 /* Rebuild saved data field by field so a damaged save or a hand-edited save code cannot break the game. */
 function cleanState(raw) {
   if (!raw || !Array.isArray(raw.players) || !raw.players.length) return null;
@@ -815,17 +857,18 @@ function cleanState(raw) {
     if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(0, 20).map(r => ({ b: r.b, i: count(r.i), due: count(r.due), tries: clamp(count(r.tries), 0, 3) }));
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
     q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
+    q.daily = cleanDaily(p.daily);
     q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true,
+  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, remind: Number.isInteger(raw.remind) && raw.remind >= -1 && raw.remind < 24 ? raw.remind : -1,
     awards: Array.isArray(raw.awards) ? raw.awards.filter(a => typeof a === "string" && a.length < 40).slice(0, 64) : null, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
-let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, rateAsked: 0, players: [newPlayer(START_RATING)] };
+let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, remind: -1, rateAsked: 0, players: [newPlayer(START_RATING)] };
 if (S.updatedAt) writeLocal();          /* store the cleaned copy */
 const me = () => S.players[S.cur];
 function save() { S.updatedAt = Date.now(); writeLocal(); }
@@ -1011,7 +1054,8 @@ function reportProgress(p, puzzle) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
     APP.post({ op: "widget", data: { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
       labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
-      solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now() } });
+      solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now(),
+      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyN: dayNumber(), dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily") } });
   }
 }
 
@@ -1026,6 +1070,7 @@ const RANK_GLYPH = ["\u2659", "\u2658", "\u2657", "\u2656", "\u2655", "\u2654"];
 let lastResult = null;
 function shareText(last) {
   const p = me(), ri = rankIndex(p.rating), lines = [];
+  if (last && last.daily) return dailyShareText(last.daily.n);
   if (last && last.run) {
     const r = last.run;
     lines.push(RANK_GLYPH[r.rank] + " King Walk \u00b7 " + T("{rank} streak", { rank: rankName(r.rank) }));
@@ -1214,7 +1259,7 @@ function setButtons(on) {
   $("hintLabel").textContent = (hintLevel === 0 ? T("Hint") : T("Hint 2"));
 }
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
-function markNow() { if (RUN) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
+function markNow() { if (RUN || DAILY) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
 let promoCancel = null;
 function closePromo() { const ov = boardEl.querySelector(".promo"); if (ov) ov.remove(); promoCancel = null; }
 
@@ -1226,11 +1271,12 @@ async function nextPuzzle() {
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
   $("playBtns").classList.toggle("run", !!RUN);
+  renderDailyBtn();
   $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
   let pick;
-  try { [pick] = await Promise.all([RUN ? pickRunPuzzle() : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
+  try { [pick] = await Promise.all([RUN ? pickRunPuzzle() : DAILY ? dailyPuzzle(DAILY.n) : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
     setStatus("bad", T("The puzzles could not load"), T("Check the connection"), "bad");
@@ -1241,19 +1287,20 @@ async function nextPuzzle() {
   cur = pick; idx = 0; first = false;
   const p = me();
   if (pick.resumed) { failed = p.now.f; hintLevel = p.now.h; }
-  if (!RUN) { p.now = { b: pick.band, i: pick.i, review: !!pick.review, tries: pick.tries | 0, f: failed, h: hintLevel }; save(); }          /* a streak keeps the normal game's puzzle waiting */
+  if (!RUN && !DAILY) { p.now = { b: pick.band, i: pick.i, review: !!pick.review, tries: pick.tries | 0, f: failed, h: hintLevel }; save(); }          /* a streak keeps the normal game's puzzle waiting */
   game = new Chess(cur.pz.fen + " 0 1");
   orient = game.turn() === "w" ? "b" : "w";          /* the other side moves first, then the player answers */
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
-  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : T("Second try");
-  $("stLevel").hidden = !cur.review && !RUN;
+  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : DAILY ? "#" + DAILY.n : T("Second try");
+  $("stLevel").hidden = !cur.review && !RUN && !DAILY;
   renderPuzzleInfo();
-  setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
+  if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), T("The same puzzle for everyone today"), "wait");
+  else setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
-    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); }, 300);
+    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY) DAILY.t0 = Date.now(); }, 300);
   }, REDUCED ? 300 : 760);
 }
 
@@ -1284,7 +1331,7 @@ function commit(from, to, promo) {
   const said = describeMove(mv);
   sel = null; hintSq = []; overSq = null;
   if (uci === want || mated) {          /* any checkmate counts, even if it is not the listed move */
-    lastMove = [from, to]; wrongSq = null; idx++;
+    dailyMark("g"); lastMove = [from, to]; wrongSq = null; idx++;
     const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move");
     locked = true; setButtons(false);
     if (mated || idx >= cur.pz.moves.length) { announce(said); later(() => finish(true), 260); return; }
@@ -1292,7 +1339,7 @@ function commit(from, to, promo) {
     setStatus("good", T("Good move! Keep going."), "", "good");
     later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; setButtons(true); showTurn(); }, 280); }, 560);
   } else {          /* wrong: show it, then take it back */
-    failed = true; markNow(); locked = true; wrongSq = to; lastMove = [];
+    failed = true; markNow(); dailyMark("r"); locked = true; wrongSq = to; lastMove = [];
     syncPieces({ from, to }); paint(); sfx.bad(); haptic("wrong");
     const o = els.get(to); if (o) later(() => restart(o.el, "nope"), 200);
     restart(frameEl, "shake");
@@ -1313,11 +1360,12 @@ function showHint() {
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
   setStatus("hint", (hintLevel === 1 ? T("Move the piece in the gold circle") : T("Move it to the other gold circle")), "", "hint");
-  setButtons(true); paint(); markNow(); haptic("hint");
+  setButtons(true); paint(); markNow(); dailyMark("y"); haptic("hint");
 }
 function showAnswer() {
   if (locked || done || (RUN && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false);
+  if (DAILY) for (let k = idx; k < cur.pz.moves.length; k += 2) dailyMark("x", k);
   setStatus("info", T("Watch the answer"), "", "wait");
   const step = () => {
     if (idx >= cur.pz.moves.length) { finish(false); return; }
@@ -1341,6 +1389,7 @@ const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (
 function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
   if (RUN) { finishRun(solvedIt && !failed && !hintLevel); return; }
+  if (DAILY) { finishDaily(solvedIt); return; }
   const p = me(), before = p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
   let delta = 0;
@@ -1405,6 +1454,9 @@ const AWARDS = {
   streak_5: ["Achievement", "On a Roll", "5 puzzles in a row.", { number: 5, streak: true }],
   streak_10: ["Achievement", "Ten in a Row", "10 puzzles in a row.", { number: 10, streak: true }],
   streak_20: ["Achievement", "Unstoppable", "20 puzzles in a row.", { number: 20, streak: true }],
+  daily_3: ["Achievement", "Hat Trick", "The daily puzzle, solved 3 days in a row.", { number: 3, daily: true }],
+  daily_7: ["Achievement", "Full Week", "The daily puzzle, solved 7 days in a row.", { number: 7, daily: true }],
+  daily_30: ["Achievement", "Thirty Days", "The daily puzzle, solved 30 days in a row.", { number: 30, daily: true }],
   giant_slayer: ["Achievement", "Giant Slayer", "You cleanly solved a puzzle rated 300 or more above you.", { slayer: true }],
 };
 RANKS.forEach((r, i) => {
@@ -1416,6 +1468,7 @@ function earnedAwards(p, puzzle) {
   if (p.solved >= 1) out.push("first_solve");
   for (const [n, id] of [[50, "solved_50"], [250, "solved_250"], [1000, "solved_1000"]]) if (p.solved >= n) out.push(id);
   for (const [n, id] of [[5, "streak_5"], [10, "streak_10"], [20, "streak_20"]]) if (p.best >= n) out.push(id);
+  for (const [n, id] of [[3, "daily_3"], [7, "daily_7"], [30, "daily_30"]]) if (p.daily.best >= n) out.push(id);
   for (let i = 1; i <= rankIndex(p.peak); i++) out.push("rank_" + RANKS[i][1].toLowerCase());
   for (const r of RANKS) if ((p.runs[r[2]] || 0) >= STREAK_LEN) out.push("clear_" + r[1].toLowerCase());
   if (puzzle && puzzle.clean && puzzle.r - puzzle.before >= 300) out.push("giant_slayer");
@@ -1435,7 +1488,7 @@ function checkAwards(p, puzzle) {
 
 /* the poster at the top of the celebration screen, 300 x 220 */
 function posterSvg(art) {
-  const sky = art.gold ? "var(--p-gold)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
+  const sky = art.gold ? "var(--p-gold)" : art.daily ? "var(--p-coral)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
   const rayColor = art.gold ? "var(--p-sun)" : art.number ? "rgba(253,251,242,0.16)" : "var(--p-cream)";
   let rays = ""; for (let i = 0; i < 16; i++) { const a0 = i / 16 * Math.PI * 2, a1 = (i + 0.5) / 16 * Math.PI * 2;
     rays += `M150,120 L${150 + Math.cos(a0) * 260},${120 + Math.sin(a0) * 260} L${150 + Math.cos(a1) * 260},${120 + Math.sin(a1) * 260} Z`; }
@@ -1496,6 +1549,163 @@ function celebrate(ids) {
   setTimeout(() => go.focus({ preventScroll: true }), REDUCED ? 50 : 1300);
 }
 
+/* ---------- the daily puzzle ----------
+   One puzzle a day, the same for everyone, with no server: it is picked from the date. Monday's is gentle and each
+   day of the week is a little harder, up to Sunday. It doesn't change the rating. p.daily keeps the daily streak
+   (days in a row solved without showing the answer), the best, and the last 60 results; p.daily.now is today's
+   puzzle while it's being played, so leaving and coming back keeps its marks. DAILY is the one on the board.
+   The pick depends on the puzzle files (p/): changing them changes the daily puzzles from then on. */
+const DAILY_EPOCH = Date.UTC(2026, 10, 14);          /* Daily #1 */
+const DAILY_RANGE = [[1700, 1899], [500, 699], [700, 899], [900, 1099], [1100, 1299], [1300, 1499], [1500, 1699]];          /* by weekday, Sunday first */
+const dayNumber = (d = new Date()) => Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - DAILY_EPOCH) / 864e5) + 1);
+const dayDate = n => { const u = new Date(DAILY_EPOCH + (n - 1) * 864e5); return new Date(u.getUTCFullYear(), u.getUTCMonth(), u.getUTCDate()); };
+const dayKey = n => { const d = dayDate(n); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function hash32(n) { n = Math.imul((n | 0) ^ 0x9e3779b9, 0x85ebca6b); n ^= n >>> 13; n = Math.imul(n, 0xc2b2ae35); n ^= n >>> 16; return n >>> 0; }
+async function dailyPuzzle(n) {
+  const [lo, hi] = DAILY_RANGE[dayDate(n).getDay()], h = hash32(n), bands = (bandOf(hi) - bandOf(lo)) / 100 + 1;
+  const band = bandOf(lo) + 100 * (h % bands), list = await loadBand(band), start = hash32(h) % list.length;
+  for (let k = 0; k < list.length; k++) {          /* the first one from a fixed spot that's in range and at most 4 moves */
+    const i = (start + k) % list.length, pz = list[i];
+    if (pz.r >= lo && pz.r <= hi && pz.moves.length <= 8) return { band, i, pz, size: list.length, review: false, daily: n };
+  }
+  return { band, i: start, pz: list[start], size: list.length, review: false, daily: n };
+}
+let DAILY = null;
+/* the daily streak as it stands today: it lapses once a day is skipped */
+const dailyStreak = p => p.daily.last >= dayNumber() - 1 ? p.daily.streak : 0;
+const dailyDone = (p, n = dayNumber()) => p.daily.days[n];
+function startDaily() {
+  const p = me(), n = dayNumber();
+  if (RUN) RUN = null;
+  if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
+  if (dailyDone(p, n)) { const b = $("dailyBox"); b.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" }); restart(b, "pop"); return; }
+  const now = p.daily.now && p.daily.now.n === n ? p.daily.now : null;
+  DAILY = { n, marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
+  p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent }; save();
+  track(now ? "daily/resume" : "daily/start");
+  renderDaily();
+  window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+  nextPuzzle();
+}
+function dailySpent() { return DAILY.spent + (DAILY.t0 ? Math.round((Date.now() - DAILY.t0) / 1000) : 0); }
+/* note how the player's move at index k (an odd index in the move list) went; a worse mark wins */
+function dailyMark(m, k = idx) {
+  if (!DAILY) return;
+  const j = (k - 1) >> 1, was = DAILY.marks[j] || "";
+  if (!was || MARKS.indexOf(m) > MARKS.indexOf(was)) DAILY.marks[j] = m;
+  const p = me(); p.daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save();
+}
+function leaveDaily() {
+  if (DAILY && !done) { const p = me(); p.daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save(); track("daily/later"); }
+  DAILY = null; resumeMain = true; nextPuzzle(); renderPanel();
+}
+/* a day's result into p.daily: solved after yesterday's grows the streak, after a gap starts it again at 1,
+   and showing the answer ends it */
+function recordDaily(D, n, m, t, ok) {
+  D.days[n] = { m, t, ok }; delete D.now;
+  const keys = Object.keys(D.days).map(Number).sort((a, b) => a - b); while (keys.length > 60) delete D.days[keys.shift()];
+  if (ok) { D.streak = D.last === n - 1 ? D.streak + 1 : D.last === n ? D.streak : 1; D.last = n; D.best = Math.max(D.best, D.streak); }
+  else D.streak = 0;
+}
+function finishDaily(solved) {
+  const d = DAILY, p = me(), D = p.daily, t = dailySpent(), moves = (cur.pz.moves.length) >> 1;
+  /* solved: the moves played (a different mate can end it early); shown: every move */
+  const m = Array.from({ length: solved ? Math.max(1, d.marks.length) : moves }, (_, j) => d.marks[j] || (solved ? "g" : "x")).join("");
+  recordDaily(D, d.n, m, t, solved); save();
+  track(solved ? "daily/solved" : "daily/missed");
+  if (solved && [3, 7, 14, 30, 50, 100, 365].includes(D.streak)) track("daily/streak/" + D.streak);
+  if (APP && APP.gameCenter && solved) APP.post({ op: "score", board: "daily_streak", value: D.streak });
+  checkAwards(p);
+  frameEl.classList.add(solved ? "ok" : "miss");
+  if (solved) {
+    setStatus("good", T("Daily #{n} solved!", { n: d.n }), D.streak >= 2 ? T("{n} days in a row", { n: D.streak }) : T("Come back tomorrow for the next one"), "good");
+    sfx.rank(); haptic("rank"); restart(frameEl, "won");
+    if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
+  } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
+  $("stLevel").textContent = "#" + d.n; $("stLevel").hidden = false;
+  $("delta").className = "delta";
+  lastResult = { daily: { n: d.n } };
+  $("nextLabel").textContent = T("Next puzzle");
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  renderPanel(); sendDaily();
+  $("shareRankBtn").focus({ preventScroll: true });
+}
+const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
+const SQUARE = { g: "🟩", y: "🟨", r: "🟥", x: "⬛" };          /* 🟩 🟨 🟥 ⬛ */
+/* Like:   King Walk Daily #12 · Thu
+           🟩🟨🟩  ⏱ 1:07
+           🔥 5
+   One square per move: first try, with a hint, after a wrong try, or shown. No moves, so nothing is spoiled. */
+function dailyShareText(n) {
+  const p = me(), r = dailyDone(p, n); if (!r) return "";
+  const lines = ["King Walk Daily #" + n + " · " + new Intl.DateTimeFormat(LANG, { weekday: "short" }).format(dayDate(n))];
+  lines.push(Array.from(r.m, c => SQUARE[c]).join("") + "  ⏱ " + fmtTime(r.t));
+  const st = p.daily.last === n ? p.daily.streak : 0; if (st >= 2) lines.push("🔥 " + st);
+  if (SHARE_URL) lines.push(APP ? SHARE_URL : SHARE_URL + "#daily");
+  return lines.join("\n");
+}
+/* the header button: Daily (a dot until today's is done), or Puzzles while one is being played */
+function renderDailyBtn() {
+  const b = $("dailyBtn"), p = me();
+  b.classList.toggle("on", !!DAILY);
+  $("dailyBtnTxt").textContent = DAILY ? T("Puzzles") : T("Daily");
+  b.setAttribute("aria-label", DAILY ? T("Back to puzzles") : T("Daily puzzle") + (dailyDone(p) ? ". " + T("Done today.") : ""));
+  $("dailyDot").hidden = !!DAILY || !!dailyDone(p);
+}
+function renderDaily() {
+  const p = me(), n = dayNumber(), st = dailyStreak(p), today = dailyDone(p, n);
+  $("dailyFire").textContent = st ? "🔥 " + st : "";
+  $("dailyFire").setAttribute("aria-label", st ? T("{n} days in a row", { n: st }) : "");
+  const wk = $("dailyWeek"); wk.textContent = "";
+  const fmt = new Intl.DateTimeFormat(LANG, { weekday: "narrow" }), full = new Intl.DateTimeFormat(LANG, { weekday: "long" });
+  for (let k = n - 6; k <= n; k++) {
+    const r = k > 0 && p.daily.days[k], li = document.createElement("li"), i = document.createElement("i");
+    li.className = (r ? (r.ok ? "ok" : "miss") : "") + (k === n ? " today" : "");
+    i.textContent = r ? (r.ok ? "✓" : "×") : ""; i.setAttribute("aria-hidden", "true");
+    li.append(i, fmt.format(dayDate(k)));
+    li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.ok ? T("solved") : T("missed")) : k === n ? T("not played yet") : T("not played")));
+    wk.append(li);
+  }
+  const left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000)), next = T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 });
+  const note = $("dailyNote"), btn = $("dailyPlay"); note.textContent = "";
+  const sub = document.createElement("span");
+  if (today) {
+    note.append(today.ok ? T("Solved in {time}", { time: fmtTime(today.t) }) : T("Not today")); sub.textContent = next;
+    btn.textContent = T("Share"); btn.classList.remove("primary");
+  } else {
+    const going = p.daily.now && p.daily.now.n === n;
+    note.append(T("Daily puzzle #{n}", { n })); sub.textContent = new Intl.DateTimeFormat(LANG, { weekday: "long" }).format(new Date()) + " · " + T("everyone gets the same one");
+    btn.textContent = DAILY ? T("Playing") : going ? T("Continue") : T("Play"); btn.classList.add("primary");
+  }
+  btn.disabled = !!DAILY && !today;
+  note.append(sub);
+  renderDailyBtn();
+}
+/* the app: the widget's daily line and the reminders for the next week */
+function sendDaily() {
+  if (!APP) return;
+  reportProgress(me());
+  if (!APP.reminders) return;
+  const p = me(), n = dayNumber(), hour = S.remind, items = [];
+  if (hour >= 0) for (let k = n; k < n + 7; k++) {
+    if (k === n && (dailyDone(p, n) || new Date().getHours() >= hour)) continue;
+    const st = k === n ? dailyStreak(p) : k === n + 1 && dailyDone(p, n) ? dailyStreak(p) : 0;
+    items.push({ date: dayKey(k), title: T("Daily puzzle #{n}", { n: k }), body: st >= 2 ? T("Keep your {n}-day streak going. Today's puzzle is ready.", { n: st }) : T("Today's puzzle is ready.") });
+  }
+  APP.post({ op: "reminders", hour, items });
+}
+/* the app asks for the daily puzzle (widget, Control Center, Siri, a notification); the website takes #daily */
+window.kingWalkOpen = what => { if (what === "daily" && !DAILY) startDaily(); };
+window.kingWalkReminders = granted => { $("remindNote").hidden = !!granted || S.remind < 0; if (!granted && S.remind >= 0) { S.remind = -1; save(); renderRemind(); } };
+function renderRemind() {
+  const sel = $("remindSel");
+  if (!sel.options.length) {
+    const fmt = new Intl.DateTimeFormat(LANG, { hour: "numeric", minute: "2-digit" });
+    for (const h of [-1, 8, 12, 18, 20]) { const o = document.createElement("option"); o.value = h; o.textContent = h < 0 ? T("Off") : fmt.format(new Date(2026, 0, 1, h)); sel.append(o); }
+  }
+  sel.value = String(S.remind);
+}
+
 /* ---------- rank streaks ----------
    RUN is the streak in progress: { rank (index in RANKS), step (puzzles solved), used (puzzle ids), over }.
    It lives only in memory: a reload ends it, and the best is saved after every solve. The puzzle the player left in
@@ -1519,6 +1729,7 @@ async function pickRunPuzzle() {
   throw new Error("no puzzle for the streak");
 }
 function startRun(ri) {
+  DAILY = null;
   RUN = { rank: ri, step: 0, used: new Set(), over: false };
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
   track("run/start/" + RANKS[ri][1].toLowerCase());
@@ -1802,13 +2013,17 @@ function renderPanel(fromRating) {
     '<polygon points="4,64 ' + line + ' 296,64" fill="url(#cg)" stroke="none"/>' +
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
-  renderRuns();
+  renderRuns(); renderDaily(); renderRemind();
   $("chartLo").textContent = T("low {n}", { n: mn }); $("chartHi").textContent = T("high {n}", { n: mx });
 }
 
 $("hintBtn").addEventListener("click", showHint);
 $("answerBtn").addEventListener("click", showAnswer);
-$("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else nextPuzzle(); });
+$("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY) leaveDaily(); else nextPuzzle(); });
+$("dailyBtn").addEventListener("click", () => { haptic("toggle"); if (DAILY) leaveDaily(); else startDaily(); });
+$("dailyPlay").addEventListener("click", () => { if (dailyDone(me())) shareProgress($("dailyPlay"), { daily: { n: dayNumber() } }); else startDaily(); });
+$("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
+setInterval(() => { renderDaily(); }, 60000);          /* the countdown, and a new day */
 $("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
 $("endRunBtn").addEventListener("click", () => { if (RUN) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
@@ -1822,6 +2037,7 @@ $("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn"
 $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter" }); track("gamecenter"); } });
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
+$("remindRow").hidden = !(APP && APP.reminders);
 if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
   $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");
   $("saveHelp").textContent = T("Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.");
@@ -1832,7 +2048,7 @@ if (APP) {          /* in the app the save also goes to the player's iCloud, so 
 
 /* New progress (Start over, or a pasted save code): end any streak and start from its puzzle */
 function replaceProgress(next) {
-  S = next; RUN = null; seenCache = {}; first = true;
+  S = next; RUN = null; DAILY = null; seenCache = {}; first = true;
   if (!S.awards) S.awards = earnedAwards(me());          /* a code from before awards: no flood of celebrations */
   save(); renderPanel(); nextPuzzle(); reportProgress(me());
 }
@@ -1929,14 +2145,15 @@ renderPanel();
     [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); } });
   }
   if (!S.awards) { S.awards = earnedAwards(p); if (S.updatedAt) save(); }
-  if (APP) setTimeout(() => reportProgress(p), 1500);          /* after Game Center has had a moment to sign in */
+  if (APP) setTimeout(() => { reportProgress(p); sendDaily(); }, 1500);          /* after Game Center has had a moment to sign in */
 }
 if (typeof Chess !== "function") {
   setStatus("bad", T("The game could not load"), T("Reload the page"), "bad");
 } else {
   game = new Chess(); buildSquares(); dealPieces(); paint();
   setStatus("info", T("Getting the puzzles ready"), "", "wait");
-  nextPuzzle();
+  if (/^#daily$/.test(location.hash) && !dailyDone(me())) { history.replaceState(null, "", location.pathname + location.search); startDaily(); } else nextPuzzle();
+  if (APP) APP.post({ op: "ready" });          /* the app can now pass on a request, such as the daily puzzle from a widget */
 }
 </script>
 <script>

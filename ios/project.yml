@@ -67,6 +67,15 @@ targets:
           - UIInterfaceOrientationLandscapeRight
         UIStatusBarStyle: UIStatusBarStyleDefault
         UIViewControllerBasedStatusBarAppearance: false
+        # kingwalkgame://daily opens today's puzzle: the widgets and the Control Center control use it (KingWalkApp.swift)
+        CFBundleURLTypes:
+          - CFBundleURLName: daily
+            CFBundleURLSchemes: [kingwalkgame]
+        # long press the Home Screen icon (the title is translated in each .lproj's InfoPlist.strings)
+        UIApplicationShortcutItems:
+          - UIApplicationShortcutItemType: daily
+            UIApplicationShortcutItemTitle: Today's puzzle
+            UIApplicationShortcutItemIconSymbolName: calendar
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(KW_BUNDLE_ID)

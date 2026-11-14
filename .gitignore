@@ -4,5 +4,7 @@ ios/*.xcodeproj/
 ios/build/
 ios/build.log
 ios/store/screenshots/raw/
+# the store screenshots in other languages: made by the App Store listing workflow (ios/store/screenshots.js --lang)
+ios/store/screenshots/l10n/
 node_modules/
 .DS_Store

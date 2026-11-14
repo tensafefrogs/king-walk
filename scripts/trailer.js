@@ -11,7 +11,7 @@
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path"), os = require("os"), { execFileSync } = require("child_process");
 const server = require("../testing/server");
-const { savedPlayer } = require("../testing/media");
+const { savedPlayer, SHOT_DATE } = require("../testing/media");
 const ROOT = path.join(__dirname, "..");
 const preview = process.argv.includes("--preview");
 const vertical = preview || process.argv.includes("--vertical");
@@ -153,6 +153,7 @@ const T=window.T={
   p.on("pageerror", e => errs.push(e.message));
   await p.route(/zgo\.at|goatcounter/, r => r.abort());
   await p.route("**/__trailer.html", r => r.fulfill({ contentType: "text/html", body: STAGE }));
+  await ctx.clock.setFixedTime(SHOT_DATE);          /* the day the saved player's daily week leads up to (testing/media.js) */
   await ctx.addInitScript(CLOCK); await ctx.addInitScript(SEED);
   await p.goto(srv.url + "__trailer.html");
   await p.evaluate(() => document.fonts.ready);

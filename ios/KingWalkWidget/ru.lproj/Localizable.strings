@@ -1,7 +1,11 @@
+"King Walk" = "King Walk";
 "Your rank and puzzle rating." = "Ваше звание и рейтинг в задачах.";
 "Solve a puzzle to see your rank here." = "Решите задачу, чтобы увидеть здесь своё звание.";
+"Top rank" = "Высшее звание";
 "Rating over time" = "Динамика рейтинга";
 "solved" = "решено";
 "in a row" = "подряд";
 "best run" = "лучшая серия";
-"Top rank" = "Высшее звание";
+"Daily puzzle" = "Задача дня";
+"Today's puzzle and your daily streak." = "Задача дня и ваша серия дней.";
+"Opens today's puzzle." = "Открывает задачу дня.";

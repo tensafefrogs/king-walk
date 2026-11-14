@@ -98,7 +98,54 @@ function translations() {
     window.celebrate = real; return shown;
   });
   check(twice.filter(id => id === "first_solve").length === 1, "an award is celebrated once", twice);
+
+  // the daily puzzle: the same puzzle for a date every time, harder through the week, at most 4 moves
+  const dp = await p.evaluate(async () => {
+    const out = [];
+    for (let n = 1; n <= 21; n++) { const a = await dailyPuzzle(n), b = await dailyPuzzle(n); out.push({ n, id: a.pz.id, same: a.pz.id === b.pz.id, r: a.pz.r, len: a.pz.moves.length, range: DAILY_RANGE[dayDate(n).getDay()] }); }
+    return out;
+  });
+  check(dp.every(d => d.same), "a date always gives the same daily puzzle", dp.filter(d => !d.same));
+  check(dp.every(d => d.r >= d.range[0] && d.r <= d.range[1] && d.len <= 8), "daily puzzles fit their weekday's range and length", dp.filter(d => !(d.r >= d.range[0] && d.r <= d.range[1] && d.len <= 8)));
+  check(new Set(dp.map(d => d.id)).size === dp.length, "three weeks of daily puzzles, no repeats", dp.map(d => d.id));
+  check(await p.evaluate(() => dayNumber(new Date(2026, 10, 14, 23, 59)) === 1 && dayNumber(new Date(2026, 10, 15, 0, 1)) === 2 && dayKey(2) === "2026-11-15"), "daily numbers change at local midnight");
+  // the daily streak: yesterday's solve grows it, a gap restarts it, showing the answer ends it, a skipped day lapses it
+  const ds = await p.evaluate(() => {
+    const D = newDaily(), log = [];
+    recordDaily(D, 10, "g", 30, true); recordDaily(D, 11, "gy", 40, true); recordDaily(D, 12, "rg", 50, true); log.push(D.streak);
+    recordDaily(D, 14, "g", 20, true); log.push(D.streak, D.best);
+    recordDaily(D, 15, "xx", 60, false); log.push(D.streak, D.best, D.last);
+    const p = newPlayer(600), n = dayNumber(); p.daily.streak = 4; p.daily.last = n - 1; const live = dailyStreak(p); p.daily.last = n - 2;
+    return { log, live, lapsed: dailyStreak(p) };
+  });
+  check(ds.log.join() === "3,1,3,0,3,14" && ds.live === 4 && ds.lapsed === 0, "daily streak rules", ds);
+  // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
+  const mk = await p.evaluate(() => {
+    const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };
+    dailyMark("g", 1); dailyMark("y", 3); dailyMark("r", 3); dailyMark("y", 3); dailyMark("g", 3); const marks = DAILY.marks.join("");
+    DAILY = null; const p = me(); recordDaily(p.daily, n, "gr", 67, true); recordDaily(p.daily, n - 1, "g", 5, true);
+    p.daily.streak = 2; p.daily.last = n;
+    return { marks, share: dailyShareText(n) };
+  });
+  check(mk.marks === "gr", "a worse daily mark wins", mk.marks);
+  check(/^King Walk Daily #\d+ \u00b7 \S+\n\ud83d\udfe9\ud83d\udfe5  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number, squares, time, streak", mk.share);
+  // damaged daily data is cleaned
+  const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
+  check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);
   await ctx.close();
+
+  // the app: kingWalkOpen("daily") starts the daily puzzle, and the reminders cover the next week with no repeats
+  const ap = await page("", () => { window.sent = []; window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(m) } } }; window.kingWalkApp = { widget: true, reminders: true }; });
+  const app = await ap.p.evaluate(async () => {
+    const ready = window.sent.some(m => m.op === "ready");
+    S.remind = 23; sendDaily(); const rem = window.sent.filter(m => m.op === "reminders").pop();
+    kingWalkOpen("daily"); await new Promise(r => setTimeout(r, 1500));
+    return { ready, hour: rem.hour, dates: rem.items.map(i => i.date), titles: rem.items.map(i => i.title), daily: !!DAILY && cur && cur.daily, widget: (window.sent.filter(m => m.op === "widget").pop() || {}).data };
+  });
+  check(app.ready && app.daily === await ap.p.evaluate(() => dayNumber()), "the app's daily request starts today's puzzle", app.daily);
+  check(app.hour === 23 && app.dates.length >= 6 && app.dates.length <= 7 && new Set(app.dates).size === app.dates.length && app.titles.every(t => /#\d+/.test(t)), "reminders: a week of days, each once", app);
+  check(app.widget && "dailyStreak" in app.widget && app.widget.dailyTodo, "the widget gets the daily state", app.widget);
+  await ap.ctx.close();
   // an old save (no awards list) starts with what it has earned: no flood of celebrations
   const old = await page("", () => { if (!sessionStorage.k) { sessionStorage.k = 1; localStorage.setItem("chess-climb-v1", JSON.stringify({ v: 2, updatedAt: 1, cur: 0, players: [{ rating: 1500, peak: 1500, hist: [1500], solved: 300, best: 12 }] })); } });
   await old.p.waitForTimeout(1500);

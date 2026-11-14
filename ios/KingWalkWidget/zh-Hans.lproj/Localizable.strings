@@ -1,7 +1,11 @@
+"King Walk" = "King Walk";
 "Your rank and puzzle rating." = "你的段位和谜题等级分。";
 "Solve a puzzle to see your rank here." = "解出一道谜题后，这里会显示你的段位。";
+"Top rank" = "最高段位";
 "Rating over time" = "等级分走势";
 "solved" = "已解出";
 "in a row" = "连胜";
 "best run" = "最佳连胜";
-"Top rank" = "最高段位";
+"Daily puzzle" = "每日谜题";
+"Today's puzzle and your daily streak." = "今天的谜题和你的每日连胜。";
+"Opens today's puzzle." = "打开今天的谜题。";

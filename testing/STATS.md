@@ -22,6 +22,13 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `run/end/<rank>/<n>` | A rank streak ends on a miss after n solves | `finishRun()` |
 | `run/cleared/<rank>` | All 15 puzzles of a rank streak solved | `finishRun()` |
 | `run/quit/<rank>` | End streak pressed during a run | the End streak button |
+| `daily/start` | Today's daily puzzle starts | `startDaily()` |
+| `daily/resume` | Today's daily puzzle starts again after leaving it | `startDaily()` |
+| `daily/later` | The player leaves the daily puzzle before finishing it | `leaveDaily()` |
+| `daily/solved` | The daily puzzle solved (hints and wrong tries allowed) | `finishDaily()` |
+| `daily/missed` | The daily puzzle's answer shown | `finishDaily()` |
+| `daily/streak/<n>` | The daily streak reaches 3, 7, 14, 30, 50, 100 or 365 days | `finishDaily()` |
+| `remind/<hour>`, `remind/off` | The daily reminder set to an hour (8, 12, 18, 20) or turned off (app only) | the Daily reminder setting |
 | `lefty-on`, `lefty-off` | The Left-handed layout setting is turned on or off | menu |
 | `gamecenter` | The Game Center button is pressed (app only) | menu |
 | `rate-ask` | The app asks iOS to show the rating prompt (iOS may not show it) | `maybeAskForRating()` |
