@@ -90,8 +90,19 @@ def testflight(app_id, build, cfg):
         else: create('betaBuildLocalizations', {'locale': 'en-US', 'whatsNew': notes}, {'build': rel('builds', build['id'])})
         log('TestFlight: What to Test set')
     external = False
-    for name in cfg.get('groups', []):
+    for want in cfg.get('groups', []):
+        # a name (a group made in App Store Connect), or {"name", "public_link"}: an external group this makes if it's
+        # missing, with a public invite link when asked (status.md shows the link)
+        name = want['name'] if isinstance(want, dict) else want
         g = groups.get(name)
+        if not g and isinstance(want, dict):
+            g = create('betaGroups', {'name': name, 'publicLinkEnabled': bool(want.get('public_link')), 'publicLinkLimitEnabled': False,
+                                      'feedbackEnabled': True}, {'app': rel('apps', app_id)})
+            groups[name] = g
+            log(f"TestFlight: external group {name!r} created" + (' with a public link' if want.get('public_link') else ''))
+        elif g and isinstance(want, dict) and want.get('public_link') and not g['attributes'].get('publicLinkEnabled'):
+            patch('betaGroups', g['id'], {'publicLinkEnabled': True, 'publicLinkLimitEnabled': False})
+            log(f'TestFlight: public link turned on for {name!r}')
         if not g:
             log(f"TestFlight: no group called {name!r} (groups: {', '.join(groups) or 'none'})"); continue
         try:
@@ -109,11 +120,37 @@ def testflight(app_id, build, cfg):
     if external and detail in ('IN_BETA_TESTING', 'BETA_APPROVED', 'WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW'):
         log(f"TestFlight: beta review not needed ({detail.replace('_', ' ').lower()})")
     elif external:   # external testers need Apple's beta review first (quick, and usually once per version)
+        test_information(app_id)
         try:
             create('betaAppReviewSubmissions', relationships={'build': rel('builds', build['id'])})
             log('TestFlight: submitted for beta review')
         except SystemExit as e:
             log(f'TestFlight: beta review not submitted (often because it is already submitted or approved): {str(e)[:300]}')
+
+
+def test_information(app_id):
+    """What beta review needs before it takes a build: a description of the app and a feedback email (Test
+    Information), and a review contact. The contact is the owner's own, so it isn't in the repo: it's set once in App
+    Store Connect → TestFlight → Test Information. The description comes from listing.json. Says what's missing."""
+    try:
+        listing = json.load(open(os.path.join(HERE, 'listing.json')))
+        locs = request('GET', f'/v1/apps/{app_id}/betaAppLocalizations')['data']
+        en = next((l for l in locs if l['attributes'].get('locale') == 'en-US'), None)
+        text = listing['version']['promotional_text']
+        if en and not en['attributes'].get('description'):
+            request('PATCH', f"/v1/betaAppLocalizations/{en['id']}", {'data': {'type': 'betaAppLocalizations', 'id': en['id'], 'attributes': {'description': text}}})
+        elif not en:
+            request('POST', '/v1/betaAppLocalizations', {'data': {'type': 'betaAppLocalizations', 'attributes': {'locale': 'en-US', 'description': text},
+                    'relationships': {'app': {'data': {'type': 'apps', 'id': app_id}}}}})
+        en = next((l for l in request('GET', f'/v1/apps/{app_id}/betaAppLocalizations')['data'] if l['attributes'].get('locale') == 'en-US'), None)
+        detail = request('GET', f'/v1/apps/{app_id}/betaAppReviewDetail')['data']['attributes']
+        missing = [what for what, ok in [('feedback email', en and en['attributes'].get('feedbackEmail')),
+                   ('contact first name', detail.get('contactFirstName')), ('contact last name', detail.get('contactLastName')),
+                   ('contact phone', detail.get('contactPhone')), ('contact email', detail.get('contactEmail'))] if not ok]
+        if missing:
+            log('TestFlight: beta review needs, in App Store Connect → TestFlight → Test Information:', ', '.join(missing))
+    except ApiError as e:
+        log('TestFlight: could not check Test Information:', e.code, e.body[:200])
 
 
 def prune(app_id, build):
@@ -317,7 +354,7 @@ def status():
     for g in call('GET', f'/v1/apps/{app_id}/betaGroups?limit=50')['data']:
         ga = g['attributes']
         lines.append(f"- {ga['name']}: {'internal' if ga.get('isInternalGroup') else 'external'}"
-                     + (', public link on' if ga.get('publicLinkEnabled') else ''))
+                     + (f", public link: {ga.get('publicLink')}" if ga.get('publicLinkEnabled') and ga.get('publicLink') else ', public link on' if ga.get('publicLinkEnabled') else ''))
     out = os.path.join(HERE, 'status.md')
     new = '\n'.join(lines) + '\n'
     same = lambda t: [l for l in t.splitlines() if not l.startswith('Updated ')]

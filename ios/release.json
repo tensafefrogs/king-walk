@@ -1,14 +1,18 @@
 {
   "version": "1.0",
   "xcode27": true,
-  "build": false,
+  "build": true,
   "testflight": {
     "groups": [
-      "Internal"
+      "Internal",
+      {
+        "name": "Friends",
+        "public_link": true
+      }
     ],
     "whats_new": "Thanks for trying King Walk! Chess puzzles that adapt to you: solve one and the next gets harder, miss one and it eases off. Walk your king from Pawn rank up to King.\n\nNew: a daily puzzle, the same for everyone. Tap Daily at the top; once it's done, the button shows your streak, and tapping it shares your result.\n\nThings to try:\n• Solve a few puzzles. Tap or drag the pieces. Stuck? Take a hint.\n• The daily puzzle. Monday's is gentle; Sunday's bites.\n• Keep a 7-day streak to earn a streak freeze: it saves your streak if you miss a day.\n• Rank streaks, under Progress: 15 puzzles in a row, no hints, one miss and you're out.\n• Widgets for your Home Screen, Lock Screen and StandBy, and a Control Center button.\n• Ask Siri to \"play today's King Walk puzzle\", or long press the app icon.\n• A daily reminder, in Settings (the gear), if you want one.\n• Game Center: leaderboards, achievements, and challenges to send a friend.\n• Turn your phone sideways, try dark mode, or switch your phone's language.\n\nTell me anything that's broken, confusing or no fun. Screenshots help."
   },
   "app_store": null,
   "release_now": false,
-  "note": "Notes for build 2611140523 (the first try had an emoji App Store Connect refuses)."
+  "note": "TestFlight: a Friends group with a public invite link (external, so this build goes to beta review); the daily done card."
 }
