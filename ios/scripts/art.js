@@ -24,18 +24,75 @@ const pieceSvg = code => read("brand/pieces/" + code + ".svg").trim();
 // Game Center achievements: id, title, how to earn it, and the picture. Kept in step with ios/store/gamecenter.json.
 const ACH = JSON.parse(read("ios/store/gamecenter.json")).achievements;
 
+/* ---------- Game Center art: flat, travel-poster style ----------
+   Bold flat colour, simple shapes, no gradients or soft shadows: a sky, a big sun with wedge rays, layered hills,
+   and the pieces as solid silhouettes. */
+const C = { gold: "#f2c230", sun: "#f7d35a", ink: "#16302c", deep: "#143f38", teal: "#1c7868", mint: "#56c2ad", sea: "#2f9c86", cream: "#fdfbf2", sky: "#cfe9df", coral: "#e2704f" };
+// a piece as one solid shape: the outline layer of the brand piece, filled with one colour
+function silhouette(t, x, y, size, color) {
+  const svg = pieceSvg("w" + t), m = svg.match(/<g fill="#1c2826" stroke="#1c2826" stroke-width="5">([\s\S]*?)<\/g>/);
+  return `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 100 100"><g fill="${color}" stroke="${color}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">${m[1]}</g></svg>`;
+}
+function sunRays(cx, cy, r1, r2, n, color, turn = 0) {
+  let d = "";
+  for (let i = 0; i < n; i++) {
+    const a0 = (i / n + turn) * Math.PI * 2, a1 = ((i + 0.5) / n + turn) * Math.PI * 2;
+    d += `M${cx + Math.cos(a0) * r1},${cy + Math.sin(a0) * r1} L${cx + Math.cos(a0) * r2},${cy + Math.sin(a0) * r2} L${cx + Math.cos(a1) * r2},${cy + Math.sin(a1) * r2} L${cx + Math.cos(a1) * r1},${cy + Math.sin(a1) * r1} Z`;
+  }
+  return `<path d="${d}" fill="${color}"/>`;
+}
+// a hill as a smooth bump across the width w, its top at peakX/peakY, sitting on baseY
+const hill = (w, baseY, peakX, peakY, color, spread = 0.55) =>
+  `<path d="M0,${baseY} C${peakX - w * spread * 0.5},${baseY} ${peakX - w * spread * 0.35},${peakY} ${peakX},${peakY} C${peakX + w * spread * 0.35},${peakY} ${peakX + w * spread * 0.5},${baseY} ${w},${baseY} L${w},${baseY + 4000} L0,${baseY + 4000} Z" fill="${color}"/>`;
+const mountain = (x, y, w, h, color, snow) => `<path d="M${x - w / 2},${y + h} L${x},${y} L${x + w / 2},${y + h} Z" fill="${color}"/>` +
+  (snow ? `<path d="M${x - w * 0.12},${y + h * 0.24} L${x},${y} L${x + w * 0.12},${y + h * 0.24} L${x + w * 0.04},${y + h * 0.19} L${x - w * 0.03},${y + h * 0.26} Z" fill="${snow}"/>` : "");
+
+/* An achievement badge, 512x512 (Game Center shows it in a circle, so everything sits inside one) */
 function badge(a) {
-  const ring = `<circle cx="256" cy="256" r="236" fill="url(#bg)"/><circle cx="256" cy="256" r="222" fill="none" stroke="#f2c230" stroke-width="10"/>`;
-  const defs = `<defs><radialGradient id="bg" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#1c7868"/><stop offset="1" stop-color="#143f38"/></radialGradient></defs>`;
-  let inner = "";
-  const piece = (code, x, y, s, extra = "") => `<g transform="translate(${x} ${y}) ${extra}"><svg width="${s}" height="${s}" viewBox="0 0 100 100">${pieceSvg(code).replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg></g>`;
-  if (a.art.piece && !a.art.number) inner = a.art.label
-    ? `<circle cx="256" cy="226" r="130" fill="#f2c230"/>` + piece("w" + a.art.piece, 156, 126, 200) + `<text x="256" y="420" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="44" fill="#f2c230" letter-spacing="3">${a.art.label.toUpperCase()}</text>`
-    : `<circle cx="256" cy="256" r="150" fill="#f2c230"/>` + piece("w" + a.art.piece, 136, 130, 240);
-  if (a.art.number) inner = `<text x="256" y="${a.art.label ? 300 : 320}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(a.art.number).length > 3 ? 150 : 190}" fill="#fdfbf2">${a.art.number}</text>` +
-    (a.art.label ? `<text x="256" y="370" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="44" fill="#f2c230" letter-spacing="3">${a.art.label.toUpperCase()}</text>` : "");
-  if (a.art.slayer) inner = piece("bk", 210, 110, 230, "rotate(18 115 115)") + piece("wp", 96, 216, 190);
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">${defs}${ring}${inner}</svg>`;
+  const S = 512, art = a.art;
+  let sky = C.sky, scene = "";
+  if (art.piece && !art.number && !art.label) {          // a new rank: the piece on top of the hill, the sun behind
+    scene = sunRays(256, 230, 120, 250, 14, C.cream) + `<circle cx="256" cy="230" r="112" fill="${C.gold}"/>`
+      + hill(S, 520, 120, 360, C.mint, 0.6) + hill(S, 560, 400, 380, C.sea, 0.6) + hill(S, 600, 256, 330, C.teal, 0.5)
+      + silhouette(art.piece, 186, 168, 140, C.ink);
+  } else if (art.label && art.piece) {          // a rank streak cleared: the piece on a summit, a flag beside it, gold sky
+    sky = C.gold;
+    scene = sunRays(256, 250, 110, 270, 12, C.sun) + mountain(256, 210, 420, 330, C.deep, C.cream) + mountain(110, 330, 300, 220, C.teal) + mountain(410, 320, 320, 230, C.teal)
+      + `<rect x="300" y="150" width="7" height="70" fill="${C.ink}"/><path d="M307,150 L352,163 L307,176 Z" fill="${C.coral}"/>`
+      + silhouette(art.piece, 196, 92, 120, C.ink);
+  } else if (art.number) {          // a count: the number big on a sun
+    const streak = /row/.test(art.label || "");
+    sky = streak ? C.deep : C.teal;
+    scene = sunRays(256, 236, 150, 270, 16, streak ? C.teal : C.sea) + `<circle cx="256" cy="236" r="150" fill="${C.gold}"/>`
+      + `<text x="256" y="${String(art.number).length > 3 ? 280 : 292}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(art.number).length > 3 ? 120 : 150}" fill="${C.ink}">${art.number}</text>`
+      + (streak ? Array.from({ length: 5 }, (_, i) => `<rect x="${126 + i * 54}" y="${420 - i * 14}" width="44" height="${40 + i * 14}" rx="8" fill="${i % 2 ? C.cream : C.gold}"/>`).join("")
+                : hill(S, 470, 256, 410, C.mint, 0.9));
+  } else if (art.slayer) {          // a small pawn facing a giant king
+    scene = `<circle cx="330" cy="180" r="80" fill="${C.gold}"/>` + hill(S, 520, 256, 420, C.teal, 0.9)
+      + silhouette("k", 220, 120, 280, C.ink) + silhouette("p", 92, 330, 100, C.coral);
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="${sky}"/>${scene}</svg>`;
+}
+
+/* A challenge image, 1920x1080, no text: Game Center shows the challenge's name over it */
+function challengeArt(kind, t) {
+  const W = 1920, H = 1080;
+  let sky = C.sky, scene = "";
+  if (kind === "hardest") {          // a king alone on the highest peak, a huge sun behind
+    sky = C.gold;
+    scene = sunRays(1260, 420, 260, 1100, 18, C.sun) + `<circle cx="1260" cy="420" r="250" fill="${C.coral}"/>`
+      + mountain(1260, 330, 1100, 900, C.deep, C.cream) + mountain(560, 520, 900, 700, C.teal) + mountain(1800, 560, 800, 600, C.teal)
+      + hill(W, 1000, 900, 860, C.mint, 0.8) + silhouette("k", 1165, 160, 190, C.ink);
+  } else {          // a rank streak: 15 steps zigzag up a hill to the rank's piece on the top
+    scene = sunRays(1500, 330, 200, 900, 16, C.cream) + `<circle cx="1500" cy="330" r="190" fill="${C.gold}"/>`
+      + hill(W, 1080, 300, 640, C.mint, 0.7) + hill(W, 1080, 1180, 420, C.teal, 0.9) + hill(W, 1180, 1700, 820, C.sea, 0.6);
+    for (let i = 0; i < 15; i++) {
+      const k = i / 14, x = 300 + k * 860 + (i % 2 ? 40 : -40) * (1 - k), y = 1000 - k * 520;
+      scene += `<rect x="${x - 34}" y="${y - 14}" width="68" height="28" rx="10" fill="${i % 2 ? C.cream : C.gold}"/>`;
+    }
+    scene += silhouette(t, 1070, 225, 220, C.ink);
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${sky}"/>${scene}</svg>`;
 }
 
 (async () => {
@@ -66,29 +123,14 @@ function badge(a) {
   // Game Center achievement images (512x512, opaque)
   const gc = mkdir(path.join(ROOT, "ios/store/gamecenter"));
   for (const a of ACH) {
-    await render(badge(a).replace("<svg ", '<svg style="background:#143f38" '), 512, path.join(gc, a.id + ".png"), false);
+    await render(badge(a), 512, path.join(gc, a.id + ".png"), false);
   }
-  // Game Center challenge art (1920x1080, no text: Game Center shows the challenge's name over it)
-  const W = 1920, H = 1080, bg = `<defs><radialGradient id="cbg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#1f8572"/><stop offset=".55" stop-color="#165547"/><stop offset="1" stop-color="#0e2f29"/></radialGradient></defs><rect width="${W}" height="${H}" fill="url(#cbg)"/>`;
-  const pc = (code, x, y, size) => `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 100 100">${pieceSvg(code).replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg>`;
-  // Longest Streak: the ranks walking up a staircase of gold tiles, the brand's own picture
-  let stairs = "";
-  "pnbrqk".split("").forEach((t, i) => {
-    const step = 180, x = 330 + i * step, top = 860 - i * 95;
-    stairs += `<rect x="${x}" y="${top}" width="${step - 16}" height="${H}" rx="22" fill="${i % 2 ? "#fdfbf2" : "#f2c230"}" opacity="${0.92}"/>`;
-    stairs += pc("w" + t, x - 8, top - 172, 180);
-  });
-  // Hardest Solve: a white king alone on a gold disc with a glow, the top of the climb
-  const king = `<circle cx="960" cy="540" r="330" fill="#f2c230" opacity=".18"/><circle cx="960" cy="540" r="250" fill="#f2c230"/>${pc("wk", 760, 330, 400)}`
-    + Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2; return `<line x1="${960 + Math.cos(a) * 360}" y1="${540 + Math.sin(a) * 360}" x2="${960 + Math.cos(a) * 470}" y2="${540 + Math.sin(a) * 470}" stroke="#f2c230" stroke-width="10" stroke-linecap="round" opacity=".55"/>`; }).join("");
-  // Rank streaks: the rank's piece on a gold tile, beside 15 bars climbing through the rank
-  const rankArt = t => `<rect x="300" y="290" width="500" height="500" rx="90" fill="#f2c230"/>` + pc("w" + t, 330, 320, 440)
-    + Array.from({ length: 15 }, (_, i) => `<rect x="${930 + i * 46}" y="${800 - 24 - i * 32}" width="34" height="${24 + i * 32}" rx="10" fill="${i % 2 ? "#fdfbf2" : "#f2c230"}" opacity="${0.55 + 0.45 * i / 14}"/>`).join("");
-  const arts = [["challenge-hardest.png", king], ...["p", "n", "b", "r", "q", "k"].map(t => [`challenge-streak-${t}.png`, rankArt(t)])];
+  // Game Center challenge art
   try { fs.unlinkSync(path.join(gc, "challenge-streak.png")); } catch (e) {}
-  for (const [name, inner] of arts) {
-    await p.setViewportSize({ width: W, height: H });
-    await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block}</style><svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bg}${inner}</svg>`);
+  const arts = [["challenge-hardest.png", challengeArt("hardest")], ...["p", "n", "b", "r", "q", "k"].map(t => [`challenge-streak-${t}.png`, challengeArt("streak", t)])];
+  for (const [name, svg] of arts) {
+    await p.setViewportSize({ width: 1920, height: 1080 });
+    await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block}</style>${svg}`);
     await p.screenshot({ path: path.join(gc, name) });
   }
   await b.close();

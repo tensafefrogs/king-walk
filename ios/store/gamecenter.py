@@ -60,6 +60,11 @@ def upload_image(kind, loc_id, rel_name, file):
     log('  image uploaded:', os.path.basename(file))
 
 
+def changed(image, file):
+    """the uploaded image isn't this file (compared by size, which any new artwork changes)"""
+    return (image.get('attributes') or {}).get('fileSize') not in (None, os.path.getsize(file))
+
+
 def unknown_rel(e):
     return e and 'RELATIONSHIP.UNKNOWN' in e
 
@@ -169,8 +174,11 @@ def main():
         # the image: required for each achievement (512x512 or 1024x1024)
         if en and en['id'] != 'dry':
             img = api('GET', f"/v1/gameCenterAchievementLocalizations/{en['id']}/gameCenterAchievementImage")
+            file = os.path.join(HERE, 'gamecenter', a['id'] + '.png')
+            if img and img.get('data') and changed(img['data'], file):          # new artwork: replace it
+                api('DELETE', f"/v1/gameCenterAchievementImages/{img['data']['id']}", what=f"replace image {a['id']}"); img = None
             if not (img and img.get('data')):
-                upload_image('gameCenterAchievementImages', en['id'], 'gameCenterAchievementLocalization', os.path.join(HERE, 'gamecenter', a['id'] + '.png'))
+                upload_image('gameCenterAchievementImages', en['id'], 'gameCenterAchievementLocalization', file)
         elif DRY:
             log('  (dry run) image', a['id'] + '.png')
         log('Achievement ready:', vid, f"({a['points']} points)")
@@ -204,9 +212,13 @@ def main():
             api('PATCH', f"/v1/gameCenterChallengeLocalizations/{en['id']}", {'data': {'type': 'gameCenterChallengeLocalizations', 'id': en['id'], 'attributes': attrs}}, f'{vid} English text')
         else:
             en = post_with('gameCenterChallengeLocalizations', dict(attrs, locale='en-US'), 'gameCenterChallengeVersions', version['id'], ['version', 'gameCenterChallengeVersion'], f'{vid} English text')
-        if en and c.get('image') and not first_related(f"/v1/gameCenterChallengeLocalizations/{en['id']}", ['image', 'gameCenterChallengeImage']):
-            upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'],
-                              os.path.join(HERE, 'gamecenter', c['image']), f'{vid} image')
+        if en and c.get('image'):
+            file = os.path.join(HERE, 'gamecenter', c['image'])
+            img = first_related(f"/v1/gameCenterChallengeLocalizations/{en['id']}", ['image', 'gameCenterChallengeImage'])
+            if img and changed(img, file):          # new artwork: replace it
+                api('DELETE', f"/v1/gameCenterChallengeImages/{img['id']}", what=f'replace image {vid}'); img = None
+            if not img:
+                upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
     # Challenges no longer in gamecenter.json: removed (only possible before they go live)
