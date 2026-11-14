@@ -151,7 +151,7 @@ html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .
 html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
 html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; }
 html.fold-h .runs .note, html.fold-h .runs .label { display: none; }
-html.fold-h .run-btn { grid-template-columns: auto auto; column-gap: 4px; align-items: center; padding: 3px 4px; } html.fold-h .run-btn svg { width: 18px; height: 18px; grid-row: span 2; } html.fold-h .progress > .note { grid-area: info; }
+html.fold-h .run-btn { grid-template-columns: auto auto; column-gap: 4px; align-items: center; } html.fold-h .run-btn svg.badge { width: 30px; grid-row: span 2; } html.fold-h .progress > .note { grid-area: info; }
 html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
 html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
 /* left-handed: the board on the left half, the buttons on the right */
@@ -274,15 +274,59 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .setup { font-size: 14px; display: grid; gap: 3px; }
 .setup b { font-family: var(--font-display); font-weight: 600; }
 .save-box { display: grid; gap: 8px; }
-.runs { display: grid; gap: 6px; }
-.run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
-.run-btn { display: grid; justify-items: center; gap: 1px; padding: 6px 2px 5px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; font: 700 11px var(--font-display); }
-.run-btn svg { width: 26px; height: 26px; }
-.run-btn b { font: 700 12px var(--font-display); color: var(--muted); }
-.run-btn.cleared { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 18%, var(--bg)); }
+/* ---------- awards: the celebration screen and the rank streak badges ----------
+   Flat travel-poster colours (the same in light and dark), hard edges, a hard offset shadow; motion in big swipes. */
+:root { --p-gold: #f2c230; --p-sun: #f7d35a; --p-ink: #16302c; --p-deep: #143f38; --p-teal: #1c7868; --p-sea: #2f9c86; --p-mint: #56c2ad; --p-sky: #cfe9df; --p-cream: #fdfbf2; --p-coral: #e2704f; }
+.cele { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden; background: rgba(22, 48, 44, 0.62); animation: cele-fade 0.25s ease-out both; }
+.cele.out { animation: cele-fade-out 0.28s ease-in both; }
+.cele-swipe i { position: absolute; left: -10vw; width: 140vw; height: 30vh; transform: translateX(-140%) skewX(-24deg); animation: cele-swipe 0.62s cubic-bezier(0.75, 0, 0.25, 1) both; }
+.cele-swipe i:nth-child(1) { top: 6vh; background: var(--p-gold); }
+.cele-swipe i:nth-child(2) { top: 36vh; background: var(--p-coral); animation-delay: 0.07s; }
+.cele-swipe i:nth-child(3) { top: 66vh; background: var(--p-mint); animation-delay: 0.14s; }
+.cele-lines { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: repeating-linear-gradient(-24deg, transparent 0 46px, rgba(253, 251, 242, 0.55) 46px 49px, transparent 49px 120px);
+  animation: cele-lines 0.9s 0.1s ease-out both; }
+.cele-card { position: relative; width: min(360px, 100%); background: var(--p-cream); color: var(--p-ink); border: 4px solid var(--p-ink); border-radius: 26px;
+  box-shadow: 10px 10px 0 var(--p-ink); padding: 0 0 18px; text-align: center; overflow: hidden; animation: cele-card 0.62s 0.38s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.cele-art { display: block; width: 100%; height: auto; border-bottom: 4px solid var(--p-ink); }
+.cele-rays { transform-origin: 150px 120px; animation: cele-spin 16s linear infinite; }
+.cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+.cele-kind { margin: 14px 0 0; font: 800 13px var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--p-teal); animation: cele-up 0.4s 0.75s ease-out both; }
+.cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); }
+.cele-title span { display: inline-block; animation: cele-slam 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both; white-space: pre; }
+.cele-text { margin: 8px 22px 0; font: 600 15px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 1.1s ease-out both; }
+.cele-btns { display: flex; gap: 10px; justify-content: center; margin: 16px 18px 0; animation: cele-up 0.45s 1.25s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.cele-btns button { font: 700 16px var(--font-display); border-radius: 14px; border: 3px solid var(--p-ink); padding: 10px 18px; cursor: pointer; box-shadow: 4px 4px 0 var(--p-ink); }
+.cele-btns .go { background: var(--p-gold); color: var(--p-ink); flex: 1; }
+.cele-btns .sh { background: var(--p-cream); color: var(--p-ink); }
+.cele-btns button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-ink); }
+.cele-btns button:focus-visible { outline: 3px solid var(--p-coral); outline-offset: 3px; }
+.cele-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+@keyframes cele-fade { from { opacity: 0; } } @keyframes cele-fade-out { to { opacity: 0; } }
+@keyframes cele-swipe { 0% { transform: translateX(-140%) skewX(-24deg); } 45% { transform: translateX(-12%) skewX(-24deg); } 100% { transform: translateX(140%) skewX(-24deg); } }
+@keyframes cele-lines { 0% { opacity: 0; transform: translateX(-30%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateX(30%); } }
+@keyframes cele-card { 0% { opacity: 0; transform: scale(0.35) rotate(-10deg); } 100% { opacity: 1; transform: none; } }
+@keyframes cele-spin { to { transform: rotate(360deg); } }
+@keyframes cele-pop { 0% { transform: translateY(70%) scale(0.7, 1.3); } 55% { transform: translateY(-14%) scale(1.12, 0.9); } 78% { transform: translateY(3%) scale(0.96, 1.05); } 100% { transform: none; } }
+@keyframes cele-slam { 0% { opacity: 0; transform: translateY(-60px) scale(2.2) rotate(-12deg); } 100% { opacity: 1; transform: none; } }
+@keyframes cele-up { 0% { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) {
+  .cele-swipe, .cele-lines { display: none; }
+  .cele-card, .cele-piece, .cele-title span, .cele-kind, .cele-text, .cele-btns { animation: cele-fade 0.3s ease-out both !important; }
+  .cele-rays { animation: none; }
+}
+/* rank streak badges: a little poster in a ring; the ring fills with your best; cleared ones get gold and a ribbon */
+.run-btn { all: unset; box-sizing: border-box; display: grid; justify-items: center; gap: 2px; cursor: pointer; text-align: center; padding: 2px 0 4px; border-radius: 12px; }
+.run-btn svg.badge { width: 100%; max-width: 62px; height: auto; overflow: visible; }
+.run-btn span { font: 700 11px var(--font-display); color: var(--fg); }
+.run-btn b { font: 700 11px var(--font-display); color: var(--muted); }
+.run-btn.untried svg.badge .scene { filter: grayscale(1); opacity: 0.45; }
 .run-btn.cleared b { color: var(--fg); }
 .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-@media (hover: hover) { .run-btn:hover { border-color: var(--accent); } }
+@media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
+.run-btn svg.badge { transition: transform 0.2s var(--ease-out); }
+.runs { display: grid; gap: 6px; }
+.run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
 .play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
 .play-btns.run #endRunBtn { display: inline-flex; }
@@ -778,7 +822,8 @@ function cleanState(raw) {
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, rateAsked: +raw.rateAsked || 0, players };
+  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true,
+    awards: Array.isArray(raw.awards) ? raw.awards.filter(a => typeof a === "string" && a.length < 40).slice(0, 64) : null, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
@@ -908,7 +953,7 @@ if (CONFIG.goatcounter) {          /* the stats script, only when this copy has 
 /* Haptics. In the app each kind maps to an iOS feedback generator (ios/KingWalk/Haptics.swift). On Android the
    vibration API only buzzes on and off, so each kind is a length or a pattern. Safari and desktops have neither. */
 const canVibrate = !APP && typeof navigator.vibrate === "function" && !!(window.matchMedia && matchMedia("(pointer: coarse)").matches);
-const BUZZ = { pick: 6, tick: 4, move: 10, take: 18, opp: 6, wrong: [40, 50, 40], solve: [14, 60, 26], rank: [20, 60, 20, 60, 70], hint: 8, toggle: 8 };
+const BUZZ = { pick: 6, tick: 4, move: 10, take: 18, opp: 6, wrong: [40, 50, 40], solve: [14, 60, 26], rank: [20, 60, 20, 60, 70], hint: 8, toggle: 8, celebrate: [12, 50, 12, 50, 12, 420, 60, 120, 18, 30, 18, 30, 18, 30, 18, 200, 30, 60, 50] };
 function haptic(kind) {
   if (S.haptics === false) return;
   if (APP) { APP.post({ op: "haptic", kind }); return; }
@@ -963,11 +1008,7 @@ function reportProgress(p, puzzle) {
       APP.post({ op: "score", board: "streak", value: p.streak });
       APP.post({ op: "score", board: "hardest", value: puzzle.r });
     }
-    if (p.solved >= 1) achieve("first_solve");
-    for (const [n, id] of [[50, "solved_50"], [250, "solved_250"], [1000, "solved_1000"]]) if (p.solved >= n) achieve(id);
-    for (const [n, id] of [[5, "streak_5"], [10, "streak_10"], [20, "streak_20"]]) if (p.best >= n) achieve(id);
-    for (let i = 1; i <= rankIndex(p.peak); i++) achieve(ACH_RANK[i]);
-    if (puzzle && puzzle.clean && puzzle.r - puzzle.before >= 300) achieve("giant_slayer");
+    earnedAwards(p, puzzle).forEach(achieve);          /* Game Center ignores ones it already has */
   }
   if (APP.widget) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
@@ -1317,6 +1358,7 @@ function finish(solvedIt) {
   if (!cur.review && PLAYED_MARKS.includes(p.n)) track("played/" + p.n);
   for (let i = peakRankBefore + 1; i <= rankIndex(p.peak); i++) track("rank/" + RANKS[i][1].toLowerCase());
   reportProgress(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before });
+  checkAwards(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before });
 
   const rankUp = rankIndex(p.rating) > rankBefore;
   frameEl.classList.add(score > 0 ? "ok" : "miss");
@@ -1345,6 +1387,109 @@ function finish(solvedIt) {
   if (delta) restart($("rate"), "bump");
   if (score === 1) restart($("stStreak"), "bump");
   $("nextBtn").focus({ preventScroll: true });
+}
+
+/* ---------- awards ----------
+   The game's achievements (the same ids as Game Center's, ios/store/gamecenter.json), earned on the web too.
+   The first time one is earned, a celebration screen plays (celebrate), and the app reports it to Game Center.
+   S.awards lists the ones already celebrated; a save from before awards existed starts with what it has already
+   earned, so nobody gets a flood of celebrations for old progress. */
+const AWARDS = {
+  first_solve: ["Achievement", "First Steps", "You solved your first puzzle with no mistakes and no hints.", { piece: "p" }],
+  solved_50: ["Achievement", "Fifty Solved", "50 puzzles solved with no mistakes and no hints.", { number: 50 }],
+  solved_250: ["Achievement", "Puzzle Habit", "250 puzzles solved with no mistakes and no hints.", { number: 250 }],
+  solved_1000: ["Achievement", "A Thousand Puzzles", "1,000 puzzles solved with no mistakes and no hints.", { number: 1000 }],
+  streak_5: ["Achievement", "On a Roll", "5 puzzles in a row.", { number: 5, streak: true }],
+  streak_10: ["Achievement", "Ten in a Row", "10 puzzles in a row.", { number: 10, streak: true }],
+  streak_20: ["Achievement", "Unstoppable", "20 puzzles in a row.", { number: 20, streak: true }],
+  giant_slayer: ["Achievement", "Giant Slayer", "You cleanly solved a puzzle rated 300 or more above you.", { slayer: true }],
+};
+RANKS.forEach((r, i) => {
+  if (i) AWARDS["rank_" + r[1].toLowerCase()] = ["New rank", r[1], "Your puzzle rating reached {n}.", { piece: r[2], n: r[0], rank: i }];
+  AWARDS["clear_" + r[1].toLowerCase()] = ["Rank streak", "{rank} cleared!", "15 puzzles in a row, no hints.", { piece: r[2], rank: i, gold: true }];
+});
+function earnedAwards(p, puzzle) {
+  const out = [];
+  if (p.solved >= 1) out.push("first_solve");
+  for (const [n, id] of [[50, "solved_50"], [250, "solved_250"], [1000, "solved_1000"]]) if (p.solved >= n) out.push(id);
+  for (const [n, id] of [[5, "streak_5"], [10, "streak_10"], [20, "streak_20"]]) if (p.best >= n) out.push(id);
+  for (let i = 1; i <= rankIndex(p.peak); i++) out.push("rank_" + RANKS[i][1].toLowerCase());
+  for (const r of RANKS) if ((p.runs[r[2]] || 0) >= STREAK_LEN) out.push("clear_" + r[1].toLowerCase());
+  if (puzzle && puzzle.clean && puzzle.r - puzzle.before >= 300) out.push("giant_slayer");
+  return out;
+}
+/* new awards: remember them, tell Game Center, and celebrate (rank-ups first) */
+function checkAwards(p, puzzle) {
+  if (!S.awards) { S.awards = earnedAwards(p); save(); return; }
+  const fresh = earnedAwards(p, puzzle).filter(id => !S.awards.includes(id));
+  if (!fresh.length) return;
+  S.awards.push(...fresh); save();
+  fresh.forEach(achieve);
+  fresh.forEach(id => track("award/" + id));
+  fresh.sort((a, b) => /^(rank|clear)_/.test(b) - /^(rank|clear)_/.test(a));
+  setTimeout(() => celebrate(fresh), REDUCED ? 300 : 900);
+}
+
+/* the poster at the top of the celebration screen, 300 x 220 */
+function posterSvg(art) {
+  const sky = art.gold ? "var(--p-gold)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
+  const rayColor = art.gold ? "var(--p-sun)" : art.number ? "rgba(253,251,242,0.16)" : "var(--p-cream)";
+  let rays = ""; for (let i = 0; i < 16; i++) { const a0 = i / 16 * Math.PI * 2, a1 = (i + 0.5) / 16 * Math.PI * 2;
+    rays += `M150,120 L${150 + Math.cos(a0) * 260},${120 + Math.sin(a0) * 260} L${150 + Math.cos(a1) * 260},${120 + Math.sin(a1) * 260} Z`; }
+  let fg = "";
+  if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 134 : 140}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
+    + `<path d="M0,190 C80,170 220,170 300,190 L300,220 L0,220 Z" fill="var(--p-mint)"/>`;
+  else if (art.slayer) fg = `<circle cx="205" cy="80" r="40" fill="var(--p-gold)"/><path d="M0,180 C90,150 210,150 300,180 L300,220 L0,220 Z" fill="var(--p-teal)"/>`
+    + `<g class="cele-piece"><svg x="150" y="40" width="130" height="130" viewBox="0 0 100 100"><use href="#pc-bk"/></svg><svg x="40" y="104" width="64" height="64" viewBox="0 0 100 100"><use href="#pc-wp"/></svg></g>`;
+  else fg = `<circle cx="150" cy="104" r="58" fill="${art.gold ? "var(--p-coral)" : "var(--p-gold)"}"/>`
+    + `<path d="M0,170 C60,140 110,150 150,152 C190,150 240,140 300,170 L300,220 L0,220 Z" fill="var(--p-mint)"/>`
+    + (art.gold ? `<path d="M90,220 L150,96 L210,220 Z" fill="var(--p-deep)"/><path d="M135,127 L150,96 L165,127 L156,122 L150,130 L144,122 Z" fill="var(--p-cream)"/>` : `<path d="M30,220 C90,150 210,150 270,220 Z" fill="var(--p-teal)"/>`)
+    + `<g class="cele-piece"><svg x="102" y="${art.gold ? 6 : 58}" width="96" height="96" viewBox="0 0 100 100"><use href="#pc-w${art.piece}"/></svg></g>`;
+  return `<svg class="cele-art" viewBox="0 0 300 220" aria-hidden="true"><rect width="300" height="220" fill="${sky}"/><path class="cele-rays" d="${rays}" fill="${rayColor}"/>${fg}</svg>`;
+}
+/* confetti over the whole screen, from a point */
+function burst(canvas, x, y) {
+  if (REDUCED) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1), W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d"); ctx.scale(dpr, dpr);
+  const colors = ["#f2c230", "#e2704f", "#56c2ad", "#fdfbf2", "#1c7868"], parts = [];
+  for (let i = 0; i < 120; i++) { const a = Math.random() * Math.PI * 2, v = 4 + Math.random() * 11;
+    parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 6, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.6, w: 7 + Math.random() * 7, h: 4 + Math.random() * 5, c: colors[i % colors.length] }); }
+  const t0 = performance.now(), dur = 1800;
+  (function frame(t) {
+    const k = (t - t0) / dur; ctx.clearRect(0, 0, W, H); if (k >= 1 || !canvas.isConnected) return;
+    for (const p of parts) { p.vy += 0.3; p.vx *= 0.985; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.globalAlpha = k < 0.7 ? 1 : 1 - (k - 0.7) / 0.3; ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); }
+    requestAnimationFrame(frame);
+  })(t0);
+}
+/* the celebration screen, one award after another */
+function celebrate(ids) {
+  const id = ids.shift(); if (!id || !AWARDS[id]) return;
+  const [kind, name, text, art] = AWARDS[id], rank = art.rank !== undefined ? rankName(art.rank) : "";
+  const title = T(name, { rank }), body = T(text, { n: art.n, rank });
+  const back = document.activeElement;
+  const el = document.createElement("div"); el.className = "cele"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
+  el.innerHTML = `<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>
+    <div class="cele-card">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
+    <div class="cele-btns"><button type="button" class="sh"></button><button type="button" class="go"></button></div></div><canvas class="cele-fx" aria-hidden="true"></canvas>`;
+  el.querySelector(".cele-kind").textContent = T(kind);
+  const h = el.querySelector(".cele-title"); h.setAttribute("aria-label", title);
+  [...title].forEach((ch, i) => { const sp = document.createElement("span"); sp.textContent = ch; sp.setAttribute("aria-hidden", "true"); sp.style.animationDelay = (0.8 + Math.min(i, 14) * 0.045) + "s"; h.append(sp); });
+  el.querySelector(".cele-text").textContent = body;
+  const go = el.querySelector(".go"), sh = el.querySelector(".sh");
+  go.textContent = T("Continue"); sh.textContent = T("Share");
+  const close = () => { el.classList.add("out"); setTimeout(() => { el.remove(); if (ids.length) celebrate(ids); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); document.removeEventListener("keydown", onKey); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  go.addEventListener("click", close);
+  sh.addEventListener("click", () => { const t = "♔ King Walk · " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
+    track("share/award"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} });
+  document.addEventListener("keydown", onKey);
+  document.body.append(el);
+  haptic("celebrate"); setTimeout(() => sfx.rank(), REDUCED ? 0 : 620);
+  setTimeout(() => { const r = el.querySelector(".cele-card").getBoundingClientRect(); burst(el.querySelector(".cele-fx"), r.left + r.width / 2, r.top + r.height * 0.35); }, REDUCED ? 0 : 700);
+  setTimeout(() => go.focus({ preventScroll: true }), REDUCED ? 50 : 1300);
 }
 
 /* ---------- rank streaks ----------
@@ -1398,7 +1543,7 @@ function finishRun(clean) {
       sfx.rank(); haptic("rank"); restart(frameEl, "won");
       if (lastMove[1]) confetti(lastMove[1]);
       track("run/cleared/" + rk[1].toLowerCase());
-      if (APP) achieve("clear_" + rk[1].toLowerCase());
+      checkAwards(p);
     } else {
       setStatus("bad", T("Streak over: {n} in a row", { n: r.step }), T("Best at {rank}: {n} of {total}", { rank: rankName(r.rank), n: p.runs[rk[2]] || 0, total: STREAK_LEN }), "turn");
       track("run/end/" + rk[1].toLowerCase() + "/" + r.step);
@@ -1416,10 +1561,21 @@ function finishRun(clean) {
 function renderRuns() {
   const row = $("runRow"), p = me(); row.textContent = "";
   RANKS.forEach((r, i) => {
-    const best = p.runs[r[2]] || 0, cleared = best >= STREAK_LEN;
-    const b = document.createElement("button"); b.type = "button"; b.className = "run-btn" + (cleared ? " cleared" : "");
+    const best = p.runs[r[2]] || 0, cleared = best >= STREAK_LEN, frac = best / STREAK_LEN;
+    const b = document.createElement("button"); b.type = "button"; b.className = "run-btn" + (cleared ? " cleared" : best ? "" : " untried");
     b.setAttribute("aria-label", T("{rank} streak", { rank: rankName(i) }) + ". " + (cleared ? T("Cleared.") : best ? T("Best {n} of {total}.", { n: best, total: STREAK_LEN }) : T("Not tried yet.")) + " " + T("Start"));
-    b.append(pieceSvg("w" + r[2]));
+    /* a round poster (sky, sun, hill, the piece) in a ring that fills with the best run; cleared: gold, with a ribbon */
+    const C = 2 * Math.PI * 29;
+    b.innerHTML = `<svg class="badge" viewBox="-4 -4 72 80" aria-hidden="true">
+      ${cleared ? '<path d="M18,52 L12,74 L22,68 L28,76 L32,56 Z M46,52 L52,74 L42,68 L36,76 L32,56 Z" fill="var(--p-coral)" stroke="var(--p-ink)" stroke-width="2" stroke-linejoin="round"/>' : ""}
+      <g class="scene"><clipPath id="bc${i}"><circle cx="32" cy="32" r="25"/></clipPath><g clip-path="url(#bc${i})">
+        <rect x="0" y="0" width="64" height="64" fill="${cleared ? "var(--p-gold)" : "var(--p-sky)"}"/>
+        <circle cx="32" cy="27" r="13" fill="${cleared ? "var(--p-coral)" : "var(--p-gold)"}"/>
+        <path d="M0,46 C14,38 50,38 64,46 L64,64 L0,64 Z" fill="${cleared ? "var(--p-deep)" : "var(--p-mint)"}"/>
+        <svg x="16" y="14" width="32" height="32" viewBox="0 0 100 100"><use href="#pc-w${r[2]}"/></svg></g></g>
+      <circle cx="32" cy="32" r="29" fill="none" stroke="var(--line)" stroke-width="4"/>
+      ${best ? `<circle cx="32" cy="32" r="29" fill="none" stroke="${cleared ? "var(--p-gold)" : "var(--accent)"}" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="${(C * frac).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 32 32)"/>` : ""}
+      <circle cx="32" cy="32" r="25" fill="none" stroke="var(--p-ink)" stroke-width="2"/></svg>`;
     const n = document.createElement("span"); n.textContent = rankName(i);
     const t = document.createElement("b"); t.textContent = cleared ? "♔ " + STREAK_LEN : best + "/" + STREAK_LEN;
     b.append(n, t);
@@ -1762,6 +1918,7 @@ renderPanel();
     const days = (Date.now() - p.since) / 864e5;
     [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); } });
   }
+  if (!S.awards) { S.awards = earnedAwards(p); if (S.updatedAt) save(); }
   if (APP) setTimeout(() => reportProgress(p), 1500);          /* after Game Center has had a moment to sign in */
 }
 if (typeof Chess !== "function") {
