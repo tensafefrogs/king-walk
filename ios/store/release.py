@@ -17,7 +17,7 @@ Credentials as in asc.py. The release workflow (.github/workflows/release.yml) r
 Not covered by the API: App Review's messages (Resolution Center) and replies to them, App Privacy answers.
 """
 import datetime, json, os, sys, time
-from asc import ApiError, app as get_app, call, create, patch, rel, request
+from asc import ApiError, app as get_app, call, create, log, patch, rel, request, upload_parts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..', '..')
@@ -27,10 +27,6 @@ IN_REVIEW = {'WAITING_FOR_REVIEW', 'IN_REVIEW'}
 BUSY = IN_REVIEW | {'READY_FOR_REVIEW', 'WAITING_FOR_EXPORT_COMPLIANCE', 'ACCEPTED', 'PENDING_APPLE_RELEASE',
                     'PENDING_DEVELOPER_RELEASE', 'PROCESSING_FOR_DISTRIBUTION'}
 REJECTED = {'REJECTED', 'METADATA_REJECTED'}
-
-
-def log(*a):
-    print(*a, flush=True)
 
 
 def vstate(v):
@@ -162,7 +158,7 @@ def cancel_review(app_id, v):
 def stuck_screenshots(v, fix=False):
     """Name the screenshots App Store Connect hasn't finished processing. With fix, upload each one again: an upload
     can stay at UPLOAD_COMPLETE for good, and deleting it and uploading the same file again is the usual cure."""
-    import hashlib, urllib.request
+    import hashlib
     files = {os.path.basename(p): p for ps in json.load(open(os.path.join(HERE, 'listing.json')))['screenshots'].values() for p in ps}
     for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']:
         for st in call('GET', f"/v1/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets")['data']:
@@ -178,9 +174,7 @@ def stuck_screenshots(v, fix=False):
                 call('DELETE', f"/v1/appScreenshots/{sh['id']}")
                 blob = open(os.path.join(HERE, files[name]), 'rb').read()
                 new = create('appScreenshots', {'fileName': name, 'fileSize': len(blob)}, {'appScreenshotSet': rel('appScreenshotSets', st['id'])})
-                for op in new['attributes']['uploadOperations']:
-                    urllib.request.urlopen(urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']],
-                        method=op['method'], headers={h['name']: h['value'] for h in op['requestHeaders']}), timeout=120).read()
+                upload_parts(blob, new['attributes']['uploadOperations'])
                 patch('appScreenshots', new['id'], {'uploaded': True, 'sourceFileChecksum': hashlib.md5(blob).hexdigest()})
                 order[order.index(sh['id'])] = new['id']; changed = True
                 log(f"  {name}: uploaded again")

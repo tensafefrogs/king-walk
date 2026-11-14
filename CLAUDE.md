@@ -4,9 +4,10 @@ A single-file chess puzzle game (`index.html`), live at https://geoffstearns.com
 
 ## Working on it
 
-- Push to `main` to release the website. Test first: `node testing/smoke.js` (plays puzzles on the web and in a simulated iOS app; GitHub runs it on every push).
+- Push to `main` to release the website. Test first: `node testing/smoke.js` (plays puzzles on the web and in a simulated iOS app) and `node testing/unit.js` (the rules one by one, and that every language has every string); GitHub runs both on every push.
 - The iOS app bundles `index.html` as it is on `main`. The page talks to the app through `APP` (`window.webkit.messageHandlers.kingwalk`); keep the web working when `APP` is null. A push to `main` that changes `ios/` or `index.html` runs a simulator build of the app (the **iOS app** workflow): check it passes.
 - Check layouts at phone (portrait and landscape), iPad portrait and landscape, desktop, and iPhone Duo propped up (`?fold=h` at 951x669) after layout changes.
+- Text the player sees or hears goes through `T("English text")` and needs an entry in `lang.js` for every language (unit.js checks).
 - Keep the owner's accounts and IDs out of the code: the GoatCounter address, site, bundle ID and App Store ID come from Actions variables through `config.js` and the build (README, "Your own copy").
 
 ## Keep the store materials current

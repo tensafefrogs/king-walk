@@ -8,7 +8,7 @@ exports.start = () => new Promise(resolve => {
     let p = decodeURIComponent(new URL(req.url, "http://x").pathname);
     if (p.endsWith("/")) p += "index.html";
     const f = path.join(ROOT, p);
-    if (!f.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
+    if (f !== ROOT && !f.startsWith(ROOT + path.sep)) { res.writeHead(403); return res.end(); }
     fs.readFile(f, (err, data) => {
       if (err) { res.writeHead(404); return res.end("not found"); }
       res.writeHead(200, { "Content-Type": TYPES[path.extname(f)] || "application/octet-stream" }); res.end(data);

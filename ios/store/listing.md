@@ -29,7 +29,7 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 ## App information
 
 - **Name** (30): King Walk: Chess Puzzles
-- **Subtitle** (30): Puzzles that grow with you
+- **Subtitle** (30): Chess puzzles that fight back
 - **Category:** Games. Subcategories: Board, Puzzle. Secondary category: Education
 - **Content rights:** Yes, it contains third-party content, and we have the rights: the puzzles are from the Lichess puzzle database, public domain (CC0)
 - **Age rating:** None to every question. Rating: 4+
@@ -39,31 +39,26 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 
 **Promotional text** (170, can change without a new build):
 
-> 53,000 chess puzzles from real games, with a rating that finds your level. Solve one and the next gets harder. Walk your king up from Pawn to King.
+> Spot the fork. Find the mate. Survive the streak. 53,000 puzzles from real games that get harder as you get better. Pawn today, King someday.
 
 **Description** (4000):
 
-> King Walk is a chess puzzle trainer that adapts to you. Every puzzle is a moment from a real game where there is one strong move, or a short line of them, to find.
+> Think you can see three moves ahead? Prove it.
 >
-> Solve a puzzle cleanly and your puzzle rating goes up, so the next puzzles get harder. Miss one and the rating comes down a little, and the puzzles ease off. Within a few dozen puzzles the game settles on your level, and from there it climbs as you improve.
+> King Walk throws real chess puzzles at you, 53,000 of them, pulled from actual games. Solve one and the next gets tougher. Miss one and it backs off. A few dozen puzzles in, it knows exactly how good you are. Then it starts pushing.
 >
-> You start at Pawn rank. Raise your rating and you earn Knight, Bishop, Rook, Queen and finally King: the king walks up the board.
+> You start as a Pawn. Earn Knight, Bishop, Rook and Queen. Reach King and you've walked the whole board.
 >
-> • 53,000 puzzles from real games: forks, pins, skewers, back rank mates, mates in one, two and three, endgames and more
-> • A puzzle rating that follows your level, with a chart of how far you've come
-> • Hints when you're stuck: the first circles the piece to move, the second shows where it goes
-> • Missed puzzles come back later for a second try
-> • Rank streaks: 15 puzzles that climb through a rank, no hints, one miss ends the run. Clear every rank from Pawn to King
-> • Easier, Just right or Harder, to set the pace
-> • Game Center leaderboards, achievements and challenges: dare your friends to beat your Knight streak
-> • A home screen and Lock Screen widget with your rank and rating
-> • Share your progress: your rank, rating and last ten puzzles in a few emoji
-> • On iPhone Duo, prop it up like a laptop (the board lies flat under your hands) or hold it like a book (the board on one page, the notes on the other)
-> • A left-handed layout that puts the board on the left when your phone is on its side or folded
-> • Progress syncs between your iPhone and iPad with iCloud
-> • Haptics, light and dark mode, and a board you can tap or drag
-> • Plays fully offline
-> • No account, no ads, no in-app purchases
+> • 53,000 puzzles from real games: forks, pins, skewers and sneaky back-rank mates
+> • A rating that finds your level and climbs with you
+> • Rank streaks: 15 puzzles, no hints, one miss and you're out
+> • Challenge friends in Game Center and settle who's actually good
+> • Stuck? Take a hint. We won't tell anyone.
+> • Missed one? It comes back later for a rematch
+> • Big, loud celebrations every time you rank up
+> • A home screen widget to show off your rank
+> • Haptics, dark mode, VoiceOver and larger text
+> • Works offline. No account, no ads, no in-app purchases
 >
 > The puzzles come from the public-domain Lichess puzzle database. King Walk is not made or endorsed by Lichess.
 

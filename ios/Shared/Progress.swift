@@ -26,15 +26,18 @@ struct Progress: Codable, Equatable {
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
 
-    /// The rating a rank starts at, for the bar to the next rank
-    static let rankFloors: [String: Int] = ["Pawn": 400, "Knight": 700, "Bishop": 1000, "Rook": 1300, "Queen": 1600, "King": 1900]
+    /// The rating each rank starts at, by its piece letter (rank names come translated), for the bar to the next rank
+    static let rankFloors: [String: Int] = ["p": 400, "n": 700, "b": 1000, "r": 1300, "q": 1600, "k": 1900]
 
     /// How far from this rank to the next, 0 to 1
     var rankFraction: Double {
-        guard !next.isEmpty, let lo = Progress.rankFloors[rank] else { return 1 }
+        guard !next.isEmpty, let lo = Progress.rankFloors[piece] else { return 1 }
         let hi = rating + toNext
         return min(1, max(0.04, Double(rating - lo) / Double(max(1, hi - lo))))
     }
+
+    /// "176 to Rook" as the page wrote it, or built here for saves from before the game was translated
+    var nextText: String { nextLine ?? (next.isEmpty ? NSLocalizedString("Top rank", comment: "") : "\(toNext) → \(next)") }
 
     /// a label the page sent, or the widget's own translation of the English one
     func label(_ key: String, _ english: String) -> String { labels?[key] ?? NSLocalizedString(english, comment: "") }

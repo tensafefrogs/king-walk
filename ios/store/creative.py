@@ -7,8 +7,8 @@ usage: python3 ios/store/creative.py --discover   prints the asset library's ref
        python3 ios/store/creative.py              uploads and places what listing.json's "creative" lists
 Credentials as in asc.py. See listing.md, "Header and search results" and "App previews".
 """
-import json, os, sys, time, urllib.parse, urllib.request
-from asc import BUNDLE_ID, ApiError, call, request
+import json, os, sys, time
+from asc import ApiError, app as get_app, call, upload_parts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -53,10 +53,7 @@ def upload(lib_id, kind, path, category, name):
     a = call('POST', f'/v1/{res}', {'data': {'type': res,
              'attributes': {'fileName': os.path.basename(path), 'fileSize': len(blob), 'category': category, 'referenceName': name},
              'relationships': {'assetLibrary': {'data': {'type': 'appAssetLibraries', 'id': lib_id}}}}})['data']
-    for op in a['attributes']['uploadOperations']:
-        req = urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']], method=op['method'],
-                                     headers={h['name']: h['value'] for h in op['requestHeaders']})
-        urllib.request.urlopen(req, timeout=300).read()
+    upload_parts(blob, a['attributes']['uploadOperations'], timeout=300)
     call('PATCH', f'/v1/{res}/{a["id"]}', {'data': {'type': res, 'id': a['id'], 'attributes': {'uploaded': True}}})
     for _ in range(60):   # processing takes a little while
         a = call('GET', f'/v1/{res}/{a["id"]}')['data']
@@ -83,7 +80,7 @@ def place(loc_id, asset, kind, ptype, group):
 
 
 def main():
-    app = call('GET', f'/v1/apps?filter[bundleId]={BUNDLE_ID}')['data'][0]
+    app = get_app()
     if '--discover' in sys.argv:
         return discover(app['id'])
     creative = json.load(open(os.path.join(HERE, 'listing.json'))).get('creative', [])

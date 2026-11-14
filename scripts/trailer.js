@@ -11,6 +11,7 @@
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path"), os = require("os"), { execFileSync } = require("child_process");
 const server = require("../testing/server");
+const { savedPlayer } = require("../testing/media");
 const ROOT = path.join(__dirname, "..");
 const preview = process.argv.includes("--preview");
 const vertical = preview || process.argv.includes("--vertical");
@@ -71,16 +72,6 @@ const SEED = `(()=>{if(window.top===window)return;
 
 // A player partway up: Bishop rank, a climb in the chart, a streak going (as in ios/store/screenshots.js).
 // to: the rating the climb ends at.
-function savedPlayer(to) {
-  let a = 7, rnd = () => (a = (a * 16807) % 2147483647) / 2147483647;
-  const hist = [600]; let r = 600;
-  for (let i = 0; i < 180; i++) { r += Math.round((rnd() - 0.36) * 34 * (i < 30 ? 1.6 : 1)); r = Math.max(560, r); hist.push(r); }
-  const shift = to - hist[hist.length - 1];
-  const h = hist.map((v, i) => Math.max(560, Math.round(v + shift * i / (hist.length - 1))));
-  return { v: 2, updatedAt: Date.now(), cur: 0, sound: false, haptics: true, rateAsked: Date.now(), players: [{
-    name: "Player 1", rating: h[h.length - 1], n: 180, solved: 117, streak: 4, best: 13, peak: Math.max(...h), hist: h,
-    last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1, 0, 1, 1, 1, 0.5, 1, 1, 0, 1, 1, 1], seen: {}, review: [], mode: "normal", since: Date.now() - 40 * 864e5, back: 7, runs: { p: 15, n: 15, b: 9 } }] };
-}
 
 // fonts and logo, embedded so the stage needs no network
 const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(ROOT, "fonts", name.toLowerCase() + "-latin-" + w + "-normal.woff2")).toString("base64")})}`;
@@ -88,7 +79,7 @@ const svg = f => "data:image/svg+xml;base64," + fs.readFileSync(path.join(ROOT, 
 // the logo: icon beside the name in the wide video, icon above the name in the tall ones
 const LOGO = vertical ? `<img class="mark" src="${svg("mark.svg")}" alt=""><img class="word" src="${svg("wordmark-on-dark.svg")}" alt="">`
   : `<img class="logo" src="${svg("logo-on-dark.svg")}" alt="">`;
-const TAG = "Chess puzzles that grow with you.";
+const TAG = "Chess puzzles that fight back.";
 
 const STAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <style>${font("Fredoka", 600)}${font("Fredoka", 700)}${font("Nunito", 700)}${font("Nunito", 800)}
@@ -226,12 +217,12 @@ const T=window.T={
 
   // 2. the other side moves first, then the player answers: a mate in 2, confetti, the rating goes up
   await open(1112, SEEDS.solve); await puzzle("solve:");
-  await rec(); await E(() => T.caption("Each puzzle starts with the <b>other side's move</b>."));
+  await rec(); await E(() => T.caption("They move. <b>You strike back.</b>"));
   await solve(); await wait(preview ? 1600 : 2600); await end();
 
   // 3. the next puzzle, a little harder (not in the preview)
   if (!preview) {
-    await rec(); await E(() => T.caption("Solve one and the <b>next gets harder</b>."));
+    await rec(); await E(() => T.caption("Solve one. The next one <b>bites harder</b>."));
     await wait(700); await E(s => T.win().__reseed(s), SEEDS.next); await E(() => T.press("#nextBtn"));
     await until("cur&&!locked&&!done"); await puzzle("next:");
     await solve(); await wait(2200); await end();
@@ -239,7 +230,7 @@ const T=window.T={
 
   // 4. a hint: the first circles the piece, the second where it goes
   if (preview) { await E(s => T.win().__reseed(s), SEEDS.hint); await G("nextPuzzle()"); await p.waitForTimeout(1500); }
-  await rec(); await E(() => T.caption("Stuck? Take a <b>hint</b>."));
+  await rec(); await E(() => T.caption("Stuck? <b>Take a hint.</b> No judgment."));
   if (!preview) { await wait(600); await E(s => T.win().__reseed(s), SEEDS.hint); await E(() => T.press("#nextBtn")); }
   await until("cur&&!locked&&!done"); await puzzle("hint:");
   await wait(900); await E(() => T.press("#hintBtn")); await wait(1300); await E(() => T.press("#hintBtn")); await wait(1100);
@@ -248,7 +239,7 @@ const T=window.T={
   // 5. a rank up: a player just below Rook (1300) solves one; on a phone the page then scrolls down to show the
   // progress card down to its chart
   await open(1295, SEEDS.rank); await puzzle("rank:");
-  await rec(); await E(() => T.caption("Walk up from <b>Pawn to King</b>."));
+  await rec(); await E(() => T.caption("Rank up. <b>Pawn to King.</b>"));
   await solve(); await wait(1400);
   if (vertical) {
     const y = await G("(()=>{const r=document.querySelector('.chart-cap').getBoundingClientRect();return Math.max(0,Math.round(r.bottom+scrollY-innerHeight+20));})()");

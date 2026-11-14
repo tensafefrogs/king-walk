@@ -5,6 +5,7 @@
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
 const server = require("../../testing/server");
+const { savedPlayer, seedRandom } = require("../../testing/media");
 const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -17,32 +18,20 @@ const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56,
   "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-book": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 } };
 // captions that say what a half-open iPhone Duo does, in place of the usual ones
 const CAPTIONS = {
-  "duo-book": { 1: { caption: "Open it like a <b>book</b>", sub: "The board on one page, the notes on the other." } },
-  "duo-table": { 1: { caption: "Prop it up like a <b>laptop</b>", sub: "The board lies flat under your hands. Your progress stands up to read." } },
+  "duo-book": { 1: { caption: "Fold it like a <b>book</b>", sub: "Board on one page. Notes on the other." } },
+  "duo-table": { 1: { caption: "Prop it up. <b>Laptop mode.</b>", sub: "Board flat under your hands, score up top." } },
 };
 const SHOTS = [
-  { id: 1, caption: "Chess puzzles that <b>grow with you</b>", sub: "Solve one and the next gets harder. Miss one and it eases off." },
-  { id: 2, caption: "<b>53,000 puzzles</b> from real games", sub: "Forks, pins, mates in two, and the rest." },
-  { id: 3, caption: "Stuck? Take a <b>hint</b>", sub: "The first circles the piece. The second shows where it goes." },
-  { id: 4, caption: "Walk up from <b>Pawn to King</b>", sub: "Your puzzle rating, your rank and how far you've come." },
-  { id: 5, caption: "Light or <b>dark</b>. No account. No ads.", sub: "Plays offline, on iPhone and iPad." },
+  { id: 1, caption: "Chess puzzles that <b>fight back</b>", sub: "Solve one, the next gets tougher. Miss one, it backs off." },
+  { id: 2, caption: "<b>53,000</b> real-game puzzles", sub: "Forks, pins, skewers and sneaky mates." },
+  { id: 3, caption: "Stuck? <b>Take a hint.</b>", sub: "We won't tell anyone." },
+  { id: 4, caption: "Pawn to <b>King</b>. Go.", sub: "Climb the ranks. Clear the streaks. Show off." },
+  { id: 5, caption: "Night owl? <b>Dark mode.</b>", sub: "No account. No ads. Works offline." },
 ];
 const out = path.join(__dirname, "screenshots"), raw = path.join(out, "raw");
 fs.mkdirSync(raw, { recursive: true });
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
 const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, name.toLowerCase() + "-latin-" + w + "-normal.woff2")).toString("base64")})}`;
-
-/* A player partway up: Bishop rank, a climb in the chart, a streak going. Deterministic, so re-running gives the same shots. */
-function savedPlayer() {
-  let a = 7, rnd = () => (a = (a * 16807) % 2147483647) / 2147483647;
-  const hist = [600]; let r = 600;
-  for (let i = 0; i < 180; i++) { r += Math.round((rnd() - 0.36) * 34 * (i < 30 ? 1.6 : 1)); r = Math.max(560, r); hist.push(r); }
-  const shift = 1112 - hist[hist.length - 1];
-  const h = hist.map((v, i) => Math.max(560, Math.round(v + shift * i / (hist.length - 1))));
-  return { v: 2, updatedAt: Date.now(), cur: 0, sound: false, haptics: true, rateAsked: Date.now(), players: [{
-    name: "Player 1", rating: h[h.length - 1], n: 180, solved: 117, streak: 4, best: 13, peak: Math.max(...h), hist: h,
-    last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1, 0, 1, 1, 1, 0.5, 1, 1, 0, 1, 1, 1], seen: {}, review: [], mode: "normal", since: Date.now() - 40 * 864e5, back: 7, runs: { p: 15, n: 15, b: 9 } }] };
-}
 
 async function newGame(b, name, dark, seed) {
   const { q, ...dev } = DEVICES[name];
@@ -50,10 +39,10 @@ async function newGame(b, name, dark, seed) {
   const p = await ctx.newPage(), errs = [];
   p.on("pageerror", e => errs.push(e.message));
   await p.route(/zgo\.at|goatcounter/, r => r.abort());
-  await p.addInitScript(([save, seed]) => {
-    let a = seed; Math.random = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  await p.addInitScript(seedRandom, seed);
+  await p.addInitScript(save => {
     if (!sessionStorage.getItem("seeded")) { sessionStorage.setItem("seeded", "1"); localStorage.setItem("chess-climb-v1", JSON.stringify(save)); }
-  }, [savedPlayer(), seed]);
+  }, savedPlayer());
   await p.goto(srv.url + (q || ""));
   await p.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 20000 });
   await p.waitForTimeout(500);
@@ -81,12 +70,12 @@ async function capture(b, name) {
   // 3: two hints showing
   g = await newGame(b, name, false, SEEDS[3]);
   await g.p.evaluate(() => { showHint(); showHint(); }); await g.p.waitForTimeout(500); await shot(g.p, name, 3); await g.ctx.close();
-  // 4: the progress card, right after a rank up: the ladder, the chart, the stats
+  // 4: reaching Rook: the new-rank celebration, once its motion has settled
   g = await newGame(b, name, false, SEEDS[4]);
   await g.p.evaluate(() => { const p = me(); p.rating = 1291; p.hist.push(1291); renderPanel(); cur.pz.r = Math.max(cur.pz.r, 1420); });
-  await solve(g.p); await g.p.waitForTimeout(1200);
-  await g.p.evaluate(() => { const c = document.querySelector(".progress"); const r = c.getBoundingClientRect(); window.scrollTo(0, Math.max(0, r.bottom + window.scrollY - window.innerHeight + 24)); });
-  await g.p.waitForTimeout(400); await shot(g.p, name, 4); await g.ctx.close();
+  await solve(g.p);
+  await g.p.waitForSelector(".cele .cele-btns", { timeout: 10000 }); await g.p.waitForTimeout(2200);
+  await shot(g.p, name, 4); await g.ctx.close();
   // 5: dark mode, a puzzle in progress with a piece picked up
   g = await newGame(b, name, true, SEEDS[5]);
   await g.p.evaluate(() => { const m = cur.pz.moves[idx]; sel = m.slice(0, 2); paint(); }); await g.p.waitForTimeout(300); await shot(g.p, name, 5);

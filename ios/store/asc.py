@@ -1,4 +1,4 @@
-"""App Store Connect API helpers shared by upload_listing.py and release.py.
+"""App Store Connect API helpers shared by the scripts in ios/store (listing, release, Game Center, creative assets, key check).
 
 Credentials, from the environment: ASC_KEY_ID, ASC_ISSUER_ID, and ASC_KEY_P8 (the .p8 file's contents) or
 ASC_KEY_PATH (its path). Needs PyJWT with cryptography (pip install pyjwt cryptography).
@@ -74,6 +74,18 @@ def create(kind, attributes=None, relationships=None):
 def rel(kind, id_):
     """A to-one relationship value"""
     return {'data': {'type': kind, 'id': id_}}
+
+
+def log(*a):
+    print(*a, flush=True)
+
+
+def upload_parts(blob, operations, timeout=120):
+    """Send a file's bytes to the upload operations App Store Connect handed back for it"""
+    for op in operations or []:
+        req = urllib.request.Request(op['url'], data=blob[op['offset']:op['offset'] + op['length']], method=op['method'],
+                                     headers={h['name']: h['value'] for h in op['requestHeaders']})
+        urllib.request.urlopen(req, timeout=timeout).read()
 
 
 def app():
