@@ -16,6 +16,10 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed | the difficulty buttons |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
 | `fold/table`, `fold/book` | The screen is folded across like a laptop, or top to bottom like a book (iPhone Duo or another foldable), once per fold | `foldLayout()` |
+| `run/start/<rank>` | A rank streak starts (`pawn` … `king`) | `startRun()` |
+| `run/end/<rank>/<n>` | A rank streak ends on a miss after n solves | `finishRun()` |
+| `run/cleared/<rank>` | All 15 puzzles of a rank streak solved | `finishRun()` |
+| `run/quit/<rank>` | End streak pressed during a run | the End streak button |
 | `lefty-on`, `lefty-off` | The Left-handed layout setting is turned on or off | menu |
 | `gamecenter` | The Game Center button is pressed (app only) | menu |
 | `rate-ask` | The app asks iOS to show the rating prompt (iOS may not show it) | `maybeAskForRating()` |

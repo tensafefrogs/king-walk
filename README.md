@@ -41,7 +41,7 @@ Plays a few puzzles in a browser (Playwright) on the web and in a simulated iOS 
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
 
 ## Your own copy
 

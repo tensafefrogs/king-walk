@@ -29,7 +29,9 @@ function badge(a) {
   const defs = `<defs><radialGradient id="bg" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#1c7868"/><stop offset="1" stop-color="#143f38"/></radialGradient></defs>`;
   let inner = "";
   const piece = (code, x, y, s, extra = "") => `<g transform="translate(${x} ${y}) ${extra}"><svg width="${s}" height="${s}" viewBox="0 0 100 100">${pieceSvg(code).replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg></g>`;
-  if (a.art.piece && !a.art.number) inner = `<circle cx="256" cy="256" r="150" fill="#f2c230"/>` + piece("w" + a.art.piece, 136, 130, 240);
+  if (a.art.piece && !a.art.number) inner = a.art.label
+    ? `<circle cx="256" cy="226" r="130" fill="#f2c230"/>` + piece("w" + a.art.piece, 156, 126, 200) + `<text x="256" y="420" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="44" fill="#f2c230" letter-spacing="3">${a.art.label.toUpperCase()}</text>`
+    : `<circle cx="256" cy="256" r="150" fill="#f2c230"/>` + piece("w" + a.art.piece, 136, 130, 240);
   if (a.art.number) inner = `<text x="256" y="${a.art.label ? 300 : 320}" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="${String(a.art.number).length > 3 ? 150 : 190}" fill="#fdfbf2">${a.art.number}</text>` +
     (a.art.label ? `<text x="256" y="370" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="44" fill="#f2c230" letter-spacing="3">${a.art.label.toUpperCase()}</text>` : "");
   if (a.art.slayer) inner = piece("bk", 210, 110, 230, "rotate(18 115 115)") + piece("wp", 96, 216, 190);
@@ -79,11 +81,16 @@ function badge(a) {
   // Hardest Solve: a white king alone on a gold disc with a glow, the top of the climb
   const king = `<circle cx="960" cy="540" r="330" fill="#f2c230" opacity=".18"/><circle cx="960" cy="540" r="250" fill="#f2c230"/>${pc("wk", 760, 330, 400)}`
     + Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2; return `<line x1="${960 + Math.cos(a) * 360}" y1="${540 + Math.sin(a) * 360}" x2="${960 + Math.cos(a) * 470}" y2="${540 + Math.sin(a) * 470}" stroke="#f2c230" stroke-width="10" stroke-linecap="round" opacity=".55"/>`; }).join("");
-  for (const [name, inner] of [["challenge-streak.png", stairs], ["challenge-hardest.png", king]]) {
+  // Rank streaks: the rank's piece on a gold tile, beside 15 bars climbing through the rank
+  const rankArt = t => `<rect x="300" y="290" width="500" height="500" rx="90" fill="#f2c230"/>` + pc("w" + t, 330, 320, 440)
+    + Array.from({ length: 15 }, (_, i) => `<rect x="${930 + i * 46}" y="${800 - 24 - i * 32}" width="34" height="${24 + i * 32}" rx="10" fill="${i % 2 ? "#fdfbf2" : "#f2c230"}" opacity="${0.55 + 0.45 * i / 14}"/>`).join("");
+  const arts = [["challenge-hardest.png", king], ...["p", "n", "b", "r", "q", "k"].map(t => [`challenge-streak-${t}.png`, rankArt(t)])];
+  try { fs.unlinkSync(path.join(gc, "challenge-streak.png")); } catch (e) {}
+  for (const [name, inner] of arts) {
     await p.setViewportSize({ width: W, height: H });
     await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block}</style><svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bg}${inner}</svg>`);
     await p.screenshot({ path: path.join(gc, name) });
   }
   await b.close();
-  console.log("saved the app icon, widget pieces,", ACH.length, "achievement images and 2 challenge images");
+  console.log("saved the app icon, widget pieces,", ACH.length, "achievement images and", arts.length, "challenge images");
 })();

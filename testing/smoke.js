@@ -109,6 +109,44 @@ async function run(b, url, app) {
     else console.log("keyboard: solved a puzzle; heard \"" + opening + "\" and \"" + heard.find(t => /selected/.test(t)) + "\"");
     await ctx.close();
   }
+  // a rank streak: puzzles from that rank, climbing; no hints; a miss ends it; the rating doesn't change; the normal
+  // game's puzzle comes back after
+  {
+    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } }), p = await ctx.newPage(), errs = [];
+    p.on("pageerror", e => errs.push(e.message));
+    await p.route(/zgo\.at|goatcounter/, r => r.abort()); await p.goto(srv.url);
+    await p.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 15000 });
+    const before = await p.evaluate(() => ({ rating: me().rating, now: cur.pz.id }));
+    await p.evaluate(() => document.querySelectorAll("#runRow .run-btn")[1].click());          // Knight
+    const ratings = [];
+    for (let k = 0; k < 2; k++) {
+      await p.waitForFunction(() => !locked && !done && RUN, null, { timeout: 15000 });
+      ratings.push(await p.evaluate(() => cur.pz.r));
+      while (!(await p.evaluate(() => done))) {
+        await p.waitForFunction(() => done || !locked, null, { timeout: 15000 });
+        await p.evaluate(() => { if (done) return; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); });
+        await p.waitForTimeout(300);
+      }
+      await p.evaluate(() => $("nextBtn").click());
+    }
+    await p.waitForFunction(() => !locked && !done && RUN, null, { timeout: 15000 });
+    const hintHidden = await p.evaluate(() => getComputedStyle($("hintBtn")).display === "none");
+    await p.evaluate(() => {          // a wrong move ends the run
+      const want = cur.pz.moves[idx];
+      for (const f of "abcdefgh") for (let k = 1; k <= 8; k++) { const sq = f + k, pc = game.get(sq);
+        if (pc && pc.color === orient) for (const m of game.moves({ square: sq, verbose: true })) if (m.from + m.to !== want.slice(0, 4) && !m.flags.includes("p")) {
+          const g = new Chess(game.fen()); g.move(m); if (!g.in_checkmate()) { tryMove(m.from, m.to); return; } } }
+    });
+    await p.waitForFunction(() => done, null, { timeout: 30000 });
+    const after = await p.evaluate(() => ({ over: RUN && RUN.over, best: me().runs.n, rating: me().rating, label: $("nextLabel").textContent, share: shareText(lastResult) }));
+    await p.evaluate(() => $("nextBtn").click());
+    await p.waitForFunction(() => !RUN && cur && !done && !locked, null, { timeout: 15000 });
+    const back = await p.evaluate(() => cur.pz.id);
+    const ok = after.over && after.best === 2 && after.rating === before.rating && hintHidden && back === before.now && ratings.every(r => r >= 700 && r <= 999) && ratings[1] >= ratings[0] - 40 && /Knight streak/.test(after.share) && !errs.length;
+    if (!ok) { bad++; console.log("FAIL rank streak", JSON.stringify({ after, ratings, hintHidden, back, before, errs })); }
+    else console.log("rank streak: 2 solved at " + ratings.join(", ") + ", ended on a miss, best saved, rating unchanged, the waiting puzzle came back");
+    await ctx.close();
+  }
   // the board's side: right for right-handed players, left with the Left-handed layout; on screen, off the fold.
   // Held like a book (fold-v), propped up like a laptop (fold-h, the board below the fold too), a phone on its side
   for (const lefty of [false, true]) for (const [w, h, q, name] of [[669, 951, "?fold=v", "book"], [951, 669, "?fold=h", "laptop"], [844, 390, "", "sideways"]]) {

@@ -209,6 +209,12 @@ def main():
                               os.path.join(HERE, 'gamecenter', c['image']), f'{vid} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
+    # Challenges no longer in gamecenter.json: removed (only possible before they go live)
+    wanted = {PREFIX + c['id'] for c in cfg.get('challenges', [])}
+    for vid, c in have_ch.items():
+        if vid and vid.startswith(PREFIX) and vid not in wanted and api('DELETE', f"/v1/gameCenterChallenges/{c['id']}", what=f'remove challenge {vid}') is not None:
+            log('Challenge removed:', vid)
+
     # Game Center on the version being prepared, so App Review sees it with the build
     vers = api('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")
     for v in (vers or {}).get('data', []):

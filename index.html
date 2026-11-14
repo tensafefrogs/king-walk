@@ -145,11 +145,11 @@ html.fold-h .menu.open { background: var(--bg); }
 html.fold-h .status { width: auto; justify-self: stretch; margin: 0 var(--u) var(--gap); }
 html.fold-h .progress { width: auto; justify-self: stretch; align-self: start; max-height: calc(100% - var(--u)); overflow: auto; margin: 0 var(--u);
   display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.2fr); column-gap: 18px; row-gap: 6px; align-items: start;
-  grid-template-areas: "head head head" "ladder stats chart" "names stats chart" "rank stats chart" "info info info"; }
+  grid-template-areas: "head head head" "ladder stats chart" "names stats chart" "rank stats chart" "runs runs runs" "info info info"; }
 html.fold-h .progress > :nth-child(1) { grid-area: head; }
 html.fold-h .progress > .ladder { grid-area: ladder; } html.fold-h .progress > .lad-names { grid-area: names; }
 html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; }
-html.fold-h .progress > :nth-child(6) { grid-area: chart; align-self: center; } html.fold-h .progress > .note { grid-area: info; }
+html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; } html.fold-h .progress > .note { grid-area: info; }
 html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
 html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
 /* left-handed: the board on the left half, the buttons on the right */
@@ -272,6 +272,18 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .setup { font-size: 14px; display: grid; gap: 3px; }
 .setup b { font-family: var(--font-display); font-weight: 600; }
 .save-box { display: grid; gap: 8px; }
+.runs { display: grid; gap: 6px; }
+.run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.run-btn { display: grid; justify-items: center; gap: 1px; padding: 6px 2px 5px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; font: 700 11px var(--font-display); }
+.run-btn svg { width: 26px; height: 26px; }
+.run-btn b { font: 700 12px var(--font-display); color: var(--muted); }
+.run-btn.cleared { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 18%, var(--bg)); }
+.run-btn.cleared b { color: var(--fg); }
+.run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+@media (hover: hover) { .run-btn:hover { border-color: var(--accent); } }
+#endRunBtn { display: none; }
+.play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
+.play-btns.run #endRunBtn { display: inline-flex; }
 .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .links a { color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
 .links a:hover { text-decoration: underline; }
@@ -536,6 +548,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
               <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
               <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
+              <li>Rank streaks: pick a rank under Progress for 15 puzzles that climb from the bottom of that rank to the top. No hints, and one miss ends the run. Clear all 15 to clear the rank. Streaks don't change your puzzle rating.</li>
               <li id="helpSaved">Progress is saved in this browser only. There are no accounts.</li>
               <li>The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.</li>
             </ul>
@@ -596,10 +609,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
         <div class="play-btns" id="playBtns">
           <button type="button" id="hintBtn" class="btn" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.3 1 2.2h5.2c0-.9.4-1.7 1-2.2A6 6 0 0 0 12 3z"/></svg><span id="hintLabel">Hint</span></button>
+          <button type="button" id="endRunBtn" class="btn">End streak</button>
           <button type="button" id="answerBtn" class="btn" aria-label="Answer: show the solution" disabled><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Answer</span></button>
         </div>
         <div class="done-btns" id="doneBtns" hidden>
           <button type="button" id="shareRankBtn" class="btn">Share</button>
+          <button type="button" id="againBtn" class="btn" hidden>Try again</button>
           <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
@@ -635,7 +650,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="stat"><b id="stStreak">0</b><span>in a row</span></div>
         <div class="stat"><b id="stAcc">-</b><span>of last 20</span></div>
       </div>
-      <div>
+      <div class="runs">
+        <p class="label">Rank streaks</p>
+        <div class="run-row" id="runRow"></div>
+        <p class="note">15 puzzles that climb through a rank. No hints, and one miss ends the run. Challenge friends in Game Center.</p>
+      </div>
+      <div class="chart-box">
         <div class="chart-wrap">
           <svg class="chart" id="chart" viewBox="0 0 300 64" preserveAspectRatio="none" role="img" aria-label="Rating over time"></svg>
           <span class="chart-dot" id="chartDot"></span>
@@ -661,6 +681,9 @@ const START_RATING = 600;
 const REVIEW_GAP = 30;                 /* new puzzles between a miss and its one second try */
 const MODES = { easy: -300, normal: -50, hard: 100 };                     /* puzzle rating minus player rating */
 const MODE_INDEX = { easy: 0, normal: 1, hard: 2 };
+/* Rank streaks: STREAK_LEN puzzles climbing from the bottom of a rank to its top (RUN_RANGE, by rank) */
+const STREAK_LEN = 15;
+const RUN_RANGE = [[400, 699], [700, 999], [1000, 1299], [1300, 1599], [1600, 1899], [1900, 2300]];
 const RANKS = [[0, "Pawn", "p"], [700, "Knight", "n"], [1000, "Bishop", "b"], [1300, "Rook", "r"], [1600, "Queen", "q"], [1900, "King", "k"]];
 const PIECE_NAME = { k: "King", q: "Queen", r: "Rook", b: "Bishop", n: "Knight", p: "Pawn" };
 const THEME_LABEL = {
@@ -693,7 +716,7 @@ function toggleSection(btn, section) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0 };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {} };
 }
 const count = v => Math.max(0, v | 0);
 /* Rebuild saved data field by field so a damaged save or a hand-edited save code cannot break the game. */
@@ -712,6 +735,7 @@ function cleanState(raw) {
     if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(0, 20).map(r => ({ b: r.b, i: count(r.i), due: count(r.due), tries: clamp(count(r.tries), 0, 3) }));
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
     q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
+    q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
   }
@@ -925,6 +949,13 @@ const RANK_GLYPH = ["\u2659", "\u2658", "\u2657", "\u2656", "\u2655", "\u2654"];
 let lastResult = null;
 function shareText(last) {
   const p = me(), ri = rankIndex(p.rating), lines = [];
+  if (last && last.run) {
+    const r = last.run, rk = RANKS[r.rank];
+    lines.push(RANK_GLYPH[r.rank] + " King Walk \u00b7 " + rk[1] + " streak");
+    lines.push(r.cleared ? "\ud83d\udc51 Cleared! " + STREAK_LEN + " of " + STREAK_LEN : "\u2705".repeat(r.step) + (r.over ? "\u274c" : "") + " " + r.step + " of " + STREAK_LEN);
+    if (SHARE_URL) lines.push(SHARE_URL);
+    return lines.join("\n");
+  }
   lines.push(RANK_GLYPH[ri] + " King Walk \u00b7 " + RANKS[ri][1] + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
   if (last && last.rankUp) lines.push("\ud83c\udf89 New rank: " + RANKS[ri][1] + "!");
   if (p.last.length) lines.push(p.last.slice(-10).map(v => v === 1 ? "\u2705" : v ? "\ud83d\udca1" : "\u274c").join(""));
@@ -1106,21 +1137,23 @@ function setButtons(on) {
   $("hintLabel").textContent = hintLevel === 0 ? "Hint" : "Hint 2";
 }
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
-function markNow() { const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
+function markNow() { if (RUN) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
 let promoCancel = null;
 function closePromo() { const ov = boardEl.querySelector(".promo"); if (ov) ov.remove(); promoCancel = null; }
 
 async function nextPuzzle() {
-  const gen = ++puzzleGen, resume = first;
+  const gen = ++puzzleGen, resume = first || resumeMain;
+  resumeMain = false;
   clearTimers(); closePromo();
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
-  $("doneBtns").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
+  $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter");
+  $("playBtns").classList.toggle("run", !!RUN);
   $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
   let pick;
-  try { [pick] = await Promise.all([pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
+  try { [pick] = await Promise.all([RUN ? pickRunPuzzle() : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
     setStatus("bad", "The puzzles could not load", "Check the connection", "bad");
@@ -1131,14 +1164,15 @@ async function nextPuzzle() {
   cur = pick; idx = 0; first = false;
   const p = me();
   if (pick.resumed) { failed = p.now.f; hintLevel = p.now.h; }
-  p.now = { b: pick.band, i: pick.i, review: !!pick.review, tries: pick.tries | 0, f: failed, h: hintLevel }; save();
+  if (!RUN) { p.now = { b: pick.band, i: pick.i, review: !!pick.review, tries: pick.tries | 0, f: failed, h: hintLevel }; save(); }          /* a streak keeps the normal game's puzzle waiting */
   game = new Chess(cur.pz.fen + " 0 1");
   orient = game.turn() === "w" ? "b" : "w";          /* the other side moves first, then the player answers */
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
-  $("stLevel").hidden = !cur.review;
+  $("stLevel").textContent = RUN ? RANKS[RUN.rank][1] + " " + (RUN.step + 1) + "/" + STREAK_LEN : "Second try";
+  $("stLevel").hidden = !cur.review && !RUN;
   renderPuzzleInfo();
-  setStatus("info", cur.review ? "You've seen this one before" : (orient === "w" ? "Black" : "White") + " moves first", cur.review ? "Second try" : "", "wait");
+  setStatus("info", RUN ? RANKS[RUN.rank][1] + " streak, puzzle " + (RUN.step + 1) + " of " + STREAK_LEN : cur.review ? "You've seen this one before" : (orient === "w" ? "Black" : "White") + " moves first", RUN ? "No hints. One miss ends the run." : cur.review ? "Second try" : "", "wait");
   renderSetup();
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
@@ -1192,11 +1226,12 @@ function commit(from, to, promo) {
       const h = game.history({ verbose: true }).pop(); lastMove = h ? [h.from, h.to] : [];
       if (o) o.el.classList.remove("nope");
       syncPieces({ from: to, to: from }); paint(); locked = false;
+      if (RUN) showAnswer();          /* one miss ends a streak: show the solution */
     }, 820);
   }
 }
 function showHint() {
-  if (locked || done || hintLevel >= 2) return;
+  if (locked || done || hintLevel >= 2 || RUN) return;
   hintLevel++;
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
@@ -1204,7 +1239,7 @@ function showHint() {
   setButtons(true); paint(); markNow(); haptic("hint");
 }
 function showAnswer() {
-  if (locked || done) return;
+  if (locked || done || (RUN && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false);
   setStatus("info", "Watch the answer", "", "wait");
   const step = () => {
@@ -1219,6 +1254,7 @@ const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (
 /* The puzzle is over: update the rating, save, and show the result. */
 function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
+  if (RUN) { finishRun(solvedIt && !failed && !hintLevel); return; }
   const p = me(), before = p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
   let delta = 0;
@@ -1254,7 +1290,8 @@ function finish(solvedIt) {
   else if (score === 0.5) { setStatus("good", "Solved with a hint", "", "good"); sfx.good(); haptic("solve"); }
   else if (solvedIt) setStatus("bad", "Solved after a miss", cur.review ? "" : "It will come back later", "turn");
   else setStatus("bad", "That was the answer", cur.review ? "" : "It will come back later", "turn");
-  $("stLevel").hidden = true;
+  $("stLevel").textContent = "Second try"; $("stLevel").hidden = true;
+  $("nextLabel").textContent = "Next puzzle";
   const d = $("delta");
   d.textContent = cur.review ? "practice" : (delta > 0 ? "+" : "") + delta;
   d.className = "delta" + (cur.review ? "" : delta > 0 ? " up" : delta < 0 ? " down" : "");
@@ -1269,6 +1306,87 @@ function finish(solvedIt) {
   if (delta) restart($("rate"), "bump");
   if (score === 1) restart($("stStreak"), "bump");
   $("nextBtn").focus({ preventScroll: true });
+}
+
+/* ---------- rank streaks ----------
+   RUN is the streak in progress: { rank (index in RANKS), step (puzzles solved), used (puzzle ids), over }.
+   It lives only in memory: a reload ends it, and the best is saved after every solve. The puzzle the player left in
+   the normal game comes back when the run ends. */
+let RUN = null, resumeMain = false;
+async function pickRunPuzzle() {
+  const [lo, hi] = RUN_RANGE[RUN.rank];
+  const target = Math.round(lo + (hi - lo) * Math.min(RUN.step, STREAK_LEN - 1) / (STREAK_LEN - 1));
+  for (const w of [25, 50, 100, 200]) {
+    const cands = [];
+    for (let b = bandOf(Math.max(lo, target - w)); b <= bandOf(Math.min(hi, target + w)); b += 100) {
+      const list = await loadBand(b);
+      for (let i = 0; i < list.length; i++) if (Math.abs(list[i].r - target) <= w && list[i].r >= lo && list[i].r <= hi && !RUN.used.has(list[i].id)) cands.push([b, i]);
+    }
+    if (cands.length) {
+      const [b, i] = cands[Math.floor(Math.random() * cands.length)], list = await loadBand(b);
+      RUN.used.add(list[i].id);
+      return { band: b, i, pz: list[i], size: list.length, review: false, run: true };
+    }
+  }
+  throw new Error("no puzzle for the streak");
+}
+function startRun(ri) {
+  RUN = { rank: ri, step: 0, used: new Set(), over: false };
+  if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
+  track("run/start/" + RANKS[ri][1].toLowerCase());
+  window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+  nextPuzzle();
+}
+function leaveRun() { RUN = null; resumeMain = true; nextPuzzle(); }
+/* a puzzle in a streak is over: count it, or end the run */
+function finishRun(clean) {
+  const r = RUN, rk = RANKS[r.rank], p = me();
+  if (clean) {
+    r.step++;
+    if (r.step > (p.runs[rk[2]] || 0)) { p.runs[rk[2]] = r.step; save(); }
+    if (APP && APP.gameCenter) APP.post({ op: "score", board: "streak_" + rk[2], value: r.step });
+  }
+  const cleared = clean && r.step >= STREAK_LEN;
+  frameEl.classList.add(clean ? "ok" : "miss");
+  if (clean && !cleared) {
+    setStatus("good", "Solved! " + r.step + " in a row", "Next one is a little harder", "good");
+    sfx.good(); haptic("solve"); restart(frameEl, "won");
+    if (lastMove[1]) confetti(lastMove[1]);
+  } else {
+    r.over = true;
+    if (cleared) {
+      setStatus("good", rk[1] + " cleared!", STREAK_LEN + " in a row", "good");
+      sfx.rank(); haptic("rank"); restart(frameEl, "won");
+      if (lastMove[1]) confetti(lastMove[1]);
+      track("run/cleared/" + rk[1].toLowerCase());
+      if (APP) achieve("clear_" + rk[1].toLowerCase());
+    } else {
+      setStatus("bad", "Streak over: " + r.step + " in a row", "Best at " + rk[1] + ": " + (p.runs[rk[2]] || 0) + " of " + STREAK_LEN, "turn");
+      track("run/end/" + rk[1].toLowerCase() + "/" + r.step);
+    }
+  }
+  $("stLevel").textContent = rk[1] + " " + r.step + "/" + STREAK_LEN; $("stLevel").hidden = false;
+  $("delta").className = "delta";
+  lastResult = { run: { rank: r.rank, step: r.step, over: r.over, cleared } };
+  $("nextLabel").textContent = r.over ? "Back to puzzles" : "Next puzzle";
+  $("againBtn").hidden = !r.over;
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; restart($("doneBtns"), "enter");
+  renderPanel();
+  $("nextBtn").focus({ preventScroll: true });
+}
+function renderRuns() {
+  const row = $("runRow"), p = me(); row.textContent = "";
+  RANKS.forEach((r, i) => {
+    const best = p.runs[r[2]] || 0, cleared = best >= STREAK_LEN;
+    const b = document.createElement("button"); b.type = "button"; b.className = "run-btn" + (cleared ? " cleared" : "");
+    b.setAttribute("aria-label", r[1] + " streak. " + (cleared ? "Cleared." : best ? "Best " + best + " of " + STREAK_LEN + "." : "Not tried yet.") + " Start");
+    b.append(pieceSvg("w" + r[2]));
+    const n = document.createElement("span"); n.textContent = r[1];
+    const t = document.createElement("b"); t.textContent = cleared ? "♔ " + STREAK_LEN : best + "/" + STREAK_LEN;
+    b.append(n, t);
+    b.addEventListener("click", () => startRun(i));
+    row.append(b);
+  });
 }
 
 /* ---------- playing without a pointer: VoiceOver, Switch Control, Voice Control, a keyboard ----------
@@ -1485,12 +1603,15 @@ function renderPanel(fromRating) {
     '<polygon points="4,64 ' + line + ' 296,64" fill="url(#cg)" stroke="none"/>' +
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
+  renderRuns();
   $("chartLo").textContent = "low " + mn; $("chartHi").textContent = "high " + mx;
 }
 
 $("hintBtn").addEventListener("click", showHint);
 $("answerBtn").addEventListener("click", showAnswer);
-$("nextBtn").addEventListener("click", nextPuzzle);
+$("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else nextPuzzle(); });
+$("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
+$("endRunBtn").addEventListener("click", () => { if (RUN) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
 $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); else track("sound-off"); haptic("toggle"); });
