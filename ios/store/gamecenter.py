@@ -99,6 +99,14 @@ def languages():
 def report_challenges(did):
     """What App Store Connect holds for each challenge: its versions and their state, and each language's image.
     Printed every run, since this part of the API is new and its relationship names aren't all documented."""
+    log('Leaderboard images (English):')
+    for lb in every(f'/v1/gameCenterDetails/{did}/gameCenterLeaderboards'):
+        for l in every(f"/v1/gameCenterLeaderboards/{lb['id']}/localizations"):
+            if l['attributes'].get('locale') != 'en-US': continue
+            r = api('GET', f"/v1/gameCenterLeaderboardLocalizations/{l['id']}/gameCenterLeaderboardImage")
+            a = ((r or {}).get('data') or {}).get('attributes') or {}
+            log(' ', lb['attributes'].get('vendorIdentifier'), json.dumps({'file': a.get('fileName'), 'state': (a.get('assetDeliveryState') or {}).get('state'),
+                'errors': (a.get('assetDeliveryState') or {}).get('errors')}))
     log('Challenge report:')
     for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges'):
         vid = c['attributes'].get('vendorIdentifier')
@@ -162,8 +170,17 @@ def main():
                 if any(old['attributes'].get(k) != v for k, v in loc_attrs.items()):
                     api('PATCH', f"/v1/gameCenterLeaderboardLocalizations/{old['id']}", {'data': {'type': 'gameCenterLeaderboardLocalizations', 'id': old['id'], 'attributes': loc_attrs}}, f'{vid} {locale} text')
             else:
-                api('POST', '/v1/gameCenterLeaderboardLocalizations', {'data': {'type': 'gameCenterLeaderboardLocalizations', 'attributes': dict(loc_attrs, locale=locale),
+                r = api('POST', '/v1/gameCenterLeaderboardLocalizations', {'data': {'type': 'gameCenterLeaderboardLocalizations', 'attributes': dict(loc_attrs, locale=locale),
                     'relationships': {'gameCenterLeaderboard': {'data': {'type': 'gameCenterLeaderboards', 'id': lb['id']}}}}}, f'{vid} {locale} text')
+                old = r and r['data']
+            # its picture (gamecenter/leaderboard-<id>.png, 1024x1024), in each language, replaced when the file changes
+            file = os.path.join(HERE, 'gamecenter', 'leaderboard-' + b['id'] + '.png')
+            if old and old['id'] != 'dry' and os.path.exists(file):
+                img = api('GET', f"/v1/gameCenterLeaderboardLocalizations/{old['id']}/gameCenterLeaderboardImage")
+                if img and img.get('data') and changed(img['data'], file):
+                    api('DELETE', f"/v1/gameCenterLeaderboardImages/{img['data']['id']}", what=f"replace image {b['id']} {locale}"); img = None
+                if not (img and img.get('data')):
+                    upload_image('gameCenterLeaderboardImages', 'gameCenterLeaderboardLocalizations', old['id'], ['gameCenterLeaderboardLocalization'], file, f"{b['id']} {locale} image")
         log('Leaderboard ready:', vid)
 
     # Achievements
