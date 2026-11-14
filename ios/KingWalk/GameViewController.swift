@@ -15,17 +15,7 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
         let content = config.userContentController
-        content.addUserScript(WKUserScript(source: saves.bootstrapScript(), injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        // what the app offers the page, read by APP in index.html. platform is for the analytics event platform/<name>
-        // (an iPad app on a Mac reports an iPad otherwise)
-        let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "mac" : UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
-        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true,reminders:true};",
-                                           injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box)
-        content.addUserScript(WKUserScript(source: """
-            (function(){var m=document.querySelector('meta[name=viewport]');if(m)m.content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
-            var s=document.createElement('style');s.textContent='body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}textarea{-webkit-user-select:text;user-select:text}';document.head.appendChild(s);})();
-            """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        installScripts(content)
         content.add(WeakMessageHandler(self), name: "kingwalk")
 
         webView = WKWebView(frame: .zero, configuration: config)
@@ -43,6 +33,23 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         view = webView
     }
 
+    /// The scripts that run as the page loads: the save (from the current items, so a reload never brings back an
+    /// older copy), what the app offers, and app-like touches
+    private func installScripts(_ content: WKUserContentController) {
+        content.removeAllUserScripts()
+        content.addUserScript(WKUserScript(source: saves.bootstrapScript(), injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        // what the app offers the page, read by APP in index.html. platform is for the analytics event platform/<name>
+        // (an iPad app on a Mac reports an iPad otherwise)
+        let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "mac" : UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
+        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true,reminders:true};",
+                                           injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box)
+        content.addUserScript(WKUserScript(source: """
+            (function(){var m=document.querySelector('meta[name=viewport]');if(m)m.content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+            var s=document.createElement('style');s.textContent='body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}textarea{-webkit-user-select:text;user-select:text}';document.head.appendChild(s);})();
+            """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         applyTextSize()
@@ -52,6 +59,17 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         GameCenter.shared.presenter = self
         GameCenter.shared.signIn()
         NotificationCenter.default.addObserver(self, selector: #selector(openRequested), name: Launch.notification, object: nil)
+        // another device's progress: when iCloud changes, and when the player comes back to the app
+        saves.onCloudSave = { [weak self] save in self?.sendCloudSave(save) }
+        NotificationCenter.default.addObserver(self, selector: #selector(cameBack), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc private func cameBack() { saves.offerCloud() }
+
+    /// the iCloud copy, for the page to keep if it has more progress (kingWalkCloud in index.html)
+    private func sendCloudSave(_ save: String) {
+        guard pageReady, let literal = SaveStore.jsonLiteral([save]) else { return }
+        webView.evaluateJavaScript("window.kingWalkCloud&&kingWalkCloud(\(literal)[0])")
     }
 
     // MARK: Opening a part of the game (Launch, in Shared/Progress.swift)
@@ -149,6 +167,7 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         case "ready":
             pageReady = true
             openRequested()
+            saves.offerCloud()          // iCloud may have changed while the page loaded
         case "reminders":
             let hour = body["hour"] as? Int ?? -1
             Reminders.schedule(hour: hour, items: body["items"] as? [[String: Any]] ?? []) { [weak self] allowed in
@@ -193,6 +212,7 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
     // If iOS stops the web content process (memory pressure), bring the game back
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         pageReady = false
+        installScripts(webView.configuration.userContentController)          // today's save, not the one from launch
         webView.load(URLRequest(url: startURL))
     }
 

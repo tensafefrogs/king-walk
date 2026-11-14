@@ -171,11 +171,12 @@ def stuck_screenshots(v, fix=False):
                 log(f"  {st['attributes']['screenshotDisplayType']} {name}: {state}",
                     (sh['attributes'].get('assetDeliveryState') or {}).get('errors') or '')
                 if not fix or name not in files: continue
-                call('DELETE', f"/v1/appScreenshots/{sh['id']}")
+                # the replacement first, then the stuck one goes: a failed upload never leaves the set a screenshot short
                 blob = open(os.path.join(HERE, files[name]), 'rb').read()
                 new = create('appScreenshots', {'fileName': name, 'fileSize': len(blob)}, {'appScreenshotSet': rel('appScreenshotSets', st['id'])})
                 upload_parts(blob, new['attributes']['uploadOperations'])
                 patch('appScreenshots', new['id'], {'uploaded': True, 'sourceFileChecksum': hashlib.md5(blob).hexdigest()})
+                call('DELETE', f"/v1/appScreenshots/{sh['id']}")
                 order[order.index(sh['id'])] = new['id']; changed = True
                 log(f"  {name}: uploaded again")
             if changed:   # back in its place

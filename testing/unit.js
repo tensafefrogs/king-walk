@@ -143,6 +143,27 @@ function translations() {
   const img = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gyr", 61, true); dailyImg = null; await prepareDailyImage(n);
     if (!dailyImg) return null; const bm = await createImageBitmap(dailyImg.blob); return { w: bm.width, h: bm.height, type: dailyImg.blob.type }; });
   check(img && img.w === 1080 && img.h === 1080 && img.type === "image/png", "the daily share picture is a 1080 square PNG", img);
+  // two devices' saves: more progress wins, an empty save never does, a newer Start over does
+  const sv = await p.evaluate(() => {
+    const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
+    const old = mk(50, 3, 1000), stale = mk(40, 3, 1000, { updatedAt: Date.now() + 99999 }), fresh = mk(0, 0, 5000), freshPlayed = mk(2, 0, 5000), reset = mk(0, 0, 9000, { reset: true });
+    return { more: betterSave(old, stale), staleLoses: !betterSave(stale, old), emptyLoses: !betterSave(fresh, old), smallNewInstall: !betterSave(freshPlayed, old), resetWins: betterSave(reset, old), oldVsReset: !betterSave(old, reset) };
+  });
+  check(Object.values(sv).every(Boolean), "which device's save to keep", sv);
+  const cl = await p.evaluate(() => { const before = me().n; const other = JSON.parse(JSON.stringify(S)); other.players[0].n = before + 40; other.players[0].rating = 1777;
+    kingWalkCloud(JSON.stringify(other)); const took = me().rating; const worse = JSON.parse(JSON.stringify(S)); worse.players[0].n = 1; worse.players[0].rating = 401; kingWalkCloud(JSON.stringify(worse)); kingWalkCloud("not json");
+    return { took, kept: me().rating }; });
+  check(cl.took === 1777 && cl.kept === 1777, "the app's iCloud copy is taken only when it has more progress", cl);
+  // a finished daily from yesterday doesn't block today's; no freeze is spent on the day being played
+  const st = await p.evaluate(() => { const n = dayNumber(); DAILY = { n: n - 1, marks: [], spent: 0, t0: 0 }; done = true; dropStaleDaily(); const dropped = DAILY === null;
+    const pl = me(); Object.assign(pl.daily, { streak: 4, last: n - 2, freezes: 1, days: {} }); DAILY = { n: n - 1, marks: [], spent: 0, t0: 0 }; done = false; checkFreezes(); const kept = pl.daily.freezes;
+    DAILY = null; done = true; return { dropped, kept }; });
+  check(st.dropped && st.kept === 1, "yesterday's finished daily steps aside; no freeze for the day being played", st);
+  // "Copied" replaces a button's label, not its icon
+  const cp = await p.evaluate(async () => { const b = $("dailyBtn"); const hadIcon = !!b.querySelector("svg"); Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
+    try { Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.resolve() }, configurable: true }); } catch (e) {}
+    shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("svg"), span: !!$("dailyBtnTxt") }; });
+  check(cp.icon && cp.span, "Copied keeps the Daily button's icon and label element", cp);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };
@@ -157,6 +178,16 @@ function translations() {
   const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
   check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);
   await ctx.close();
+
+  // launch in the app with an iCloud copy that has more progress than this device's: the page starts from it
+  const boot = await page("", () => {
+    const mk = (n, r) => JSON.stringify({ v: 2, updatedAt: n, cur: 0, players: [{ rating: r, n, since: 1000, hist: [r] }] });
+    if (!sessionStorage.k) { sessionStorage.k = 1; localStorage.setItem("chess-climb-v1", mk(5, 650)); }
+    window.kingWalkCloudSave = mk(80, 1234);
+  });
+  const bt = await boot.p.evaluate(() => ({ rating: me().rating, stored: JSON.parse(localStorage.getItem("chess-climb-v1")).players[0].rating }));
+  check(bt.rating === 1234 && bt.stored === 1234, "at launch, the iCloud copy with more progress wins", bt);
+  await boot.ctx.close();
 
   // the app: kingWalkOpen("daily") starts the daily puzzle, and the reminders cover the next week with no repeats
   const ap = await page("", () => { window.sent = []; window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(m) } } }; window.kingWalkApp = { widget: true, reminders: true }; });

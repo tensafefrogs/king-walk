@@ -856,12 +856,32 @@ function cleanState(raw) {
     players.push(q);
   }
   if (!players.length) return null;
-  return { v: 2, updatedAt: +raw.updatedAt || 0, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, tip: raw.tip === true, remind: Number.isInteger(raw.remind) && raw.remind >= -1 && raw.remind < 24 ? raw.remind : -1,
+  return { v: 2, updatedAt: +raw.updatedAt || 0, reset: raw.reset === true, cur: clamp(raw.cur | 0, 0, players.length - 1), sound: raw.sound !== false, haptics: raw.haptics !== false, lefty: raw.lefty === true, tip: raw.tip === true, remind: Number.isInteger(raw.remind) && raw.remind >= -1 && raw.remind < 24 ? raw.remind : -1,
     awards: Array.isArray(raw.awards) ? raw.awards.filter(a => typeof a === "string" && a.length < 40).slice(0, 64) : null, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
 let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, remind: -1, rateAsked: 0, players: [newPlayer(START_RATING)] };
+/* Two copies of the save (the iOS app's iCloud copy, from another device): keep the one with more progress (rated
+   puzzles plus daily puzzles played). A save with no progress never replaces one with some, so a fresh install
+   that hasn't heard from iCloud yet can't wipe it; a newer Start over (S.reset) replaces an older history.
+   Write times aren't compared: every launch saves, so the device opened last would always look newest. */
+function saveRank(s) {
+  const p = s && s.players && s.players[0];
+  return p ? { since: +p.since || 0, progress: (p.n | 0) + Object.keys((p.daily && p.daily.days) || {}).length, reset: !!s.reset, at: +s.updatedAt || 0 } : null;
+}
+function betterSave(a, b) {          /* should a replace b? */
+  const A = saveRank(a), B = saveRank(b);
+  if (!A) return false; if (!B) return true;
+  if (A.since !== B.since) { if (A.reset && A.since > B.since) return true; if (B.reset && B.since > A.since) return false; }
+  if (!A.progress) return false; if (!B.progress) return true;
+  if (A.progress !== B.progress) return A.progress > B.progress;
+  return A.at > B.at + 5000;
+}
+{          /* the app passes its iCloud copy in at launch (SaveStore.swift) */
+  let cloud = null; try { cloud = window.kingWalkCloudSave ? cleanState(JSON.parse(window.kingWalkCloudSave)) : null; } catch (e) {}
+  if (cloud && betterSave(cloud, S)) S = cloud;
+}
 if (S.updatedAt) writeLocal();          /* store the cleaned copy */
 const me = () => S.players[S.cur];
 function save() { S.updatedAt = Date.now(); writeLocal(); }
@@ -1015,7 +1035,7 @@ const PLATFORM = (() => {
 const TRACK_PREFIX = APP ? "king-walk-ios/" : "king-walk/";
 const trackQ = [];
 let trackTimer = 0;
-function track(name) { trackQ.push(name); flushTrack(); }
+function track(name) { if (!CONFIG.goatcounter) return; trackQ.push(name); flushTrack(); }
 function flushTrack() {
   try {
     const gc = window.goatcounter;
@@ -1023,7 +1043,7 @@ function flushTrack() {
   } catch (e) { return; }
   if (!trackTimer && trackQ.length) {
     let tries = 0;
-    trackTimer = setInterval(() => { if (++tries > 60 || (window.goatcounter && window.goatcounter.count)) { clearInterval(trackTimer); trackTimer = 0; if (tries <= 60) flushTrack(); } }, 1000);
+    trackTimer = setInterval(() => { if (++tries > 60 || (window.goatcounter && window.goatcounter.count)) { clearInterval(trackTimer); trackTimer = 0; if (tries <= 60) flushTrack(); else trackQ.length = 0; } }, 1000);
   }
 }
 const PLAYED_MARKS = [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500];
@@ -1048,7 +1068,7 @@ function reportProgress(p, puzzle) {
     APP.post({ op: "widget", data: { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
       labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
       solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now(),
-      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyN: dayNumber(), dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0 } });
+      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0, dailyPlayed: dailyDone(p) ? dayKey(dayNumber()) : "" } });
   }
 }
 
@@ -1088,7 +1108,8 @@ function shareProgress(btn, last) {
     if (navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text }).catch(() => {}); return; }
   }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
-  const done = () => { const old = btn.textContent; btn.textContent = T("Copied"); setTimeout(() => { btn.textContent = old; }, 1600); };
+  const label = btn.querySelector("span") || btn;          /* the label only: the Daily button keeps its icon */
+  const done = () => { const old = label.textContent; label.textContent = T("Copied"); setTimeout(() => { label.textContent = old; renderDaily(); }, 1600); };
   try { navigator.clipboard.writeText(text).then(done, () => window.prompt(T("Copy this:"), text)); } catch (e) { window.prompt(T("Copy this:"), text); }
 }
 
@@ -1276,7 +1297,7 @@ async function nextPuzzle() {
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
   $("playBtns").classList.toggle("run", !!RUN);
-  renderDailyBtn();
+  renderDaily();
   $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
@@ -1568,7 +1589,11 @@ function celebrate(ids) {
    The pick depends on the puzzle files (p/): changing them changes the daily puzzles from then on. */
 const DAILY_EPOCH = Date.UTC(2026, 10, 14);          /* Daily #1 */
 const DAILY_RANGE = [[1700, 1899], [500, 699], [700, 899], [900, 1099], [1100, 1299], [1300, 1499], [1500, 1699]];          /* by weekday, Sunday first */
-const dayNumber = (d = new Date()) => Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - DAILY_EPOCH) / 864e5) + 1);
+const dayIndex = (d = new Date()) => Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - DAILY_EPOCH) / 864e5) + 1;
+const dayNumber = d => Math.max(1, dayIndex(d));
+const dailyOpen = () => dayIndex() >= 1;          /* before Daily #1's date (time zones behind it), there's none yet */
+/* a daily finished on an earlier day is over once the day changes: the next request is for today's */
+function dropStaleDaily() { if (DAILY && done && DAILY.n !== dayNumber()) DAILY = null; }
 const dayDate = n => { const u = new Date(DAILY_EPOCH + (n - 1) * 864e5); return new Date(u.getUTCFullYear(), u.getUTCMonth(), u.getUTCDate()); };
 const dayKey = n => { const d = dayDate(n); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
 function hash32(n) { n = Math.imul((n | 0) ^ 0x9e3779b9, 0x85ebca6b); n ^= n >>> 13; n = Math.imul(n, 0xc2b2ae35); n ^= n >>> 16; return n >>> 0; }
@@ -1586,6 +1611,7 @@ let DAILY = null;
 const dailyStreak = p => p.daily.last >= dayNumber() - 1 ? p.daily.streak : 0;
 const dailyDone = (p, n = dayNumber()) => p.daily.days[n];
 function startDaily() {
+  if (!dailyOpen()) return;
   const p = me(), n = dayNumber();
   if (RUN) RUN = null;
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
@@ -1598,16 +1624,22 @@ function startDaily() {
   window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
   nextPuzzle();
 }
+document.addEventListener("visibilitychange", () => {          /* the daily's clock stops while the game is hidden */
+  if (!DAILY || done) return;
+  if (document.hidden) { if (DAILY.t0) { DAILY.spent = dailySpent(); DAILY.t0 = 0; } } else if (!locked) DAILY.t0 = Date.now();
+});
 function dailySpent() { return DAILY.spent + (DAILY.t0 ? Math.round((Date.now() - DAILY.t0) / 1000) : 0); }
 /* note how the player's move at index k (an odd index in the move list) went; a worse mark wins */
 function dailyMark(m, k = idx) {
   if (!DAILY) return;
   const j = (k - 1) >> 1, was = DAILY.marks[j] || "";
   if (!was || MARKS.indexOf(m) > MARKS.indexOf(was)) DAILY.marks[j] = m;
-  const p = me(); p.daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save();
+  saveDailyNow();
 }
+/* the daily being played, saved so leaving and coming back keeps its marks and time */
+function saveDailyNow() { me().daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save(); }
 function leaveDaily() {
-  if (DAILY && !done) { const p = me(); p.daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save(); track("daily/later"); }
+  if (DAILY && !done) { saveDailyNow(); track("daily/later"); }
   DAILY = null; resumeMain = true; nextPuzzle(); renderPanel();
 }
 /* a day's result into p.daily: solved after yesterday's grows the streak, after a gap starts it again at 1,
@@ -1633,6 +1665,7 @@ function applyFreezes(p, n = dayNumber()) {
   return gap;
 }
 function checkFreezes() {
+  if (DAILY && !done) return;          /* playing yesterday's past midnight: it isn't skipped, finishing it counts */
   const p = me(), used = applyFreezes(p);
   if (!used) return;
   save(); track("daily/freeze-used"); reportProgress(p);
@@ -1660,7 +1693,7 @@ function finishDaily(solved) {
   lastResult = { daily: { n: d.n } };
   $("nextLabel").textContent = T("Next puzzle");
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
-  renderPanel(); sendDaily(); prepareDailyImage(d.n);
+  renderPanel(); sendDaily();          /* renderPanel → renderDaily makes the share picture */
   $("shareRankBtn").focus({ preventScroll: true });
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
@@ -1682,7 +1715,13 @@ function dailyShareText(n) {
    finished, or the game opens with it done), since browsers only allow sharing straight from a tap. */
 let dailyImg = null;          /* { n, blob, url } */
 const IMG_COLOR = { g: "#56c2ad", y: "#f2c230", r: "#e2704f", x: "#5b6b68" };
-async function prepareDailyImage(n) {
+let dailyImgBusy = null;          /* { n, p }: the picture being made, so a second request waits for it */
+function prepareDailyImage(n) {
+  if (dailyImgBusy && dailyImgBusy.n === n) return dailyImgBusy.p;
+  const p = makeDailyImage(n).finally(() => { dailyImgBusy = null; });
+  dailyImgBusy = { n, p }; return p;
+}
+async function makeDailyImage(n) {
   const p = me(), r = dailyDone(p, n);
   if (!r || !r.m || (dailyImg && dailyImg.n === n && dailyImg.m === r.m)) return;
   try {
@@ -1719,6 +1758,8 @@ async function prepareDailyImage(n) {
    result); Puzzles while the daily is being played */
 function renderDaily() {
   const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p);
+  dropStaleDaily();
+  b.hidden = !dailyOpen();
   const playing = !!DAILY && !today;
   if (today) prepareDailyImage(dayNumber());
   b.classList.toggle("on", playing); b.classList.toggle("todo", !DAILY && !today);
@@ -1726,7 +1767,6 @@ function renderDaily() {
   $("dailyBtnTxt").textContent = playing ? T("Puzzles") : today ? "\ud83d\udd25 " + st + (fz ? " \ud83e\uddca" + (fz > 1 ? fz : "") : "") : T("Daily");
   b.setAttribute("aria-label", playing ? T("Back to puzzles") : today ? T("Daily puzzle") + ". " + T("Done today.") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + (fz ? " " + T("Streak freezes: {n}", { n: fz }) + "." : "") + " " + T("Share") : T("Daily puzzle"));
 }
-const renderDailyBtn = renderDaily;
 /* the app: the widget's daily line and the reminders for the next week */
 function sendDaily() {
   if (!APP) return;
@@ -1740,8 +1780,19 @@ function sendDaily() {
   }
   APP.post({ op: "reminders", hour, items });
 }
+/* the app: iCloud has a copy from another device (sent when it changes, when the app comes back, and when a
+   save here would overwrite it); take it if it has more progress */
+window.kingWalkCloud = raw => {
+  let next = null; try { next = cleanState(JSON.parse(raw)); } catch (e) {}
+  if (next && betterSave(next, S)) { track("icloud/newer"); replaceProgress(next); }
+};
 /* the app asks for the daily puzzle (widget, Control Center, Siri, a notification); the website takes #daily */
-window.kingWalkOpen = what => { if (what === "daily" && !DAILY) startDaily(); };
+window.kingWalkOpen = what => {
+  dropStaleDaily();
+  if (what !== "daily" || DAILY || !dailyOpen()) return;
+  if (dailyDone(me())) { restart($("dailyBtn"), "pop"); announce(T("Today's puzzle: done")); return; }          /* nothing to play: no share sheet */
+  startDaily();
+};
 window.kingWalkReminders = granted => { $("remindNote").hidden = !!granted || S.remind < 0; if (!granted && S.remind >= 0) { S.remind = -1; save(); renderRemind(); } };
 function renderRemind() {
   const sel = $("remindSel");
@@ -2066,8 +2117,8 @@ function renderPanel(fromRating) {
 $("hintBtn").addEventListener("click", showHint);
 $("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
 $("answerBtn").addEventListener("click", showAnswer);
-$("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY) leaveDaily(); else nextPuzzle(); });
-$("dailyBtn").addEventListener("click", () => { haptic("toggle"); if (DAILY && !dailyDone(me())) leaveDaily(); else startDaily(); });          /* done today: startDaily shares */
+$("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */
+$("dailyBtn").addEventListener("click", () => { haptic("toggle"); dropStaleDaily(); if (DAILY && !dailyDone(me())) leaveDaily(); else startDaily(); });          /* done today: startDaily shares */
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
 $("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
@@ -2110,7 +2161,7 @@ $("resetBtn").addEventListener("click", () => {
   const b = $("resetBtn");
   if (b.dataset.armed) {
     resetIdle();
-    replaceProgress(Object.assign(S, { players: [newPlayer(START_RATING)], cur: 0, awards: [] })); track("reset");
+    replaceProgress(Object.assign(S, { players: [newPlayer(START_RATING)], cur: 0, awards: [], reset: true })); track("reset");
     return;
   }
   b.classList.add("danger"); b.textContent = T("Erase progress?"); b.disabled = true;

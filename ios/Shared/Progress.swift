@@ -29,13 +29,14 @@ struct Progress: Codable, Equatable {
     var dailyDone: String?  // "Today's puzzle: done"
     var dailyLabel: String? // "Daily"
     var dailyFreezes: Int?  // streak freezes held: each covers one skipped day
+    var dailyPlayed: String? // the local date today's daily was played (solved or not), or ""
 
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
     static let dailyKind = "KingWalkDaily"
 
     /// whether today's daily puzzle is solved, and the daily streak as it stands on this date (a skipped day ends it)
-    func dailySolved(on date: Date = Date()) -> Bool { dailyDay == Daily.key(date) }
+    func dailySolved(on date: Date = Date()) -> Bool { dailyDay == Daily.key(date) || dailyPlayed == Daily.key(date) }          // played today, solved or not
     func dailyStreakNow(on date: Date = Date()) -> Int {
         guard let day = dailyDay, !day.isEmpty, let streak = dailyStreak, let last = Daily.date(day) else { return 0 }
         let cal = Calendar.current
@@ -65,7 +66,7 @@ struct Progress: Codable, Equatable {
     static let sample = Progress(rating: 1124, rank: "Bishop", piece: "b", next: "Rook", toNext: 176, solved: 142, streak: 4, best: 11,
                                  played: 210, hist: [1020, 1031, 1018, 1044, 1052, 1047, 1066, 1071, 1063, 1080, 1092, 1088, 1101, 1097, 1112, 1124],
                                  at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil,
-                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1)
+                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1, dailyPlayed: nil)
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }
