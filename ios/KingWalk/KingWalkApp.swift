@@ -8,9 +8,9 @@ struct KingWalkApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     init() {
-        // Play the game's sounds even when the ring switch is on silent (the game has its own Sound switch),
-        // alongside the player's own music rather than stopping it
-        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+        // The game's sounds are effects: mixed with the player's music, quiet when the ring switch is on silent, and
+        // not "playing audio" to iOS (the playback category put a sound icon in the Dynamic Island)
+        try? AVAudioSession.sharedInstance().setCategory(.ambient)
     }
 
     var body: some Scene {

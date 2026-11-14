@@ -43,7 +43,7 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 
 - [ ] Release: `"release_now": true` in `ios/release.json`, push (or Release in App Store Connect).
 - [ ] When the App Store page is live (an hour or so): check the link works, then update the press kit (`press/index.html`): Release "iOS: out now" with the App Store link.
-- [ ] The website shows Safari's Smart App Banner on iPhone and iPad by itself once the app is on sale (`APP_STORE_ID` is set).
+- [ ] The website: run the **Website** workflow (Actions → Website → Run workflow) once the App Store page is live. The build sees the app is on sale and turns on the quiet "Also on iPhone and iPad" line for Apple devices; Safari's Smart App Banner shows by itself.
 - [ ] Post, in this order, a few hours apart, answering replies as they come:
   1. X (@tensafefrogs): the trailer (`press/king-walk-trailer.mp4`) or the vertical one, and the link.
   2. Reddit: r/chess (the free website, the daily puzzle; read the self-promotion rules first), r/iosgaming (the app).

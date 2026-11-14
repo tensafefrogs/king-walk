@@ -38,7 +38,15 @@ jobs:
           python3 - <<'PY'
           import json, os
           cfg = {'goatcounter': os.environ.get('GOATCOUNTER_URL', '').strip(), 'site': os.environ.get('SITE_URL', '').strip(),
-                 'appStoreId': os.environ.get('APP_STORE_ID', '').strip()}
+                 'appStoreId': os.environ.get('APP_STORE_ID', '').strip(), 'appLive': False}
+          # is the app on sale yet? Apple's public lookup says (the website then shows its App Store line)
+          if cfg['appStoreId']:
+              import urllib.request
+              try:
+                  r = json.load(urllib.request.urlopen('https://itunes.apple.com/lookup?id=' + cfg['appStoreId'], timeout=20))
+                  cfg['appLive'] = r.get('resultCount', 0) > 0
+              except Exception as e:
+                  print('App Store lookup failed:', e)
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
           # link previews need absolute addresses: the site's, when it's set

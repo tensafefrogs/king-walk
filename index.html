@@ -735,6 +735,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="chart-cap"><span>rating over time</span></div>
       </div>
       <p class="note" id="pzInfo"></p>
+      <p class="note" id="appPromo" hidden><span>Also on iPhone and iPad, with widgets, Game Center and iCloud sync.</span> <a id="appLink" target="_blank" rel="noopener">App Store ›</a></p>
     </section>
   </main>
 </div>
@@ -926,9 +927,9 @@ async function pickPuzzle(resume) {
 let actx = null;
 function wakeAudio() {
   if (!S.sound) return;
-  /* iOS mutes web sound when the ring switch is on silent. "playback" tells it to treat the game's sound like
-     media, so it plays anyway. The Sound switch in the game's settings turns it off. */
-  try { if (navigator.audioSession && navigator.audioSession.type !== "playback") navigator.audioSession.type = "playback"; } catch (e) {}
+  /* "ambient": the game's sounds are effects, not media. They mix with the player's music, follow the ring switch,
+     and don't put the game in iOS's Now Playing (which showed a sound icon in the Dynamic Island). */
+  try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
   try {
     if (!actx) {
       actx = new (window.AudioContext || window.webkitAudioContext)();
@@ -967,7 +968,7 @@ const APP = (() => {
   } catch (e) { return null; }
 })();
 /* Settings for this copy (config.js, written from GitHub Actions variables when the site deploys and the app builds) */
-const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "" }, window.KING_WALK_CONFIG || {});
+const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false }, window.KING_WALK_CONFIG || {});
 /* The website's address: on the web, wherever this page is; in the app, the configured site */
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
   ? location.origin + location.pathname.replace(/index\.html$/, "") : CONFIG.site;
@@ -2080,6 +2081,11 @@ $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecent
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 $("remindRow").hidden = !(APP && APP.reminders);
+/* the website, on an Apple device, once the app is on sale (the website build checks: CONFIG.appLive): one quiet line */
+if (!APP && CONFIG.appStoreId && CONFIG.appLive && /^(iphone|ipad|mac)$/.test(PLATFORM)) {
+  $("appPromo").hidden = false; $("appLink").href = "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId);
+  $("appLink").addEventListener("click", () => track("app-promo"));
+}
 if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
   $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");
   $("saveHelp").textContent = T("Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy the save code here, then paste it there and press Load.");

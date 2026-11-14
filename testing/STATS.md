@@ -30,6 +30,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `daily/streak/<n>` | The daily streak reaches 3, 7, 14, 30, 50, 100 or 365 days | `finishDaily()` |
 | `daily/freeze-earned` | A streak freeze earned (every 7 days in a row, up to 2 held) | `finishDaily()` |
 | `daily/freeze-used` | Streak freezes used to cover skipped days (sent once per catch-up) | `checkFreezes()` |
+| `app-promo` | The website's "Also on iPhone and iPad" App Store link tapped (shown on Apple devices once the app is on sale) | the line under Progress |
 | `tip/closed` | The first puzzle's hint closed with its × (it also goes on the first move) | the hint |
 | `remind/<hour>`, `remind/off` | The daily reminder set to an hour (8, 12, 18, 20) or turned off (app only) | the Daily reminder setting |
 | `lefty-on`, `lefty-off` | The Left-handed layout setting is turned on or off | menu |
