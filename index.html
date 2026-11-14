@@ -1604,7 +1604,7 @@ function posterSvg(art) {
   if (art.ice) fg = `<path d="M0,182 C80,164 220,164 300,182 L300,220 L0,220 Z" fill="#8ccbe8"/>`          /* a blue flame on the ice */
     + `<g class="cele-piece"><path d="M150,28 C188,72 214,104 206,148 C200,182 176,198 150,198 C124,198 100,182 94,148 C88,116 110,96 120,66 C128,96 138,104 148,106 C142,78 138,56 150,28 Z" fill="#3d9bd8" stroke="var(--p-ink)" stroke-width="5" stroke-linejoin="round"/>`
     + `<path d="M150,96 C168,118 178,134 174,156 C171,172 162,180 150,180 C138,180 129,172 126,156 C123,138 136,126 142,112 C146,124 150,128 154,128 C152,116 148,106 150,96 Z" fill="#cfe9f5"/></g>`;
-  else if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 134 : 140}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
+  else if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 129 : 134}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
     + `<path d="M0,190 C80,170 220,170 300,190 L300,220 L0,220 Z" fill="var(--p-mint)"/>`;
   else if (art.slayer) fg = `<circle cx="205" cy="80" r="40" fill="var(--p-gold)"/><path d="M0,180 C90,150 210,150 300,180 L300,220 L0,220 Z" fill="var(--p-teal)"/>`
     + `<g class="cele-piece"><svg x="150" y="40" width="130" height="130" viewBox="0 0 100 100"><use href="#pc-bk"/></svg><svg x="40" y="104" width="64" height="64" viewBox="0 0 100 100"><use href="#pc-wp"/></svg></g>`;
