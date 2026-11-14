@@ -110,8 +110,18 @@ def upload_image_with(kind, parent_kind, parent_id, rel_names, file, what):
     log('  image uploaded:', os.path.basename(file))
 
 
+def languages():
+    """[(locale, translations)] from l10n/<locale>.json; English comes from gamecenter.json itself"""
+    import glob
+    out = []
+    for f in sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json'))):
+        t = json.load(open(f)); out.append((t['locale'], t.get('gamecenter', {})))
+    return out
+
+
 def main():
     cfg = json.load(open(os.path.join(HERE, 'gamecenter.json')))
+    LANGS = languages()
     app = get_app()
     log('App:', app['attributes']['name'])
 
@@ -137,15 +147,17 @@ def main():
                 'scoreSortType': b['sort']}, 'relationships': {'gameCenterDetail': {'data': {'type': 'gameCenterDetails', 'id': did}}}}}, f'leaderboard {vid}')
             if not r: continue
             lb = r['data']; log('Leaderboard created:', vid)
-        loc_attrs = {'name': b['name'], 'formatterSuffix': b.get('suffix'), 'formatterSuffixSingular': b.get('suffix_singular')}
-        locs = every(f"/v1/gameCenterLeaderboards/{lb['id']}/localizations") if lb['id'] != 'dry' else []
-        en = next((l for l in locs if l['attributes']['locale'] == 'en-US'), None)
-        if en:
-            if any(en['attributes'].get(k) != v for k, v in loc_attrs.items()):
-                api('PATCH', f"/v1/gameCenterLeaderboardLocalizations/{en['id']}", {'data': {'type': 'gameCenterLeaderboardLocalizations', 'id': en['id'], 'attributes': loc_attrs}}, f'{vid} English text')
-        else:
-            api('POST', '/v1/gameCenterLeaderboardLocalizations', {'data': {'type': 'gameCenterLeaderboardLocalizations', 'attributes': dict(loc_attrs, locale='en-US'),
-                'relationships': {'gameCenterLeaderboard': {'data': {'type': 'gameCenterLeaderboards', 'id': lb['id']}}}}}, f'{vid} English text')
+        locs = {l['attributes']['locale']: l for l in every(f"/v1/gameCenterLeaderboards/{lb['id']}/localizations")} if lb['id'] != 'dry' else {}
+        for locale, tr in [('en-US', b)] + [(lc, t.get('leaderboards', {}).get(b['id'])) for lc, t in LANGS]:
+            if not tr: continue
+            loc_attrs = {'name': tr['name'], 'formatterSuffix': tr.get('suffix'), 'formatterSuffixSingular': tr.get('suffix_singular')}
+            have = locs.get(locale)
+            if have:
+                if any(have['attributes'].get(k) != v for k, v in loc_attrs.items()):
+                    api('PATCH', f"/v1/gameCenterLeaderboardLocalizations/{have['id']}", {'data': {'type': 'gameCenterLeaderboardLocalizations', 'id': have['id'], 'attributes': loc_attrs}}, f'{vid} {locale} text')
+            else:
+                api('POST', '/v1/gameCenterLeaderboardLocalizations', {'data': {'type': 'gameCenterLeaderboardLocalizations', 'attributes': dict(loc_attrs, locale=locale),
+                    'relationships': {'gameCenterLeaderboard': {'data': {'type': 'gameCenterLeaderboards', 'id': lb['id']}}}}}, f'{vid} {locale} text')
         log('Leaderboard ready:', vid)
 
     # Achievements
@@ -161,26 +173,26 @@ def main():
                 'relationships': {'gameCenterDetail': {'data': {'type': 'gameCenterDetails', 'id': did}}}}}, f'achievement {vid}')
             if not r: continue
             ach = r['data']; log('Achievement created:', vid)
-        loc_attrs = {'name': a['name'], 'beforeEarnedDescription': a['before'], 'afterEarnedDescription': a['earned']}
-        locs = every(f"/v1/gameCenterAchievements/{ach['id']}/localizations") if ach['id'] != 'dry' else []
-        en = next((l for l in locs if l['attributes']['locale'] == 'en-US'), None)
-        if en:
-            if any(en['attributes'].get(k) != v for k, v in loc_attrs.items()):
-                api('PATCH', f"/v1/gameCenterAchievementLocalizations/{en['id']}", {'data': {'type': 'gameCenterAchievementLocalizations', 'id': en['id'], 'attributes': loc_attrs}}, f'{vid} English text')
-        else:
-            r = api('POST', '/v1/gameCenterAchievementLocalizations', {'data': {'type': 'gameCenterAchievementLocalizations', 'attributes': dict(loc_attrs, locale='en-US'),
-                    'relationships': {'gameCenterAchievement': {'data': {'type': 'gameCenterAchievements', 'id': ach['id']}}}}}, f'{vid} English text')
-            en = r and r['data']
-        # the image: required for each achievement (512x512 or 1024x1024)
-        if en and en['id'] != 'dry':
-            img = api('GET', f"/v1/gameCenterAchievementLocalizations/{en['id']}/gameCenterAchievementImage")
-            file = os.path.join(HERE, 'gamecenter', a['id'] + '.png')
-            if img and img.get('data') and changed(img['data'], file):          # new artwork: replace it
-                api('DELETE', f"/v1/gameCenterAchievementImages/{img['data']['id']}", what=f"replace image {a['id']}"); img = None
-            if not (img and img.get('data')):
-                upload_image('gameCenterAchievementImages', en['id'], 'gameCenterAchievementLocalization', file)
-        elif DRY:
-            log('  (dry run) image', a['id'] + '.png')
+        locs = {l['attributes']['locale']: l for l in every(f"/v1/gameCenterAchievements/{ach['id']}/localizations")} if ach['id'] != 'dry' else {}
+        file = os.path.join(HERE, 'gamecenter', a['id'] + '.png')
+        for locale, tr in [('en-US', a)] + [(lc, t.get('achievements', {}).get(a['id'])) for lc, t in LANGS]:
+            if not tr: continue
+            loc_attrs = {'name': tr['name'], 'beforeEarnedDescription': tr['before'], 'afterEarnedDescription': tr['earned']}
+            en = locs.get(locale)
+            if en:
+                if any(en['attributes'].get(k) != v for k, v in loc_attrs.items()):
+                    api('PATCH', f"/v1/gameCenterAchievementLocalizations/{en['id']}", {'data': {'type': 'gameCenterAchievementLocalizations', 'id': en['id'], 'attributes': loc_attrs}}, f'{vid} {locale} text')
+            else:
+                r = api('POST', '/v1/gameCenterAchievementLocalizations', {'data': {'type': 'gameCenterAchievementLocalizations', 'attributes': dict(loc_attrs, locale=locale),
+                        'relationships': {'gameCenterAchievement': {'data': {'type': 'gameCenterAchievements', 'id': ach['id']}}}}}, f'{vid} {locale} text')
+                en = r and r['data']
+            # the image: required for each achievement in each language (512x512 or 1024x1024)
+            if en and en['id'] != 'dry':
+                img = api('GET', f"/v1/gameCenterAchievementLocalizations/{en['id']}/gameCenterAchievementImage")
+                if img and img.get('data') and changed(img['data'], file):          # new artwork: replace it
+                    api('DELETE', f"/v1/gameCenterAchievementImages/{img['data']['id']}", what=f"replace image {a['id']} {locale}"); img = None
+                if not (img and img.get('data')):
+                    upload_image('gameCenterAchievementImages', en['id'], 'gameCenterAchievementLocalization', file)
         log('Achievement ready:', vid, f"({a['points']} points)")
 
     # Challenges: friendly competitions on a leaderboard (iOS 26 and later). A newer part of the API.
@@ -205,20 +217,23 @@ def main():
         if not version:
             version = post_with('gameCenterChallengeVersions', {}, 'gameCenterChallenges', ch['id'], ['challenge', 'gameCenterChallenge'], f'{vid} version')
         if not version: continue
-        en = next((l for l in all_related(f"/v1/gameCenterChallengeVersions/{version['id']}", ['localizations', 'gameCenterChallengeLocalizations'])
-                   if l['attributes'].get('locale') == 'en-US'), None)
-        attrs = {'name': c['name'], 'description': c['description']}
-        if en:
-            api('PATCH', f"/v1/gameCenterChallengeLocalizations/{en['id']}", {'data': {'type': 'gameCenterChallengeLocalizations', 'id': en['id'], 'attributes': attrs}}, f'{vid} English text')
-        else:
-            en = post_with('gameCenterChallengeLocalizations', dict(attrs, locale='en-US'), 'gameCenterChallengeVersions', version['id'], ['version', 'gameCenterChallengeVersion'], f'{vid} English text')
-        if en and c.get('image'):
-            file = os.path.join(HERE, 'gamecenter', c['image'])
-            img = first_related(f"/v1/gameCenterChallengeLocalizations/{en['id']}", ['image', 'gameCenterChallengeImage'])
-            if img and changed(img, file):          # new artwork: replace it
-                api('DELETE', f"/v1/gameCenterChallengeImages/{img['id']}", what=f'replace image {vid}'); img = None
-            if not img:
-                upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} image')
+        locs = {l['attributes'].get('locale'): l for l in all_related(f"/v1/gameCenterChallengeVersions/{version['id']}", ['localizations', 'gameCenterChallengeLocalizations'])}
+        for locale, tr in [('en-US', c)] + [(lc, t.get('challenges', {}).get(c['id'])) for lc, t in LANGS]:
+            if not tr: continue
+            attrs = {'name': tr['name'], 'description': tr['description']}
+            en = locs.get(locale)
+            if en:
+                if any(en['attributes'].get(k) != v for k, v in attrs.items()):
+                    api('PATCH', f"/v1/gameCenterChallengeLocalizations/{en['id']}", {'data': {'type': 'gameCenterChallengeLocalizations', 'id': en['id'], 'attributes': attrs}}, f'{vid} {locale} text')
+            else:
+                en = post_with('gameCenterChallengeLocalizations', dict(attrs, locale=locale), 'gameCenterChallengeVersions', version['id'], ['version', 'gameCenterChallengeVersion'], f'{vid} {locale} text')
+            if en and c.get('image'):
+                file = os.path.join(HERE, 'gamecenter', c['image'])
+                img = first_related(f"/v1/gameCenterChallengeLocalizations/{en['id']}", ['image', 'gameCenterChallengeImage'])
+                if img and changed(img, file):          # new artwork: replace it
+                    api('DELETE', f"/v1/gameCenterChallengeImages/{img['id']}", what=f'replace image {vid} {locale}'); img = None
+                if not img:
+                    upload_image_with('gameCenterChallengeImages', 'gameCenterChallengeLocalizations', en['id'], ['localization', 'gameCenterChallengeLocalization'], file, f'{vid} {locale} image')
         log('Challenge ready:', vid, 'on', PREFIX + c['leaderboard'])
 
     # Challenges no longer in gamecenter.json: removed (only possible before they go live)

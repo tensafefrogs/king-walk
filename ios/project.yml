@@ -47,6 +47,9 @@ targets:
         CFBundleDisplayName: King Walk
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans]
         LSRequiresIPhoneOS: true
         LSApplicationCategoryType: public.app-category.board-games
         ITSAppUsesNonExemptEncryption: false
@@ -88,6 +91,9 @@ targets:
         CFBundleDisplayName: King Walk
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans]
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:

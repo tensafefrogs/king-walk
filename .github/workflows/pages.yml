@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir _site
           # the game, its pages, the brand and press kit, and the store images the press kit links to
-          cp -R index.html chess.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html .nojekyll p fonts icons brand press _site/
+          cp -R index.html chess.js lang.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html .nojekyll p fonts icons brand press _site/
           mkdir -p _site/ios/store _site/ios/KingWalk/Assets.xcassets
           cp -R ios/store/screenshots ios/store/header _site/ios/store/ && rm -rf _site/ios/store/screenshots/raw
           cp -R ios/KingWalk/Assets.xcassets/AppIcon.appiconset _site/ios/KingWalk/Assets.xcassets/

@@ -82,6 +82,7 @@ def main():
             print('App Review notes not set:', e)
 
     accessibility(app['id'], listing.get('accessibility'))
+    localizations(info, ver, listing)
 
     if '--no-screenshots' in sys.argv:
         return
@@ -112,6 +113,32 @@ def main():
             # the iPhone and iPad sets are required; any others are skipped with a note rather than stopping the release
             if display in REQUIRED: raise
             print('Screenshots:', display, 'skipped:', e)
+
+
+def localizations(info, ver, listing):
+    """The listing in other languages, from l10n/<locale>.json: name and subtitle, and the version's text and URLs.
+    Screenshots aren't localized: App Store Connect shows the English ones for every language."""
+    import glob
+    files = sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json')))
+    if not files: return
+    have_info = {l['attributes']['locale']: l for l in call('GET', f"/v1/appInfos/{info['id']}/appInfoLocalizations")['data']}
+    have_ver = {l['attributes']['locale']: l for l in call('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations")['data']}
+    v = listing['version']
+    for f in files:
+        t = json.load(open(f)); loc, l = t['locale'], t['listing']
+        try:
+            a = {'name': l['name'], 'subtitle': l['subtitle'], 'privacyPolicyUrl': listing['app_info']['privacy_policy_url']}
+            if loc in have_info: patch('appInfoLocalizations', have_info[loc]['id'], a)
+            else: request('POST', '/v1/appInfoLocalizations', {'data': {'type': 'appInfoLocalizations', 'attributes': dict(a, locale=loc),
+                          'relationships': {'appInfo': {'data': {'type': 'appInfos', 'id': info['id']}}}}})
+            a = {'description': l['description'], 'keywords': l['keywords'], 'promotionalText': l['promotional_text'],
+                 'supportUrl': v['support_url'], 'marketingUrl': v['marketing_url']}
+            if loc in have_ver: patch('appStoreVersionLocalizations', have_ver[loc]['id'], a)
+            else: request('POST', '/v1/appStoreVersionLocalizations', {'data': {'type': 'appStoreVersionLocalizations', 'attributes': dict(a, locale=loc),
+                          'relationships': {'appStoreVersion': {'data': {'type': 'appStoreVersions', 'id': ver['id']}}}}})
+            print('Language:', loc, l['name'])
+        except ApiError as e:
+            print('Language', loc, 'not set:', e.code, e.body[:300])
 
 
 def accessibility(app_id, cfg):

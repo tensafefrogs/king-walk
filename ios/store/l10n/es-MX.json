@@ -1,0 +1,186 @@
+{
+  "locale": "es-MX",
+  "listing": {
+    "name": "King Walk: Puzzles de ajedrez",
+    "subtitle": "Problemas que crecen contigo",
+    "promotional_text": "53.000 problemas de ajedrez de partidas reales, con una puntuación que encuentra tu nivel. Resuelve uno y el siguiente es más difícil. Sube a tu rey de Peón a Rey.",
+    "description": "King Walk es un entrenador de problemas de ajedrez que se adapta a ti. Cada problema es un momento de una partida real en el que hay que encontrar una jugada fuerte, o una breve secuencia de ellas.\n\nResuelve un problema sin fallos y tu puntuación de problemas sube, así que los siguientes problemas son más difíciles. Falla uno y la puntuación baja un poco, y los problemas se vuelven más sencillos. En unas pocas docenas de problemas el juego encuentra tu nivel, y a partir de ahí sube a medida que mejoras.\n\nEmpiezas en el rango de Peón. Sube tu puntuación y conseguirás Caballo, Alfil, Torre, Dama y por último Rey: el rey sube por el tablero.\n\n• 53.000 problemas de partidas reales: ataques dobles, clavadas, enfiladas, mates del pasillo, mates en uno, dos y tres, finales y más\n• Una puntuación de problemas que sigue tu nivel, con una gráfica de lo que has avanzado\n• Pistas cuando te atascas: la primera marca la pieza que hay que mover, la segunda muestra adónde va\n• Los problemas fallados vuelven más tarde para un segundo intento\n• Rachas por rango: 15 problemas que suben a lo largo de un rango, sin pistas, y un fallo termina la racha. Supera todos los rangos, de Peón a Rey\n• Más fácil, a tu medida o más difícil, para marcar el ritmo\n• Clasificaciones, logros y desafíos de Game Center: reta a tus amigos a superar tu racha de Caballo\n• Un widget para la pantalla de inicio y la pantalla bloqueada con tu rango y tu puntuación\n• Comparte tu progreso: tu rango, tu puntuación y tus últimos diez problemas en unos pocos emojis\n• En el iPhone Duo, ábrelo como una laptop (el tablero queda plano bajo tus manos) o sostenlo como un libro (el tablero en una página, las notas en la otra)\n• Un diseño para zurdos que pone el tablero a la izquierda cuando tu celular está de lado o doblado\n• El progreso se sincroniza entre tu iPhone y tu iPad con iCloud\n• Respuesta háptica, modo claro y oscuro, y un tablero en el que puedes tocar o arrastrar\n• Funciona totalmente sin conexión\n• Sin cuenta, sin anuncios, sin compras dentro de la app\n\nLos problemas provienen de la base de datos de problemas de Lichess, de dominio público. King Walk no está hecho ni respaldado por Lichess.",
+    "keywords": "rompecabezas,táctica,jaque mate,mate en 2,elo,problemas,ejercicios,estrategia,lógica,clavada,finales"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Puntuación de problemas",
+        "suffix": " de puntuación",
+        "suffix_singular": " de puntuación"
+      },
+      "streak": {
+        "name": "Mejor racha",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "hardest": {
+        "name": "Problema más difícil",
+        "suffix": " de puntuación",
+        "suffix_singular": " de puntuación"
+      },
+      "streak_p": {
+        "name": "Racha de Peón",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_n": {
+        "name": "Racha de Caballo",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_b": {
+        "name": "Racha de Alfil",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_r": {
+        "name": "Racha de Torre",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_q": {
+        "name": "Racha de Dama",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_k": {
+        "name": "Racha de Rey",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Primeros pasos",
+        "before": "Resuelve un problema sin errores y sin pistas.",
+        "earned": "Resolviste tu primer problema sin errores y sin pistas."
+      },
+      "solved_50": {
+        "name": "Cincuenta resueltos",
+        "before": "Resuelve 50 problemas sin errores y sin pistas.",
+        "earned": "Resolviste 50 problemas sin fallos."
+      },
+      "solved_250": {
+        "name": "Hábito táctico",
+        "before": "Resuelve 250 problemas sin errores y sin pistas.",
+        "earned": "Resolviste 250 problemas sin fallos."
+      },
+      "solved_1000": {
+        "name": "Mil problemas",
+        "before": "Resuelve 1.000 problemas sin errores y sin pistas.",
+        "earned": "Resolviste 1.000 problemas sin fallos."
+      },
+      "streak_5": {
+        "name": "En racha",
+        "before": "Resuelve 5 problemas seguidos.",
+        "earned": "Resolviste 5 problemas seguidos."
+      },
+      "streak_10": {
+        "name": "Diez seguidos",
+        "before": "Resuelve 10 problemas seguidos.",
+        "earned": "Resolviste 10 problemas seguidos."
+      },
+      "streak_20": {
+        "name": "Imparable",
+        "before": "Resuelve 20 problemas seguidos.",
+        "earned": "Resolviste 20 problemas seguidos."
+      },
+      "rank_knight": {
+        "name": "Caballo",
+        "before": "Alcanza una puntuación de problemas de 700.",
+        "earned": "Alcanzaste el rango de Caballo: una puntuación de problemas de 700."
+      },
+      "rank_bishop": {
+        "name": "Alfil",
+        "before": "Alcanza una puntuación de problemas de 1000.",
+        "earned": "Alcanzaste el rango de Alfil: una puntuación de problemas de 1000."
+      },
+      "rank_rook": {
+        "name": "Torre",
+        "before": "Alcanza una puntuación de problemas de 1300.",
+        "earned": "Alcanzaste el rango de Torre: una puntuación de problemas de 1300."
+      },
+      "rank_queen": {
+        "name": "Dama",
+        "before": "Alcanza una puntuación de problemas de 1600.",
+        "earned": "Alcanzaste el rango de Dama: una puntuación de problemas de 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Alcanza una puntuación de problemas de 1900.",
+        "earned": "Alcanzaste el rango de Rey: una puntuación de problemas de 1900. El rey recorrió todo el tablero."
+      },
+      "giant_slayer": {
+        "name": "Matagigantes",
+        "before": "Resuelve sin fallos un problema con una puntuación 300 o más por encima de la tuya.",
+        "earned": "Resolviste sin fallos un problema con una puntuación 300 o más por encima de la tuya."
+      },
+      "clear_pawn": {
+        "name": "Peón superado",
+        "before": "Supera la racha de Peón: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Peón: 15 problemas seguidos de 400 a 699, sin pistas."
+      },
+      "clear_knight": {
+        "name": "Caballo superado",
+        "before": "Supera la racha de Caballo: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Caballo: 15 problemas seguidos de 700 a 999, sin pistas."
+      },
+      "clear_bishop": {
+        "name": "Alfil superado",
+        "before": "Supera la racha de Alfil: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Alfil: 15 problemas seguidos de 1000 a 1299, sin pistas."
+      },
+      "clear_rook": {
+        "name": "Torre superada",
+        "before": "Supera la racha de Torre: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Torre: 15 problemas seguidos de 1300 a 1599, sin pistas."
+      },
+      "clear_queen": {
+        "name": "Dama superada",
+        "before": "Supera la racha de Dama: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Dama: 15 problemas seguidos de 1600 a 1899, sin pistas."
+      },
+      "clear_king": {
+        "name": "Rey superado",
+        "before": "Supera la racha de Rey: 15 problemas seguidos, sin pistas.",
+        "earned": "Superaste la racha de Rey: 15 problemas seguidos de 1900 a 2300, sin pistas."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Problema más difícil",
+        "description": "Resuelve sin fallos el problema de mayor puntuación que puedas. Activa Harder en el menú para ver otros más difíciles."
+      },
+      "streak_p_challenge": {
+        "name": "Racha de Peón",
+        "description": "15 problemas que suben de 400 a 699. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      },
+      "streak_n_challenge": {
+        "name": "Racha de Caballo",
+        "description": "15 problemas que suben de 700 a 999. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      },
+      "streak_b_challenge": {
+        "name": "Racha de Alfil",
+        "description": "15 problemas que suben de 1000 a 1299. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      },
+      "streak_r_challenge": {
+        "name": "Racha de Torre",
+        "description": "15 problemas que suben de 1300 a 1599. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      },
+      "streak_q_challenge": {
+        "name": "Racha de Dama",
+        "description": "15 problemas que suben de 1600 a 1899. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      },
+      "streak_k_challenge": {
+        "name": "Racha de Rey",
+        "description": "15 problemas que suben de 1900 a 2300. Sin pistas, y un fallo termina la racha. ¿Quién llega más lejos?"
+      }
+    }
+  }
+}

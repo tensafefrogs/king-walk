@@ -76,8 +76,10 @@ final class GameCenter: NSObject, GKGameCenterControllerDelegate {
     func showDashboard() {
         guard let presenter else { return }
         guard GKLocalPlayer.local.isAuthenticated else {
-            let alert = UIAlertController(title: "Game Center", message: "Sign in to Game Center in the Settings app to see the leaderboards and your achievements.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            let alert = UIAlertController(title: NSLocalizedString("Game Center", comment: ""),
+                                          message: NSLocalizedString("Sign in to Game Center in the Settings app to see the leaderboards and your achievements.", comment: ""),
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default))
             presenter.present(alert, animated: true)
             return
         }
