@@ -28,6 +28,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `daily/solved` | The daily puzzle solved (hints and wrong tries allowed) | `finishDaily()` |
 | `daily/missed` | The daily puzzle's answer shown | `finishDaily()` |
 | `daily/streak/<n>` | The daily streak reaches 3, 7, 14, 30, 50, 100 or 365 days | `finishDaily()` |
+| `daily/practice` | Try again on a finished daily: practice, which doesn't change the day's result | the Try again button |
 | `daily/done-card` | The "Today's puzzle: done" card shown (Daily tapped, or a widget, Siri or a reminder opened the game, after today's puzzle) | `showDailyDone()` |
 | `daily/freeze-earned` | A streak freeze earned (every 7 days in a row, up to 2 held) | `finishDaily()` |
 | `daily/freeze-used` | Streak freezes used to cover skipped days (sent once per catch-up) | `checkFreezes()` |

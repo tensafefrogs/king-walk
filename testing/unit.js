@@ -167,11 +167,17 @@ function translations() {
   // the daily done: the Daily button opens a card saying so, with Share on it, not a share sheet
   const dc = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gg", 33, true); DAILY = null; let shared = 0;
     const real = window.shareProgress; window.shareProgress = () => { shared++; };
-    $("dailyBtn").click(); await new Promise(r => setTimeout(r, 120)); const card = document.querySelector(".cele.quiet");
+    $("dailyBtn").click(); for (let i = 0; i < 40 && !document.querySelector(".cele.quiet"); i++) await new Promise(r => setTimeout(r, 100));
+    const card = document.querySelector(".cele.quiet"); const board = { review: DAILY && DAILY.mode, done, buttons: !$("doneBtns").hidden && !$("againBtn").hidden };
     const r = { card: !!card, title: card && card.querySelector(".cele-title").textContent, sharedOnTap: shared };
     card.querySelector(".sh").click(); r.sharedFromCard = shared; card.querySelector(".go").click(); await new Promise(r2 => setTimeout(r2, 400));
-    r.closed = !document.querySelector(".cele"); window.shareProgress = real; return r; });
+    r.closed = !document.querySelector(".cele"); r.board = board; window.shareProgress = real;
+    /* Try again: practice, and the day's result stays */
+    const before = JSON.stringify(me().daily.days[n]); $("againBtn").click(); await new Promise(r2 => setTimeout(r2, 1500));
+    r.practice = DAILY && DAILY.mode; while (!done) { if (!locked) { const m = cur.pz.moves[idx]; commit(m.slice(0, 2), "a1", ""); showAnswer(); } await new Promise(r2 => setTimeout(r2, 400)); }
+    r.kept = JSON.stringify(me().daily.days[n]) === before; DAILY = null; return r; });
   check(dc.card && dc.title === "Today's puzzle: done" && dc.sharedOnTap === 0 && dc.sharedFromCard === 1 && dc.closed, "a done daily shows its card, Share is on the card", dc);
+  check(dc.board.review === "review" && dc.board.done && dc.board.buttons && dc.practice === "practice" && dc.kept, "the done daily's board, and Try again as practice that leaves the result alone", dc);
   // the mode switch: Daily on while the daily is played (coral frame, the daily's card), Puzzles back
   const ms = await p.evaluate(async () => { const n = dayNumber(); delete me().daily.days[n]; DAILY = null; done = true; renderDaily();
     const before = { puzzles: $("puzzlesBtn").getAttribute("aria-pressed"), mode: document.documentElement.classList.contains("daily") };
@@ -182,7 +188,7 @@ function translations() {
   check(ms.before.puzzles === "true" && !ms.before.mode && ms.during.daily === "true" && ms.during.mode && ms.during.card && ms.during.rate === "none" && !ms.after, "the Puzzles | Daily switch", ms);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
-    const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };
+    const n = dayNumber(); DAILY = { n, mode: "play", marks: [], spent: 0, t0: 0 };
     dailyMark("g", 1); dailyMark("y", 3); dailyMark("r", 3); dailyMark("y", 3); dailyMark("g", 3); const marks = DAILY.marks.join("");
     DAILY = null; const p = me(); recordDaily(p.daily, n, "gr", 67, true); recordDaily(p.daily, n - 1, "g", 5, true);
     p.daily.streak = 2; p.daily.last = n;

@@ -2,6 +2,8 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "Practice": "Práctica",
+    "Practice: your daily result stays the same": "Práctica: tu resultado del día no cambia",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "La primera pista ilumina la pieza que hay que mover. La segunda dibuja una flecha hasta su casilla. Resolver con pista cuenta la mitad.",
     "Follow the arrow": "Sigue la flecha",
     "Move the glowing piece": "Mueve la pieza que brilla",
@@ -297,6 +299,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "Practice": "Entraînement",
+    "Practice: your daily result stays the same": "Entraînement : ton résultat du jour ne change pas",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Le premier indice éclaire la pièce à jouer. Le second trace une flèche jusqu'à sa case. Résoudre avec un indice compte pour moitié.",
     "Follow the arrow": "Suis la flèche",
     "Move the glowing piece": "Joue la pièce qui brille",
@@ -592,6 +596,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "Practice": "Übung",
+    "Practice: your daily result stays the same": "Übung: Dein Tagesergebnis bleibt, wie es ist",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Der erste Tipp lässt die Figur leuchten, die ziehen soll. Der zweite zeigt mit einem Pfeil ihr Zielfeld. Mit Tipp gelöst zählt halb.",
     "Follow the arrow": "Folge dem Pfeil",
     "Move the glowing piece": "Zieh die leuchtende Figur",
@@ -887,6 +893,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "Practice": "Allenamento",
+    "Practice: your daily result stays the same": "Allenamento: il risultato del giorno non cambia",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Il primo suggerimento illumina il pezzo da muovere. Il secondo disegna una freccia fino alla sua casa. Risolvere con un suggerimento vale metà.",
     "Follow the arrow": "Segui la freccia",
     "Move the glowing piece": "Muovi il pezzo che brilla",
@@ -1182,6 +1190,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "Practice": "Treino",
+    "Practice: your daily result stays the same": "Treino: seu resultado do dia não muda",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "A primeira dica ilumina a peça a mover. A segunda desenha uma seta até a casa dela. Resolver com dica conta pela metade.",
     "Follow the arrow": "Siga a seta",
     "Move the glowing piece": "Mova a peça que brilha",
@@ -1477,6 +1487,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "Practice": "Oefenen",
+    "Practice: your daily result stays the same": "Oefenen: je dagresultaat blijft hetzelfde",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "De eerste tip laat het stuk oplichten dat moet zetten. De tweede tekent een pijl naar het doelveld. Met een tip opgelost telt voor de helft.",
     "Follow the arrow": "Volg de pijl",
     "Move the glowing piece": "Zet het oplichtende stuk",
@@ -1772,6 +1784,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "Practice": "Тренировка",
+    "Practice: your daily result stays the same": "Тренировка: результат дня не меняется",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Первая подсказка подсвечивает фигуру, которой нужно ходить. Вторая рисует стрелку к её полю. Решение с подсказкой засчитывается наполовину.",
     "Follow the arrow": "Следуйте за стрелкой",
     "Move the glowing piece": "Ходите светящейся фигурой",
@@ -2067,6 +2081,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "Practice": "練習",
+    "Practice: your daily result stays the same": "練習：今日の記録は変わりません",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "1つ目のヒントで動かす駒が光ります。2つ目は行き先まで矢印を描きます。ヒントを使って解くと半分の扱いです。",
     "Follow the arrow": "矢印のとおりに",
     "Move the glowing piece": "光っている駒を動かそう",
@@ -2362,6 +2378,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "Practice": "연습",
+    "Practice: your daily result stays the same": "연습: 오늘의 결과는 그대로예요",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "첫 번째 힌트는 움직일 기물을 밝혀 줍니다. 두 번째는 갈 칸까지 화살표를 그려요. 힌트를 쓰고 풀면 절반으로 계산돼요.",
     "Follow the arrow": "화살표를 따라가세요",
     "Move the glowing piece": "빛나는 기물을 움직이세요",
@@ -2657,6 +2675,8 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "Practice": "练习",
+    "Practice: your daily result stays the same": "练习：今天的成绩不变",
     "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "第一个提示会点亮要走的棋子，第二个画出箭头指向目标格。用了提示解出算一半。",
     "Follow the arrow": "按箭头走",
     "Move the glowing piece": "走发光的那个棋子",

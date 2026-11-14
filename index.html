@@ -1388,12 +1388,14 @@ async function nextPuzzle() {
   orient = game.turn() === "w" ? "b" : "w";          /* the other side moves first, then the player answers */
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
-  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : T("Second try");
-  $("stLevel").hidden = !cur.review && !RUN;
+  const practice = !!DAILY && DAILY.mode === "practice";          /* Try again on the daily: a chip says it's practice */
+  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : practice ? T("Practice") : T("Second try");
+  $("stLevel").hidden = !cur.review && !RUN && !practice;
   renderPuzzleInfo();
-  if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), "", "wait");
+  if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), DAILY.mode === "practice" ? T("Practice: your daily result stays the same") : "", "wait");
   else setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
+  if (DAILY && DAILY.mode === "review") { showDailyFinal(); return; }
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
     later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY) DAILY.t0 = Date.now(); showTip(); }, 300);
@@ -1716,9 +1718,12 @@ function startDaily() {
   const p = me(), n = dayNumber();
   if (RUN) RUN = null;
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
-  if (dailyDone(p, n)) { showDailyDone(); return; }          /* done today: say so, with Share on the card */
+  if (dailyDone(p, n)) {          /* done today: the solved puzzle, with its card on top */
+    DAILY = { n, mode: "review", marks: [], spent: 0, t0: 0 };
+    renderDaily(); nextPuzzle(); return;
+  }
   const now = p.daily.now && p.daily.now.n === n ? p.daily.now : null;
-  DAILY = { n, marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
+  DAILY = { n, mode: "play", marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
   p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent }; save();
   track(now ? "daily/resume" : "daily/start");
   renderDaily();
@@ -1732,7 +1737,7 @@ document.addEventListener("visibilitychange", () => {          /* the daily's cl
 function dailySpent() { return DAILY.spent + (DAILY.t0 ? Math.round((Date.now() - DAILY.t0) / 1000) : 0); }
 /* note how the player's move at index k (an odd index in the move list) went; a worse mark wins */
 function dailyMark(m, k = idx) {
-  if (!DAILY) return;
+  if (!DAILY || DAILY.mode !== "play") return;
   const j = (k - 1) >> 1, was = DAILY.marks[j] || "";
   if (!was || MARKS.indexOf(m) > MARKS.indexOf(was)) DAILY.marks[j] = m;
   saveDailyNow();
@@ -1740,7 +1745,7 @@ function dailyMark(m, k = idx) {
 /* the daily being played, saved so leaving and coming back keeps its marks and time */
 function saveDailyNow() { me().daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save(); }
 function leaveDaily() {
-  if (DAILY && !done) { saveDailyNow(); track("daily/later"); }
+  if (DAILY && DAILY.mode === "play" && !done) { saveDailyNow(); track("daily/later"); }
   DAILY = null; resumeMain = true; nextPuzzle(); renderPanel();
 }
 /* a day's result into p.daily: solved after yesterday's grows the streak, after a gap starts it again at 1,
@@ -1773,7 +1778,40 @@ function checkFreezes() {
   AWARDS.freeze_used[3].n = p.daily.streak;
   setTimeout(() => celebrate(["freeze_used"]), REDUCED ? 300 : 1200);
 }
+/* the daily done: Share (the real result), Try again (practice), Back to puzzles */
+function dailyDoneButtons() {
+  $("stLevel").hidden = true; $("delta").className = "delta";
+  lastResult = { daily: { n: DAILY.n } };
+  $("nextLabel").textContent = T("Back to puzzles"); $("againBtn").textContent = T("Try again"); $("againBtn").hidden = false;
+  $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
+}
+/* today's daily, already done: the board as it ends, the result above it, and the card */
+function showDailyFinal() {
+  const r = dailyDone(me(), DAILY.n);
+  for (idx = 0; idx < cur.pz.moves.length; idx++) { const u = cur.pz.moves[idx]; game.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); }
+  const last = cur.pz.moves[cur.pz.moves.length - 1]; lastMove = [last.slice(0, 2), last.slice(2, 4)];
+  done = true; locked = true; dealPieces(); paint(); setButtons(false);
+  if (!r || r.ok) setStatus("good", T("Daily #{n} solved!", { n: DAILY.n }), T("Come back tomorrow for the next one"), "good");
+  else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
+  frameEl.classList.add(!r || r.ok ? "ok" : "miss");
+  dailyDoneButtons(); renderPanel();
+  setTimeout(showDailyDone, REDUCED ? 100 : 350);
+}
+/* Try again: the same puzzle as practice; the day's result, time and streak stay as they are */
+function practiceDaily() {
+  if (!DAILY) return;
+  DAILY = { n: DAILY.n, mode: "practice", marks: [], spent: 0, t0: 0 };
+  track("daily/practice"); nextPuzzle();
+}
+/* the card waits for any celebration screen to close */
+function whenNoCard(fn) { if (document.querySelector(".cele")) setTimeout(() => whenNoCard(fn), 400); else fn(); }
 function finishDaily(solved) {
+  if (DAILY.mode === "practice") {
+    frameEl.classList.add(solved ? "ok" : "miss");
+    if (solved) { setStatus("good", T("Solved!"), T("Practice: your daily result stays the same"), "good"); sfx.good(); haptic("solve"); restart(frameEl, "won"); }
+    else setStatus("bad", T("That was the answer"), T("Practice: your daily result stays the same"), "turn");
+    dailyDoneButtons(); $("againBtn").focus({ preventScroll: true }); return;
+  }
   const d = DAILY, p = me(), D = p.daily, t = dailySpent(), moves = (cur.pz.moves.length) >> 1;
   /* solved: the moves played (a different mate can end it early); shown: every move */
   const m = Array.from({ length: solved ? Math.max(1, d.marks.length) : moves }, (_, j) => d.marks[j] || (solved ? "g" : "x")).join("");
@@ -1789,13 +1827,10 @@ function finishDaily(solved) {
     sfx.rank(); haptic("rank"); restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
-  $("stLevel").hidden = true;
-  $("delta").className = "delta";
-  lastResult = { daily: { n: d.n } };
-  $("nextLabel").textContent = T("Next puzzle");
-  $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
+  dailyDoneButtons();
   renderPanel(); sendDaily();          /* renderPanel → renderDaily makes the share picture */
-  $("shareRankBtn").focus({ preventScroll: true });
+  DAILY.mode = "review";          /* counted: from here it's the result to look at */
+  setTimeout(() => whenNoCard(showDailyDone), REDUCED ? 600 : 1500);          /* then the share card (after any award) */
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
 const SQUARE = { g: "🟩", y: "💡", r: "🟥", x: "⬛" };          /* first try, a hint (the hint button's bulb), a wrong try, shown */
@@ -1910,8 +1945,8 @@ window.kingWalkCloud = raw => {
 /* the app asks for the daily puzzle (widget, Control Center, Siri, a notification); the website takes #daily */
 window.kingWalkOpen = what => {
   dropStaleDaily();
-  if (what !== "daily" || DAILY || !dailyOpen()) return;
-  if (dailyDone(me())) { showDailyDone(); return; }
+  if (what !== "daily" || !dailyOpen()) return;
+  if (DAILY) { if (dailyDone(me()) && done && !document.querySelector(".cele")) showDailyDone(); return; }
   startDaily();
 };
 window.kingWalkReminders = granted => { $("remindNote").hidden = !!granted || S.remind < 0; if (!granted && S.remind >= 0) { S.remind = -1; save(); renderRemind(); } };
@@ -2241,10 +2276,10 @@ $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */
 /* Puzzles | Daily: the side that's off switches to it; the daily, when it's done, shows its card */
 $("puzzlesBtn").addEventListener("click", () => { if (!DAILY) return; haptic("toggle"); leaveDaily(); });
-$("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY && !dailyDone(me())) return; haptic("toggle"); startDaily(); });
+$("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY) { if (dailyDone(me()) && done) showDailyDone(); return; } haptic("toggle"); startDaily(); });
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
-$("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
+$("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else startRun(RUN ? RUN.rank : 0); });
 $("endRunBtn").addEventListener("click", () => { if (RUN) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
