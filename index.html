@@ -232,7 +232,10 @@ button, select, input, textarea { font: 600 15px var(--font-display); color: inh
   .btn.primary:hover:not(:disabled) { filter: brightness(1.06); }
   .btn:hover .arrow { transform: translateX(4px); }
 }
-.btn:focus-visible, .switch:focus-visible, .qbtn:focus-visible, .seg button:focus-visible, textarea:focus-visible, summary:focus-visible, .promo-row button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+/* focus rings only once someone uses a keyboard (html.kbd): the game moves focus to the next button for keyboard and
+   screen reader players, and on a touch screen that would leave a ring around a button nobody chose */
+html.kbd .btn:focus-visible, html.kbd .switch:focus-visible, html.kbd .qbtn:focus-visible, html.kbd .seg button:focus-visible, textarea:focus-visible, html.kbd summary:focus-visible, html.kbd .promo-row button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+:focus-visible { outline: none; } html.kbd :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 textarea { width: 100%; min-height: 70px; padding: 8px 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); color: var(--fg); font: 12px ui-monospace, Menlo, Consolas, monospace; resize: vertical; }
 
 /* ---------- cards, labels, chips ---------- */
@@ -299,7 +302,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-btns .go { background: var(--p-gold); color: var(--p-ink); flex: 1; }
 .cele-btns .sh { background: var(--p-cream); color: var(--p-ink); }
 .cele-btns button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-ink); }
-.cele-btns button:focus-visible { outline: 3px solid var(--p-coral); outline-offset: 3px; }
+html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outline-offset: 3px; }
 .cele-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 @keyframes cele-fade { from { opacity: 0; } } @keyframes cele-fade-out { to { opacity: 0; } }
 @keyframes cele-swipe { 0% { transform: translateX(-140%) skewX(-24deg); } 45% { transform: translateX(-12%) skewX(-24deg); } 100% { transform: translateX(140%) skewX(-24deg); } }
@@ -321,27 +324,15 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .run-btn b { font: 700 11px var(--font-display); color: var(--muted); }
 .run-btn.untried svg.badge .scene { filter: grayscale(1); opacity: 0.45; }
 .run-btn.cleared b { color: var(--fg); }
-.run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs { display: grid; gap: 6px; }
-/* the daily puzzle: header button, and the panel with the last 7 days */
+/* the daily puzzle's header button: filled while today's waits, the streak once it's done */
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
-.daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; position: relative; font-size: 15px; }
-.daily-btn .dot { position: absolute; top: 6px; right: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--card); }
-@media (max-width: 359px) { .daily-btn { width: var(--bar); padding: 0; } .daily-btn span { display: none; } }
-html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn span { display: none; }          /* the book's narrow page too */          /* the smallest phones: the icon only, so the name stays on one line */
-.daily-btn.on, .daily-btn.on:hover { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
-.daily { display: grid; gap: 8px; padding-bottom: var(--pad); border-bottom: 1px solid var(--line); }
-.daily.pop { animation: bump 0.4s var(--spring); }
-.daily-fire { font: 700 14px var(--font-display); white-space: nowrap; color: var(--fg); letter-spacing: 0; margin-left: 6px; text-transform: none; }
-.daily .card-head { min-height: 34px; }
-.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; text-align: center; margin: 0; padding: 0; list-style: none; }
-.week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
-.week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
-.week .ok i { background: var(--p-gold); border-color: var(--p-gold); }
-.week .miss i { background: var(--tile); color: var(--muted); }
-.week .today i { border-color: var(--accent); border-width: 3px; }
-.week .today { color: var(--fg); }
+.daily-btn { min-height: var(--bar); height: var(--bar); padding: 0 12px; box-shadow: none; font-size: 15px; }
+.daily-btn.todo, .daily-btn.on { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
+@media (max-width: 359px) { .daily-btn.todo, .daily-btn.on { width: var(--bar); padding: 0; } .daily-btn.todo span, .daily-btn.on span { display: none; } }          /* the smallest phones: the icon only, so the name stays on one line */
+html.fold-v .daily-btn.todo, html.fold-v .daily-btn.on { width: var(--bar); padding: 0; } html.fold-v .daily-btn.todo span, html.fold-v .daily-btn.on span { display: none; }          /* the book's narrow page too */
 .setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
@@ -421,7 +412,7 @@ html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn
 .sq .ring { position: absolute; inset: 5%; border-radius: 50%; border: 1cqw solid var(--gold); box-shadow: 0 0 2.4cqw rgba(242, 194, 48, 0.9); opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.3s var(--spring); z-index: 4; pointer-events: none; }
 .sq.hint .ring { opacity: 1; transform: none; animation: pulse 1s var(--ease-io) 0.3s infinite alternate; }
 .sq:focus { outline: none; }
-.sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; z-index: 3; }
+html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; z-index: 3; }
 .sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .coord { position: absolute; font: 800 2.3cqw var(--font-body); pointer-events: none; opacity: 0.9; }
 .coord.f { right: 5%; bottom: 2%; }
@@ -480,9 +471,6 @@ html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn
 .bar-row.tight { flex-wrap: wrap; row-gap: var(--gap); } .bar-row.tight .play-btns, .bar-row.tight .done-btns { flex: 1 1 100%; max-width: none; } .bar-row.tight .play-btns .btn { flex: 1 1 0; }
 @media (max-width: 329.98px) { .bar-row { flex-wrap: wrap; row-gap: var(--gap); } .play-btns, .done-btns { flex: 1 1 100%; max-width: none; } .play-btns .btn { flex: 1 1 0; } }
 @media (max-width: 349.98px) { .rate-txt span { display: none; } .play-btns .btn { padding: 0 11px; } }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chips:empty { display: none; }
-.chips .chip { animation: popIn 0.32s var(--spring) both; }
 
 /* ---------- progress card ---------- */
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -585,7 +573,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <h1>King Walk</h1>
     </div>
     <div class="top-btns">
-    <button type="button" id="dailyBtn" class="btn daily-btn" aria-label="Daily puzzle"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span id="dailyBtnTxt">Daily</span><i class="dot" id="dailyDot" hidden></i></button>
+    <button type="button" id="dailyBtn" class="btn daily-btn" aria-label="Daily puzzle"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span id="dailyBtnTxt">Daily</span></button>
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
     </div>
   </header>
@@ -689,15 +677,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <button type="button" id="nextBtn" class="btn primary"><span id="nextLabel">Next puzzle</span><svg class="ic arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
-      <div class="chips" id="themes"></div>
     </div>
 
     <section class="card stack progress" aria-label="Progress">
-      <div class="daily" id="dailyBox">
-        <div class="card-head"><p class="label">Daily puzzle <span class="daily-fire" id="dailyFire"></span></p><button type="button" id="dailyPlay" class="btn small primary">Play</button></div>
-        <ol class="week" id="dailyWeek"></ol>
-        <p class="note" id="dailyNote" hidden></p>
-      </div>
       <div>
         <div class="card-head">
           <p class="label">Progress</p>
@@ -729,7 +711,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="runs">
         <p class="label">Rank streaks</p>
         <div class="run-row" id="runRow"></div>
-        <p class="note">15 puzzles, each a little harder. No hints. One miss and you're out. Clear all 15 to earn the badge.</p>
       </div>
       <div class="chart-box">
         <div class="chart-wrap">
@@ -798,15 +779,6 @@ const PIECE_PLURAL = { k: "Kings", q: "Queens", r: "Rooks", b: "Bishops", n: "Kn
 const COLORED = { w: { k: "white king", q: "white queen", r: "white rook", b: "white bishop", n: "white knight", p: "white pawn" },
                   b: { k: "black king", q: "black queen", r: "black rook", b: "black bishop", n: "black knight", p: "black pawn" } };
 const rankName = i => T(RANKS[i][1]);
-const THEME_LABEL = {
-  mateIn1: "Checkmate in 1", mateIn2: "Checkmate in 2", mateIn3: "Checkmate in 3", mateIn4: "Checkmate in 4", mateIn5: "Long checkmate",
-  fork: "Fork", pin: "Pin", skewer: "Skewer", hangingPiece: "Free piece", backRankMate: "Back rank mate", smotheredMate: "Smothered mate",
-  discoveredAttack: "Discovered attack", doubleCheck: "Double check", promotion: "Pawn promotion", underPromotion: "Under-promotion",
-  trappedPiece: "Trapped piece", deflection: "Deflection", attraction: "Attraction", sacrifice: "Sacrifice", capturingDefender: "Take the defender",
-  enPassant: "En passant", advancedPawn: "Advanced pawn", exposedKing: "Exposed king", kingsideAttack: "Kingside attack", queensideAttack: "Queenside attack",
-  quietMove: "Quiet move", intermezzo: "In-between move", xRayAttack: "X-ray", zugzwang: "Zugzwang", clearance: "Clearance", interference: "Interference",
-  defensiveMove: "Defense"
-};
 const ICONS = {
   good: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   bad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>',
@@ -1280,7 +1252,7 @@ async function nextPuzzle() {
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
   $("playBtns").classList.toggle("run", !!RUN);
   renderDailyBtn();
-  $("themes").textContent = ""; $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
+  $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
   let pick;
@@ -1437,8 +1409,6 @@ function finish(solvedIt) {
   d.textContent = cur.review ? T("practice") : (delta > 0 ? "+" : "") + delta;
   d.className = "delta" + (cur.review ? "" : delta > 0 ? " up" : delta < 0 ? " down" : "");
   void d.offsetWidth; d.classList.add("show");
-  const box = $("themes"); box.textContent = ""; let n = 0;
-  for (const t of cur.pz.th) if (THEME_LABEL[t] && n < 3) { const c = document.createElement("span"); c.className = "chip"; c.textContent = T(THEME_LABEL[t]); c.style.animationDelay = (120 + n++ * 60) + "ms"; box.append(c); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   if (score === 1 && !rankUp) maybeAskForRating(p);
@@ -1586,7 +1556,7 @@ function startDaily() {
   const p = me(), n = dayNumber();
   if (RUN) RUN = null;
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
-  if (dailyDone(p, n)) { const b = $("dailyBox"); b.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" }); restart(b, "pop"); return; }
+  if (dailyDone(p, n)) { shareProgress($("dailyBtn"), { daily: { n } }); return; }          /* done today: share the result */
   const now = p.daily.now && p.daily.now.n === n ? p.daily.now : null;
   DAILY = { n, marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
   p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent }; save();
@@ -1652,37 +1622,16 @@ function dailyShareText(n) {
   if (SHARE_URL) lines.push(APP ? SHARE_URL : SHARE_URL + "#daily");
   return lines.join("\n");
 }
-/* the header button: Daily (a dot until today's is done), or Puzzles while one is being played */
-function renderDailyBtn() {
-  const b = $("dailyBtn"), p = me();
-  b.classList.toggle("on", !!DAILY);
-  $("dailyBtnTxt").textContent = DAILY ? T("Puzzles") : T("Daily");
-  b.setAttribute("aria-label", DAILY ? T("Back to puzzles") : T("Daily puzzle") + (dailyDone(p) ? ". " + T("Done today.") : ""));
-  $("dailyDot").hidden = !!DAILY || !!dailyDone(p);
-}
+/* the header button: Daily, filled, while today's puzzle waits; once it's done, the daily streak (tapping it shares the
+   result); Puzzles while the daily is being played */
 function renderDaily() {
-  const p = me(), n = dayNumber(), st = dailyStreak(p), today = dailyDone(p, n);
-  $("dailyFire").textContent = st ? "🔥 " + st : "";
-  $("dailyFire").setAttribute("aria-label", st ? T("{n} days in a row", { n: st }) : "");
-  const wk = $("dailyWeek"); wk.textContent = "";
-  const fmt = new Intl.DateTimeFormat(LANG, { weekday: "narrow" }), full = new Intl.DateTimeFormat(LANG, { weekday: "long" });
-  for (let k = n - 6; k <= n; k++) {
-    const r = k > 0 && p.daily.days[k], li = document.createElement("li"), i = document.createElement("i");
-    li.className = (r ? (r.ok ? "ok" : "miss") : "") + (k === n ? " today" : "");
-    i.textContent = r ? (r.ok ? "✓" : "×") : ""; i.setAttribute("aria-hidden", "true");
-    li.append(i, fmt.format(dayDate(k)));
-    li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.ok ? T("solved") : T("missed")) : k === n ? T("not played yet") : T("not played")));
-    wk.append(li);
-  }
-  const left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000)), next = T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 });
-  const note = $("dailyNote"), btn = $("dailyPlay");
-  note.hidden = !today;          /* waiting: the button says it all; done: the result and the countdown */
-  if (today) note.textContent = (today.ok ? T("Solved in {time}", { time: fmtTime(today.t) }) : T("Not today")) + " \u00b7 " + next;
-  if (today) { btn.textContent = T("Share"); btn.classList.remove("primary"); }
-  else { btn.textContent = p.daily.now && p.daily.now.n === n ? T("Continue") : T("Play"); btn.classList.add("primary"); }
-  btn.hidden = !!DAILY && !today;          /* playing it now */
-  renderDailyBtn();
+  const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p);
+  const playing = !!DAILY && !today;
+  b.classList.toggle("on", playing); b.classList.toggle("todo", !DAILY && !today);
+  $("dailyBtnTxt").textContent = playing ? T("Puzzles") : today ? "\ud83d\udd25 " + st : T("Daily");
+  b.setAttribute("aria-label", playing ? T("Back to puzzles") : today ? T("Daily puzzle") + ". " + T("Done today.") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + " " + T("Share") : T("Daily puzzle"));
 }
+const renderDailyBtn = renderDaily;
 /* the app: the widget's daily line and the reminders for the next week */
 function sendDaily() {
   if (!APP) return;
@@ -2022,8 +1971,7 @@ function renderPanel(fromRating) {
 $("hintBtn").addEventListener("click", showHint);
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY) leaveDaily(); else nextPuzzle(); });
-$("dailyBtn").addEventListener("click", () => { haptic("toggle"); if (DAILY) leaveDaily(); else startDaily(); });
-$("dailyPlay").addEventListener("click", () => { if (dailyDone(me())) shareProgress($("dailyPlay"), { daily: { n: dayNumber() } }); else startDaily(); });
+$("dailyBtn").addEventListener("click", () => { haptic("toggle"); if (DAILY && !dailyDone(me())) leaveDaily(); else startDaily(); });          /* done today: startDaily shares */
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { renderDaily(); }, 60000);          /* the countdown, and a new day */
 $("againBtn").addEventListener("click", () => startRun(RUN ? RUN.rank : 0));
@@ -2134,6 +2082,10 @@ function foldLayout() {
 }
 window.kingWalkFold = r => { Fold.app = r && (r.w > 0 || r.h > 0 || r.x > 0 || r.y > 0) ? r : null; foldLayout(); };
 foldLayout(); addEventListener("resize", foldLayout);
+
+/* focus rings: shown once a key moves focus (Tab, the arrows), hidden again on a tap or click (see html.kbd in the CSS) */
+addEventListener("keydown", e => { if (/^(Tab|Arrow|Enter$| $|Escape$)/.test(e.key)) document.documentElement.classList.add("kbd"); }, true);
+addEventListener("pointerdown", () => document.documentElement.classList.remove("kbd"), true);
 
 /* ---------- startup ---------- */
 localizePage();
