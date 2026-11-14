@@ -452,12 +452,10 @@ html.fold-h.daily .progress { display: block; }
 }
 .sq.t::after { opacity: 1; transform: none; }
 .sq.tc::after { width: 88%; height: 88%; background: none; border: 1.1cqw solid var(--dot); opacity: 1; transform: none; }
-/* a hint: a gold spotlight under the piece (and, with the second hint, under its square), the piece bobbing, and an
-   arrow from one to the other (#hintArrow) */
-.sq .ring { position: absolute; inset: 3%; border-radius: 24%; background: radial-gradient(circle, rgba(255, 214, 64, 1) 0%, rgba(242, 184, 24, 0.8) 45%, rgba(242, 184, 24, 0.15) 78%);
-  box-shadow: inset 0 0 0 0.8cqw #e9a800, 0 0 3cqw rgba(242, 184, 24, 0.85); opacity: 0; transform: scale(0.7); transition: opacity 0.25s, transform 0.35s var(--spring); z-index: 1; pointer-events: none; }
-.sq.hint .ring { opacity: 1; transform: none; animation: glowBreathe 1.1s var(--ease-io) 0.35s infinite alternate; }
-.piece.hinted svg { animation: bob 0.9s var(--ease-io) infinite alternate; }
+/* a hint: short gold rays around the piece, pulsing in and out like the hint button's bulb (and, with the second
+   hint, around its square), and an arrow from one to the other (#hintArrow) */
+.sq .ring { position: absolute; inset: -8%; background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%2316302c' stroke-opacity='.6' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%23f2c230' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; opacity: 0; transform: scale(0.6); transition: opacity 0.25s, transform 0.35s var(--spring); z-index: 3; pointer-events: none; }
+.sq.hint .ring { opacity: 1; transform: none; animation: raysPulse 0.85s var(--ease-io) 0.35s infinite alternate; }
 .hint-arrow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; overflow: visible; }
 .hint-arrow path { fill: rgba(242, 194, 48, 0.88); stroke: rgba(22, 48, 44, 0.55); stroke-width: 0.035; stroke-linejoin: round; animation: arrowIn 0.35s var(--spring) both; transform-box: fill-box; transform-origin: 0% 50%; }
 /* a king put in check gives a little wiggle */
@@ -566,8 +564,7 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 @keyframes shake { 20% { transform: translateX(-5px); } 45% { transform: translateX(4px); } 70% { transform: translateX(-3px); } 100% { transform: none; } }
 @keyframes breathe { from { opacity: 1; } to { opacity: 0.72; } }
 @keyframes pulse { from { transform: scale(1); } to { transform: scale(0.88); } }
-@keyframes glowBreathe { from { opacity: 1; } to { opacity: 0.62; } }
-@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-7%); } }
+@keyframes raysPulse { from { transform: scale(0.94); } to { transform: scale(1.06); } }
 @keyframes arrowIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes checkWiggle { 15% { transform: rotate(-7deg); } 35% { transform: rotate(6deg); } 55% { transform: rotate(-4deg); } 75% { transform: rotate(2deg); } 100% { transform: none; } }
 @keyframes pieceIn { from { opacity: 0; transform: scale(0.55); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
@@ -1242,7 +1239,6 @@ function paint() {
     c.toggle("over", overSq === sq); c.toggle("touch", overSq === sq && !!(drag && drag.touch));
     c.toggle("t", targets[sq] === "t"); c.toggle("tc", targets[sq] === "tc");
     const pc = els.get(sq); c.toggle("own", !!(pc && pc.code[0] === orient));
-    if (pc) pc.el.classList.toggle("hinted", hintSq[0] === sq);
     sqEls[sq].setAttribute("aria-label", squareName(sq, targets[sq], chk === sq));
     sqEls[sq].setAttribute("aria-pressed", String(sel === sq));
   }
