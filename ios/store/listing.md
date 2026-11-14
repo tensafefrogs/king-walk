@@ -20,7 +20,7 @@ The text, URLs, categories, age rating, review notes and screenshots are uploade
 | Press kit | | `press/index.html`, `python3 scripts/press-kit.py` | Done |
 | Trailer for the press kit and social posts | 1920×1080 and 1080×1920 | `node scripts/trailer.js`, `--vertical` | `press/king-walk-trailer*.mp4` |
 | App Privacy answers | | by hand, see below | To do in App Store Connect |
-| Pricing (free), availability | | by hand | To do in App Store Connect |
+| Pricing ($0.99), availability | | by hand | Done in App Store Connect |
 | App Review contact (name, phone, email) | | by hand | To do in App Store Connect |
 | TestFlight group "Internal" | | by hand | To do in App Store Connect |
 
@@ -116,7 +116,7 @@ Game Center and iCloud are Apple's services and aren't declared by the app.
 
 ## Pricing and availability
 
-Free, all countries and regions.
+$0.99 (US price tier), all countries and regions. Needs the Paid Apps Agreement, banking and tax forms in App Store Connect → Business. The website stays free.
 
 ## App Review notes
 

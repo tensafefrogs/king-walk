@@ -128,7 +128,7 @@ iframe{width:${F.gw}px;height:${F.gh}px;border:0;display:block;background:#edf1e
 <div id="win"><div id="scale"><iframe id="game"></iframe><div id="taps"></div></div></div>
 <div id="cap"></div>
 <div class="card" id="title"><div class="art">${LOGO}</div><h2>${TAG}</h2></div>
-<div class="card" id="end"><div class="art">${LOGO}</div><h2>${TAG}</h2>${preview ? "" : '<p>Free on iPhone, iPad and the web</p><p class="url">geoffstearns.com/king-walk</p>'}</div>
+<div class="card" id="end"><div class="art">${LOGO}</div><h2>${TAG}</h2>${preview ? "" : '<p>On iPhone, iPad and the web</p><p class="url">geoffstearns.com/king-walk</p>'}</div>
 <script>
 const $=s=>document.querySelector(s);
 const T=window.T={
