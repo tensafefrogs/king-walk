@@ -7,7 +7,7 @@ usage: python3 ios/store/creative.py --discover   prints the asset library's ref
        python3 ios/store/creative.py              uploads and places what listing.json's "creative" lists
 Credentials as in asc.py. See listing.md, "Header and search results" and "App previews".
 """
-import json, os, sys, time
+import hashlib, json, os, sys, time
 from asc import ApiError, app as get_app, call, upload_parts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -93,7 +93,9 @@ def main():
     lib = call('GET', f"/v1/apps/{app['id']}/assetLibrary")['data']['id']
     for c in creative:   # {"file", "kind": image|video, "category", "name", "placements": [[type, group], ...]}
         try:
-            a = upload(lib, c['kind'], c['file'], c['category'], c['name'])
+            # the file's hash in the name: a changed file uploads as a new asset and replaces the old one's placements
+            digest = hashlib.md5(open(os.path.join(HERE, c['file']), 'rb').read()).hexdigest()[:8]
+            a = upload(lib, c['kind'], c['file'], c['category'], f"{c['name']} {digest}")
             for ptype, group in c['placements']:
                 place(loc['id'], a, c['kind'], ptype, group)
         except (ApiError, SystemExit) as e:   # a new API: report and carry on rather than stop a release
