@@ -1,6 +1,6 @@
 # App Store status: King Walk
 
-Updated 2026-11-14 01:11 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
+Updated 2026-11-14 01:32 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
 
 App Store page: https://apps.apple.com/app/id6834615859
 
@@ -18,6 +18,7 @@ No submissions.
 
 | Build | Version | Processing | Uploaded | TestFlight (external) | Groups |
 | --- | --- | --- | --- | --- | --- |
+| 2611140125 | 1.0 | VALID | 2026-11-14 01:30 UTC | READY_FOR_BETA_SUBMISSION |  |
 
 ## TestFlight groups
 
