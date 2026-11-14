@@ -42,6 +42,13 @@ jobs:
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
           # link previews need absolute addresses: the site's, when it's set
+          # Safari's Smart App Banner on iPhone and iPad, once the App Store ID is set (Safari shows it only while the
+          # app is on sale, so it can go in before launch)
+          if cfg['appStoreId']:
+              html = open('_site/index.html').read()
+              html = html.replace('<meta name="description"', f'<meta name="apple-itunes-app" content="app-id={cfg["appStoreId"]}">\n<meta name="description"', 1)
+              open('_site/index.html', 'w').write(html)
+              print('Smart App Banner: on')
           site = cfg['site'].rstrip('/') + '/' if cfg['site'] else ''
           if site:
               html = open('_site/index.html').read()
