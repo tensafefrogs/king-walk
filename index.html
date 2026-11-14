@@ -517,7 +517,8 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 @media (max-width: 479.98px) { .play-btns .btn svg.ic { display: none; } .play-btns .btn { padding: 0 13px; } }
 /* very narrow (a small phone, or large text in the app): the buttons take their own line under the rating */
 /* long labels (some languages) that don't fit beside the rating: the buttons get a row of their own (fitBar) */
-.bar-row.tight { flex-wrap: wrap; row-gap: var(--gap); } .bar-row.tight .play-btns, .bar-row.tight .done-btns { flex: 1 1 100%; max-width: none; } .bar-row.tight .play-btns .btn { flex: 1 1 0; }
+.bar-row.tight { flex-wrap: wrap; row-gap: var(--gap); } .bar-row.tight .play-btns, .bar-row.tight .done-btns { flex: 1 1 100%; max-width: none; }
+.bar-row.tight .done-btns { flex-wrap: wrap; } .bar-row.tight .done-btns .btn { width: auto; flex: none; } .bar-row.tight #nextBtn { flex: 1 1 auto; }          /* still too narrow: Next wraps to its own line */ .bar-row.tight .play-btns .btn { flex: 1 1 0; }
 @media (max-width: 329.98px) { .bar-row { flex-wrap: wrap; row-gap: var(--gap); } .play-btns, .done-btns { flex: 1 1 100%; max-width: none; } .play-btns .btn { flex: 1 1 0; } }
 @media (max-width: 349.98px) { .rate-txt span { display: none; } .play-btns .btn { padding: 0 11px; } }
 
