@@ -3,5 +3,6 @@
    in the code. In your own copy, set those variables (README, "Your own copy"), or fill this in by hand.
    goatcounter: a GoatCounter count URL, like https://example.goatcounter.com/count (empty: no stats are sent)
    site:        the website's address, for the app's Share link and its Support/Privacy/Terms links
-   appStoreId:  the app's Apple ID in App Store Connect, for the app's Share link (empty: the app shares the site) */
-window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "" };
+   appStoreId:  the app's Apple ID in App Store Connect, for the app's Share link (empty: the app shares the site)
+   appLive:     the app is on sale (the website build looks it up), so the website may point iPhone users to it */
+window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "", appLive: false };

@@ -2,6 +2,7 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "También en iPhone y iPad, con widgets, Game Center y sincronización con iCloud.",
     "{n} of {total} cleared": "{n} de {total} superadas",
     ", becomes a {piece}": ", se convierte en {piece}",
     ", can move here": ", se puede mover aquí",
@@ -290,6 +291,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Aussi sur iPhone et iPad, avec widgets, Game Center et synchronisation iCloud.",
     "{n} of {total} cleared": "{n} sur {total} réussies",
     ", becomes a {piece}": ", promu en {piece}",
     ", can move here": ", déplacement possible",
@@ -578,6 +580,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Auch für iPhone und iPad, mit Widgets, Game Center und iCloud-Sync.",
     "{n} of {total} cleared": "{n} von {total} geschafft",
     ", becomes a {piece}": ", Umwandlung in {piece}",
     ", can move here": ", Zug hierhin möglich",
@@ -866,6 +869,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Anche su iPhone e iPad, con widget, Game Center e sincronizzazione iCloud.",
     "{n} of {total} cleared": "{n} su {total} superate",
     ", becomes a {piece}": ", promosso a {piece}",
     ", can move here": ", puoi muovere qui",
@@ -1154,6 +1158,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Também no iPhone e iPad, com widgets, Game Center e sincronização com o iCloud.",
     "{n} of {total} cleared": "{n} de {total} concluídas",
     ", becomes a {piece}": ", promove a {piece}",
     ", can move here": ", pode ir para cá",
@@ -1442,6 +1447,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Ook op iPhone en iPad, met widgets, Game Center en iCloud-synchronisatie.",
     "{n} of {total} cleared": "{n} van {total} gehaald",
     ", becomes a {piece}": ", promoveert tot {piece}",
     ", can move here": ", hierheen mogelijk",
@@ -1730,6 +1736,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Также на iPhone и iPad: виджеты, Game Center и синхронизация через iCloud.",
     "{n} of {total} cleared": "Пройдено: {n} из {total}",
     ", becomes a {piece}": ", превращается в {piece}",
     ", can move here": ", можно пойти сюда",
@@ -2018,6 +2025,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone・iPad版もあります。ウィジェット、Game Center、iCloud同期に対応。",
     "{n} of {total} cleared": "{total}中{n}クリア",
     ", becomes a {piece}": "、{piece}に昇格",
     ", can move here": "、ここへ移動できます",
@@ -2306,6 +2314,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone과 iPad에서도 즐기세요. 위젯, Game Center, iCloud 동기화 지원.",
     "{n} of {total} cleared": "{total}개 중 {n}개 클리어",
     ", becomes a {piece}": ", {piece} 승진",
     ", can move here": ", 이동 가능",
@@ -2594,6 +2603,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "也有 iPhone 和 iPad 版，支持小组件、Game Center 和 iCloud 同步。",
     "{n} of {total} cleared": "已通关 {n}/{total}",
     ", becomes a {piece}": "，升变为{piece}",
     ", can move here": "，可以走到这里",

@@ -43,7 +43,7 @@ Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: t
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `daily/start`, `daily/resume`, `daily/later`, `daily/solved`, `daily/missed`, `daily/streak/<n>`, `daily/freeze-earned`, `daily/freeze-used`, `tip/closed`, `remind/<hour>`, `remind/off`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `played/<n>`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `daily/start`, `daily/resume`, `daily/later`, `daily/solved`, `daily/missed`, `daily/streak/<n>`, `daily/freeze-earned`, `daily/freeze-used`, `tip/closed`, `app-promo`, `remind/<hour>`, `remind/off`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`. The privacy policy is `privacy.html`.
 
 ## Your own copy
 
