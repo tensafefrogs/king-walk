@@ -361,9 +361,12 @@ html.fold-v .daily-btn.todo, html.fold-v .daily-btn.on { width: var(--bar); padd
 .status.good { background: var(--good-soft); border-color: transparent; color: var(--good); }
 .status.bad { background: var(--bad-soft); border-color: transparent; color: var(--bad); }
 .status.hint { background: var(--gold-soft); border-color: transparent; }
-.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; position: relative; top: -2px; }          /* Fredoka sits low in its line box: the text moves up 2px (below) and the icon meets its middle */
+.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; }
 .st-ic svg { width: 22px; height: 22px; }
-.st-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; min-width: 0; flex: 1 1 auto; position: relative; top: -2px; }
+.st-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 8px; min-width: 0; flex: 1 1 auto; }
+/* the letters' box is exactly their capitals (cap height to baseline), so centring it centres the words in every
+   browser that supports it, whatever room each draws above and below Fredoka's letters */
+.st-main, .st-sub { text-box: trim-both cap alphabetic; }
 .st-main { font: 600 18px/1.2 var(--font-display); }
 .st-sub { font: 500 16px/1.2 var(--font-display); color: var(--muted); }
 .st-sub:empty { display: none; }
