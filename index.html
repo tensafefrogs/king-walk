@@ -49,6 +49,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-in: 0.26s; --t-out: 0.16s;          /* motion: things arrive with rise or popIn, and leave faster */
   --font-display: 'Fredoka', 'Trebuchet MS', system-ui, sans-serif;
   --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --scrim: rgba(16, 40, 36, 0.55); --pop-lift: #16302c;          /* modals: the dimmed page behind, the poster box's offset shadow */
@@ -248,6 +249,7 @@ textarea { width: 100%; min-height: 70px; padding: 8px 10px; border-radius: var(
 .note a { color: var(--accent); font-weight: 700; }
 .chip { display: inline-flex; align-items: center; font: 600 13px var(--font-display); background: var(--tile); color: var(--muted); padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
 .chip.accent { background: var(--accent-soft); color: var(--accent); }
+#stLevel { animation: popIn 0.3s var(--spring) both; }          /* runs each time it's shown */
 
 /* A section that opens and closes with a height animation. The closed state takes no space. */
 .collapse { display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0; transition: grid-template-rows 0.34s var(--ease-io), opacity 0.25s, margin-top 0.34s var(--ease-io); }
@@ -297,7 +299,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
   animation: cele-lines 0.9s 0.1s ease-out both; }
 .cele-card { position: relative; width: min(360px, 100%); padding: 0 0 18px; text-align: center; overflow: hidden; animation: cele-card 0.62s 0.38s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
 .cele-art { display: block; width: 100%; height: auto; border-bottom: 4px solid var(--p-ink); }
-.cele-rays { transform-origin: 150px 120px; animation: cele-spin 16s linear infinite; }
+.cele-rays { animation: cele-rays-in 1.1s var(--ease-out) 0.45s both, cele-spin 30s linear 1.55s infinite; }          /* sweep in, then turn slowly */
+.cele-sun { transform-box: fill-box; transform-origin: center; animation: cele-sun 0.55s var(--spring) 0.55s both; }
 .cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
 .cele-kind { margin: 14px 0 0; font: 800 13px var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--p-teal); animation: cele-up 0.4s 0.75s ease-out both; }
 .cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); text-wrap: balance; word-break: auto-phrase; }
@@ -309,21 +312,30 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-btns .sh { background: var(--p-cream); color: var(--p-ink); }
 .cele-btns button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-ink); }
 html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outline-offset: 3px; }
-/* the quiet card (the daily puzzle done): it just appears */
-.cele.quiet .cele-card, .cele.quiet .cele-kind, .cele.quiet .cele-text, .cele.quiet .cele-btns, .cele.quiet .cele-piece { animation-delay: 0s !important; animation-duration: 0.25s !important; }
-.cele.quiet .cele-rays { animation: none; }
+/* the quiet card (the daily puzzle done): it rises in, the rays sweep round once and stop */
+.cele.quiet .cele-card { animation: card-in 0.34s var(--ease-out) both; }
+.cele.quiet .cele-kind, .cele.quiet .cele-text, .cele.quiet .cele-btns { animation-duration: 0.3s !important; }
+.cele.quiet .cele-kind { animation-delay: 0.1s !important; } .cele.quiet .cele-text { animation-delay: 0.16s !important; } .cele.quiet .cele-btns { animation-delay: 0.22s !important; }
+.cele.quiet .cele-piece { animation-delay: 0.12s !important; }
+.cele.quiet .cele-rays { animation: cele-rays-in 1s var(--ease-out) 0.05s both; }
+.cele.quiet .cele-sun { animation-delay: 0.1s; }
+.cele.out .cele-card { animation: card-out 0.22s ease-in both !important; }
 .cele-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 @keyframes cele-fade { from { opacity: 0; } } @keyframes cele-fade-out { to { opacity: 0; } }
 @keyframes cele-swipe { 0% { transform: translateX(-140%) skewX(-24deg); } 45% { transform: translateX(-12%) skewX(-24deg); } 100% { transform: translateX(140%) skewX(-24deg); } }
 @keyframes cele-lines { 0% { opacity: 0; transform: translateX(-30%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateX(30%); } }
 @keyframes cele-card { 0% { opacity: 0; transform: scale(0.35) rotate(-10deg); } 100% { opacity: 1; transform: none; } }
 @keyframes cele-spin { to { transform: rotate(360deg); } }
+@keyframes cele-rays-in { from { opacity: 0; transform: rotate(-50deg) scale(0.45); } }
+@keyframes cele-sun { from { opacity: 0; transform: scale(0.4); } }
+@keyframes card-in { from { opacity: 0; transform: translateY(18px) scale(0.94); } }
+@keyframes card-out { to { opacity: 0; transform: translateY(10px) scale(0.95); } }
 @keyframes cele-pop { 0% { transform: translateY(70%) scale(0.7, 1.3); } 55% { transform: translateY(-14%) scale(1.12, 0.9); } 78% { transform: translateY(3%) scale(0.96, 1.05); } 100% { transform: none; } }
 @keyframes cele-slam { 0% { opacity: 0; transform: translateY(-60px) scale(2.2) rotate(-12deg); } 100% { opacity: 1; transform: none; } }
 @keyframes cele-up { 0% { opacity: 0; transform: translateY(18px); } }
 @media (prefers-reduced-motion: reduce) {
   .cele-swipe, .cele-lines { display: none; }
-  .cele-card, .cele-piece, .cele-title span, .cele-kind, .cele-text, .cele-btns { animation: cele-fade 0.3s ease-out both !important; }
+  .cele-card, .cele-piece, .cele-sun, .cele-title span, .cele-kind, .cele-text, .cele-btns { animation: cele-fade 0.3s ease-out both !important; }
   .cele-rays { animation: none; }
 }
 /* rank streak badges: a little poster in a ring; the ring fills with your best; cleared ones get gold and a ribbon */
@@ -347,17 +359,23 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 /* the daily puzzle's header button: filled while today's waits, the streak once it's done */
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
 /* Puzzles | Daily: the side that's on is filled (coral for the daily) */
-.mode-switch { display: flex; height: var(--bar); box-sizing: border-box; padding: 3px; gap: 2px; border-radius: var(--r-ctl); background: var(--tile); box-shadow: inset 0 0 0 1px var(--line); }
+.mode-switch { position: relative; display: flex; height: var(--bar); box-sizing: border-box; padding: 3px; gap: 2px; border-radius: var(--r-ctl); background: var(--tile); box-shadow: inset 0 0 0 1px var(--line); }
 .mode-switch button { position: relative; border: 0; background: none; cursor: pointer; width: 42px; padding: 0; border-radius: 9px; color: var(--muted); display: grid; place-items: center; transition: background-color 0.2s, color 0.2s; }
 .mode-switch svg.ic { width: 22px; height: 22px; }
-.mode-switch button[aria-pressed="true"] { background: var(--card); color: var(--accent); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22); }
-.mode-switch #dailyBtn[aria-pressed="true"] { background: var(--p-coral); color: #fff; }
+/* the thumb under the active mode slides across, and turns coral for the daily */
+.mode-switch::before { content: ""; position: absolute; top: 3px; left: 3px; bottom: 3px; width: 42px; border-radius: 9px; background: var(--card); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22);
+  transition: transform 0.32s var(--ease-io), background-color 0.32s var(--ease-io); }
+html.daily .mode-switch::before { transform: translateX(44px); background: var(--p-coral); }
+.mode-switch button[aria-pressed="true"] { color: var(--accent); }
+.mode-switch button[aria-pressed="true"] svg { animation: popIn 0.32s var(--spring) 0.08s both; }
+.mode-switch #dailyBtn[aria-pressed="true"] { color: #fff; }
 .mode-dot { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--tile); }
 h1 { white-space: nowrap; }
 @media (max-width: 339px) { h1 { display: none; } }
 /* settings: a plain gear, quieter than the switch beside it */
 #menuBtn { border-color: transparent; background: none; color: var(--muted); }
-#menuBtn[aria-expanded="true"] { color: var(--accent); }          /* small phones: the mark, then the switch */
+#menuBtn[aria-expanded="true"] { color: var(--accent); }
+#menuBtn svg { transition: transform 0.5s var(--ease-out); } #menuBtn[aria-expanded="true"] svg { transform: rotate(90deg); }          /* small phones: the mark, then the switch */
 html.fold-v h1 { display: none; }          /* the book's narrow page too */
 /* the daily puzzle: a coral frame, no rating (it doesn't change it), and the daily's card in place of Progress */
 html.daily { --frame: #e2704f; }
@@ -374,6 +392,10 @@ html.fold-h.daily .progress { display: block; }
 .week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
 .week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
 .week .ok i { background: var(--p-gold); border-color: var(--p-gold); }
+.progress.swap > * { animation: rise var(--t-in) var(--ease-out) both; }          /* switching between puzzles and the daily */
+.progress.swap .week i { animation: popIn 0.3s var(--spring) both; animation-delay: calc(var(--d, 0) * 35ms + 60ms); }
+.week li.now-ok i { animation: dayDone 0.6s var(--spring) both; }          /* today's circle, as the daily is solved */
+@keyframes dayDone { 0% { transform: scale(0.4); } 60% { transform: scale(1.18); } 100% { transform: none; } }
 .week .fz i { background: #cfe9f5; border-color: #8ccbe8; }
 .week .miss i { background: var(--tile); color: var(--muted); }
 .week .today i { border-color: var(--p-coral); border-width: 3px; }
@@ -498,6 +520,9 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 
 .promo { position: absolute; inset: 0; border-radius: inherit; z-index: 10; display: grid; place-items: center; animation: fade 0.18s var(--ease-out) both; }
 .promo-box { padding: 10px 12px 12px; display: grid; gap: 8px; justify-items: center; animation: popIn 0.3s var(--spring) both; }
+.promo-row button { animation: popIn 0.28s var(--spring) both; }
+.promo-row button:nth-child(2) { animation-delay: 0.04s; } .promo-row button:nth-child(3) { animation-delay: 0.08s; } .promo-row button:nth-child(4) { animation-delay: 0.12s; }
+.promo.leave { animation: fadeOut var(--t-out) ease-in both !important; }
 .promo-box p { margin: 0; font: 700 15px var(--font-display); color: var(--p-ink); }
 .promo-row { display: flex; gap: 6px; }
 .promo-row button { width: 15cqw; height: 15cqw; max-width: 84px; max-height: 84px; padding: 0; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--sq-light); cursor: pointer; display: grid; place-items: center; transition: transform 0.16s var(--spring), border-color 0.16s; }
@@ -561,6 +586,9 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 
 /* ---------- motion ---------- */
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; } }
+@keyframes leave { to { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+.leave { animation: leave var(--t-out) ease-in both !important; pointer-events: none; }          /* hideSoft: on the way out */
 @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes dot { from { opacity: 0.25; transform: translateY(1.5px); } to { opacity: 1; transform: translateY(-1.5px); } }
@@ -869,6 +897,12 @@ const $ = id => document.getElementById(id);
 const REDUCED = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const restart = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };   /* replay a CSS animation */
+/* Hide with a short exit (.leave), then set hidden. Showing needs nothing: an element's entry animation runs when it appears. */
+function hideSoft(el, done) {
+  if (el.hidden || REDUCED) { el.hidden = true; if (done) done(); return; }
+  el.classList.add("leave");
+  setTimeout(() => { el.classList.remove("leave"); el.hidden = true; if (done) done(); }, 170);
+}
 function toggleSection(btn, section) {
   const open = !section.classList.contains("open");
   section.classList.toggle("open", open); section.toggleAttribute("inert", !open); btn.setAttribute("aria-expanded", String(open));
@@ -1364,7 +1398,10 @@ function setButtons(on) {
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
 function markNow() { if (RUN || DAILY) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
 let promoCancel = null;
-function closePromo() { const ov = boardEl.querySelector(".promo"); if (ov) ov.remove(); promoCancel = null; }
+function closePromo(soft) {
+  const ov = boardEl.querySelector(".promo:not(.leave)"); promoCancel = null; if (!ov) return;
+  if (soft && !REDUCED) { ov.classList.add("leave"); setTimeout(() => ov.remove(), 170); } else ov.remove();
+}
 
 async function nextPuzzle() {
   const gen = ++puzzleGen, resume = first || resumeMain;
@@ -1436,7 +1473,7 @@ function tryMove(from, to) {
 }
 /* the very first puzzle: one line on how to play, until the first move or the close button */
 function showTip() { $("tip").hidden = !!S.tip || me().n > 0 || !!RUN || !!DAILY; }
-function hideTip() { if (S.tip) return; $("tip").hidden = true; S.tip = true; save(); }
+function hideTip() { if (S.tip) return; hideSoft($("tip")); S.tip = true; save(); }
 function commit(from, to, promo) {
   hideTip();
   const want = cur.pz.moves[idx], uci = from + to + promo;
@@ -1604,21 +1641,22 @@ function checkAwards(p, puzzle) {
 function posterSvg(art) {
   const sky = art.ice ? "#cfe9f5" : art.gold ? "var(--p-gold)" : art.daily ? "var(--p-coral)" : art.number ? (art.streak ? "var(--p-deep)" : "var(--p-teal)") : "var(--p-sky)";
   const rayColor = art.ice ? "#eef8fc" : art.gold ? "var(--p-sun)" : art.number ? "rgba(253,251,242,0.16)" : "var(--p-cream)";
+  const [cx, cy] = art.ice ? [150, 120] : art.slayer ? [205, 80] : art.number ? [150, 112] : [150, 104];          /* the sun, where the rays turn */
   let rays = ""; for (let i = 0; i < 16; i++) { const a0 = i / 16 * Math.PI * 2, a1 = (i + 0.5) / 16 * Math.PI * 2;
-    rays += `M150,120 L${150 + Math.cos(a0) * 260},${120 + Math.sin(a0) * 260} L${150 + Math.cos(a1) * 260},${120 + Math.sin(a1) * 260} Z`; }
+    rays += `M${cx},${cy} L${cx + Math.cos(a0) * 300},${cy + Math.sin(a0) * 300} L${cx + Math.cos(a1) * 300},${cy + Math.sin(a1) * 300} Z`; }
   let fg = "";
   if (art.ice) fg = `<path d="M0,182 C80,164 220,164 300,182 L300,220 L0,220 Z" fill="#8ccbe8"/>`          /* a blue flame on the ice */
     + `<g class="cele-piece"><path d="M150,28 C188,72 214,104 206,148 C200,182 176,198 150,198 C124,198 100,182 94,148 C88,116 110,96 120,66 C128,96 138,104 148,106 C142,78 138,56 150,28 Z" fill="#3d9bd8" stroke="var(--p-ink)" stroke-width="5" stroke-linejoin="round"/>`
     + `<path d="M150,96 C168,118 178,134 174,156 C171,172 162,180 150,180 C138,180 129,172 126,156 C123,138 136,126 142,112 C146,124 150,128 154,128 C152,116 148,106 150,96 Z" fill="#cfe9f5"/></g>`;
-  else if (art.number) fg = `<circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 129 : 134}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text>`
+  else if (art.number) fg = `<g class="cele-sun"><circle cx="150" cy="112" r="64" fill="var(--p-gold)"/><text x="150" y="${String(art.number).length > 3 ? 129 : 134}" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${String(art.number).length > 3 ? 50 : 64}" fill="var(--p-ink)">${art.number}</text></g>`
     + `<path d="M0,190 C80,170 220,170 300,190 L300,220 L0,220 Z" fill="var(--p-mint)"/>`;
-  else if (art.slayer) fg = `<circle cx="205" cy="80" r="40" fill="var(--p-gold)"/><path d="M0,180 C90,150 210,150 300,180 L300,220 L0,220 Z" fill="var(--p-teal)"/>`
+  else if (art.slayer) fg = `<circle class="cele-sun" cx="205" cy="80" r="40" fill="var(--p-gold)"/><path d="M0,180 C90,150 210,150 300,180 L300,220 L0,220 Z" fill="var(--p-teal)"/>`
     + `<g class="cele-piece"><svg x="150" y="40" width="130" height="130" viewBox="0 0 100 100"><use href="#pc-bk"/></svg><svg x="40" y="104" width="64" height="64" viewBox="0 0 100 100"><use href="#pc-wp"/></svg></g>`;
-  else fg = `<circle cx="150" cy="104" r="58" fill="${art.gold ? "var(--p-coral)" : "var(--p-gold)"}"/>`
+  else fg = `<circle class="cele-sun" cx="150" cy="104" r="58" fill="${art.gold ? "var(--p-coral)" : "var(--p-gold)"}"/>`
     + `<path d="M0,170 C60,140 110,150 150,152 C190,150 240,140 300,170 L300,220 L0,220 Z" fill="var(--p-mint)"/>`
     + (art.gold ? `<path d="M90,220 L150,96 L210,220 Z" fill="var(--p-deep)"/><path d="M135,127 L150,96 L165,127 L156,122 L150,130 L144,122 Z" fill="var(--p-cream)"/>` : `<path d="M30,220 C90,150 210,150 270,220 Z" fill="var(--p-teal)"/>`)
     + `<g class="cele-piece"><svg x="102" y="${art.gold ? 6 : 58}" width="96" height="96" viewBox="0 0 100 100"><use href="#pc-w${art.piece}"/></svg></g>`;
-  return `<svg class="cele-art" viewBox="0 0 300 220" aria-hidden="true"><rect width="300" height="220" fill="${sky}"/><path class="cele-rays" d="${rays}" fill="${rayColor}"/>${fg}</svg>`;
+  return `<svg class="cele-art" viewBox="0 0 300 220" aria-hidden="true"><rect width="300" height="220" fill="${sky}"/><path class="cele-rays" style="transform-origin:${cx}px ${cy}px" d="${rays}" fill="${rayColor}"/>${fg}</svg>`;
 }
 /* confetti over the whole screen, from a point */
 function burst(canvas, x, y) {
@@ -1904,11 +1942,13 @@ async function makeDailyImage(n) {
 }
 /* the header button: Daily, filled, while today's puzzle waits; once it's done, the daily streak (tapping it shares the
    result); Puzzles while the daily is being played */
+let weekShown = {};
 function renderDaily() {
   dropStaleDaily();
   const b = $("dailyBtn"), p = me(), today = dailyDone(p), st = dailyStreak(p), fz = p.daily.freezes || 0, n = dayNumber();
   if (today) prepareDailyImage(n);
   b.hidden = !dailyOpen();
+  if (document.documentElement.classList.contains("daily") !== !!DAILY) restart(document.querySelector(".progress"), "swap");
   document.documentElement.classList.toggle("daily", !!DAILY);
   b.setAttribute("aria-pressed", String(!!DAILY)); $("puzzlesBtn").setAttribute("aria-pressed", String(!DAILY));
   $("dailyDot").hidden = !!today || !!DAILY;
@@ -1920,12 +1960,15 @@ function renderDaily() {
   const wk = $("diWeek"); wk.textContent = "";
   for (let k = dn - 6; k <= dn; k++) {
     const r = k > 0 && p.daily.days[k], li = document.createElement("li"), i = document.createElement("i");
-    li.className = (r ? (r.fz ? "fz" : r.ok ? "ok" : "miss") : "") + (k === dn ? " today" : "");
+    li.className = (r ? (r.fz ? "fz" : r.ok ? "ok" : "miss") : "") + (k === dn ? " today" : "")
+      + (k === dn && r && weekShown.n === dn && !weekShown.had ? " now-ok" : "");          /* today's result just came in */
+    li.style.setProperty("--d", k - dn + 6);
     i.textContent = r ? (r.fz ? "\u2744" : r.ok ? "\u2713" : "\u00d7") : ""; i.setAttribute("aria-hidden", "true");
     li.append(i, narrow.format(dayDate(k)));
     li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.fz ? T("Streak freeze") : r.ok ? T("solved") : T("missed")) : T("not played")));
     wk.append(li);
   }
+  weekShown = { n: dn, had: !!p.daily.days[dn] };
   /* the streak: in words from 2 days ("{n} days in a row" needs a plural), plus freezes held */
   const fire = st >= 2 ? T("{n} days in a row", { n: st }) : st ? "1" : "";
   $("diStreak").textContent = st ? "\ud83d\udd25 " + fire + (fz ? "   \ud83e\uddca " + T("Streak freezes: {n}", { n: fz }) : "") : T("Solve today's to start a streak.");
@@ -2131,11 +2174,11 @@ function askPromotion(cb, cancel) {
   for (const t of ["q", "r", "b", "n"]) {
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", T(PIECE_NAME[t]));
     b.append(pieceSvg(orient + t));
-    b.addEventListener("click", e => { e.stopPropagation(); closePromo(); cb(t); });
+    b.addEventListener("click", e => { e.stopPropagation(); closePromo(true); cb(t); });
     row.append(b);
   }
   for (const ev of ["pointerdown", "pointerup", "pointermove"]) ov.addEventListener(ev, e => e.stopPropagation());
-  promoCancel = () => { closePromo(); cancel(); };
+  promoCancel = () => { closePromo(true); cancel(); };
   ov.addEventListener("click", e => { if (e.target === ov && promoCancel) promoCancel(); });
   box.append(cap, row); ov.append(box); boardEl.append(ov);
   ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", T("Turn the pawn into")); row.firstChild.focus({ preventScroll: true });

@@ -137,7 +137,8 @@ function translations() {
   check(fz.tooLong === 0 && fz.lapsed === 0, "more skipped days than freezes ends the streak", fz);
   check(fz.kept.freezes === 2 && fz.kept.days[3].fz === true, "saved freezes are kept and capped", fz.kept);
   // the first puzzle's hint shows once, and goes after the first move
-  const tip = await p.evaluate(() => { S.tip = false; const pl = me(), n0 = pl.n; pl.n = 0; showTip(); const shown = !$("tip").hidden; hideTip(); const gone = $("tip").hidden && S.tip; showTip(); pl.n = n0; return { shown, gone, again: !$("tip").hidden }; });
+  const tip = await p.evaluate(async () => { S.tip = false; const pl = me(), n0 = pl.n; pl.n = 0; showTip(); const shown = !$("tip").hidden; hideTip();
+    await new Promise(r => setTimeout(r, 300)); const gone = $("tip").hidden && S.tip; showTip(); pl.n = n0; return { shown, gone, again: !$("tip").hidden }; });          // it leaves with a short exit
   check(tip.shown && tip.gone && !tip.again, "the first-puzzle hint shows once", tip);
   // the daily result's picture: a square PNG
   const img = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gyr", 61, true); dailyImg = null; await prepareDailyImage(n);
