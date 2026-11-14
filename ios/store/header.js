@@ -24,6 +24,8 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
   await gp.waitForFunction(() => typeof locked !== "undefined" && !locked && !done && cur, null, { timeout: 20000 });
   await gp.evaluate(() => { const m = cur.pz.moves[idx]; sel = m.slice(0, 2); paint(); });
   await gp.waitForTimeout(600);
+  // the frame has rounded corners: clear the page behind it so the corners come out transparent, not page-coloured
+  await gp.addStyleTag({ content: "html,body,.wrap{background:transparent!important}" });
   const board = await (await gp.$("#frame")).screenshot({ omitBackground: true });
   await g.close();
 
