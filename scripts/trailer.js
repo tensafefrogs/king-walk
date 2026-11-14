@@ -79,7 +79,7 @@ function savedPlayer(to) {
   const h = hist.map((v, i) => Math.max(560, Math.round(v + shift * i / (hist.length - 1))));
   return { v: 2, updatedAt: Date.now(), cur: 0, sound: false, haptics: true, rateAsked: Date.now(), players: [{
     name: "Player 1", rating: h[h.length - 1], n: 180, solved: 117, streak: 4, best: 13, peak: Math.max(...h), hist: h,
-    last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1, 0, 1, 1, 1, 0.5, 1, 1, 0, 1, 1, 1], seen: {}, review: [], mode: "normal", since: Date.now() - 40 * 864e5, back: 7 }] };
+    last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1, 0, 1, 1, 1, 0.5, 1, 1, 0, 1, 1, 1], seen: {}, review: [], mode: "normal", since: Date.now() - 40 * 864e5, back: 7, runs: { p: 15, n: 15, b: 9 } }] };
 }
 
 // fonts and logo, embedded so the stage needs no network

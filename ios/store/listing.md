@@ -53,8 +53,9 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 > • A puzzle rating that follows your level, with a chart of how far you've come
 > • Hints when you're stuck: the first circles the piece to move, the second shows where it goes
 > • Missed puzzles come back later for a second try
+> • Rank streaks: 15 puzzles that climb through a rank, no hints, one miss ends the run. Clear every rank from Pawn to King
 > • Easier, Just right or Harder, to set the pace
-> • Game Center leaderboards and achievements
+> • Game Center leaderboards, achievements and challenges: dare your friends to beat your Knight streak
 > • A home screen and Lock Screen widget with your rank and rating
 > • Share your progress: your rank, rating and last ten puzzles in a few emoji
 > • On iPhone Duo, prop it up like a laptop (the board lies flat under your hands) or hold it like a book (the board on one page, the notes on the other)
@@ -100,7 +101,7 @@ Ideas for later sets: the widget on a home screen (needs a real device screensho
 
 ## Game Center
 
-`gamecenter.json` lists the 2 leaderboards (Puzzle Rating, Best Streak) and 13 achievements (780 points of the 1000 allowed), with names, descriptions and images. `gamecenter.py` turns Game Center on for the app, creates whatever is missing and adds Game Center to the version being prepared. Ids are `kingwalk.<id>`. Achievements and leaderboards can't be deleted, and points can't change, once they're live, so settle them before the first release.
+`gamecenter.json` lists the 9 leaderboards (Puzzle Rating, Best Streak, Hardest Solve and a streak for each rank), 19 achievements (970 points of the 1000 allowed) and 7 challenges (each rank's streak, and Hardest Solve), with names, descriptions and images. `gamecenter.py` turns Game Center on for the app, creates whatever is missing and adds Game Center to the version being prepared. Ids are `kingwalk.<id>`. Achievements and leaderboards can't be deleted, and points can't change, once they're live, so settle them before the first release.
 
 If the script can't do a step (it says which), do it in App Store Connect → the app → Features → Game Center: add each leaderboard and achievement with the id, name, description and image from `gamecenter.json` and `gamecenter/`, then on the version page under Game Center, turn it on and add them all.
 
@@ -132,11 +133,12 @@ Uploaded from `review_notes` in `listing.json` (App Review Information → Notes
 > - Tap a piece, then tap where it goes (or drag it). A wrong move is shown and taken back.
 > - Hint circles the piece to move; a second hint circles where it goes. Answer plays the solution.
 > - After each puzzle: Next puzzle. The Progress card shows the rating, the rank ladder (Pawn to King), stats and a rating chart.
+> - Rank streaks (under Progress): tap a rank for 15 puzzles that climb through it, with Hint and Answer off; a wrong move ends the run. They don't change the rating, and are the Game Center challenges (Pawn Streak to King Streak, plus Hardest Solve).
 > - After each puzzle: Share (iOS share sheet). Menu (top right): Sound, Haptics, puzzle difficulty, Share, Game Center (leaderboards and achievements), Start over, How it works, Credits, Advanced (a save code to move progress to the website), and Support / Privacy / Terms links.
 > - Home screen and Lock Screen widget: shows the player's rank and rating.
 >
 > WHAT THE APP ADDS ON iOS
-> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards (puzzle rating, best streak) and 13 achievements; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo, layouts for half open like a laptop (the board on the flat half, progress on the upright half) and like a book (the board on one page, notes on the other), with a left-handed option; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
+> Haptic feedback for moves, captures, wrong moves and solves; Game Center leaderboards, 19 achievements and 7 challenges; a home screen and Lock Screen widget; iCloud sync of progress between the player's devices; the iOS share sheet (an emoji summary of the player's progress with a link to the App Store page); on iPhone Duo, layouts for half open like a laptop (the board on the flat half, progress on the upright half) and like a book (the board on one page, notes on the other), with a left-handed option; light and dark appearance, portrait and landscape. All 53,000 puzzles are bundled, so it plays fully offline.
 >
 > EXTERNAL SERVICES
 > None are needed to play. Optional: Game Center (Apple), iCloud key-value storage (Apple) for syncing progress, and GoatCounter, which receives anonymous event counts (for example, "reached Bishop rank") with no personal data, no identifiers and no cookies. Each puzzle has a link to its page on lichess.org, which opens in Safari.

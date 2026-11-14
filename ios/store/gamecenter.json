@@ -27,6 +27,60 @@
       "submission": "BEST_SCORE",
       "suffix": " puzzle rating",
       "suffix_singular": " puzzle rating"
+    },
+    {
+      "id": "streak_p",
+      "name": "Pawn Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "streak_n",
+      "name": "Knight Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "streak_b",
+      "name": "Bishop Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "streak_r",
+      "name": "Rook Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "streak_q",
+      "name": "Queen Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
+    },
+    {
+      "id": "streak_k",
+      "name": "King Streak",
+      "format": "INTEGER",
+      "sort": "DESC",
+      "submission": "BEST_SCORE",
+      "suffix": " in a row",
+      "suffix_singular": " in a row"
     }
   ],
   "achievements": [
@@ -165,22 +219,123 @@
       "art": {
         "slayer": true
       }
+    },
+    {
+      "id": "clear_pawn",
+      "name": "Pawn Cleared",
+      "earned": "You cleared the Pawn streak: 15 puzzles in a row from 400 to 699, with no hints.",
+      "before": "Clear the Pawn streak: 15 puzzles in a row, no hints.",
+      "points": 10,
+      "art": {
+        "piece": "p",
+        "label": "cleared"
+      }
+    },
+    {
+      "id": "clear_knight",
+      "name": "Knight Cleared",
+      "earned": "You cleared the Knight streak: 15 puzzles in a row from 700 to 999, with no hints.",
+      "before": "Clear the Knight streak: 15 puzzles in a row, no hints.",
+      "points": 15,
+      "art": {
+        "piece": "n",
+        "label": "cleared"
+      }
+    },
+    {
+      "id": "clear_bishop",
+      "name": "Bishop Cleared",
+      "earned": "You cleared the Bishop streak: 15 puzzles in a row from 1000 to 1299, with no hints.",
+      "before": "Clear the Bishop streak: 15 puzzles in a row, no hints.",
+      "points": 25,
+      "art": {
+        "piece": "b",
+        "label": "cleared"
+      }
+    },
+    {
+      "id": "clear_rook",
+      "name": "Rook Cleared",
+      "earned": "You cleared the Rook streak: 15 puzzles in a row from 1300 to 1599, with no hints.",
+      "before": "Clear the Rook streak: 15 puzzles in a row, no hints.",
+      "points": 35,
+      "art": {
+        "piece": "r",
+        "label": "cleared"
+      }
+    },
+    {
+      "id": "clear_queen",
+      "name": "Queen Cleared",
+      "earned": "You cleared the Queen streak: 15 puzzles in a row from 1600 to 1899, with no hints.",
+      "before": "Clear the Queen streak: 15 puzzles in a row, no hints.",
+      "points": 45,
+      "art": {
+        "piece": "q",
+        "label": "cleared"
+      }
+    },
+    {
+      "id": "clear_king",
+      "name": "King Cleared",
+      "earned": "You cleared the King streak: 15 puzzles in a row from 1900 to 2300, with no hints.",
+      "before": "Clear the King streak: 15 puzzles in a row, no hints.",
+      "points": 60,
+      "art": {
+        "piece": "k",
+        "label": "cleared"
+      }
     }
   ],
   "challenges": [
-    {
-      "id": "streak_challenge",
-      "leaderboard": "streak",
-      "name": "Longest Streak",
-      "description": "Solve as many puzzles in a row as you can, with no mistakes and no hints.",
-      "image": "challenge-streak.png"
-    },
     {
       "id": "hardest_challenge",
       "leaderboard": "hardest",
       "name": "Hardest Solve",
       "description": "Cleanly solve the highest-rated puzzle you can. Turn on Harder in the menu to see tougher ones.",
       "image": "challenge-hardest.png"
+    },
+    {
+      "id": "streak_p_challenge",
+      "leaderboard": "streak_p",
+      "name": "Pawn Streak",
+      "description": "15 puzzles that climb from 400 to 699. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-p.png"
+    },
+    {
+      "id": "streak_n_challenge",
+      "leaderboard": "streak_n",
+      "name": "Knight Streak",
+      "description": "15 puzzles that climb from 700 to 999. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-n.png"
+    },
+    {
+      "id": "streak_b_challenge",
+      "leaderboard": "streak_b",
+      "name": "Bishop Streak",
+      "description": "15 puzzles that climb from 1000 to 1299. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-b.png"
+    },
+    {
+      "id": "streak_r_challenge",
+      "leaderboard": "streak_r",
+      "name": "Rook Streak",
+      "description": "15 puzzles that climb from 1300 to 1599. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-r.png"
+    },
+    {
+      "id": "streak_q_challenge",
+      "leaderboard": "streak_q",
+      "name": "Queen Streak",
+      "description": "15 puzzles that climb from 1600 to 1899. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-q.png"
+    },
+    {
+      "id": "streak_k_challenge",
+      "leaderboard": "streak_k",
+      "name": "King Streak",
+      "description": "15 puzzles that climb from 1900 to 2300. No hints, and one miss ends the run. Who gets furthest?",
+      "image": "challenge-streak-k.png"
     }
   ]
 }
