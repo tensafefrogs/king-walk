@@ -18,7 +18,16 @@ BUNDLE_ID=$(printf '%s' "$BUNDLE_ID" | tr -d '[:space:]')
 group="group.$BUNDLE_ID"
 tmp=${RUNNER_TEMP:-$(mktemp -d)}
 key="$tmp/AuthKey_$ASC_KEY_ID.p8"
-printf '%s\n' "$ASC_KEY_P8" > "$key"
+# Write the key in the standard .p8 layout (64-character lines between the BEGIN and END lines): a key pasted into
+# the secret can carry Windows line breaks, spaces or lost wrapping, which Xcode's sign-in rejects.
+printf '%s' "$ASC_KEY_P8" | python3 -c '
+import re, sys
+t = sys.stdin.read()
+body = re.sub(r"-----(BEGIN|END) PRIVATE KEY-----", "", t)
+body = re.sub(r"[^A-Za-z0-9+/=]", "", body)
+print("-----BEGIN PRIVATE KEY-----")
+for i in range(0, len(body), 64): print(body[i:i + 64])
+print("-----END PRIVATE KEY-----")' > "$key"
 auth=(-allowProvisioningUpdates -authenticationKeyPath "$key" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID")
 
 # The archive is built unsigned (as Spark's is), then its app and widget are signed "to run locally" (ad hoc) here
@@ -76,8 +85,15 @@ cat > "$tmp/export.plist" <<PLIST
 </dict></plist>
 PLIST
 
+# On failure, show Xcode's own distribution log, which says why (the console only says "Authentication failed")
+export_log() {
+  for f in $(ls -dt "${TMPDIR:-/tmp}"/*.xcdistributionlogs 2>/dev/null | head -1); do
+    echo "--- Xcode distribution log ($f)"
+    grep -h -i -E 'error|fail|status|401|403|forbidden|unauthor|team|certificate|profile' "$f"/*.log 2>/dev/null | grep -v -i 'nserror *= *nil' | tail -80
+  done
+}
 xcodebuild -exportArchive -archivePath "$tmp/KingWalk.xcarchive" -exportOptionsPlist "$tmp/export.plist" \
-  -exportPath "$tmp/export" "${auth[@]}"
+  -exportPath "$tmp/export" "${auth[@]}" || { export_log; exit 1; }
 
 # Check the signed app has its capabilities before it goes to Apple: without them iCloud saves, Game Center and
 # the widget's data silently don't work.
