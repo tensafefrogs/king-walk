@@ -333,7 +333,8 @@ html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn
 .daily-btn.on, .daily-btn.on:hover { background: var(--accent); border-color: var(--accent) !important; color: var(--on-accent) !important; }
 .daily { display: grid; gap: 8px; padding-bottom: var(--pad); border-bottom: 1px solid var(--line); }
 .daily.pop { animation: bump 0.4s var(--spring); }
-.daily-fire { font: 700 15px var(--font-display); white-space: nowrap; }
+.daily-fire { font: 700 14px var(--font-display); white-space: nowrap; color: var(--fg); letter-spacing: 0; margin-left: 6px; text-transform: none; }
+.daily .card-head { min-height: 34px; }
 .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; text-align: center; margin: 0; padding: 0; list-style: none; }
 .week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
 .week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
@@ -341,9 +342,6 @@ html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn
 .week .miss i { background: var(--tile); color: var(--muted); }
 .week .today i { border-color: var(--accent); border-width: 3px; }
 .week .today { color: var(--fg); }
-.daily-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.daily-note { margin: 0; font-size: 14px; font-weight: 700; min-width: 0; }
-.daily-note span { display: block; font-weight: 600; font-size: 12.5px; color: var(--muted); }
 .setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
 #endRunBtn { display: none; }
@@ -364,9 +362,9 @@ html.fold-v .daily-btn { width: var(--bar); padding: 0; } html.fold-v .daily-btn
 .status.good { background: var(--good-soft); border-color: transparent; color: var(--good); }
 .status.bad { background: var(--bad-soft); border-color: transparent; color: var(--bad); }
 .status.hint { background: var(--gold-soft); border-color: transparent; }
-.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; }
+.st-ic { min-width: 22px; height: 22px; display: grid; place-items: center; flex: none; position: relative; top: 1px; }          /* Fredoka sits low in its line box: the text moves up 2px (below) and the icon meets its middle */
 .st-ic svg { width: 22px; height: 22px; }
-.st-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; min-width: 0; flex: 1 1 auto; }
+.st-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; min-width: 0; flex: 1 1 auto; position: relative; top: -2px; }
 .st-main { font: 600 18px/1.2 var(--font-display); }
 .st-sub { font: 500 16px/1.2 var(--font-display); color: var(--muted); }
 .st-sub:empty { display: none; }
@@ -696,9 +694,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
     <section class="card stack progress" aria-label="Progress">
       <div class="daily" id="dailyBox">
-        <div class="card-head"><p class="label">Daily puzzle</p><span class="daily-fire" id="dailyFire"></span></div>
+        <div class="card-head"><p class="label">Daily puzzle <span class="daily-fire" id="dailyFire"></span></p><button type="button" id="dailyPlay" class="btn small primary">Play</button></div>
         <ol class="week" id="dailyWeek"></ol>
-        <div class="daily-row"><p class="daily-note" id="dailyNote"></p><button type="button" id="dailyPlay" class="btn small primary">Play</button></div>
+        <p class="note" id="dailyNote" hidden></p>
       </div>
       <div>
         <div class="card-head">
@@ -1302,10 +1300,10 @@ async function nextPuzzle() {
   orient = game.turn() === "w" ? "b" : "w";          /* the other side moves first, then the player answers */
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
-  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : DAILY ? "#" + DAILY.n : T("Second try");
-  $("stLevel").hidden = !cur.review && !RUN && !DAILY;
+  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : T("Second try");
+  $("stLevel").hidden = !cur.review && !RUN;
   renderPuzzleInfo();
-  if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), T("The same puzzle for everyone today"), "wait");
+  if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), "", "wait");
   else setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   later(() => {
@@ -1632,7 +1630,7 @@ function finishDaily(solved) {
     sfx.rank(); haptic("rank"); restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
-  $("stLevel").textContent = "#" + d.n; $("stLevel").hidden = false;
+  $("stLevel").hidden = true;
   $("delta").className = "delta";
   lastResult = { daily: { n: d.n } };
   $("nextLabel").textContent = T("Next puzzle");
@@ -1677,18 +1675,12 @@ function renderDaily() {
     wk.append(li);
   }
   const left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000)), next = T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 });
-  const note = $("dailyNote"), btn = $("dailyPlay"); note.textContent = "";
-  const sub = document.createElement("span");
-  if (today) {
-    note.append(today.ok ? T("Solved in {time}", { time: fmtTime(today.t) }) : T("Not today")); sub.textContent = next;
-    btn.textContent = T("Share"); btn.classList.remove("primary");
-  } else {
-    const going = p.daily.now && p.daily.now.n === n;
-    note.append(T("Daily puzzle #{n}", { n })); sub.textContent = new Intl.DateTimeFormat(LANG, { weekday: "long" }).format(new Date()) + " · " + T("everyone gets the same one");
-    btn.textContent = DAILY ? T("Playing") : going ? T("Continue") : T("Play"); btn.classList.add("primary");
-  }
-  btn.disabled = !!DAILY && !today;
-  note.append(sub);
+  const note = $("dailyNote"), btn = $("dailyPlay");
+  note.hidden = !today;          /* waiting: the button says it all; done: the result and the countdown */
+  if (today) note.textContent = (today.ok ? T("Solved in {time}", { time: fmtTime(today.t) }) : T("Not today")) + " \u00b7 " + next;
+  if (today) { btn.textContent = T("Share"); btn.classList.remove("primary"); }
+  else { btn.textContent = p.daily.now && p.daily.now.n === n ? T("Continue") : T("Play"); btn.classList.add("primary"); }
+  btn.hidden = !!DAILY && !today;          /* playing it now */
   renderDailyBtn();
 }
 /* the app: the widget's daily line and the reminders for the next week */
