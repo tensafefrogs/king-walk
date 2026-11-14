@@ -99,8 +99,11 @@ async function capture(b, name) {
   await g.p.evaluate(() => { DAILY.spent = 52; });          /* the page's clock is fixed, so time the solve by hand */
   await solve(g.p);
   /* the seventh day earns Full Week: close its celebration (shot 4 shows one) to show the board and the week */
-  await g.p.waitForSelector(".cele .go", { timeout: 6000 }).then(() => g.p.waitForTimeout(1400)).then(() => g.p.click(".cele .go")).catch(() => {});
-  await g.p.waitForFunction(() => !document.querySelector(".cele"), null, { timeout: 5000 });
+  /* then the share card: close each card as it comes, until none has come for a few seconds */
+  for (let quiet = 0; quiet < 8; ) {
+    const go = await g.p.$(".cele .go");
+    if (go) { quiet = 0; await g.p.waitForTimeout(1400); await go.click().catch(() => {}); await g.p.waitForTimeout(400); } else { quiet++; await g.p.waitForTimeout(400); }
+  }
   await g.p.evaluate(() => document.activeElement && document.activeElement.blur());
   await g.p.waitForTimeout(500); await shot(g.p, name, 5);
   if (g.errs.length) console.log(name, "page errors", g.errs);
