@@ -8,6 +8,8 @@ A single-file chess puzzle game (`index.html`), live at https://geoffstearns.com
 - The iOS app bundles `index.html` as it is on `main`. The page talks to the app through `APP` (`window.webkit.messageHandlers.kingwalk`); keep the web working when `APP` is null. A push to `main` that changes `ios/` or `index.html` runs a simulator build of the app (the **iOS app** workflow): check it passes.
 - Check layouts at phone (portrait and landscape), iPad portrait and landscape, desktop, and iPhone Duo propped up (`?fold=h` at 951x669) after layout changes.
 - Text the player sees or hears goes through `T("English text")` and needs an entry in `lang.js` for every language (unit.js checks).
+- Saves from two devices (the app's iCloud copy): `betterSave` in `index.html` decides which to keep, and `SaveRank` in `ios/KingWalk/SaveStore.swift` is the same rule for the app. Change both together (unit.js tests the page's).
+- Russian text uses the bundled Nunito Cyrillic fonts (`fonts/nunito-cyrillic-*`), also in place of Fredoka, which has no Cyrillic. A new script (Greek, Vietnamese…) needs the same.
 - Keep the owner's accounts and IDs out of the code: the GoatCounter address, site, bundle ID and App Store ID come from Actions variables through `config.js` and the build (README, "Your own copy").
 
 ## Keep the store materials current
@@ -27,7 +29,7 @@ The game sends anonymous events to GoatCounter. `testing/STATS.md` lists each ev
 
 ## iOS releases
 
-To ship, edit `ios/release.json` and push to `main`; the App Store release workflow builds, uploads, submits and releases as it says (fields in `ios/README.md`, "Releasing from the repo"). `ios/store/status.md` shows where the app stands. Don't submit for review or release to the App Store without the owner's go-ahead for that version.
+The launch checklist and post drafts are in `ios/store/launch.md`. To ship, edit `ios/release.json` and push to `main`; the App Store release workflow builds, uploads, submits and releases as it says (fields in `ios/README.md`, "Releasing from the repo"). `ios/store/status.md` shows where the app stands. Don't submit for review or release to the App Store without the owner's go-ahead for that version.
 
 ## Game Center
 
