@@ -342,12 +342,16 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 .top-btns { display: flex; align-items: center; gap: 8px; flex: none; }
 /* Puzzles | Daily: the side that's on is filled (coral for the daily) */
 .mode-switch { display: flex; height: var(--bar); box-sizing: border-box; padding: 3px; gap: 2px; border-radius: var(--r-ctl); background: var(--tile); box-shadow: inset 0 0 0 1px var(--line); }
-.mode-switch button { border: 0; background: none; cursor: pointer; padding: 0 12px; border-radius: 9px; font: 600 15px var(--font-display); color: var(--muted); display: flex; align-items: center; gap: 5px; transition: background-color 0.2s, color 0.2s; white-space: nowrap; }
-.mode-switch button[aria-pressed="true"] { background: var(--card); color: var(--fg); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22); }
+.mode-switch button { position: relative; border: 0; background: none; cursor: pointer; width: 42px; padding: 0; border-radius: 9px; color: var(--muted); display: grid; place-items: center; transition: background-color 0.2s, color 0.2s; }
+.mode-switch svg.ic { width: 22px; height: 22px; }
+.mode-switch button[aria-pressed="true"] { background: var(--card); color: var(--accent); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22); }
 .mode-switch #dailyBtn[aria-pressed="true"] { background: var(--p-coral); color: #fff; }
-.mode-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--p-coral); flex: none; }
+.mode-dot { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--tile); }
 h1 { white-space: nowrap; }
-@media (max-width: 379px) { h1 { display: none; } .mode-switch button { padding: 0 10px; } }          /* small phones: the mark, then the switch */
+@media (max-width: 339px) { h1 { display: none; } }
+/* settings: a plain gear, quieter than the switch beside it */
+#menuBtn { border-color: transparent; background: none; color: var(--muted); }
+#menuBtn[aria-expanded="true"] { color: var(--accent); }          /* small phones: the mark, then the switch */
 html.fold-v h1 { display: none; }          /* the book's narrow page too */
 /* the daily puzzle: a coral frame, no rating (it doesn't change it), and the daily's card in place of Progress */
 html.daily { --frame: #e2704f; }
@@ -619,8 +623,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
     <div class="top-btns">
     <div class="mode-switch" role="group" aria-label="Puzzles or the daily puzzle">
-      <button type="button" id="puzzlesBtn" aria-pressed="true">Puzzles</button>
-      <button type="button" id="dailyBtn" aria-pressed="false" aria-label="Daily puzzle"><span>Daily</span><i class="mode-dot" id="dailyDot" hidden></i></button>
+      <button type="button" id="puzzlesBtn" aria-pressed="true" aria-label="Puzzles" title="Puzzles"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h4.3a2.2 2.2 0 1 1 4.2 0H17v4.3a2.2 2.2 0 1 1 0 4.2V20H4z"/></svg></button>
+      <button type="button" id="dailyBtn" aria-pressed="false" aria-label="Daily puzzle" title="Daily puzzle"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><i class="mode-dot" id="dailyDot" hidden></i></button>
     </div>
     <button type="button" id="menuBtn" class="btn icon" aria-expanded="false" aria-controls="menu" aria-label="Settings and help" title="Settings and help"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M10.61 5.14 L10.76 2.48 L13.24 2.48 L13.39 5.14 L15.87 6.17 L17.85 4.39 L19.61 6.15 L17.83 8.13 L18.86 10.61 L21.52 10.76 L21.52 13.24 L18.86 13.39 L17.83 15.87 L19.61 17.85 L17.85 19.61 L15.87 17.83 L13.39 18.86 L13.24 21.52 L10.76 21.52 L10.61 18.86 L8.13 17.83 L6.15 19.61 L4.39 17.85 L6.17 15.87 L5.14 13.39 L2.48 13.24 L2.48 10.76 L5.14 10.61 L6.17 8.13 L4.39 6.15 L6.15 4.39 L8.13 6.17 Z"/><circle cx="12" cy="12" r="3"/></svg></button>
     </div>
@@ -1147,8 +1151,9 @@ function shareProgress(btn, last) {
     if (navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text }).catch(() => {}); return; }
   }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
-  const label = btn.querySelector("span") || btn;          /* the label only: the Daily button keeps its icon */
-  const done = () => { const old = label.textContent; label.textContent = T("Copied"); setTimeout(() => { label.textContent = old; renderDaily(); }, 1600); };
+  /* "Copied" on the button's text; a button that's an icon (or has one) keeps it, and the copy is announced */
+  const label = btn.querySelector("span") || (btn.children.length ? null : btn);
+  const done = () => { announce(T("Copied")); if (!label) return; const old = label.textContent; label.textContent = T("Copied"); setTimeout(() => { label.textContent = old; }, 1600); };
   try { navigator.clipboard.writeText(text).then(done, () => window.prompt(T("Copy this:"), text)); } catch (e) { window.prompt(T("Copy this:"), text); }
 }
 
@@ -1761,7 +1766,7 @@ function finishDaily(solved) {
   $("shareRankBtn").focus({ preventScroll: true });
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
-const SQUARE = { g: "🟩", y: "🟨", r: "🟥", x: "⬛" };          /* 🟩 🟨 🟥 ⬛ */
+const SQUARE = { g: "🟩", y: "💡", r: "🟥", x: "⬛" };          /* first try, a hint (the hint button's bulb), a wrong try, shown */
 /* Like:   King Walk Daily #12 · Thu
            🟩🟨🟩  ⏱ 1:07
            🔥 5
@@ -1806,6 +1811,11 @@ async function makeDailyImage(n) {
     for (let i = 0; i < k; i++) {
       const x = (S - w) / 2 + i * (size + 28), y = 560;
       g.fillStyle = IMG_COLOR[r.m[i]] || IMG_COLOR.x; g.beginPath(); g.roundRect(x, y, size, size, size * 0.2); g.fill();
+      if (r.m[i] === "y") {          /* a hint: the bulb on its square */
+        g.save(); g.translate(x + size * 0.15, y + size * 0.15); g.scale(size * 0.7 / 24, size * 0.7 / 24);
+        g.lineWidth = 2.2; g.lineCap = "round"; g.lineJoin = "round"; g.strokeStyle = "#16302c"; g.stroke(new Path2D("M12 6a4.6 4.6 0 0 0-2.8 8.3c.5.4.8 1 .8 1.7h4c0-.7.3-1.3.8-1.7A4.6 4.6 0 0 0 12 6zM10 18.6h4M10.9 21.2h2.2M12 1.6v1.8M5.4 4.4l1.3 1.3M18.6 4.4l-1.3 1.3M2.8 10.6h1.8M19.4 10.6h1.8")); g.restore();
+        g.beginPath(); g.roundRect(x, y, size, size, size * 0.2);
+      }
       g.lineWidth = 8; g.strokeStyle = "#16302c"; g.stroke();
     }
     const st = p.daily.last === n ? p.daily.streak : 0;

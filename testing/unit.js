@@ -160,10 +160,10 @@ function translations() {
     DAILY = null; done = true; return { dropped, kept }; });
   check(st.dropped && st.kept === 1, "yesterday's finished daily steps aside; no freeze for the day being played", st);
   // "Copied" replaces a button's label, not its icon
-  const cp = await p.evaluate(async () => { const b = $("dailyBtn"); const hadIcon = !!b.querySelector("span"); Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
+  const cp = await p.evaluate(async () => { const b = $("dailyBtn"); const hadIcon = !!b.querySelector("svg"); Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
     try { Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.resolve() }, configurable: true }); } catch (e) {}
-    shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("span") && !!$("dailyDot"), span: true }; });
-  check(cp.icon && cp.span, "Copied keeps the Daily button's label and dot", cp);
+    shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("svg") && !!$("dailyDot"), span: true }; });
+  check(cp.icon && cp.span, "Copied keeps the Daily button's icon and dot", cp);
   // the daily done: the Daily button opens a card saying so, with Share on it, not a share sheet
   const dc = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gg", 33, true); DAILY = null; let shared = 0;
     const real = window.shareProgress; window.shareProgress = () => { shared++; };
