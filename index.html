@@ -51,6 +51,7 @@
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --font-display: 'Fredoka', 'Trebuchet MS', system-ui, sans-serif;
   --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --scrim: rgba(16, 40, 36, 0.55); --pop-lift: #16302c;          /* modals: the dimmed page behind, the poster box's offset shadow */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -60,6 +61,7 @@
     --frame: #2f4a43; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.6);
     --shadow-board: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.8);
+    --scrim: rgba(4, 12, 10, 0.74); --pop-lift: #1c7868;          /* an ink shadow would vanish on the dark page */
     color-scheme: dark;
   }
 }
@@ -70,6 +72,7 @@
   --frame: #2f4a43; --sq-light: #d8dac4; --sq-dark: #6b8a5f;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.6);
   --shadow-board: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.8);
+  --scrim: rgba(4, 12, 10, 0.74); --pop-lift: #1c7868;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -278,7 +281,11 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 /* ---------- awards: the celebration screen and the rank streak badges ----------
    Flat travel-poster colours (the same in light and dark), hard edges, a hard offset shadow; motion in big swipes. */
 :root { --p-gold: #f2c230; --p-sun: #f7d35a; --p-ink: #16302c; --p-deep: #143f38; --p-teal: #1c7868; --p-sea: #2f9c86; --p-mint: #56c2ad; --p-sky: #cfe9df; --p-cream: #fdfbf2; --p-coral: #e2704f; }
-.cele { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden; background: rgba(22, 48, 44, 0.62); animation: cele-fade 0.25s ease-out both; }
+/* Every modal: .scrim dims and blurs what's behind; .pop is the poster-style box on top (the celebration card, the promotion picker) */
+.scrim { background: var(--scrim); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.pop { background: var(--p-cream); color: var(--p-ink); border: 4px solid var(--p-ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--pop-lift), 0 28px 70px -10px rgba(0, 0, 0, 0.45); }
+.pop.small { border-width: 3px; border-radius: 18px; box-shadow: 6px 6px 0 var(--pop-lift), 0 16px 40px -8px rgba(0, 0, 0, 0.45); }
+.cele { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden; animation: cele-fade 0.25s ease-out both; }
 .cele.out { animation: cele-fade-out 0.28s ease-in both; }
 .cele-swipe { position: absolute; inset: 0; pointer-events: none; }          /* out of the grid, so the card centres on the screen */
 .cele-swipe i { position: absolute; left: -10vw; width: 140vw; height: 30vh; transform: translateX(-140%) skewX(-24deg); animation: cele-swipe 0.62s cubic-bezier(0.75, 0, 0.25, 1) both; }
@@ -288,8 +295,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-lines { position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background: repeating-linear-gradient(-24deg, transparent 0 46px, rgba(253, 251, 242, 0.55) 46px 49px, transparent 49px 120px);
   animation: cele-lines 0.9s 0.1s ease-out both; }
-.cele-card { position: relative; width: min(360px, 100%); background: var(--p-cream); color: var(--p-ink); border: 4px solid var(--p-ink); border-radius: 26px;
-  box-shadow: 10px 10px 0 var(--p-ink); padding: 0 0 18px; text-align: center; overflow: hidden; animation: cele-card 0.62s 0.38s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.cele-card { position: relative; width: min(360px, 100%); padding: 0 0 18px; text-align: center; overflow: hidden; animation: cele-card 0.62s 0.38s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
 .cele-art { display: block; width: 100%; height: auto; border-bottom: 4px solid var(--p-ink); }
 .cele-rays { transform-origin: 150px 120px; animation: cele-spin 16s linear infinite; }
 .cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
@@ -490,9 +496,9 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 .piece.fallen.left svg { transform: rotate(-78deg) translate(-4%, 4%); }
 #fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9; }
 
-.promo { position: absolute; inset: 0; border-radius: inherit; z-index: 10; display: grid; place-items: center; background: rgba(8, 20, 18, 0.5); animation: fade 0.18s var(--ease-out) both; }
-.promo-box { background: var(--card); border-radius: var(--r); padding: 10px; display: grid; gap: 8px; justify-items: center; box-shadow: var(--shadow-board); animation: popIn 0.3s var(--spring) both; }
-.promo-box p { margin: 0; font: 600 14px var(--font-display); color: var(--muted); }
+.promo { position: absolute; inset: 0; border-radius: inherit; z-index: 10; display: grid; place-items: center; animation: fade 0.18s var(--ease-out) both; }
+.promo-box { padding: 10px 12px 12px; display: grid; gap: 8px; justify-items: center; animation: popIn 0.3s var(--spring) both; }
+.promo-box p { margin: 0; font: 700 15px var(--font-display); color: var(--p-ink); }
 .promo-row { display: flex; gap: 6px; }
 .promo-row button { width: 15cqw; height: 15cqw; max-width: 84px; max-height: 84px; padding: 0; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--sq-light); cursor: pointer; display: grid; place-items: center; transition: transform 0.16s var(--spring), border-color 0.16s; }
 .promo-row svg { width: 88%; height: 88%; }
@@ -1635,9 +1641,9 @@ function burst(canvas, x, y) {
    (loud) swipes in with confetti, sound and haptics; an info card (the daily puzzle done) just appears. */
 function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
   const back = document.activeElement;
-  const el = document.createElement("div"); el.className = "cele" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
+  const el = document.createElement("div"); el.className = "cele scrim" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
   el.innerHTML = `${loud ? '<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>' : ""}
-    <div class="cele-card">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
+    <div class="cele-card pop">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
     <div class="cele-btns"><button type="button" class="sh"></button><button type="button" class="go"></button></div></div>${loud ? '<canvas class="cele-fx" aria-hidden="true"></canvas>' : ""}`;
   el.querySelector(".cele-kind").textContent = kind;
   const h = el.querySelector(".cele-title");
@@ -2121,7 +2127,7 @@ squaresEl.addEventListener("focusin", e => { if (e.target.dataset && e.target.da
 function askPromotion(cb, cancel) {
   closePromo();
   const ov = document.createElement("div"), box = document.createElement("div"), row = document.createElement("div"), cap = document.createElement("p");
-  ov.className = "promo"; box.className = "promo-box"; row.className = "promo-row"; cap.textContent = T("Turn the pawn into");
+  ov.className = "promo scrim"; box.className = "promo-box pop small"; row.className = "promo-row"; cap.textContent = T("Turn the pawn into");
   for (const t of ["q", "r", "b", "n"]) {
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", T(PIECE_NAME[t]));
     b.append(pieceSvg(orient + t));
