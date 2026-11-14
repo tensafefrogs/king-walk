@@ -452,8 +452,16 @@ html.fold-h.daily .progress { display: block; }
 }
 .sq.t::after { opacity: 1; transform: none; }
 .sq.tc::after { width: 88%; height: 88%; background: none; border: 1.1cqw solid var(--dot); opacity: 1; transform: none; }
-.sq .ring { position: absolute; inset: 5%; border-radius: 50%; border: 1cqw solid var(--gold); box-shadow: 0 0 2.4cqw rgba(242, 194, 48, 0.9); opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.3s var(--spring); z-index: 4; pointer-events: none; }
-.sq.hint .ring { opacity: 1; transform: none; animation: pulse 1s var(--ease-io) 0.3s infinite alternate; }
+/* a hint: a gold spotlight under the piece (and, with the second hint, under its square), the piece bobbing, and an
+   arrow from one to the other (#hintArrow) */
+.sq .ring { position: absolute; inset: 3%; border-radius: 24%; background: radial-gradient(circle, rgba(255, 214, 64, 1) 0%, rgba(242, 184, 24, 0.8) 45%, rgba(242, 184, 24, 0.15) 78%);
+  box-shadow: inset 0 0 0 0.8cqw #e9a800, 0 0 3cqw rgba(242, 184, 24, 0.85); opacity: 0; transform: scale(0.7); transition: opacity 0.25s, transform 0.35s var(--spring); z-index: 1; pointer-events: none; }
+.sq.hint .ring { opacity: 1; transform: none; animation: glowBreathe 1.1s var(--ease-io) 0.35s infinite alternate; }
+.piece.hinted svg { animation: bob 0.9s var(--ease-io) infinite alternate; }
+.hint-arrow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; overflow: visible; }
+.hint-arrow path { fill: rgba(242, 194, 48, 0.88); stroke: rgba(22, 48, 44, 0.55); stroke-width: 0.035; stroke-linejoin: round; animation: arrowIn 0.35s var(--spring) both; transform-box: fill-box; transform-origin: 0% 50%; }
+/* a king put in check gives a little wiggle */
+.piece.check svg { animation: checkWiggle 0.55s var(--ease-io); }
 .sq:focus { outline: none; }
 html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; z-index: 3; }
 .sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -558,6 +566,10 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 @keyframes shake { 20% { transform: translateX(-5px); } 45% { transform: translateX(4px); } 70% { transform: translateX(-3px); } 100% { transform: none; } }
 @keyframes breathe { from { opacity: 1; } to { opacity: 0.72; } }
 @keyframes pulse { from { transform: scale(1); } to { transform: scale(0.88); } }
+@keyframes glowBreathe { from { opacity: 1; } to { opacity: 0.62; } }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-7%); } }
+@keyframes arrowIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes checkWiggle { 15% { transform: rotate(-7deg); } 35% { transform: rotate(6deg); } 55% { transform: rotate(-4deg); } 75% { transform: rotate(2deg); } 100% { transform: none; } }
 @keyframes pieceIn { from { opacity: 0; transform: scale(0.55); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
 @keyframes pop { from { transform: scale(0.6); } to { transform: none; } }
 @keyframes nope { 15% { transform: rotate(-9deg); } 40% { transform: rotate(8deg); } 65% { transform: rotate(-5deg); } 85% { transform: rotate(3deg); } 100% { transform: none; } }
@@ -656,7 +668,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <li>Tap a piece, then tap where it goes. You can also drag it.</li>
               <li>Solve a puzzle with no mistakes and no hints and your puzzle rating goes up. The next puzzles get harder.</li>
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
-              <li>The first hint circles the piece to move. The second circles where it goes. Solving with a hint counts as half.</li>
+              <li>The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.</li>
               <li>A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.</li>
               <li>The daily puzzle is the same for everyone each day. Monday's is gentle, and each day gets a little harder, up to Sunday. Solve it every day to grow your daily streak. It doesn't touch your rating.</li>
               <li>Every 7 days in a row earns a streak freeze (you can hold 2). Skip a day and one is used, so your streak keeps going.</li>
@@ -709,6 +721,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="board loading" id="board" role="group" aria-label="Chess board" aria-describedby="boardHelp">
         <div class="squares" id="squares"></div>
         <div class="pieces" id="pieces" aria-hidden="true"></div>
+        <svg class="hint-arrow" id="hintArrow" viewBox="0 0 8 8" aria-hidden="true"></svg>
       </div>
       <canvas id="fx"></canvas>
     </div>
@@ -1195,8 +1208,24 @@ function buildSquares() {
     squaresEl.append(d); sqEls[sq] = d;
   }
 }
+/* the second hint's arrow, from the piece's square to where it goes, in board squares (0 to 8) */
+function drawHintArrow() {
+  const svg = $("hintArrow"); if (!svg) return;
+  const key = hintSq.length === 2 ? hintSq.join("") + orient : "";
+  if (svg.dataset.key === key) return;
+  svg.dataset.key = key; svg.textContent = "";
+  if (!key) return;
+  const [x1, y1] = xy(hintSq[0]), [x2, y2] = xy(hintSq[1]);
+  const ax = x1 + 0.5, ay = y1 + 0.5, bx = x2 + 0.5, by = y2 + 0.5, len = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / len, uy = (by - ay) / len;
+  const w = 0.11, hw = 0.3, hl = 0.42, start = 0.32, end = len - 0.12;          /* shaft half-width, head half-width and length */
+  const P = (d, o) => [(ax + ux * d - uy * o).toFixed(3), (ay + uy * d + ux * o).toFixed(3)].join(",");
+  const path = document.createElementNS(SVGNS, "path");
+  path.setAttribute("d", `M${P(start, -w)} L${P(end - hl, -w)} L${P(end - hl, -hw)} L${P(end, 0)} L${P(end - hl, hw)} L${P(end - hl, w)} L${P(start, w)} Z`);
+  svg.append(path);
+}
 /* Update the square highlights from the current state. */
 function paint() {
+  drawHintArrow();
   const targets = {};
   if (sel) for (const m of game.moves({ square: sel, verbose: true })) targets[m.to] = (game.get(m.to) || m.flags.indexOf("e") >= 0) ? "tc" : "t";
   let chk = null;
@@ -1213,6 +1242,7 @@ function paint() {
     c.toggle("over", overSq === sq); c.toggle("touch", overSq === sq && !!(drag && drag.touch));
     c.toggle("t", targets[sq] === "t"); c.toggle("tc", targets[sq] === "tc");
     const pc = els.get(sq); c.toggle("own", !!(pc && pc.code[0] === orient));
+    if (pc) pc.el.classList.toggle("hinted", hintSq[0] === sq);
     sqEls[sq].setAttribute("aria-label", squareName(sq, targets[sq], chk === sq));
     sqEls[sq].setAttribute("aria-pressed", String(sel === sq));
   }
@@ -1375,13 +1405,19 @@ async function nextPuzzle() {
 }
 
 /* Play a move from the puzzle's own move list (the other side's moves, and the answer when shown). */
+/* a king just put in check (not mated: that one tips over) gives a little wiggle */
+function wiggleCheckedKing() {
+  if (!game.in_check() || game.in_checkmate()) return;
+  let ksq = null; eachPiece((sq, p) => { if (p.type === "k" && p.color === game.turn()) ksq = sq; });
+  const o = ksq && els.get(ksq); if (o) setTimeout(() => restart(o.el, "check"), 240);
+}
 function playUci(uci) {
   const from = uci.slice(0, 2), to = uci.slice(2, 4);
   const mv = game.move({ from, to, promotion: uci[4] });
   if (!mv) return;
   announce(mv.color === orient ? describeMove(mv) : T("{move}. Your move.", { move: describeMove(mv) }));
   lastMove = [from, to]; sel = null; hintSq = []; wrongSq = null;
-  const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic("opp");
+  const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic("opp"); wiggleCheckedKing();
 }
 /* The player tries a move. */
 function tryMove(from, to) {
@@ -1406,7 +1442,7 @@ function commit(from, to, promo) {
   sel = null; hintSq = []; overSq = null;
   if (uci === want || mated) {          /* any checkmate counts, even if it is not the listed move */
     dailyMark("g"); lastMove = [from, to]; wrongSq = null; idx++;
-    const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move");
+    const took = syncPieces({ from, to }); paint(); took ? sfx.take() : sfx.move(); haptic(took ? "take" : "move"); wiggleCheckedKing();
     locked = true; setButtons(false);
     if (mated || idx >= cur.pz.moves.length) { announce(said); later(() => finish(true), 260); return; }
     announce(T("{move}. Good move.", { move: said }));
@@ -1433,7 +1469,7 @@ function showHint() {
   hintLevel++;
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
-  setStatus("hint", (hintLevel === 1 ? T("Move the piece in the gold circle") : T("Move it to the other gold circle")), "", "hint");
+  setStatus("hint", (hintLevel === 1 ? T("Move the glowing piece") : T("Follow the arrow")), "", "hint");
   setButtons(true); paint(); markNow(); dailyMark("y"); haptic("hint");
 }
 function showAnswer() {
