@@ -452,8 +452,8 @@ html.fold-h.daily .progress { display: block; }
 }
 .sq.t::after { opacity: 1; transform: none; }
 .sq.tc::after { width: 88%; height: 88%; background: none; border: 1.1cqw solid var(--dot); opacity: 1; transform: none; }
-/* a hint: short gold rays around the piece, pulsing in and out like the hint button's bulb (and, with the second
-   hint, around its square), and an arrow from one to the other (#hintArrow) */
+/* a hint: short gold rays around the piece to move, pulsing in and out like the hint button's bulb; the second hint
+   adds an arrow to its square (#hintArrow) */
 .sq .ring { position: absolute; inset: -8%; background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%2316302c' stroke-opacity='.6' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%23f2c230' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; opacity: 0; transform: scale(0.6); transition: opacity 0.25s, transform 0.35s var(--spring); z-index: 3; pointer-events: none; }
 .sq.hint .ring { opacity: 1; transform: none; animation: raysPulse 0.85s var(--ease-io) 0.35s infinite alternate; }
 .hint-arrow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; overflow: visible; }
@@ -1234,7 +1234,7 @@ function paint() {
   }
   for (const sq in sqEls) {
     const c = sqEls[sq].classList;
-    c.toggle("last", lastMove.includes(sq)); c.toggle("sel", sel === sq); c.toggle("hint", hintSq.includes(sq));
+    c.toggle("last", lastMove.includes(sq)); c.toggle("sel", sel === sq); c.toggle("hint", hintSq[0] === sq);          /* the rays: on the piece to move only; the arrow shows where */
     c.toggle("wrong", wrongSq === sq); c.toggle("chk", chk === sq && wrongSq !== sq);
     c.toggle("over", overSq === sq); c.toggle("touch", overSq === sq && !!(drag && drag.touch));
     c.toggle("t", targets[sq] === "t"); c.toggle("tc", targets[sq] === "tc");
