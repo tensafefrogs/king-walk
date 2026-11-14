@@ -294,7 +294,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-rays { transform-origin: 150px 120px; animation: cele-spin 16s linear infinite; }
 .cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
 .cele-kind { margin: 14px 0 0; font: 800 13px var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--p-teal); animation: cele-up 0.4s 0.75s ease-out both; }
-.cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); }
+.cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); text-wrap: balance; word-break: auto-phrase; }
 .cele-title span { display: inline-block; animation: cele-slam 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both; white-space: pre; }
 .cele-text { margin: 8px 22px 0; font: 600 15px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 1.1s ease-out both; }
 .cele-btns { display: flex; gap: 10px; justify-content: center; margin: 16px 18px 0; animation: cele-up 0.45s 1.25s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
@@ -303,6 +303,9 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-btns .sh { background: var(--p-cream); color: var(--p-ink); }
 .cele-btns button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-ink); }
 html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outline-offset: 3px; }
+/* the quiet card (the daily puzzle done): it just appears */
+.cele.quiet .cele-card, .cele.quiet .cele-kind, .cele.quiet .cele-text, .cele.quiet .cele-btns, .cele.quiet .cele-piece { animation-delay: 0s !important; animation-duration: 0.25s !important; }
+.cele.quiet .cele-rays { animation: none; }
 .cele-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 @keyframes cele-fade { from { opacity: 0; } } @keyframes cele-fade-out { to { opacity: 0; } }
 @keyframes cele-swipe { 0% { transform: translateX(-140%) skewX(-24deg); } 45% { transform: translateX(-12%) skewX(-24deg); } 100% { transform: translateX(140%) skewX(-24deg); } }
@@ -1554,33 +1557,57 @@ function burst(canvas, x, y) {
     requestAnimationFrame(frame);
   })(t0);
 }
+/* A card over the game: the poster, a small heading, a title, a few lines, Share and a close button. A celebration
+   (loud) swipes in with confetti, sound and haptics; an info card (the daily puzzle done) just appears. */
+function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
+  const back = document.activeElement;
+  const el = document.createElement("div"); el.className = "cele" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
+  el.innerHTML = `${loud ? '<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>' : ""}
+    <div class="cele-card">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
+    <div class="cele-btns"><button type="button" class="sh"></button><button type="button" class="go"></button></div></div>${loud ? '<canvas class="cele-fx" aria-hidden="true"></canvas>' : ""}`;
+  el.querySelector(".cele-kind").textContent = kind;
+  const h = el.querySelector(".cele-title");
+  if (loud) { h.setAttribute("aria-label", title);
+    [...title].forEach((ch, i) => { const sp = document.createElement("span"); sp.textContent = ch; sp.setAttribute("aria-hidden", "true"); sp.style.animationDelay = (0.8 + Math.min(i, 14) * 0.045) + "s"; h.append(sp); }); }
+  else h.textContent = title;
+  const tx = el.querySelector(".cele-text");
+  [].concat(text).forEach((line, i) => { if (i) tx.append(document.createElement("br")); tx.append(line); });
+  const go = el.querySelector(".go"), sh = el.querySelector(".sh");
+  go.textContent = closeLabel; sh.textContent = T("Share");
+  let closed = false;
+  const close = () => { if (closed) return; closed = true; el.classList.add("out"); document.removeEventListener("keydown", onKey);
+    setTimeout(() => { el.remove(); if (then) then(); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  go.addEventListener("click", close);
+  sh.addEventListener("click", () => onShare(sh));
+  document.addEventListener("keydown", onKey);
+  document.body.append(el);
+  if (loud) {
+    haptic("celebrate"); setTimeout(() => sfx.rank(), REDUCED ? 0 : 620);
+    setTimeout(() => { const r = el.querySelector(".cele-card").getBoundingClientRect(); burst(el.querySelector(".cele-fx"), r.left + r.width / 2, r.top + r.height * 0.35); }, REDUCED ? 0 : 700);
+  }
+  setTimeout(() => go.focus({ preventScroll: true }), loud && !REDUCED ? 1300 : 50);
+  return el;
+}
 /* the celebration screen, one award after another */
 function celebrate(ids) {
   const id = ids.shift(); if (!id || !AWARDS[id]) return;
   const [kind, name, text, art] = AWARDS[id], rank = art.rank !== undefined ? rankName(art.rank) : "";
   const title = T(name, { rank }), body = T(text, { n: art.n, rank });
-  const back = document.activeElement;
-  const el = document.createElement("div"); el.className = "cele"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
-  el.innerHTML = `<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>
-    <div class="cele-card">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
-    <div class="cele-btns"><button type="button" class="sh"></button><button type="button" class="go"></button></div></div><canvas class="cele-fx" aria-hidden="true"></canvas>`;
-  el.querySelector(".cele-kind").textContent = T(kind);
-  const h = el.querySelector(".cele-title"); h.setAttribute("aria-label", title);
-  [...title].forEach((ch, i) => { const sp = document.createElement("span"); sp.textContent = ch; sp.setAttribute("aria-hidden", "true"); sp.style.animationDelay = (0.8 + Math.min(i, 14) * 0.045) + "s"; h.append(sp); });
-  el.querySelector(".cele-text").textContent = body;
-  const go = el.querySelector(".go"), sh = el.querySelector(".sh");
-  go.textContent = T("Continue"); sh.textContent = T("Share");
-  let closed = false;
-  const close = () => { if (closed) return; closed = true; el.classList.add("out"); setTimeout(() => { el.remove(); if (ids.length) celebrate(ids); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); document.removeEventListener("keydown", onKey); };
-  const onKey = e => { if (e.key === "Escape") close(); };
-  go.addEventListener("click", close);
-  sh.addEventListener("click", () => { const t = "♔ King Walk · " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
-    track("share/award"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} });
-  document.addEventListener("keydown", onKey);
-  document.body.append(el);
-  haptic("celebrate"); setTimeout(() => sfx.rank(), REDUCED ? 0 : 620);
-  setTimeout(() => { const r = el.querySelector(".cele-card").getBoundingClientRect(); burst(el.querySelector(".cele-fx"), r.left + r.width / 2, r.top + r.height * 0.35); }, REDUCED ? 0 : 700);
-  setTimeout(() => go.focus({ preventScroll: true }), REDUCED ? 50 : 1300);
+  openCard({ art, kind: T(kind), title, text: body, closeLabel: T("Continue"), loud: true, then: ids.length ? () => celebrate(ids) : null,
+    onShare: sh => { const t = "\u2654 King Walk \u00b7 " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
+      track("share/award"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} } });
+}
+/* Today's puzzle is done: a card that says so, with the result, when the next one comes, and Share there (not a
+   share sheet straight away). From the Daily button, and from the widgets, Siri, Control Center and reminders. */
+function showDailyDone() {
+  const p = me(), n = dayNumber(), r = dailyDone(p, n); if (!r) return;
+  const st = dailyStreak(p), left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000));
+  track("daily/done-card");
+  openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: T("Today's puzzle: done"), closeLabel: T("Close"),
+    text: [r.m ? Array.from(r.m, c => SQUARE[c]).join("") + "  \u23f1 " + fmtTime(r.t) + (st ? "  \ud83d\udd25 " + st : "") : "",
+           T("Come back tomorrow for the next one"), T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })].filter(Boolean),
+    onShare: sh => shareProgress(sh, { daily: { n } }) });
 }
 
 /* ---------- the daily puzzle ----------
@@ -1617,7 +1644,7 @@ function startDaily() {
   const p = me(), n = dayNumber();
   if (RUN) RUN = null;
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
-  if (dailyDone(p, n)) { shareProgress($("dailyBtn"), { daily: { n } }); return; }          /* done today: share the result */
+  if (dailyDone(p, n)) { showDailyDone(); return; }          /* done today: say so, with Share on the card */
   const now = p.daily.now && p.daily.now.n === n ? p.daily.now : null;
   DAILY = { n, marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
   p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent }; save();
@@ -1792,7 +1819,7 @@ window.kingWalkCloud = raw => {
 window.kingWalkOpen = what => {
   dropStaleDaily();
   if (what !== "daily" || DAILY || !dailyOpen()) return;
-  if (dailyDone(me())) { restart($("dailyBtn"), "pop"); announce(T("Today's puzzle: done")); return; }          /* nothing to play: no share sheet */
+  if (dailyDone(me())) { showDailyDone(); return; }
   startDaily();
 };
 window.kingWalkReminders = granted => { $("remindNote").hidden = !!granted || S.remind < 0; if (!granted && S.remind >= 0) { S.remind = -1; save(); renderRemind(); } };

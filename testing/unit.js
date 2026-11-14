@@ -164,6 +164,14 @@ function translations() {
     try { Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.resolve() }, configurable: true }); } catch (e) {}
     shareProgress(b, null); await new Promise(r => setTimeout(r, 50)); return { icon: hadIcon && !!b.querySelector("svg"), span: !!$("dailyBtnTxt") }; });
   check(cp.icon && cp.span, "Copied keeps the Daily button's icon and label element", cp);
+  // the daily done: the Daily button opens a card saying so, with Share on it, not a share sheet
+  const dc = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gg", 33, true); DAILY = null; let shared = 0;
+    const real = window.shareProgress; window.shareProgress = () => { shared++; };
+    $("dailyBtn").click(); await new Promise(r => setTimeout(r, 120)); const card = document.querySelector(".cele.quiet");
+    const r = { card: !!card, title: card && card.querySelector(".cele-title").textContent, sharedOnTap: shared };
+    card.querySelector(".sh").click(); r.sharedFromCard = shared; card.querySelector(".go").click(); await new Promise(r2 => setTimeout(r2, 400));
+    r.closed = !document.querySelector(".cele"); window.shareProgress = real; return r; });
+  check(dc.card && dc.title === "Today's puzzle: done" && dc.sharedOnTap === 0 && dc.sharedFromCard === 1 && dc.closed, "a done daily shows its card, Share is on the card", dc);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, marks: [], spent: 0, t0: 0 };
