@@ -116,6 +116,44 @@ function challengeArt(kind, t) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${sky}"/>${scene}</svg>`;
 }
 
+/* A leaderboard image, square (drawn at 512, saved at 1024): what the board measures, in the same poster style */
+const LB = JSON.parse(read("ios/store/gamecenter.json")).leaderboards;
+function leaderboardArt(id) {
+  const S = 512, rank = (id.match(/^streak_([pnbrqk])$/) || [])[1];
+  let sky, scene = "";
+  if (rank) {          // a rank's streak: that rank's colours (as its challenge), the piece on its hill, steps up to it
+    const P = RANK_SKY[rank]; sky = P.sky;
+    if (P.stars) for (let i = 0; i < 22; i++) scene += `<circle cx="${(i * 197) % S}" cy="${30 + (i * 131) % 220}" r="${2 + (i % 3)}" fill="${C.cream}" opacity="0.7"/>`;
+    scene += sunRays(256, 210, 130, 520, 14, P.rays) + `<circle cx="256" cy="210" r="124" fill="${P.sun}"/>`
+      + hill(S, 560, 80, 380, P.back, 0.8) + hill(S, 560, 440, 370, P.back, 0.8) + hill(S, 620, 256, 340, P.front, 0.75);
+    for (let i = 0; i < 7; i++) { const k = i / 6, j = i % 4, zig = (j <= 2 ? j : 4 - j) - 1, x = 256 + zig * 50 * (1 - k * 0.8), y = 500 - k * 130, w = 44 - 18 * k;
+      scene += `<rect x="${x - w / 2}" y="${y - 8}" width="${w}" height="${16 - 6 * k}" rx="5" fill="${i % 2 ? C.cream : C.gold}"/>`; }
+    scene += colourPiece(rank, 256 - 92, 120, 184);
+  } else if (id === "rating") {          // a rating line climbing over the hills to the sun
+    sky = C.sky;
+    scene = sunRays(380, 150, 80, 520, 14, C.cream) + `<circle cx="380" cy="150" r="76" fill="${C.gold}"/>`
+      + hill(S, 560, 120, 380, C.mint, 0.8) + hill(S, 600, 360, 400, C.teal, 0.8)
+      + `<polyline points="60,430 130,380 180,400 250,300 300,320 380,190" fill="none" stroke="${C.ink}" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`
+      + `<polyline points="60,430 130,380 180,400 250,300 300,320 380,190" fill="none" stroke="${C.cream}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>`
+      + `<circle cx="380" cy="190" r="22" fill="${C.coral}" stroke="${C.ink}" stroke-width="8"/>`;
+  } else if (id === "streak") {          // five blocks climbing, one after another
+    sky = C.deep;
+    scene = sunRays(256, 200, 120, 520, 16, C.teal) + `<circle cx="256" cy="200" r="118" fill="${C.gold}"/>`
+      + Array.from({ length: 5 }, (_, i) => `<rect x="${76 + i * 76}" y="${430 - i * 46}" width="60" height="${i * 46 + 120}" rx="12" fill="${i % 2 ? C.cream : C.gold}" stroke="${C.ink}" stroke-width="6"/>`).join("");
+  } else if (id === "hardest") {          // the king on the highest peak
+    sky = C.gold;
+    scene = sunRays(256, 190, 110, 520, 16, C.sun) + `<circle cx="256" cy="190" r="106" fill="${C.coral}"/>`
+      + mountain(100, 300, 300, 260, C.teal) + mountain(420, 310, 300, 250, C.teal) + mountain(256, 240, 420, 300, C.deep, C.cream)
+      + hill(S, 560, 256, 500, C.mint, 1.2) + colourPiece("k", 256 - 70, 80, 140);
+  } else if (id === "daily_streak") {          // a week of days on the calendar, every one done
+    sky = C.coral;
+    scene = sunRays(256, 200, 120, 520, 16, C.sun) + `<circle cx="256" cy="200" r="116" fill="${C.gold}"/>`
+      + `<path d="M226,170 L250,196 L292,150" fill="none" stroke="${C.ink}" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`
+      + Array.from({ length: 7 }, (_, i) => `<rect x="${58 + i * 58}" y="390" width="48" height="48" rx="12" fill="${C.gold}" stroke="${C.ink}" stroke-width="6"/>`).join("");
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="${sky}"/>${scene}</svg>`;
+}
+
 (async () => {
   const b = await chromium.launch(), p = await b.newPage();
   async function render(svg, size, out, transparent) {
@@ -154,6 +192,8 @@ function challengeArt(kind, t) {
     await p.setContent(`<!doctype html><style>html,body{margin:0}svg{display:block;width:3840px;height:2160px}</style>${svg}`);
     await p.screenshot({ path: path.join(gc, name) });
   }
+  // Game Center leaderboard images (1024x1024, opaque)
+  for (const l of LB) await render(leaderboardArt(l.id), 1024, path.join(gc, "leaderboard-" + l.id + ".png"), false);
   await b.close();
-  console.log("saved the app icon, widget pieces,", ACH.length, "achievement images and", arts.length, "challenge images");
+  console.log("saved the app icon, widget pieces,", ACH.length, "achievement images,", arts.length, "challenge images and", LB.length, "leaderboard images");
 })();
