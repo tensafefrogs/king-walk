@@ -282,10 +282,10 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 /* ---------- awards: the celebration screen and the rank streak badges ----------
    Flat travel-poster colours (the same in light and dark), hard edges, a hard offset shadow; motion in big swipes. */
 :root { --p-gold: #f2c230; --p-sun: #f7d35a; --p-ink: #16302c; --p-deep: #143f38; --p-teal: #1c7868; --p-sea: #2f9c86; --p-mint: #56c2ad; --p-sky: #cfe9df; --p-cream: #fdfbf2; --p-coral: #e2704f; }
-/* Every modal: .scrim dims and blurs what's behind; .pop is the poster-style box on top (the celebration card, the promotion picker) */
+/* Every modal: .scrim dims and blurs what's behind; .poster is the box on top (the celebration card, the promotion picker) */
 .scrim { background: var(--scrim); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.pop { background: var(--p-cream); color: var(--p-ink); border: 4px solid var(--p-ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--pop-lift), 0 28px 70px -10px rgba(0, 0, 0, 0.45); }
-.pop.small { border-width: 3px; border-radius: 18px; box-shadow: 6px 6px 0 var(--pop-lift), 0 16px 40px -8px rgba(0, 0, 0, 0.45); }
+.poster { background: var(--p-cream); color: var(--p-ink); border: 4px solid var(--p-ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--pop-lift), 0 28px 70px -10px rgba(0, 0, 0, 0.45); }
+.poster.small { border-width: 3px; border-radius: 18px; box-shadow: 6px 6px 0 var(--pop-lift), 0 16px 40px -8px rgba(0, 0, 0, 0.45); }
 .cele { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden; animation: cele-fade 0.25s ease-out both; }
 .cele.out { animation: cele-fade-out 0.28s ease-in both; }
 .cele-swipe { position: absolute; inset: 0; pointer-events: none; }          /* out of the grid, so the card centres on the screen */
@@ -1683,7 +1683,7 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
   const back = document.activeElement;
   const el = document.createElement("div"); el.className = "cele scrim" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
   el.innerHTML = `${loud ? '<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>' : ""}
-    <div class="cele-card pop">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
+    <div class="cele-card poster">${posterSvg(art)}<p class="cele-kind"></p><h2 class="cele-title" id="celeTitle"></h2><p class="cele-text"></p>
     <div class="cele-btns"><button type="button" class="sh"></button><button type="button" class="go"></button></div></div>${loud ? '<canvas class="cele-fx" aria-hidden="true"></canvas>' : ""}`;
   el.querySelector(".cele-kind").textContent = kind;
   const h = el.querySelector(".cele-title");
@@ -2123,7 +2123,7 @@ squaresEl.addEventListener("focusin", e => { if (e.target.dataset && e.target.da
 function askPromotion(cb, cancel) {
   closePromo();
   const ov = document.createElement("div"), box = document.createElement("div"), row = document.createElement("div"), cap = document.createElement("p");
-  ov.className = "promo scrim"; box.className = "promo-box pop small"; row.className = "promo-row"; cap.textContent = T("Turn the pawn into");
+  ov.className = "promo scrim"; box.className = "promo-box poster small"; row.className = "promo-row"; cap.textContent = T("Turn the pawn into");
   for (const t of ["q", "r", "b", "n"]) {
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", T(PIECE_NAME[t]));
     b.append(pieceSvg(orient + t));
@@ -2371,7 +2371,7 @@ $("pasteCode").addEventListener("click", () => {
 function openDialog({ title, text, field, buttons }) {
   const back = document.activeElement, el = document.createElement("div");
   el.className = "cele scrim quiet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "dlgTitle");
-  el.innerHTML = `<div class="cele-card pop dlg"><h2 class="cele-title" id="dlgTitle"></h2><p class="cele-text"></p>${field ? '<textarea spellcheck="false" autocomplete="off"></textarea>' : ""}<p class="dlg-err" aria-live="polite"></p><div class="cele-btns"></div></div>`;
+  el.innerHTML = `<div class="cele-card poster dlg"><h2 class="cele-title" id="dlgTitle"></h2><p class="cele-text"></p>${field ? '<textarea spellcheck="false" autocomplete="off"></textarea>' : ""}<p class="dlg-err" aria-live="polite"></p><div class="cele-btns"></div></div>`;
   el.querySelector(".cele-title").textContent = title; el.querySelector(".cele-text").textContent = text;
   const ta = el.querySelector("textarea");
   if (ta) { ta.setAttribute("aria-label", title); if (field.placeholder) ta.placeholder = field.placeholder; if (field.value) ta.value = field.value; ta.readOnly = !!field.readOnly; }
