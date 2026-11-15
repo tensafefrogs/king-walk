@@ -19,7 +19,7 @@ The name comes from chess: a king walk is when a king marches up the board to he
 - **Second tries.** A missed puzzle comes back once, about 30 new puzzles later, as practice. New puzzles come first; practice puzzles do not change the rating.
 - **Ranks.** Pawn (below 700), Knight (700), Bishop (1000), Rook (1300), Queen (1600), King (1900).
 - **Starting over.** "Start over" in the menu erases progress and begins again at 600.
-- **Moving progress.** "Advanced" in the menu gives a save code to copy and paste on another device.
+- **Moving progress.** "Advanced" in the menu copies a save code to the clipboard; "Paste save code" on the other device loads it.
 
 ## Run it
 

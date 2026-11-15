@@ -59,13 +59,19 @@ function translations() {
 
   // a save code round trip gives the same progress, and loading one ends a rank streak
   const code = await p.evaluate(async () => {
+    const nap = ms => new Promise(r => setTimeout(r, ms));
     me().rating = 1234; me().runs.n = 7; save();
-    $("copyCode").click(); await new Promise(r => setTimeout(r, 50));
-    const c = $("saveCode").value; startRun(2); await new Promise(r => setTimeout(r, 50));
-    const inRun = !!RUN; me().rating = 600; $("saveCode").value = c; $("loadCode").click(); $("loadCode").click();
-    await new Promise(r => setTimeout(r, 100));
-    return { inRun, after: !!RUN, rating: me().rating, runs: me().runs.n };
+    const c = saveCode(); startRun(2); await nap(50);
+    const inRun = !!RUN; me().rating = 600;
+    $("pasteCode").click(); await nap(80);
+    const d = document.querySelector(".dlg"), ta = d.querySelector("textarea"), go = d.querySelector(".go");
+    const emptyOff = go.disabled;
+    ta.value = "not a code"; ta.dispatchEvent(new Event("input")); go.click(); await nap(50);
+    const err = !!d.querySelector(".dlg-err").textContent && !!document.querySelector(".dlg");
+    ta.value = c; ta.dispatchEvent(new Event("input")); go.click(); await nap(400);
+    return { inRun, after: !!RUN, rating: me().rating, runs: me().runs.n, emptyOff, err, closed: !document.querySelector(".dlg") };
   });
+  check(code.emptyOff && code.err && code.closed, "the paste dialog: off while empty, a bad code shows an error, a good one closes it", code);
   check(code.inRun && !code.after && code.rating === 1234 && code.runs === 7, "save code round trip, and it ends a streak", code);
 
   // rank streak puzzles: within the rank, climbing from its bottom to its top, never repeated
@@ -125,12 +131,12 @@ function translations() {
     for (let n = 1; n <= 14; n++) earned.push(recordDaily(D, n, "g", 10, true));
     const atFourteen = { streak: D.streak, freezes: D.freezes, earnedOn: earned.map((e, i) => e ? i + 1 : 0).filter(Boolean) };
     for (let n = 15; n <= 21; n++) recordDaily(D, n, "g", 10, true);          /* a third week: still 2 held */
-    const held = D.freezes, pl = newPlayer(600), today = dayNumber();
+    const held = D.freezes, pl = newPlayer(600), today = 100;          /* a day well after Daily #1, whatever the date */
     Object.assign(pl.daily, { streak: 9, best: 9, last: today - 3, freezes: 2, days: {} });
-    const used = applyFreezes(pl), after = { streak: dailyStreak(pl), freezes: pl.daily.freezes, frozen: [today - 2, today - 1].every(k => pl.daily.days[k] && pl.daily.days[k].fz) };
+    const used = applyFreezes(pl, today), after = { streak: dailyStreak(pl, today), freezes: pl.daily.freezes, frozen: [today - 2, today - 1].every(k => pl.daily.days[k] && pl.daily.days[k].fz) };
     recordDaily(pl.daily, today, "g", 5, true);
     const pl2 = newPlayer(600); Object.assign(pl2.daily, { streak: 9, best: 9, last: today - 4, freezes: 2, days: {} });
-    return { atFourteen, held, used, after, grew: pl.daily.streak, tooLong: applyFreezes(pl2), lapsed: dailyStreak(pl2), kept: cleanDaily({ freezes: 9, days: { 3: { fz: true } } }) };
+    return { atFourteen, held, used, after, grew: pl.daily.streak, tooLong: applyFreezes(pl2, today), lapsed: dailyStreak(pl2, today), kept: cleanDaily({ freezes: 9, days: { 3: { fz: true } } }) };
   });
   check(fz.atFourteen.streak === 14 && fz.atFourteen.earnedOn.join() === "7,14" && fz.held === 2, "a freeze every 7 days, at most 2", fz.atFourteen);
   check(fz.used === 2 && fz.after.streak === 9 && fz.after.freezes === 0 && fz.after.frozen && fz.grew === 10, "freezes cover skipped days and the streak carries on", fz);
