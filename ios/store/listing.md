@@ -68,9 +68,9 @@ Optional, later: a Promotional Event card (needs a 1920×1080 image, no text), i
 
 > tactics,checkmate,mate in 2,elo,rating,trainer,strategy,board,brain,logic,fork,pin,endgame,daily
 
-**Support URL:** https://geoffstearns.com/king-walk/support.html
-**Marketing URL:** https://geoffstearns.com/king-walk/
-**Privacy policy URL:** https://geoffstearns.com/king-walk/privacy.html
+**Support URL:** https://kingwalk.app/support.html
+**Marketing URL:** https://kingwalk.app/
+**Privacy policy URL:** https://kingwalk.app/privacy.html
 
 ## Screenshots
 

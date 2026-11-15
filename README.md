@@ -31,7 +31,7 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000. To publish it, turn on GitHub Pages for the repository.
 
-The live copy is at https://geoffstearns.com/king-walk/. The social preview tags in `index.html` use that full address. If you host a copy somewhere else, replace that address everywhere it appears in `index.html`.
+The live copy is at https://kingwalk.app/ (it used to be at geoffstearns.com/king-walk/, which forwards there). The social preview tags in `index.html` use relative addresses; the website build makes them absolute from `SITE_URL` (below), as link previews need.
 
 ## Test it
 
@@ -74,7 +74,7 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`.
 - `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store).
 - `ios/` - the iOS app, its App Store listing and the release tooling. See `ios/README.md`.
-- `press/` - the press kit page, at /king-walk/press/ (linked from the About footer under the game on the website; linked from the support, privacy and terms pages and listed in the sitemap the website build writes).
+- `press/` - the press kit page, at /press/ (linked from the About footer under the game on the website; linked from the support, privacy and terms pages and listed in the sitemap the website build writes).
 - `testing/` - the browser test and the stats notes.
 
 ## License
