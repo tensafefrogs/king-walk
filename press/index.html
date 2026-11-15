@@ -26,7 +26,7 @@ a{color:var(--accent);font-weight:700}
 ul.feat{padding-left:20px}ul.feat li{margin:4px 0}
 .shots{display:flex;gap:14px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
 .shots a{flex:none;scroll-snap-align:start}.shots img{display:block;height:440px;width:auto;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
-.shots.ipad img{height:400px}
+.shots.ipad img,.shots.duo img{height:400px}
 video{width:100%;border-radius:18px;background:#143f38;display:block}
 .vids{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:start}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
@@ -37,8 +37,9 @@ video{width:100%;border-radius:18px;background:#143f38;display:block}
 .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .sw{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}.sw i{display:block;height:56px}.sw div{padding:8px 10px;font-size:14px}.sw b{display:block}
 .muted{color:var(--muted)}
+.shots+h3{margin-top:32px}
 footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:15px}
-@media (max-width:760px){.intro{grid-template-columns:minmax(0,1fr)}.intro h1{font-size:36px}.vids{grid-template-columns:minmax(0,1fr)}.shots img{height:360px}.shots.ipad img{height:300px}}
+@media (max-width:760px){.intro{grid-template-columns:minmax(0,1fr)}.intro h1{font-size:36px}.vids{grid-template-columns:minmax(0,1fr)}.shots img{height:360px}.shots.ipad img,.shots.duo img{height:300px}}
 </style></head><body><div class="wrap">
 
 <div class="hero"><img src="thumbs/key-art.jpg" alt="King Walk: a chess puzzle board beside the King Walk icon and the line: Chess puzzles that fight back." width="1600" height="900"></div>
@@ -98,8 +99,22 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-si
   <a href="../ios/store/screenshots/ipad-1.png"><img src="thumbs/ipad-1.jpg" alt="A puzzle on iPad" loading="lazy"></a>
   <a href="../ios/store/screenshots/ipad-2.png"><img src="thumbs/ipad-2.jpg" alt="A solved puzzle on iPad" loading="lazy"></a>
   <a href="../ios/store/screenshots/ipad-3.png"><img src="thumbs/ipad-3.jpg" alt="Hints on iPad" loading="lazy"></a>
-  <a href="../ios/store/screenshots/ipad-4.png"><img src="thumbs/ipad-4.jpg" alt="Progress on iPad" loading="lazy"></a>
+  <a href="../ios/store/screenshots/ipad-4.png"><img src="thumbs/ipad-4.jpg" alt="A new rank on iPad" loading="lazy"></a>
   <a href="../ios/store/screenshots/ipad-5.png"><img src="thumbs/ipad-5.jpg" alt="The daily puzzle on iPad, in dark mode" loading="lazy"></a>
+</div>
+<p class="muted">iPhone Duo (2007×2853), held like a book or propped up like a laptop, with the board on either side.</p>
+<div class="shots duo">
+  <a href="../ios/store/screenshots/duo-book-1.png"><img src="thumbs/duo-book-1.jpg" alt="iPhone Duo held like a book: the board on one screen, the puzzle and progress on the other" loading="lazy"></a>
+  <a href="../ios/store/screenshots/duo-table-1.png"><img src="thumbs/duo-table-1.jpg" alt="iPhone Duo propped up like a laptop: the board on the lower screen" loading="lazy"></a>
+  <a href="../ios/store/screenshots/duo-book-5.png"><img src="thumbs/duo-book-5.jpg" alt="The daily puzzle on iPhone Duo, held like a book" loading="lazy"></a>
+  <a href="../ios/store/screenshots/duo-table-3.png"><img src="thumbs/duo-table-3.jpg" alt="A hint on iPhone Duo, propped up" loading="lazy"></a>
+</div>
+<h3>In 11 languages</h3>
+<p class="muted">English, Spanish, French, German, Italian, Portuguese (Brazil), Dutch, Russian, Japanese, Korean and Chinese (Simplified): the game, the App Store page and its screenshots. Here in Spanish, Japanese and Russian.</p>
+<div class="shots">
+  <a href="shots/es-ES-iphone-1.jpg"><img src="thumbs/es-ES-iphone-1.jpg" alt="A puzzle, in Spanish" loading="lazy"></a>
+  <a href="shots/ja-iphone-5.jpg"><img src="thumbs/ja-iphone-5.jpg" alt="The daily puzzle, in Japanese" loading="lazy"></a>
+  <a href="shots/ru-iphone-2.jpg"><img src="thumbs/ru-iphone-2.jpg" alt="A solved puzzle, in Russian" loading="lazy"></a>
 </div>
 
 <h2>Logos and art</h2>
