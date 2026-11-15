@@ -24,7 +24,7 @@ Everything for King Walk's Product Hunt page, ready to go into a draft. Nothing 
 > King Walk learns your level as you play. Solve a puzzle cleanly and the next one is a little harder; miss one and it backs off. You start as a Pawn and climb to King.
 >
 > What I'm most excited about:
-> - A daily puzzle that's the same for everyone. Monday's is gentle, Sunday's bites. Keep your streak going, and share your result as coloured squares or a picture, with no spoilers.
+> - A daily puzzle that's the same for everyone. Monday's is gentle, Sunday's bites. Keep your streak going, and share your result as coloured squares, with no spoilers.
 > - Rank streaks: 15 puzzles in a row, no hints, one miss and you're out. On iPhone you can send them to friends as Game Center challenges.
 > - It's one HTML file with no build step, works offline, and needs no account. The 53,000 puzzles come from the public-domain Lichess database.
 >
