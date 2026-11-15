@@ -43,8 +43,8 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 
 - [ ] Release: `"release_now": true` in `ios/release.json`, push (or Release in App Store Connect).
 - [ ] Publish the accessibility labels (App Store Connect → App Accessibility; saved as a draft, and App Store Connect only allows publishing them once the app is live).
-- [ ] When the App Store page is live (an hour or so): check the link works, then update the press kit (`press/index.html`): Release "iOS: out now" with the App Store link.
-- [ ] The website: run the **Website** workflow (Actions → Website → Run workflow) once the App Store page is live. The build sees the app is on sale and turns on the quiet "Also on iPhone and iPad" line for Apple devices; Safari's Smart App Banner shows by itself.
+- [x] When the App Store page is live (an hour or so): check the link works, then update the press kit (`press/index.html`): Release "iOS: out now" with the App Store link.
+- [x] The website: its "Also on iPhone and iPad" line turns on by itself once Apple's lookup lists the app (the site rebuilds every 6 hours); Safari's Smart App Banner is already on.
 - [ ] Post, in this order, a few hours apart, answering replies as they come:
   1. X (@tensafefrogs): the trailer (`press/king-walk-trailer.mp4`) or the vertical one, and the link.
   2. Reddit: r/chess (the free website, the daily puzzle; read the self-promotion rules first), r/iosgaming (the app).
