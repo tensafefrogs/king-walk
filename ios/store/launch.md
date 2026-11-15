@@ -20,9 +20,9 @@ On your iPhone, with the newest TestFlight build:
 
 In App Store Connect (not possible through the API):
 
-- [ ] Business → Agreements: the Paid Apps agreement is active, with banking and tax filled in. Without it a $0.99 app can't go on sale.
+- [x] Business → Agreements: the Paid Apps agreement is active, with banking and tax filled in. Without it a $0.99 app can't go on sale.
 - [ ] App Privacy still matches: nothing new is collected (the reminder is a local notification).
-- [ ] App Review Information: contact name, phone and email.
+- [x] App Review Information: contact name, phone and email.
 
 Then submit, by changing `ios/release.json` and pushing to `main`:
 
