@@ -1717,7 +1717,9 @@ function celebrate(ids) {
   const [kind, name, text, art] = AWARDS[id], rank = art.rank !== undefined ? rankName(art.rank) : "";
   const title = T(name, { rank }), body = T(text, { n: art.n, rank });
   openCard({ art, kind: T(kind), title, text: body, closeLabel: T("Continue"), loud: true, then: ids.length ? () => celebrate(ids) : null,
-    onShare: sh => { const t = "\u2654 King Walk \u00b7 " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
+    onShare: sh => {          /* a daily achievement (it shows right after the daily) shares the day's result with it */
+      const daily = /^daily_/.test(id) && dailyDone(me(), dayNumber()) ? dailyShareText(dayNumber(), title) : "";
+      const t = daily || "\u2654 King Walk \u00b7 " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
       track("share/award"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} } });
 }
 /* Today's puzzle is done: a card that says so, with the result, when the next one comes, and Share there (not a
@@ -1887,11 +1889,13 @@ const SQUARE = { g: "🟩", y: "💡", r: "🟥", x: "⬛" };          /* first 
            🟩🟨🟩  ⏱ 1:07
            🔥 5
    One square per move: first try, with a hint, after a wrong try, or shown. No moves, so nothing is spoiled. */
-function dailyShareText(n) {
+/* award: an achievement's name to add after the streak (a daily achievement's card shares the day's result) */
+function dailyShareText(n, award) {
   const p = me(), r = dailyDone(p, n); if (!r) return "";
   const lines = ["King Walk Daily #" + n + " · " + new Intl.DateTimeFormat(LANG, { weekday: "short" }).format(dayDate(n))];
   lines.push(Array.from(r.m, c => SQUARE[c]).join("") + "  ⏱ " + fmtTime(r.t));
-  const st = p.daily.last === n ? p.daily.streak : 0; if (st >= 2) lines.push("🔥 " + st);
+  const st = p.daily.last === n ? p.daily.streak : 0;
+  if (st >= 2 || award) lines.push([st >= 2 ? "🔥 " + st : "", award ? "🏆 " + award : ""].filter(Boolean).join("  "));
   /* the link opens today's puzzle on the website, free, even from the app: whoever taps it can play the same one */
   if (SITE) lines.push(SITE + "#daily"); else if (SHARE_URL) lines.push(SHARE_URL);
   return lines.join("\n");
