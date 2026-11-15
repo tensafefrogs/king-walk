@@ -1,6 +1,6 @@
 # App Store status: King Walk: Chess Puzzles
 
-Updated 2026-11-15 13:57 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
+Updated 2026-11-15 22:20 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
 
 App Store page: https://apps.apple.com/app/id6834615859
 
@@ -8,13 +8,13 @@ App Store page: https://apps.apple.com/app/id6834615859
 
 | Version | State | Release | Build |
 | --- | --- | --- | --- |
-| 1.0 | WAITING_FOR_REVIEW | MANUAL | 2611151349 |
+| 1.0 | READY_FOR_DISTRIBUTION | MANUAL | 2611151349 |
 
 ## App Review
 
 | State | Submitted |
 | --- | --- |
-| WAITING_FOR_REVIEW | 2026-11-15 13:57 UTC |
+| COMPLETE | 2026-11-15 13:57 UTC |
 
 ## Recent builds
 
