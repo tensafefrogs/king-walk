@@ -35,6 +35,12 @@ jobs:
           mkdir -p _site/ios/store _site/ios/KingWalk/Assets.xcassets
           cp -R ios/store/screenshots ios/store/header _site/ios/store/ && rm -rf _site/ios/store/screenshots/raw
           cp -R ios/KingWalk/Assets.xcassets/AppIcon.appiconset _site/ios/KingWalk/Assets.xcassets/
+          # the service worker serves puzzles, fonts and icons from its cache first: name the cache after their
+          # contents, so changing any of them makes returning players fetch the new ones
+          files=$(cd _site && find p fonts icons -type f | sort)
+          hash=$(cd _site && cat $files | sha256sum | cut -c1-10)
+          sed -i "s/const CACHE = \"king-walk-[^\"]*\"/const CACHE = \"king-walk-$hash\"/" _site/sw.js
+          grep -q "king-walk-$hash" _site/sw.js && echo "service worker cache: king-walk-$hash"
           python3 - <<'PY'
           import json, os
           cfg = {'goatcounter': os.environ.get('GOATCOUNTER_URL', '').strip(), 'site': os.environ.get('SITE_URL', '').strip(),

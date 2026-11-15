@@ -1,6 +1,6 @@
 // Offline support. The page and rules load from the network when possible and fall back to the saved copy.
 // Puzzle files and fonts are saved the first time they are used.
-const CACHE = "king-walk-v4";          // bump when cache-first files change (icons, fonts, puzzles), so returning players get the new ones
+const CACHE = "king-walk-v4";          // the website build replaces this with a hash of the puzzles, fonts and icons (pages.yml)
 const SHELL = ["./", "index.html", "chess.js", "lang.js", "config.js", "manifest.webmanifest", "icons/icon-192.png", "icons/favicon.svg", "fonts/fredoka-latin-500-normal.woff2", "fonts/fredoka-latin-600-normal.woff2", "fonts/fredoka-latin-700-normal.woff2", "fonts/nunito-latin-400-normal.woff2", "fonts/nunito-latin-600-normal.woff2", "fonts/nunito-latin-700-normal.woff2", "fonts/nunito-latin-800-normal.woff2"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {
