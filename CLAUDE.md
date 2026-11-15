@@ -9,6 +9,7 @@ A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ fr
 - Check layouts at phone (portrait and landscape), iPad portrait and landscape, desktop, and iPhone Duo propped up (`?fold=h` at 951x669) after layout changes.
 - Text the player sees or hears goes through `T("English text")` and needs an entry in `lang.js` for every language (unit.js checks).
 - Saves from two devices (the app's iCloud copy): `betterSave` in `index.html` decides which to keep, and `SaveRank` in `ios/KingWalk/SaveStore.swift` is the same rule for the app. Change both together (unit.js tests the page's).
+- The icon, logos and favicon are drawn by `node scripts/icon.js` (see `brand/README.md`). When icons, fonts or puzzle files change, bump `CACHE` in `sw.js`: the service worker serves those from its cache first.
 - Russian text uses the bundled Nunito Cyrillic fonts (`fonts/nunito-cyrillic-*`), also in place of Fredoka, which has no Cyrillic. A new script (Greek, Vietnamese…) needs the same.
 - Keep the owner's accounts and IDs out of the code: the GoatCounter address, site, bundle ID and App Store ID come from Actions variables through `config.js` and the build (README, "Your own copy").
 
@@ -19,6 +20,7 @@ After any change that alters what's on screen (layout, text in the panels, color
 ```
 node ios/store/screenshots.js      # iPhone, iPad and iPhone Duo
 python3 scripts/press-kit.py       # the press page's small copies
+python3 scripts/producthunt.py     # the Product Hunt gallery and thumbnail
 ```
 
 If a change makes a caption in `ios/store/screenshots.js` untrue, update it. The listing text is in `ios/store/listing.json` (described in `ios/store/listing.md`); keep it in step with the game (puzzle count, features). The header art is `node ios/store/header.js`, the app preview and trailers `node scripts/trailer.js` (`--preview`, `--vertical`); re-record them when the game's look changes noticeably, and watch them before committing. The press kit is `press/index.html` (linked from the menu); keep its description and facts in step with the listing.
