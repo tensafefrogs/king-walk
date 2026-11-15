@@ -11,7 +11,7 @@ Everything for King Walk's Product Hunt page, ready to go into a draft. Nothing 
   > 53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle for everyone, every day, with a spoiler-free result to share. Free on the web; $0.99 on iPhone and iPad.
 - **Pricing:** free options (free on the web, paid app)
 - **Topics:** Games, iOS, Education (or Chess, if offered)
-- **Maker:** the owner, solo maker, bootstrapped, open source (MIT)
+- **Maker:** the owner, solo maker, bootstrapped, open source (MIT code)
 - **X account:** @tensafefrogs
 - **Thumbnail:** `thumbnail.png` (the app icon, 240x240)
 - **Gallery, in order:** `gallery-1.png` (the key art), `gallery-2.png` (the first puzzle, and the daily puzzle), `gallery-3.png` (puzzles from real games, a hint), `gallery-4.png` (iPad, iPhone Duo held like a book). All 1270x760.

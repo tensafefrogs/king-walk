@@ -79,7 +79,7 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 
 ## License
 
-The game is released under the MIT license (see `LICENSE`). That covers the code, the chess piece artwork, the logo and icon, and the preview image, all of which were made for this project.
+The code is released under the MIT license (see `LICENSE`). The King Walk name, logo and icon, the chess pieces and the other artwork (`brand/`, `icons/`, `og.png`, the store and press images and videos) are not: they are all rights reserved, so a copy of the code must use its own name and art. Press may use them to write about King Walk. Versions published before 15 November 2026 included them under MIT.
 
 Parts made by others keep their own licenses:
 

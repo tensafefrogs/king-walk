@@ -1,3 +1,15 @@
+The MIT license below covers King Walk's source code.
+
+It does not cover the King Walk name, logo and icon, the chess pieces, or the other artwork made for the game
+(brand/, icons/, og.png, the app icon, and the store, press and Game Center images and videos under ios/store/
+and press/). Those are Copyright (c) 2026 Geoff Stearns, all rights reserved. Press and reviewers may use them to
+write about King Walk. Versions published before 15 November 2026 were released with them under MIT, and that
+stays true for those versions.
+
+Fonts, the puzzle database and chess.js keep their own licenses (see README.md).
+
+---
+
 MIT License
 
 Copyright (c) 2026 Geoff Stearns
