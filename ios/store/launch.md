@@ -14,7 +14,7 @@ On your iPhone, with the newest TestFlight build:
 - [ ] Touch and hold the app icon → Today's puzzle.
 - [ ] Menu → Daily reminder → pick the next hour; allow notifications; wait for it, tap it.
 - [ ] Game Center: Menu → Game Center: leaderboards and challenges show their pictures.
-- [ ] VoiceOver: a few moves by swiping and double-tapping. Then publish the accessibility labels (App Store Connect → App Accessibility; they're saved as a draft).
+- [ ] VoiceOver: a few moves by swiping and double-tapping.
 - [ ] Larger Text at the largest size; dark mode; the phone sideways.
 - [ ] Switch the phone to another language (Settings → General → Language) and back.
 
@@ -42,6 +42,7 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 ## 3. Launch day
 
 - [ ] Release: `"release_now": true` in `ios/release.json`, push (or Release in App Store Connect).
+- [ ] Publish the accessibility labels (App Store Connect → App Accessibility; saved as a draft, and App Store Connect only allows publishing them once the app is live).
 - [ ] When the App Store page is live (an hour or so): check the link works, then update the press kit (`press/index.html`): Release "iOS: out now" with the App Store link.
 - [ ] The website: run the **Website** workflow (Actions → Website → Run workflow) once the App Store page is live. The build sees the app is on sale and turns on the quiet "Also on iPhone and iPad" line for Apple devices; Safari's Smart App Banner shows by itself.
 - [ ] Post, in this order, a few hours apart, answering replies as they come:
