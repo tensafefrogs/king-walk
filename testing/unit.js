@@ -146,6 +146,10 @@ function translations() {
   const tip = await p.evaluate(async () => { S.tip = false; const pl = me(), n0 = pl.n; pl.n = 0; showTip(); const shown = !$("tip").hidden; hideTip();
     await new Promise(r => setTimeout(r, 300)); const gone = $("tip").hidden && S.tip; showTip(); pl.n = n0; return { shown, gone, again: !$("tip").hidden }; });          // it leaves with a short exit
   check(tip.shown && tip.gone && !tip.again, "the first-puzzle hint shows once", tip);
+  // a piece's landing animation (class "pop") isn't mistaken for a modal's box: no border, no background
+  const pop = await p.evaluate(() => { const el = document.querySelector(".piece"); if (!el) return "no piece"; el.classList.add("pop");
+    const cs = getComputedStyle(el), r = { border: cs.borderTopWidth, bg: cs.backgroundColor }; el.classList.remove("pop"); return r; });
+  check(pop.border === "0px" && pop.bg === "rgba(0, 0, 0, 0)", "a landing piece looks like a piece", pop);
   // two devices' saves: more progress wins, an empty save never does, a newer Start over does
   const sv = await p.evaluate(() => {
     const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
