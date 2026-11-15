@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir _site
           # the game, its pages, the brand and press kit, and the store images the press kit links to
-          cp -R index.html chess.js lang.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html .nojekyll p fonts icons brand press _site/
+          cp -R index.html chess.js lang.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html 404.html .nojekyll p fonts icons brand press _site/
           mkdir -p _site/ios/store _site/ios/KingWalk/Assets.xcassets
           cp -R ios/store/screenshots ios/store/header _site/ios/store/ && rm -rf _site/ios/store/screenshots/raw
           cp -R ios/KingWalk/Assets.xcassets/AppIcon.appiconset _site/ios/KingWalk/Assets.xcassets/
@@ -70,6 +70,16 @@ jobs:
               html = html.replace('content="og.png"', f'content="{site}og.png"')
               open('_site/index.html', 'w').write(html)
               print('link previews point at', site)
+              # structured data: what King Walk is, for search engines' rich results
+              ld = {'@context': 'https://schema.org', '@type': 'VideoGame', 'name': 'King Walk', 'url': site, 'image': site + 'og.png',
+                    'description': 'Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level.',
+                    'genre': ['Puzzle', 'Chess'], 'gamePlatform': ['Web browser', 'iOS'], 'applicationCategory': 'Game', 'operatingSystem': 'Any',
+                    'inLanguage': ['en', 'es', 'fr', 'de', 'it', 'pt-BR', 'nl', 'ru', 'ja', 'ko', 'zh-Hans'], 'isAccessibleForFree': True,
+                    'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'}}
+              html = open('_site/index.html').read()
+              html = html.replace('</head>', '<script type="application/ld+json">' + json.dumps(ld) + '</script>\n</head>', 1)
+              open('_site/index.html', 'w').write(html)
+              print('structured data: added')
               # a sitemap for search engines, and a robots.txt pointing to it (robots.txt only counts at a domain's root)
               pages = ['', 'press/', 'support.html', 'privacy.html', 'terms.html']
               open('_site/sitemap.xml', 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

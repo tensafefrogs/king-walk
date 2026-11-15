@@ -72,7 +72,7 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 - `fonts/` - the two typefaces, bundled so the game makes no outside requests.
 - `og.png` - the preview image shown when the link is shared.
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`. `scripts/icon.js` draws the icon, logos, favicon and website icons.
-- `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store).
+- `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store). `404.html` is the page for a mistyped address.
 - `ios/` - the iOS app, its App Store listing and the release tooling. See `ios/README.md`.
 - `press/` - the press kit page, at /press/ (linked from the menu, beside Support, Privacy and Terms; also from the support, privacy and terms pages and listed in the sitemap the website build writes).
 - `testing/` - the browser test and the stats notes.

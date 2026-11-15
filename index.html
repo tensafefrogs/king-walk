@@ -645,6 +645,9 @@ html.kbd .sq:focus-visible { outline: 3px solid var(--gold); outline-offset: -3p
 <meta name="twitter:title" content="King Walk">
 <meta name="twitter:description" content="Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.">
 <meta name="twitter:image" content="og.png">
+<!-- the two display weights seen first (the name, the status line), so they don't arrive late and shift the text -->
+<link rel="preload" href="fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Fredoka';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/fredoka-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Fredoka';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/fredoka-latin-600-normal.woff2) format('woff2')}
@@ -1115,6 +1118,7 @@ function haptic(kind) {
   if (S.haptics === false) return;
   if (APP) { APP.post({ op: "haptic", kind }); return; }
   if (!canVibrate || !BUZZ[kind]) return;
+  if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;          /* browsers refuse (and log it) before the first tap */
   try { navigator.vibrate(BUZZ[kind]); } catch (e) {}
 }
 
