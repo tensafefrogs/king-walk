@@ -80,18 +80,22 @@ def main():
           'promotionalText': v['promotional_text'], 'supportUrl': v['support_url'], 'marketingUrl': v['marketing_url']})
     print('Version', ver['attributes']['versionString'] + ': description, keywords, promotional text, URLs, copyright')
     # App Review notes (App Review Information > Notes); the contact details there are set by hand
+    detail_id = None
     if listing.get('review_notes'):
         try:
             detail = request('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreReviewDetail")['data']
             if detail:
                 request('PATCH', f"/v1/appStoreReviewDetails/{detail['id']}",
                         {'data': {'type': 'appStoreReviewDetails', 'id': detail['id'], 'attributes': {'notes': listing['review_notes']}}})
+                detail_id = detail['id']
             else:   # a new version has none yet
-                request('POST', '/v1/appStoreReviewDetails', {'data': {'type': 'appStoreReviewDetails', 'attributes': {'notes': listing['review_notes']},
-                        'relationships': {'appStoreVersion': {'data': {'type': 'appStoreVersions', 'id': ver['id']}}}}})
+                detail_id = request('POST', '/v1/appStoreReviewDetails', {'data': {'type': 'appStoreReviewDetails', 'attributes': {'notes': listing['review_notes']},
+                        'relationships': {'appStoreVersion': {'data': {'type': 'appStoreVersions', 'id': ver['id']}}}}})['data']['id']
             print('App Review notes set')
         except ApiError as e:
             print('App Review notes not set:', e)
+    if detail_id and listing.get('review_attachment'):
+        review_attachment(detail_id, os.path.join(HERE, listing['review_attachment']))
 
     accessibility(app['id'], listing.get('accessibility'))
     localizations(info, ver, listing)
@@ -115,6 +119,26 @@ def localized_screenshots(listing, locale):
     shots = {d: files for d, files in shots.items() if all(os.path.exists(f) for f in files)}
     print(locale + ':', ', '.join(shots) or 'no screenshots found in ' + base)
     upload_screenshots(loc['id'], shots, HERE)
+
+
+def review_attachment(detail_id, path):
+    """App Review Information > Attachment: a video of the app in use (App Review asked Spark for one under guideline 2.1).
+    Replaces whatever is attached (one uploaded by hand included) unless it is already this file."""
+    blob = open(path, 'rb').read(); name = os.path.basename(path)
+    try:
+        have = call('GET', f"/v1/appStoreReviewDetails/{detail_id}/appStoreReviewAttachments")['data']
+        if any(a['attributes'].get('fileName') == name and a['attributes'].get('fileSize') == len(blob) for a in have):
+            print('App Review attachment: already', name); return
+        for a in have:
+            call('DELETE', f"/v1/appStoreReviewAttachments/{a['id']}")
+            print('App Review attachment: removed', a['attributes'].get('fileName'))
+        att = call('POST', '/v1/appStoreReviewAttachments', {'data': {'type': 'appStoreReviewAttachments', 'attributes': {'fileName': name, 'fileSize': len(blob)},
+                   'relationships': {'appStoreReviewDetail': {'data': {'type': 'appStoreReviewDetails', 'id': detail_id}}}}})['data']
+        upload_parts(blob, att['attributes']['uploadOperations'])
+        patch('appStoreReviewAttachments', att['id'], {'uploaded': True, 'sourceFileChecksum': hashlib.md5(blob).hexdigest()})
+        print('App Review attachment: uploaded', name, f"({len(blob) / 1e6:.1f} MB)")
+    except ApiError as e:
+        print('App Review attachment not set:', e)
 
 
 def upload_screenshots(vloc_id, screenshots, base):

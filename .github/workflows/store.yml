@@ -9,7 +9,7 @@ on:
     branches: [main]
     paths: ['ios/store/listing.json', 'ios/store/l10n/*', 'ios/store/screenshots/*.png', 'ios/store/screenshots.js', 'ios/store/upload_listing.py', 'ios/store/creative.py',
             'ios/store/header/*', 'ios/store/previews/*', 'ios/store/gamecenter.json', 'ios/store/gamecenter/*', 'ios/store/gamecenter.py',
-            '.github/workflows/store.yml']
+            'press/king-walk-trailer.mp4', '.github/workflows/store.yml']
   workflow_dispatch:
     inputs:
       discover:
