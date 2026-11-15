@@ -153,6 +153,12 @@ function translations() {
   // a daily achievement's card shares the day's result, with the achievement on the streak line
   const dshare = await p.evaluate(() => { const n = dayNumber(), D = me().daily; Object.assign(D, { streak: 2, best: 2, last: n - 1 }); recordDaily(D, n, "gyg", 83, true); return dailyShareText(n, "Hat Trick"); });
   check(/Daily #\d+/.test(dshare) && dshare.includes("\ud83d\udfe9\ud83d\udca1\ud83d\udfe9") && dshare.includes("\ud83d\udd25 3  \ud83c\udfc6 Hat Trick"), "a daily achievement shares the daily result", dshare);
+  // the Daily button: a coral dot while today's waits, a green check once it's done (also while in the daily)
+  const badge = await p.evaluate(() => { const D = me().daily, n = dayNumber(), keep = JSON.stringify(D); delete D.days[n]; if (D.last === n) D.last = n - 1; DAILY = null; renderDaily();
+    const dot = $("dailyDot"), waiting = !dot.hidden && !dot.classList.contains("done");
+    recordDaily(D, n, "g", 9, true); renderDaily(); const done = !dot.hidden && dot.classList.contains("done");
+    Object.assign(D, JSON.parse(keep)); renderDaily(); return { waiting, done }; });
+  check(badge.waiting && badge.done, "the Daily button shows a dot while waiting and a check when done", badge);
   // two devices' saves: more progress wins, an empty save never does, a newer Start over does
   const sv = await p.evaluate(() => {
     const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
