@@ -2,6 +2,10 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "About King Walk": "Acerca de King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53.000 problemas de ajedrez de partidas reales que se adaptan a ti: resuelve uno y el siguiente es más difícil; falla uno y afloja. Un problema nuevo cada día, el mismo para todos. Gratis, sin cuenta y sin anuncios.",
+    "Press kit": "Kit de prensa",
+    "Trailer": "Tráiler",
     "Copy save code": "Copiar código de guardado",
     "Paste save code": "Pegar código de guardado",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "El progreso se guarda solo en este navegador. Para pasarlo, copia tu código de guardado y pégalo en el otro dispositivo.",
@@ -300,6 +304,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "About King Walk": "À propos de King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53 000 problèmes d'échecs tirés de vraies parties, qui s'adaptent à vous : résolvez-en un et le suivant est plus dur, ratez-en un et ça se calme. Un nouveau problème chaque jour, le même pour tous. Gratuit, sans compte et sans pub.",
+    "Press kit": "Kit presse",
+    "Trailer": "Bande-annonce",
     "Copy save code": "Copier le code de sauvegarde",
     "Paste save code": "Coller un code de sauvegarde",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "La progression est enregistrée dans ce navigateur uniquement. Pour la transférer, copiez votre code de sauvegarde, puis collez-le sur l'autre appareil.",
@@ -598,6 +606,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "About King Walk": "Über King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53.000 Schachaufgaben aus echten Partien, die sich dir anpassen: Löst du eine, wird die nächste schwerer; verpasst du eine, wird es leichter. Jeden Tag eine neue Aufgabe, für alle dieselbe. Kostenlos, ohne Konto und ohne Werbung.",
+    "Press kit": "Pressemappe",
+    "Trailer": "Trailer",
     "Copy save code": "Speichercode kopieren",
     "Paste save code": "Speichercode einfügen",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "Der Fortschritt wird nur in diesem Browser gespeichert. Um ihn zu übertragen, kopiere deinen Speichercode und füge ihn auf dem anderen Gerät ein.",
@@ -896,6 +908,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "About King Walk": "Informazioni su King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53.000 problemi di scacchi da partite vere che si adattano a te: risolvine uno e il prossimo è più difficile, sbagliane uno e si allenta. Un nuovo problema ogni giorno, lo stesso per tutti. Gratis, senza account e senza pubblicità.",
+    "Press kit": "Cartella stampa",
+    "Trailer": "Trailer",
     "Copy save code": "Copia codice di salvataggio",
     "Paste save code": "Incolla codice di salvataggio",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "I progressi sono salvati solo in questo browser. Per spostarli, copia il tuo codice di salvataggio e incollalo sull'altro dispositivo.",
@@ -1194,6 +1210,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "About King Walk": "Sobre o King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53.000 problemas de xadrez de partidas reais que se adaptam a você: resolva um e o próximo fica mais difícil; erre um e ele alivia. Um problema novo todo dia, o mesmo para todos. Grátis, sem conta e sem anúncios.",
+    "Press kit": "Kit de imprensa",
+    "Trailer": "Trailer",
     "Copy save code": "Copiar código de salvamento",
     "Paste save code": "Colar código de salvamento",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "O progresso fica salvo só neste navegador. Para levá-lo, copie seu código de salvamento e cole no outro dispositivo.",
@@ -1492,6 +1512,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "About King Walk": "Over King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53.000 schaakpuzzels uit echte partijen die zich aan jou aanpassen: los er een op en de volgende wordt moeilijker, mis er een en het wordt makkelijker. Elke dag een nieuwe puzzel, voor iedereen dezelfde. Gratis, zonder account en zonder advertenties.",
+    "Press kit": "Perskit",
+    "Trailer": "Trailer",
     "Copy save code": "Opslagcode kopiëren",
     "Paste save code": "Opslagcode plakken",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "Je voortgang wordt alleen in deze browser bewaard. Om hem over te zetten, kopieer je je opslagcode en plak je die op het andere apparaat.",
@@ -1790,6 +1814,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "About King Walk": "О King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53 000 шахматных задач из реальных партий, которые подстраиваются под вас: решили одну — следующая сложнее, ошиблись — станет легче. Каждый день новая задача, одна для всех. Бесплатно, без аккаунта и без рекламы.",
+    "Press kit": "Пресс-кит",
+    "Trailer": "Трейлер",
     "Copy save code": "Скопировать код сохранения",
     "Paste save code": "Вставить код сохранения",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "Прогресс сохраняется только в этом браузере. Чтобы перенести его, скопируйте код сохранения и вставьте его на другом устройстве.",
@@ -2088,6 +2116,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "About King Walk": "King Walkについて",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "実戦から生まれた53,000問のチェスパズルが、あなたに合わせて変わります。解けば次は少し難しく、間違えれば少しやさしく。毎日、全員同じ新しいパズル。無料で、アカウントも広告もありません。",
+    "Press kit": "プレスキット",
+    "Trailer": "トレーラー",
     "Copy save code": "セーブコードをコピー",
     "Paste save code": "セーブコードを貼り付け",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "進行状況はこのブラウザにだけ保存されます。移すには、セーブコードをコピーして、もう一方のデバイスに貼り付けてください。",
@@ -2386,6 +2418,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "About King Walk": "King Walk 소개",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "실제 대국에서 나온 53,000개의 체스 퍼즐이 실력에 맞춰 바뀌어요. 하나를 풀면 다음은 더 어렵고, 틀리면 조금 쉬워져요. 매일 모두에게 같은 새 퍼즐. 무료이고, 계정도 광고도 없어요.",
+    "Press kit": "보도 자료",
+    "Trailer": "트레일러",
     "Copy save code": "저장 코드 복사",
     "Paste save code": "저장 코드 붙여 넣기",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "진행 상황은 이 브라우저에만 저장돼요. 옮기려면 저장 코드를 복사해 다른 기기에 붙여 넣으세요.",
@@ -2684,6 +2720,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "About King Walk": "关于 King Walk",
+    "53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.": "53,000 道来自真实对局的国际象棋谜题，会随你的水平调整：解出一道，下一道更难；错一道，就放缓一些。每天一道新谜题，所有人都一样。免费，无需账号，没有广告。",
+    "Press kit": "媒体资料",
+    "Trailer": "预告片",
     "Copy save code": "复制存档码",
     "Paste save code": "粘贴存档码",
     "Progress is saved in this browser only. To move it, copy your save code, then paste it on the other device.": "进度只保存在这个浏览器里。要转移进度，请复制你的存档码，然后粘贴到另一台设备上。",

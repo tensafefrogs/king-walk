@@ -414,6 +414,11 @@ html.fold-h.daily .progress { display: block; }
 .play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
 .play-btns.run #endRunBtn { display: inline-flex; }
 .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.about { max-width: 640px; margin: 0 auto; padding: calc(var(--u) * 2) var(--u) calc(var(--u) * 3 + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; border-top: 1px solid var(--line); color: var(--muted); }
+.about h2 { margin: 0; font: 700 20px var(--font-display); color: var(--fg); }
+.about p { margin: 0; }
+.about video { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r); background: #143f38; display: block; }
+html.fold-h .about, html.fold-v .about { display: none; }          /* the fold layouts fill the screen exactly */
 .links a { color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
 .links a:hover { text-decoration: underline; }
 .done-btns #shareRankBtn { width: auto; flex: none; }
@@ -834,6 +839,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </section>
   </main>
 </div>
+<!-- the website only (not the app): what King Walk is, the trailer, and the links; below the game, outside its layout grid -->
+<footer class="about" id="about" hidden>
+  <h2>About King Walk</h2>
+  <p>53,000 chess puzzles from real games that adapt to you: solve one and the next gets harder, miss one and it eases off. A new daily puzzle every day, the same for everyone. Free, with no account and no ads.</p>
+  <video id="aboutVideo" controls preload="none" playsinline aria-label="Trailer"></video>
+  <p class="note" id="aboutApp" hidden><span>Also on iPhone and iPad, with widgets, Game Center and iCloud sync.</span> <a id="aboutAppLink" target="_blank" rel="noopener">App Store ›</a></p>
+  <nav class="links" aria-label="About King Walk"><a href="press/">Press kit</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+</footer>
 <noscript><p style="padding:16px;font-family:sans-serif">King Walk needs JavaScript turned on to run.</p></noscript>
 
 <script src="chess.js"></script>
@@ -2296,6 +2309,13 @@ $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecent
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 $("remindRow").hidden = !(APP && APP.reminders);
+/* the website: the About footer under the game; the trailer's poster loads only when it scrolls near */
+if (!APP) {
+  $("about").hidden = false;
+  const v = $("aboutVideo"), load = () => { if (v.src) return; v.poster = "press/king-walk-trailer-poster.jpg"; v.src = "press/king-walk-trailer.mp4"; };
+  if ("IntersectionObserver" in window) { const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { load(); io.disconnect(); } }, { rootMargin: "300px" }); io.observe(v); } else load();
+  if (CONFIG.appStoreId && CONFIG.appLive) { $("aboutApp").hidden = false; $("aboutAppLink").href = "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId); }
+}
 /* the website, on an Apple device, once the app is on sale (the website build checks: CONFIG.appLive): one quiet line */
 if (!APP && CONFIG.appStoreId && CONFIG.appLive && /^(iphone|ipad|mac)$/.test(PLATFORM)) {
   $("appPromo").hidden = false; $("appLink").href = "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId);
