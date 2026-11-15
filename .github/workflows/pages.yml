@@ -8,6 +8,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:          # rebuilds pick up the App Store listing once Apple's lookup has the app (the website's App Store line)
+    - cron: '41 */6 * * *'
 
 permissions:
   contents: read
