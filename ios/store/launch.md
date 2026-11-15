@@ -7,7 +7,7 @@ How King Walk 1.0 goes from TestFlight to launch day. The website is already liv
 On your iPhone, with the newest TestFlight build:
 
 - [ ] Play a few puzzles; reach a celebration (Menu → Start over on a test device, or play until a rank-up).
-- [ ] The daily puzzle: Daily → solve it → Share (the picture and the text arrive together in Messages).
+- [ ] The daily puzzle: Daily → solve it → Share (the coloured squares arrive in Messages).
 - [ ] Widgets: add both (rank, and Daily puzzle) to the Home Screen; put the phone on a charger on its side for StandBy; add the Lock Screen one.
 - [ ] Control Center → + → King Walk → Daily puzzle; tap it.
 - [ ] "Hey Siri, play today's King Walk puzzle".

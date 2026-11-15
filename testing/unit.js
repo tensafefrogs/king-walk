@@ -146,10 +146,6 @@ function translations() {
   const tip = await p.evaluate(async () => { S.tip = false; const pl = me(), n0 = pl.n; pl.n = 0; showTip(); const shown = !$("tip").hidden; hideTip();
     await new Promise(r => setTimeout(r, 300)); const gone = $("tip").hidden && S.tip; showTip(); pl.n = n0; return { shown, gone, again: !$("tip").hidden }; });          // it leaves with a short exit
   check(tip.shown && tip.gone && !tip.again, "the first-puzzle hint shows once", tip);
-  // the daily result's picture: a square PNG
-  const img = await p.evaluate(async () => { const n = dayNumber(); recordDaily(me().daily, n, "gyr", 61, true); dailyImg = null; await prepareDailyImage(n);
-    if (!dailyImg) return null; const bm = await createImageBitmap(dailyImg.blob); return { w: bm.width, h: bm.height, type: dailyImg.blob.type }; });
-  check(img && img.w === 1080 && img.h === 1080 && img.type === "image/png", "the daily share picture is a 1080 square PNG", img);
   // two devices' saves: more progress wins, an empty save never does, a newer Start over does
   const sv = await p.evaluate(() => {
     const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
