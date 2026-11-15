@@ -74,7 +74,7 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`.
 - `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store).
 - `ios/` - the iOS app, its App Store listing and the release tooling. See `ios/README.md`.
-- `press/` - the press kit page, at /press/ (linked from the About footer under the game on the website; linked from the support, privacy and terms pages and listed in the sitemap the website build writes).
+- `press/` - the press kit page, at /press/ (linked from the menu, beside Support, Privacy and Terms; also from the support, privacy and terms pages and listed in the sitemap the website build writes).
 - `testing/` - the browser test and the stats notes.
 
 ## License
