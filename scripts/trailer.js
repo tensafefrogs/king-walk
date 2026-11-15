@@ -25,9 +25,9 @@ fs.mkdirSync(OUT, { recursive: true });
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "king-walk-trailer-"));
 const FPS = 30, FADE = 0.6;
 // Math.random seeds for the puzzles: found by trying a few for a full board with a short, clear solution
-// (the preview skips the second puzzle, so its hint puzzle is dealt from a different save); the hint puzzles are
-// rated a little above the player, so solving one with a hint still gains a point or two
-const SEEDS = { solve: 10, next: 30, hint: preview ? 36 : 38, rank: 12 };
+// (the hint puzzle is rated a little above the player, so solving it with a hint still gains a point or two); the
+// daily puzzle comes from the date, not the seed
+const SEEDS = { solve: 10, next: 30, hint: 38, rank: 12 };
 
 // CLOCK runs in the page and in the game's frame before anything else (copied from Spark's trailer). It replaces
 // the clock, timers and requestAnimationFrame with ones that follow real time as usual, until __vt.enter(): from
@@ -229,15 +229,29 @@ const T=window.T={
     await solve(); await wait(2200); await end();
   }
 
-  // 4. a hint: the first lights up the piece, the second draws an arrow to where it goes
-  if (preview) { await E(s => T.win().__reseed(s), SEEDS.hint); await G("nextPuzzle()"); await p.waitForTimeout(1500); }
-  await rec(); await E(() => T.caption("Stuck? <b>Take a hint.</b> No judgment."));
-  if (!preview) { await wait(600); await E(s => T.win().__reseed(s), SEEDS.hint); await E(() => T.press("#nextBtn")); }
-  await until("cur&&!locked&&!done"); await puzzle("hint:");
-  await wait(900); await E(() => T.press("#hintBtn")); await wait(1300); await E(() => T.press("#hintBtn")); await wait(1100);
-  await solve({ firstThink: 400 }); await wait(preview ? 1500 : 2000); await end();
+  // 4. a hint: the first lights up the piece, the second draws an arrow to where it goes (not in the preview)
+  if (!preview) {
+    await rec(); await E(() => T.caption("Stuck? <b>Take a hint.</b> No judgment."));
+    await wait(600); await E(s => T.win().__reseed(s), SEEDS.hint); await E(() => T.press("#nextBtn"));
+    await until("cur&&!locked&&!done"); await puzzle("hint:");
+    await wait(900); await E(() => T.press("#hintBtn")); await wait(1300); await E(() => T.press("#hintBtn")); await wait(1100);
+    await solve({ firstThink: 400 }); await wait(2000); await end();
+  }
 
-  // 5. a rank up: a player just below Rook (1300) solves one; on a phone the page then scrolls down to show the
+  // 5. the daily puzzle: the player taps the calendar and solves today's; the done card shows the seventh day in a
+  // row with Share, then closes on the solved board. Its Full Week celebration is skipped (marked as already
+  // celebrated), to keep the shot short. The preview has this instead of the hint.
+  await open(1112, SEEDS.solve);
+  await G("(()=>{if(!S.awards)S.awards=earnedAwards(me());S.awards.push('daily_7');})()");
+  await rec(); await E(() => T.caption("A new puzzle <b>every day</b>. The same one for everyone."));
+  await wait(preview ? 600 : 900); await E(() => T.press("#dailyBtn"));
+  await until("!!DAILY&&!!cur&&!!cur.daily&&!locked&&!done"); await puzzle("daily:");
+  await solve();
+  await until("!!document.querySelector('.cele .go')");
+  await E(() => T.caption("Keep your streak. <b>Share your result.</b>")); await wait(preview ? 2400 : 3000);
+  await E(() => T.press(".cele .go")); await wait(preview ? 900 : 1400); await end();
+
+  // 6. a rank up: a player just below Rook (1300) solves one; on a phone the page then scrolls down to show the
   // progress card down to its chart
   await open(1295, SEEDS.rank); await puzzle("rank:");
   await rec(); await E(() => T.caption("Rank up. <b>Pawn to King.</b>"));
@@ -248,7 +262,7 @@ const T=window.T={
   }
   await wait(preview ? 1300 : 2400); await end();
 
-  // 6. end card
+  // 7. end card
   await rec(); await E(() => T.show("#win", false)); await wait(700);
   await E(() => T.show("#end", true)); await wait(preview ? 2800 : 4200); await stop();
 
