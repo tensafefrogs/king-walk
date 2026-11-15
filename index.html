@@ -1952,6 +1952,8 @@ window.kingWalkCloud = raw => {
   if (next && betterSave(next, S)) { track("icloud/newer"); replaceProgress(next); }
 };
 /* the app asks for the daily puzzle (widget, Control Center, Siri, a notification); the website takes #daily */
+/* the same link followed with the game already open in this tab changes only the address */
+window.addEventListener("hashchange", () => { if (location.hash !== "#daily") return; history.replaceState(null, "", location.pathname + location.search); window.kingWalkOpen("daily"); });
 window.kingWalkOpen = what => {
   dropStaleDaily();
   if (what !== "daily" || !dailyOpen()) return;
@@ -2470,7 +2472,8 @@ if (typeof Chess !== "function") {
 } else {
   game = new Chess(); buildSquares(); dealPieces(); paint();
   setStatus("info", T("Getting the puzzles ready"), "", "wait");
-  if (/^#daily$/.test(location.hash) && !dailyDone(me())) { history.replaceState(null, "", location.pathname + location.search); startDaily(); } else nextPuzzle();
+  /* #daily (a shared result's link): today's puzzle, or, once it's done, the solved board with its card and Share */
+  if (/^#daily$/.test(location.hash) && dailyOpen()) { history.replaceState(null, "", location.pathname + location.search); startDaily(); } else nextPuzzle();
   if (APP) APP.post({ op: "ready" });          /* the app can now pass on a request, such as the daily puzzle from a widget */
 }
 </script>
