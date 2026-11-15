@@ -21,7 +21,7 @@ node ios/store/screenshots.js      # iPhone, iPad and iPhone Duo
 python3 scripts/press-kit.py       # the press page's small copies
 ```
 
-If a change makes a caption in `ios/store/screenshots.js` untrue, update it. The listing text is in `ios/store/listing.json` (described in `ios/store/listing.md`); keep it in step with the game (puzzle count, features). The header art is `node ios/store/header.js`, the app preview and trailers `node scripts/trailer.js` (`--preview`, `--vertical`); re-record them when the game's look changes noticeably, and watch them before committing. The press kit is `press/index.html` (not linked from the game); keep its description and facts in step with the listing.
+If a change makes a caption in `ios/store/screenshots.js` untrue, update it. The listing text is in `ios/store/listing.json` (described in `ios/store/listing.md`); keep it in step with the game (puzzle count, features). The header art is `node ios/store/header.js`, the app preview and trailers `node scripts/trailer.js` (`--preview`, `--vertical`); re-record them when the game's look changes noticeably, and watch them before committing. The press kit is `press/index.html` (linked from the menu); keep its description and facts in step with the listing.
 
 ## Player stats
 
