@@ -1095,7 +1095,8 @@ const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLiv
 /* The website's address: on the web, wherever this page is; in the app, the configured site */
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
   ? location.origin + location.pathname.replace(/index\.html$/, "") : CONFIG.site;
-/* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web */
+/* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web.
+   The daily puzzle's share always links the site's daily (dailyShareText). */
 const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE;
 if (CONFIG.goatcounter) {          /* the stats script, only when this copy has a GoatCounter address */
   const gs = document.createElement("script");
@@ -1889,7 +1890,8 @@ function dailyShareText(n) {
   const lines = ["King Walk Daily #" + n + " · " + new Intl.DateTimeFormat(LANG, { weekday: "short" }).format(dayDate(n))];
   lines.push(Array.from(r.m, c => SQUARE[c]).join("") + "  ⏱ " + fmtTime(r.t));
   const st = p.daily.last === n ? p.daily.streak : 0; if (st >= 2) lines.push("🔥 " + st);
-  if (SHARE_URL) lines.push(APP ? SHARE_URL : SHARE_URL + "#daily");
+  /* the link opens today's puzzle on the website, free, even from the app: whoever taps it can play the same one */
+  if (SITE) lines.push(SITE + "#daily"); else if (SHARE_URL) lines.push(SHARE_URL);
   return lines.join("\n");
 }
 /* the header button: Daily, filled, while today's puzzle waits; once it's done, the daily streak (tapping it shares the
