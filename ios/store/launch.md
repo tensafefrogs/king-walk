@@ -50,7 +50,7 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
   3. Hacker News: "Show HN: King Walk – chess puzzles that adapt to you, with a daily puzzle" (the free web version, one HTML file, no build step, open source).
   4. Product Hunt: the page's copy and images are in `producthunt/` (a draft can be made from them with the Product Hunt connector; submitting needs your go-ahead). Launch it the same day.
   5. The Lichess forum (General Chess Discussion): a thank-you for the puzzle database, with the link. Keep it about the puzzles, not the sale.
-- [ ] Email or DM a few writers and chess creators: the press kit link (`/king-walk/press/`) and a promo code each (App Store Connect → the app → Promo Codes; 100 per version).
+- [ ] Email or DM a few writers and chess creators: the press kit link (kingwalk.app/press/) and a promo code each (App Store Connect → the app → Promo Codes; 100 per version).
 
 ## 4. The week after
 
