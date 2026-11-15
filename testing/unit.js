@@ -150,6 +150,9 @@ function translations() {
   const pop = await p.evaluate(() => { const el = document.querySelector(".piece"); if (!el) return "no piece"; el.classList.add("pop");
     const cs = getComputedStyle(el), r = { border: cs.borderTopWidth, bg: cs.backgroundColor }; el.classList.remove("pop"); return r; });
   check(pop.border === "0px" && pop.bg === "rgba(0, 0, 0, 0)", "a landing piece looks like a piece", pop);
+  // a daily achievement's card shares the day's result, with the achievement on the streak line
+  const dshare = await p.evaluate(() => { const n = dayNumber(), D = me().daily; Object.assign(D, { streak: 2, best: 2, last: n - 1 }); recordDaily(D, n, "gyg", 83, true); return dailyShareText(n, "Hat Trick"); });
+  check(/Daily #\d+/.test(dshare) && dshare.includes("\ud83d\udfe9\ud83d\udca1\ud83d\udfe9") && dshare.includes("\ud83d\udd25 3  \ud83c\udfc6 Hat Trick"), "a daily achievement shares the daily result", dshare);
   // two devices' saves: more progress wins, an empty save never does, a newer Start over does
   const sv = await p.evaluate(() => {
     const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
