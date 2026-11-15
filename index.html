@@ -377,6 +377,9 @@ html.daily .mode-switch::before { transform: translateX(44px); background: var(-
 .mode-switch button[aria-pressed="true"] svg { animation: popIn 0.32s var(--spring) 0.08s both; }
 .mode-switch #dailyBtn[aria-pressed="true"] { color: #fff; }
 .mode-dot { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--p-coral); box-shadow: 0 0 0 2px var(--tile); }
+/* today's daily done: a small green check in the same corner (it pops in as the daily is solved) */
+.mode-dot.done { top: 2px; right: 2px; width: 14px; height: 14px; background: #22a06b url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.8 7.3l2.2 2.2 4.3-4.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+  animation: popIn 0.4s var(--spring) both; }
 h1 { white-space: nowrap; }
 @media (max-width: 339px) { h1 { display: none; } }
 /* settings: a plain gear, quieter than the switch beside it */
@@ -1914,7 +1917,7 @@ function renderDaily() {
   if (document.documentElement.classList.contains("daily") !== !!DAILY) restart(document.querySelector(".progress"), "swap");
   document.documentElement.classList.toggle("daily", !!DAILY);
   b.setAttribute("aria-pressed", String(!!DAILY)); $("puzzlesBtn").setAttribute("aria-pressed", String(!DAILY));
-  $("dailyDot").hidden = !!today || !!DAILY;
+  const dot = $("dailyDot"); dot.classList.toggle("done", !!today); dot.hidden = !today && !!DAILY;          /* waiting: a dot (not while playing it); done: a check */
   b.setAttribute("aria-label", T("Daily puzzle") + (today ? ". " + T("Done today.") : "") + (st ? " " + T("{n} days in a row", { n: st }) + "." : "") + (fz ? " " + T("Streak freezes: {n}", { n: fz }) + "." : ""));
   if (!DAILY) return;
   /* the daily's card: the number and day, the last seven days, the streak */
