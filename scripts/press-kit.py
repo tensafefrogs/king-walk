@@ -21,5 +21,19 @@ def thumb(src, name, width):
 for n in range(1, 6):
     thumb(os.path.join(SHOTS, f'iphone-{n}.png'), f'iphone-{n}.jpg', 440)
     thumb(os.path.join(SHOTS, f'ipad-{n}.png'), f'ipad-{n}.jpg', 640)
+for name in ('duo-book-1', 'duo-book-5', 'duo-table-1', 'duo-table-3'):
+    thumb(os.path.join(SHOTS, name + '.png'), name + '.jpg', 640)
 thumb(os.path.join(ROOT, 'ios', 'store', 'header', 'universal-16x9.png'), 'key-art.jpg', 1600)
+
+# Other languages: the store screenshots in those languages aren't committed (the App Store listing workflow makes
+# them), so the page keeps a full-size JPEG of each one it shows, in press/shots/. Make them first with
+# node ios/store/screenshots.js --lang <locale>; without them, the copies already in press/ stay as they are.
+LOCALIZED = [('es-ES', 1), ('ja', 5), ('ru', 2)]
+os.makedirs(os.path.join(ROOT, 'press', 'shots'), exist_ok=True)
+for locale, n in LOCALIZED:
+    src = os.path.join(SHOTS, 'l10n', locale, f'iphone-{n}.png')
+    if not os.path.exists(src):
+        print('no', src, '(kept the old copies)'); continue
+    Image.open(src).convert('RGB').save(os.path.join(ROOT, 'press', 'shots', f'{locale}-iphone-{n}.jpg'), quality=88, optimize=True, progressive=True)
+    thumb(src, f'{locale}-iphone-{n}.jpg', 440)
 print('saved to', OUT)
