@@ -8,3 +8,4 @@ ios/store/screenshots/raw/
 ios/store/screenshots/l10n/
 node_modules/
 .DS_Store
+__pycache__/
