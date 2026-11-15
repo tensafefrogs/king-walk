@@ -19,7 +19,7 @@ All of these (the icon, its square and maskable versions, the logos, the website
 
 Rules of thumb:
 
-- Keep clear space around the logo equal to one square of the staircase.
+- Keep clear space around the logo equal to one square of the grid.
 - Do not go below 24 px for the icon or 120 px wide for the full logo.
 - Do not recolor the tiles, rotate the icon, or put the gold icon on a yellow background.
 
