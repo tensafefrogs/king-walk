@@ -64,11 +64,15 @@ jobs:
               html = html.replace('content="og.png"', f'content="{site}og.png"')
               open('_site/index.html', 'w').write(html)
               print('link previews point at', site)
-              # a sitemap for search engines (submit it in Search Console; a robots.txt can only list it from the domain's root)
+              # a sitemap for search engines, and a robots.txt pointing to it (robots.txt only counts at a domain's root)
               pages = ['', 'press/', 'support.html', 'privacy.html', 'terms.html']
               open('_site/sitemap.xml', 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                   + ''.join(f'  <url><loc>{site}{p}</loc></url>\n' for p in pages) + '</urlset>\n')
               print('sitemap.xml:', len(pages), 'pages')
+              from urllib.parse import urlparse
+              if urlparse(site).path in ('', '/'):
+                  open('_site/robots.txt', 'w').write(f'User-agent: *\nAllow: /\n\nSitemap: {site}sitemap.xml\n')
+                  print('robots.txt: written')
           PY
           du -sh _site
       - uses: actions/upload-pages-artifact@v3

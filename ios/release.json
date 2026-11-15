@@ -14,5 +14,5 @@
   },
   "app_store": null,
   "release_now": false,
-  "note": "TestFlight build: dragging a piece no longer gets cancelled; corner marks on pieces you can take; About footer on the web."
+  "note": "TestFlight build: share links and Support/Privacy/Terms now point to kingwalk.app."
 }
