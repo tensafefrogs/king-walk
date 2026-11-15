@@ -42,7 +42,7 @@ jobs:
           sed -i "s/const CACHE = \"king-walk-[^\"]*\"/const CACHE = \"king-walk-$hash\"/" _site/sw.js
           grep -q "king-walk-$hash" _site/sw.js && echo "service worker cache: king-walk-$hash"
           python3 - <<'PY'
-          import json, os
+          import json, os, re
           cfg = {'goatcounter': os.environ.get('GOATCOUNTER_URL', '').strip(), 'site': os.environ.get('SITE_URL', '').strip(),
                  'appStoreId': os.environ.get('APP_STORE_ID', '').strip(), 'appLive': False}
           # is the app on sale yet? Apple's public lookup says (the website then shows its App Store line)
@@ -58,6 +58,11 @@ jobs:
           # link previews need absolute addresses: the site's, when it's set
           # Safari's Smart App Banner on iPhone and iPad, once the App Store ID is set (Safari shows it only while the
           # app is on sale, so it can go in before launch)
+          # the press kit's App Store link (press/index.html has a placeholder, so the ID stays out of the code)
+          press = open('_site/press/index.html').read()
+          store = 'https://apps.apple.com/app/id' + cfg['appStoreId'] if cfg['appStoreId'] else ''
+          press = press.replace('href="#app-store"', f'href="{store}"') if store else re.sub(r'\s*<dt>App Store</dt><dd>.*?</dd>', '', press)
+          open('_site/press/index.html', 'w').write(press)
           if cfg['appStoreId']:
               html = open('_site/index.html').read()
               html = html.replace('<meta name="description"', f'<meta name="apple-itunes-app" content="app-id={cfg["appStoreId"]}">\n<meta name="description"', 1)

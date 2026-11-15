@@ -4,7 +4,7 @@ Everything for King Walk's Product Hunt page, ready to go into a draft. Nothing 
 
 ## Fields
 
-- **Link:** the website (the free version anyone can try at once). Additional links: the App Store page, once live; the press kit.
+- **Link:** the website (the free version anyone can try at once). Additional links: the App Store page (https://apps.apple.com/app/id + the App Store ID); the press kit.
 - **Name:** King Walk
 - **Tagline** (50 of 60): Chess puzzles that fight back, plus a daily puzzle
 - **Description** (242 of 260):
