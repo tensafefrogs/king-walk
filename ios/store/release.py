@@ -277,16 +277,22 @@ def app_store(app_id, build, cfg):
         call('PATCH', f"/v1/appStoreVersions/{v['id']}/relationships/build", {'data': {'type': 'builds', 'id': build['id']}})
         patch('appStoreVersions', v['id'], {'releaseType': release_type})
         log(f"App Store: build {build['attributes']['version']} attached to {version}, release {release_type.lower().replace('_', ' ')}")
-        notes = plain_notes(cfg.get('whats_new', ''))
-        if notes:
-            loc = next(l for l in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']
-                       if l['attributes']['locale'] == 'en-US')
-            try:
-                request('PATCH', f"/v1/appStoreVersionLocalizations/{loc['id']}",
-                        {'data': {'type': 'appStoreVersionLocalizations', 'id': loc['id'], 'attributes': {'whatsNew': notes}}})
-                log("App Store: What's New set")
-            except ApiError as e:   # the first version of an app has no What's New
-                log(f"App Store: What's New not set ({e.code})")
+        # What's New: one text for every language, or {"en-US": ..., "de-DE": ...} (a language without one gets en-US's)
+        wn = cfg.get('whats_new') or ''
+        wn = wn if isinstance(wn, dict) else ({'en-US': wn} if wn else {})
+        if wn:
+            done = []
+            for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']:
+                lang = loc['attributes']['locale']
+                notes = plain_notes(wn.get(lang) or wn.get(lang.split('-')[0]) or wn.get('en-US', ''))
+                if not notes: continue
+                try:
+                    request('PATCH', f"/v1/appStoreVersionLocalizations/{loc['id']}",
+                            {'data': {'type': 'appStoreVersionLocalizations', 'id': loc['id'], 'attributes': {'whatsNew': notes}}})
+                    done.append(lang)
+                except ApiError as e:   # the first version of an app has no What's New
+                    log(f"App Store: What's New not set for {lang} ({e.code})")
+            if done: log("App Store: What's New set: " + ', '.join(done))
         if cfg.get('listing', True):   # "listing": false submits without uploading it again (screenshots restart processing)
             import upload_listing
             upload_listing.main()   # text, URLs, age rating, screenshots
