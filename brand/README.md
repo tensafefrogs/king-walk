@@ -1,6 +1,6 @@
 # King Walk brand pack
 
-Everything here is MIT licensed with the rest of the project.
+The King Walk name, logo, icon and chess pieces are all rights reserved (unlike the code, which is MIT; see `LICENSE`). Press and reviewers may use them to write about King Walk.
 
 ## Logo
 

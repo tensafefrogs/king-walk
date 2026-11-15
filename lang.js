@@ -2,6 +2,7 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "El código es abierto, con licencia MIT. El nombre King Walk, el icono, las piezas y las ilustraciones son originales de este juego; todos los derechos reservados.",
     "Press kit": "Kit de prensa",
     "Copy save code": "Copiar código de guardado",
     "Paste save code": "Pegar código de guardado",
@@ -223,7 +224,6 @@ window.KW_STRINGS = {
     "The game could not load": "No se pudo cargar el juego",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "El juego te sigue dando problemas cercanos a tu número. Cuando resuelves algo más de la mitad, tu número se estabiliza. Ese es tu nivel ahora mismo. Mejora y volverá a subir.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "El nombre: una «marcha del rey» (king walk) es cuando el rey avanza por el tablero para ayudar a ganar la partida. Empiezas en el rango Peón y subes hasta Rey.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "Las piezas, el icono y el código son originales de este juego y se pueden reutilizar libremente con la licencia MIT.",
     "The puzzles could not load": "No se pudieron cargar los problemas",
     "Thirty Days": "Treinta días",
     "This puzzle: {link} on Lichess, rated {r}.": "Este problema: {link} en Lichess, con puntuación {r}.",
@@ -301,6 +301,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Le code est open source, sous licence MIT. Le nom King Walk, l'icône, les pièces et les illustrations sont propres à ce jeu ; tous droits réservés.",
     "Press kit": "Kit presse",
     "Copy save code": "Copier le code de sauvegarde",
     "Paste save code": "Coller un code de sauvegarde",
@@ -522,7 +523,6 @@ window.KW_STRINGS = {
     "The game could not load": "Le jeu n'a pas pu se charger",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "Le jeu vous propose sans cesse des problèmes proches de votre nombre. Quand vous en résolvez un peu plus de la moitié, votre nombre se stabilise. C'est votre niveau actuel. Progressez et il remontera.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "Le nom : une « marche du roi » (king walk), c'est quand le roi remonte l'échiquier pour aider à gagner la partie. Vous commencez au rang Pion et montez jusqu'à Roi.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "Les pièces, l'icône et le code sont propres à ce jeu et réutilisables librement sous licence MIT.",
     "The puzzles could not load": "Les problèmes n'ont pas pu se charger",
     "Thirty Days": "Trente jours",
     "This puzzle: {link} on Lichess, rated {r}.": "Ce problème : {link} sur Lichess, classé {r}.",
@@ -600,6 +600,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Der Code ist Open Source unter der MIT-Lizenz. Der Name King Walk, das Icon, die Figuren und die Grafiken sind eigens für dieses Spiel gestaltet; alle Rechte vorbehalten.",
     "Press kit": "Pressemappe",
     "Copy save code": "Speichercode kopieren",
     "Paste save code": "Speichercode einfügen",
@@ -821,7 +822,6 @@ window.KW_STRINGS = {
     "The game could not load": "Das Spiel konnte nicht geladen werden",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "Das Spiel gibt dir immer Aufgaben nahe an deiner Zahl. Wenn du etwas mehr als die Hälfte löst, pendelt sich deine Zahl ein. Das ist gerade dein Niveau. Wirst du besser, steigt sie wieder.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "Der Name: Ein „King Walk“ (Königsmarsch) ist, wenn ein König übers Brett nach vorn marschiert, um die Partie zu gewinnen. Du beginnst im Rang Bauer und arbeitest dich hoch bis zum König.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "Die Figuren, das Icon und der Code sind eigens für dieses Spiel entstanden und dürfen unter der MIT-Lizenz frei weiterverwendet werden.",
     "The puzzles could not load": "Die Aufgaben konnten nicht geladen werden",
     "Thirty Days": "Dreißig Tage",
     "This puzzle: {link} on Lichess, rated {r}.": "Diese Aufgabe: {link} auf Lichess, Wertung {r}.",
@@ -899,6 +899,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Il codice è open source con licenza MIT. Il nome King Walk, l'icona, i pezzi e le illustrazioni sono originali di questo gioco; tutti i diritti riservati.",
     "Press kit": "Cartella stampa",
     "Copy save code": "Copia codice di salvataggio",
     "Paste save code": "Incolla codice di salvataggio",
@@ -1120,7 +1121,6 @@ window.KW_STRINGS = {
     "The game could not load": "Impossibile caricare il gioco",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "Il gioco continua a darti problemi vicini al tuo numero. Quando ne risolvi poco più della metà, il tuo numero si assesta. Quello è il tuo livello in questo momento. Migliora e salirà di nuovo.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "Il nome: una «king walk» (passeggiata del re) è quando il re avanza sulla scacchiera per aiutare a vincere la partita. Inizi al grado Pedone e sali fino a Re.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "I pezzi, l'icona e il codice sono originali di questo gioco e liberamente riutilizzabili con licenza MIT.",
     "The puzzles could not load": "Impossibile caricare i problemi",
     "Thirty Days": "Trenta giorni",
     "This puzzle: {link} on Lichess, rated {r}.": "Questo problema: {link} su Lichess, punteggio {r}.",
@@ -1198,6 +1198,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "O código é aberto, sob a licença MIT. O nome King Walk, o ícone, as peças e as ilustrações são originais deste jogo; todos os direitos reservados.",
     "Press kit": "Kit de imprensa",
     "Copy save code": "Copiar código de salvamento",
     "Paste save code": "Colar código de salvamento",
@@ -1419,7 +1420,6 @@ window.KW_STRINGS = {
     "The game could not load": "Não foi possível carregar o jogo",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "O jogo continua dando problemas próximos do seu número. Quando você resolve um pouco mais da metade, seu número se estabiliza. Esse é o seu nível agora. Melhore e ele volta a subir.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "O nome: uma “king walk” (marcha do rei) é quando o rei avança pelo tabuleiro para ajudar a vencer a partida. Você começa na patente Peão e sobe até Rei.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "As peças, o ícone e o código são originais deste jogo e livres para reutilizar sob a licença MIT.",
     "The puzzles could not load": "Não foi possível carregar os problemas",
     "Thirty Days": "Trinta dias",
     "This puzzle: {link} on Lichess, rated {r}.": "Este problema: {link} no Lichess, pontuação {r}.",
@@ -1497,6 +1497,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "De code is open source onder de MIT-licentie. De naam King Walk, het icoon, de stukken en de illustraties zijn eigen werk voor dit spel; alle rechten voorbehouden.",
     "Press kit": "Perskit",
     "Copy save code": "Opslagcode kopiëren",
     "Paste save code": "Opslagcode plakken",
@@ -1718,7 +1719,6 @@ window.KW_STRINGS = {
     "The game could not load": "Het spel kon niet laden",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "Het spel blijft je puzzels geven dicht bij je getal. Als je iets meer dan de helft oplost, komt je getal tot rust. Dat is nu je niveau. Word beter en het stijgt weer.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "De naam: een king walk (koningswandeling) is wanneer een koning over het bord naar voren marcheert om de partij te helpen winnen. Je begint in de rang Pion en werkt je op tot Koning.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "De stukken, het icoon en de code zijn eigen werk van dit spel en vrij te hergebruiken onder de MIT-licentie.",
     "The puzzles could not load": "De puzzels konden niet laden",
     "Thirty Days": "Dertig dagen",
     "This puzzle: {link} on Lichess, rated {r}.": "Deze puzzel: {link} op Lichess, rating {r}.",
@@ -1796,6 +1796,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Код открыт по лицензии MIT. Название King Walk, значок, фигуры и иллюстрации созданы для этой игры; все права защищены.",
     "Press kit": "Пресс-кит",
     "Copy save code": "Скопировать код сохранения",
     "Paste save code": "Вставить код сохранения",
@@ -2017,7 +2018,6 @@ window.KW_STRINGS = {
     "The game could not load": "Не удалось загрузить игру",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "Игра продолжает давать задачи, близкие к вашему числу. Когда вы решаете чуть больше половины, число стабилизируется. Это ваш нынешний уровень. Станете сильнее — оно снова вырастет.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "Название: «king walk» (поход короля) — это когда король идёт вперёд по доске, помогая выиграть партию. Вы начинаете со звания Пешка и поднимаетесь до Короля.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "Фигуры, иконка и код созданы для этой игры и свободно доступны по лицензии MIT.",
     "The puzzles could not load": "Не удалось загрузить задачи",
     "Thirty Days": "Тридцать дней",
     "This puzzle: {link} on Lichess, rated {r}.": "Эта задача: {link} на Lichess, рейтинг {r}.",
@@ -2095,6 +2095,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "コードはMITライセンスのオープンソースです。King Walkの名前、アイコン、駒、イラストはこのゲームのオリジナルで、無断転載を禁じます。",
     "Press kit": "プレスキット",
     "Copy save code": "セーブコードをコピー",
     "Paste save code": "セーブコードを貼り付け",
@@ -2316,7 +2317,6 @@ window.KW_STRINGS = {
     "The game could not load": "ゲームを読み込めませんでした",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "ゲームはあなたの数字に近いパズルを出し続けます。半分より少し多く解けるようになると、数字が落ち着きます。それが今のあなたの実力です。上達すれば、また上がっていきます。",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "名前の由来：キングウォーク（king walk）とは、キングが盤上を進んで勝利を助けることです。あなたはポーンランクから始めて、キングを目指します。",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "駒、アイコン、コードはこのゲームのオリジナルで、MITライセンスのもと自由に再利用できます。",
     "The puzzles could not load": "パズルを読み込めませんでした",
     "Thirty Days": "30日連続",
     "This puzzle: {link} on Lichess, rated {r}.": "このパズル：Lichessの{link}、レーティング{r}。",
@@ -2394,6 +2394,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "코드는 MIT 라이선스의 오픈 소스예요. King Walk라는 이름, 아이콘, 기물, 그림은 이 게임만의 것으로, 모든 권리를 보유해요.",
     "Press kit": "보도 자료",
     "Copy save code": "저장 코드 복사",
     "Paste save code": "저장 코드 붙여 넣기",
@@ -2615,7 +2616,6 @@ window.KW_STRINGS = {
     "The game could not load": "게임을 불러올 수 없어요",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "게임은 내 숫자에 가까운 퍼즐을 계속 내 줘요. 절반보다 조금 더 풀게 되면 숫자가 자리를 잡아요. 그게 지금 내 실력이에요. 실력이 늘면 다시 올라가요.",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "이름의 뜻: 킹 워크(king walk)는 킹이 판 위로 걸어 나가 승리를 돕는 것을 말해요. 폰 등급에서 시작해 킹까지 올라가요.",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "기물, 아이콘, 코드는 이 게임의 오리지널이며 MIT 라이선스로 자유롭게 재사용할 수 있어요.",
     "The puzzles could not load": "퍼즐을 불러올 수 없어요",
     "Thirty Days": "30일 연속",
     "This puzzle: {link} on Lichess, rated {r}.": "이 퍼즐: Lichess의 {link}, 레이팅 {r}.",
@@ -2693,6 +2693,7 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "代码以 MIT 许可证开源。King Walk 的名称、图标、棋子和美术作品为本游戏原创，保留所有权利。",
     "Press kit": "媒体资料",
     "Copy save code": "复制存档码",
     "Paste save code": "粘贴存档码",
@@ -2914,7 +2915,6 @@ window.KW_STRINGS = {
     "The game could not load": "游戏无法加载",
     "The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.": "游戏会一直给你接近你数字的谜题。当你能解出略多于一半时，你的数字就会稳定下来。那就是你现在的水平。水平提高后，它会再次上升。",
     "The name: a king walk is when a king marches up the board to help win the game. You start at Pawn rank and work your way up to King.": "名字的由来：king walk（王的行军）指王在棋盘上一路前进、帮助赢得对局。你从兵段位开始，一路升到王。",
-    "The pieces, icon and code are original to this game and free to reuse under the MIT license.": "棋子、图标和代码均为本游戏原创，可依据 MIT 许可证自由重用。",
     "The puzzles could not load": "谜题无法加载",
     "Thirty Days": "三十天",
     "This puzzle: {link} on Lichess, rated {r}.": "本题：Lichess 上的 {link}，难度 {r}。",
