@@ -10,11 +10,15 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | --- | --- | --- |
 | `start` | The first launch on a device with no save | startup |
 | `platform/<name>` | Same moment as `start`, with the device. Web: `iphone`, `ipad`, `android-phone`, `android-tablet`, `windows`, `mac`, `linux`, `chromeos`, `other`. iOS app: `iphone`, `ipad`, `mac` (the iPad app on a Mac) | `PLATFORM` |
+| `lang/<code>` | Same moment as `start`: the language the game shows (`en`, `es`, `fr`, `de`, `it`, `pt`, `nl`, `ru`, `ja`, `ko`, `zh`) | startup |
 | `played/<n>` | The player finishes their nth rated puzzle, for n = 1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500 | `finish()` |
 | `rank/<name>` | The player reaches a rank for the first time: `knight`, `bishop`, `rook`, `queen`, `king` | `finish()` |
 | `back/1d`, `back/7d`, `back/30d` | The game is opened 1, 7 or 30 days or more after the player's first visit (once each) | startup |
 | `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed | the difficulty buttons |
+| `hint/1`, `hint/2` | The first and second hint on a puzzle (divide by `played` for how often they help) | `showHint()` |
+| `answer` | Answer pressed: the solution is shown | `showAnswer()` |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
+| `share/daily` | Share pressed after the daily puzzle (its coloured squares); `share` is then everything else (the progress summary) | `shareProgress()` |
 | `award/<id>` | An award is earned for the first time (the ids in `ios/store/gamecenter.json`, e.g. `award/rank_knight`, `award/clear_pawn`) | `checkAwards()` |
 | `share/award` | Share is pressed on an award's celebration screen | `celebrate()` |
 | `fold/table`, `fold/book` | The screen is folded across like a laptop, or top to bottom like a book (iPhone Duo or another foldable), once per fold | `foldLayout()` |
@@ -30,6 +34,8 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `daily/streak/<n>` | The daily streak reaches 3, 7, 14, 30, 50, 100 or 365 days | `finishDaily()` |
 | `daily/practice` | Try again on a finished daily: practice, which doesn't change the day's result | the Try again button |
 | `daily/done-card` | The "Today's puzzle: done" card shown (Daily tapped, or a widget, Siri or a reminder opened the game, after today's puzzle) | `showDailyDone()` |
+| `link/daily` | The website opened from a shared daily result's link (`#daily`) | startup |
+| `open/daily` | The app asked for the daily: a widget, Control Center, Siri, the quick action or a reminder (also the `#daily` link followed with the game already open) | `kingWalkOpen()` |
 | `daily/freeze-earned` | A streak freeze earned (every 7 days in a row, up to 2 held) | `finishDaily()` |
 | `daily/freeze-used` | Streak freezes used to cover skipped days (sent once per catch-up) | `checkFreezes()` |
 | `app-promo` | The website's "Also on iPhone and iPad" App Store link tapped (shown on Apple devices once the app is on sale) | the line under Progress |
@@ -41,6 +47,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `sound-off`, `haptics-off` | Sound or haptics turned off | menu |
 | `reset` | Start over | menu |
 | `save-code/copy`, `save-code/load` | The save code is copied or loaded | menu → Advanced |
+| `icloud/newer` | The app found more progress in iCloud (another device played) and switched to it | `kingWalkCloud()` |
 
 ## Reading them
 
@@ -52,3 +59,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Open the GoatCounter dashboard and filter by `king-walk`.
 
 If you add, rename or remove a `track()` call, update this page and the events list in `README.md`.
+
+## The report
+
+`python3 testing/stats.py` prints the funnel (new players, coming back, puzzles played, ranks), the daily puzzle, every achievement (from `ios/store/gamecenter.json`), rank streaks, hints, sharing and settings, for the website and the app side by side. It needs `GOATCOUNTER_TOKEN` (GoatCounter > Settings > API, "Read statistics" only) and `GOATCOUNTER_URL` (the count address the website uses) in the environment. `--days 30`, `--since`/`--until`, `--web` or `--app` change what it shows.

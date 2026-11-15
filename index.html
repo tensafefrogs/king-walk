@@ -1210,7 +1210,7 @@ function shareText(last) {
 }
 function shareProgress(btn, last) {
   const text = shareText(last);
-  track("share");
+  track(last && last.daily ? "share/daily" : "share");
   if (APP) { APP.post({ op: "share", text }); return; }
   if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
   /* "Copied" on the button's text; a button that's an icon (or has one) keeps it, and the copy is announced */
@@ -1519,7 +1519,7 @@ function commit(from, to, promo) {
 }
 function showHint() {
   if (locked || done || hintLevel >= 2 || RUN) return;
-  hintLevel++;
+  hintLevel++; track("hint/" + hintLevel);
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
   setStatus("hint", (hintLevel === 1 ? T("Move the glowing piece") : T("Follow the arrow")), "", "hint");
@@ -1527,7 +1527,7 @@ function showHint() {
 }
 function showAnswer() {
   if (locked || done || (RUN && !failed)) return;
-  failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false);
+  failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false); track("answer");
   if (DAILY) for (let k = idx; k < cur.pz.moves.length; k += 2) dailyMark("x", k);
   setStatus("info", T("Watch the answer"), "", "wait");
   const step = () => {
@@ -1964,6 +1964,7 @@ window.addEventListener("hashchange", () => { if (location.hash !== "#daily") re
 window.kingWalkOpen = what => {
   dropStaleDaily();
   if (what !== "daily" || !dailyOpen()) return;
+  track("open/daily");          /* the app: a widget, Control Center, Siri, the quick action or a reminder */
   if (DAILY) { if (dailyDone(me()) && done && !document.querySelector(".cele")) showDailyDone(); return; }
   startDaily();
 };
@@ -2464,7 +2465,7 @@ localizePage();
 renderPanel();
 {
   const p = me(), fresh = !S.updatedAt;
-  if (fresh) { track("start"); track("platform/" + PLATFORM); }
+  if (fresh) { track("start"); track("platform/" + PLATFORM); track("lang/" + LANG); }
   else {
     if (!p.since) { p.since = Date.now(); save(); }          /* a save from before this was recorded: count from now */
     const days = (Date.now() - p.since) / 864e5;
@@ -2480,7 +2481,7 @@ if (typeof Chess !== "function") {
   game = new Chess(); buildSquares(); dealPieces(); paint();
   setStatus("info", T("Getting the puzzles ready"), "", "wait");
   /* #daily (a shared result's link): today's puzzle, or, once it's done, the solved board with its card and Share */
-  if (/^#daily$/.test(location.hash) && dailyOpen()) { history.replaceState(null, "", location.pathname + location.search); startDaily(); } else nextPuzzle();
+  if (/^#daily$/.test(location.hash) && dailyOpen()) { history.replaceState(null, "", location.pathname + location.search); track("link/daily"); startDaily(); } else nextPuzzle();
   if (APP) APP.post({ op: "ready" });          /* the app can now pass on a request, such as the daily puzzle from a widget */
 }
 </script>
