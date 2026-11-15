@@ -485,13 +485,15 @@ html.fold-h .about, html.fold-v .about { display: none; }          /* the fold l
 .sq.chk::before { background: radial-gradient(circle at 50% 50%, rgba(232, 120, 40, 0.8) 0%, rgba(232, 120, 40, 0.4) 45%, rgba(232, 120, 40, 0) 72%); }
 .sq.over::before { box-shadow: inset 0 0 0 0.9cqw rgba(255, 255, 255, 0.75); }
 .sq.over.touch::before { background-color: var(--sq-sel); }
-/* legal-move marker: a dot on an empty square, a ring around a piece that can be taken */
+/* legal-move marker: a dot on an empty square; small corner triangles on a piece that can be taken (a ring hid the piece) */
 .sq::after {
   content: ""; position: absolute; inset: 0; margin: auto; width: 30%; height: 30%; border-radius: 50%; background: var(--dot);
   opacity: 0; transform: scale(0.3); transition: opacity 0.16s var(--ease-out), transform 0.22s var(--spring);
 }
 .sq.t::after { opacity: 1; transform: none; }
-.sq.tc::after { width: 88%; height: 88%; background: none; border: 1.1cqw solid var(--dot); opacity: 1; transform: none; }
+.sq.tc::after { width: 100%; height: 100%; border-radius: 0; opacity: 1; transform: none;
+  background: linear-gradient(135deg, var(--dot) 16%, transparent 16%), linear-gradient(225deg, var(--dot) 16%, transparent 16%),
+    linear-gradient(45deg, var(--dot) 16%, transparent 16%), linear-gradient(315deg, var(--dot) 16%, transparent 16%); }
 /* a hint: short gold rays around the piece to move, pulsing in and out like the hint button's bulb; the second hint
    adds an arrow to its square (#hintArrow) */
 .sq .ring { position: absolute; inset: -8%; background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%2316302c' stroke-opacity='.6' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M80.5 62.6L94.3 68.4M62.6 80.5L68.4 94.3M37.4 80.5L31.6 94.3M19.5 62.6L5.7 68.4M19.5 37.4L5.7 31.6M37.4 19.5L31.6 5.7M62.6 19.5L68.4 5.7M80.5 37.4L94.3 31.6' stroke='%23f2c230' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; opacity: 0; transform: scale(0.6); transition: opacity 0.25s, transform 0.35s var(--spring); z-index: 3; pointer-events: none; }
@@ -2219,6 +2221,10 @@ document.addEventListener("touchend", e => {
   if (quick && e.cancelable && e.touches.length === 0 && !e.target.closest("button, a, input, textarea, select, summary, label")) e.preventDefault();
 }, { passive: false });
 boardEl.addEventListener("pointercancel", e => endDrag(e, true));
+/* Once a piece is being dragged, the touch is the drag's: Safari can otherwise decide the touch is a scroll (the
+   board's touch-action isn't always honoured, e.g. on the hint's animated square), cancel the pointer, and the
+   piece springs back. Not on touchstart, which would stop taps from reaching buttons. */
+boardEl.addEventListener("touchmove", e => { if (drag && e.cancelable) e.preventDefault(); }, { passive: false });
 boardEl.addEventListener("pointerleave", () => { if (!drag) for (const [, o] of els) o.el.classList.remove("lift"); });
 
 /* ---------- panels ---------- */
