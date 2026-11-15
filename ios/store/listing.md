@@ -124,7 +124,7 @@ $0.99 (US price tier), all countries and regions. Needs the Paid Apps Agreement,
 
 ## App Review notes
 
-Uploaded from `review_notes` in `listing.json` (App Review Information → Notes). They explain what the app is, how to use it and what it adds on iOS beyond the website (App Review checks web-based apps under guideline 4.2, minimum functionality). Set the contact details in App Store Connect by hand. No sign-in is needed, so no demo account.
+Uploaded from `review_notes` in `listing.json` (App Review Information → Notes). They answer, briefly, what App Review asked Spark for on its 1.0 (guideline 2.1, information needed): purpose and audience, how to use it, external services, regions, regulation and third-party material, and a screen recording (the trailer, uploaded as the review attachment from `review_attachment`). They also say what the app adds on iOS beyond the website (App Review checks web-based apps under guideline 4.2, minimum functionality). Keep them short. Set the contact details in App Store Connect by hand. No sign-in is needed, so no demo account.
 
 > King Walk is a single-player chess puzzle game. No account, no login, no in-app purchases, no ads, no user-generated content, no chat.
 >
