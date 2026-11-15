@@ -13,7 +13,9 @@ The King Walk name, logo, icon and chess pieces are all rights reserved (unlike 
 | `logo-on-dark.svg`, `logo-on-dark.png` | Icon plus name, for dark backgrounds. |
 | `wordmark.svg`, `wordmark-on-dark.svg` | The name on its own. The letters are outlines, so no font is needed. |
 
-The icon is a white king walking up a staircase of board squares, on gold. It shows the name: a king walk is a king marching up the board. At very small sizes (16 to 32 pixels) the king is hard to see and the staircase carries the shape.
+The icon is a white king walking up a staircase of board squares, on gold. It shows the name: a king walk is a king marching up the board. The favicon (`icons/favicon.svg`, `favicon-32.png`) is a simpler drawing for 16 to 32 pixels: three squares and a bigger, outlined king on the lower step.
+
+All of these (the icon, its square and maskable versions, the logos, the website icons, the favicon and the icon in the game's header) are drawn by `node scripts/icon.js` from a few numbers at the top of it. Then run `node ios/scripts/art.js` for the app icon and `node ios/store/header.js` for the header art and `og.png`.
 
 Rules of thumb:
 
