@@ -1,7 +1,7 @@
 {
   "version": "1.0.2",
   "xcode27": true,
-  "build": true,
+  "build": false,
   "testflight": {
     "groups": [
       "Internal",
@@ -12,7 +12,7 @@
     ],
     "whats_new": "1.0.2: cards (rank-ups, achievements, the daily's result) fit when the phone is on its side. Tell me anything that's broken or confusing."
   },
-  "app_store": {
+  "app_store_next": {
     "submit": true,
     "release": "after_approval",
     "whats_new": {
@@ -30,5 +30,5 @@
     }
   },
   "release_now": false,
-  "note": "Queue 1.0.2 (owner's go-ahead): built and on TestFlight now; submitted to App Review once 1.0.1 is approved and released (the 6-hourly run), released automatically on approval."
+  "note": "Held (owner): 1.0.2 is not submitted. The next build adds Arabic, Hebrew, Traditional Chinese and Portugal's Portuguese; it ships as 1.0.2 with a new build. To send it: \"build\": true, rename app_store_next back to app_store (adding the new languages' What's New), set from_version to 1.0.2 in those languages' ios/store/l10n files."
 }
