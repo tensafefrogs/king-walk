@@ -303,5 +303,7 @@
   "{rank} cleared!": "ผ่านยศ{rank}แล้ว!",
   "{rank} rank": "ยศ{rank}",
   "{rank} streak": "สตรีค{rank}",
-  "{rank} streak, puzzle {n} of {total}": "สตรีค{rank} ข้อ {n} จาก {total}"
+  "{rank} streak, puzzle {n} of {total}": "สตรีค{rank} ข้อ {n} จาก {total}",
+  "Language": "ภาษา",
+  "Same as device": "ตามอุปกรณ์"
 };

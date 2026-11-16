@@ -1,9 +1,9 @@
-// A small static file server for the test and store scripts: serves the repo root on a free port.
+// A small static file server for the test and store scripts: serves the repo root (or another folder) on a free port.
 const http = require("http"), fs = require("fs"), path = require("path");
-const ROOT = path.join(__dirname, "..");
+const REPO = path.join(__dirname, "..");
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".txt": "text/plain; charset=utf-8",
   ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".woff2": "font/woff2", ".webmanifest": "application/manifest+json", ".mp4": "video/mp4" };
-exports.start = () => new Promise(resolve => {
+exports.start = (ROOT = REPO) => new Promise(resolve => {
   const srv = http.createServer((req, res) => {
     let p = decodeURIComponent(new URL(req.url, "http://x").pathname);
     if (p.endsWith("/")) p += "index.html";

@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}ランク クリア！",
   "{rank} rank": "{rank}ランク",
   "{rank} streak": "{rank}チャレンジ",
-  "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
+  "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目",
+  "Language": "言語",
+  "Same as device": "デバイスと同じ"
 };

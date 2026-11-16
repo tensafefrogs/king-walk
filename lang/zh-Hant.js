@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}挑戰過關！",
   "{rank} rank": "{rank}階級",
   "{rank} streak": "{rank}挑戰",
-  "{rank} streak, puzzle {n} of {total}": "{rank}挑戰，第 {n}/{total} 題"
+  "{rank} streak, puzzle {n} of {total}": "{rank}挑戰，第 {n}/{total} 題",
+  "Language": "語言",
+  "Same as device": "與裝置相同"
 };

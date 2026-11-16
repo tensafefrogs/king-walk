@@ -303,5 +303,7 @@
   "{rank} cleared!": "Звание {rank} пройдено!",
   "{rank} rank": "Звание {rank}",
   "{rank} streak": "Серия {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
+  "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}",
+  "Language": "Язык",
+  "Same as device": "Как на устройстве"
 };

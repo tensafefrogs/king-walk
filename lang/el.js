@@ -303,5 +303,7 @@
   "{rank} cleared!": "Η βαθμίδα {rank} ολοκληρώθηκε!",
   "{rank} rank": "Βαθμίδα {rank}",
   "{rank} streak": "Σερί {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Σερί {rank}, γρίφος {n} από {total}"
+  "{rank} streak, puzzle {n} of {total}": "Σερί {rank}, γρίφος {n} από {total}",
+  "Language": "Γλώσσα",
+  "Same as device": "Όπως η συσκευή"
 };

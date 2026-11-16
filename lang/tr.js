@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} serisi tamamlandı!",
   "{rank} rank": "{rank} rütbesi",
   "{rank} streak": "{rank} serisi",
-  "{rank} streak, puzzle {n} of {total}": "{rank} serisi, bulmaca {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} serisi, bulmaca {n}/{total}",
+  "Language": "Dil",
+  "Same as device": "Cihazla aynı"
 };

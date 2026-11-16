@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} റാങ്ക് പൂർത്തിയായി!",
   "{rank} rank": "{rank} റാങ്ക്",
   "{rank} streak": "{rank} സ്ട്രീക്ക്",
-  "{rank} streak, puzzle {n} of {total}": "{rank} സ്ട്രീക്ക്, പസിൽ {total}-ൽ {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} സ്ട്രീക്ക്, പസിൽ {total}-ൽ {n}",
+  "Language": "ഭാഷ",
+  "Same as device": "ഉപകരണത്തിലേതുപോലെ"
 };

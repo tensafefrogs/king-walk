@@ -303,5 +303,7 @@
   "{rank} cleared!": "רצף {rank} הושלם!",
   "{rank} rank": "דרגת {rank}",
   "{rank} streak": "רצף {rank}",
-  "{rank} streak, puzzle {n} of {total}": "רצף {rank}, חידה {n} מתוך {total}"
+  "{rank} streak, puzzle {n} of {total}": "רצף {rank}, חידה {n} מתוך {total}",
+  "Language": "שפה",
+  "Same as device": "כמו במכשיר"
 };

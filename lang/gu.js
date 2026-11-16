@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} પાર!",
   "{rank} rank": "{rank} રેન્ક",
   "{rank} streak": "{rank} સ્ટ્રીક",
-  "{rank} streak, puzzle {n} of {total}": "{rank} સ્ટ્રીક, કોયડો {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} સ્ટ્રીક, કોયડો {n}/{total}",
+  "Language": "ભાષા",
+  "Same as device": "ડિવાઇસ મુજબ"
 };

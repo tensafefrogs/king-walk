@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} fullført!",
   "{rank} rank": "Rang: {rank}",
   "{rank} streak": "{rank}-rekke",
-  "{rank} streak, puzzle {n} of {total}": "{rank}-rekke, oppgave {n} av {total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank}-rekke, oppgave {n} av {total}",
+  "Language": "Språk",
+  "Same as device": "Som enheten"
 };

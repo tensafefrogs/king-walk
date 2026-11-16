@@ -303,5 +303,7 @@
   "{rank} cleared!": "Rang {rank} gehaald!",
   "{rank} rank": "Rang {rank}",
   "{rank} streak": "Reeks {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
+  "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}",
+  "Language": "Taal",
+  "Same as device": "Zoals apparaat"
 };

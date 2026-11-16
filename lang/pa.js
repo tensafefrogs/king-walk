@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} ਪਾਰ!",
   "{rank} rank": "{rank} ਰੈਂਕ",
   "{rank} streak": "{rank} ਸਟ੍ਰੀਕ",
-  "{rank} streak, puzzle {n} of {total}": "{rank} ਸਟ੍ਰੀਕ, ਪਹੇਲੀ {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} ਸਟ੍ਰੀਕ, ਪਹੇਲੀ {n}/{total}",
+  "Language": "ਭਾਸ਼ਾ",
+  "Same as device": "ਡਿਵਾਈਸ ਵਾਂਗ"
 };

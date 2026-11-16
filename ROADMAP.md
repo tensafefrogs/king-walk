@@ -4,8 +4,19 @@ What's planned for King Walk, and what's on hold. Done features move out of this
 
 ## Next
 
+iOS, in order of impact for the effort (November 2026):
+
+1. **Free reach in App Store Connect (minutes).** Turn on Family Sharing (one purchase covers a family: parents and kids are a big chess audience), and make the iPad app available on Apple silicon Macs and Apple Vision Pro (the game already has desktop and large layouts). Checkboxes, no build.
+2. **Save the streak (a day).** The daily reminder is opt-in and few find it. When a daily streak reaches 3, offer it right there ("Keep your 3-day streak: remind me at 6 pm?"), and on a day not yet played send one evening "your streak ends at midnight" note to players with a streak. Streaks are the strongest return habit the game has.
+3. **Today's puzzle on the Home Screen (two or three days).** The daily widget shows the position itself: the board drawn from the puzzle (SwiftUI, from the FEN the app already has), whose move, mate in n; a tap opens it. A puzzle in view is a stronger nudge than a number, and it shows in StandBy and on the Lock Screen too.
+4. **Apple Games app and Game Center activities (a day or two).** Since iOS 26 the Games app lists a game's activities and lets friends jump into them: add one for the daily puzzle and one per rank streak, so a friend's challenge or score opens the right place. Discovery among people who already play games.
+5. **Sticker pack (half a day).** The pieces, the crown, "Checkmate!", "Fork!", the streak flame, as iMessage stickers inside the app. Small but nearly free, and it puts the brand in group chats next to the daily share.
+6. **Apple Watch complications (a few days).** The daily streak and today's puzzle (done or not) on the watch face, from the same data as the Lock Screen widgets. Needs a small watch app; no playing on the watch.
+7. **Later, if sharing takes off: a Messages app.** Send a friend today's puzzle as a bubble, they solve it in Messages, both see who did it faster. The most viral of these, and the most work (a week or more).
+
+Not worth it now: Live Activities (a puzzle takes a minute, nothing to follow on the Lock Screen), an App Clip (a shared link already plays instantly on the website), CarPlay, Focus filters.
+
 - **Puzzle rush.** Three minutes, as many puzzles as you can, getting harder as you go. A Game Center leaderboard and a challenge to send a friend. It can reuse the rank streak code (`pickRunPuzzle`, `finishRun`) with a timer in place of the one-miss rule.
-- **A page per language for search engines, and a language picker.** Google crawls in English, so it only sees the English game. The website build could make kingwalk.app/de/, /hi/ and so on: the page with its title and description in that language and that language fixed, `hreflang` links between them and in the sitemap. A language picker in Settings would let players choose a language other than their device's, and links Google to the pages. Website only.
 - **Store screenshots in the new languages.** The 30 languages added in November 2026 show the English screenshots on their App Store pages; the listing workflow makes and uploads localized ones once a version is editable (the next version).
 
 ## On hold

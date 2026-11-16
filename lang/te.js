@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} ర్యాంక్ పూర్తి!",
   "{rank} rank": "{rank} ర్యాంక్",
   "{rank} streak": "{rank} ర్యాంక్ వరుస",
-  "{rank} streak, puzzle {n} of {total}": "{rank} ర్యాంక్ వరుస, పజిల్ {total}లో {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} ర్యాంక్ వరుస, పజిల్ {total}లో {n}",
+  "Language": "భాష",
+  "Same as device": "పరికరం లాగే"
 };

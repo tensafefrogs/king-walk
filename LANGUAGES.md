@@ -11,9 +11,15 @@ Chinese. This page says how the game picks and loads them, how to add one, and t
 - **Regional tables** are laid over their language's: `pt-PT` (Portugal and Africa) and `es-ES` (Spain) hold only the
   strings that read differently there; the base `pt` is Brazil's and the base `es` Latin America's. `zh-Hant`
   (Taiwan, Hong Kong, Macau) is a whole table.
-- **Picking:** a small script at the top of the page's scripts (`LANGS`, `VARIANTS`) takes the player's first
-  language the game has, and the regional table their region asks for, then loads only those files (a player in
-  English loads none). `?lang=de` or `?lang=pt-PT` overrides it, for tests and screenshots. `KW_LANG` tells the
+- **Picking:** a small script at the top of the page's scripts (`LANGS`, `VARIANTS`) takes, in order: `?lang=de` (for
+  tests and screenshots), the language a language page is in (below), the one chosen in Settings → Language (kept in
+  localStorage as `kw-lang`), else the player's first language the game has, with the regional table their region
+  asks for. It loads only those files (a player in English loads none).
+- **Language pages:** the website build makes kingwalk.app/de/, /hi/, /pt-PT/… (`scripts/langpages.py`): the page with
+  its language fixed, its title and description from that language's App Store listing (also in the link preview
+  tags), its files reached from one folder down (`KW_ROOT`), and hreflang links between all of them, also in the
+  sitemap. They're how search engines, which crawl in English, see the game in each language. The repo has only the
+  one `index.html`; the pages exist on the website. `KW_LANG` tells the
   game what was picked; dates and times follow the player's own region (`LOCALE`), with digits always 0-9.
 - **Right to left:** Arabic, Hebrew and Urdu (`RTL`) set `dir="rtl"`. The page mirrors; the board, its coordinates
   and the rating chart stay left to right, and a sideways phone keeps the board on the same side.
@@ -42,7 +48,8 @@ Chinese. This page says how the game picks and loads them, how to add one, and t
 5. The store: `ios/store/l10n/<locale>.json` (as `es-ES.json`) with `"from_version"`, the first app version whose
    build has the language; the locale in the screenshots list in `.github/workflows/store.yml`; and What's New for it
    in `ios/release.json` when that version ships.
-6. The website's structured data (`inLanguage` in `.github/workflows/pages.yml`), the list in `testing/STATS.md`,
+6. Its name in `LANG_NAMES` (`index.html`, the Settings picker), the website's structured data (`inLanguage` in
+   `.github/workflows/pages.yml`; its language page comes by itself once the store listing exists), the list in `testing/STATS.md`,
    the press kit's language list and the count wherever the listing and `CHANGELOG.md` give one.
 7. Test: `node testing/unit.js` (every key, placeholders, the loader's list matches the files), then the layout check
    in the new language on the sizes that break first, and look at it on a phone (`?lang=<tag>`).

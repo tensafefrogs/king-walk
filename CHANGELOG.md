@@ -9,12 +9,18 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
+- **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
+  whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
+  cause of the stuck zoom). The game now lays itself out for the bigger text and always fits.
+- **Settings → Language:** play in a language other than the device's (already on the website).
 - **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
   the green check once it's done, and the King Walk icon on the daily widget.
 
 ### Website only (live on kingwalk.app)
 
 - Everything in 1.0.2 below is already on the website.
+- **A page in each language** (kingwalk.app/de/, /hi/, /ja/…) with its title and description in that language, so
+  search engines and shared links show the game in it.
 - **The website downloads only your language**, so it starts as fast as before however many languages it has.
 - **The website's first puzzle needs about a tenth of the download** (15–30 KB instead of 125–250 KB): puzzles now
   come in small pieces instead of whole rating bands, and stay saved on the device until they change. Easier on slow

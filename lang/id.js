@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} tuntas!",
   "{rank} rank": "Pangkat {rank}",
   "{rank} streak": "Runtunan {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Runtunan {rank}, puzzle {n} dari {total}"
+  "{rank} streak, puzzle {n} of {total}": "Runtunan {rank}, puzzle {n} dari {total}",
+  "Language": "Bahasa",
+  "Same as device": "Sama dengan perangkat"
 };

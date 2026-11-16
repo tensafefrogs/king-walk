@@ -303,5 +303,7 @@
   "{rank} cleared!": "Rang {rank} superat!",
   "{rank} rank": "Rang {rank}",
   "{rank} streak": "Ratxa {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Ratxa {rank}, problema {n} de {total}"
+  "{rank} streak, puzzle {n} of {total}": "Ratxa {rank}, problema {n} de {total}",
+  "Language": "Idioma",
+  "Same as device": "Igual que el dispositiu"
 };

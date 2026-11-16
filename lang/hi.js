@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} रैंक पार!",
   "{rank} rank": "{rank} रैंक",
   "{rank} streak": "{rank} स्ट्रीक",
-  "{rank} streak, puzzle {n} of {total}": "{rank} स्ट्रीक, {total} में से पहेली {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} स्ट्रीक, {total} में से पहेली {n}",
+  "Language": "भाषा",
+  "Same as device": "डिवाइस जैसी"
 };

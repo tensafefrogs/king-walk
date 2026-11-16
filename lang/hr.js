@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}: riješeno!",
   "{rank} rank": "Rang {rank}",
   "{rank} streak": "Niz {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Niz {rank}, zadatak {n} od {total}"
+  "{rank} streak, puzzle {n} of {total}": "Niz {rank}, zadatak {n} od {total}",
+  "Language": "Jezik",
+  "Same as device": "Kao na uređaju"
 };

@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}: prejdené!",
   "{rank} rank": "Hodnosť {rank}",
   "{rank} streak": "Séria {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Séria {rank}, úloha {n} z {total}"
+  "{rank} streak, puzzle {n} of {total}": "Séria {rank}, úloha {n} z {total}",
+  "Language": "Jazyk",
+  "Same as device": "Podľa zariadenia"
 };

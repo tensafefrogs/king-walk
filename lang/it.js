@@ -303,5 +303,7 @@
   "{rank} cleared!": "Grado {rank} superato!",
   "{rank} rank": "Grado {rank}",
   "{rank} streak": "Serie {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
+  "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}",
+  "Language": "Lingua",
+  "Same as device": "Come il dispositivo"
 };

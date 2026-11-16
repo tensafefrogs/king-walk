@@ -303,5 +303,7 @@
   "{rank} cleared!": "Rang {rank} validé !",
   "{rank} rank": "Rang {rank}",
   "{rank} streak": "Série {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
+  "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}",
+  "Language": "Langue",
+  "Same as device": "Comme l'appareil"
 };

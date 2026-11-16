@@ -303,5 +303,7 @@
   "{rank} cleared!": "Avklarat: {rank}!",
   "{rank} rank": "Rang: {rank}",
   "{rank} streak": "{rank}-svit",
-  "{rank} streak, puzzle {n} of {total}": "{rank}-svit, problem {n} av {total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank}-svit, problem {n} av {total}",
+  "Language": "Språk",
+  "Same as device": "Som enheten"
 };

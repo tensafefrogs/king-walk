@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} ಶ್ರೇಣಿ ಪೂರ್ಣ!",
   "{rank} rank": "{rank} ಶ್ರೇಣಿ",
   "{rank} streak": "{rank} ಶ್ರೇಣಿ ಸರಣಿ",
-  "{rank} streak, puzzle {n} of {total}": "{rank} ಶ್ರೇಣಿ ಸರಣಿ, ಒಗಟು {total}ರಲ್ಲಿ {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} ಶ್ರೇಣಿ ಸರಣಿ, ಒಗಟು {total}ರಲ್ಲಿ {n}",
+  "Language": "ಭಾಷೆ",
+  "Same as device": "ಸಾಧನದಂತೆಯೇ"
 };

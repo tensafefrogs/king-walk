@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} நிலை முடிந்தது!",
   "{rank} rank": "{rank} நிலை",
   "{rank} streak": "{rank} நிலைத் தொடர்",
-  "{rank} streak, puzzle {n} of {total}": "{rank} நிலைத் தொடர், புதிர் {total}-இல் {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} நிலைத் தொடர், புதிர் {total}-இல் {n}",
+  "Language": "மொழி",
+  "Same as device": "சாதனத்தைப் போல"
 };
