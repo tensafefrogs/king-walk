@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}段位通过！",
   "{rank} rank": "{rank}段位",
   "{rank} streak": "{rank}挑战",
-  "{rank} streak, puzzle {n} of {total}": "{rank}挑战，第 {n}/{total} 题"
+  "{rank} streak, puzzle {n} of {total}": "{rank}挑战，第 {n}/{total} 题",
+  "Language": "语言",
+  "Same as device": "跟随设备"
 };

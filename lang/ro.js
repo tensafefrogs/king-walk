@@ -303,5 +303,7 @@
   "{rank} cleared!": "Rang trecut: {rank}!",
   "{rank} rank": "Rangul {rank}",
   "{rank} streak": "Seria {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Seria {rank}, problema {n} din {total}"
+  "{rank} streak, puzzle {n} of {total}": "Seria {rank}, problema {n} din {total}",
+  "Language": "Limbă",
+  "Same as device": "Ca pe dispozitiv"
 };

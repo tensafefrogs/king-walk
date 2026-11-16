@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} ପାର ହେଲା!",
   "{rank} rank": "{rank} ର‍୍ୟାଙ୍କ",
   "{rank} streak": "{rank} ଷ୍ଟ୍ରିକ",
-  "{rank} streak, puzzle {n} of {total}": "{rank} ଷ୍ଟ୍ରିକ, ପଜଲ {total}ରୁ {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} ଷ୍ଟ୍ରିକ, ପଜଲ {total}ରୁ {n}",
+  "Language": "ଭାଷା",
+  "Same as device": "ଡିଭାଇସ୍ ପରି"
 };

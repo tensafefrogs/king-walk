@@ -435,7 +435,7 @@ html.fold-h.daily .progress { display: block; }
 .week .today i { border-color: var(--p-coral); border-width: 3px; }
 .week .today { color: var(--fg); }
 .di-streak { margin: 0; font: 700 16px var(--font-display); }
-.setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
+.setrow select { max-width: 100%; min-width: 0; min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
 .run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; container-type: inline-size; }
 @container (max-width: 320px) { .run-btn span { font-size: 9.5px; letter-spacing: -0.01em; } }          /* long rank names (Springer, Конь…) in a narrow row */
 #endRunBtn { display: none; }
@@ -880,6 +880,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <button type="button" data-mode="hard" aria-pressed="false">Harder</button>
           </div>
         </div>
+        <div class="setrow"><span id="langLabel">Language</span><select id="langSel" aria-labelledby="langLabel"></select></div>
         <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
         <div class="setrow" id="remindRow" hidden><span id="remindLabel">Daily reminder</span><select id="remindSel" aria-labelledby="remindLabel"></select></div>
         <p class="note" id="remindNote" hidden>Notifications are off for King Walk. Turn them on in the Settings app.</p>
@@ -1034,14 +1035,20 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   var SAME = { iw: "he", no: "nb", nn: "nb", "in": "id" };          /* old or sister codes for languages the game has */
   var base = function (t) { var c = String(t).toLowerCase().split(/[-_]/)[0]; return SAME[c] || c; };          /* fil-PH is Filipino, not Finnish */
   var mine = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
-  var param = (location.search.match(/[?&]lang=([a-z]{2}(?:-[A-Za-z]{2,4})?)/) || [])[1];
+  /* the language asked for: ?lang=, else the page's own (kingwalk.app/de/ is the page in German, made by the website
+     build: <meta name="kw-lang">), else the one chosen in Settings (kw-lang in localStorage), else the device's */
+  var fixed = document.querySelector('meta[name="kw-lang"]'), chosen = null;
+  try { chosen = localStorage.getItem("kw-lang"); } catch (e) {}
+  var param = (location.search.match(/[?&]lang=([a-z]{2}(?:-[A-Za-z]{2,4})?)/) || [])[1] || (fixed && fixed.content) || chosen || "";
   var lang = param && LANGS.indexOf(base(param)) >= 0 ? base(param) : "en";
   if (!param || lang === "en" && base(param) !== "en") for (var i = 0; i < mine.length; i++) if (LANGS.indexOf(base(mine[i])) >= 0) { lang = base(mine[i]); break; }
   var tag = param && base(param) === lang ? param : lang;          /* the player's own tag in that language (es-MX, zh-TW) */
   for (var j = 0; j < mine.length && !(param && base(param) === lang); j++) if (base(mine[j]) === lang) { tag = String(mine[j]); break; }
   var variant = ""; for (var v in VARIANTS) if (v.slice(0, 2) === lang && (VARIANTS[v].test(tag) || tag.toLowerCase() === v.toLowerCase())) variant = v;
-  window.KW_LANG = { langs: LANGS, lang: lang, variant: variant, tag: tag, first: base(mine[0] || "") };
-  if (lang !== "en") document.write('<script src="lang/' + lang + '.js"><\/script>' + (variant ? '<script src="lang/' + variant + '.js"><\/script>' : ""));
+  /* ROOT: the way back to the site's top folder from this page ("../" on a language page), for the game's files */
+  var root = document.querySelector('meta[name="kw-root"]'); window.KW_ROOT = root ? root.content : "";
+  window.KW_LANG = { langs: LANGS, lang: lang, variant: variant, tag: tag, first: base(mine[0] || ""), chosen: chosen || "" };
+  if (lang !== "en") document.write('<script src="' + KW_ROOT + 'lang/' + lang + '.js"><\/script>' + (variant ? '<script src="' + KW_ROOT + 'lang/' + variant + '.js"><\/script>' : ""));
 })();
 </script>
 <script>
@@ -1055,6 +1062,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
    whole text nodes and aria-label / title / placeholder values whose English text is a key, and elements marked
    data-t, whose inner HTML is the key (for sentences with links in them). */
 const { langs: LANGS, lang: LANG, variant: VARIANT, tag: USER_TAG } = window.KW_LANG;          /* picked before the game (the script above) */
+const ROOT = window.KW_ROOT || "";          /* "../" on a language page (kingwalk.app/de/): where the game's files are */
 const RTL = ["ar", "he", "ur"];          /* written right to left: the page mirrors, the board and the chart don't */
 const LANG_TAG = VARIANT || LANG;          /* the page's lang attribute, and the lang/ stat */
 /* LOCALE: the player's own language and region for dates and times (en-GB: a 24-hour clock, es-MX), digits always 0-9 */
@@ -1219,7 +1227,7 @@ const chunkData = {};          /* "band/k" -> promise of that chunk's parsed puz
 function loadChunk(b, k) {
   const key = b + "/" + k;
   if (!chunkData[key]) {
-    chunkData[key] = fetch("p/" + b + "/" + k + ".txt?v=" + PUZZLES[b].v[k]).then(r => { if (!r.ok) throw new Error("load"); return r.text(); }).then(t =>
+    chunkData[key] = fetch(ROOT + "p/" + b + "/" + k + ".txt?v=" + PUZZLES[b].v[k]).then(r => { if (!r.ok) throw new Error("load"); return r.text(); }).then(t =>
       t.split("\n").filter(Boolean).map(line => { const f = line.split("\t"); return { id: f[0], fen: f[1], moves: f[2].split(" "), r: +f[3], th: f[4] ? f[4].split(" ") : [] }; })
     ).catch(e => { delete chunkData[key]; throw e; });
   }
@@ -1323,7 +1331,7 @@ const APP = (() => {
 const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false }, window.KING_WALK_CONFIG || {});
 /* The website's address: on the web, wherever this page is; in the app, the configured site */
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
-  ? location.origin + location.pathname.replace(/index\.html$/, "") : CONFIG.site;
+  ? new URL(ROOT || "./", location.href.replace(/[?#].*$/, "").replace(/index\.html$/, "")).href : CONFIG.site;          /* the site's top, also from a language page */
 /* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web.
    The daily puzzle's share always links the site's daily (dailyShareText). */
 const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE;
@@ -2193,6 +2201,28 @@ window.kingWalkOpen = what => {
   startDaily();
 };
 window.kingWalkReminders = granted => { $("remindNote").hidden = !!granted || S.remind < 0; if (!granted && S.remind >= 0) { S.remind = -1; save(); renderRemind(); } };
+/* Language: the device's, or one chosen here (kept in localStorage, kw-lang; the loader at the top reads it). Each in
+   its own name. Choosing reloads the main page in that language (a language page, kingwalk.app/de/, keeps its own). */
+const LANG_NAMES = { en: "English", es: "Español (Latinoamérica)", "es-ES": "Español (España)", fr: "Français", de: "Deutsch", it: "Italiano",
+  pt: "Português (Brasil)", "pt-PT": "Português (Portugal)", nl: "Nederlands", ru: "Русский", ja: "日本語", ko: "한국어", zh: "简体中文", "zh-Hant": "繁體中文",
+  ar: "العربية", he: "עברית", hi: "हिन्दी", mr: "मराठी", ur: "اردو", bn: "বাংলা", gu: "ગુજરાતી", pa: "ਪੰਜਾਬੀ", ta: "தமிழ்", te: "తెలుగు", kn: "ಕನ್ನಡ",
+  ml: "മലയാളം", or: "ଓଡ଼ିଆ", th: "ไทย", tr: "Türkçe", id: "Bahasa Indonesia", ms: "Bahasa Melayu", vi: "Tiếng Việt", pl: "Polski", cs: "Čeština",
+  sk: "Slovenčina", sl: "Slovenščina", hr: "Hrvatski", uk: "Українська", el: "Ελληνικά", ro: "Română", hu: "Magyar", ca: "Català", sv: "Svenska",
+  da: "Dansk", nb: "Norsk", fi: "Suomi" };
+function renderLang() {
+  const sel = $("langSel"), fixed = document.querySelector('meta[name="kw-lang"]');
+  if (!sel.options.length) {
+    sel.append(new Option(T("Same as device"), ""));
+    for (const [tag, name] of Object.entries(LANG_NAMES)) { const o = new Option(name, tag); o.lang = tag; sel.append(o); }
+  }
+  sel.value = fixed ? LANG_TAG : (window.KW_LANG.chosen || "");
+}
+$("langSel").addEventListener("change", e => {
+  const v = e.target.value;
+  try { if (v) localStorage.setItem("kw-lang", v); else localStorage.removeItem("kw-lang"); } catch (err) {}
+  track("lang-chosen/" + (v || "device"));
+  location.replace(new URL(ROOT || "./", location.href).href);          /* the main page, without ?lang=, in the new language */
+});
 function renderRemind() {
   const sel = $("remindSel");
   if (!sel.options.length) {
@@ -2512,7 +2542,7 @@ function renderPanel(fromRating) {
     '<polygon points="4,64 ' + line + ' 296,64" fill="url(#cg)" stroke="none"/>' +
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
-  renderRuns(); renderDaily(); renderRemind();
+  renderRuns(); renderDaily(); renderRemind(); renderLang();
 }
 
 $("hintBtn").addEventListener("click", showHint);
@@ -2594,7 +2624,7 @@ function promoBar() {
   if (document.querySelector(".appbar") || !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(navigator.userAgent) || !Promo.can("bar")) return;
   if (matchMedia("(orientation: landscape) and (max-height: 520px)").matches) return;          /* sideways the board needs the whole height: wait for upright */
   const bar = document.createElement("div"); bar.className = "appbar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "King Walk for iPhone and iPad");
-  bar.innerHTML = '<img src="icons/apple-touch-icon.png" alt=""><div></div><a class="btn small primary"></a><button type="button" class="tip-x">\u00d7</button>';
+  bar.innerHTML = '<img src="' + ROOT + 'icons/apple-touch-icon.png" alt=""><div></div><a class="btn small primary"></a><button type="button" class="tip-x">\u00d7</button>';
   bar.querySelector("div").append(T("King Walk for iPhone and iPad"), Object.assign(document.createElement("span"), { textContent: T("Widgets, a daily reminder, Game Center, iCloud sync") }));
   Promo.link("bar", bar.querySelector("a")).textContent = T("Get");
   bar.querySelector("a").addEventListener("click", () => bar.remove());
@@ -2610,7 +2640,7 @@ function promoBar() {
 function promoFoot() {
   const v = Promo.read(); if (v.off > Date.now()) return;
   const foot = document.createElement("div"); foot.className = "appfoot"; foot.setAttribute("role", "region"); foot.setAttribute("aria-label", "King Walk for iPhone and iPad");
-  foot.innerHTML = '<img src="icons/apple-touch-icon.png" alt=""><a></a><button type="button" class="tip-x">\u00d7</button>';
+  foot.innerHTML = '<img src="' + ROOT + 'icons/apple-touch-icon.png" alt=""><a></a><button type="button" class="tip-x">\u00d7</button>';
   const a = Promo.link("foot", foot.querySelector("a")); a.append(T("King Walk for iPhone and iPad") + " ", Object.assign(document.createElement("b"), { textContent: "App Store \u203a" }));
   const x = foot.querySelector(".tip-x"); x.setAttribute("aria-label", T("Close"));
   x.addEventListener("click", () => { Promo.write(Object.assign(Promo.read(), { off: Date.now() + 30 * 864e5 })); track("promo/foot/close"); hideSoft(foot, () => foot.remove()); });
@@ -2794,7 +2824,7 @@ if (typeof Chess !== "function") {
 </script>
 <script>
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
-  window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+  window.addEventListener("load", function () { navigator.serviceWorker.register((window.KW_ROOT || "") + "sw.js").catch(function () {}); });
 }
 </script>
 </body>

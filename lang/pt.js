@@ -303,5 +303,7 @@
   "{rank} cleared!": "Patente {rank} concluída!",
   "{rank} rank": "Patente {rank}",
   "{rank} streak": "Sequência {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
+  "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}",
+  "Language": "Idioma",
+  "Same as device": "Igual ao dispositivo"
 };

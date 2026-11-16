@@ -303,5 +303,7 @@
   "{rank} cleared!": "اجتزت رتبة {rank}!",
   "{rank} rank": "رتبة {rank}",
   "{rank} streak": "سلسلة {rank}",
-  "{rank} streak, puzzle {n} of {total}": "سلسلة {rank}، اللغز {n} من {total}"
+  "{rank} streak, puzzle {n} of {total}": "سلسلة {rank}، اللغز {n} من {total}",
+  "Language": "اللغة",
+  "Same as device": "مثل الجهاز"
 };

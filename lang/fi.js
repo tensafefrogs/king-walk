@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} läpäisty!",
   "{rank} rank": "Arvo: {rank}",
   "{rank} streak": "{rank}-putki",
-  "{rank} streak, puzzle {n} of {total}": "{rank}-putki, tehtävä {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank}-putki, tehtävä {n}/{total}",
+  "Language": "Kieli",
+  "Same as device": "Kuten laitteessa"
 };

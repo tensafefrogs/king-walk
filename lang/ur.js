@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} درجہ مکمل!",
   "{rank} rank": "{rank} درجہ",
   "{rank} streak": "{rank} سلسلہ",
-  "{rank} streak, puzzle {n} of {total}": "{rank} سلسلہ، {total} میں سے پزل {n}"
+  "{rank} streak, puzzle {n} of {total}": "{rank} سلسلہ، {total} میں سے پزل {n}",
+  "Language": "زبان",
+  "Same as device": "ڈیوائس جیسی"
 };

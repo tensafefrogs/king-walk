@@ -303,5 +303,7 @@
   "{rank} cleared!": "Rang {rank} geschafft!",
   "{rank} rank": "Rang {rank}",
   "{rank} streak": "Serie {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
+  "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}",
+  "Language": "Sprache",
+  "Same as device": "Wie Gerät"
 };

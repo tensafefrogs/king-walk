@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank}: opravljeno!",
   "{rank} rank": "Naziv {rank}",
   "{rank} streak": "Niz {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Niz {rank}, uganka {n} od {total}"
+  "{rank} streak, puzzle {n} of {total}": "Niz {rank}, uganka {n} od {total}",
+  "Language": "Jezik",
+  "Same as device": "Kot v napravi"
 };

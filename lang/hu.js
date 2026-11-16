@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} rang teljesítve!",
   "{rank} rank": "{rank} rang",
   "{rank} streak": "{rank}-sorozat",
-  "{rank} streak, puzzle {n} of {total}": "{rank}-sorozat, feladvány: {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank}-sorozat, feladvány: {n}/{total}",
+  "Language": "Nyelv",
+  "Same as device": "Az eszköz szerint"
 };

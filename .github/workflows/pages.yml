@@ -103,6 +103,8 @@ jobs:
                   open('_site/robots.txt', 'w').write(f'User-agent: *\nAllow: /\n\nSitemap: {site}sitemap.xml\n')
                   print('robots.txt: written')
           PY
+          # the page in each language (kingwalk.app/de/…), with hreflang links and sitemap entries (scripts/langpages.py)
+          python3 scripts/langpages.py _site "$SITE_URL"
           du -sh _site
       - uses: actions/upload-pages-artifact@v3
         with:

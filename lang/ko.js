@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} 등급 통과!",
   "{rank} rank": "{rank} 등급",
   "{rank} streak": "{rank} 도전",
-  "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
+  "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐",
+  "Language": "언어",
+  "Same as device": "기기 설정과 동일"
 };

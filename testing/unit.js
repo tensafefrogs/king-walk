@@ -285,6 +285,41 @@ function translations() {
     check(got.join() === want.join(), `${locale}: loads only ${want.join(", ") || "no language table"}`, got);
     await w.ctx.close();
   }
+  // the language pages the website build makes (scripts/langpages.py): kingwalk.app/de/ is the game in German with its
+  // files one folder up, its title and description in German, and hreflang links; and the language picker
+  {
+    const site = path.join(__dirname, "out", "site"), repo = path.join(__dirname, "..");
+    fs.rmSync(site, { recursive: true, force: true }); fs.mkdirSync(site, { recursive: true });
+    for (const f of ["chess.js", "lang", "config.js", "sw.js", "manifest.webmanifest", "og.png", "p", "fonts", "icons", "privacy.html"]) fs.symlinkSync(path.join(repo, f), path.join(site, f));
+    fs.copyFileSync(path.join(repo, "index.html"), path.join(site, "index.html"));
+    fs.writeFileSync(path.join(site, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.org/</loc></url>\n</urlset>\n');
+    require("child_process").execFileSync("python3", [path.join(repo, "scripts", "langpages.py"), site, "https://example.org/"]);
+    const de = fs.readFileSync(path.join(site, "de", "index.html"), "utf8"), sm = fs.readFileSync(path.join(site, "sitemap.xml"), "utf8");
+    check(/<html lang="de">/.test(de) && /<title>King Walk: Schachrätsel<\/title>/.test(de) && /hreflang="hi" href="https:\/\/example.org\/hi\/"/.test(de)
+      && /<link rel="canonical" href="https:\/\/example.org\/de\/">/.test(de) && /url\(\.\.\/fonts\//.test(de) && /<use [^>]*href="#pc-/.test(de),
+      "language page: German title, lang, canonical, hreflang, files one folder up, in-page links untouched");
+    check(/<html lang="ar" dir="rtl">/.test(fs.readFileSync(path.join(site, "ar", "index.html"), "utf8")) && fs.existsSync(path.join(site, "pt-PT", "index.html")), "language page: Arabic right to left; regional pages made");
+    check((sm.match(/<loc>/g) || []).length === 46 && /xhtml:link rel="alternate" hreflang="x-default"/.test(sm), "sitemap: every language page, with hreflang links", (sm.match(/<loc>/g) || []).length);
+    const dectx = { window: {} }; vm.runInNewContext(fs.readFileSync(path.join(repo, "lang", "de.js"), "utf8"), dectx);
+    const deHint = dectx.window.KW_STRINGS.de.Hint;
+    const srv2 = await server.start(site), ctx2 = await b.newContext({ locale: "en-US" }), p2 = await ctx2.newPage(), bad = [], errs2 = [];
+    p2.on("response", r => { if (r.status() >= 400) bad.push(r.status() + " " + r.url()); }); p2.on("pageerror", e => errs2.push(e.message));
+    await p2.goto(srv2.url + "de/");
+    await p2.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 }).catch(() => {});
+    const x = await p2.evaluate(() => ({ lang: document.documentElement.lang, hint: $("hintLabel").textContent, pz: !!(cur && cur.pz), site: SITE }));
+    check(x.lang === "de" && x.hint === deHint && x.pz && !bad.length && !errs2.length, "language page plays: German, a puzzle loaded, no missing files", { x, bad: bad.slice(0, 3), errs2 });
+    // the picker: French is kept and the main page reloads in French; Same as device forgets it
+    await p2.goto(srv2.url);
+    await p2.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 });
+    await Promise.all([p2.waitForNavigation(), p2.selectOption("#langSel", "fr")]);
+    await p2.waitForFunction(() => typeof cur !== "undefined" && cur, null, { timeout: 15000 });
+    const fr = await p2.evaluate(() => ({ lang: document.documentElement.lang, sel: $("langSel").value, kept: localStorage.getItem("kw-lang") }));
+    await Promise.all([p2.waitForNavigation(), p2.selectOption("#langSel", "")]);
+    await p2.waitForFunction(() => typeof cur !== "undefined" && cur, null, { timeout: 15000 });
+    const dev = await p2.evaluate(() => ({ lang: document.documentElement.lang, kept: localStorage.getItem("kw-lang") }));
+    check(fr.lang === "fr" && fr.sel === "fr" && fr.kept === "fr" && dev.lang === "en" && dev.kept === null, "language picker: French kept, then back to the device's", { fr, dev });
+    await ctx2.close(); srv2.close();
+  }
   // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
   // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
   for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {

@@ -303,5 +303,7 @@
   "{rank} cleared!": "Đã vượt qua cấp {rank}!",
   "{rank} rank": "Cấp {rank}",
   "{rank} streak": "Chuỗi {rank}",
-  "{rank} streak, puzzle {n} of {total}": "Chuỗi {rank}, câu {n}/{total}"
+  "{rank} streak, puzzle {n} of {total}": "Chuỗi {rank}, câu {n}/{total}",
+  "Language": "Ngôn ngữ",
+  "Same as device": "Theo thiết bị"
 };

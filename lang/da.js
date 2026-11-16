@@ -303,5 +303,7 @@
   "{rank} cleared!": "{rank} klaret!",
   "{rank} rank": "Rang: {rank}",
   "{rank} streak": "{rank}-stime",
-  "{rank} streak, puzzle {n} of {total}": "{rank}-stime, opgave {n} af {total}"
+  "{rank} streak, puzzle {n} of {total}": "{rank}-stime, opgave {n} af {total}",
+  "Language": "Sprog",
+  "Same as device": "Som enheden"
 };
