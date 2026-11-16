@@ -113,6 +113,17 @@ To submit 1.0 for review once TestFlight looks good:
 
 Not possible through Apple's API, so still done in App Store Connect: reading and answering App Review's messages, App Privacy answers, and agreements.
 
+### Things that have gone wrong (and what to do instead)
+
+- **Emoji in What's New or What to Test.** App Store Connect refuses them as `INVALID_TEXT` and the run fails. `plain_notes` in `release.py` drops the ones it knows (emoji beyond the Basic Multilingual Plane, the older symbols ♟️ ⏱ ✅, the emoji variation selector), but write notes without emoji.
+- **A push to `release.json` always runs a release.** With `"build": true` it builds again (about 10 minutes). After a failed run whose build uploaded fine, set `"build": false` to reuse it.
+- **Cancelling a run doesn't take back what it already did.** A submission happens within seconds of its step starting; a cancel came too late once. To hold a version, change `release.json` first (rename `app_store`, or `"submit": false`) and push, then look at `store/status.md` or the run's log for what actually happened.
+- **Swapping the build of a version in review** works only with the same version number: set `"replace_in_review": true` and the same `version`. A new number waits behind the version in review.
+- **New languages.** Adding a language's name and subtitle makes App Store Connect add an empty page for it to the version being prepared; `upload_listing.py` reads the version's pages after that and fills them in (they were once left empty, and App Review refused the version for missing descriptions and keywords). Languages wait for the first version whose build has them (`"from_version"` in `store/l10n/<locale>.json`); App Store Connect uses region codes for some (`ta-IN`, `bn-BD`, `no` for Norwegian).
+- **Screenshots still processing.** Right after the listing upload, App Store Connect refuses the submission until the new screenshots are processed; `submit_for_review` waits and retries (up to 15 minutes). Localized screenshots can only be added while the version is editable; a language without its own shows the English ones.
+- **Two workflows at once.** The App Store listing workflow (`store.yml`) and this one both edit App Store Connect. Let a listing run finish before pushing a release.
+- **Reading a run's log.** Logs are long; the useful lines start with `App Store:`, `TestFlight:`, `Language`, `Screenshots:` and API errors (`failed with 409`, then `"code"` and `"detail"`). `store/status.md` is rewritten at the end of every run.
+
 ## Working on a Mac (optional)
 
 ```

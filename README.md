@@ -6,7 +6,7 @@ It is a static web page with no server and no accounts. Progress is saved in the
 
 There is also an iOS app for iPhone and iPad (`ios/`), which plays the same page offline and adds haptics, Game Center, iCloud sync, widgets (rank and daily puzzle, including StandBy and the Lock Screen), a Control Center button, a Siri and Shortcuts action, a Home Screen quick action and an optional daily reminder. See `ios/README.md`.
 
-Every day there's a daily puzzle, the same for everyone, picked from the date with no server (`dailyPuzzle` in `index.html`). What's planned next is in `ROADMAP.md`, and what changed in each release in `CHANGELOG.md`.
+Every day there's a daily puzzle, the same for everyone, picked from the date with no server (`dailyPuzzle` in `index.html`). What's planned next is in `ROADMAP.md`, what changed in each release in `CHANGELOG.md`, and how the 44 languages work in `LANGUAGES.md`.
 
 The name comes from chess: a king walk is when a king marches up the board to help win the game. The best-known example is Short vs. Timman, Tilburg 1991. In this game you start at Pawn rank and work your way up to King.
 
