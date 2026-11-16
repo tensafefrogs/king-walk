@@ -15,6 +15,23 @@ A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ fr
 - Arabic and Hebrew run right to left (`html[dir="rtl"]`): the page mirrors, the board and the chart don't. Write new CSS with logical properties (`margin-inline-start`, `inset-inline-end`) rather than left and right, flip direction-giving icons (`svg.flip`), and include `ar-SA` when you run the layout check on something new.
 - Keep the owner's accounts and IDs out of the code: the GoatCounter address, site, bundle ID and App Store ID come from Actions variables through `config.js` and the build (README, "Your own copy").
 
+## Where to look first
+
+- What changed and what's waiting for the app: `CHANGELOG.md`. What's planned: `ROADMAP.md`.
+- Where the app stands in App Store Connect: `ios/store/status.md` (rewritten by every release run and every 6 hours), then the run's log on GitHub (Actions → App Store release).
+- Releasing, its settings and what has gone wrong before: `ios/README.md`, "Releasing from the repo". The store listing and its languages: `ios/store/listing.md`.
+- Languages: how they're loaded, how to add one and the brief for translators: `LANGUAGES.md`.
+- The stats and what each event means: `testing/STATS.md`; `python3 testing/stats.py` (needs `GOATCOUNTER_TOKEN` and `GOATCOUNTER_URL`).
+- Puzzles: `scripts/puzzles.py` (its docstring says how the chunks work).
+
+## Mistakes to avoid (each has happened)
+
+- Committing with a failing test: check the last line says `0 failed` (and smoke `all passed`) before every commit; don't pipe the output through `tail` and miss a failure above it.
+- Pushing before the layout check finishes: `node testing/layout.js` is slow (about 12 minutes per language for every size). Run several at once with `LAYOUT_OUT=<folder>` per run, or name the languages and sizes a change can affect; for something everywhere (a card, a font, a language), run every language on the sizes that break first: `phone-320,phone-375-land,ipad-slideover,duo-book,text-xxxl,text-ax5`.
+- Assuming Chromium shows what an iPhone does: Safari and the app's web view zoom, pick fonts and treat safe areas differently. The layout check can't see a zoom; a player's screenshot can. Ask for one.
+- Anything that changes a band's puzzle order: the daily puzzle and saves find puzzles by their place in the band, and the app versions already out pick the daily from the same files.
+- Asking an App Store action in an ambiguous way: get a clear go-ahead naming the version before submitting or releasing, and say exactly what will happen.
+
 ## Keep the store materials current
 
 After any change that alters what's on screen (layout, text in the panels, colors, the board, pieces), regenerate the store screenshots in the same change and look at them before committing:

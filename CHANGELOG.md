@@ -7,7 +7,23 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.2 with a new build, replacing the one in review)
+### Next app version
+
+- Nothing yet.
+
+### Website only (live on kingwalk.app)
+
+- Everything in 1.0.2 below is already on the website.
+- **The website downloads only your language**, so it starts as fast as before however many languages it has.
+- **The website's first puzzle needs about a tenth of the download** (15–30 KB instead of 125–250 KB): puzzles now
+  come in small pieces instead of whole rating bands, and stay saved on the device until they change. Easier on slow
+  connections.
+- **The iPhone app is suggested now and then** on iPhone and iPad browsers: a bar between puzzles in Chrome and other
+  browsers without Safari's banner, a line on the daily's result and on streak awards, a quiet bar at the end of the
+  page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
+  week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
+
+## 1.0.2 (in App Review, submitted 16 November 2026)
 
 - **44 languages, up from 11:** every language the App Store has. New: Arabic and Hebrew (the whole game laid out
   right to left; the board stays as in any chess book), Hindi, Bangla, Marathi, Tamil, Telugu, Gujarati, Kannada,
@@ -25,18 +41,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 - **Daily share starts with ♟️**, so it reads as chess at a glance in a group chat.
 - **Cards fit the smallest phones** (iPhone SE): a shorter picture, and a card scrolls inside rather than off screen.
 - **Rank streak badges** keep their names on narrow screens (long names like Springer or Конь).
-
-### Website only (live on kingwalk.app)
-
-- Everything above is already on the website.
-- **The website downloads only your language**, so it starts as fast as before however many languages it has.
-- **The website's first puzzle needs about a tenth of the download** (15–30 KB instead of 125–250 KB): puzzles now
-  come in small pieces instead of whole rating bands, and stay saved on the device until they change. Easier on slow
-  connections.
-- **The iPhone app is suggested now and then** on iPhone and iPad browsers: a bar between puzzles in Chrome and other
-  browsers without Safari's banner, a line on the daily's result and on streak awards, a quiet bar at the end of the
-  page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
-  week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
+- Links from the app to the website say they came from the app, so the website doesn't suggest the app to people who have it.
 
 ## 1.0.1 (released 16 November 2026)
 
