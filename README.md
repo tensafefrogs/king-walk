@@ -39,7 +39,7 @@ The live copy is at https://kingwalk.app/ (it used to be at geoffstearns.com/kin
 node testing/smoke.js
 ```
 
-Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: tap and keyboard play, a rank streak, the foldable and sideways layouts. `node testing/unit.js` checks the rules one at a time: the rating, damaged saves, save codes, streak puzzles, awards, and that every language has every string. GitHub runs both on every push.
+Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: tap and keyboard play, a rank streak, the foldable and sideways layouts. `node testing/layout.js` checks the layout at every supported screen size (phones, iPad, desktop, iPhone Duo) in several languages with every overlay open. `node testing/unit.js` checks the rules one at a time: the rating, damaged saves, save codes, streak puzzles, awards, and that every language has every string. GitHub runs both on every push.
 
 ## Stats
 

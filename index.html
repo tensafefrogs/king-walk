@@ -424,7 +424,8 @@ html.fold-h.daily .progress { display: block; }
 .week .today { color: var(--fg); }
 .di-streak { margin: 0; font: 700 16px var(--font-display); }
 .setrow select { min-height: 34px; padding: 0 10px; border-radius: var(--r-ctl); border: 1.5px solid var(--line); background: var(--card); }
-.run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.run-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; container-type: inline-size; }
+@container (max-width: 320px) { .run-btn span { font-size: 9.5px; letter-spacing: -0.01em; } }          /* long rank names (Springer, Конь…) in a narrow row */
 #endRunBtn { display: none; }
 .play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
 .play-btns.run #endRunBtn { display: inline-flex; }
@@ -729,6 +730,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
         <div class="setrow" id="remindRow" hidden><span id="remindLabel">Daily reminder</span><select id="remindSel" aria-labelledby="remindLabel"></select></div>
         <p class="note" id="remindNote" hidden>Notifications are off for King Walk. Turn them on in the Settings app.</p>
+        <div class="setrow" id="widgetRow" hidden><span>Home Screen widget</span><span id="widgetCtl"></span></div>
         <div class="setrow" id="gcRow" hidden><span>Game Center</span><button type="button" id="gcBtn" class="btn small">Leaderboards and achievements</button></div>
         <div class="menu-sec">
           <details>
@@ -861,7 +863,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <p class="di-streak" id="diStreak"></p>
         <p class="note">Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.</p>
       </div>
-      <p class="note" id="appPromo" hidden><span>Also on iPhone and iPad, with widgets, Game Center and iCloud sync.</span> <a id="appLink" target="_blank" rel="noopener">App Store ›</a></p>
+      <p class="note" id="appPromo" hidden><span>Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.</span> <a id="appLink" target="_blank" rel="noopener">App Store ›</a></p>
     </section>
   </main>
 </div>
@@ -2381,7 +2383,7 @@ function promoBar() {
   if (matchMedia("(orientation: landscape) and (max-height: 520px)").matches) return;          /* sideways the board needs the whole height: wait for upright */
   const bar = document.createElement("div"); bar.className = "appbar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "King Walk for iPhone and iPad");
   bar.innerHTML = '<img src="icons/apple-touch-icon.png" alt=""><div></div><a class="btn small primary"></a><button type="button" class="tip-x">\u00d7</button>';
-  bar.querySelector("div").append(T("King Walk for iPhone and iPad"), Object.assign(document.createElement("span"), { textContent: T("Widgets, daily reminders and iCloud sync") }));
+  bar.querySelector("div").append(T("King Walk for iPhone and iPad"), Object.assign(document.createElement("span"), { textContent: T("Widgets, a daily reminder, Game Center, iCloud sync") }));
   Promo.link("bar", bar.querySelector("a")).textContent = T("Get");
   bar.querySelector("a").addEventListener("click", () => bar.remove());
   const x = bar.querySelector(".tip-x"); x.setAttribute("aria-label", T("Close"));
@@ -2397,7 +2399,7 @@ if (Promo.ok && !Promo.owner()) {
   $("appLink").addEventListener("click", () => { Promo.write(Object.assign(Promo.read(), { got: true })); track("app-promo"); });
   /* the settings the app has: shown with a link instead of a control */
   const appOnly = (row, control) => { const a = Promo.link("settings", document.createElement("a")); a.className = "app-only"; a.textContent = T("In the app \u203a"); control.hidden = true; control.after(a); $(row).hidden = false; };
-  appOnly("remindRow", $("remindSel")); appOnly("gcRow", $("gcBtn"));
+  appOnly("remindRow", $("remindSel")); appOnly("widgetRow", $("widgetCtl")); appOnly("gcRow", $("gcBtn"));
   /* moving progress: the app does it with iCloud */
   const note = document.createElement("p"), a = Promo.link("save", document.createElement("a")); note.className = "note";
   a.textContent = "App Store \u203a"; note.append(T("In the app, progress follows you between your devices with iCloud.") + " ", a); $("saveHelp").after(note);
