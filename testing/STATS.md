@@ -38,9 +38,8 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `open/daily` | The app asked for the daily: a widget, Control Center, Siri, the quick action or a reminder (also the `#daily` link followed with the game already open) | `kingWalkOpen()` |
 | `daily/freeze-earned` | A streak freeze earned (every 7 days in a row, up to 2 held) | `finishDaily()` |
 | `daily/freeze-used` | Streak freezes used to cover skipped days (sent once per catch-up) | `checkFreezes()` |
-| `app-promo` | The website's "Also on iPhone and iPad" App Store link tapped (shown on Apple devices once the app is on sale) | the line under Progress |
-| `promo/<where>/shown`, `promo/<where>/tap` | The website suggested the iPhone app, and the suggestion was followed. `<where>`: `bar` (the slim bar in Chrome, Firefox or Edge on iPhone and iPad), `daily` (a line on the daily's done card), `streak` (on a daily streak's achievement), `settings` (the app-only settings), `save` (Advanced). At most one a week, each at most once a month; iPhone and iPad only | `promoBar()`, `promoLine()` |
-| `promo/bar/close` | The bar's × (hides the suggestions for a month) | `promoBar()` |
+| `promo/<where>/shown`, `promo/<where>/tap` | The website suggested the iPhone app, and the suggestion was followed. `<where>`: `bar` (the slim bar in Chrome, Firefox or Edge on iPhone and iPad), `daily` (a line on the daily's done card), `streak` (on a daily streak's achievement), `settings` (the app-only settings), `save` (Advanced), `foot` (the quiet bar at the bottom of the screen, shown once per visit when there's room below the board; it isn't limited to once a week). At most one a week, each at most once a month; iPhone and iPad only | `promoBar()`, `promoLine()` |
+| `promo/bar/close`, `promo/foot/close` | The top bar's or the bottom bar's × (hides the suggestions for a month) | `promoBar()`, `promoFoot()` |
 | `tip/closed` | The first puzzle's hint closed with its × (it also goes on the first move) | the hint |
 | `remind/<hour>`, `remind/off` | The daily reminder set to an hour (8, 12, 18, 20) or turned off (app only) | the Daily reminder setting |
 | `lefty-on`, `lefty-off` | The Left-handed layout setting is turned on or off | menu |

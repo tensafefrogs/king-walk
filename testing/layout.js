@@ -61,6 +61,7 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
         }
         for (const sel of ['.cele-card', '.promo-box']) { const el = document.querySelector(sel); if (el && vis(el)) { const r = el.getBoundingClientRect(); if (r.top < -1 || r.bottom > vh + 1 || r.left < -1 || r.right > vw + 1) out.push(sel + ' does not fit (' + Math.round(r.top) + '..' + Math.round(r.bottom) + ' of ' + vh + ', ' + Math.round(r.left) + '..' + Math.round(r.right) + ' of ' + vw + ')');
           for (const btn of el.querySelectorAll('button')) { const br = btn.getBoundingClientRect(); if (br.bottom > vh + 1 || br.top < -1) out.push(sel + ' button off screen: ' + desc(btn)); } } }
+        const foot = document.querySelector('.appfoot.on'); if (foot) { const fr = $('frame').getBoundingClientRect(), r = foot.getBoundingClientRect(); if (fr.bottom > r.top + 1 && fr.top < r.bottom) out.push('bottom App Store bar covers the board'); }
         const bar = document.querySelector('.appbar'); if (bar && vis(bar)) { const r = bar.getBoundingClientRect(); if (r.right > vw + 1) out.push('App Store bar wider than the screen'); }
         if (st === 'base' || st === 'daily') { const f = $('frame').getBoundingClientRect(); if (f.bottom > vh + 1 || f.top < -1) out.push('board not fully on screen (' + Math.round(f.top) + '..' + Math.round(f.bottom) + ' of ' + vh + ')'); }
         return out;

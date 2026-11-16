@@ -3,7 +3,6 @@
 window.KW_STRINGS = {
   "es": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, recordatorio diario, Game Center, sincronización con iCloud",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "También en iPhone y iPad, con widgets en la pantalla de inicio, un recordatorio diario, Game Center y sincronización con iCloud.",
     "Home Screen widget": "Widget de la pantalla de inicio",
     "King Walk for iPhone and iPad": "King Walk para iPhone y iPad",
     "Get": "Obtener",
@@ -310,7 +309,6 @@ window.KW_STRINGS = {
   },
   "fr": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, rappel quotidien, Game Center, synchronisation iCloud",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Aussi sur iPhone et iPad, avec des widgets sur l'écran d'accueil, un rappel quotidien, Game Center et la synchronisation iCloud.",
     "Home Screen widget": "Widget de l'écran d'accueil",
     "King Walk for iPhone and iPad": "King Walk pour iPhone et iPad",
     "Get": "Obtenir",
@@ -617,7 +615,6 @@ window.KW_STRINGS = {
   },
   "de": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, tägliche Erinnerung, Game Center, iCloud-Sync",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Auch auf iPhone und iPad, mit Widgets für den Home-Bildschirm, täglicher Erinnerung, Game Center und iCloud-Sync.",
     "Home Screen widget": "Widget für den Home-Bildschirm",
     "King Walk for iPhone and iPad": "King Walk für iPhone und iPad",
     "Get": "Laden",
@@ -924,7 +921,6 @@ window.KW_STRINGS = {
   },
   "it": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widget, promemoria giornaliero, Game Center, sincronizzazione iCloud",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Anche su iPhone e iPad, con widget nella schermata Home, un promemoria giornaliero, Game Center e sincronizzazione iCloud.",
     "Home Screen widget": "Widget della schermata Home",
     "King Walk for iPhone and iPad": "King Walk per iPhone e iPad",
     "Get": "Ottieni",
@@ -1231,7 +1227,6 @@ window.KW_STRINGS = {
   },
   "pt": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, lembrete diário, Game Center, sincronização com o iCloud",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Também no iPhone e iPad, com widgets na Tela de Início, um lembrete diário, Game Center e sincronização com o iCloud.",
     "Home Screen widget": "Widget da Tela de Início",
     "King Walk for iPhone and iPad": "King Walk para iPhone e iPad",
     "Get": "Obter",
@@ -1538,7 +1533,6 @@ window.KW_STRINGS = {
   },
   "nl": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, dagelijkse herinnering, Game Center, iCloud-synchronisatie",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Ook op iPhone en iPad, met widgets op je beginscherm, een dagelijkse herinnering, Game Center en iCloud-synchronisatie.",
     "Home Screen widget": "Widget op het beginscherm",
     "King Walk for iPhone and iPad": "King Walk voor iPhone en iPad",
     "Get": "Download",
@@ -1845,7 +1839,6 @@ window.KW_STRINGS = {
   },
   "ru": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "Виджеты, ежедневное напоминание, Game Center, синхронизация iCloud",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Также на iPhone и iPad: виджеты на экране «Домой», ежедневное напоминание, Game Center и синхронизация через iCloud.",
     "Home Screen widget": "Виджет на экране «Домой»",
     "King Walk for iPhone and iPad": "King Walk для iPhone и iPad",
     "Get": "Загрузить",
@@ -2152,7 +2145,6 @@ window.KW_STRINGS = {
   },
   "ja": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "ウィジェット、毎日のリマインダー、Game Center、iCloud同期",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "iPhone・iPad版もあります:ホーム画面ウィジェット、毎日のリマインダー、Game Center、iCloud同期付き。",
     "Home Screen widget": "ホーム画面ウィジェット",
     "King Walk for iPhone and iPad": "iPhone・iPad版 King Walk",
     "Get": "入手",
@@ -2459,7 +2451,6 @@ window.KW_STRINGS = {
   },
   "ko": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "위젯, 매일 알림, Game Center, iCloud 동기화",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "iPhone과 iPad에서도: 홈 화면 위젯, 매일 알림, Game Center, iCloud 동기화.",
     "Home Screen widget": "홈 화면 위젯",
     "King Walk for iPhone and iPad": "iPhone 및 iPad용 King Walk",
     "Get": "받기",
@@ -2766,7 +2757,6 @@ window.KW_STRINGS = {
   },
   "zh": {
     "Widgets, a daily reminder, Game Center, iCloud sync": "小组件、每日提醒、Game Center、iCloud 同步",
-    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "也可在 iPhone 和 iPad 上使用：主屏幕小组件、每日提醒、Game Center 和 iCloud 同步。",
     "Home Screen widget": "主屏幕小组件",
     "King Walk for iPhone and iPad": "适用于 iPhone 和 iPad 的 King Walk",
     "Get": "获取",
