@@ -11,9 +11,6 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
   with reminders on, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
-- **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
-  whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
-  cause of the stuck zoom). The game now lays itself out for the bigger text and always fits.
 - **Settings → Language:** play in a language other than the device's (already on the website).
 - **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
   the green check once it's done, and the King Walk icon on the daily widget.
@@ -33,6 +30,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
 ## 1.0.2 (in App Review, submitted 16 November 2026)
+- **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
+  whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
+  cause of the stuck zoom). The game now lays itself out for the bigger text and always fits.
 
 - **44 languages, up from 11:** every language the App Store has. New: Arabic and Hebrew (the whole game laid out
   right to left; the board stays as in any chess book), Hindi, Bangla, Marathi, Tamil, Telugu, Gujarati, Kannada,
