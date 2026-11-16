@@ -330,6 +330,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-btns button:disabled { opacity: 0.45; cursor: default; }
 .dlg { padding: 22px 0 18px; }
 .dlg .cele-title { font-size: 28px; }
+.dlg .cele-text { white-space: pre-line; }
 .dlg textarea { display: block; box-sizing: border-box; width: calc(100% - 36px); margin: 14px 18px 0; height: 96px; resize: none; padding: 10px 12px;
   border: 3px solid var(--p-ink); border-radius: 14px; background: #fff; color: var(--p-ink); font: 13px/1.35 ui-monospace, Menlo, monospace; word-break: break-all; }
 .dlg textarea:focus { outline: none; box-shadow: 0 0 0 3px var(--p-gold); }
@@ -2374,6 +2375,22 @@ const Promo = {
     return a;
   },
 };
+/* kingwalk.app/?why-app: why the App Store suggestions do or don't show in this browser (for support; English only) */
+if (/[?&]why-app\b/.test(location.search)) {
+  const v = Promo.read(), now = Date.now(), day = t => new Date(t).toISOString().slice(0, 10);
+  const why = [
+    "device: " + PLATFORM + (/^(iphone|ipad)$/.test(PLATFORM) ? " (ok)" : " (the suggestions are for iPhone and iPad)"),
+    "in the app: " + (APP ? "yes (no suggestions there)" : "no (ok)"),
+    "App Store ID set: " + (STORE_URL ? "yes (ok)" : "no"),
+    "app on sale: " + (CONFIG.appLive ? "yes (ok)" : "not yet, as far as the website knows"),
+    "puzzles finished here: " + me().n + (me().n >= 1 ? " (ok)" : " (the bar waits for the first one)"),
+    "app owner (followed an App Store link, or opened the website from the app): " + (v.got ? "yes, so nothing shows" : "no (ok)"),
+    "closed with ×: " + (v.off > now ? "yes, hidden until " + day(v.off) : "no (ok)"),
+    "last suggestion: " + (v.last ? day(v.last) + (now - v.last < 7 * 864e5 ? " (the next waits a week)" : "") : "none yet"),
+    "browser: " + (/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(navigator.userAgent) ? "Chrome, Firefox or Edge (the bar can show)" : "Safari or other (Safari shows Apple's own banner instead of the bar)"),
+  ];
+  setTimeout(() => openDialog({ title: "App Store suggestions", text: why.join("\n"), buttons: [{ label: "Reset them here", onClick: () => { Promo.write({}); location.replace(location.pathname); } }, { label: "Close", primary: true }] }), 800);
+}
 if (/[?&]from=app\b/.test(location.search)) { Promo.write(Object.assign(Promo.read(), { got: true })); history.replaceState(null, "", location.pathname + location.hash); }
 /* a line under a card's text, with a link to the App Store */
 function promoLine(kind, text) {
