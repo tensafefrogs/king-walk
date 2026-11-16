@@ -305,5 +305,10 @@
   "{rank} streak": "Σερί {rank}",
   "{rank} streak, puzzle {n} of {total}": "Σερί {rank}, γρίφος {n} από {total}",
   "Language": "Γλώσσα",
-  "Same as device": "Όπως η συσκευή"
+  "Same as device": "Όπως η συσκευή",
+  "Don't break the streak.": "Μη σπάσεις το σερί.",
+  "Remind me at {time}": "Θύμισέ μου στις {time}",
+  "A reminder every day at {time}.": "Υπενθύμιση κάθε μέρα στις {time}.",
+  "Your streak ends at midnight": "Το σερί σου λήγει τα μεσάνυχτα",
+  "One puzzle keeps it going.": "Ένας γρίφος αρκεί για να συνεχιστεί."
 };

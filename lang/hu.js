@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}-sorozat",
   "{rank} streak, puzzle {n} of {total}": "{rank}-sorozat, feladvány: {n}/{total}",
   "Language": "Nyelv",
-  "Same as device": "Az eszköz szerint"
+  "Same as device": "Az eszköz szerint",
+  "Don't break the streak.": "Ne szakítsd meg a sorozatot.",
+  "Remind me at {time}": "Emlékeztess {time}-kor",
+  "A reminder every day at {time}.": "Napi emlékeztető {time}-kor.",
+  "Your streak ends at midnight": "Éjfélkor véget ér a sorozatod",
+  "One puzzle keeps it going.": "Egy feladvány, és folytatódik."
 };

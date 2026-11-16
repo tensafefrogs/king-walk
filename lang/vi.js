@@ -305,5 +305,10 @@
   "{rank} streak": "Chuỗi {rank}",
   "{rank} streak, puzzle {n} of {total}": "Chuỗi {rank}, câu {n}/{total}",
   "Language": "Ngôn ngữ",
-  "Same as device": "Theo thiết bị"
+  "Same as device": "Theo thiết bị",
+  "Don't break the streak.": "Đừng để đứt chuỗi.",
+  "Remind me at {time}": "Nhắc tôi lúc {time}",
+  "A reminder every day at {time}.": "Nhắc mỗi ngày lúc {time}.",
+  "Your streak ends at midnight": "Chuỗi của bạn kết thúc lúc nửa đêm",
+  "One puzzle keeps it going.": "Chỉ cần một câu đố để giữ chuỗi."
 };

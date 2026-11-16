@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} serisi",
   "{rank} streak, puzzle {n} of {total}": "{rank} serisi, bulmaca {n}/{total}",
   "Language": "Dil",
-  "Same as device": "Cihazla aynı"
+  "Same as device": "Cihazla aynı",
+  "Don't break the streak.": "Serini bozma.",
+  "Remind me at {time}": "Saat {time} için hatırlatıcı kur",
+  "A reminder every day at {time}.": "Her gün saat {time} için hatırlatıcı kuruldu.",
+  "Your streak ends at midnight": "Serin gece yarısı bitiyor",
+  "One puzzle keeps it going.": "Tek bir bulmaca serini sürdürür."
 };

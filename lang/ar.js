@@ -305,5 +305,10 @@
   "{rank} streak": "سلسلة {rank}",
   "{rank} streak, puzzle {n} of {total}": "سلسلة {rank}، اللغز {n} من {total}",
   "Language": "اللغة",
-  "Same as device": "مثل الجهاز"
+  "Same as device": "مثل الجهاز",
+  "Don't break the streak.": "لا تقطع السلسلة.",
+  "Remind me at {time}": "ذكّرني الساعة {time}",
+  "A reminder every day at {time}.": "تذكير كل يوم الساعة {time}.",
+  "Your streak ends at midnight": "سلسلتك تنتهي عند منتصف الليل",
+  "One puzzle keeps it going.": "لغز واحد يحافظ عليها."
 };

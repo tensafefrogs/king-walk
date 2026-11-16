@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} സ്ട്രീക്ക്",
   "{rank} streak, puzzle {n} of {total}": "{rank} സ്ട്രീക്ക്, പസിൽ {total}-ൽ {n}",
   "Language": "ഭാഷ",
-  "Same as device": "ഉപകരണത്തിലേതുപോലെ"
+  "Same as device": "ഉപകരണത്തിലേതുപോലെ",
+  "Don't break the streak.": "സ്ട്രീക്ക് മുറിയാതെ നോക്കൂ.",
+  "Remind me at {time}": "{time}-ന് ഓർമ്മിപ്പിക്കൂ",
+  "A reminder every day at {time}.": "എല്ലാ ദിവസവും {time}-ന് ഓർമ്മപ്പെടുത്തൽ.",
+  "Your streak ends at midnight": "നിങ്ങളുടെ സ്ട്രീക്ക് അർധരാത്രി തീരും",
+  "One puzzle keeps it going.": "ഒരു പസിൽ മതി, സ്ട്രീക്ക് തുടരും."
 };

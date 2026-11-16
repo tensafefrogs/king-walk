@@ -7,7 +7,9 @@ import UserNotifications
 enum Reminders {
     private static let prefix = "daily-"
 
-    /// items: [{date: "yyyy-MM-dd", title, body}]; hour -1 turns them off. Calls back whether notifications are allowed.
+    /// items: [{date: "yyyy-MM-dd", title, body, hour?, id?}]: one notification each, at the item's own hour if it has
+    /// one (the 9 pm streak saver, id "late"), else at the reminder hour; hour -1 turns them all off. Calls back whether
+    /// notifications are allowed.
     static func schedule(hour: Int, items: [[String: Any]], allowed: @escaping (Bool) -> Void) {
         let center = UNUserNotificationCenter.current()
         center.getPendingNotificationRequests { pending in
@@ -26,9 +28,11 @@ enum Reminders {
                     content.sound = .default
                     content.userInfo = ["open": "daily"]
                     content.threadIdentifier = "daily"
-                    let when = DateComponents(year: parts[0], month: parts[1], day: parts[2], hour: hour, minute: 0)
+                    let at = (item["hour"] as? Int).map { min(23, max(0, $0)) } ?? hour
+                    let when = DateComponents(year: parts[0], month: parts[1], day: parts[2], hour: at, minute: 0)
                     let trigger = UNCalendarNotificationTrigger(dateMatching: when, repeats: false)
-                    center.add(UNNotificationRequest(identifier: prefix + date, content: content, trigger: trigger))
+                    let id = (item["id"] as? String).map { s in "-" + s.filter { $0.isLetter } } ?? ""
+                    center.add(UNNotificationRequest(identifier: prefix + date + id, content: content, trigger: trigger))
                 }
             }
         }

@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} ర్యాంక్ వరుస",
   "{rank} streak, puzzle {n} of {total}": "{rank} ర్యాంక్ వరుస, పజిల్ {total}లో {n}",
   "Language": "భాష",
-  "Same as device": "పరికరం లాగే"
+  "Same as device": "పరికరం లాగే",
+  "Don't break the streak.": "వరుసను తెంచకండి.",
+  "Remind me at {time}": "{time}కి గుర్తు చేయండి",
+  "A reminder every day at {time}.": "ప్రతి రోజు {time}కి రిమైండర్.",
+  "Your streak ends at midnight": "మీ వరుస అర్ధరాత్రికి ముగుస్తుంది",
+  "One puzzle keeps it going.": "ఒక్క పజిల్ చాలు, వరుస కొనసాగుతుంది."
 };

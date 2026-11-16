@@ -305,5 +305,10 @@
   "{rank} streak": "สตรีค{rank}",
   "{rank} streak, puzzle {n} of {total}": "สตรีค{rank} ข้อ {n} จาก {total}",
   "Language": "ภาษา",
-  "Same as device": "ตามอุปกรณ์"
+  "Same as device": "ตามอุปกรณ์",
+  "Don't break the streak.": "อย่าให้สตรีคขาด",
+  "Remind me at {time}": "เตือนฉันเวลา {time}",
+  "A reminder every day at {time}.": "แจ้งเตือนทุกวันเวลา {time}",
+  "Your streak ends at midnight": "สตรีคของคุณจะจบตอนเที่ยงคืน",
+  "One puzzle keeps it going.": "แค่โจทย์เดียวก็รักษาไว้ได้"
 };

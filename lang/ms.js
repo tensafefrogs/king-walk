@@ -305,5 +305,10 @@
   "{rank} streak": "Rentetan {rank}",
   "{rank} streak, puzzle {n} of {total}": "Rentetan {rank}, teka-teki {n} daripada {total}",
   "Language": "Bahasa",
-  "Same as device": "Sama seperti peranti"
+  "Same as device": "Sama seperti peranti",
+  "Don't break the streak.": "Jangan putuskan rentetan anda.",
+  "Remind me at {time}": "Ingatkan saya pada {time}",
+  "A reminder every day at {time}.": "Peringatan setiap hari pada {time}.",
+  "Your streak ends at midnight": "Rentetan anda tamat tengah malam",
+  "One puzzle keeps it going.": "Satu teka-teki cukup untuk meneruskannya."
 };

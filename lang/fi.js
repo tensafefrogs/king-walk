@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}-putki",
   "{rank} streak, puzzle {n} of {total}": "{rank}-putki, tehtävä {n}/{total}",
   "Language": "Kieli",
-  "Same as device": "Kuten laitteessa"
+  "Same as device": "Kuten laitteessa",
+  "Don't break the streak.": "Älä katkaise putkea.",
+  "Remind me at {time}": "Muistuta klo {time}",
+  "A reminder every day at {time}.": "Muistutus joka päivä klo {time}.",
+  "Your streak ends at midnight": "Putkesi katkeaa keskiyöllä",
+  "One puzzle keeps it going.": "Yksi tehtävä pitää sen käynnissä."
 };

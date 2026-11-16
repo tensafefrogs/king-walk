@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} நிலைத் தொடர்",
   "{rank} streak, puzzle {n} of {total}": "{rank} நிலைத் தொடர், புதிர் {total}-இல் {n}",
   "Language": "மொழி",
-  "Same as device": "சாதனத்தைப் போல"
+  "Same as device": "சாதனத்தைப் போல",
+  "Don't break the streak.": "தொடரை உடைக்காதீர்கள்.",
+  "Remind me at {time}": "{time} மணிக்கு நினைவூட்டு",
+  "A reminder every day at {time}.": "தினமும் {time} மணிக்கு நினைவூட்டல்.",
+  "Your streak ends at midnight": "உங்கள் தொடர் நள்ளிரவில் முடியும்",
+  "One puzzle keeps it going.": "ஒரு புதிர் போதும், தொடர் தொடரும்."
 };

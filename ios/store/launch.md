@@ -72,3 +72,11 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 **Show HN:**
 > Show HN: King Walk – adaptive chess puzzles and a daily puzzle, in one HTML file
 > [link] — It's a single index.html with no build step, plays offline, and the daily puzzle is picked from the date, so there's no server. The iOS app wraps the same page and adds widgets, Game Center and iCloud sync.
+
+## Reach (App Store Connect, no build)
+
+- [ ] **Family Sharing:** a paid app is shared with the buyer's family automatically when they use Family Sharing; nothing to turn on. (Only in-app purchases need it switched on, and the game has none.)
+- [ ] **Macs with Apple silicon:** App Store Connect → King Walk → Pricing and Availability → "iPhone and iPad Apps on Apple Silicon Macs": check "Make this app available" is ticked (it is by default). The game has desktop layouts and works with a mouse and keyboard.
+- [ ] **Apple Vision Pro:** the same page → "Apple Vision Pro": "Make this app available" ticked (the default for a compatible iPad app).
+- [ ] After either: the press kit and listing can say "also on Mac and Apple Vision Pro".
+

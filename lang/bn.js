@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} স্ট্রিক",
   "{rank} streak, puzzle {n} of {total}": "{rank} স্ট্রিক, পাজল {n}/{total}",
   "Language": "ভাষা",
-  "Same as device": "ডিভাইসের মতো"
+  "Same as device": "ডিভাইসের মতো",
+  "Don't break the streak.": "স্ট্রিক ভাঙতে দিয়ো না।",
+  "Remind me at {time}": "{time}-এ মনে করিয়ে দিয়ো",
+  "A reminder every day at {time}.": "প্রতিদিন {time}-এ রিমাইন্ডার।",
+  "Your streak ends at midnight": "তোমার স্ট্রিক মাঝরাতে শেষ হবে",
+  "One puzzle keeps it going.": "একটা পাজলেই স্ট্রিক চালু থাকবে।"
 };

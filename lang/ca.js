@@ -305,5 +305,10 @@
   "{rank} streak": "Ratxa {rank}",
   "{rank} streak, puzzle {n} of {total}": "Ratxa {rank}, problema {n} de {total}",
   "Language": "Idioma",
-  "Same as device": "Igual que el dispositiu"
+  "Same as device": "Igual que el dispositiu",
+  "Don't break the streak.": "No trenquis la ratxa.",
+  "Remind me at {time}": "Recorda-m'ho a les {time}",
+  "A reminder every day at {time}.": "Un recordatori cada dia a les {time}.",
+  "Your streak ends at midnight": "La teva ratxa s'acaba a mitjanit",
+  "One puzzle keeps it going.": "Un problema basta per mantenir-la."
 };

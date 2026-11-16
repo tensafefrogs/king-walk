@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}チャレンジ",
   "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目",
   "Language": "言語",
-  "Same as device": "デバイスと同じ"
+  "Same as device": "デバイスと同じ",
+  "Don't break the streak.": "連続記録を途切れさせないで。",
+  "Remind me at {time}": "{time}にお知らせ",
+  "A reminder every day at {time}.": "毎日{time}にお知らせします。",
+  "Your streak ends at midnight": "連続記録は今夜0時まで",
+  "One puzzle keeps it going.": "パズル1問で記録が続きます。"
 };

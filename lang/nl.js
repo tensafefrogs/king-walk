@@ -305,5 +305,10 @@
   "{rank} streak": "Reeks {rank}",
   "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}",
   "Language": "Taal",
-  "Same as device": "Zoals apparaat"
+  "Same as device": "Zoals apparaat",
+  "Don't break the streak.": "Verbreek je reeks niet.",
+  "Remind me at {time}": "Herinner me om {time}",
+  "A reminder every day at {time}.": "Elke dag een herinnering om {time}.",
+  "Your streak ends at midnight": "Je reeks eindigt om middernacht",
+  "One puzzle keeps it going.": "Eén puzzel houdt hem in stand."
 };

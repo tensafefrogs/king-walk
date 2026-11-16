@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}挑战",
   "{rank} streak, puzzle {n} of {total}": "{rank}挑战，第 {n}/{total} 题",
   "Language": "语言",
-  "Same as device": "跟随设备"
+  "Same as device": "跟随设备",
+  "Don't break the streak.": "别让连续纪录断掉。",
+  "Remind me at {time}": "{time} 提醒我",
+  "A reminder every day at {time}.": "每天 {time} 提醒你。",
+  "Your streak ends at midnight": "连续纪录午夜就会断掉",
+  "One puzzle keeps it going.": "解一道谜题就能继续。"
 };

@@ -305,5 +305,10 @@
   "{rank} streak": "Seria {rank}",
   "{rank} streak, puzzle {n} of {total}": "Seria {rank}, problema {n} din {total}",
   "Language": "Limbă",
-  "Same as device": "Ca pe dispozitiv"
+  "Same as device": "Ca pe dispozitiv",
+  "Don't break the streak.": "Nu rupe seria.",
+  "Remind me at {time}": "Amintește-mi la {time}",
+  "A reminder every day at {time}.": "Un memento în fiecare zi la {time}.",
+  "Your streak ends at midnight": "Seria ta se încheie la miezul nopții",
+  "One puzzle keeps it going.": "O singură problemă o ține în viață."
 };

@@ -74,5 +74,8 @@
   "Your puzzle rating reached {n}.": "A tua pontuação de problemas chegou a {n}.",
   "{move}. Not that one. It goes back; try again.": "{move}. Não é esse. Volta atrás; tenta outra vez.",
   "{move}. Your move.": "{move}. É a tua vez.",
-  "{rank} at {n}": "{rank} aos {n}"
+  "{rank} at {n}": "{rank} aos {n}",
+  "Don't break the streak.": "Não quebres a sequência.",
+  "A reminder every day at {time}.": "Um lembrete todos os dias às {time}.",
+  "Your streak ends at midnight": "A tua sequência termina à meia-noite"
 };
