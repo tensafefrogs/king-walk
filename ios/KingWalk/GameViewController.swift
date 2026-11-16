@@ -49,9 +49,14 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "mac" : UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
         content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true,reminders:true};",
                                            injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box)
+        // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box).
+        // The viewport also carries the Larger Text scale (kingWalkViewport, below): the page is laid out at the web view's
+        // width divided by the scale and drawn at that scale, so it reflows around bigger text and always fits the screen.
         content.addUserScript(WKUserScript(source: """
-            (function(){var m=document.querySelector('meta[name=viewport]');if(m)m.content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+            (function(){window.kingWalkViewport=function(w,z){var m=document.querySelector('meta[name=viewport]');if(!m||!(w>0))return;
+            var c=z===1?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
+              :'width='+Math.round(w/z)+', initial-scale='+z+', minimum-scale='+z+', maximum-scale='+z+', user-scalable=no, viewport-fit=cover';
+            if(m.content!==c)m.content=c;};kingWalkViewport(window.innerWidth,\(scale));
             var s=document.createElement('style');s.textContent='body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}textarea{-webkit-user-select:text;user-select:text}';document.head.appendChild(s);})();
             """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
     }
@@ -103,17 +108,48 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
 
     // MARK: Larger text
 
-    /// The page follows the text size in Settings → Accessibility → Display & Text Size → Larger Text: the whole page
-    /// is zoomed, the way a browser zooms, so the layout reflows around bigger text (the page has layouts down to
-    /// 195 CSS pixels wide, which is a 390-point iPhone at 2x).
+    /// The page follows the text size in Settings → Accessibility → Display & Text Size → Larger Text: it is laid out at
+    /// the web view's width divided by the scale and drawn at that scale (the viewport, kingWalkViewport above), so the
+    /// layout reflows around bigger text (the page has layouts down to 201 CSS pixels wide, a 402-point iPhone at 2x).
+    /// Not WKWebView's pageZoom: at any scale but 1 the page stayed as wide as the screen and was drawn bigger, so it
+    /// ran off the side and slid left and right (a player with text one step bigger).
     private static let textScale: [UIContentSizeCategory: CGFloat] = [
         .extraSmall: 0.85, .small: 0.9, .medium: 0.95, .large: 1, .extraLarge: 1.1, .extraExtraLarge: 1.2,
         .extraExtraExtraLarge: 1.3, .accessibilityMedium: 1.45, .accessibilityLarge: 1.6, .accessibilityExtraLarge: 1.75,
         .accessibilityExtraExtraLarge: 1.9, .accessibilityExtraExtraExtraLarge: 2,
     ]
 
+    private var scale: CGFloat { Self.textScale[UIApplication.shared.preferredContentSizeCategory] ?? 1 }
+    private var lastViewport = ""
+
     private func applyTextSize() {
-        webView.pageZoom = Self.textScale[UIApplication.shared.preferredContentSizeCategory] ?? 1
+        webView.pageZoom = 1
+        sendViewport(force: true)
+    }
+
+    /// the page's viewport for the web view's current width (it changes when the phone turns, in Split View, on a fold)
+    private func sendViewport(force: Bool = false) {
+        let w = webView.bounds.width
+        guard w > 0 else { return }
+        let js = String(format: "window.kingWalkViewport&&kingWalkViewport(%.1f,%@)", w, scale == 1 ? "1" : String(format: "%.2f", scale))
+        guard force || js != lastViewport else { return }
+        lastViewport = js
+        webView.evaluateJavaScript(js)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sendViewport()
+        #if KINGWALK_SDK_27_1
+        sendFold()
+        #endif
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        sendViewport(force: true)   // a reload (the language picker) starts from the page's own viewport again
+        #if KINGWALK_SDK_27_1
+        sendFold(force: true)
+        #endif
     }
 
     @objc private func textSizeChanged() { applyTextSize() }
@@ -123,31 +159,23 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
     #if KINGWALK_SDK_27_1   // set by the build when Xcode 27.1 or later is used (see .github/workflows/ios.yml)
     // Half open, the fold divides the inner screen. Tell the page where it is, so it can lay out each half on its own
     // (window.kingWalkFold in index.html): held like a book, the board on one page and progress on the other; propped
-    // up like a laptop, the board on the flat half and progress on the upright half. Coordinates are the web view's
-    // points, which are the page's CSS pixels.
+    // up like a laptop, the board on the flat half and progress on the upright half. Coordinates are the page's CSS
+    // pixels: the web view's points divided by the text scale.
     private var lastFold = ""
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        sendFold()
-    }
 
     private func sendFold(force: Bool = false) {
         let js: String
         var fold: CGRect?
         if #available(iOS 27.1, *) { fold = view.reservedRegions(kind: .division).first?.frame }   // the app still runs on iOS 16
         if let f = fold {
-            js = String(format: "window.kingWalkFold&&kingWalkFold({x:%.1f,y:%.1f,w:%.1f,h:%.1f})", f.minX, f.minY, f.width, f.height)
+            let z = scale
+            js = String(format: "window.kingWalkFold&&kingWalkFold({x:%.1f,y:%.1f,w:%.1f,h:%.1f})", f.minX / z, f.minY / z, f.width / z, f.height / z)
         } else {
             js = "window.kingWalkFold&&kingWalkFold(null)"
         }
         guard force || js != lastFold else { return }
         lastFold = js
         webView.evaluateJavaScript(js)
-    }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        sendFold(force: true)
     }
     #endif
 
@@ -271,7 +299,8 @@ extension GameViewController: UIScrollViewDelegate {
     func resetZoom() {
         let scroll = webView.scrollView
         scroll.pinchGestureRecognizer?.isEnabled = false
-        if scroll.zoomScale != 1 { scroll.setZoomScale(1, animated: false) }
+        // the page's own scale is the only one allowed (its viewport sets minimum = maximum: the Larger Text scale)
+        if abs(scroll.zoomScale - scroll.minimumZoomScale) > 0.001 { scroll.setZoomScale(scroll.minimumZoomScale, animated: false) }
         if scroll.contentOffset.x != 0 { scroll.contentOffset.x = 0 }
     }
 
@@ -281,6 +310,6 @@ extension GameViewController: UIScrollViewDelegate {
 
     /// a zoom that got through (a double tap, a focused text box) goes straight back to the page's own scale
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        if scale != 1 { scrollView.setZoomScale(1, animated: true) }
+        if abs(scale - scrollView.minimumZoomScale) > 0.001 { scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true) }
     }
 }
