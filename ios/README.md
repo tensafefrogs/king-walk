@@ -101,7 +101,7 @@ Pushes to `main` that change the app or `index.html` also run a simulator build 
 - `testflight`: give the build to these TestFlight groups, with "What to Test". A group is a name (made in App Store Connect), or `{"name": "Friends", "public_link": true}`: an external group this creates if it's missing, with a public invite link, which `store/status.md` then shows. External groups need Apple's beta review, which this submits; it also needs Test Information (a feedback email and a review contact), set once in App Store Connect → TestFlight → Test Information, and the run says if it's missing. `null` skips TestFlight.
 - `app_store`: attach the build to the version, upload the listing and screenshots, and with `submit` send it to App Review. `release`: `manual` (release it yourself, or with `release_now`) or `after_approval`. `null` skips the App Store. Only one version can be in review at a time; while another is, this step waits and the 6-hourly run does it later.
 - `release_now`: release a version that's approved and waiting for a manual release.
-- `whats_new` under `app_store` can be one text or one per App Store language (`{"en-US": "…", "de-DE": "…"}`; `"es"` covers `es-ES` and `es-MX`, and a language without one gets the English).
+- `whats_new` under `app_store` can be one text or one per App Store language (`{"en-US": "…", "de-DE": "…"}`; `"es"` covers `es-ES` and `es-MX`, `"pt"` covers `pt-BR` and `pt-PT`, `"zh"` is Simplified only (give Traditional its own `"zh-Hant"`), and a language without one gets the English).
 
 Any change to the file runs it again; change `note` to re-run with the same settings. Don't submit to App Review or release without the owner's go-ahead for that version.
 
