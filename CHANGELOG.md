@@ -9,7 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
-- Nothing yet.
+- **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
+  the green check once it's done, and the King Walk icon on the daily widget.
 
 ### Website only (live on kingwalk.app)
 
