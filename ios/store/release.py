@@ -72,11 +72,13 @@ def wait_for_build(app_id, version, number, minutes=45):
 # ---------- TestFlight ----------
 
 def plain_notes(text):
-    """Release notes as App Store Connect takes them: it turns down characters outside the Basic Multilingual Plane
-    (most emoji, such as 🧊 and 🔥) as INVALID_TEXT, failing the release; they're dropped, with a warning."""
-    kept = ''.join(c for c in text if ord(c) <= 0xFFFF)
+    """Release notes as App Store Connect takes them: it turns down emoji as INVALID_TEXT, failing the release: those
+    outside the Basic Multilingual Plane (🧊, 🔥) and the older symbols inside it drawn as emoji (♟️, ⏱, ✅, U+2600-27BF,
+    and the emoji variation selector); they're dropped, with a warning."""
+    refused = lambda c: ord(c) > 0xFFFF or 0x2600 <= ord(c) <= 0x27BF or 0x2B00 <= ord(c) <= 0x2BFF or ord(c) in (0xFE0F, 0x200D, 0x231A, 0x231B, 0x23F0, 0x23F1, 0x23F2, 0x23F3)
+    kept = ''.join(c for c in text if not refused(c))
     if kept != text:
-        log('Release notes: dropped characters App Store Connect refuses:', ' '.join(sorted({c for c in text if ord(c) > 0xFFFF})))
+        log('Release notes: dropped characters App Store Connect refuses:', ' '.join(sorted({c for c in text if refused(c)})))
     return kept.replace('  ', ' ').strip()
 
 
