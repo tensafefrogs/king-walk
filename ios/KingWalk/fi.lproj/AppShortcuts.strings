@@ -1,0 +1,3 @@
+"Play today's ${applicationName} puzzle" = "Pelaa päivän ${applicationName} -tehtävä";
+"Open the ${applicationName} daily puzzle" = "Avaa ${applicationName} -pelin päivän tehtävä";
+"${applicationName} daily puzzle" = "${applicationName}: päivän tehtävä";

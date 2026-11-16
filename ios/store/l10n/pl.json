@@ -1,0 +1,237 @@
+{
+  "locale": "pl",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Zadania szachowe",
+    "subtitle": "Zadania, które oddają cios",
+    "promotional_text": "Wypatrz widełki. Znajdź mata. Przetrwaj serię. 53 000 zadań z prawdziwych partii, coraz trudniejszych, im lepiej grasz. Dziś Pionek, kiedyś Król.",
+    "description": "Myślisz, że widzisz trzy ruchy do przodu? Udowodnij to.\n\nKing Walk rzuca ci prawdziwe zadania szachowe, aż 53 000, wyjęte z rozegranych partii. Rozwiąż jedno, a następne będzie trudniejsze. Pomyl się, a gra odpuści. Po kilkudziesięciu zadaniach wie dokładnie, jak mocno grasz. I wtedy zaczyna naciskać.\n\nZaczynasz jako Pionek. Zdobądź Skoczka, Gońca, Wieżę i Hetmana. Dojdź do Króla, a przejdziesz całą szachownicę.\n\n• 53 000 zadań z prawdziwych partii: widełki, związania, szpile i podstępne maty na ostatniej linii\n• Ranking, który znajduje twój poziom i rośnie razem z tobą\n• Zadanie dnia, to samo dla wszystkich. Podtrzymuj serię i chwal się w emoji\n• Serie rang: 15 zadań, bez podpowiedzi, jeden błąd i odpadasz\n• Rzucaj wyzwania znajomym w Game Center i sprawdźcie, kto tu naprawdę rządzi\n• Nie wiesz, co dalej? Weź podpowiedź. Nikomu nie powiemy.\n• Nie wyszło? Zadanie wróci później na rewanż\n• Wielkie, głośne świętowanie przy każdym awansie\n• Widżety na ekran początkowy, ekran blokady i tryb StandBy\n• Codzienne przypomnienie, jeśli chcesz\n• Wibracje, tryb ciemny, VoiceOver i większy tekst\n• Działa offline. Bez konta, bez reklam, bez zakupów w aplikacji\n\nZadania pochodzą z bazy zadań Lichess, należącej do domeny publicznej. King Walk nie jest tworzony ani wspierany przez Lichess.",
+    "keywords": "szachy,taktyka,mat w 2,elo,ranking,trening,strategia,logika,łamigłówki,widełki,związanie,końcówki"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Ranking zadań",
+        "suffix": " pkt",
+        "suffix_singular": " pkt"
+      },
+      "streak": {
+        "name": "Najlepsza seria",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "hardest": {
+        "name": "Najtrudniejsze zadanie",
+        "suffix": " pkt",
+        "suffix_singular": " pkt"
+      },
+      "streak_p": {
+        "name": "Seria Pionek",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "streak_n": {
+        "name": "Seria Skoczek",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "streak_b": {
+        "name": "Seria Goniec",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "streak_r": {
+        "name": "Seria Wieża",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "streak_q": {
+        "name": "Seria Hetman",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "streak_k": {
+        "name": "Seria Król",
+        "suffix": " z rzędu",
+        "suffix_singular": " z rzędu"
+      },
+      "daily_streak": {
+        "name": "Seria dzienna",
+        "suffix": " dni z rzędu",
+        "suffix_singular": " dzień z rzędu"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Pierwsze kroki",
+        "before": "Rozwiąż zadanie bez błędów i bez podpowiedzi.",
+        "earned": "Pierwsze zadanie rozwiązane bez błędów i bez podpowiedzi."
+      },
+      "solved_50": {
+        "name": "Pięćdziesiątka",
+        "before": "Rozwiąż 50 zadań bez błędów i bez podpowiedzi.",
+        "earned": "50 zadań rozwiązanych bezbłędnie."
+      },
+      "solved_250": {
+        "name": "Siła nawyku",
+        "before": "Rozwiąż 250 zadań bez błędów i bez podpowiedzi.",
+        "earned": "250 zadań rozwiązanych bezbłędnie."
+      },
+      "solved_1000": {
+        "name": "Tysiąc zadań",
+        "before": "Rozwiąż 1000 zadań bez błędów i bez podpowiedzi.",
+        "earned": "1000 zadań rozwiązanych bezbłędnie."
+      },
+      "streak_5": {
+        "name": "Dobra passa",
+        "before": "Rozwiąż 5 zadań z rzędu.",
+        "earned": "5 zadań rozwiązanych z rzędu."
+      },
+      "streak_10": {
+        "name": "Dziesięć z rzędu",
+        "before": "Rozwiąż 10 zadań z rzędu.",
+        "earned": "10 zadań rozwiązanych z rzędu."
+      },
+      "streak_20": {
+        "name": "Nie do zatrzymania",
+        "before": "Rozwiąż 20 zadań z rzędu.",
+        "earned": "20 zadań rozwiązanych z rzędu."
+      },
+      "rank_knight": {
+        "name": "Skoczek",
+        "before": "Osiągnij ranking zadań 700.",
+        "earned": "Ranga Skoczek zdobyta: ranking zadań 700."
+      },
+      "rank_bishop": {
+        "name": "Goniec",
+        "before": "Osiągnij ranking zadań 1000.",
+        "earned": "Ranga Goniec zdobyta: ranking zadań 1000."
+      },
+      "rank_rook": {
+        "name": "Wieża",
+        "before": "Osiągnij ranking zadań 1300.",
+        "earned": "Ranga Wieża zdobyta: ranking zadań 1300."
+      },
+      "rank_queen": {
+        "name": "Hetman",
+        "before": "Osiągnij ranking zadań 1600.",
+        "earned": "Ranga Hetman zdobyta: ranking zadań 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Osiągnij ranking zadań 1900.",
+        "earned": "Ranga Król zdobyta: ranking zadań 1900. Król przeszedł całą szachownicę."
+      },
+      "giant_slayer": {
+        "name": "Pogromca gigantów",
+        "before": "Rozwiąż bezbłędnie zadanie z rankingiem o co najmniej 300 wyższym od twojego.",
+        "earned": "Bezbłędnie rozwiązane zadanie z rankingiem o co najmniej 300 wyższym od twojego."
+      },
+      "clear_pawn": {
+        "name": "Pionek zaliczony",
+        "before": "Zalicz serię Pionek: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Pionek zaliczona: 15 zadań z rzędu od 400 do 699, bez podpowiedzi."
+      },
+      "clear_knight": {
+        "name": "Skoczek zaliczony",
+        "before": "Zalicz serię Skoczek: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Skoczek zaliczona: 15 zadań z rzędu od 700 do 999, bez podpowiedzi."
+      },
+      "clear_bishop": {
+        "name": "Goniec zaliczony",
+        "before": "Zalicz serię Goniec: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Goniec zaliczona: 15 zadań z rzędu od 1000 do 1299, bez podpowiedzi."
+      },
+      "clear_rook": {
+        "name": "Wieża zaliczona",
+        "before": "Zalicz serię Wieża: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Wieża zaliczona: 15 zadań z rzędu od 1300 do 1599, bez podpowiedzi."
+      },
+      "clear_queen": {
+        "name": "Hetman zaliczony",
+        "before": "Zalicz serię Hetman: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Hetman zaliczona: 15 zadań z rzędu od 1600 do 1899, bez podpowiedzi."
+      },
+      "clear_king": {
+        "name": "Król zaliczony",
+        "before": "Zalicz serię Król: 15 zadań z rzędu, bez podpowiedzi.",
+        "earned": "Seria Król zaliczona: 15 zadań z rzędu od 1900 do 2300, bez podpowiedzi."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Rozwiąż zadanie dnia 3 dni z rzędu.",
+        "earned": "Zadanie dnia rozwiązane 3 dni z rzędu."
+      },
+      "daily_7": {
+        "name": "Pełny tydzień",
+        "before": "Rozwiąż zadanie dnia 7 dni z rzędu.",
+        "earned": "Zadanie dnia rozwiązane 7 dni z rzędu."
+      },
+      "daily_30": {
+        "name": "Trzydzieści dni",
+        "before": "Rozwiąż zadanie dnia 30 dni z rzędu.",
+        "earned": "Zadanie dnia rozwiązane 30 dni z rzędu."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Najtrudniejsze zadanie",
+        "description": "Rozwiąż bezbłędnie zadanie z jak najwyższym rankingiem. Włącz Trudniej w menu, by dostać trudniejsze."
+      },
+      "streak_p_challenge": {
+        "name": "Seria Pionek",
+        "description": "15 zadań od 400 do 699, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      },
+      "streak_n_challenge": {
+        "name": "Seria Skoczek",
+        "description": "15 zadań od 700 do 999, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      },
+      "streak_b_challenge": {
+        "name": "Seria Goniec",
+        "description": "15 zadań od 1000 do 1299, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      },
+      "streak_r_challenge": {
+        "name": "Seria Wieża",
+        "description": "15 zadań od 1300 do 1599, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      },
+      "streak_q_challenge": {
+        "name": "Seria Hetman",
+        "description": "15 zadań od 1600 do 1899, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      },
+      "streak_k_challenge": {
+        "name": "Seria Król",
+        "description": "15 zadań od 1900 do 2300, coraz trudniejszych. Bez podpowiedzi, jeden błąd kończy serię. Kto zajdzie najdalej?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Zadania, które <b>oddają cios</b>",
+      "sub": "Rozwiąż jedno, następne jest trudniejsze. Pomyl się, gra odpuści."
+    },
+    "2": {
+      "caption": "<b>53 000</b> zadań z prawdziwych partii",
+      "sub": "Widełki, związania, szpile i podstępne maty."
+    },
+    "3": {
+      "caption": "Zacięło się? <b>Weź podpowiedź.</b>",
+      "sub": "Nikomu nie powiemy."
+    },
+    "4": {
+      "caption": "Od Pionka do <b>Króla</b>. Naprzód!",
+      "sub": "Zdobywaj rangi. Zaliczaj serie. Chwal się."
+    },
+    "5": {
+      "caption": "Nowe zadanie <b>każdego dnia</b>",
+      "sub": "To samo dla wszystkich. Nie przerywaj serii."
+    },
+    "duo-book-1": {
+      "caption": "Złóż jak <b>książkę</b>",
+      "sub": "Szachownica na jednej stronie. Notatki na drugiej."
+    },
+    "duo-table-1": {
+      "caption": "Postaw go. <b>Tryb laptopa.</b>",
+      "sub": "Szachownica płasko pod rękami, wynik na górze."
+    }
+  }
+}

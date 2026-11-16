@@ -27,6 +27,12 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         webView.backgroundColor = background
         webView.scrollView.backgroundColor = background
         webView.scrollView.contentInsetAdjustmentBehavior = .never
+        // never zoomed or scrolled sideways, whatever the page does: the game is laid out to the screen's width
+        // (a player found it zoomed and sliding left and right in portrait)
+        webView.scrollView.delegate = self
+        webView.scrollView.bouncesZoom = false
+        webView.scrollView.showsHorizontalScrollIndicator = false
+        webView.scrollView.alwaysBounceHorizontal = false
         #if DEBUG
         if #available(iOS 16.4, *) { webView.isInspectable = true }
         #endif
@@ -65,6 +71,17 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
     }
 
     @objc private func cameBack() { saves.offerCloud() }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        resetZoom()
+    }
+
+    /// after the phone turns, the page at its own scale and its left edge (the web view can keep a zoom across a rotation)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in self?.resetZoom() }
+    }
 
     /// the iCloud copy, for the page to keep if it has more progress (kingWalkCloud in index.html)
     private func sendCloudSave(_ save: String) {
@@ -245,5 +262,25 @@ private final class WeakMessageHandler: NSObject, WKScriptMessageHandler {
     init(_ target: WKScriptMessageHandler) { self.target = target }
     func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
         target?.userContentController(controller, didReceive: message)
+    }
+}
+
+// MARK: No zoom, no sideways scrolling
+
+extension GameViewController: UIScrollViewDelegate {
+    func resetZoom() {
+        let scroll = webView.scrollView
+        scroll.pinchGestureRecognizer?.isEnabled = false
+        if scroll.zoomScale != 1 { scroll.setZoomScale(1, animated: false) }
+        if scroll.contentOffset.x != 0 { scroll.contentOffset.x = 0 }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x != 0 { scrollView.contentOffset.x = 0 }
+    }
+
+    /// a zoom that got through (a double tap, a focused text box) goes straight back to the page's own scale
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        if scale != 1 { scrollView.setZoomScale(1, animated: true) }
     }
 }

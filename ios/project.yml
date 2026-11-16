@@ -48,8 +48,8 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
-        # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
-        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, pt-PT, nl, ru, ja, ko, zh-Hans, zh-Hant, ar, he]
+        # the languages the game has (lang/ and the .lproj folders): iOS gives the page the player's one of these
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, pt-PT, nl, ru, ja, ko, zh-Hans, zh-Hant, ar, he, hi, mr, ur, bn, gu, pa, ta, te, kn, ml, or, th, tr, id, ms, vi, pl, cs, sk, sl, hr, uk, el, ro, hu, ca, sv, da, nb, fi]
         LSRequiresIPhoneOS: true
         LSApplicationCategoryType: public.app-category.board-games
         ITSAppUsesNonExemptEncryption: false
@@ -101,8 +101,8 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
-        # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
-        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, pt-PT, nl, ru, ja, ko, zh-Hans, zh-Hant, ar, he]
+        # the languages the game has (lang/ and the .lproj folders): iOS gives the page the player's one of these
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, pt-PT, nl, ru, ja, ko, zh-Hans, zh-Hant, ar, he, hi, mr, ur, bn, gu, pa, ta, te, kn, ml, or, th, tr, id, ms, vi, pl, cs, sk, sl, hr, uk, el, ro, hu, ca, sv, da, nb, fi]
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:

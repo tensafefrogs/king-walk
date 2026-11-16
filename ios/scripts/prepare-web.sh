@@ -12,8 +12,8 @@ root=$(cd "$ios/.." && pwd)
 web="$ios/KingWalk/web"
 rm -rf "$web"
 mkdir -p "$web"
-cp "$root/index.html" "$root/chess.js" "$root/lang.js" "$root/manifest.webmanifest" "$web/"
-cp -R "$root/p" "$root/fonts" "$root/icons" "$web/"
+cp "$root/index.html" "$root/chess.js" "$root/manifest.webmanifest" "$web/"
+cp -R "$root/p" "$root/fonts" "$root/icons" "$root/lang" "$web/"
 f="$web/index.html"
 grep -q 'messageHandlers.kingwalk' "$f" || { echo "index.html has no app bridge (window.webkit.messageHandlers.kingwalk)"; exit 1; }
 python3 - "$web/config.js" <<'PY'

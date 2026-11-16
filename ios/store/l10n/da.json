@@ -1,0 +1,237 @@
+{
+  "locale": "da",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Skakopgaver",
+    "subtitle": "Opgaver, der slår igen",
+    "promotional_text": "Find gaflen. Find matten. Overlev stimen. 53.000 opgaver fra rigtige partier, der bliver sværere, jo bedre du bliver. Bonde i dag, Konge en dag.",
+    "description": "Tror du, du kan se tre træk frem? Bevis det.\n\nKing Walk kaster rigtige skakopgaver efter dig, 53.000 af dem, hentet fra rigtige partier. Løs én, og den næste bliver sværere. Mis én, og den slækker lidt. Efter et par dusin opgaver ved spillet præcis, hvor god du er. Så begynder det at presse dig.\n\nDu starter som Bonde. Bliv Springer, Løber, Tårn og Dronning. Når du bliver Konge, har du vandret hele brættet op.\n\n• 53.000 opgaver fra rigtige partier: gafler, bindinger, spid og lumske baglinjemater\n• En rating, der finder dit niveau og stiger med dig\n• En daglig opgave, den samme for alle. Hold stimen i live, og prål med emojis\n• Rangstimer: 15 opgaver, ingen tip, én fejl, og du er ude\n• Udfordr vennerne i Game Center, og find ud af, hvem der faktisk er god\n• Sidder du fast? Tag et tip. Vi siger det ikke til nogen.\n• Missede du en? Den kommer igen senere til en revanche\n• Store, larmende fejringer, hver gang du stiger i rang\n• Widgets til hjemmeskærmen, låseskærmen og StandBy\n• En daglig påmindelse, hvis du vil have en\n• Haptik, mørk tilstand, VoiceOver og større tekst\n• Virker offline. Ingen konto, ingen reklamer, ingen køb i appen\n\nOpgaverne kommer fra Lichess' frit tilgængelige opgavedatabase. King Walk er hverken lavet eller anbefalet af Lichess.",
+    "keywords": "skak,taktik,skakmat,mat i 2,elo,rating,træning,strategi,gaffel,binding,slutspil,hjernetræning,logik"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Opgaverating",
+        "suffix": " rating",
+        "suffix_singular": " rating"
+      },
+      "streak": {
+        "name": "Bedste stime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "hardest": {
+        "name": "Sværeste løste",
+        "suffix": " i opgaverating",
+        "suffix_singular": " i opgaverating"
+      },
+      "streak_p": {
+        "name": "Bondestime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "streak_n": {
+        "name": "Springerstime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "streak_b": {
+        "name": "Løberstime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "streak_r": {
+        "name": "Tårnstime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "streak_q": {
+        "name": "Dronningestime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "streak_k": {
+        "name": "Kongestime",
+        "suffix": " i træk",
+        "suffix_singular": " i træk"
+      },
+      "daily_streak": {
+        "name": "Daglig stime",
+        "suffix": " dage",
+        "suffix_singular": " dag"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Første skridt",
+        "before": "Løs en opgave uden fejl og uden tip.",
+        "earned": "Du løste din første opgave uden fejl og uden tip."
+      },
+      "solved_50": {
+        "name": "Halvtreds løst",
+        "before": "Løs 50 opgaver uden fejl og uden tip.",
+        "earned": "Du løste 50 opgaver fejlfrit."
+      },
+      "solved_250": {
+        "name": "Opgavevane",
+        "before": "Løs 250 opgaver uden fejl og uden tip.",
+        "earned": "Du løste 250 opgaver fejlfrit."
+      },
+      "solved_1000": {
+        "name": "Tusind opgaver",
+        "before": "Løs 1.000 opgaver uden fejl og uden tip.",
+        "earned": "Du løste 1.000 opgaver fejlfrit."
+      },
+      "streak_5": {
+        "name": "I fuld gang",
+        "before": "Løs 5 opgaver i træk.",
+        "earned": "Du løste 5 opgaver i træk."
+      },
+      "streak_10": {
+        "name": "Ti i træk",
+        "before": "Løs 10 opgaver i træk.",
+        "earned": "Du løste 10 opgaver i træk."
+      },
+      "streak_20": {
+        "name": "Ustoppelig",
+        "before": "Løs 20 opgaver i træk.",
+        "earned": "Du løste 20 opgaver i træk."
+      },
+      "rank_knight": {
+        "name": "Springer",
+        "before": "Nå en opgaverating på 700.",
+        "earned": "Du nåede rang Springer: en opgaverating på 700."
+      },
+      "rank_bishop": {
+        "name": "Løber",
+        "before": "Nå en opgaverating på 1000.",
+        "earned": "Du nåede rang Løber: en opgaverating på 1000."
+      },
+      "rank_rook": {
+        "name": "Tårn",
+        "before": "Nå en opgaverating på 1300.",
+        "earned": "Du nåede rang Tårn: en opgaverating på 1300."
+      },
+      "rank_queen": {
+        "name": "Dronning",
+        "before": "Nå en opgaverating på 1600.",
+        "earned": "Du nåede rang Dronning: en opgaverating på 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Nå en opgaverating på 1900.",
+        "earned": "Du nåede rang Konge: en opgaverating på 1900. Kongen har vandret hele vejen op."
+      },
+      "giant_slayer": {
+        "name": "Kæmpedræber",
+        "before": "Løs fejlfrit en opgave, der er ratet 300 eller mere over dig.",
+        "earned": "Du løste fejlfrit en opgave, der var ratet 300 eller mere over dig."
+      },
+      "clear_pawn": {
+        "name": "Bonde klaret",
+        "before": "Klar Bondestimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Bondestimen: 15 opgaver i træk fra 400 til 699, uden tip."
+      },
+      "clear_knight": {
+        "name": "Springer klaret",
+        "before": "Klar Springerstimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Springerstimen: 15 opgaver i træk fra 700 til 999, uden tip."
+      },
+      "clear_bishop": {
+        "name": "Løber klaret",
+        "before": "Klar Løberstimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Løberstimen: 15 opgaver i træk fra 1000 til 1299, uden tip."
+      },
+      "clear_rook": {
+        "name": "Tårn klaret",
+        "before": "Klar Tårnstimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Tårnstimen: 15 opgaver i træk fra 1300 til 1599, uden tip."
+      },
+      "clear_queen": {
+        "name": "Dronning klaret",
+        "before": "Klar Dronningestimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Dronningestimen: 15 opgaver i træk fra 1600 til 1899, uden tip."
+      },
+      "clear_king": {
+        "name": "Konge klaret",
+        "before": "Klar Kongestimen: 15 opgaver i træk, uden tip.",
+        "earned": "Du klarede Kongestimen: 15 opgaver i træk fra 1900 til 2300, uden tip."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Løs dagens opgave 3 dage i træk.",
+        "earned": "Du løste dagens opgave 3 dage i træk."
+      },
+      "daily_7": {
+        "name": "Hel uge",
+        "before": "Løs dagens opgave 7 dage i træk.",
+        "earned": "Du løste dagens opgave 7 dage i træk."
+      },
+      "daily_30": {
+        "name": "Tredive dage",
+        "before": "Løs dagens opgave 30 dage i træk.",
+        "earned": "Du løste dagens opgave 30 dage i træk."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Sværeste løste",
+        "description": "Løs den højest ratede opgave, du kan, uden fejl. Slå Sværere til i menuen for at få sværere opgaver."
+      },
+      "streak_p_challenge": {
+        "name": "Bondestime",
+        "description": "15 opgaver, der stiger fra 400 til 699. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      },
+      "streak_n_challenge": {
+        "name": "Springerstime",
+        "description": "15 opgaver, der stiger fra 700 til 999. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      },
+      "streak_b_challenge": {
+        "name": "Løberstime",
+        "description": "15 opgaver, der stiger fra 1000 til 1299. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      },
+      "streak_r_challenge": {
+        "name": "Tårnstime",
+        "description": "15 opgaver, der stiger fra 1300 til 1599. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      },
+      "streak_q_challenge": {
+        "name": "Dronningestime",
+        "description": "15 opgaver, der stiger fra 1600 til 1899. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      },
+      "streak_k_challenge": {
+        "name": "Kongestime",
+        "description": "15 opgaver, der stiger fra 1900 til 2300. Ingen tip, og én fejl afslutter stimen. Hvem når længst?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Skakopgaver, der <b>slår igen</b>",
+      "sub": "Løs én, og den næste bliver sværere. Mis én, og den slækker."
+    },
+    "2": {
+      "caption": "<b>53.000</b> opgaver fra rigtige partier",
+      "sub": "Gafler, bindinger, spid og lumske mater."
+    },
+    "3": {
+      "caption": "Sidder du fast? <b>Tag et tip.</b>",
+      "sub": "Vi siger det ikke til nogen."
+    },
+    "4": {
+      "caption": "Fra Bonde til <b>Konge</b>. Kom så.",
+      "sub": "Stig i rang. Klar stimerne. Vis dig frem."
+    },
+    "5": {
+      "caption": "En ny opgave <b>hver dag</b>",
+      "sub": "Den samme for alle. Hold din stime i live."
+    },
+    "duo-book-1": {
+      "caption": "Fold den som en <b>bog</b>",
+      "sub": "Brættet på den ene side. Noterne på den anden."
+    },
+    "duo-table-1": {
+      "caption": "Stil den op. <b>Laptoptilstand.</b>",
+      "sub": "Brættet fladt under hænderne, tallene øverst."
+    }
+  }
+}

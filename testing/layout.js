@@ -1,5 +1,5 @@
 // Layout check: every screen size we support (phones upright and sideways, iPad full, split and Slide Over,
-// desktop, iPhone Duo propped up and held like a book) x a few languages (long words: de, ru; tall script: ja;
+// desktop, iPhone Duo propped up and held like a book, the app with the biggest text sizes) x a few languages (long words: de, ru; tall script: ja;
 // right to left: ar)
 // x every overlay (menu, the daily, its done card, celebrations, the paste dialog, the promotion picker, rank streaks,
 // help). It reports the page scrolling sideways, text spilling out of buttons and labels, a card or dialog (or one of
@@ -8,7 +8,7 @@
 // usage: node testing/layout.js [languages, default en-US,de-DE,ru-RU,ja-JP,ar-SA] [size names, default all]
 //   e.g. node testing/layout.js en-US,de-DE phone-390-land,duo-book      About 15 minutes for everything.
 const server = require('./server'); const { chromium } = require('playwright'); const path = require('path'), fs = require('fs');
-const OUT = path.join(__dirname, 'out'); fs.mkdirSync(OUT, { recursive: true });
+const OUT = process.env.LAYOUT_OUT || path.join(__dirname, 'out'); fs.mkdirSync(OUT, { recursive: true });          /* LAYOUT_OUT: another folder, to run several at once */
 const VP = [
   ['phone-320', 320, 568, 1], ['phone-375', 375, 667, 1], ['phone-390', 390, 844, 1], ['phone-430', 430, 932, 1],
   ['phone-375-land', 667, 375, 1], ['phone-390-land', 844, 390, 1], ['phone-430-land', 932, 430, 1],
@@ -16,6 +16,9 @@ const VP = [
   ['ipad-split-half', 507, 1024, 1], ['ipad-slideover', 320, 1024, 1], ['ipad-pro-land', 1366, 1024, 1],
   ['laptop', 1280, 720, 0], ['desktop', 1920, 1080, 0], ['short-desktop', 1280, 600, 0],
   ['duo-table', 951, 669, 1, '?fold=h'], ['duo-book', 1338, 951, 1, '?fold=v'],
+  /* the app follows the iPhone's text size by zooming the page: an iPhone 16 Pro (402 x 874 points) at the largest
+     standard size (x1.3) and the largest accessibility size (x2) leaves the page this many CSS pixels */
+  ['text-xxxl', 309, 672, 1], ['text-ax5', 201, 437, 1],
 ];
 const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP,ar-SA').split(',');
 const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
@@ -28,6 +31,8 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
     const ua = !mobile ? undefined : 'Mozilla/5.0 (' + (/ipad/.test(name) ? 'iPad; CPU OS 26_1' : 'iPhone; CPU iPhone OS 26_1') + ' like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/140.0 Mobile/15E148 Safari/604.1';
     const ctx = await b.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1, isMobile: !!mobile, hasTouch: !!mobile, locale: lang, reducedMotion: 'reduce', userAgent: ua });
     await ctx.route('**/config.js', r => r.fulfill({ contentType: 'application/javascript', body: 'window.KING_WALK_CONFIG={goatcounter:"",site:"",appStoreId:"123",appLive:true};' }));
+    /* the text-size sizes only happen in the app: play them as the app (no App Store suggestions, the app's settings) */
+    if (/^text-/.test(name)) await ctx.addInitScript(() => { window.kingWalkApp = { platform: 'iphone', gameCenter: true, widget: true, reminders: true }; window.webkit = { messageHandlers: { kingwalk: { postMessage() {} } } }; });
     const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
     await p.goto(srv.url + 'index.html' + q); await p.waitForTimeout(800);
     await p.evaluate(() => { try { const s = JSON.parse(localStorage.getItem('chess-climb-v1')); s.players[0].n = 3; localStorage.setItem('chess-climb-v1', JSON.stringify(s)); } catch (e) {} });

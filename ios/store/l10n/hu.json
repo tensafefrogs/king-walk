@@ -1,0 +1,237 @@
+{
+  "locale": "hu",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Sakkfeladványok",
+    "subtitle": "Feladványok, amik visszavágnak",
+    "promotional_text": "Vedd észre a villát. Találd meg a mattot. Bírd a sorozatot. 53 000 feladvány valódi játszmákból, egyre nehezebbek, ahogy fejlődsz. Ma gyalog, holnap király.",
+    "description": "Azt hiszed, három lépéssel előre látsz? Bizonyítsd be!\n\nA King Walk igazi sakkfeladványokat zúdít rád, 53 000-et, valódi játszmákból. Oldj meg egyet, és a következő nehezebb. Hibázz, és visszavesz a tempóból. Néhány tucat feladvány után pontosan tudja, mennyire vagy jó. Aztán elkezd szorongatni.\n\nGyalogként kezdesz. Szerezd meg a Huszár, a Futó, a Bástya és a Vezér rangot. Ha eléred a Királyt, végigsétáltál az egész táblán.\n\n• 53 000 feladvány valódi játszmákból: villák, kötések, nyársak és alattomos alapsori mattok\n• Értékszám, amely megtalálja a szintedet, és veled együtt nő\n• Napi feladvány, mindenkinek ugyanaz. Tartsd életben a sorozatot, és dicsekedj emojikkal\n• Rangsorozatok: 15 feladvány, nincs tipp, egy hiba, és kiestél\n• Hívd ki a barátaidat a Game Centerben, és derüljön ki, ki az igazán jó\n• Elakadtál? Kérj tippet. Nem mondjuk el senkinek.\n• Elrontottál egyet? Később visszatér egy visszavágóra\n• Nagy, hangos ünneplés minden rangemelkedésnél\n• Widgetek a főképernyőre, a zárolási képernyőre és a Készenlét nézethez\n• Napi emlékeztető, ha kéred\n• Rezgés, sötét mód, VoiceOver és nagyobb szöveg\n• Offline is működik. Nincs fiók, nincs reklám, nincs appon belüli vásárlás\n\nA feladványok a közkincsnek számító Lichess-feladványadatbázisból származnak. A King Walkot nem a Lichess készítette, és nem is támogatja.",
+    "keywords": "sakk,taktika,matt,matt 2 lépésben,élő,értékszám,edző,stratégia,logika,villa,kötés,végjáték,napi"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Feladvány-értékszám",
+        "suffix": " pont",
+        "suffix_singular": " pont"
+      },
+      "streak": {
+        "name": "Legjobb sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "hardest": {
+        "name": "Legnehezebb megoldás",
+        "suffix": " pont",
+        "suffix_singular": " pont"
+      },
+      "streak_p": {
+        "name": "Gyalog-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "streak_n": {
+        "name": "Huszár-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "streak_b": {
+        "name": "Futó-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "streak_r": {
+        "name": "Bástya-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "streak_q": {
+        "name": "Vezér-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "streak_k": {
+        "name": "Király-sorozat",
+        "suffix": " egymás után",
+        "suffix_singular": " egymás után"
+      },
+      "daily_streak": {
+        "name": "Napi sorozat",
+        "suffix": " nap",
+        "suffix_singular": " nap"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Első lépések",
+        "before": "Oldj meg egy feladványt hiba és tipp nélkül.",
+        "earned": "Megoldottad az első feladványodat hiba és tipp nélkül."
+      },
+      "solved_50": {
+        "name": "Ötven megoldva",
+        "before": "Oldj meg 50 feladványt hiba és tipp nélkül.",
+        "earned": "Hibátlanul megoldottál 50 feladványt."
+      },
+      "solved_250": {
+        "name": "Rákaptál",
+        "before": "Oldj meg 250 feladványt hiba és tipp nélkül.",
+        "earned": "Hibátlanul megoldottál 250 feladványt."
+      },
+      "solved_1000": {
+        "name": "Ezer feladvány",
+        "before": "Oldj meg 1000 feladványt hiba és tipp nélkül.",
+        "earned": "Hibátlanul megoldottál 1000 feladványt."
+      },
+      "streak_5": {
+        "name": "Lendületben",
+        "before": "Oldj meg 5 feladványt egymás után.",
+        "earned": "Megoldottál 5 feladványt egymás után."
+      },
+      "streak_10": {
+        "name": "Tíz egymás után",
+        "before": "Oldj meg 10 feladványt egymás után.",
+        "earned": "Megoldottál 10 feladványt egymás után."
+      },
+      "streak_20": {
+        "name": "Megállíthatatlan",
+        "before": "Oldj meg 20 feladványt egymás után.",
+        "earned": "Megoldottál 20 feladványt egymás után."
+      },
+      "rank_knight": {
+        "name": "Huszár",
+        "before": "Érj el 700-as feladvány-értékszámot.",
+        "earned": "Elérted a Huszár rangot: 700-as feladvány-értékszám."
+      },
+      "rank_bishop": {
+        "name": "Futó",
+        "before": "Érj el 1000-es feladvány-értékszámot.",
+        "earned": "Elérted a Futó rangot: 1000-es feladvány-értékszám."
+      },
+      "rank_rook": {
+        "name": "Bástya",
+        "before": "Érj el 1300-as feladvány-értékszámot.",
+        "earned": "Elérted a Bástya rangot: 1300-as feladvány-értékszám."
+      },
+      "rank_queen": {
+        "name": "Vezér",
+        "before": "Érj el 1600-as feladvány-értékszámot.",
+        "earned": "Elérted a Vezér rangot: 1600-as feladvány-értékszám."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Érj el 1900-as feladvány-értékszámot.",
+        "earned": "Elérted a Király rangot: 1900-as feladvány-értékszám. A király végigsétált a táblán."
+      },
+      "giant_slayer": {
+        "name": "Óriásölő",
+        "before": "Oldj meg hibátlanul egy feladványt, amelynek értékszáma legalább 300-zal magasabb a tiédnél.",
+        "earned": "Hibátlanul megoldottál egy feladványt, amelynek értékszáma legalább 300-zal magasabb volt a tiédnél."
+      },
+      "clear_pawn": {
+        "name": "Gyalog teljesítve",
+        "before": "Teljesítsd a Gyalog-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Gyalog-sorozatot: 15 feladvány egymás után 400 és 699 között, tipp nélkül."
+      },
+      "clear_knight": {
+        "name": "Huszár teljesítve",
+        "before": "Teljesítsd a Huszár-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Huszár-sorozatot: 15 feladvány egymás után 700 és 999 között, tipp nélkül."
+      },
+      "clear_bishop": {
+        "name": "Futó teljesítve",
+        "before": "Teljesítsd a Futó-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Futó-sorozatot: 15 feladvány egymás után 1000 és 1299 között, tipp nélkül."
+      },
+      "clear_rook": {
+        "name": "Bástya teljesítve",
+        "before": "Teljesítsd a Bástya-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Bástya-sorozatot: 15 feladvány egymás után 1300 és 1599 között, tipp nélkül."
+      },
+      "clear_queen": {
+        "name": "Vezér teljesítve",
+        "before": "Teljesítsd a Vezér-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Vezér-sorozatot: 15 feladvány egymás után 1600 és 1899 között, tipp nélkül."
+      },
+      "clear_king": {
+        "name": "Király teljesítve",
+        "before": "Teljesítsd a Király-sorozatot: 15 feladvány egymás után, tipp nélkül.",
+        "earned": "Teljesítetted a Király-sorozatot: 15 feladvány egymás után 1900 és 2300 között, tipp nélkül."
+      },
+      "daily_3": {
+        "name": "Mesterhármas",
+        "before": "Oldd meg a napi feladványt 3 egymást követő napon.",
+        "earned": "Megoldottad a napi feladványt 3 egymást követő napon."
+      },
+      "daily_7": {
+        "name": "Teljes hét",
+        "before": "Oldd meg a napi feladványt 7 egymást követő napon.",
+        "earned": "Megoldottad a napi feladványt 7 egymást követő napon."
+      },
+      "daily_30": {
+        "name": "Harminc nap",
+        "before": "Oldd meg a napi feladványt 30 egymást követő napon.",
+        "earned": "Megoldottad a napi feladványt 30 egymást követő napon."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Legnehezebb megoldás",
+        "description": "Oldd meg hibátlanul a legmagasabb értékszámú feladványt, amit csak tudsz. A Nehezebb opcióval keményebbek jönnek."
+      },
+      "streak_p_challenge": {
+        "name": "Gyalog-sorozat",
+        "description": "15 feladvány 400-tól 699-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      },
+      "streak_n_challenge": {
+        "name": "Huszár-sorozat",
+        "description": "15 feladvány 700-tól 999-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      },
+      "streak_b_challenge": {
+        "name": "Futó-sorozat",
+        "description": "15 feladvány 1000-től 1299-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      },
+      "streak_r_challenge": {
+        "name": "Bástya-sorozat",
+        "description": "15 feladvány 1300-tól 1599-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      },
+      "streak_q_challenge": {
+        "name": "Vezér-sorozat",
+        "description": "15 feladvány 1600-tól 1899-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      },
+      "streak_k_challenge": {
+        "name": "Király-sorozat",
+        "description": "15 feladvány 1900-tól 2300-ig. Nincs tipp, és egy hiba véget vet a sorozatnak. Ki jut a legmesszebb?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Feladványok, amik <b>visszavágnak</b>",
+      "sub": "Oldj meg egyet, a következő nehezebb. Hibázz, és lazít."
+    },
+    "2": {
+      "caption": "<b>53 000</b> feladvány valódi játszmákból",
+      "sub": "Villák, kötések, nyársak és alattomos mattok."
+    },
+    "3": {
+      "caption": "Elakadtál? <b>Kérj tippet.</b>",
+      "sub": "Nem mondjuk el senkinek."
+    },
+    "4": {
+      "caption": "Gyalogtól <b>Királyig</b>. Hajrá!",
+      "sub": "Lépj feljebb a rangokon. Teljesítsd a sorozatokat. Dicsekedj."
+    },
+    "5": {
+      "caption": "Új feladvány <b>minden nap</b>",
+      "sub": "Mindenkinek ugyanaz. Tartsd életben a sorozatod."
+    },
+    "duo-book-1": {
+      "caption": "Hajtsd össze, mint egy <b>könyvet</b>",
+      "sub": "Az egyik oldalon a tábla, a másikon a jegyzetek."
+    },
+    "duo-table-1": {
+      "caption": "Állítsd fel. <b>Laptop mód.</b>",
+      "sub": "A tábla laposan a kezed alatt, fent az eredmény."
+    }
+  }
+}

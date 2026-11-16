@@ -10,7 +10,8 @@ const check = (ok, what, detail) => { if (ok) good++; else { bad++; console.log(
 // translations: every key the game uses is in every language, with the same {placeholders} (plain Node)
 function translations() {
   const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
-  const ctx = { window: {} }; vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", "lang.js"), "utf8"), ctx);
+  const ctx = { window: {} }, dir = path.join(__dirname, "..", "lang");
+  for (const f of fs.readdirSync(dir)) vm.runInNewContext(fs.readFileSync(path.join(dir, f), "utf8"), ctx);
   const langs = ctx.window.KW_STRINGS || {};
   const keys = new Set([...html.matchAll(/\bT\("((?:[^"\\]|\\.)+)"/g)].map(m => JSON.parse('"' + m[1] + '"')));
   const holes = k => (k.match(/\{\w+\}/g) || []).sort().join();
@@ -21,6 +22,11 @@ function translations() {
     const broken = Object.entries(dict).filter(([k, v]) => holes(k) !== holes(v)).map(([k]) => k);
     check(!broken.length, `${lang}: placeholders kept`, broken.slice(0, 8));
   }
+  // the loader's list in index.html and the files in lang/ agree
+  const listed = JSON.parse(html.match(/var LANGS = (\[[^\]]+\])/)[1]);
+  const variants = Object.keys(langs).filter(t => t.includes("-"));
+  check(listed.filter(l => l !== "en" && !langs[l]).length === 0 && Object.keys(langs).every(t => listed.includes(t) || variants.includes(t)),
+    "every listed language has a table in lang/, and every table is listed", { missing: listed.filter(l => l !== "en" && !langs[l]), extra: Object.keys(langs).filter(t => !listed.includes(t) && !variants.includes(t)) });
   return Object.keys(langs);
 }
 
@@ -272,6 +278,13 @@ function translations() {
     if (size.width > size.height) check(x.boardRight && x.rtlText === "rtl", `${lang}: sideways, the board stays on the right and the text runs right to left`, x);
     await w.ctx.close();
   }
+  // only this player's tables are downloaded (lang/<tag>.js): none in English, one in German, two in Portugal
+  for (const [locale, want] of [["en-US", []], ["de-DE", ["de"]], ["pt-PT", ["pt", "pt-PT"]], ["fil-PH", []]]) {
+    const w = await page("", null, { locale });
+    const got = await w.p.evaluate(() => performance.getEntriesByType("resource").map(e => (e.name.match(/\/lang\/([\w-]+)\.js/) || [])[1]).filter(Boolean).sort());
+    check(got.join() === want.join(), `${locale}: loads only ${want.join(", ") || "no language table"}`, got);
+    await w.ctx.close();
+  }
   // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
   // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
   for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {
@@ -281,7 +294,7 @@ function translations() {
     await w.ctx.close();
   }
   // a new player whose first language the game doesn't have: counted, so we know which language to add next
-  for (const [locale, want] of [["hi-IN", "lang-wanted/hi"], ["de-DE", null]]) {
+  for (const [locale, want] of [["sw-KE", "lang-wanted/sw"], ["de-DE", null]]) {
     const w = await page("", () => { Object.defineProperty(window, "KING_WALK_CONFIG", { get: () => ({ goatcounter: "https://example.invalid/count" }), set() {} });
       window.counted = []; Object.defineProperty(window, "goatcounter", { get: () => ({ count: o => window.counted.push(o.title) }), set() {} }); }, { locale });
     const got = await w.p.evaluate(() => window.counted.filter(t => /^lang/.test(t)));

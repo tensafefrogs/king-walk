@@ -1,0 +1,237 @@
+{
+  "locale": "ms",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Teka-teki Catur",
+    "subtitle": "Teka-teki yang melawan balik",
+    "promotional_text": "Kesan garpu. Cari sekakmat. Bertahan dalam rentetan. 53,000 teka-teki daripada permainan sebenar yang makin sukar apabila anda makin hebat. Hari ini Bidak, esok Raja.",
+    "description": "Rasa boleh nampak tiga langkah ke hadapan? Buktikan.\n\nKing Walk melontarkan teka-teki catur sebenar kepada anda, sebanyak 53,000, diambil daripada permainan yang benar-benar dimainkan. Selesaikan satu dan yang seterusnya lebih sukar. Gagal satu dan ia berundur sedikit. Selepas beberapa dozen teka-teki, ia tahu betapa hebatnya anda. Kemudian ia mula menekan.\n\nAnda bermula sebagai Bidak. Raih Kuda, Gajah, Tir dan Menteri. Capai Raja dan anda sudah menjelajah seluruh papan.\n\n• 53,000 teka-teki daripada permainan sebenar: garpu, pin, tusukan dan mat baris belakang yang licik\n• Rating yang mencari tahap anda dan naik bersama anda\n• Teka-teki harian, sama untuk semua orang. Kekalkan rentetan, berlagak dengan emoji\n• Rentetan pangkat: 15 teka-teki, tiada petunjuk, sekali silap anda terkeluar\n• Cabar rakan di Game Center dan tentukan siapa yang betul-betul hebat\n• Buntu? Ambil petunjuk. Kami takkan beritahu sesiapa.\n• Terlepas satu? Ia kembali nanti untuk perlawanan semula\n• Sambutan besar dan meriah setiap kali anda naik pangkat\n• Widget untuk Skrin Utama, Skrin Kunci dan StandBy\n• Peringatan harian, jika anda mahu\n• Haptik, mod gelap, VoiceOver dan teks lebih besar\n• Berfungsi di luar talian. Tiada akaun, tiada iklan, tiada pembelian dalam app\n\nTeka-teki ini datang daripada pangkalan data teka-teki Lichess yang berdomain awam. King Walk tidak dibuat atau disokong oleh Lichess.",
+    "keywords": "taktik,sekakmat,mat dalam 2,elo,rating,latihan,strategi,otak,logik,garpu,pin,penamat,harian,puzzle"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rating Teka-teki",
+        "suffix": " rating",
+        "suffix_singular": " rating"
+      },
+      "streak": {
+        "name": "Rentetan Terbaik",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "hardest": {
+        "name": "Teka-teki Tersukar",
+        "suffix": " rating teka-teki",
+        "suffix_singular": " rating teka-teki"
+      },
+      "streak_p": {
+        "name": "Rentetan Bidak",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "streak_n": {
+        "name": "Rentetan Kuda",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "streak_b": {
+        "name": "Rentetan Gajah",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "streak_r": {
+        "name": "Rentetan Tir",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "streak_q": {
+        "name": "Rentetan Menteri",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "streak_k": {
+        "name": "Rentetan Raja",
+        "suffix": " berturut-turut",
+        "suffix_singular": " berturut-turut"
+      },
+      "daily_streak": {
+        "name": "Rentetan Harian",
+        "suffix": " hari",
+        "suffix_singular": " hari"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Langkah Pertama",
+        "before": "Selesaikan satu teka-teki tanpa kesilapan dan tanpa petunjuk.",
+        "earned": "Anda menyelesaikan teka-teki pertama tanpa kesilapan dan tanpa petunjuk."
+      },
+      "solved_50": {
+        "name": "Lima Puluh Selesai",
+        "before": "Selesaikan 50 teka-teki tanpa kesilapan dan tanpa petunjuk.",
+        "earned": "Anda menyelesaikan 50 teka-teki tanpa silap."
+      },
+      "solved_250": {
+        "name": "Tabiat Teka-teki",
+        "before": "Selesaikan 250 teka-teki tanpa kesilapan dan tanpa petunjuk.",
+        "earned": "Anda menyelesaikan 250 teka-teki tanpa silap."
+      },
+      "solved_1000": {
+        "name": "Seribu Teka-teki",
+        "before": "Selesaikan 1,000 teka-teki tanpa kesilapan dan tanpa petunjuk.",
+        "earned": "Anda menyelesaikan 1,000 teka-teki tanpa silap."
+      },
+      "streak_5": {
+        "name": "Tengah Panas",
+        "before": "Selesaikan 5 teka-teki berturut-turut.",
+        "earned": "Anda menyelesaikan 5 teka-teki berturut-turut."
+      },
+      "streak_10": {
+        "name": "Sepuluh Berturut-turut",
+        "before": "Selesaikan 10 teka-teki berturut-turut.",
+        "earned": "Anda menyelesaikan 10 teka-teki berturut-turut."
+      },
+      "streak_20": {
+        "name": "Tak Terhalang",
+        "before": "Selesaikan 20 teka-teki berturut-turut.",
+        "earned": "Anda menyelesaikan 20 teka-teki berturut-turut."
+      },
+      "rank_knight": {
+        "name": "Kuda",
+        "before": "Capai rating teka-teki 700.",
+        "earned": "Anda mencapai pangkat Kuda: rating teka-teki 700."
+      },
+      "rank_bishop": {
+        "name": "Gajah",
+        "before": "Capai rating teka-teki 1000.",
+        "earned": "Anda mencapai pangkat Gajah: rating teka-teki 1000."
+      },
+      "rank_rook": {
+        "name": "Tir",
+        "before": "Capai rating teka-teki 1300.",
+        "earned": "Anda mencapai pangkat Tir: rating teka-teki 1300."
+      },
+      "rank_queen": {
+        "name": "Menteri",
+        "before": "Capai rating teka-teki 1600.",
+        "earned": "Anda mencapai pangkat Menteri: rating teka-teki 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Capai rating teka-teki 1900.",
+        "earned": "Anda mencapai pangkat Raja: rating teka-teki 1900. Raja sudah berjalan hingga ke hujung papan."
+      },
+      "giant_slayer": {
+        "name": "Penumpas Gergasi",
+        "before": "Selesaikan tanpa silap teka-teki yang ratingnya 300 atau lebih tinggi daripada anda.",
+        "earned": "Anda menyelesaikan tanpa silap teka-teki yang ratingnya 300 atau lebih tinggi daripada anda."
+      },
+      "clear_pawn": {
+        "name": "Bidak Lulus",
+        "before": "Luluskan rentetan Bidak: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Bidak: 15 teka-teki berturut-turut dari 400 hingga 699, tanpa petunjuk."
+      },
+      "clear_knight": {
+        "name": "Kuda Lulus",
+        "before": "Luluskan rentetan Kuda: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Kuda: 15 teka-teki berturut-turut dari 700 hingga 999, tanpa petunjuk."
+      },
+      "clear_bishop": {
+        "name": "Gajah Lulus",
+        "before": "Luluskan rentetan Gajah: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Gajah: 15 teka-teki berturut-turut dari 1000 hingga 1299, tanpa petunjuk."
+      },
+      "clear_rook": {
+        "name": "Tir Lulus",
+        "before": "Luluskan rentetan Tir: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Tir: 15 teka-teki berturut-turut dari 1300 hingga 1599, tanpa petunjuk."
+      },
+      "clear_queen": {
+        "name": "Menteri Lulus",
+        "before": "Luluskan rentetan Menteri: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Menteri: 15 teka-teki berturut-turut dari 1600 hingga 1899, tanpa petunjuk."
+      },
+      "clear_king": {
+        "name": "Raja Lulus",
+        "before": "Luluskan rentetan Raja: 15 teka-teki berturut-turut, tanpa petunjuk.",
+        "earned": "Anda meluluskan rentetan Raja: 15 teka-teki berturut-turut dari 1900 hingga 2300, tanpa petunjuk."
+      },
+      "daily_3": {
+        "name": "Hatrik",
+        "before": "Selesaikan teka-teki harian 3 hari berturut-turut.",
+        "earned": "Anda menyelesaikan teka-teki harian 3 hari berturut-turut."
+      },
+      "daily_7": {
+        "name": "Seminggu Penuh",
+        "before": "Selesaikan teka-teki harian 7 hari berturut-turut.",
+        "earned": "Anda menyelesaikan teka-teki harian 7 hari berturut-turut."
+      },
+      "daily_30": {
+        "name": "Tiga Puluh Hari",
+        "before": "Selesaikan teka-teki harian 30 hari berturut-turut.",
+        "earned": "Anda menyelesaikan teka-teki harian 30 hari berturut-turut."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Teka-teki Tersukar",
+        "description": "Selesaikan tanpa silap teka-teki dengan rating setinggi mungkin. Hidupkan Lebih sukar dalam menu untuk yang lebih payah."
+      },
+      "streak_p_challenge": {
+        "name": "Rentetan Bidak",
+        "description": "15 teka-teki yang naik dari 400 hingga 699. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      },
+      "streak_n_challenge": {
+        "name": "Rentetan Kuda",
+        "description": "15 teka-teki yang naik dari 700 hingga 999. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      },
+      "streak_b_challenge": {
+        "name": "Rentetan Gajah",
+        "description": "15 teka-teki yang naik dari 1000 hingga 1299. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      },
+      "streak_r_challenge": {
+        "name": "Rentetan Tir",
+        "description": "15 teka-teki yang naik dari 1300 hingga 1599. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      },
+      "streak_q_challenge": {
+        "name": "Rentetan Menteri",
+        "description": "15 teka-teki yang naik dari 1600 hingga 1899. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      },
+      "streak_k_challenge": {
+        "name": "Rentetan Raja",
+        "description": "15 teka-teki yang naik dari 1900 hingga 2300. Tiada petunjuk, sekali silap rentetan tamat. Siapa pergi paling jauh?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Teka-teki catur yang <b>melawan balik</b>",
+      "sub": "Selesaikan satu, seterusnya lebih sukar. Gagal, ia berundur."
+    },
+    "2": {
+      "caption": "<b>53,000</b> teka-teki daripada permainan sebenar",
+      "sub": "Garpu, pin, tusukan dan mat yang licik."
+    },
+    "3": {
+      "caption": "Buntu? <b>Ambil petunjuk.</b>",
+      "sub": "Kami takkan beritahu sesiapa."
+    },
+    "4": {
+      "caption": "Bidak ke <b>Raja</b>. Jom!",
+      "sub": "Naik pangkat. Luluskan rentetan. Tunjukkan kehebatan."
+    },
+    "5": {
+      "caption": "Teka-teki baharu <b>setiap hari</b>",
+      "sub": "Sama untuk semua. Kekalkan rentetan anda."
+    },
+    "duo-book-1": {
+      "caption": "Lipat seperti <b>buku</b>",
+      "sub": "Papan di satu halaman. Nota di halaman lain."
+    },
+    "duo-table-1": {
+      "caption": "Tegakkan. <b>Mod komputer riba.</b>",
+      "sub": "Papan rata di bawah tangan anda, skor di atas."
+    }
+  }
+}

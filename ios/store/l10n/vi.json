@@ -1,0 +1,237 @@
+{
+  "locale": "vi",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Câu đố cờ vua",
+    "subtitle": "Thử thách cờ vua không dễ xơi",
+    "promotional_text": "Tìm đòn chĩa đôi. Tìm nước chiếu hết. Giữ vững chuỗi. 53.000 câu đố từ ván đấu thật, bạn càng giỏi thì càng khó. Hôm nay là Tốt, mai kia là Vua.",
+    "description": "Bạn nghĩ mình nhìn trước được ba nước? Chứng minh đi.\n\nKing Walk mang đến cho bạn những câu đố cờ vua thật sự, tới 53.000 câu, lấy từ các ván đấu có thật. Giải được một câu, câu sau sẽ khó hơn. Sai một câu, trò chơi sẽ nương tay. Chỉ sau vài chục câu, nó biết chính xác bạn giỏi đến đâu. Và rồi nó bắt đầu thử thách bạn thật sự.\n\nBạn khởi đầu là Tốt. Lần lượt lên Mã, Tượng, Xe và Hậu. Lên tới Vua là bạn đã đi hết bàn cờ.\n\n• 53.000 câu đố từ ván đấu thật: chĩa đôi, ghim, xiên và những đòn chiếu hết hàng cuối đầy bất ngờ\n• Điểm số tìm ra trình độ của bạn và tăng dần cùng bạn\n• Câu đố hằng ngày, giống nhau cho mọi người. Giữ chuỗi ngày và khoe bằng emoji\n• Chuỗi cấp bậc: 15 câu đố, không gợi ý, sai một lần là bị loại\n• Thách đấu bạn bè trên Game Center để xem ai mới thật sự giỏi\n• Bí nước? Dùng gợi ý. Chúng tôi không nói với ai đâu.\n• Giải sai? Câu đó sẽ quay lại sau để bạn phục thù\n• Màn ăn mừng hoành tráng mỗi lần lên cấp\n• Tiện ích cho Màn hình chính, Màn hình khóa và chế độ Chờ\n• Lời nhắc hằng ngày, nếu bạn muốn\n• Rung phản hồi, chế độ tối, VoiceOver và chữ cỡ lớn\n• Chơi ngoại tuyến. Không cần tài khoản, không quảng cáo, không mua trong ứng dụng\n\nCác câu đố được lấy từ cơ sở dữ liệu câu đố Lichess thuộc phạm vi công cộng. King Walk không do Lichess tạo ra hay bảo trợ.",
+    "keywords": "chess,chiếu hết,chiến thuật,elo,luyện tập,chiến lược,tư duy,logic,chĩa đôi,ghim,tàn cuộc,trí tuệ"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Điểm câu đố",
+        "suffix": " điểm",
+        "suffix_singular": " điểm"
+      },
+      "streak": {
+        "name": "Chuỗi dài nhất",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "hardest": {
+        "name": "Câu khó nhất từng giải",
+        "suffix": " điểm",
+        "suffix_singular": " điểm"
+      },
+      "streak_p": {
+        "name": "Chuỗi Tốt",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "streak_n": {
+        "name": "Chuỗi Mã",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "streak_b": {
+        "name": "Chuỗi Tượng",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "streak_r": {
+        "name": "Chuỗi Xe",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "streak_q": {
+        "name": "Chuỗi Hậu",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "streak_k": {
+        "name": "Chuỗi Vua",
+        "suffix": " câu liên tiếp",
+        "suffix_singular": " câu liên tiếp"
+      },
+      "daily_streak": {
+        "name": "Chuỗi hằng ngày",
+        "suffix": " ngày",
+        "suffix_singular": " ngày"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Những bước đầu",
+        "before": "Giải một câu đố không sai, không gợi ý.",
+        "earned": "Bạn đã giải câu đố đầu tiên không sai, không gợi ý."
+      },
+      "solved_50": {
+        "name": "Năm mươi câu",
+        "before": "Giải 50 câu đố không sai, không gợi ý.",
+        "earned": "Bạn đã giải trọn vẹn 50 câu đố."
+      },
+      "solved_250": {
+        "name": "Thói quen giải đố",
+        "before": "Giải 250 câu đố không sai, không gợi ý.",
+        "earned": "Bạn đã giải trọn vẹn 250 câu đố."
+      },
+      "solved_1000": {
+        "name": "Một nghìn câu đố",
+        "before": "Giải 1.000 câu đố không sai, không gợi ý.",
+        "earned": "Bạn đã giải trọn vẹn 1.000 câu đố."
+      },
+      "streak_5": {
+        "name": "Đang có phong độ",
+        "before": "Giải 5 câu đố liên tiếp.",
+        "earned": "Bạn đã giải 5 câu đố liên tiếp."
+      },
+      "streak_10": {
+        "name": "Mười câu liên tiếp",
+        "before": "Giải 10 câu đố liên tiếp.",
+        "earned": "Bạn đã giải 10 câu đố liên tiếp."
+      },
+      "streak_20": {
+        "name": "Không thể cản",
+        "before": "Giải 20 câu đố liên tiếp.",
+        "earned": "Bạn đã giải 20 câu đố liên tiếp."
+      },
+      "rank_knight": {
+        "name": "Mã",
+        "before": "Đạt 700 điểm câu đố.",
+        "earned": "Bạn đã lên cấp Mã: 700 điểm câu đố."
+      },
+      "rank_bishop": {
+        "name": "Tượng",
+        "before": "Đạt 1000 điểm câu đố.",
+        "earned": "Bạn đã lên cấp Tượng: 1000 điểm câu đố."
+      },
+      "rank_rook": {
+        "name": "Xe",
+        "before": "Đạt 1300 điểm câu đố.",
+        "earned": "Bạn đã lên cấp Xe: 1300 điểm câu đố."
+      },
+      "rank_queen": {
+        "name": "Hậu",
+        "before": "Đạt 1600 điểm câu đố.",
+        "earned": "Bạn đã lên cấp Hậu: 1600 điểm câu đố."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Đạt 1900 điểm câu đố.",
+        "earned": "Bạn đã lên cấp Vua: 1900 điểm câu đố. Vua đã đi hết bàn cờ."
+      },
+      "giant_slayer": {
+        "name": "Hạ gục người khổng lồ",
+        "before": "Giải trọn vẹn một câu đố có điểm cao hơn bạn từ 300 trở lên.",
+        "earned": "Bạn đã giải trọn vẹn một câu đố có điểm cao hơn bạn từ 300 trở lên."
+      },
+      "clear_pawn": {
+        "name": "Vượt qua chuỗi Tốt",
+        "before": "Vượt qua chuỗi Tốt: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Tốt: 15 câu đố liên tiếp từ 400 đến 699, không gợi ý."
+      },
+      "clear_knight": {
+        "name": "Vượt qua chuỗi Mã",
+        "before": "Vượt qua chuỗi Mã: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Mã: 15 câu đố liên tiếp từ 700 đến 999, không gợi ý."
+      },
+      "clear_bishop": {
+        "name": "Vượt qua chuỗi Tượng",
+        "before": "Vượt qua chuỗi Tượng: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Tượng: 15 câu đố liên tiếp từ 1000 đến 1299, không gợi ý."
+      },
+      "clear_rook": {
+        "name": "Vượt qua chuỗi Xe",
+        "before": "Vượt qua chuỗi Xe: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Xe: 15 câu đố liên tiếp từ 1300 đến 1599, không gợi ý."
+      },
+      "clear_queen": {
+        "name": "Vượt qua chuỗi Hậu",
+        "before": "Vượt qua chuỗi Hậu: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Hậu: 15 câu đố liên tiếp từ 1600 đến 1899, không gợi ý."
+      },
+      "clear_king": {
+        "name": "Vượt qua chuỗi Vua",
+        "before": "Vượt qua chuỗi Vua: 15 câu đố liên tiếp, không gợi ý.",
+        "earned": "Bạn đã vượt qua chuỗi Vua: 15 câu đố liên tiếp từ 1900 đến 2300, không gợi ý."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Giải câu đố hằng ngày 3 ngày liên tiếp.",
+        "earned": "Bạn đã giải câu đố hằng ngày 3 ngày liên tiếp."
+      },
+      "daily_7": {
+        "name": "Trọn tuần",
+        "before": "Giải câu đố hằng ngày 7 ngày liên tiếp.",
+        "earned": "Bạn đã giải câu đố hằng ngày 7 ngày liên tiếp."
+      },
+      "daily_30": {
+        "name": "Ba mươi ngày",
+        "before": "Giải câu đố hằng ngày 30 ngày liên tiếp.",
+        "earned": "Bạn đã giải câu đố hằng ngày 30 ngày liên tiếp."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Câu khó nhất từng giải",
+        "description": "Giải trọn vẹn câu đố có điểm cao nhất có thể. Bật Khó hơn trong menu để gặp câu khó hơn."
+      },
+      "streak_p_challenge": {
+        "name": "Chuỗi Tốt",
+        "description": "15 câu đố tăng dần từ 400 đến 699. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      },
+      "streak_n_challenge": {
+        "name": "Chuỗi Mã",
+        "description": "15 câu đố tăng dần từ 700 đến 999. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      },
+      "streak_b_challenge": {
+        "name": "Chuỗi Tượng",
+        "description": "15 câu đố tăng dần từ 1000 đến 1299. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      },
+      "streak_r_challenge": {
+        "name": "Chuỗi Xe",
+        "description": "15 câu đố tăng dần từ 1300 đến 1599. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      },
+      "streak_q_challenge": {
+        "name": "Chuỗi Hậu",
+        "description": "15 câu đố tăng dần từ 1600 đến 1899. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      },
+      "streak_k_challenge": {
+        "name": "Chuỗi Vua",
+        "description": "15 câu đố tăng dần từ 1900 đến 2300. Không gợi ý, sai một lần là hết chuỗi. Ai đi xa nhất?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Câu đố cờ vua <b>không dễ xơi</b>",
+      "sub": "Giải được một câu, câu sau khó hơn. Sai một câu, sẽ dễ lại."
+    },
+    "2": {
+      "caption": "<b>53.000</b> câu đố từ ván đấu thật",
+      "sub": "Chĩa đôi, ghim, xiên và những đòn chiếu hết bất ngờ."
+    },
+    "3": {
+      "caption": "Bí nước? <b>Dùng gợi ý.</b>",
+      "sub": "Chúng tôi không nói với ai đâu."
+    },
+    "4": {
+      "caption": "Từ Tốt lên <b>Vua</b>. Bắt đầu thôi!",
+      "sub": "Lên cấp. Vượt chuỗi. Khoe ngay."
+    },
+    "5": {
+      "caption": "Câu đố mới <b>mỗi ngày</b>",
+      "sub": "Giống nhau cho mọi người. Giữ vững chuỗi ngày."
+    },
+    "duo-book-1": {
+      "caption": "Gập lại như <b>cuốn sách</b>",
+      "sub": "Bàn cờ một trang. Ghi chú trang kia."
+    },
+    "duo-table-1": {
+      "caption": "Dựng lên. <b>Chế độ laptop.</b>",
+      "sub": "Bàn cờ nằm phẳng dưới tay, điểm số ở trên."
+    }
+  }
+}
