@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead (swap): 1.0.2 is rebuilt from main with 44 languages and the zoom and large-text fixes, takes the earlier 1.0.2 build's place in App Review, and is released on approval. The new languages' store pages go up with it (from_version 1.0.2). (Apple refuses emoji in What's New: none there.)"
+  "note": "Owner's go-ahead (swap): 1.0.2 with build 2611162120 (44 languages, the zoom and large-text fixes) in place of the earlier 1.0.2 build, released on approval. Third run: new languages' store pages are filled in after App Store Connect adds them empty; no emoji in What's New."
 }

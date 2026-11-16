@@ -173,22 +173,34 @@ def localizations(info, ver, listing):
     import glob
     files = sorted(glob.glob(os.path.join(HERE, 'l10n', '*.json')))
     if not files: return
-    have_info = {l['attributes']['locale']: l for l in call('GET', f"/v1/appInfos/{info['id']}/appInfoLocalizations")['data']}
-    have_ver = {l['attributes']['locale']: l for l in call('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations")['data']}
     v = listing['version']
+    vs = lambda x: tuple(int(n) for n in x.split('.'))
+    langs = []
     for f in files:
-        t = json.load(open(f)); loc, l = t['locale'], t['listing']
+        t = json.load(open(f))
         # "from_version": a language the app's earlier builds don't have waits for the first version that does
-        vs = lambda x: tuple(int(n) for n in x.split('.'))
         if t.get('from_version') and vs(ver['attributes']['versionString']) < vs(t['from_version']):
-            print('Language:', loc, 'waits for version', t['from_version']); continue
+            print('Language:', t['locale'], 'waits for version', t['from_version']); continue
+        langs.append(t)
+    # the app's name and subtitle in each language. Adding a language here makes App Store Connect add an empty page
+    # for it to the version being prepared too, so the version's pages are read only after this
+    have_info = {l['attributes']['locale']: l for l in call('GET', f"/v1/appInfos/{info['id']}/appInfoLocalizations?limit=200")['data']}
+    for t in langs:
+        loc, l = t['locale'], t['listing']
+        a = {'name': l['name'], 'subtitle': l['subtitle'], 'privacyPolicyUrl': listing['app_info']['privacy_policy_url']}
         try:
-            a = {'name': l['name'], 'subtitle': l['subtitle'], 'privacyPolicyUrl': listing['app_info']['privacy_policy_url']}
             if loc in have_info: patch('appInfoLocalizations', have_info[loc]['id'], a)
             else: request('POST', '/v1/appInfoLocalizations', {'data': {'type': 'appInfoLocalizations', 'attributes': dict(a, locale=loc),
                           'relationships': {'appInfo': {'data': {'type': 'appInfos', 'id': info['id']}}}}})
-            a = {'description': l['description'], 'keywords': l['keywords'], 'promotionalText': l['promotional_text'],
-                 'supportUrl': v['support_url'], 'marketingUrl': v['marketing_url']}
+        except ApiError as e:
+            print('Language', loc, 'name not set:', e.code, e.body[:300])
+    # the version's page in each language: description, keywords, promotional text, URLs
+    have_ver = {l['attributes']['locale']: l for l in call('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations?limit=200")['data']}
+    for t in langs:
+        loc, l = t['locale'], t['listing']
+        a = {'description': l['description'], 'keywords': l['keywords'], 'promotionalText': l['promotional_text'],
+             'supportUrl': v['support_url'], 'marketingUrl': v['marketing_url']}
+        try:
             if loc in have_ver: patch('appStoreVersionLocalizations', have_ver[loc]['id'], a)
             else: request('POST', '/v1/appStoreVersionLocalizations', {'data': {'type': 'appStoreVersionLocalizations', 'attributes': dict(a, locale=loc),
                           'relationships': {'appStoreVersion': {'data': {'type': 'appStoreVersions', 'id': ver['id']}}}}})

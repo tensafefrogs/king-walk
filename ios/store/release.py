@@ -208,7 +208,7 @@ def stuck_screenshots(v, fix=False):
     can stay at UPLOAD_COMPLETE for good, and deleting it and uploading the same file again is the usual cure."""
     import hashlib
     files = {os.path.basename(p): p for ps in json.load(open(os.path.join(HERE, 'listing.json')))['screenshots'].values() for p in ps}
-    for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']:
+    for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
         for st in call('GET', f"/v1/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets")['data']:
             shots = call('GET', f"/v1/appScreenshotSets/{st['id']}/appScreenshots")['data']
             order, changed = [x['id'] for x in shots], False
@@ -280,12 +280,16 @@ def app_store(app_id, build, cfg):
         call('PATCH', f"/v1/appStoreVersions/{v['id']}/relationships/build", {'data': {'type': 'builds', 'id': build['id']}})
         patch('appStoreVersions', v['id'], {'releaseType': release_type})
         log(f"App Store: build {build['attributes']['version']} attached to {version}, release {release_type.lower().replace('_', ' ')}")
+        # the listing first: it adds the pages for new languages, which then get their What's New too
+        if cfg.get('listing', True):   # "listing": false submits without uploading it again (screenshots restart processing)
+            import upload_listing
+            upload_listing.main()   # text, URLs, age rating, screenshots
         # What's New: one text for every language, or {"en-US": ..., "de-DE": ...} (a language without one gets en-US's)
         wn = cfg.get('whats_new') or ''
         wn = wn if isinstance(wn, dict) else ({'en-US': wn} if wn else {})
         if wn:
             done = []
-            for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']:
+            for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
                 lang = loc['attributes']['locale']
                 notes = plain_notes(wn.get(lang) or (lang != 'zh-Hant' and wn.get(lang.split('-')[0])) or wn.get('en-US', ''))   # never Simplified for Traditional
                 if not notes: continue
@@ -296,9 +300,6 @@ def app_store(app_id, build, cfg):
                 except ApiError as e:   # the first version of an app has no What's New
                     log(f"App Store: What's New not set for {lang} ({e.code})")
             if done: log("App Store: What's New set: " + ', '.join(done))
-        if cfg.get('listing', True):   # "listing": false submits without uploading it again (screenshots restart processing)
-            import upload_listing
-            upload_listing.main()   # text, URLs, age rating, screenshots
         if cfg.get('submit'): submit_for_review(app_id, v)
     else:
         log(f'App Store: version {version} is {state}; left as it is'
