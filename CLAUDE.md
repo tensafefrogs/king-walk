@@ -10,7 +10,8 @@ A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ fr
 - Text the player sees or hears goes through `T("English text")` and needs an entry in `lang.js` for every language (unit.js checks).
 - Saves from two devices (the app's iCloud copy): `betterSave` in `index.html` decides which to keep, and `SaveRank` in `ios/KingWalk/SaveStore.swift` is the same rule for the app. Change both together (unit.js tests the page's).
 - The icon, logos and favicon are drawn by `node scripts/icon.js` (see `brand/README.md`). The service worker serves puzzles, fonts and icons from its cache first; the website build names that cache after their contents, so changing them needs nothing more.
-- Russian text uses the bundled Nunito Cyrillic fonts (`fonts/nunito-cyrillic-*`), also in place of Fredoka, which has no Cyrillic. A new script (Greek, Vietnamese…) needs the same.
+- Russian text uses the bundled Nunito Cyrillic fonts (`fonts/nunito-cyrillic-*`), also in place of Fredoka, which has no Cyrillic. Hebrew uses Fredoka's Hebrew letters and Rubik (for Nunito), Arabic uses Baloo Bhaijaan 2 for both. A new script (Greek, Vietnamese…) needs the same.
+- Arabic and Hebrew run right to left (`html[dir="rtl"]`): the page mirrors, the board and the chart don't. Write new CSS with logical properties (`margin-inline-start`, `inset-inline-end`) rather than left and right, flip direction-giving icons (`svg.flip`), and include `ar-SA` when you run the layout check on something new.
 - Keep the owner's accounts and IDs out of the code: the GoatCounter address, site, bundle ID and App Store ID come from Actions variables through `config.js` and the build (README, "Your own copy").
 
 ## Keep the store materials current

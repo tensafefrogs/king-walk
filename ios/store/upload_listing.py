@@ -178,6 +178,10 @@ def localizations(info, ver, listing):
     v = listing['version']
     for f in files:
         t = json.load(open(f)); loc, l = t['locale'], t['listing']
+        # "from_version": a language the app's earlier builds don't have waits for the first version that does
+        vs = lambda x: tuple(int(n) for n in x.split('.'))
+        if t.get('from_version') and vs(ver['attributes']['versionString']) < vs(t['from_version']):
+            print('Language:', loc, 'waits for version', t['from_version']); continue
         try:
             a = {'name': l['name'], 'subtitle': l['subtitle'], 'privacyPolicyUrl': listing['app_info']['privacy_policy_url']}
             if loc in have_info: patch('appInfoLocalizations', have_info[loc]['id'], a)
