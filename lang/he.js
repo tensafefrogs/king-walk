@@ -305,5 +305,10 @@
   "{rank} streak": "רצף {rank}",
   "{rank} streak, puzzle {n} of {total}": "רצף {rank}, חידה {n} מתוך {total}",
   "Language": "שפה",
-  "Same as device": "כמו במכשיר"
+  "Same as device": "כמו במכשיר",
+  "Don't break the streak.": "לא לשבור את הרצף.",
+  "Remind me at {time}": "להזכיר לי ב-{time}",
+  "A reminder every day at {time}.": "תזכורת כל יום ב-{time}.",
+  "Your streak ends at midnight": "הרצף נגמר בחצות",
+  "One puzzle keeps it going.": "חידה אחת שומרת עליו."
 };

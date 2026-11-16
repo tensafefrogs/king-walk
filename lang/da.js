@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}-stime",
   "{rank} streak, puzzle {n} of {total}": "{rank}-stime, opgave {n} af {total}",
   "Language": "Sprog",
-  "Same as device": "Som enheden"
+  "Same as device": "Som enheden",
+  "Don't break the streak.": "Bryd ikke stimen.",
+  "Remind me at {time}": "Mind mig om det kl. {time}",
+  "A reminder every day at {time}.": "En påmindelse hver dag kl. {time}.",
+  "Your streak ends at midnight": "Din stime slutter ved midnat",
+  "One puzzle keeps it going.": "Én opgave holder den i gang."
 };

@@ -305,5 +305,10 @@
   "{rank} streak": "{rank}-svit",
   "{rank} streak, puzzle {n} of {total}": "{rank}-svit, problem {n} av {total}",
   "Language": "Språk",
-  "Same as device": "Som enheten"
+  "Same as device": "Som enheten",
+  "Don't break the streak.": "Bryt inte sviten.",
+  "Remind me at {time}": "Påminn mig kl. {time}",
+  "A reminder every day at {time}.": "En påminnelse varje dag kl. {time}.",
+  "Your streak ends at midnight": "Din svit tar slut vid midnatt",
+  "One puzzle keeps it going.": "Ett problem håller den vid liv."
 };

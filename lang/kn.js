@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} ಶ್ರೇಣಿ ಸರಣಿ",
   "{rank} streak, puzzle {n} of {total}": "{rank} ಶ್ರೇಣಿ ಸರಣಿ, ಒಗಟು {total}ರಲ್ಲಿ {n}",
   "Language": "ಭಾಷೆ",
-  "Same as device": "ಸಾಧನದಂತೆಯೇ"
+  "Same as device": "ಸಾಧನದಂತೆಯೇ",
+  "Don't break the streak.": "ಸರಣಿಯನ್ನು ಮುರಿಯಬೇಡಿ.",
+  "Remind me at {time}": "{time}ಕ್ಕೆ ನೆನಪಿಸಿ",
+  "A reminder every day at {time}.": "ಪ್ರತಿದಿನ {time}ಕ್ಕೆ ಜ್ಞಾಪನೆ.",
+  "Your streak ends at midnight": "ನಿಮ್ಮ ಸರಣಿ ಮಧ್ಯರಾತ್ರಿ ಮುಗಿಯುತ್ತದೆ",
+  "One puzzle keeps it going.": "ಒಂದು ಒಗಟು ಸಾಕು, ಸರಣಿ ಮುಂದುವರಿಯುತ್ತದೆ."
 };

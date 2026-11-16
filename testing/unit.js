@@ -320,6 +320,33 @@ function translations() {
     check(fr.lang === "fr" && fr.sel === "fr" && fr.kept === "fr" && dev.lang === "en" && dev.kept === null, "language picker: French kept, then back to the device's", { fr, dev });
     await ctx2.close(); srv2.close();
   }
+  // the streak saver (the app): with reminders on and a streak of 2+, a 9 pm note on a day not yet played (today, or
+  // tomorrow once today's is done), none without a streak; at a streak of 3 with reminders off, the done card offers
+  // one, once, and a tap turns it on at 6 pm
+  {
+    const w = await page("", () => { window.sent = []; window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(m) } } }; window.kingWalkApp = { reminders: true, widget: true }; });
+    const r = await w.p.evaluate(async () => {
+      const sleep = ms => new Promise(r => setTimeout(r, ms)), p = me(), D = p.daily, n = dayNumber(), last = () => window.sent.filter(m => m.op === "reminders").pop();
+      const lates = () => (last().items || []).filter(i => i.id === "late").map(i => i.date + "@" + i.hour);
+      S.remind = 8; D.days = {}; D.streak = 0; D.last = 0;
+      sendDaily(); const none = lates();
+      recordDaily(D, n - 2, "g", 30, true); recordDaily(D, n - 1, "g", 30, true);
+      sendDaily(); const today = lates(), hourNow = new Date().getHours();
+      recordDaily(D, n, "g", 30, true); sendDaily(); const tomorrow = lates();
+      S.remind = -1; try { localStorage.removeItem("kw-remind-offered"); } catch (e) {}
+      showDailyDone(); await sleep(600);
+      const btn = document.querySelector(".cele-app button"), offered = !!btn;
+      if (btn) btn.click();
+      const after = { remind: S.remind, text: (document.querySelector(".cele-app") || {}).textContent || "" };
+      document.querySelector(".cele .go").click(); await sleep(500);
+      showDailyDone(); await sleep(600); const again = !!document.querySelector(".cele-app button");
+      return { none, today, hourNow, tomorrow, dayToday: dayKey(n), dayTomorrow: dayKey(n + 1), offered, after, again };
+    });
+    check(!r.none.length && (r.hourNow >= 21 ? !r.today.length : r.today.join() === r.dayToday + "@21") && r.tomorrow.join() === r.dayTomorrow + "@21",
+      "streak saver: a 9 pm note only with a streak, today until it's played, then tomorrow", r);
+    check(r.offered && r.after.remind === 18 && /18|6/.test(r.after.text) && !r.again, "the done card offers a reminder once at a streak of 3; a tap sets 6 pm", r);
+    await w.ctx.close();
+  }
   // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
   // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
   for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {

@@ -9,6 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
+- **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
+  with reminders on, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
 - **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
   whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
   cause of the stuck zoom). The game now lays itself out for the bigger text and always fits.

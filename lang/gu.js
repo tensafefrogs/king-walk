@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} સ્ટ્રીક",
   "{rank} streak, puzzle {n} of {total}": "{rank} સ્ટ્રીક, કોયડો {n}/{total}",
   "Language": "ભાષા",
-  "Same as device": "ડિવાઇસ મુજબ"
+  "Same as device": "ડિવાઇસ મુજબ",
+  "Don't break the streak.": "સ્ટ્રીક તૂટવા ન દો.",
+  "Remind me at {time}": "{time} વાગ્યે યાદ અપાવો",
+  "A reminder every day at {time}.": "દરરોજ {time} વાગ્યે રિમાઇન્ડર.",
+  "Your streak ends at midnight": "તમારી સ્ટ્રીક મધરાતે પૂરી થશે",
+  "One puzzle keeps it going.": "એક કોયડો તેને ચાલુ રાખશે."
 };

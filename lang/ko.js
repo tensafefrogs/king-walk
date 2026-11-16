@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} 도전",
   "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐",
   "Language": "언어",
-  "Same as device": "기기 설정과 동일"
+  "Same as device": "기기 설정과 동일",
+  "Don't break the streak.": "연속 기록이 끊기지 않게 하세요.",
+  "Remind me at {time}": "{time}에 알림 받기",
+  "A reminder every day at {time}.": "매일 {time}에 알려 드려요.",
+  "Your streak ends at midnight": "연속 기록이 자정에 끊겨요",
+  "One puzzle keeps it going.": "퍼즐 하나면 기록이 이어져요."
 };

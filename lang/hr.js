@@ -305,5 +305,10 @@
   "{rank} streak": "Niz {rank}",
   "{rank} streak, puzzle {n} of {total}": "Niz {rank}, zadatak {n} od {total}",
   "Language": "Jezik",
-  "Same as device": "Kao na uređaju"
+  "Same as device": "Kao na uređaju",
+  "Don't break the streak.": "Ne prekidaj niz.",
+  "Remind me at {time}": "Podsjeti me u {time}",
+  "A reminder every day at {time}.": "Podsjetnik svaki dan u {time}.",
+  "Your streak ends at midnight": "Tvoj niz završava u ponoć",
+  "One puzzle keeps it going.": "Jedan zadatak ga održava."
 };

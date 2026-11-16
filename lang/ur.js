@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} سلسلہ",
   "{rank} streak, puzzle {n} of {total}": "{rank} سلسلہ، {total} میں سے پزل {n}",
   "Language": "زبان",
-  "Same as device": "ڈیوائس جیسی"
+  "Same as device": "ڈیوائس جیسی",
+  "Don't break the streak.": "سلسلہ ٹوٹنے نہ دیں۔",
+  "Remind me at {time}": "{time} پر یاد دلائیں",
+  "A reminder every day at {time}.": "روزانہ {time} پر یاد دہانی۔",
+  "Your streak ends at midnight": "آپ کا سلسلہ آدھی رات کو ختم ہو جائے گا",
+  "One puzzle keeps it going.": "ایک پزل اسے جاری رکھے گا۔"
 };

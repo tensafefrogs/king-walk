@@ -305,5 +305,10 @@
   "{rank} streak": "Серія {rank}",
   "{rank} streak, puzzle {n} of {total}": "Серія {rank}, задача {n} з {total}",
   "Language": "Мова",
-  "Same as device": "Як на пристрої"
+  "Same as device": "Як на пристрої",
+  "Don't break the streak.": "Не переривай серію.",
+  "Remind me at {time}": "Нагадати о {time}",
+  "A reminder every day at {time}.": "Нагадування щодня о {time}.",
+  "Your streak ends at midnight": "Серія перерветься опівночі",
+  "One puzzle keeps it going.": "Досить однієї задачі, щоб її продовжити."
 };

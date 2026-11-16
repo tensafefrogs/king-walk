@@ -305,5 +305,10 @@
   "{rank} streak": "Racha {rank}",
   "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}",
   "Language": "Idioma",
-  "Same as device": "Igual que el dispositivo"
+  "Same as device": "Igual que el dispositivo",
+  "Don't break the streak.": "No rompas la racha.",
+  "Remind me at {time}": "Recuérdamelo a las {time}",
+  "A reminder every day at {time}.": "Un recordatorio todos los días a las {time}.",
+  "Your streak ends at midnight": "Tu racha termina a medianoche",
+  "One puzzle keeps it going.": "Un problema basta para mantenerla."
 };

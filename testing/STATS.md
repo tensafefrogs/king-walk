@@ -44,6 +44,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `promo/bar/close`, `promo/foot/close` | The top bar's or the bottom bar's × (hides the suggestions for a month) | `promoBar()`, `promoFoot()` |
 | `tip/closed` | The first puzzle's hint closed with its × (it also goes on the first move) | the hint |
 | `remind/<hour>`, `remind/off` | The daily reminder set to an hour (8, 12, 18, 20) or turned off (app only) | the Daily reminder setting |
+| `remind/offered`, `remind/offer-yes` | The app's done card offered a daily reminder (a daily streak of 3, reminders off; once per device), and the player took it (6 pm). How many the offer turns into reminders | the daily's done card |
 | `lefty-on`, `lefty-off` | The Left-handed layout setting is turned on or off | menu |
 | `gamecenter` | The Game Center button is pressed (app only) | menu |
 | `rate-ask` | The app asks iOS to show the rating prompt (iOS may not show it) | `maybeAskForRating()` |

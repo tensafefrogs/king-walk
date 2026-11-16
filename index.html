@@ -458,7 +458,8 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
 .appfoot a b { color: var(--accent); font-weight: 700; white-space: nowrap; unicode-bidi: isolate; }
 .appfoot .tip-x { flex: none; }
 .cele-app { margin: 10px 22px 0; font: 600 13.5px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 0.3s ease-out both; }
-.cele-app a { color: var(--p-teal); font-weight: 800; text-decoration: none; white-space: nowrap; }
+.cele-app a, .cele-app button { color: var(--p-teal); font-weight: 800; text-decoration: none; white-space: nowrap; }
+.cele-app button { all: unset; color: var(--p-teal); font-weight: 800; cursor: pointer; border-radius: 6px; }          /* Remind me at 6 pm: a link-like button */
 .app-only { font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; white-space: nowrap; }
 .links a { color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
 .links a:hover { text-decoration: underline; }
@@ -1971,6 +1972,24 @@ function showDailyDone() {
            T("Come back tomorrow for the next one"), T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })].filter(Boolean),
     onShare: sh => shareProgress(sh, { daily: { n } }) });
   promoLine("daily", T("Never miss a day: the app reminds you and puts today's puzzle on your Home Screen."));
+  remindOffer(st);
+}
+/* The app, a daily streak of 3 or more and no reminder: offer one on the done card, once on this device (the reminder
+   lives on the device too). A tap turns it on at 6 pm, which asks for notifications. */
+function remindOffer(st) {
+  if (!(APP && APP.reminders) || S.remind >= 0 || st < 3) return;
+  try { if (localStorage.getItem("kw-remind-offered")) return; localStorage.setItem("kw-remind-offered", "1"); } catch (e) { return; }
+  const card = document.querySelector(".cele:not(.out) .cele-card"), btns = card && card.querySelector(".cele-btns"); if (!btns) return;
+  const at = new Intl.DateTimeFormat(LOCALE, { hour: "numeric", minute: "2-digit" }).format(new Date(2026, 0, 1, 18));
+  const line = document.createElement("p"), b = document.createElement("button");
+  line.className = "cele-app"; b.type = "button"; b.textContent = T("Remind me at {time}", { time: at });
+  b.addEventListener("click", () => {
+    S.remind = 18; save(); renderRemind(); sendDaily(); track("remind/offer-yes");
+    line.textContent = T("A reminder every day at {time}.", { time: at });
+  });
+  line.append(T("Don't break the streak.") + " ", b);
+  card.insertBefore(line, btns);
+  track("remind/offered");
 }
 
 /* ---------- the daily puzzle ----------
@@ -2181,6 +2200,14 @@ function sendDaily() {
     if (k === n && (dailyDone(p, n) || new Date().getHours() >= hour)) continue;
     const st = k === n ? dailyStreak(p) : k === n + 1 && dailyDone(p, n) ? dailyStreak(p) : 0;
     items.push({ date: dayKey(k), title: T("Daily puzzle #{n}", { n: k }), body: st >= 2 ? T("Keep your {n}-day streak going. Today's puzzle is ready.", { n: st }) : T("Today's puzzle is ready.") });
+  }
+  /* the streak saver: with a streak of 2 or more, a second note at 9 pm on a day not yet played (today, or tomorrow
+     once today's is done); solving sends the list again without it. Only with reminders on: it needs their permission. */
+  const LATE = 21, st = dailyStreak(p), late = k => ({ date: dayKey(k), hour: LATE, id: "late", title: T("Your streak ends at midnight"),
+    body: "\ud83d\udd25 " + T("{n} days in a row", { n: st }) + ". " + T("One puzzle keeps it going.") });
+  if (hour >= 0 && hour < LATE && st >= 2) {
+    if (!dailyDone(p, n) && new Date().getHours() < LATE) items.push(late(n));
+    if (dailyDone(p, n)) items.push(late(n + 1));
   }
   APP.post({ op: "reminders", hour, items });
 }

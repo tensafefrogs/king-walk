@@ -305,5 +305,10 @@
   "{rank} streak": "{rank} स्ट्रीक",
   "{rank} streak, puzzle {n} of {total}": "{rank} स्ट्रीक, {total} में से पहेली {n}",
   "Language": "भाषा",
-  "Same as device": "डिवाइस जैसी"
+  "Same as device": "डिवाइस जैसी",
+  "Don't break the streak.": "स्ट्रीक टूटने न दें।",
+  "Remind me at {time}": "{time} पर याद दिलाएँ",
+  "A reminder every day at {time}.": "रोज़ {time} पर रिमाइंडर।",
+  "Your streak ends at midnight": "आपकी स्ट्रीक आधी रात को खत्म होगी",
+  "One puzzle keeps it going.": "एक पहेली से यह जारी रहेगी।"
 };

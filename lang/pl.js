@@ -305,5 +305,10 @@
   "{rank} streak": "Seria {rank}",
   "{rank} streak, puzzle {n} of {total}": "Seria {rank}, zadanie {n} z {total}",
   "Language": "Język",
-  "Same as device": "Jak w urządzeniu"
+  "Same as device": "Jak w urządzeniu",
+  "Don't break the streak.": "Nie przerywaj serii.",
+  "Remind me at {time}": "Przypomnij mi o {time}",
+  "A reminder every day at {time}.": "Przypomnienie codziennie o {time}.",
+  "Your streak ends at midnight": "Twoja seria kończy się o północy",
+  "One puzzle keeps it going.": "Jedno zadanie wystarczy, by ją utrzymać."
 };
