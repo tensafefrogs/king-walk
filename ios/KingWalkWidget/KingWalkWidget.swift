@@ -51,6 +51,27 @@ enum Palette {
     static let deepTeal = Color(red: 0x14 / 255, green: 0x3f / 255, blue: 0x38 / 255)
     static let mint = Color(red: 0x56 / 255, green: 0xc2 / 255, blue: 0xad / 255)
     static let coral = Color(red: 0xe2 / 255, green: 0x70 / 255, blue: 0x4f / 255)
+    static let teal = Color(red: 0x1c / 255, green: 0x78 / 255, blue: 0x68 / 255)
+    static let night = Color(red: 0x0d / 255, green: 0x29 / 255, blue: 0x25 / 255)
+    static let solved = Color(red: 0x22 / 255, green: 0xa0 / 255, blue: 0x6b / 255)   // the game's check for a solved daily
+    /// the store art's backdrop: lighter teal at the top into deep ink
+    static func backdrop(bright: Bool = false) -> LinearGradient {
+        LinearGradient(colors: [bright ? teal : deepTeal, night], startPoint: .top, endPoint: .bottom)
+    }
+}
+
+/// The game's display face, Fredoka (Fonts/), for numbers and the name: what reads at a glance looks like the game.
+/// Words stay in the system's rounded font, which has every script the game is in.
+enum Brand {
+    static func number(_ size: CGFloat, bold: Bool = true) -> Font { .custom(bold ? "FredokaLight-Bold" : "FredokaLight-SemiBold", fixedSize: size) }
+}
+
+/// the King Walk icon, small, beside a widget's title
+struct Mark: View {
+    var size: CGFloat = 16
+    var body: some View {
+        Image("mark").resizable().scaledToFit().frame(width: size, height: size).accessibilityHidden(true)
+    }
 }
 
 struct ProgressWidgetView: View {
@@ -60,7 +81,7 @@ struct ProgressWidgetView: View {
     var body: some View {
         content
             .widgetURL(entry.progress.map { $0.dailySolved(on: entry.date) } == false ? Daily.url : nil)
-            .widgetBackground(family.isAccessory ? AnyView(Color.clear) : AnyView(LinearGradient(colors: [Palette.deepTeal, Palette.ink], startPoint: .top, endPoint: .bottom)))
+            .widgetBackground(family.isAccessory ? AnyView(Color.clear) : AnyView(Palette.backdrop()))
     }
 
     @ViewBuilder private var content: some View {
@@ -99,6 +120,7 @@ struct PieceBadge: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: size * 0.26, style: .continuous).fill(Palette.gold)
+                .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2)   // the game's cards sit on a hard shadow
             Image("piece-w" + piece).resizable().scaledToFit().padding(size * 0.12)
         }
         .frame(width: size, height: size)
@@ -126,10 +148,10 @@ struct DailyChip: View {
         let done = p.dailySolved(on: date), streak = p.dailyStreakNow(on: date)
         HStack(spacing: 3) {
             Image(systemName: done ? "checkmark.circle.fill" : "calendar").font(.system(size: 12, weight: .bold))
-            if streak > 0 { Text("\(streak)").font(.system(size: 13, weight: .bold, design: .rounded)) }
+            if streak > 0 { Text("\(streak)").font(Brand.number(14)) }
             if !done { Circle().fill(Palette.coral).frame(width: 6, height: 6) }
         }
-        .foregroundColor(Palette.gold)
+        .foregroundColor(done ? Palette.solved : Palette.gold)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(done ? p.dailyDoneText : p.dailyTodoText)
     }
@@ -147,7 +169,7 @@ struct SmallView: View {
             }
             Spacer(minLength: 2)
             Text(p.rankLine ?? "\(p.rank)").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
-            Text("\(p.rating)").font(.system(size: 34, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
+            Text("\(p.rating)").font(Brand.number(36)).foregroundColor(Palette.cream)
                 .minimumScaleFactor(0.7).lineLimit(1)
             RankBar(fraction: p.rankFraction)
             Text(p.nextText).font(.system(size: 12, weight: .semibold, design: .rounded))
@@ -180,7 +202,7 @@ struct Stat: View {
     let label: String
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("\(value)").font(.system(size: 17, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
+            Text("\(value)").font(Brand.number(18)).foregroundColor(Palette.cream)
             Text(label).font(.system(size: 11, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.65))
         }
     }
@@ -254,7 +276,7 @@ struct EmptyStateView: View {
             VStack(alignment: .leading, spacing: 6) {
                 PieceBadge(piece: "p")
                 Spacer()
-                Text("King Walk").font(.system(size: 17, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
+                Text("King Walk").font(Brand.number(19)).foregroundColor(Palette.cream)
                 Text("Solve a puzzle to see your rank here.").font(.system(size: 12, weight: .semibold, design: .rounded))
                     .foregroundColor(Palette.cream.opacity(0.75))
             }
@@ -310,29 +332,45 @@ struct DailyWidgetView: View {
                 Label(inline, systemImage: done ? "checkmark.circle" : "calendar")
             default:
                 VStack(alignment: .leading, spacing: 2) {
-                    HStack {
+                    HStack(spacing: 6) {
+                        Mark(size: 16)
                         Text(label.uppercased()).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.75))
                         Spacer()
                         if streak > 0 {
-                            Label("\(streak)", systemImage: "flame.fill").font(.system(size: 14, weight: .bold, design: .rounded)).foregroundColor(Palette.gold)
+                            HStack(spacing: 3) {
+                                Image(systemName: "flame.fill").font(.system(size: 13, weight: .bold))
+                                Text("\(streak)").font(Brand.number(16))
+                            }
+                            .foregroundColor(Palette.gold)
                         }
                     }
                     Spacer(minLength: 0)
-                    Text("#\(n)").font(.system(size: 44, weight: .bold, design: .rounded)).foregroundColor(Palette.cream).minimumScaleFactor(0.6).lineLimit(1)
+                    Text("#\(n)").font(Brand.number(46)).foregroundColor(Palette.cream).minimumScaleFactor(0.6).lineLimit(1)
                     Text(entry.date, format: .dateTime.weekday(.wide)).font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
                     Spacer(minLength: 4)
-                    HStack(spacing: 5) {
-                        Image(systemName: done ? "checkmark.circle.fill" : "play.circle.fill").font(.system(size: 15, weight: .bold))
-                        Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(2).minimumScaleFactor(0.8)
+                    if done {
+                        // solved: the game's green check
+                        HStack(spacing: 5) {
+                            Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
+                            Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(2).minimumScaleFactor(0.8)
+                        }
+                    } else {
+                        // waiting: the game's gold button, ink on gold
+                        HStack(spacing: 5) {
+                            Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
+                            Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(2).minimumScaleFactor(0.75)
+                        }
+                        .foregroundColor(Palette.ink)
+                        .padding(.horizontal, 9).padding(.vertical, 5)
+                        .background(RoundedRectangle(cornerRadius: 9, style: .continuous).fill(Palette.gold)
+                                        .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2))
                     }
-                    .foregroundColor(done ? Palette.mint : Palette.gold)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .widgetURL(Daily.url)
-        .widgetBackground(family.isAccessory ? AnyView(Color.clear)
-                          : AnyView(LinearGradient(colors: [done ? Palette.deepTeal : Color(red: 0x1c / 255, green: 0x78 / 255, blue: 0x68 / 255), Palette.ink], startPoint: .top, endPoint: .bottom)))
+        .widgetBackground(family.isAccessory ? AnyView(Color.clear) : AnyView(Palette.backdrop(bright: !done)))   // brighter while today's waits
     }
 }
 

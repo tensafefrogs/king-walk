@@ -103,6 +103,8 @@ targets:
         CFBundleDevelopmentRegion: en
         # the languages the game has (lang/ and the .lproj folders): iOS gives the page the player's one of these
         CFBundleLocalizations: [en, es, fr, de, it, pt-BR, pt-PT, nl, ru, ja, ko, zh-Hans, zh-Hant, ar, he, hi, mr, ur, bn, gu, pa, ta, te, kn, ml, or, th, tr, id, ms, vi, pl, cs, sk, sl, hr, uk, el, ro, hu, ca, sv, da, nb, fi]
+        # the game's display face for the widgets' numbers (Fonts/, converted from fonts/fredoka-latin-*.woff2)
+        UIAppFonts: [Fredoka-SemiBold.ttf, Fredoka-Bold.ttf]
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
