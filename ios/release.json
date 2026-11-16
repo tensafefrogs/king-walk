@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "xcode27": true,
   "build": true,
   "testflight": {
@@ -10,25 +10,25 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.1: a green check on the calendar once the daily is done; sharing a daily achievement shares the daily result; the daily link reopens your result; new anonymous stats events. Tell me anything that's broken or confusing."
+    "whats_new": "1.0.2: cards (rank-ups, achievements, the daily's result) fit when the phone is on its side. Tell me anything that's broken or confusing."
   },
   "app_store": {
     "submit": true,
     "release": "after_approval",
     "whats_new": {
-      "en-US": "• A green check on the calendar once today's puzzle is done.\n• Sharing a daily achievement now shares your daily result.\n• A shared daily link opens today's puzzle, or your result if you've already played.\n• Small fixes and polish.",
-      "es": "• Una marca verde en el calendario cuando ya has hecho el problema del día.\n• Al compartir un logro diario ahora compartes tu resultado del día.\n• Un enlace compartido del problema del día abre el de hoy, o tu resultado si ya lo has jugado.\n• Pequeñas correcciones y mejoras.",
-      "fr": "• Une coche verte sur le calendrier une fois le problème du jour terminé.\n• Partager un succès quotidien partage maintenant votre résultat du jour.\n• Un lien partagé vers le problème du jour ouvre celui d'aujourd'hui, ou votre résultat si vous l'avez déjà joué.\n• Petites corrections et finitions.",
-      "de": "• Ein grünes Häkchen am Kalender, sobald die Tagesaufgabe gelöst ist.\n• Wer einen Tageserfolg teilt, teilt jetzt sein Tagesergebnis.\n• Ein geteilter Link zur Tagesaufgabe öffnet die heutige, oder dein Ergebnis, wenn du sie schon gespielt hast.\n• Kleine Korrekturen und Feinschliff.",
-      "it": "• Un segno di spunta verde sul calendario quando hai finito il problema del giorno.\n• Condividere un traguardo giornaliero ora condivide il tuo risultato del giorno.\n• Un link condiviso al problema del giorno apre quello di oggi, o il tuo risultato se l'hai già giocato.\n• Piccole correzioni e ritocchi.",
-      "pt": "• Um visto verde no calendário quando o problema do dia estiver feito.\n• Compartilhar uma conquista diária agora compartilha seu resultado do dia.\n• Um link compartilhado do problema do dia abre o de hoje, ou seu resultado se você já jogou.\n• Pequenas correções e ajustes.",
-      "nl": "• Een groen vinkje op de kalender zodra de dagpuzzel klaar is.\n• Een dagprestatie delen deelt nu je dagresultaat.\n• Een gedeelde link naar de dagpuzzel opent die van vandaag, of je resultaat als je hem al hebt gespeeld.\n• Kleine verbeteringen en reparaties.",
-      "ru": "• Зелёная галочка на календаре, когда задача дня решена.\n• Поделиться ежедневным достижением теперь значит поделиться результатом дня.\n• Ссылка на задачу дня открывает сегодняшнюю задачу или ваш результат, если вы её уже решили.\n• Небольшие исправления и улучшения.",
-      "ja": "• 今日のパズルを終えると、カレンダーに緑のチェックが付きます。\n• デイリー実績を共有すると、その日の結果を共有するようになりました。\n• 共有されたデイリーパズルのリンクから、今日のパズル(プレイ済みなら結果)が開きます。\n• 細かな修正と改善。",
-      "ko": "• 오늘의 퍼즐을 마치면 달력에 초록색 체크가 표시돼요.\n• 일일 업적을 공유하면 이제 그날의 결과를 공유해요.\n• 공유된 오늘의 퍼즐 링크는 오늘의 퍼즐을, 이미 풀었다면 결과를 열어요.\n• 자잘한 수정과 개선.",
-      "zh": "• 完成今日谜题后，日历上会出现绿色对勾。\n• 分享每日成就时，现在会分享你当天的结果。\n• 分享的每日谜题链接会打开今天的谜题，已经玩过则显示你的结果。\n• 细节修正与改进。"
+      "en-US": "• Cards now fit when your phone is on its side.\n• Small fixes and polish.",
+      "es": "• Las tarjetas ahora caben con el teléfono en horizontal.\n• Pequeñas correcciones y mejoras.",
+      "fr": "• Les cartes tiennent désormais à l'écran avec le téléphone à l'horizontale.\n• Petites corrections et finitions.",
+      "de": "• Karten passen jetzt auch auf den Bildschirm, wenn das Telefon quer liegt.\n• Kleine Korrekturen und Feinschliff.",
+      "it": "• Le schede ora stanno nello schermo con il telefono in orizzontale.\n• Piccole correzioni e ritocchi.",
+      "pt": "• Os cartões agora cabem na tela com o celular na horizontal.\n• Pequenas correções e ajustes.",
+      "nl": "• Kaarten passen nu ook op het scherm als je telefoon gekanteld is.\n• Kleine verbeteringen en reparaties.",
+      "ru": "• Карточки теперь помещаются на экране, когда телефон лежит горизонтально.\n• Небольшие исправления и улучшения.",
+      "ja": "• スマートフォンを横向きにしても、カードが画面に収まるようになりました。\n• 細かな修正と改善。",
+      "ko": "• 휴대폰을 가로로 돌려도 카드가 화면에 맞게 표시돼요.\n• 자잘한 수정과 개선.",
+      "zh": "• 手机横放时，卡片现在也能完整显示。\n• 细节修正与改进。"
     }
   },
   "release_now": false,
-  "note": "Submit 1.0.1 to App Review (owner's go-ahead), released automatically once approved, before the launch push."
+  "note": "Queue 1.0.2 (owner's go-ahead): built and on TestFlight now; submitted to App Review once 1.0.1 is approved and released (the 6-hourly run), released automatically on approval."
 }
