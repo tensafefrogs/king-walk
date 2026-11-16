@@ -1,0 +1,237 @@
+{
+  "locale": "fi",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Shakkitehtävät",
+    "subtitle": "Shakkia, joka iskee takaisin",
+    "promotional_text": "Bongaa haarukka. Löydä matti. Selviä putkesta. 53 000 tehtävää oikeista peleistä, ja ne vaikeutuvat sitä mukaa kuin kehityt. Tänään Sotilas, joskus Kuningas.",
+    "description": "Luuletko näkeväsi kolme siirtoa eteenpäin? Todista se.\n\nKing Walk heittää eteesi oikeita shakkitehtäviä, 53 000 kappaletta, poimittuina oikeista peleistä. Ratkaise yksi, niin seuraava on kovempi. Mene vikaan, niin tahti hellittää. Muutaman kymmenen tehtävän jälkeen peli tietää tarkalleen, kuinka hyvä olet. Sitten se alkaa puskea.\n\nAloitat Sotilaana. Ansaitse Ratsu, Lähetti, Torni ja Kuningatar. Kun pääset Kuninkaaksi, olet kulkenut koko laudan halki.\n\n• 53 000 tehtävää oikeista peleistä: haarukoita, kiinnityksiä, seivästyksiä ja ovelia takarivimatteja\n• Vahvuusluku, joka löytää tasosi ja nousee kanssasi\n• Päivän tehtävä, sama kaikille. Pidä putki hengissä ja kehuskele emojeilla\n• Arvoputket: 15 tehtävää, ei vihjeitä, yksi virhe ja olet ulkona\n• Haasta kaverit Game Centerissä ja ratkaiskaa, kuka oikeasti osaa\n• Jumissa? Ota vihje. Emme kerro kenellekään.\n• Menikö ohi? Tehtävä palaa myöhemmin revanssia varten\n• Isot, äänekkäät juhlat aina kun nouset arvossa\n• Widgetit Koti-valikkoon, lukitusnäytölle ja Valmiustilaan\n• Päivittäinen muistutus, jos haluat\n• Haptiikka, tumma tila, VoiceOver ja suurempi teksti\n• Toimii ilman verkkoa. Ei tiliä, ei mainoksia, ei sovelluksen sisäisiä ostoja\n\nTehtävät ovat peräisin Lichessin vapaasti käytettävästä tehtävätietokannasta. King Walk ei ole Lichessin tekemä tai suosittelema.",
+    "keywords": "shakki,taktiikka,shakkimatti,matti,elo,vahvuusluku,harjoitus,strategia,haarukka,loppupeli,logiikka"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Vahvuusluku",
+        "suffix": " pistettä",
+        "suffix_singular": " piste"
+      },
+      "streak": {
+        "name": "Paras putki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "hardest": {
+        "name": "Vaikein ratkaistu",
+        "suffix": " pistettä",
+        "suffix_singular": " piste"
+      },
+      "streak_p": {
+        "name": "Sotilasputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "streak_n": {
+        "name": "Ratsuputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "streak_b": {
+        "name": "Lähettiputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "streak_r": {
+        "name": "Torniputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "streak_q": {
+        "name": "Kuningatarputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "streak_k": {
+        "name": "Kuningasputki",
+        "suffix": " peräkkäin",
+        "suffix_singular": " peräkkäin"
+      },
+      "daily_streak": {
+        "name": "Päiväputki",
+        "suffix": " päivää",
+        "suffix_singular": " päivä"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Ensiaskeleet",
+        "before": "Ratkaise tehtävä ilman virheitä ja vihjeitä.",
+        "earned": "Ratkaisit ensimmäisen tehtäväsi ilman virheitä ja vihjeitä."
+      },
+      "solved_50": {
+        "name": "Viisikymmentä ratkaistu",
+        "before": "Ratkaise 50 tehtävää ilman virheitä ja vihjeitä.",
+        "earned": "Ratkaisit 50 tehtävää virheettä."
+      },
+      "solved_250": {
+        "name": "Tehtävärutiini",
+        "before": "Ratkaise 250 tehtävää ilman virheitä ja vihjeitä.",
+        "earned": "Ratkaisit 250 tehtävää virheettä."
+      },
+      "solved_1000": {
+        "name": "Tuhat tehtävää",
+        "before": "Ratkaise 1 000 tehtävää ilman virheitä ja vihjeitä.",
+        "earned": "Ratkaisit 1 000 tehtävää virheettä."
+      },
+      "streak_5": {
+        "name": "Vauhdissa",
+        "before": "Ratkaise 5 tehtävää peräkkäin.",
+        "earned": "Ratkaisit 5 tehtävää peräkkäin."
+      },
+      "streak_10": {
+        "name": "Kymmenen peräkkäin",
+        "before": "Ratkaise 10 tehtävää peräkkäin.",
+        "earned": "Ratkaisit 10 tehtävää peräkkäin."
+      },
+      "streak_20": {
+        "name": "Pysäyttämätön",
+        "before": "Ratkaise 20 tehtävää peräkkäin.",
+        "earned": "Ratkaisit 20 tehtävää peräkkäin."
+      },
+      "rank_knight": {
+        "name": "Ratsu",
+        "before": "Nosta vahvuuslukusi 700:aan.",
+        "earned": "Saavutit Ratsun arvon: vahvuusluku 700."
+      },
+      "rank_bishop": {
+        "name": "Lähetti",
+        "before": "Nosta vahvuuslukusi 1000:een.",
+        "earned": "Saavutit Lähetin arvon: vahvuusluku 1000."
+      },
+      "rank_rook": {
+        "name": "Torni",
+        "before": "Nosta vahvuuslukusi 1300:aan.",
+        "earned": "Saavutit Tornin arvon: vahvuusluku 1300."
+      },
+      "rank_queen": {
+        "name": "Kuningatar",
+        "before": "Nosta vahvuuslukusi 1600:aan.",
+        "earned": "Saavutit Kuningattaren arvon: vahvuusluku 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Nosta vahvuuslukusi 1900:aan.",
+        "earned": "Saavutit Kuninkaan arvon: vahvuusluku 1900. Kuningas on marssinut koko matkan."
+      },
+      "giant_slayer": {
+        "name": "Jättiläisen kaataja",
+        "before": "Ratkaise virheettä tehtävä, jonka vahvuusluku on vähintään 300 omaasi korkeampi.",
+        "earned": "Ratkaisit virheettä tehtävän, jonka vahvuusluku oli vähintään 300 omaasi korkeampi."
+      },
+      "clear_pawn": {
+        "name": "Sotilasputki läpäisty",
+        "before": "Läpäise sotilasputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Sotilasputki läpäisty: 15 tehtävää peräkkäin välillä 400–699, ilman vihjeitä."
+      },
+      "clear_knight": {
+        "name": "Ratsuputki läpäisty",
+        "before": "Läpäise ratsuputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Ratsuputki läpäisty: 15 tehtävää peräkkäin välillä 700–999, ilman vihjeitä."
+      },
+      "clear_bishop": {
+        "name": "Lähettiputki läpäisty",
+        "before": "Läpäise lähettiputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Lähettiputki läpäisty: 15 tehtävää peräkkäin välillä 1000–1299, ilman vihjeitä."
+      },
+      "clear_rook": {
+        "name": "Torniputki läpäisty",
+        "before": "Läpäise torniputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Torniputki läpäisty: 15 tehtävää peräkkäin välillä 1300–1599, ilman vihjeitä."
+      },
+      "clear_queen": {
+        "name": "Kuningatarputki läpäisty",
+        "before": "Läpäise kuningatarputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Kuningatarputki läpäisty: 15 tehtävää peräkkäin välillä 1600–1899, ilman vihjeitä."
+      },
+      "clear_king": {
+        "name": "Kuningasputki läpäisty",
+        "before": "Läpäise kuningasputki: 15 tehtävää peräkkäin, ei vihjeitä.",
+        "earned": "Kuningasputki läpäisty: 15 tehtävää peräkkäin välillä 1900–2300, ilman vihjeitä."
+      },
+      "daily_3": {
+        "name": "Hattutemppu",
+        "before": "Ratkaise päivän tehtävä 3 päivänä peräkkäin.",
+        "earned": "Ratkaisit päivän tehtävän 3 päivänä peräkkäin."
+      },
+      "daily_7": {
+        "name": "Täysi viikko",
+        "before": "Ratkaise päivän tehtävä 7 päivänä peräkkäin.",
+        "earned": "Ratkaisit päivän tehtävän 7 päivänä peräkkäin."
+      },
+      "daily_30": {
+        "name": "Kolmekymmentä päivää",
+        "before": "Ratkaise päivän tehtävä 30 päivänä peräkkäin.",
+        "earned": "Ratkaisit päivän tehtävän 30 päivänä peräkkäin."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Vaikein ratkaistu",
+        "description": "Ratkaise virheettä niin korkealle luokiteltu tehtävä kuin pystyt. Laita valikosta Vaikeampi päälle, niin saat kovempia tehtäviä."
+      },
+      "streak_p_challenge": {
+        "name": "Sotilasputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 400–699. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      },
+      "streak_n_challenge": {
+        "name": "Ratsuputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 700–999. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      },
+      "streak_b_challenge": {
+        "name": "Lähettiputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 1000–1299. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      },
+      "streak_r_challenge": {
+        "name": "Torniputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 1300–1599. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      },
+      "streak_q_challenge": {
+        "name": "Kuningatarputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 1600–1899. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      },
+      "streak_k_challenge": {
+        "name": "Kuningasputki",
+        "description": "15 yhä vaikeampaa tehtävää välillä 1900–2300. Ei vihjeitä, ja yksi virhe päättää putken. Kuka pääsee pisimmälle?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Shakkia, joka <b>iskee takaisin</b>",
+      "sub": "Ratkaise yksi, niin seuraava on kovempi. Mene vikaan, niin se hellittää."
+    },
+    "2": {
+      "caption": "<b>53 000</b> tehtävää oikeista peleistä",
+      "sub": "Haarukoita, kiinnityksiä, seivästyksiä ja ovelia matteja."
+    },
+    "3": {
+      "caption": "Jumissa? <b>Ota vihje.</b>",
+      "sub": "Emme kerro kenellekään."
+    },
+    "4": {
+      "caption": "Sotilaasta <b>Kuninkaaksi</b>. Nyt!",
+      "sub": "Nouse arvoissa. Läpäise putket. Esittele."
+    },
+    "5": {
+      "caption": "Uusi tehtävä <b>joka päivä</b>",
+      "sub": "Sama kaikille. Pidä putkesi hengissä."
+    },
+    "duo-book-1": {
+      "caption": "Taita se kuin <b>kirja</b>",
+      "sub": "Lauta yhdellä sivulla. Muistiinpanot toisella."
+    },
+    "duo-table-1": {
+      "caption": "Nosta pystyyn. <b>Läppäritila.</b>",
+      "sub": "Lauta tasaisena käsiesi alla, luvut ylhäällä."
+    }
+  }
+}

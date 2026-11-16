@@ -1,0 +1,237 @@
+{
+  "locale": "cs",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Šachové úlohy",
+    "subtitle": "Úlohy, které se nedají",
+    "promotional_text": "Najdi vidličku. Dej mat. Přežij sérii. 53 000 úloh ze skutečných partií, které jsou tím těžší, čím líp hraješ. Dnes Pěšec, jednou Král.",
+    "description": "Myslíš, že vidíš tři tahy dopředu? Dokaž to.\n\nKing Walk ti předhodí skutečné šachové úlohy, rovnou 53 000, vytažené z odehraných partií. Vyřeš jednu a další bude těžší. Spleť se a hra poleví. Po pár desítkách úloh přesně ví, jak dobře hraješ. A pak začne přitlačovat.\n\nZačínáš jako Pěšec. Získej Jezdce, Střelce, Věž a Dámu. Dosáhni hodnosti Král a máš za sebou celou šachovnici.\n\n• 53 000 úloh ze skutečných partií: vidličky, vazby, špízy a záludné maty na poslední řadě\n• Rating, který najde tvou úroveň a roste s tebou\n• Úloha dne, stejná pro všechny. Udrž sérii a chlub se v emoji\n• Série hodností: 15 úloh, bez nápověd, jedna chyba a končíš\n• Vyzvi kamarády v Game Center a zjistěte, kdo je opravdu dobrý\n• Nevíš kudy kam? Vezmi si nápovědu. Nikomu to neřekneme.\n• Nevyšlo to? Úloha se později vrátí k odvetě\n• Velké, hlasité oslavy při každém povýšení\n• Widgety pro plochu, zamčenou obrazovku a režim StandBy\n• Denní připomínka, pokud chceš\n• Haptická odezva, tmavý režim, VoiceOver a větší text\n• Funguje offline. Bez účtu, bez reklam, bez nákupů v aplikaci\n\nÚlohy pocházejí z databáze úloh Lichess, která je volným dílem. King Walk nevytvořil ani nepodporuje Lichess.",
+    "keywords": "šachy,taktika,mat 2. tahem,elo,rating,trénink,strategie,logika,hlavolam,vidlička,vazba,koncovky"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rating v úlohách",
+        "suffix": " bodů",
+        "suffix_singular": " bod"
+      },
+      "streak": {
+        "name": "Nejlepší série",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "hardest": {
+        "name": "Nejtěžší úloha",
+        "suffix": " bodů",
+        "suffix_singular": " bod"
+      },
+      "streak_p": {
+        "name": "Série Pěšec",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "streak_n": {
+        "name": "Série Jezdec",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "streak_b": {
+        "name": "Série Střelec",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "streak_r": {
+        "name": "Série Věž",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "streak_q": {
+        "name": "Série Dáma",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "streak_k": {
+        "name": "Série Král",
+        "suffix": " v řadě",
+        "suffix_singular": " v řadě"
+      },
+      "daily_streak": {
+        "name": "Denní série",
+        "suffix": " dní v řadě",
+        "suffix_singular": " den v řadě"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "První kroky",
+        "before": "Vyřeš úlohu bez chyb a bez nápovědy.",
+        "earned": "První úloha vyřešená bez chyb a bez nápovědy."
+      },
+      "solved_50": {
+        "name": "Padesátka",
+        "before": "Vyřeš 50 úloh bez chyb a bez nápovědy.",
+        "earned": "50 úloh vyřešených bez chyby."
+      },
+      "solved_250": {
+        "name": "Síla zvyku",
+        "before": "Vyřeš 250 úloh bez chyb a bez nápovědy.",
+        "earned": "250 úloh vyřešených bez chyby."
+      },
+      "solved_1000": {
+        "name": "Tisíc úloh",
+        "before": "Vyřeš 1000 úloh bez chyb a bez nápovědy.",
+        "earned": "1000 úloh vyřešených bez chyby."
+      },
+      "streak_5": {
+        "name": "Ve formě",
+        "before": "Vyřeš 5 úloh v řadě.",
+        "earned": "5 úloh vyřešených v řadě."
+      },
+      "streak_10": {
+        "name": "Deset v řadě",
+        "before": "Vyřeš 10 úloh v řadě.",
+        "earned": "10 úloh vyřešených v řadě."
+      },
+      "streak_20": {
+        "name": "Nic tě nezastaví",
+        "before": "Vyřeš 20 úloh v řadě.",
+        "earned": "20 úloh vyřešených v řadě."
+      },
+      "rank_knight": {
+        "name": "Jezdec",
+        "before": "Dosáhni ratingu 700 v úlohách.",
+        "earned": "Hodnost Jezdec získána: rating 700 v úlohách."
+      },
+      "rank_bishop": {
+        "name": "Střelec",
+        "before": "Dosáhni ratingu 1000 v úlohách.",
+        "earned": "Hodnost Střelec získána: rating 1000 v úlohách."
+      },
+      "rank_rook": {
+        "name": "Věž",
+        "before": "Dosáhni ratingu 1300 v úlohách.",
+        "earned": "Hodnost Věž získána: rating 1300 v úlohách."
+      },
+      "rank_queen": {
+        "name": "Dáma",
+        "before": "Dosáhni ratingu 1600 v úlohách.",
+        "earned": "Hodnost Dáma získána: rating 1600 v úlohách."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Dosáhni ratingu 1900 v úlohách.",
+        "earned": "Hodnost Král získána: rating 1900 v úlohách. Král prošel celou šachovnici."
+      },
+      "giant_slayer": {
+        "name": "Přemožitel obrů",
+        "before": "Vyřeš bez chyby úlohu s ratingem aspoň o 300 vyšším, než je tvůj.",
+        "earned": "Úloha s ratingem aspoň o 300 vyšším, než je tvůj, vyřešená bez chyby."
+      },
+      "clear_pawn": {
+        "name": "Série Pěšec splněna",
+        "before": "Splň sérii Pěšec: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Pěšec splněna: 15 úloh v řadě od 400 do 699, bez nápovědy."
+      },
+      "clear_knight": {
+        "name": "Série Jezdec splněna",
+        "before": "Splň sérii Jezdec: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Jezdec splněna: 15 úloh v řadě od 700 do 999, bez nápovědy."
+      },
+      "clear_bishop": {
+        "name": "Série Střelec splněna",
+        "before": "Splň sérii Střelec: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Střelec splněna: 15 úloh v řadě od 1000 do 1299, bez nápovědy."
+      },
+      "clear_rook": {
+        "name": "Série Věž splněna",
+        "before": "Splň sérii Věž: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Věž splněna: 15 úloh v řadě od 1300 do 1599, bez nápovědy."
+      },
+      "clear_queen": {
+        "name": "Série Dáma splněna",
+        "before": "Splň sérii Dáma: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Dáma splněna: 15 úloh v řadě od 1600 do 1899, bez nápovědy."
+      },
+      "clear_king": {
+        "name": "Série Král splněna",
+        "before": "Splň sérii Král: 15 úloh v řadě, bez nápovědy.",
+        "earned": "Série Král splněna: 15 úloh v řadě od 1900 do 2300, bez nápovědy."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Vyřeš úlohu dne 3 dny v řadě.",
+        "earned": "Úloha dne vyřešena 3 dny v řadě."
+      },
+      "daily_7": {
+        "name": "Celý týden",
+        "before": "Vyřeš úlohu dne 7 dní v řadě.",
+        "earned": "Úloha dne vyřešena 7 dní v řadě."
+      },
+      "daily_30": {
+        "name": "Třicet dní",
+        "before": "Vyřeš úlohu dne 30 dní v řadě.",
+        "earned": "Úloha dne vyřešena 30 dní v řadě."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Nejtěžší úloha",
+        "description": "Vyřeš bez chyby úlohu s co nejvyšším ratingem. V menu zapni Těžší a uvidíš těžší úlohy."
+      },
+      "streak_p_challenge": {
+        "name": "Série Pěšec",
+        "description": "15 úloh od 400 do 699, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      },
+      "streak_n_challenge": {
+        "name": "Série Jezdec",
+        "description": "15 úloh od 700 do 999, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      },
+      "streak_b_challenge": {
+        "name": "Série Střelec",
+        "description": "15 úloh od 1000 do 1299, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      },
+      "streak_r_challenge": {
+        "name": "Série Věž",
+        "description": "15 úloh od 1300 do 1599, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      },
+      "streak_q_challenge": {
+        "name": "Série Dáma",
+        "description": "15 úloh od 1600 do 1899, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      },
+      "streak_k_challenge": {
+        "name": "Série Král",
+        "description": "15 úloh od 1900 do 2300, čím dál těžších. Bez nápověd, jedna chyba sérii ukončí. Kdo dojde nejdál?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Úlohy, které <b>se nedají</b>",
+      "sub": "Vyřeš jednu a další je těžší. Spleť se a hra poleví."
+    },
+    "2": {
+      "caption": "<b>53 000</b> úloh ze skutečných partií",
+      "sub": "Vidličky, vazby, špízy a záludné maty."
+    },
+    "3": {
+      "caption": "Nevíš kudy kam? <b>Vezmi si nápovědu.</b>",
+      "sub": "Nikomu to neřekneme."
+    },
+    "4": {
+      "caption": "Od Pěšce ke <b>Králi</b>. Jdeme na to!",
+      "sub": "Stoupej v hodnostech. Plň série. Chlub se."
+    },
+    "5": {
+      "caption": "Nová úloha <b>každý den</b>",
+      "sub": "Stejná pro všechny. Udrž svou sérii."
+    },
+    "duo-book-1": {
+      "caption": "Slož ho jako <b>knihu</b>",
+      "sub": "Šachovnice na jedné stránce. Poznámky na druhé."
+    },
+    "duo-table-1": {
+      "caption": "Postav ho. <b>Režim notebooku.</b>",
+      "sub": "Šachovnice naplocho pod rukama, skóre nahoře."
+    }
+  }
+}

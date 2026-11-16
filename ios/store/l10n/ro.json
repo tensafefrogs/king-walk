@@ -1,0 +1,237 @@
+{
+  "locale": "ro",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Probleme de șah",
+    "subtitle": "Șah care îți dă de furcă",
+    "promotional_text": "Găsește furculița. Găsește matul. Ține seria. 53.000 de probleme din partide reale, tot mai grele pe măsură ce joci mai bine. Azi Pion, mâine Rege.",
+    "description": "Crezi că vezi trei mutări înainte? Dovedește.\n\nKing Walk îți aruncă probleme de șah adevărate, 53.000 la număr, luate din partide reale. Rezolvi una și următoarea e mai grea. Ratezi una și se mai domolește. După câteva zeci de probleme îți știe exact nivelul. Apoi începe să apese.\n\nÎncepi ca Pion. Câștigă Calul, Nebunul, Turnul și Dama. Ajungi Rege și ai străbătut toată tabla.\n\n• 53.000 de probleme din partide reale: furculițe, țintuiri, frigări și maturi perfide pe ultima linie\n• Un rating care îți găsește nivelul și urcă odată cu tine\n• O problemă a zilei, aceeași pentru toți. Ține seria în viață și laudă-te cu emoji\n• Serii de rang: 15 probleme, fără indicii, o greșeală și ai ieșit\n• Provoacă-ți prietenii în Game Center și lămuriți cine e cu adevărat bun\n• Te-ai împotmolit? Ia un indiciu. Nu spunem nimănui.\n• Ai ratat una? Revine mai târziu pentru revanșă\n• Sărbătoriri mari și zgomotoase de fiecare dată când urci în rang\n• Widgeturi pentru ecranul principal, ecranul de blocare și Standby\n• Un memento zilnic, dacă vrei\n• Vibrații, mod întunecat, VoiceOver și text mai mare\n• Funcționează offline. Fără cont, fără reclame, fără achiziții în aplicație\n\nProblemele provin din baza de probleme Lichess, aflată în domeniul public. King Walk nu este creat sau aprobat de Lichess.",
+    "keywords": "tactică,mat în 2,elo,rating,antrenament,strategie,logică,furculiță,țintuire,final,zilnic,puzzle"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rating la probleme",
+        "suffix": " puncte",
+        "suffix_singular": " punct"
+      },
+      "streak": {
+        "name": "Cea mai bună serie",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "hardest": {
+        "name": "Cea mai grea problemă",
+        "suffix": " puncte",
+        "suffix_singular": " punct"
+      },
+      "streak_p": {
+        "name": "Seria Pion",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "streak_n": {
+        "name": "Seria Cal",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "streak_b": {
+        "name": "Seria Nebun",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "streak_r": {
+        "name": "Seria Turn",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "streak_q": {
+        "name": "Seria Damă",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "streak_k": {
+        "name": "Seria Rege",
+        "suffix": " la rând",
+        "suffix_singular": " la rând"
+      },
+      "daily_streak": {
+        "name": "Serie zilnică",
+        "suffix": " zile",
+        "suffix_singular": " zi"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Primii pași",
+        "before": "Rezolvă o problemă fără greșeli și fără indicii.",
+        "earned": "Ai rezolvat prima problemă fără greșeli și fără indicii."
+      },
+      "solved_50": {
+        "name": "Cincizeci de rezolvări",
+        "before": "Rezolvă 50 de probleme fără greșeli și fără indicii.",
+        "earned": "Ai rezolvat 50 de probleme fără greșeli."
+      },
+      "solved_250": {
+        "name": "Obicei tactic",
+        "before": "Rezolvă 250 de probleme fără greșeli și fără indicii.",
+        "earned": "Ai rezolvat 250 de probleme fără greșeli."
+      },
+      "solved_1000": {
+        "name": "O mie de probleme",
+        "before": "Rezolvă 1.000 de probleme fără greșeli și fără indicii.",
+        "earned": "Ai rezolvat 1.000 de probleme fără greșeli."
+      },
+      "streak_5": {
+        "name": "În formă",
+        "before": "Rezolvă 5 probleme la rând.",
+        "earned": "Ai rezolvat 5 probleme la rând."
+      },
+      "streak_10": {
+        "name": "Zece la rând",
+        "before": "Rezolvă 10 probleme la rând.",
+        "earned": "Ai rezolvat 10 probleme la rând."
+      },
+      "streak_20": {
+        "name": "De neoprit",
+        "before": "Rezolvă 20 de probleme la rând.",
+        "earned": "Ai rezolvat 20 de probleme la rând."
+      },
+      "rank_knight": {
+        "name": "Cal",
+        "before": "Atinge un rating de 700 la probleme.",
+        "earned": "Ai atins rangul Cal: un rating de 700 la probleme."
+      },
+      "rank_bishop": {
+        "name": "Nebun",
+        "before": "Atinge un rating de 1000 la probleme.",
+        "earned": "Ai atins rangul Nebun: un rating de 1000 la probleme."
+      },
+      "rank_rook": {
+        "name": "Turn",
+        "before": "Atinge un rating de 1300 la probleme.",
+        "earned": "Ai atins rangul Turn: un rating de 1300 la probleme."
+      },
+      "rank_queen": {
+        "name": "Damă",
+        "before": "Atinge un rating de 1600 la probleme.",
+        "earned": "Ai atins rangul Damă: un rating de 1600 la probleme."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Atinge un rating de 1900 la probleme.",
+        "earned": "Ai atins rangul Rege: un rating de 1900 la probleme. Regele a străbătut toată tabla."
+      },
+      "giant_slayer": {
+        "name": "David contra Goliat",
+        "before": "Rezolvă curat o problemă cu un rating cu 300 sau mai mult peste al tău.",
+        "earned": "Ai rezolvat curat o problemă cu un rating cu 300 sau mai mult peste al tău."
+      },
+      "clear_pawn": {
+        "name": "Pion: serie completă",
+        "before": "Termină seria Pion: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Pion: 15 probleme la rând, de la 400 la 699, fără indicii."
+      },
+      "clear_knight": {
+        "name": "Cal: serie completă",
+        "before": "Termină seria Cal: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Cal: 15 probleme la rând, de la 700 la 999, fără indicii."
+      },
+      "clear_bishop": {
+        "name": "Nebun: serie completă",
+        "before": "Termină seria Nebun: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Nebun: 15 probleme la rând, de la 1000 la 1299, fără indicii."
+      },
+      "clear_rook": {
+        "name": "Turn: serie completă",
+        "before": "Termină seria Turn: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Turn: 15 probleme la rând, de la 1300 la 1599, fără indicii."
+      },
+      "clear_queen": {
+        "name": "Damă: serie completă",
+        "before": "Termină seria Damă: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Damă: 15 probleme la rând, de la 1600 la 1899, fără indicii."
+      },
+      "clear_king": {
+        "name": "Rege: serie completă",
+        "before": "Termină seria Rege: 15 probleme la rând, fără indicii.",
+        "earned": "Ai terminat seria Rege: 15 probleme la rând, de la 1900 la 2300, fără indicii."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Rezolvă problema zilei 3 zile la rând.",
+        "earned": "Ai rezolvat problema zilei 3 zile la rând."
+      },
+      "daily_7": {
+        "name": "O săptămână întreagă",
+        "before": "Rezolvă problema zilei 7 zile la rând.",
+        "earned": "Ai rezolvat problema zilei 7 zile la rând."
+      },
+      "daily_30": {
+        "name": "Treizeci de zile",
+        "before": "Rezolvă problema zilei 30 de zile la rând.",
+        "earned": "Ai rezolvat problema zilei 30 de zile la rând."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Cea mai grea problemă",
+        "description": "Rezolvă curat problema cu cel mai mare rating posibil. Activează Mai greu din meniu pentru probleme mai grele."
+      },
+      "streak_p_challenge": {
+        "name": "Seria Pion",
+        "description": "15 probleme tot mai grele, de la 400 la 699. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      },
+      "streak_n_challenge": {
+        "name": "Seria Cal",
+        "description": "15 probleme tot mai grele, de la 700 la 999. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      },
+      "streak_b_challenge": {
+        "name": "Seria Nebun",
+        "description": "15 probleme tot mai grele, de la 1000 la 1299. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      },
+      "streak_r_challenge": {
+        "name": "Seria Turn",
+        "description": "15 probleme tot mai grele, de la 1300 la 1599. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      },
+      "streak_q_challenge": {
+        "name": "Seria Damă",
+        "description": "15 probleme tot mai grele, de la 1600 la 1899. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      },
+      "streak_k_challenge": {
+        "name": "Seria Rege",
+        "description": "15 probleme tot mai grele, de la 1900 la 2300. Fără indicii, o greșeală încheie seria. Cine ajunge cel mai departe?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Probleme care îți dau <b>de furcă</b>",
+      "sub": "Rezolvi una, următoarea e mai grea. Ratezi una, se domolește."
+    },
+    "2": {
+      "caption": "<b>53.000</b> de probleme din partide reale",
+      "sub": "Furculițe, țintuiri, frigări și maturi perfide."
+    },
+    "3": {
+      "caption": "Te-ai împotmolit? <b>Ia un indiciu.</b>",
+      "sub": "Nu spunem nimănui."
+    },
+    "4": {
+      "caption": "De la Pion la <b>Rege</b>. Hai!",
+      "sub": "Urcă în rang. Termină seriile. Laudă-te."
+    },
+    "5": {
+      "caption": "O problemă nouă <b>în fiecare zi</b>",
+      "sub": "Aceeași pentru toți. Ține seria în viață."
+    },
+    "duo-book-1": {
+      "caption": "Pliază-l ca pe o <b>carte</b>",
+      "sub": "Tabla pe o pagină. Notițele pe cealaltă."
+    },
+    "duo-table-1": {
+      "caption": "Ridică-l. <b>Mod laptop.</b>",
+      "sub": "Tabla sub mâini, scorul deasupra."
+    }
+  }
+}

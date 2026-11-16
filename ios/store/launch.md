@@ -35,7 +35,7 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 
 ## 2. After approval, before launch day
 
-- [ ] App Store Connect → Featuring Nominations: nominate the launch (what's new: a daily chess puzzle, Game Center challenges, widgets, iPhone Duo layouts, 11 languages). Apple asks for at least two weeks' notice for its best chance; submit it as soon as the app is approved, even if launch is sooner.
+- [ ] App Store Connect → Featuring Nominations: nominate the launch (what's new: a daily chess puzzle, Game Center challenges, widgets, iPhone Duo layouts, 44 languages). Apple asks for at least two weeks' notice for its best chance; submit it as soon as the app is approved, even if launch is sooner.
 - [ ] Pick a launch day: Tuesday to Thursday, morning US time.
 - [ ] Draft the posts below and line up the people to tell.
 

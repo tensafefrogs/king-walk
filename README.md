@@ -67,9 +67,10 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 
 - `index.html` - the whole game: markup, styles and code.
 - `chess.js` - the chess rules library (see credits).
-- `p/400.txt` to `p/2400.txt` - the puzzles, one file per 100-point rating band. Each line is tab-separated: puzzle id, position (FEN), solution moves, rating, themes. The first move in the solution is the opponent's move that sets up the puzzle.
+- `p/400/` to `p/2400/` - the puzzles, one folder per 100-point rating band, cut into chunks of 300 (`p/600/0.txt`, `1.txt`…) so a player downloads only a few; `scripts/puzzles.py` makes them and writes their list into `index.html`. Each line is tab-separated: puzzle id, position (FEN), solution moves, rating, themes. The first move in the solution is the opponent's move that sets up the puzzle.
 - `manifest.webmanifest`, `sw.js`, `icons/` - home screen install and offline support.
-- `fonts/` - the typefaces, bundled so the game makes no outside requests: Fredoka and Nunito, with Nunito's Cyrillic letters for Russian, Rubik for Hebrew and Baloo Bhaijaan 2 for Arabic (each loaded only when the page shows that script).
+- `fonts/` - the typefaces, bundled so the game makes no outside requests: Fredoka and Nunito (with their accented, Cyrillic and Vietnamese letters), Rubik for Hebrew, Baloo Bhaijaan 2 for Arabic, the Baloo 2 family for India's scripts, M PLUS Rounded 1c for Greek and Mitr for Thai (each loaded only when the page shows that script).
+- `lang/` - the translations, one file per language (`de.js`) or regional variant (`pt-PT.js`); a player downloads only their own.
 - `og.png` - the preview image shown when the link is shared.
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`. `scripts/icon.js` draws the icon, logos, favicon and website icons.
 - `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store). `404.html` is the page for a mistyped address.
@@ -85,4 +86,4 @@ Parts made by others keep their own licenses:
 
 - **Puzzles:** the [Lichess puzzle database](https://database.lichess.org/#puzzles), released by Lichess into the public domain (CC0). The puzzles here are a sample of that set: 3,000 per rating band from 400 to 1999 and 1,000 per band from 2000 to 2499, limited to well-tested, well-liked puzzles. This game is not made or endorsed by Lichess. Lichess is a free, donation-funded chess site: https://lichess.org
 - **Chess rules:** [chess.js](https://github.com/jhlywa/chess.js) version 0.10.3 by Jeff Hlywa, BSD 2-Clause license. The license text is at the top of `chess.js`.
-- **Fonts:** [Fredoka](https://fonts.google.com/specimen/Fredoka), [Nunito](https://fonts.google.com/specimen/Nunito), [Rubik](https://fonts.google.com/specimen/Rubik) (Hebrew) and [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) (Arabic), SIL Open Font License. The license files are in `fonts/`.
+- **Fonts:** [Fredoka](https://fonts.google.com/specimen/Fredoka), [Nunito](https://fonts.google.com/specimen/Nunito), [Rubik](https://fonts.google.com/specimen/Rubik) (Hebrew), [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) (Arabic) and its [Baloo 2](https://fonts.google.com/specimen/Baloo+2) sisters (India's scripts), [M PLUS Rounded 1c](https://fonts.google.com/specimen/M+PLUS+Rounded+1c) (Greek), [Mitr](https://fonts.google.com/specimen/Mitr) (Thai), SIL Open Font License. The license files are in `fonts/`.

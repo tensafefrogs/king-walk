@@ -1,0 +1,237 @@
+{
+  "locale": "id",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Puzzle Catur",
+    "subtitle": "Puzzle yang melawan balik",
+    "promotional_text": "Temukan garpunya. Cari skakmatnya. Pertahankan runtunan. 53.000 puzzle dari partai sungguhan yang makin sulit saat kamu makin jago. Hari ini Pion, suatu hari Raja.",
+    "description": "Merasa bisa melihat tiga langkah ke depan? Buktikan.\n\nKing Walk menyodorkan puzzle catur sungguhan, 53.000 jumlahnya, diambil dari partai yang benar-benar dimainkan. Selesaikan satu, yang berikutnya lebih sulit. Gagal satu, tingkatnya turun sedikit. Setelah beberapa puluh puzzle, game ini tahu persis seberapa jago kamu. Lalu ia mulai menekan.\n\nKamu mulai sebagai Pion. Raih Kuda, Gajah, Benteng, dan Menteri. Capai Raja, dan kamu sudah menjelajahi seluruh papan.\n\n• 53.000 puzzle dari partai sungguhan: garpu, pin, tusuk sate, dan mat baris belakang yang licik\n• Rating yang menemukan levelmu dan ikut naik bersamamu\n• Puzzle harian, sama untuk semua orang. Jaga runtunanmu, pamer pakai emoji\n• Runtunan pangkat: 15 puzzle, tanpa petunjuk, sekali salah langsung gugur\n• Tantang teman di Game Center dan buktikan siapa yang benar-benar jago\n• Buntu? Ambil petunjuk. Kami tidak akan bilang siapa-siapa.\n• Gagal di satu puzzle? Nanti ia kembali untuk pertandingan ulang\n• Perayaan besar dan meriah setiap kali kamu naik pangkat\n• Widget untuk Layar Utama, Layar Terkunci, dan StandBy\n• Pengingat harian, kalau kamu mau\n• Getaran, mode gelap, VoiceOver, dan teks lebih besar\n• Bisa dimainkan offline. Tanpa akun, tanpa iklan, tanpa pembelian dalam app\n\nPuzzle-puzzle ini berasal dari basis data puzzle Lichess yang berdomain publik. King Walk tidak dibuat atau didukung oleh Lichess.",
+    "keywords": "taktik,skakmat,mat dalam 2,elo,rating,latihan,strategi,logika,garpu,pin,endgame,harian,teka-teki"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rating Puzzle",
+        "suffix": " rating",
+        "suffix_singular": " rating"
+      },
+      "streak": {
+        "name": "Runtunan Terbaik",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "hardest": {
+        "name": "Puzzle Tersulit",
+        "suffix": " rating puzzle",
+        "suffix_singular": " rating puzzle"
+      },
+      "streak_p": {
+        "name": "Runtunan Pion",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "streak_n": {
+        "name": "Runtunan Kuda",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "streak_b": {
+        "name": "Runtunan Gajah",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "streak_r": {
+        "name": "Runtunan Benteng",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "streak_q": {
+        "name": "Runtunan Menteri",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "streak_k": {
+        "name": "Runtunan Raja",
+        "suffix": " beruntun",
+        "suffix_singular": " beruntun"
+      },
+      "daily_streak": {
+        "name": "Runtunan Harian",
+        "suffix": " hari",
+        "suffix_singular": " hari"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Langkah Pertama",
+        "before": "Selesaikan satu puzzle tanpa salah dan tanpa petunjuk.",
+        "earned": "Kamu menyelesaikan puzzle pertamamu tanpa salah dan tanpa petunjuk."
+      },
+      "solved_50": {
+        "name": "Lima Puluh Selesai",
+        "before": "Selesaikan 50 puzzle tanpa salah dan tanpa petunjuk.",
+        "earned": "Kamu menyelesaikan 50 puzzle tanpa salah."
+      },
+      "solved_250": {
+        "name": "Rutin Puzzle",
+        "before": "Selesaikan 250 puzzle tanpa salah dan tanpa petunjuk.",
+        "earned": "Kamu menyelesaikan 250 puzzle tanpa salah."
+      },
+      "solved_1000": {
+        "name": "Seribu Puzzle",
+        "before": "Selesaikan 1.000 puzzle tanpa salah dan tanpa petunjuk.",
+        "earned": "Kamu menyelesaikan 1.000 puzzle tanpa salah."
+      },
+      "streak_5": {
+        "name": "Lagi Panas",
+        "before": "Selesaikan 5 puzzle berturut-turut.",
+        "earned": "Kamu menyelesaikan 5 puzzle berturut-turut."
+      },
+      "streak_10": {
+        "name": "Sepuluh Beruntun",
+        "before": "Selesaikan 10 puzzle berturut-turut.",
+        "earned": "Kamu menyelesaikan 10 puzzle berturut-turut."
+      },
+      "streak_20": {
+        "name": "Tak Terbendung",
+        "before": "Selesaikan 20 puzzle berturut-turut.",
+        "earned": "Kamu menyelesaikan 20 puzzle berturut-turut."
+      },
+      "rank_knight": {
+        "name": "Kuda",
+        "before": "Capai rating puzzle 700.",
+        "earned": "Kamu mencapai pangkat Kuda: rating puzzle 700."
+      },
+      "rank_bishop": {
+        "name": "Gajah",
+        "before": "Capai rating puzzle 1000.",
+        "earned": "Kamu mencapai pangkat Gajah: rating puzzle 1000."
+      },
+      "rank_rook": {
+        "name": "Benteng",
+        "before": "Capai rating puzzle 1300.",
+        "earned": "Kamu mencapai pangkat Benteng: rating puzzle 1300."
+      },
+      "rank_queen": {
+        "name": "Menteri",
+        "before": "Capai rating puzzle 1600.",
+        "earned": "Kamu mencapai pangkat Menteri: rating puzzle 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Capai rating puzzle 1900.",
+        "earned": "Kamu mencapai pangkat Raja: rating puzzle 1900. Sang raja sudah berjalan sampai ke ujung papan."
+      },
+      "giant_slayer": {
+        "name": "Penakluk Raksasa",
+        "before": "Selesaikan tanpa salah puzzle dengan rating 300 atau lebih di atas ratingmu.",
+        "earned": "Kamu menyelesaikan tanpa salah puzzle dengan rating 300 atau lebih di atasmu."
+      },
+      "clear_pawn": {
+        "name": "Pion Tuntas",
+        "before": "Tuntaskan runtunan Pion: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Pion: 15 puzzle berturut-turut dari 400 sampai 699, tanpa petunjuk."
+      },
+      "clear_knight": {
+        "name": "Kuda Tuntas",
+        "before": "Tuntaskan runtunan Kuda: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Kuda: 15 puzzle berturut-turut dari 700 sampai 999, tanpa petunjuk."
+      },
+      "clear_bishop": {
+        "name": "Gajah Tuntas",
+        "before": "Tuntaskan runtunan Gajah: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Gajah: 15 puzzle berturut-turut dari 1000 sampai 1299, tanpa petunjuk."
+      },
+      "clear_rook": {
+        "name": "Benteng Tuntas",
+        "before": "Tuntaskan runtunan Benteng: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Benteng: 15 puzzle berturut-turut dari 1300 sampai 1599, tanpa petunjuk."
+      },
+      "clear_queen": {
+        "name": "Menteri Tuntas",
+        "before": "Tuntaskan runtunan Menteri: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Menteri: 15 puzzle berturut-turut dari 1600 sampai 1899, tanpa petunjuk."
+      },
+      "clear_king": {
+        "name": "Raja Tuntas",
+        "before": "Tuntaskan runtunan Raja: 15 puzzle berturut-turut, tanpa petunjuk.",
+        "earned": "Kamu menuntaskan runtunan Raja: 15 puzzle berturut-turut dari 1900 sampai 2300, tanpa petunjuk."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Selesaikan puzzle harian 3 hari berturut-turut.",
+        "earned": "Kamu menyelesaikan puzzle harian 3 hari berturut-turut."
+      },
+      "daily_7": {
+        "name": "Seminggu Penuh",
+        "before": "Selesaikan puzzle harian 7 hari berturut-turut.",
+        "earned": "Kamu menyelesaikan puzzle harian 7 hari berturut-turut."
+      },
+      "daily_30": {
+        "name": "Tiga Puluh Hari",
+        "before": "Selesaikan puzzle harian 30 hari berturut-turut.",
+        "earned": "Kamu menyelesaikan puzzle harian 30 hari berturut-turut."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Puzzle Tersulit",
+        "description": "Selesaikan tanpa salah puzzle dengan rating setinggi mungkin. Nyalakan Lebih sulit di menu untuk yang lebih berat."
+      },
+      "streak_p_challenge": {
+        "name": "Runtunan Pion",
+        "description": "15 puzzle yang naik dari 400 sampai 699. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      },
+      "streak_n_challenge": {
+        "name": "Runtunan Kuda",
+        "description": "15 puzzle yang naik dari 700 sampai 999. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      },
+      "streak_b_challenge": {
+        "name": "Runtunan Gajah",
+        "description": "15 puzzle yang naik dari 1000 sampai 1299. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      },
+      "streak_r_challenge": {
+        "name": "Runtunan Benteng",
+        "description": "15 puzzle yang naik dari 1300 sampai 1599. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      },
+      "streak_q_challenge": {
+        "name": "Runtunan Menteri",
+        "description": "15 puzzle yang naik dari 1600 sampai 1899. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      },
+      "streak_k_challenge": {
+        "name": "Runtunan Raja",
+        "description": "15 puzzle yang naik dari 1900 sampai 2300. Tanpa petunjuk, sekali salah runtunan berakhir. Siapa paling jauh?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Puzzle catur yang <b>melawan balik</b>",
+      "sub": "Selesaikan satu, berikutnya lebih sulit. Gagal, ia melunak."
+    },
+    "2": {
+      "caption": "<b>53.000</b> puzzle dari partai sungguhan",
+      "sub": "Garpu, pin, tusuk sate, dan mat yang licik."
+    },
+    "3": {
+      "caption": "Buntu? <b>Ambil petunjuk.</b>",
+      "sub": "Kami tidak akan bilang siapa-siapa."
+    },
+    "4": {
+      "caption": "Dari Pion ke <b>Raja</b>. Ayo!",
+      "sub": "Naik pangkat. Tuntaskan runtunan. Pamerkan."
+    },
+    "5": {
+      "caption": "Puzzle baru <b>setiap hari</b>",
+      "sub": "Sama untuk semua orang. Jaga runtunanmu."
+    },
+    "duo-book-1": {
+      "caption": "Lipat seperti <b>buku</b>",
+      "sub": "Papan di satu halaman. Catatan di halaman lain."
+    },
+    "duo-table-1": {
+      "caption": "Berdirikan. <b>Mode laptop.</b>",
+      "sub": "Papan datar di bawah tanganmu, skor di atas."
+    }
+  }
+}

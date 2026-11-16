@@ -1,0 +1,237 @@
+{
+  "locale": "no",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Sjakkoppgaver",
+    "subtitle": "Oppgaver som slår tilbake",
+    "promotional_text": "Se gaffelen. Finn matten. Overlev rekka. 53 000 oppgaver fra ekte partier som blir vanskeligere jo bedre du blir. Bonde i dag, Konge en dag.",
+    "description": "Tror du at du ser tre trekk fram? Bevis det.\n\nKing Walk kaster ekte sjakkoppgaver på deg, 53 000 av dem, hentet fra ekte partier. Løs én, og den neste blir tøffere. Bom på én, og det roer seg litt. Etter noen dusin oppgaver vet spillet nøyaktig hvor god du er. Da begynner det å presse deg.\n\nDu starter som Bonde. Bli Springer, Løper, Tårn og Dronning. Blir du Konge, har du gått hele brettet.\n\n• 53 000 oppgaver fra ekte partier: gafler, bindinger, spidd og lumske baklinjematter\n• En rating som finner nivået ditt og klatrer med deg\n• En daglig oppgave, den samme for alle. Hold rekka i live, og skryt med emoji\n• Rangrekker: 15 oppgaver, ingen tips, én bom og du er ute\n• Utfordre venner i Game Center og finn ut hvem som faktisk er god\n• Står du fast? Ta et tips. Vi sier det ikke til noen.\n• Bommet på en? Den kommer tilbake senere for en revansj\n• Store, bråkete feiringer hver gang du går opp i rang\n• Widgeter for Hjem-skjermen, låseskjermen og Ventemodus\n• En daglig påminnelse, hvis du vil\n• Haptikk, mørk modus, VoiceOver og større tekst\n• Fungerer uten nett. Ingen konto, ingen reklame, ingen kjøp i appen\n\nOppgavene kommer fra Lichess' fritt tilgjengelige oppgavedatabase. King Walk er verken laget eller godkjent av Lichess.",
+    "keywords": "sjakk,taktikk,sjakkmatt,matt i 2,elo,rating,trening,strategi,gaffel,binding,sluttspill,hjernetrim"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Oppgaverating",
+        "suffix": " rating",
+        "suffix_singular": " rating"
+      },
+      "streak": {
+        "name": "Beste rekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "hardest": {
+        "name": "Vanskeligste løste",
+        "suffix": " i oppgaverating",
+        "suffix_singular": " i oppgaverating"
+      },
+      "streak_p": {
+        "name": "Bonderekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "streak_n": {
+        "name": "Springerrekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "streak_b": {
+        "name": "Løperrekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "streak_r": {
+        "name": "Tårnrekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "streak_q": {
+        "name": "Dronningrekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "streak_k": {
+        "name": "Kongerekke",
+        "suffix": " på rad",
+        "suffix_singular": " på rad"
+      },
+      "daily_streak": {
+        "name": "Daglig rekke",
+        "suffix": " dager",
+        "suffix_singular": " dag"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Første skritt",
+        "before": "Løs en oppgave uten feil og uten tips.",
+        "earned": "Du løste din første oppgave uten feil og uten tips."
+      },
+      "solved_50": {
+        "name": "Femti løst",
+        "before": "Løs 50 oppgaver uten feil og uten tips.",
+        "earned": "Du løste 50 oppgaver feilfritt."
+      },
+      "solved_250": {
+        "name": "Oppgavevane",
+        "before": "Løs 250 oppgaver uten feil og uten tips.",
+        "earned": "Du løste 250 oppgaver feilfritt."
+      },
+      "solved_1000": {
+        "name": "Tusen oppgaver",
+        "before": "Løs 1000 oppgaver uten feil og uten tips.",
+        "earned": "Du løste 1000 oppgaver feilfritt."
+      },
+      "streak_5": {
+        "name": "I siget",
+        "before": "Løs 5 oppgaver på rad.",
+        "earned": "Du løste 5 oppgaver på rad."
+      },
+      "streak_10": {
+        "name": "Ti på rad",
+        "before": "Løs 10 oppgaver på rad.",
+        "earned": "Du løste 10 oppgaver på rad."
+      },
+      "streak_20": {
+        "name": "Ustoppelig",
+        "before": "Løs 20 oppgaver på rad.",
+        "earned": "Du løste 20 oppgaver på rad."
+      },
+      "rank_knight": {
+        "name": "Springer",
+        "before": "Nå en oppgaverating på 700.",
+        "earned": "Du nådde rangen Springer: en oppgaverating på 700."
+      },
+      "rank_bishop": {
+        "name": "Løper",
+        "before": "Nå en oppgaverating på 1000.",
+        "earned": "Du nådde rangen Løper: en oppgaverating på 1000."
+      },
+      "rank_rook": {
+        "name": "Tårn",
+        "before": "Nå en oppgaverating på 1300.",
+        "earned": "Du nådde rangen Tårn: en oppgaverating på 1300."
+      },
+      "rank_queen": {
+        "name": "Dronning",
+        "before": "Nå en oppgaverating på 1600.",
+        "earned": "Du nådde rangen Dronning: en oppgaverating på 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Nå en oppgaverating på 1900.",
+        "earned": "Du nådde rangen Konge: en oppgaverating på 1900. Kongen har gått hele veien opp."
+      },
+      "giant_slayer": {
+        "name": "Kjempedreper",
+        "before": "Løs en oppgave ratet 300 eller mer over deg, uten feil.",
+        "earned": "Du løste en oppgave ratet 300 eller mer over deg, uten feil."
+      },
+      "clear_pawn": {
+        "name": "Bonde fullført",
+        "before": "Fullfør Bonderekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Bonderekka: 15 oppgaver på rad fra 400 til 699, uten tips."
+      },
+      "clear_knight": {
+        "name": "Springer fullført",
+        "before": "Fullfør Springerrekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Springerrekka: 15 oppgaver på rad fra 700 til 999, uten tips."
+      },
+      "clear_bishop": {
+        "name": "Løper fullført",
+        "before": "Fullfør Løperrekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Løperrekka: 15 oppgaver på rad fra 1000 til 1299, uten tips."
+      },
+      "clear_rook": {
+        "name": "Tårn fullført",
+        "before": "Fullfør Tårnrekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Tårnrekka: 15 oppgaver på rad fra 1300 til 1599, uten tips."
+      },
+      "clear_queen": {
+        "name": "Dronning fullført",
+        "before": "Fullfør Dronningrekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Dronningrekka: 15 oppgaver på rad fra 1600 til 1899, uten tips."
+      },
+      "clear_king": {
+        "name": "Konge fullført",
+        "before": "Fullfør Kongerekka: 15 oppgaver på rad, uten tips.",
+        "earned": "Du fullførte Kongerekka: 15 oppgaver på rad fra 1900 til 2300, uten tips."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Løs dagens oppgave 3 dager på rad.",
+        "earned": "Du løste dagens oppgave 3 dager på rad."
+      },
+      "daily_7": {
+        "name": "Full uke",
+        "before": "Løs dagens oppgave 7 dager på rad.",
+        "earned": "Du løste dagens oppgave 7 dager på rad."
+      },
+      "daily_30": {
+        "name": "Tretti dager",
+        "before": "Løs dagens oppgave 30 dager på rad.",
+        "earned": "Du løste dagens oppgave 30 dager på rad."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Vanskeligste løste",
+        "description": "Løs den høyest ratede oppgaven du kan, uten feil. Slå på Vanskeligere i menyen for å få tøffere oppgaver."
+      },
+      "streak_p_challenge": {
+        "name": "Bonderekke",
+        "description": "15 oppgaver som stiger fra 400 til 699. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      },
+      "streak_n_challenge": {
+        "name": "Springerrekke",
+        "description": "15 oppgaver som stiger fra 700 til 999. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      },
+      "streak_b_challenge": {
+        "name": "Løperrekke",
+        "description": "15 oppgaver som stiger fra 1000 til 1299. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      },
+      "streak_r_challenge": {
+        "name": "Tårnrekke",
+        "description": "15 oppgaver som stiger fra 1300 til 1599. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      },
+      "streak_q_challenge": {
+        "name": "Dronningrekke",
+        "description": "15 oppgaver som stiger fra 1600 til 1899. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      },
+      "streak_k_challenge": {
+        "name": "Kongerekke",
+        "description": "15 oppgaver som stiger fra 1900 til 2300. Ingen tips, og én bom avslutter rekka. Hvem kommer lengst?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Sjakkoppgaver som <b>slår tilbake</b>",
+      "sub": "Løs én, og den neste blir tøffere. Bom, og det roer seg."
+    },
+    "2": {
+      "caption": "<b>53 000</b> oppgaver fra ekte partier",
+      "sub": "Gafler, bindinger, spidd og lumske matter."
+    },
+    "3": {
+      "caption": "Står du fast? <b>Ta et tips.</b>",
+      "sub": "Vi sier det ikke til noen."
+    },
+    "4": {
+      "caption": "Fra Bonde til <b>Konge</b>. Kjør.",
+      "sub": "Gå opp i rang. Fullfør rekkene. Vis deg fram."
+    },
+    "5": {
+      "caption": "En ny oppgave <b>hver dag</b>",
+      "sub": "Den samme for alle. Hold rekka di i live."
+    },
+    "duo-book-1": {
+      "caption": "Brett den som en <b>bok</b>",
+      "sub": "Sjakkbrettet på den ene siden. Notatene på den andre."
+    },
+    "duo-table-1": {
+      "caption": "Sett den opp. <b>Laptopmodus.</b>",
+      "sub": "Sjakkbrettet flatt under hendene, tallene øverst."
+    }
+  }
+}

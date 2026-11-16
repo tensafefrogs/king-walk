@@ -13,7 +13,7 @@ const LOCALE = (process.argv.find((a, i) => process.argv[i - 1] === "--lang") ||
 const L10N = LOCALE ? JSON.parse(fs.readFileSync(path.join(__dirname, "l10n", LOCALE + ".json"), "utf8")) : null;
 /* Chinese, Japanese and Korean share characters drawn differently in each: the caption font for this one */
 const CJK = { "zh-Hans": "SC", "zh-Hant": "TC", ko: "KR" }[LOCALE] || "JP";
-const PAGE_LANG = LOCALE ? ({ "zh-Hans": "zh", "pt-BR": "pt", "es-MX": "es", "zh-Hant": "zh-Hant", "pt-PT": "pt-PT", "es-ES": "es-ES" }[LOCALE] || LOCALE.split("-")[0]) : "";          /* the page's own regional tables */
+const PAGE_LANG = LOCALE ? ({ "zh-Hans": "zh", "pt-BR": "pt", "es-MX": "es", "zh-Hant": "zh-Hant", "pt-PT": "pt-PT", "es-ES": "es-ES", no: "nb" }[LOCALE] || LOCALE.split("-")[0]) : "";          /* the page's own regional tables */
 const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -45,15 +45,12 @@ if (L10N) {
 const out = LOCALE ? path.join(__dirname, "screenshots", "l10n", LOCALE) : path.join(__dirname, "screenshots"), raw = path.join(out, "raw");
 fs.mkdirSync(raw, { recursive: true });
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
-const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, name.toLowerCase() + "-latin-" + w + "-normal.woff2")).toString("base64")})}`;
-// Cyrillic captions: Nunito's Cyrillic letters, for both families (Fredoka has none)
-const cyrillic = (name, w, file) => `@font-face{font-family:${name};font-weight:${w};unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, file)).toString("base64")})}`;
-// Hebrew and Arabic captions: the same fonts the game uses for them (index.html's @font-face rules)
-const ranged = (range, name, w, file) => `@font-face{font-family:${name};font-weight:${w};unicode-range:${range};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(FONT_DIR, file)).toString("base64")})}`;
-const HEBREW = "U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F", ARABIC = "U+0600-06FF,U+0750-077F,U+0870-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFC";
-const CAPTION_FONTS = font("Fredoka", 600) + font("Nunito", 700) + cyrillic("Fredoka", 600, "nunito-cyrillic-800-normal.woff2") + cyrillic("Nunito", 700, "nunito-cyrillic-700-normal.woff2")
-  + ranged(HEBREW, "Fredoka", 600, "fredoka-hebrew-600-normal.woff2") + ranged(HEBREW, "Nunito", 700, "rubik-hebrew-700-normal.woff2")
-  + ranged(ARABIC, "Fredoka", 600, "baloo-bhaijaan-2-arabic-700-normal.woff2") + ranged(ARABIC, "Nunito", 700, "baloo-bhaijaan-2-arabic-700-normal.woff2");
+// the captions use the game's own fonts: its @font-face rules for the weights they use (Fredoka 600 and Nunito 700), each script's file inlined, so a caption in any language is drawn as the game draws it
+const CAPTION_FONTS = (fs.readFileSync(path.join(__dirname, "..", "..", "index.html"), "utf8").match(/@font-face\{[^}]*\}/g) || [])
+  .filter(r => /font-family:'Fredoka';font-weight:600;|font-family:'Nunito';font-weight:700;/.test(r))
+  .map(r => r.replace(/url\(fonts\/([^)]+)\)/, (m, f) => "url(data:font/woff2;base64," + fs.readFileSync(path.join(FONT_DIR, f)).toString("base64") + ")")).join("");
+/* the families for this language's captions: Vietnamese headings in Nunito (Fredoka has none) */
+const CAP_FAMILY = { vi: ["Nunito", "Nunito"] }[(LOCALE || "").split("-")[0]] || ["Fredoka", "Nunito"];
 
 async function newGame(b, name, dark, seed) {
   const { q, ...dev } = DEVICES[name];
@@ -126,12 +123,12 @@ async function caption(b, name) {
     const f = path.join(raw, `${name}-${s.id}.png`); if (!fs.existsSync(f)) continue;
     const img = "data:image/png;base64," + fs.readFileSync(f).toString("base64");
     const top = Math.round(H * F.top), iw = Math.round(Math.min(W * 0.86, (H - top - H * 0.035) * W / H));
-    await p.setContent(`<!doctype html><html${/^(ar|he)/.test(LOCALE || "") ? ' dir="rtl"' : ""}><head><style>${CAPTION_FONTS}
-      html[dir=rtl] h1{letter-spacing:0}
+    await p.setContent(`<!doctype html><html lang="${(LOCALE || "en").split("-")[0]}"${/^(ar|he|ur)/.test(LOCALE || "") ? ' dir="rtl"' : ""}><head><style>${CAPTION_FONTS}
+      html:is([lang=ar],[lang=ur],[lang=hi],[lang=mr],[lang=bn],[lang=gu],[lang=pa],[lang=ta],[lang=te],[lang=kn],[lang=ml],[lang=or],[lang=th]) h1{letter-spacing:0}
       body{margin:0;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(130% 80% at 50% 0%,#1c7868,#143f38 55%,#0d2925)}
       .cap{height:${top}px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:${Math.round(F.sub * 0.5)}px;padding:0 ${Math.round(W * 0.07)}px;box-sizing:border-box;text-align:center}
-      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
-      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 Nunito,"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:rgba(253,251,242,.78)}
+      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 ${CAP_FAMILY[0]},"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
+      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 ${CAP_FAMILY[1]},"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:rgba(253,251,242,.78)}
       img{display:block;margin:0 auto;width:${iw}px;border-radius:${F.r}px;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 70px rgba(0,0,0,.45)}</style></head>
       <body><div class="cap"><h1>${s.caption}</h1><p>${s.sub}</p></div><img src="${img}"></body></html>`);
     await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);

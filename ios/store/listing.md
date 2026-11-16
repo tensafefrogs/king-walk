@@ -88,7 +88,7 @@ The page's clock is fixed to Saturday 21 November 2026 (`SHOT_DATE` in `testing/
 
 **Other languages:** the App Store listing workflow makes each language's set (`screenshots.js --lang <locale>`: the game in that language, with the captions from `l10n/<locale>.json` → `screenshots`) and uploads it to that language's page. They aren't committed; each run keeps them as a workflow artifact for 30 days, to look at.
 
-**A new language:** add `l10n/<locale>.json` with `"from_version"`, the first app version whose build has the language (its `.lproj` folders and `CFBundleLocalizations` in `ios/project.yml`). Until that version is being prepared, the upload skips its page, so the store never lists a language the app doesn't have. Arabic (`ar-SA`), Hebrew (`he`), Traditional Chinese (`zh-Hant`) and Portugal's Portuguese (`pt-PT`) wait for 1.0.3 (the website has them already). With that release: add `ar`, `he`, `zh-Hant` and `pt-PT` to `whats_new` in `release.json`, say 13 languages plus Traditional Chinese and Portugal's Portuguese and the fonts Rubik and Baloo Bhaijaan 2 in the review notes (`listing.json`) and above, add both to the press kit's language list, and nominate it for featuring.
+**A new language:** add `l10n/<locale>.json` with `"from_version"`, the first app version whose build has the language (its `.lproj` folders and `CFBundleLocalizations` in `ios/project.yml`). Until that version is being prepared, the upload skips its page, so the store never lists a language the app doesn't have. The 34 languages added in November 2026 (Arabic, Hebrew, Traditional Chinese, Portugal's Portuguese, Hindi and the other Indian languages, Thai, Turkish, Indonesian, Malay, Vietnamese, and Europe's: see `.github/workflows/store.yml`) go up with 1.0.2, the first build that has them.
 
 **iPhone Duo** (one set, `APP_IPHONE_DUO`): `duo-table-1` ("Prop it up like a laptop": the board on the flat half, the scoreboard on the upright half), `duo-book-2` (held like a book: the board on the right page), `duo-table-4`, `duo-inner-3`, `duo-table-5`. The other `duo-*` files are there to swap in. If Apple's API refuses the Duo type, the upload skips that set and says so; it can go up by hand.
 
@@ -150,7 +150,7 @@ Uploaded from `review_notes` in `listing.json` (App Review Information → Notes
 > None are needed to play. Optional: Game Center (Apple), iCloud key-value storage (Apple) for syncing progress, and GoatCounter, which receives anonymous event counts (for example, "reached Bishop rank") with no personal data, no identifiers and no cookies. Each puzzle has a link to its page on lichess.org, which opens in Safari.
 >
 > REGIONS
-> The app works the same in every region. The game is in English, Spanish, French, German, Italian, Portuguese (Brazil), Dutch, Russian, Japanese, Korean and Chinese (Simplified), following the device's language.
+> The app works the same in every region. The game is in 44 languages (every App Store language), following the device's language.
 >
 > THIRD-PARTY MATERIAL
 > The puzzles come from the Lichess puzzle database, which Lichess released into the public domain (CC0): https://database.lichess.org/#puzzles. The app is not made or endorsed by Lichess and says so in Credits. Chess rules: chess.js (BSD license). Fonts: Fredoka and Nunito (SIL Open Font License). The pieces, icon and artwork are original.

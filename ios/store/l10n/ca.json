@@ -1,0 +1,237 @@
+{
+  "locale": "ca",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Problemes d'escacs",
+    "subtitle": "Problemes que planten cara",
+    "promotional_text": "Veu la forquilla. Troba el mat. Aguanta la ratxa. 53.000 problemes de partides reals que es tornen més durs com millor jugues. Avui peó, demà rei.",
+    "description": "Et creus capaç de veure tres jugades endavant? Demostra-ho.\n\nKing Walk et llança problemes d'escacs de debò, 53.000, trets de partides reals. Resol-ne un i el següent és més dur. Falla'n un i afluixa. Al cap d'unes quantes dotzenes de problemes, sap exactament com n'ets de bo. I aleshores comença a pressionar.\n\nComences com a Peó. Aconsegueix Cavall, Alfil, Torre i Dama. Arriba a Rei i hauràs recorregut tot el tauler.\n\n• 53.000 problemes de partides reals: forquilles, clavades, enfilades i mats del passadís ben traïdors\n• Una puntuació que troba el teu nivell i puja amb tu\n• Un problema del dia, el mateix per a tothom. Mantén viva la ratxa i presumeix-ne amb emojis\n• Ratxes de rang: 15 problemes, sense pistes, una errada i fora\n• Repta els amics a Game Center i deixeu clar qui és bo de debò\n• T'has encallat? Demana una pista. No ho direm a ningú.\n• N'has fallat un? Tornarà més tard per a la revenja\n• Celebracions grans i sorolloses cada vegada que puges de rang\n• Ginys per a la pantalla d'inici, la pantalla bloquejada i el mode En espera\n• Un recordatori diari, si el vols\n• Resposta hàptica, mode fosc, VoiceOver i text més gran\n• Funciona sense connexió. Sense compte, sense anuncis, sense compres dins l'app\n\nEls problemes provenen de la base de dades de problemes de Lichess, de domini públic. King Walk no està fet ni avalat per Lichess.",
+    "keywords": "tàctica,escac i mat,mat en 2,elo,forquilla,exercicis,entrenador,estratègia,lògica,clavada,finals"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Puntuació de problemes",
+        "suffix": " de puntuació",
+        "suffix_singular": " de puntuació"
+      },
+      "streak": {
+        "name": "Millor ratxa",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "hardest": {
+        "name": "Problema més difícil",
+        "suffix": " de puntuació",
+        "suffix_singular": " de puntuació"
+      },
+      "streak_p": {
+        "name": "Ratxa de Peó",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "streak_n": {
+        "name": "Ratxa de Cavall",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "streak_b": {
+        "name": "Ratxa d'Alfil",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "streak_r": {
+        "name": "Ratxa de Torre",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "streak_q": {
+        "name": "Ratxa de Dama",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "streak_k": {
+        "name": "Ratxa de Rei",
+        "suffix": " seguits",
+        "suffix_singular": " seguit"
+      },
+      "daily_streak": {
+        "name": "Ratxa diària",
+        "suffix": " dies",
+        "suffix_singular": " dia"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Primers passos",
+        "before": "Resol un problema sense errors ni pistes.",
+        "earned": "Has resolt el teu primer problema sense errors ni pistes."
+      },
+      "solved_50": {
+        "name": "Cinquanta resolts",
+        "before": "Resol 50 problemes sense errors ni pistes.",
+        "earned": "Has resolt 50 problemes sense errades."
+      },
+      "solved_250": {
+        "name": "Hàbit tàctic",
+        "before": "Resol 250 problemes sense errors ni pistes.",
+        "earned": "Has resolt 250 problemes sense errades."
+      },
+      "solved_1000": {
+        "name": "Mil problemes",
+        "before": "Resol 1.000 problemes sense errors ni pistes.",
+        "earned": "Has resolt 1.000 problemes sense errades."
+      },
+      "streak_5": {
+        "name": "En ratxa",
+        "before": "Resol 5 problemes seguits.",
+        "earned": "Has resolt 5 problemes seguits."
+      },
+      "streak_10": {
+        "name": "Deu seguits",
+        "before": "Resol 10 problemes seguits.",
+        "earned": "Has resolt 10 problemes seguits."
+      },
+      "streak_20": {
+        "name": "Imparable",
+        "before": "Resol 20 problemes seguits.",
+        "earned": "Has resolt 20 problemes seguits."
+      },
+      "rank_knight": {
+        "name": "Cavall",
+        "before": "Arriba a una puntuació de problemes de 700.",
+        "earned": "Has arribat al rang de Cavall: una puntuació de problemes de 700."
+      },
+      "rank_bishop": {
+        "name": "Alfil",
+        "before": "Arriba a una puntuació de problemes de 1000.",
+        "earned": "Has arribat al rang d'Alfil: una puntuació de problemes de 1000."
+      },
+      "rank_rook": {
+        "name": "Torre",
+        "before": "Arriba a una puntuació de problemes de 1300.",
+        "earned": "Has arribat al rang de Torre: una puntuació de problemes de 1300."
+      },
+      "rank_queen": {
+        "name": "Dama",
+        "before": "Arriba a una puntuació de problemes de 1600.",
+        "earned": "Has arribat al rang de Dama: una puntuació de problemes de 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Arriba a una puntuació de problemes de 1900.",
+        "earned": "Has arribat al rang de Rei: una puntuació de problemes de 1900. El rei ha recorregut tot el tauler."
+      },
+      "giant_slayer": {
+        "name": "Matagegants",
+        "before": "Resol sense errades un problema amb una puntuació 300 o més per sobre de la teva.",
+        "earned": "Has resolt sense errades un problema amb una puntuació 300 o més per sobre de la teva."
+      },
+      "clear_pawn": {
+        "name": "Peó superat",
+        "before": "Supera la ratxa de Peó: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa de Peó: 15 problemes seguits de 400 a 699, sense pistes."
+      },
+      "clear_knight": {
+        "name": "Cavall superat",
+        "before": "Supera la ratxa de Cavall: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa de Cavall: 15 problemes seguits de 700 a 999, sense pistes."
+      },
+      "clear_bishop": {
+        "name": "Alfil superat",
+        "before": "Supera la ratxa d'Alfil: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa d'Alfil: 15 problemes seguits de 1000 a 1299, sense pistes."
+      },
+      "clear_rook": {
+        "name": "Torre superada",
+        "before": "Supera la ratxa de Torre: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa de Torre: 15 problemes seguits de 1300 a 1599, sense pistes."
+      },
+      "clear_queen": {
+        "name": "Dama superada",
+        "before": "Supera la ratxa de Dama: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa de Dama: 15 problemes seguits de 1600 a 1899, sense pistes."
+      },
+      "clear_king": {
+        "name": "Rei superat",
+        "before": "Supera la ratxa de Rei: 15 problemes seguits, sense pistes.",
+        "earned": "Has superat la ratxa de Rei: 15 problemes seguits de 1900 a 2300, sense pistes."
+      },
+      "daily_3": {
+        "name": "Triplet",
+        "before": "Resol el problema del dia 3 dies seguits.",
+        "earned": "Has resolt el problema del dia 3 dies seguits."
+      },
+      "daily_7": {
+        "name": "Setmana completa",
+        "before": "Resol el problema del dia 7 dies seguits.",
+        "earned": "Has resolt el problema del dia 7 dies seguits."
+      },
+      "daily_30": {
+        "name": "Trenta dies",
+        "before": "Resol el problema del dia 30 dies seguits.",
+        "earned": "Has resolt el problema del dia 30 dies seguits."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Problema més difícil",
+        "description": "Resol sense errades el problema de puntuació més alta que puguis. Activa Més difícil al menú per veure'n de més durs."
+      },
+      "streak_p_challenge": {
+        "name": "Ratxa de Peó",
+        "description": "15 problemes que pugen de 400 a 699. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      },
+      "streak_n_challenge": {
+        "name": "Ratxa de Cavall",
+        "description": "15 problemes que pugen de 700 a 999. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      },
+      "streak_b_challenge": {
+        "name": "Ratxa d'Alfil",
+        "description": "15 problemes que pugen de 1000 a 1299. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      },
+      "streak_r_challenge": {
+        "name": "Ratxa de Torre",
+        "description": "15 problemes que pugen de 1300 a 1599. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      },
+      "streak_q_challenge": {
+        "name": "Ratxa de Dama",
+        "description": "15 problemes que pugen de 1600 a 1899. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      },
+      "streak_k_challenge": {
+        "name": "Ratxa de Rei",
+        "description": "15 problemes que pugen de 1900 a 2300. Sense pistes, i una errada acaba la ratxa. Qui arriba més lluny?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Problemes que <b>planten cara</b>",
+      "sub": "Resol-ne un i el següent és més dur. Falla'n un i afluixa."
+    },
+    "2": {
+      "caption": "<b>53.000</b> problemes de partides reals",
+      "sub": "Forquilles, clavades, enfilades i mats traïdors."
+    },
+    "3": {
+      "caption": "Encallat? <b>Demana una pista.</b>",
+      "sub": "No ho direm a ningú."
+    },
+    "4": {
+      "caption": "De Peó a <b>Rei</b>. Som-hi!",
+      "sub": "Puja de rang. Supera les ratxes. Presumeix-ne."
+    },
+    "5": {
+      "caption": "Un problema nou <b>cada dia</b>",
+      "sub": "El mateix per a tothom. Mantén viva la ratxa."
+    },
+    "duo-book-1": {
+      "caption": "Plega'l com un <b>llibre</b>",
+      "sub": "El tauler en una pàgina. Les notes a l'altra."
+    },
+    "duo-table-1": {
+      "caption": "Posa'l dret. <b>Mode portàtil.</b>",
+      "sub": "El tauler pla sota les mans, el marcador a dalt."
+    }
+  }
+}

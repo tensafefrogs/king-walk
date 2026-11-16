@@ -1,0 +1,237 @@
+{
+  "locale": "sl-SI",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Šahovske uganke",
+    "subtitle": "Uganke, ki vračajo udarce",
+    "promotional_text": "Najdi vilice. Daj mat. Preživi niz. 53.000 ugank iz resničnih partij. Bolje ko igraš, težje so. Danes Kmet, nekoč Kralj.",
+    "description": "Misliš, da vidiš tri poteze vnaprej? Dokaži.\n\nKing Walk ti meče prave šahovske uganke, kar 53.000, iz resničnih partij. Rešiš eno in naslednja je trša. Zgrešiš in igra popusti. Po nekaj deset ugankah natanko ve, koliko zmoreš. In takrat začne pritiskati.\n\nZačneš kot Kmet. Prisluži si Skakača, Lovca, Trdnjavo in Damo. Postani Kralj in pot čez vso šahovnico je za tabo.\n\n• 53.000 ugank iz resničnih partij: vilice, vezave, nabodala in zahrbtni mati na zadnji vrsti\n• Rating, ki najde tvojo raven in raste s tabo\n• Dnevna uganka, ista za vse. Ohrani niz in se pobahaj z emojiji\n• Nizi nazivov: 15 ugank, brez namigov, ena napaka in izpadeš\n• Izzovi prijatelje v Game Center in razčistite, kdo je res dober\n• Ne gre naprej? Vzemi namig. Nikomur ne bomo povedali.\n• Ni šlo? Uganka se pozneje vrne za revanšo\n• Velika, glasna praznovanja ob vsakem novem nazivu\n• Pripomočki za začetni zaslon, zaklenjeni zaslon in način StandBy\n• Dnevni opomnik, če ga želiš\n• Haptika, temni način, VoiceOver in večje besedilo\n• Deluje brez povezave. Brez računa, brez oglasov, brez nakupov v aplikaciji\n\nUganke izvirajo iz prosto dostopne zbirke ugank Lichess. Igre King Walk ni izdelal niti podprl Lichess.",
+    "keywords": "šah,taktika,mat,mat v 2,elo,rating,trening,strategija,logika,miselne igre,vilice,vezava,končnica"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rating ugank",
+        "suffix": " Elo",
+        "suffix_singular": " Elo"
+      },
+      "streak": {
+        "name": "Najboljši niz",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "hardest": {
+        "name": "Najtežja uganka",
+        "suffix": " Elo",
+        "suffix_singular": " Elo"
+      },
+      "streak_p": {
+        "name": "Niz Kmet",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "streak_n": {
+        "name": "Niz Skakač",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "streak_b": {
+        "name": "Niz Lovec",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "streak_r": {
+        "name": "Niz Trdnjava",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "streak_q": {
+        "name": "Niz Dama",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "streak_k": {
+        "name": "Niz Kralj",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      },
+      "daily_streak": {
+        "name": "Niz dni",
+        "suffix": " zapored",
+        "suffix_singular": " zapored"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Prvi koraki",
+        "before": "Reši uganko brez napak in brez namigov.",
+        "earned": "Prva uganka, rešena brez napak in brez namigov."
+      },
+      "solved_50": {
+        "name": "Petdeset rešenih",
+        "before": "Reši 50 ugank brez napak in brez namigov.",
+        "earned": "50 ugank, rešenih brez napak."
+      },
+      "solved_250": {
+        "name": "Ugankarska navada",
+        "before": "Reši 250 ugank brez napak in brez namigov.",
+        "earned": "250 ugank, rešenih brez napak."
+      },
+      "solved_1000": {
+        "name": "Tisoč ugank",
+        "before": "Reši 1000 ugank brez napak in brez namigov.",
+        "earned": "1000 ugank, rešenih brez napak."
+      },
+      "streak_5": {
+        "name": "V zagonu",
+        "before": "Reši 5 ugank zapored.",
+        "earned": "5 rešenih ugank zapored."
+      },
+      "streak_10": {
+        "name": "Deset zapored",
+        "before": "Reši 10 ugank zapored.",
+        "earned": "10 rešenih ugank zapored."
+      },
+      "streak_20": {
+        "name": "Neustavljivo",
+        "before": "Reši 20 ugank zapored.",
+        "earned": "20 rešenih ugank zapored."
+      },
+      "rank_knight": {
+        "name": "Skakač",
+        "before": "Doseži rating ugank 700.",
+        "earned": "Naziv Skakač: rating ugank 700."
+      },
+      "rank_bishop": {
+        "name": "Lovec",
+        "before": "Doseži rating ugank 1000.",
+        "earned": "Naziv Lovec: rating ugank 1000."
+      },
+      "rank_rook": {
+        "name": "Trdnjava",
+        "before": "Doseži rating ugank 1300.",
+        "earned": "Naziv Trdnjava: rating ugank 1300."
+      },
+      "rank_queen": {
+        "name": "Dama",
+        "before": "Doseži rating ugank 1600.",
+        "earned": "Naziv Dama: rating ugank 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Doseži rating ugank 1900.",
+        "earned": "Naziv Kralj: rating ugank 1900. Kralj je prehodil vso pot do vrha."
+      },
+      "giant_slayer": {
+        "name": "Padec velikana",
+        "before": "Brez napak reši uganko z ratingom vsaj 300 nad tvojim.",
+        "earned": "Brez napak rešena uganka z ratingom vsaj 300 nad tvojim."
+      },
+      "clear_pawn": {
+        "name": "Niz Kmet opravljen",
+        "before": "Opravi niz Kmet: 15 ugank zapored brez namigov.",
+        "earned": "Niz Kmet opravljen: 15 ugank zapored od 400 do 699, brez namigov."
+      },
+      "clear_knight": {
+        "name": "Niz Skakač opravljen",
+        "before": "Opravi niz Skakač: 15 ugank zapored brez namigov.",
+        "earned": "Niz Skakač opravljen: 15 ugank zapored od 700 do 999, brez namigov."
+      },
+      "clear_bishop": {
+        "name": "Niz Lovec opravljen",
+        "before": "Opravi niz Lovec: 15 ugank zapored brez namigov.",
+        "earned": "Niz Lovec opravljen: 15 ugank zapored od 1000 do 1299, brez namigov."
+      },
+      "clear_rook": {
+        "name": "Niz Trdnjava opravljen",
+        "before": "Opravi niz Trdnjava: 15 ugank zapored brez namigov.",
+        "earned": "Niz Trdnjava opravljen: 15 ugank zapored od 1300 do 1599, brez namigov."
+      },
+      "clear_queen": {
+        "name": "Niz Dama opravljen",
+        "before": "Opravi niz Dama: 15 ugank zapored brez namigov.",
+        "earned": "Niz Dama opravljen: 15 ugank zapored od 1600 do 1899, brez namigov."
+      },
+      "clear_king": {
+        "name": "Niz Kralj opravljen",
+        "before": "Opravi niz Kralj: 15 ugank zapored brez namigov.",
+        "earned": "Niz Kralj opravljen: 15 ugank zapored od 1900 do 2300, brez namigov."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Reši dnevno uganko 3 dni zapored.",
+        "earned": "Dnevna uganka, rešena 3 dni zapored."
+      },
+      "daily_7": {
+        "name": "Cel teden",
+        "before": "Reši dnevno uganko 7 dni zapored.",
+        "earned": "Dnevna uganka, rešena 7 dni zapored."
+      },
+      "daily_30": {
+        "name": "Trideset dni",
+        "before": "Reši dnevno uganko 30 dni zapored.",
+        "earned": "Dnevna uganka, rešena 30 dni zapored."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Najtežja uganka",
+        "description": "Brez napak reši uganko z najvišjim ratingom, ki ga zmoreš. V meniju vklopi Težje za zahtevnejše uganke."
+      },
+      "streak_p_challenge": {
+        "name": "Niz Kmet",
+        "description": "15 ugank z ratingom od 400 do 699. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      },
+      "streak_n_challenge": {
+        "name": "Niz Skakač",
+        "description": "15 ugank z ratingom od 700 do 999. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      },
+      "streak_b_challenge": {
+        "name": "Niz Lovec",
+        "description": "15 ugank z ratingom od 1000 do 1299. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      },
+      "streak_r_challenge": {
+        "name": "Niz Trdnjava",
+        "description": "15 ugank z ratingom od 1300 do 1599. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      },
+      "streak_q_challenge": {
+        "name": "Niz Dama",
+        "description": "15 ugank z ratingom od 1600 do 1899. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      },
+      "streak_k_challenge": {
+        "name": "Niz Kralj",
+        "description": "15 ugank z ratingom od 1900 do 2300. Brez namigov, ena napaka in niza je konec. Kdo pride najdlje?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Uganke, ki <b>vračajo udarce</b>",
+      "sub": "Rešiš eno in naslednja je trša. Zgrešiš in igra popusti."
+    },
+    "2": {
+      "caption": "<b>53.000</b> ugank iz resničnih partij",
+      "sub": "Vilice, vezave, nabodala in zahrbtni mati."
+    },
+    "3": {
+      "caption": "Ne gre naprej? <b>Vzemi namig.</b>",
+      "sub": "Nikomur ne bomo povedali."
+    },
+    "4": {
+      "caption": "Od Kmeta do <b>Kralja</b>. Gremo!",
+      "sub": "Pridobivaj nazive. Opravi nize. Pobahaj se."
+    },
+    "5": {
+      "caption": "Nova uganka <b>vsak dan</b>",
+      "sub": "Ista za vse. Ohrani svoj niz."
+    },
+    "duo-book-1": {
+      "caption": "Prepogni ga kot <b>knjigo</b>",
+      "sub": "Šahovnica na eni strani. Zapiski na drugi."
+    },
+    "duo-table-1": {
+      "caption": "Postavi ga pokonci. <b>Način prenosnika.</b>",
+      "sub": "Šahovnica ploska pod rokami, rezultat zgoraj."
+    }
+  }
+}

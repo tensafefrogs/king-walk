@@ -1,0 +1,300 @@
+QDyFn	1k3b1r/pppr1ppp/q7/4p3/3nP3/1P5Q/P1PP2PP/R1B2R1K w - -	h3d7 a6f1	486	hangingPiece kingsideAttack mate mateIn1 middlegame
+9ozdg	2r3k1/1p3rpp/p2Rp3/3bPp2/1B6/1P6/P1P3PP/5R1K b - -	c8c2 d6d8 f7f8 d8f8	470	endgame mate mateIn2
+UBjWe	Q7/2p3k1/2p4p/6p1/R4p2/2P4P/5nPK/2r5 w - -	a8c6 c1h1	483	endgame mate mateIn1
+0Ysin	4k3/3r1p2/p7/1nPN4/2K1p3/7b/8/7R b - -	h3e6 h1h8	420	endgame mate mateIn1
+NUQyw	3R4/8/1pk2N2/5r2/P7/4n1PK/8/8 w - -	f6e4 f5h5	470	endgame mate mateIn1
+VRhme	r4rk1/ppp2ppp/8/4P3/4P1b1/1BP5/P1P2qPP/1RBQ3K w - -	d1g4 f2f1	464	mate mateIn1 middlegame
+OwH7m	3rr1k1/p1p1qppp/1nQ5/2p5/3b1P2/2N5/PPP3PP/2BRR1K1 w - -	g1h1 e7e1 d1e1 e8e1	439	backRankMate mate mateIn2 middlegame
+ZtIaY	8/2R3p1/5p1p/r2b3k/7N/6PP/5P2/6K1 w - -	c7g7 a5a1 g1h2 a1h1	460	endgame mate mateIn2
+Wb8Gu	3r1k2/pp2Npp1/4p2p/2P5/1B2P3/1qP1R3/P4PPP/6K1 w - -	a2b3 d8d1 e3e1 d1e1	400	backRankMate endgame mate mateIn2
+AQ0v9	r4rk1/pp1q2pp/6n1/2p3N1/3p4/3Q4/PP3PPP/R3R1K1 b - -	g6f4 d3h7	483	kingsideAttack mate mateIn1 middlegame
+vrLTs	3rr1kb/3bpp2/p1p2np1/6q1/4pPP1/1BN5/PPP4Q/2KR3R b - -	g5g4 h2h8	490	kingsideAttack mate mateIn1 middlegame
+G1NVF	8/1R4pk/1p5p/5p2/8/P7/1r3PPP/3R2K1 w - -	d1d7 b2b1 d7d1 b1d1	400	backRankMate endgame mate mateIn2
+8pwh7	rn2k2r/3bbpp1/pq2p2p/3p4/n2N2PP/4BP2/PPPQN3/2KR1B1R w kq -	e2c3 b6b2	472	mate mateIn1 middlegame queensideAttack
+s0nJi	r4rk1/p1p2ppp/2pb4/4q3/8/2P1B2P/PP3PP1/R2Q1R1K w - -	d1c2 e5h2	482	mate mateIn1 middlegame
+2iyMn	3r1rk1/pp2bppp/5n2/1Np1Nb2/2P2P2/P7/1P2BRPP/R1Bq3K w - -	e2d1 d8d1 f2f1 d1f1	418	backRankMate mate mateIn2 middlegame
+2LgHN	2k5/1pp2ppp/p3p3/2Q5/8/5q2/PPP4P/1K1rR3 w - -	e1d1 f3d1	400	endgame mate mateIn1
+aA3OE	r1b1q1k1/pp1prp2/6p1/6B1/8/7Q/PPP2PPb/3RR1K1 w - -	h3h2 e7e1 d1e1 e8e1	441	kingsideAttack mate mateIn2 middlegame
+HqIxg	3qR1k1/p4ppp/2Q2b2/8/3p4/8/PrPN1PPP/R5K1 b - -	d8e8 c6e8	400	endgame hangingPiece mate mateIn1
+BIwC4	8/5k2/2R4K/5P2/1r4P1/8/8/8 w - -	g4g5 b4h4	458	endgame mate mateIn1
+YXh5p	6R1/8/4B3/2P5/7k/5b1P/P4P1K/2r5 w - -	g8g3 c1h1	443	endgame mate mateIn1
+GHw4n	r4Qk1/pppq2pp/2n5/8/2bP4/B1P1P3/P3N1PP/R4RK1 b - -	a8f8 f1f8	466	kingsideAttack mate mateIn1 middlegame
+eklK7	r1b2rk1/qp1n1pp1/2p1p2p/p2n4/P2P1B2/2PQPN1P/2B2PP1/1R3RK1 b - -	d5f4 d3h7	494	mate mateIn1 middlegame
+0BtyY	4r1k1/2Q2ppp/8/8/P1Pp4/3P4/2P1rPPP/R1R1q1K1 w - -	c1e1 e2e1 a1e1 e8e1	412	backRankMate endgame mate mateIn2
+3c7nQ	1r4k1/1r6/R7/p3p3/3pP3/3P1pPp/R4P1B/6K1 w - -	a2a1 b7b1 a1b1 b8b1	424	endgame mate mateIn2
+SKxuY	8/8/p1k5/1pP1K3/1P1R2r1/8/8/8 b - -	g4g6 d4d6 g6d6 c5d6	496	crushing endgame
+54UZn	1nbq1k1r/r3ppbp/p3N1p1/1p2p2n/5P2/1BN5/PPP3PP/R1BQ1RK1 b - -	c8e6 d1d8	440	hangingPiece mate mateIn1 opening
+z2H90	r2q1r1k/pn2bpp1/7p/1ppnPQ2/3P4/2P1B3/PPBN2PP/R4RK1 b - -	d5e3 f5h7	486	mate mateIn1 middlegame
+nLrST	r3k2r/1b1nbppp/ppqppn2/8/P1Pp4/1PN1PN2/1BB2PPP/2RQ1RK1 w kq -	f3d4 c6g2	459	kingsideAttack mate mateIn1 middlegame
+KvjCL	5rk1/4qppp/b1p5/2Pp4/1r6/2Q3P1/1B2PP1P/3RR1K1 b - -	b4b5 c3g7	448	kingsideAttack mate mateIn1 middlegame
+853a3	rn3rk1/pbpp2pp/1p2pnq1/5p2/2PP4/P1BBPN2/1P3PPP/R2Q1RK1 w - -	f3e5 g6g2	448	kingsideAttack mate mateIn1 opening
+rL1mx	5r1k/6pp/1p2p3/8/1P4nP/P4QP1/2r2P2/3R1RK1 b - -	f8f3 d1d8 f3f8 d8f8	437	backRankMate endgame mate mateIn2
+3OWlc	8/3RR3/P5p1/4P2p/4r3/6kP/8/7K w - -	a6a7 e4e1	416	endgame mate mateIn1
+zAbJU	rn2r1k1/pp3p1p/6p1/8/8/2B2P2/PP4PP/R2R2K1 b - -	e8e2 d1d8 e2e8 d8e8	400	endgame mate mateIn2
+YoP7u	2b2r1k/6pp/1pr2Q2/p7/P4p2/1P2BP2/N1PR2PP/6K1 b - -	f8f6 d2d8 f6f8 d8f8	477	backRankMate endgame mate mateIn2
+Api0N	r3k2r/ppp2ppp/4b3/1BP1p3/3nP2B/5P2/3R2PP/1K1R4 b kq -	d4b5 d2d8 a8d8 d1d8	408	mate mateIn2 middlegame
+p4Vzb	6k1/3RR3/1p2p2p/8/8/7P/r6r/6K1 b - -	h2h3 d7d8	428	endgame mate mateIn1
+qBprc	k2r4/1b4Qp/p7/3r4/8/8/5PPP/1R4K1 w - -	g2g3 d5d1 b1d1 d8d1	451	endgame mate mateIn2
+ENvHL	r5k1/2p5/p4q1p/1pPn1p2/5Qp1/P3P3/5PPP/R2R2K1 w - -	d1d5 f6a1 d5d1 a1d1	403	backRankMate endgame hangingPiece mate mateIn2
+jvacs	rn2kb1r/pbp2p1p/1p2p3/3q4/6p1/3P1NP1/PPP2PBP/R1BQ1RK1 w kq -	f3g5 d5g2	457	middlegame
+mVFcU	8/k5p1/3p2p1/pP6/r7/5P2/6PP/3R3K w - -	d1d6 a4a1 d6d1 a1d1	424	backRankMate endgame mate mateIn2
+b7F8W	6k1/6p1/2p5/p1P4q/8/1P2Q2R/1P5K/3r4 b - -	h5d5 e3e8	499	endgame mate mateIn1
+QuVci	6k1/5p1p/r3p1p1/3nB3/5P2/P7/5P1P/1R4K1 b - -	h7h5 b1b8 g8h7 b8h8	490	endgame mate mateIn2
+MnUaX	4r1k1/R6R/6p1/5p2/8/PPb2P1P/2P3P1/1K6 w - -	h7d7 e8e1 d7d1 e1d1 b1a2 d1a1	467	endgame mate mateIn3
+Of5rM	3q1rk1/4bpp1/2p2n1B/pr2pb2/1p2N3/1P1P2QR/1PP1N1PP/R5K1 b - -	f5e4 g3g7	497	kingsideAttack mate mateIn1 middlegame
+bPhQq	1k1Q3r/ppp2p2/1b5p/8/6n1/B1q2NP1/P3PP1P/3R1K2 b - -	h8d8 d1d8	409	backRankMate mate mateIn1 middlegame
+WiHrK	1k2r3/pp4p1/3b1P2/3p2P1/2p3B1/1PPp3p/P7/RNB4K w - -	f6g7 e8e1	433	endgame mate mateIn1
+joSvb	3Q2k1/5ppp/5q2/p7/8/5B2/5PPP/3R2K1 b - -	f6d8 d1d8	480	backRankMate endgame mate mateIn1
+G2SC2	3k4/8/1p1K4/p1p4P/5r2/8/8/6R1 b - -	f4f5 g1g8 f5f8 g8f8	403	endgame mate mateIn2
+pKOiC	2r3k1/pp3ppp/5n2/3p1pN1/3P4/2q3P1/P3QP1P/4R1K1 b - -	c8e8 e2e8 f6e8 e1e8	463	endgame kingsideAttack mate mateIn2
+n5iDH	2r1k2r/4bp2/p2ppp1p/8/1p2bPP1/7P/PPqRN2Q/1NKR4 w k -	d2c2 c8c2	495	mate mateIn1 middlegame queensideAttack
+IyjBA	2r1k1nr/ppqn1pp1/4N3/3p3p/7P/1N1Qb3/PPP2PP1/2KR3R w k -	d3e3 c7c2	445	mate mateIn1 middlegame queensideAttack
+M59GI	r3k2r/pbp2ppp/1p2p3/8/2P2q2/3Q4/PP1R2PP/2K4R b kq -	a8d8 d3d8	443	mate mateIn1 middlegame
+WtKYb	3r4/1b5k/p3P3/2p3Q1/7P/1P4P1/P4P2/2Rq2K1 w - -	c1d1 d8d1 g1h2 d1h1	467	endgame mate mateIn2
+PPvpn	6k1/1Rp1rppp/p7/2P5/5B2/P4P2/4nP1P/5K2 b - -	e2f4 b7b8 e7e8 b8e8	400	backRankMate endgame mate mateIn2
+USVPe	8/4R2p/1p4p1/bP1b1r1k/P4B1P/2p3K1/3p4/8 b - -	d2d1q e7h7	462	endgame mate mateIn1
+WXVaD	rnb1k2r/pp3ppp/4pn2/2b1P1B1/2p5/2N5/PP3PPP/3RKBNR b Kkq -	f6g4 d1d8	438	mate mateIn1 opening
+sjH92	r1bq1rk1/p1pp1pp1/1pn1n2p/4P3/2P1Q3/2NB1N2/PP3PPP/R4RK1 b - -	c8b7 e4h7	442	mate mateIn1 middlegame
+Qk4gc	r1b1k2r/ppp2ppp/2p2n2/2b3B1/4P3/2N5/PPP2PPP/3RKB1R b Kkq -	f6g4 d1d8	424	mate mateIn1 middlegame
+hTldr	6k1/5ppp/1p2pqb1/pP6/P2b2P1/B5NP/2rQ1nBK/2R5 b - -	c2d2 c1c8 f6d8 c8d8	444	backRankMate mate mateIn2 middlegame
+3us8F	r1b3k1/pp3ppp/1N2p3/8/5P2/P4R2/1b4PP/3R3K b - -	a7b6 d1d8	438	backRankMate endgame mate mateIn1
+WeszG	2r4r/kp3p2/4p3/nQ1pP1N1/3P4/P7/1R3PPp/1Rq4K w - -	b1c1 c8c1 b5f1 c1f1	438	mate mateIn2 middlegame
+0UGlX	6r1/p1p5/1p2kp2/7p/3Pr3/2P2q2/PP5P/RN1Q3K w - -	d1f3 e4e1 f3f1 e1f1	457	endgame mate mateIn2
+dEQvR	r2r2k1/p2n1qbp/1pp5/2n5/2P2p1P/1P5B/PB1QNP1K/R2R4 b - -	d7e5 d2d8 a8d8 d1d8	458	advantage kingsideAttack middlegame
+iUhtS	4N1k1/R4pp1/1b3n1p/8/4P3/5P2/6PP/2q2QK1 w - -	g1h1 c1f1	433	endgame hangingPiece mate mateIn1
+eV9gO	6rk/pp2q2Q/3pPp2/2pPb3/2P5/P2B2rR/1P5P/7K b - -	e7h7 h3h7	469	endgame mate mateIn1
+xBp5k	rnbq2k1/ppp2ppp/8/8/2BP4/4R3/PPP3PK/RN6 b - -	d8g5 e3e8	400	mate mateIn1 middlegame
+3Dp9R	8/4rrk1/8/Q3p2p/6p1/2P1R3/PP4PP/4Rq1K w - -	e1f1 f7f1	400	backRankMate endgame mate mateIn1
+yoW2l	6k1/6p1/1R4p1/2Pp2r1/3r4/5P2/5R1P/7K w - -	c5c6 d4d1 f2f1 d1f1	447	endgame mate mateIn2
+5S8WC	6k1/ppp3p1/2q2b1p/2Pb1p2/5P2/1P2N1B1/P2Q2PP/6K1 b - -	c6c5 d2d5 c5d5 e3d5	474	advantage endgame
+GZasq	1r4k1/5ppp/p3p3/4P3/P1r2P2/P7/6PP/2R4K w - -	c1c4 b8b1 c4c1 b1c1	429	backRankMate endgame mate mateIn2
+kXtQM	8/p6k/4R3/5p1p/1Pq5/5NPK/8/5R2 b - -	c4e6 f3g5 h7g6 g5e6	496	crushing endgame fork
+6DKtS	1r1q1rk1/2pbbpp1/p2pp2p/1p6/n1PP1B2/3QPN2/PPB2PPP/R4RK1 b - -	a4b2 d3h7	483	mate mateIn1 middlegame
+NEoXQ	r5k1/1b4pp/3NRp2/8/p1P5/7P/2n2PPN/6K1 b - -	a8a6 e6e8	420	endgame mate mateIn1
+HoCE6	2r4k/pbN3p1/1p1p1r1p/8/8/5P2/P1B3PP/2n1R1K1 b - -	c8c7 e1e8 f6f8 e8f8	400	endgame mate mateIn2
+KqvBP	4r1k1/pQ6/4qp1b/2P5/8/1P6/1PP2P2/2K4R w - -	h1h6 e6e1	430	endgame mate mateIn1
+kH5L9	4r2k/p5pp/bp3p2/8/2P1Q3/8/q3BPPP/3RRK2 b - -	e8e4 d1d8 e4e8 d8e8	400	backRankMate endgame mate mateIn2
+c8hHM	3r1Q1k/1p4pp/p2P2r1/2P5/3P1R2/P7/3q1B2/1R3K2 b - -	d8f8 f4f8	400	backRankMate endgame mate mateIn1
+o7fNg	r1b4k/4qr1p/2p1pp1B/p2p4/6R1/6Q1/PPP2PPP/5RK1 b - -	e6e5 g4g8	493	mate mateIn1 middlegame
+a7FmR	rn3rk1/pp2qppp/2p1p3/8/3PQ3/3B3P/PPP2PP1/2KR3R b - -	b8a6 e4h7	452	kingsideAttack mate mateIn1 middlegame
+dzits	8/8/8/p7/P3p2P/3k4/8/4K3 b - -	d3e3 h4h5 e3f4 h5h6 f4e3 h6h7	497	advancedPawn crushing endgame quietMove
+vOGpY	2rr2k1/2b3pp/4pp2/p1n5/1nN3Q1/1P1qP1P1/1B1N1P1P/R2R2K1 b - -	f6f5 g4g7	400	kingsideAttack mate mateIn1 middlegame
+L2BvQ	5r1k/2p1p1b1/3pB1p1/1q1P3Q/rp2P3/1P6/PB6/3K3R b - -	g6h5 h1h5	466	mate mateIn1 middlegame
+boV2e	r1b2rk1/1p2qppp/2n1p3/p2p4/3P4/2PQ1N2/PPB2PPP/R4RK1 b - -	c8d7 d3h7	400	kingsideAttack mate mateIn1 middlegame
+rXGmc	r1b2k2/pp3Pp1/2pp3p/8/2QPP1n1/8/PP4PP/RNB1q2K w - -	c4f1 e1f1	400	hangingPiece kingsideAttack mate mateIn1 middlegame
+qCkoV	1r4k1/5ppp/5p2/3n4/p7/q4N2/P2Q1PPP/K2R4 b - -	d5b4 d2d8 b8d8 d1d8	475	backRankMate endgame mate mateIn2 sacrifice
+5vhhY	8/p1rr1k1p/2p2pp1/3n4/2PR2P1/PP2N1KP/8/3R4 b - -	d5e3 d4d7 c7d7 d1d7	418	crushing endgame
+9uPsF	6k1/5ppp/1P2p3/1Q6/3PpP2/4n3/6PP/4qBK1 b - -	e3f1 b5e8	444	endgame mate mateIn1
+GHYHt	4Q2k/1p4pp/pqp4B/5r2/6P1/2p4r/PPP3K1/R7 b - -	f5f8 e8f8	408	endgame hangingPiece mate mateIn1
+fAtCa	8/1b1pb1kp/p1q1p1n1/2p1Pp1Q/N1P3p1/1P2R3/P1P2PPP/4N1K1 w - -	e1d3 c6g2	482	kingsideAttack mate mateIn1 middlegame
+xtO33	r4k1r/p4pp1/2p4p/3n2q1/4R3/8/PP2QPPP/4R1K1 b - -	d5f4 e4e8 a8e8 e2e8	466	mate mateIn2 middlegame
+EjHat	8/1p5p/p4rpk/8/3NQ3/2P3Pb/PP5P/4Rq1K w - -	e1f1 f6f1	453	endgame mate mateIn1
+8qB1J	8/5qk1/4Qnpp/1p3p2/1P1B1P2/7P/6PK/8 w - -	e6f6 f7f6 d4f6 g7f6	430	crushing endgame
+b6AEs	r1bq1rk1/4bppp/4p3/3pP3/p1pP1P2/PnP3N1/2QN2PP/1BR2RK1 b - -	e7a3 c2h7	499	kingsideAttack mate mateIn1 middlegame
+1Nx6n	1r4k1/b1p3pp/pq6/3Pp3/1P2PpN1/P2B1P2/4Q3/2R2KrR w - -	h1g1 b6g1	470	mate mateIn1 middlegame
+cbY0s	3Rr1k1/5ppp/p1Q1r3/8/P7/7P/1P3Pn1/3R2K1 b - -	e6c6 d8e8	410	backRankMate endgame hangingPiece mate mateIn1
+mPe3w	r1bq1r1k/ppp3pp/3p1n2/4p3/4P3/1P3Q1P/1PP3PK/RN3R2 b - -	f6d5 f3f8 d8f8 f1f8	400	backRankMate mate mateIn2 middlegame
+XTcn8	r4rk1/4bppp/p1np4/q1p2P2/1p6/PQ3P2/1PPB2PP/2KR1B1R w - -	a3b4 a5a1	494	mate mateIn1 middlegame
+uU2Ym	rn2kbnr/pp3pqp/2pp2p1/4P1B1/4P2P/5B2/PPP2PP1/RN1Q1RK1 b kq -	d6e5 d1d8	498	mate mateIn1 opening
+tBpRy	1k2r3/ppp3p1/6pr/8/3pR2P/PP1P2P1/2P5/1K3R2 b - -	e8e4 f1f8 e4e8 f8e8	439	backRankMate endgame mate mateIn2
+9leya	8/1pr1k3/p3P3/5P1p/4b3/6PB/PP3R1P/1K6 w - -	b1a1 c7c1	400	backRankMate endgame mate mateIn1
+Bb8bk	r7/P7/3k4/2p5/2PpK3/8/2P4R/8 b - -	a8a7 h2h6 d6c7 h6h7	454	crushing endgame
+pDAmz	r3r1k1/5pp1/3P4/4q3/p5Q1/6RP/5BPK/8 b - -	e5d6 g4g7	418	endgame mate mateIn1
+jMOBT	8/5kR1/5p2/1pBrpb1p/pPr5/P4P2/1KP5/6R1 b - -	f7e6 g7e7	444	endgame mate mateIn1
+Z5HUk	8/p2r2pk/1p5p/8/4R3/8/PPP2PRP/6K1 w - -	e4g4 d7d1	400	backRankMate endgame mate mateIn1
+pESpc	rnb1kb1r/pp1ppppp/5n2/3qP3/8/2Q5/PPPB1PPP/RN2KBNR b KQkq -	f6e4 c3c8	495	hangingPiece mate mateIn1 opening
+4I6AU	8/8/4K1p1/1k3PP1/8/3p4/8/8 w - -	f5g6 d3d2 g6g7 d2d1q	424	advancedPawn crushing endgame promotion
+d2YzX	2r5/8/3P1k1p/R4pp1/8/5bP1/PP1R1P1P/6K1 w - -	d6d7 c8c1 d2d1 c1d1	432	endgame mate mateIn2
+u0daN	2Q2rk1/5ppp/8/1p1qn3/3P4/5P2/6PP/B1R3K1 b - -	f8c8 c1c8 d5d8 c8d8	400	backRankMate endgame mate mateIn2
+0Ltl9	8/8/6k1/2R5/2p2pP1/5P1K/5r2/8 w - -	h3h4 f2h2	466	endgame mate mateIn1
+94Lrc	8/8/R4pk1/6P1/8/1pn1BP2/p5P1/6K1 w - -	e3d4 c3e2 g1f2 e2d4	470	crushing endgame fork
+WRyix	2qQr1k1/pp3ppp/5B2/8/8/P3PP2/6PP/3R2K1 b - -	e8d8 d1d8 c8d8 f6d8	486	advantage endgame fork
+gWqXT	6k1/3r1pp1/p1n2B1p/8/1p6/1P2PpP1/5P1P/2R2K2 w - -	c1c6 d7d1	417	endgame mate mateIn1
+6USBY	r3r1k1/5p1p/p5p1/1p1Bq3/8/2P2Q2/PP3PPP/3R2K1 w - -	d5a8 e5e1 d1e1 e8e1	497	backRankMate endgame mate mateIn2 sacrifice
+t2MEM	4R3/p2r1p1k/5PpQ/q2p1p1p/3P3P/2p5/PP3P2/1K6 b - -	h7h6 e8h8	409	endgame mate mateIn1
+8Giz9	r1b2rk1/ppp3pp/3p1R1q/4P3/2Bn4/2N1P3/PPP3PP/R5K1 b - -	g8h8 f6f8	424	backRankMate hangingPiece mate mateIn1 middlegame
+O9lNF	4r1k1/p1q2ppp/1b1r4/2p5/1PP1b2P/P1R1Q1P1/5PB1/5RK1 b - -	e4g2 e3e8	488	hangingPiece kingsideAttack mate mateIn1 middlegame
+ZokkW	5rk1/p5p1/1pPb2pp/4p3/4P3/8/PP4PP/3R3K w - -	d1d6 f8f1	400	backRankMate endgame mate mateIn1
+KmVkE	6k1/p4ppp/1p6/3p4/3P4/PP4P1/4rP1P/2R3K1 b - -	e2e7 c1c8 e7e8 c8e8	467	backRankMate endgame mate mateIn2
+mpnHW	5r1k/5p1p/2q1bnp1/2NN4/1P2P3/4R3/Q4PPP/6K1 w - -	c5e6 c6c1 e3e1 c1e1	449	mate mateIn2 middlegame
+AJZ0s	4r1k1/2R3pp/8/1p3p2/3p4/1NnP4/2P1r1PP/2R4K w - -	b3d4 e2e1 c1e1 e8e1	489	backRankMate endgame mate mateIn2
+cFXSn	r1k5/pp2p1b1/2p1N2p/4P1pP/3p1rP1/4RP2/PPP5/2KR4 b - -	d4e3 d1d8	420	endgame mate mateIn1
+1sBLd	6k1/ppp3pp/2p2p2/3q4/4QP2/3P2P1/PPP3KP/8 b - -	d5a2 e4e8	439	endgame mate mateIn1
+l53gr	8/1r6/1P1p4/p2Pp3/Pkp1P3/4K3/8/1R6 b - -	b4c5 b1b5	400	endgame mate mateIn1
+dhTa0	3r4/1p3ppk/p7/8/1PP1bPr1/P7/7P/R1B1R2K w - -	e1e4 d8d1 e4e1 d1e1	488	endgame mate mateIn2
+NCTd6	1k3b1r/ppp3p1/2n4n/3p2p1/N5Bp/2P4P/PP1N1PP1/4R1K1 b - -	h6g4 e1e8 c6d8 e8d8	481	backRankMate mate mateIn2 middlegame
+ZX1TB	7k/R4K1p/8/8/2P1n2p/8/6r1/8 b - -	h4h3 a7a8 g2g8 a8g8	482	endgame mate mateIn2
+sTdmC	6k1/ppp3pp/3p1p2/3P4/2P5/1P2rQP1/P5PP/3Rr2K w - -	d1e1 e3e1 f3f1 e1f1	400	backRankMate endgame mate mateIn2
+2yIl3	3r2k1/3r1pp1/p1Q4p/1N6/4np2/8/PPP2PPP/R5K1 w - -	f2f3 d7d1 a1d1 d8d1	426	endgame mate mateIn2
+HLAFa	r4R1k/pp5p/3p2pB/8/2Bpq3/8/P1P3PP/5RK1 b - -	a8f8 f1f8	498	endgame mate mateIn1
+L2YsF	4r3/pp2rk1p/2p2b2/3pB1p1/3P2P1/1P2RPK1/P6P/4R3 w - -	e5f6 e7e3 e1e3 e8e3	428	advantage endgame
+5Pwcm	1br2rk1/ppqn1ppp/2p1pn2/2Pp4/PP1P4/2N1Pb1P/1B2BPP1/R2Q1RK1 w - -	e2f3 c7h2	493	mate mateIn1 opening
+oYga7	R4Nk1/5Rp1/7p/1P2b3/Pr6/7P/6P1/7K w - -	f7d7 b4b1 d7d1 b1d1	492	endgame mate mateIn2
+NAfsB	7k/R5p1/1p3q1p/2pP4/2P5/1P1B1n1P/P5P1/4Q2K b - -	f3e1 a7a8 f6d8 a8d8	460	endgame mate mateIn2
+oM91c	3r2k1/pp3pp1/8/4n1PP/8/2P5/PP4Q1/K2q1R2 w - -	f1d1 d8d1	477	backRankMate endgame mate mateIn1
+7XsOz	r3q1k1/ppp2ppp/3n1b2/8/8/1P3Q2/1PP2PPP/RNB3K1 w - -	b1c3 e8e1	447	mate mateIn1 middlegame
+3k0Lb	4r3/4qpk1/1p4pp/p1pb4/P2p4/1P1P1PNP/1PQ2KP1/2R5 w - -	c1e1 e7e1	450	endgame mate mateIn1
+VSR7l	5r1k/ppp3pp/3p4/8/5Q2/2P3r1/PP4P1/4R1K1 b - -	f8f4 e1e8 f4f8 e8f8	400	backRankMate endgame mate mateIn2
+JBlyx	r3R1k1/1p1b1ppp/p7/5qb1/2pB4/2P4P/PP2QPB1/4R1K1 b - -	a8e8 e2e8 d7e8 e1e8	495	kingsideAttack mate mateIn2 middlegame
+d8Par	6k1/6p1/3bp1P1/8/1p1Pb3/1r6/P4N2/1KB3R1 w - -	b1a1 b3b1	497	endgame mate mateIn1
+NU8vO	k1r5/pp6/4pQ1p/8/7P/8/PPr5/K2q1R2 w - -	f1d1 c2c1 d1c1 c8c1	488	backRankMate endgame mate mateIn2
+8J3Wp	6k1/6r1/1R3K2/8/8/8/8/8 b - -	g8f8 b6b8	400	endgame mate mateIn1
+gj3wQ	4r1k1/1Rp3p1/1b1p2P1/p2P1p2/P1P3b1/r7/2K5/4R3 b - -	e8e1 b7b8 e1e8 b8e8	489	endgame mate mateIn2
+9sx8y	r1bqk2r/pp1p1ppp/2p1nb2/2P1p3/1P2Q3/3BP3/PB1P1PPP/R3K1NR b KQkq -	e8g8 e4h7	432	kingsideAttack mate mateIn1 opening
+LQBS3	1k1r4/p4ppp/3r4/2p3b1/4B1b1/2P2N2/PPP3PP/R1K1R3 w - -	f3g5 d6d1 e1d1 d8d1	400	mate mateIn2 middlegame queensideAttack
+Mlqse	3Rk1r1/b1q2p1p/p7/1p2n3/7Q/1N6/PPP2PPP/3R2K1 b - -	c7d8 d1d8	480	mate mateIn1 middlegame
+qcnRk	7k/1p4p1/pP4p1/8/8/3N4/3r2PP/1R5K w - -	b1b3 d2d1 d3e1 d1e1	400	backRankMate endgame mate mateIn2
+Du6qI	2kr2nr/pppnq3/3N1p2/4pP2/7p/3PPQP1/PPP3BP/2KR3R b - -	e7d6 f3b7	440	mate mateIn1 middlegame queensideAttack
+gBkpq	r3k2r/ppp2ppp/4bn2/2b5/2Pq4/2NP4/PP1B1PPP/R2QKB1R w KQkq -	f1e2 d4f2	496	mate mateIn1 middlegame
+Cp8dw	4r3/3Q4/1kp4p/p2bN1p1/8/6P1/q5PP/3R3K w - -	d7e8 a2g2	472	endgame mate mateIn1
+l89Ib	1r6/3k1p1p/1r2p1p1/3pP3/pR6/P1PK4/5PPP/1R6 b - -	d7c6 b4b6 b8b6 b1b6	485	crushing endgame
+AWlKP	8/5pp1/2Rr1k1p/pp6/5PP1/3r3P/PP2K3/2R5 b - -	d6c6 c1c6 d3d6 c6d6	441	crushing endgame
+5wilN	rn1q2nr/pp3kpp/2p5/2bpp2P/5PP1/2N5/PPP1P1B1/R1BQ1RK1 w - -	g1h1 d8h4 g2h3 h4h3	495	kingsideAttack mate mateIn2 opening
+TXume	r1q2k2/4p2p/3p2p1/p1p5/PpPbP3/1P1P3b/2BN2P1/2RQ3K w - -	g2h3 c8h3	421	middlegame
+RrwnU	1k2r3/ppp2ppp/2p5/4P3/1R4Q1/6P1/PPP3BP/1K4q1 w - -	g2f1 g1f1 g4d1 f1d1	422	endgame hangingPiece mate mateIn2 queensideAttack
+to8Sw	r4rk1/1pp2p1p/p1b1p1p1/3q4/3P4/2Q4N/PPP2PPP/R3R1K1 w - -	e1e5 d5g2	475	kingsideAttack mate mateIn1 middlegame
+vYqi5	3r2k1/5ppp/B7/8/8/8/PnP1RPPP/5K2 w - -	f1e1 d8d1	494	endgame mate mateIn1
+HmBkp	6k1/ppp2ppp/4b2q/8/6n1/4PN1P/P1B2PP1/3Q2K1 b - -	g4e3 d1d8	443	endgame mate mateIn1
+Q4q64	1Q2r1k1/p3npp1/4p2p/8/3RB3/2q3P1/5P1P/3R2K1 b - -	e8b8 d4d8 b8d8 d1d8	443	endgame mate mateIn2
+stSbH	r1b2rk1/pp4pB/1q2p2p/1P1p4/3b4/2N1P3/P5PP/RQ3RK1 b - -	g8h8 f1f8	480	hangingPiece kingsideAttack mate mateIn1 middlegame
+1FbSW	2kr4/2p5/pp5p/5n2/4Np2/P1P5/1P3PPP/4R1K1 w - -	e1e2 d8d1 e2e1 d1e1	498	backRankMate endgame mate mateIn2
+DYgrN	4r3/2bk1pQ1/p6p/1p6/3P4/2P2PN1/PP4PP/R3q2K w - -	a1e1 e8e1 g3f1 e1f1	400	endgame mate mateIn2
+rrM77	4r1k1/pn3R2/2p3pp/8/1PP4N/P3r3/1B4PP/R6K w - -	f7b7 e3e1 a1e1 e8e1	429	backRankMate endgame mate mateIn2
+iNTvi	r2qk2r/1b2bp2/1p2p2p/2p1P3/PpPp1QPN/1P1P4/4B2P/R1B2RK1 b kq -	e7h4 f4f7	411	mate mateIn1 middlegame
+OiPBe	8/8/7p/2p2R2/8/1P2bBk1/5rP1/7K w - -	f5h5 f2f1	469	endgame mate mateIn1
+Je6OM	rnbqkb1r/1pppp2p/p5p1/3nP2R/8/8/PPPP1PP1/RNBQKBN1 b Qkq -	g6h5 d1h5	400	mate mateIn1 opening
+t72Gn	8/8/5p2/8/1R3bk1/2Br3p/1P6/7K w - -	c3f6 d3d1	443	endgame mate mateIn1
+sNbk4	r3k1nr/p1p2ppp/8/1pbPp3/1P2P1bq/P2Q3P/2nP1P2/RNB1KBNR w KQkq -	d3c2 h4f2	416	mate mateIn1 middlegame
+yeyc6	3r1rk1/ppp2ppp/8/8/5n2/2P4P/PP2KPP1/RN1R4 w - -	e2f1 d8d1	414	endgame hangingPiece mate mateIn1
+8ZGFX	8/8/6Kp/6p1/6P1/8/4kP2/8 b - -	e2f2 g6h6 f2f3 h6g5	499	crushing endgame
+0L4L2	r3k1nr/1pp2ppp/p1pb4/4q3/4P3/P1N2b2/1PP2PPP/R1BQ1RK1 w kq -	d1f3 e5h2	495	kingsideAttack mate mateIn1 middlegame
+xFTZR	4r1k1/2b1qpp1/p1p2p1p/2Np4/3P2Q1/2P4P/PP3PP1/R5K1 w - -	c5a6 e7e1 a1e1 e8e1	467	endgame kingsideAttack mate mateIn2 sacrifice
+7rSe3	3rQ1k1/1pp2ppp/p4b2/5b2/8/2N5/PPP2PPP/2K1R3 b - -	d8e8 e1e8	400	backRankMate endgame mate mateIn1
+WUdUQ	r1bq2Nr/ppppkp1p/2nb2p1/4p3/2B1P3/5Q2/PPPP1PPP/R1B1K1NR b KQ -	h8g8 f3f7	470	mate mateIn1 opening
+Bt6M4	3r3k/2Q2rpp/5p2/p7/1p3P1P/1Pb1R1P1/4R1BK/8 b - -	f7c7 e3e8 d8e8 e2e8	400	backRankMate endgame mate mateIn2
+PK1T1	1k1r4/ppp1bb1p/5pr1/4p3/P3N3/2Pq2N1/1P1R2PP/R2Q2K1 b - -	d3c4 d2d8 e7d8 d1d8	415	mate mateIn2 middlegame queensideAttack
+pCLKi	1r1Q3k/6pp/5p2/2p3q1/8/7r/P2R2P1/5RK1 b - -	b8d8 d2d8	442	backRankMate endgame mate mateIn1
+SdvyA	3k2r1/ppb5/2p1RN2/7p/2P3P1/7P/5P2/6K1 b - -	g8g6 e6e8	418	endgame mate mateIn1
+joqcS	5r1k/6p1/7p/4b3/2P1R3/p6P/P5P1/4Rq1K w - -	e1f1 f8f1	400	endgame mate mateIn1
+s7utr	r2q1rk1/1b1p1ppp/p3p3/1p2P3/3n4/3Q4/PPB2PPP/RN2R1K1 b - -	d8g5 d3h7	434	kingsideAttack mate mateIn1 middlegame
+EndWJ	QQ4r1/3k2q1/8/P7/3P3p/7r/6P1/2b3RK w - -	g2h3 g7g1	444	endgame mate mateIn1
+XUiuw	7k/p5pp/8/2b5/P4P2/5BP1/1r2p2P/2R4K b - -	c5f2 c1c8	400	backRankMate endgame mate mateIn1
+lZfr6	5r1k/2p3pp/p2p1q2/1p3r2/3P4/4n3/PPQ2PPP/R4RK1 w - -	f2e3 f5f1 a1f1 f6f1	495	endgame kingsideAttack mate mateIn2
+Pv8MC	5k2/p4pp1/1p1R4/2p1r2p/2P5/PP2B2P/2n2PP1/5K2 w - -	e3f4 e5e1	452	endgame mate mateIn1
+wj35E	4r1k1/pp1Q2pp/2p5/2P3p1/8/1PP1q3/P5PP/R5K1 w - -	g1h1 e3e1 a1e1 e8e1	495	backRankMate endgame mate mateIn2 sacrifice
+i9nAj	6k1/5pp1/6b1/3rPP1p/6P1/7P/8/2R3K1 b - -	g6h7 c1c8 d5d8 c8d8	441	backRankMate endgame mate mateIn2
+ZNIfk	1br5/5kpp/R7/1b6/8/1P5P/P4PP1/2B3K1 w - -	a6b6 c8c1	440	endgame hangingPiece mate mateIn1
+OhV2v	1k2r3/1p2rp1p/p7/PbBp4/1P1P4/5R2/5PPP/R4K2 w - -	f1g1 e7e1 a1e1 e8e1	417	backRankMate endgame mate mateIn2
+0CAk0	rbb2Q1r/ppqknR2/2n5/6p1/3PN1P1/4P2N/PP1B2B1/R6K w - -	f8h8 c7h2	438	mate mateIn1 middlegame
+qxND8	4q1k1/p4ppp/8/Q1pp1b2/6n1/3P4/PPP3PP/RNB3K1 w - -	b1c3 e8e1	478	mate mateIn1 middlegame
+itHab	2k2r2/pbppn1pr/1p1N4/4b2p/4P3/5Q2/P1P2PPP/1R3RK1 b - -	e5d6 f3f8	400	backRankMate hangingPiece mate mateIn1 middlegame
+gFK8W	r2q1r2/ppp1npk1/1b4p1/1P2R1N1/8/P5Q1/4nPPP/R1B3K1 w - -	e5e2 d8d1 e2e1 d1e1	459	fork mate mateIn2 middlegame
+34dua	5Q1k/1p2b1p1/p6p/3Pp3/4B3/1P5K/P4R2/6q1 b - -	e7f8 f2f8	482	endgame mate mateIn1
+oDY7q	r2q1rk1/3nbppp/p3pn2/2pp4/Pp3P2/1P2PRQ1/1BPPB1PP/R2N2K1 b - -	f6e4 g3g7	459	kingsideAttack mate mateIn1 middlegame
+0xLvw	r1b2rk1/p1p2ppp/1p1p1q2/8/2P5/4P3/P1Q2PPP/RB3RK1 b - -	f6a1 c2h7	452	kingsideAttack mate mateIn1 middlegame
+nS4Ch	4r1k1/r4ppp/2p3n1/2P5/8/6B1/5PPP/R5K1 w - -	a1a7 e8e1	422	backRankMate endgame mate mateIn1
+Z1vnZ	5R2/8/1p1r4/8/6p1/2P1k2p/1P5P/5K2 w - -	f8g8 d6d1	420	endgame mate mateIn1
+7ADI9	4r1k1/p1p4p/1p2q1p1/6Q1/1PP2b2/P7/5PPP/3R2K1 w - -	g5f4 e6e1 d1e1 e8e1	434	backRankMate endgame mate mateIn2 sacrifice
+Axu6c	8/6pk/4B1p1/3Pb3/1R6/r6P/6PK/8 w - -	h2h1 a3a1 b4b1 a1b1	497	endgame mate mateIn2
+8FefY	5r2/1p4k1/p3p2p/P3P2P/2NQP3/1P6/5p1r/5K2 w - -	d4d7 f8f7 d7f7 g7f7	464	crushing defensiveMove endgame
+Hhka7	2Q5/5pk1/p2P2p1/4q2p/6p1/1P6/P5PP/6K1 w - -	d6d7 e5e1	492	endgame mate mateIn1
+x4zBw	2kr2r1/1pp2p1p/p5q1/3pPb2/3P4/2P1bN2/PP3QPP/RN3RK1 w - -	f2e3 g6g2	485	kingsideAttack mate mateIn1 middlegame
+4Jppm	r2q1rk1/1p1n1pbp/p2p4/3P1pN1/P1p4Q/8/1PPBN1PP/R5K1 b - -	g7f6 h4h7	493	kingsideAttack mate mateIn1 middlegame
+XipNk	5r1k/1p3Qpp/p3R3/2p5/3b4/6PP/P1P2P2/6K1 b - -	f8f7 e6e8 f7f8 e8f8	434	backRankMate endgame mate mateIn2
+TBYGs	6rk/5p2/2pp2qp/2n1p2b/1pP1P2P/pP1PB3/P1BQ3N/2K4R w - -	h1g1 g6g1 e3g1 g8g1	481	crushing middlegame
+oIhfN	6k1/pppb2pp/8/6N1/4P3/1P5P/P1r3PK/3R4 b - -	d7c6 d1d8 c6e8 d8e8	429	endgame mate mateIn2
+nKHkw	1k4Qr/ppp5/3b4/8/3p4/3P2qP/PPPBR1P1/4R1K1 b - -	h8g8 e2e8 g8e8 e1e8	400	backRankMate endgame mate mateIn2
+KnIT3	3r4/5p1k/p4Ppp/1pp4P/4PQ2/8/PP6/K2q1R2 w - -	f1d1 d8d1 f4c1 d1c1	400	backRankMate endgame mate mateIn2
+Dkh5q	r1b1kb1r/p4ppp/4p3/3pP1B1/2B5/8/PP3PPP/3RK2R b Kkq -	d5c4 d1d8	451	mate mateIn1 middlegame
+JJWrt	1k2Qb1r/ppr2ppp/8/3q4/3p2n1/3N4/PP3PPP/2R2RK1 b - -	c7c8 e8c8	429	mate mateIn1 middlegame queensideAttack
+mHxwH	4R3/pp2R3/6kp/2p2pp1/8/P1P5/1P1r1PPP/6K1 w - -	e7b7 d2d1 e8e1 d1e1	405	backRankMate endgame mate mateIn2
+Sonmz	4r3/5k1p/5N2/2p5/3Q1q2/8/P1P2PPP/4R1K1 w - -	d4f4 e8e1	489	backRankMate endgame hangingPiece mate mateIn1
+fw02t	8/p4k2/Qp2pp2/8/2pPp1r1/2P5/PP4Rr/3K2q1 w - -	g2g1 g4g1	437	endgame mate mateIn1
+l6PSh	2rR2k1/p1n5/1p4K1/2p2p1p/8/1P3r2/P6P/3R4 b - -	c8d8 d1d8 c7e8 d8e8	462	endgame mate mateIn2
+SU6lk	7k/6pp/8/4p1PP/2P1P1Q1/p1qP4/Kr3P2/1R5R w - -	b1b2 c3b2	451	endgame mate mateIn1
+dyTmV	4r1k1/6pp/R7/2P5/5p2/1P3BbP/P5P1/5rK1 w - -	g1f1 e8e1	400	endgame mate mateIn1
+4ebyC	4r1k1/n4r2/3RN2p/p2p2P1/3P4/P3p1Pb/1Q3P1P/4N1K1 w - -	f2e3 f7f1	498	mate mateIn1 middlegame
+kUV3z	rk1Rr3/1p4p1/p3Bnbp/1N6/4p3/7P/PPP2PP1/2KR4 b - -	e8d8 d1d8	459	mate mateIn1 middlegame queensideAttack
+xvUFO	6k1/1pp3p1/4nq2/P2Bpr2/1P6/6Pp/1BQ4P/3R3K w - -	d1e1 f5f1 e1f1 f6f1	464	mate mateIn2 middlegame
+2qemI	r2r2k1/pp3ppp/8/2p5/6b1/6Q1/PPP3PP/1Kq2B1R w - -	b1c1 d8d1	429	endgame mate mateIn1
+eF2Sw	4r1k1/5ppp/8/1p1P4/2p5/1PPn1P1P/4Q1P1/R5K1 b - -	e8e2 a1a8 e2e8 a8e8	400	backRankMate endgame mate mateIn2
+yk86J	r5k1/p4ppp/4b3/3p4/1P1Qp1n1/8/PB2qPPP/R5K1 b - -	g4h6 d4g7	416	kingsideAttack mate mateIn1 middlegame
+SQDkO	8/5pkp/6pB/4b3/7Q/7P/2q1rPP1/3R2K1 b - -	g7g8 h4d8	426	endgame mate mateIn1
+gEXX0	r1b2k1r/1pq2p2/p4p1p/2R1PP1Q/2B5/2P4P/PP4PK/4R3 b - -	c7c5 h5f7	498	mate mateIn1 middlegame
+xXwni	6k1/pp3ppp/5n2/5N2/1P3P2/8/1r4PP/3R2K1 b - -	b2b4 d1d8 f6e8 d8e8	472	endgame mate mateIn2
+9eTE6	r6k/2P3p1/q2P3p/1p5P/1Q2pP2/4P3/b1R3P1/K1R5 w - -	c2a2 a6a2	436	endgame mate mateIn1
+yGBA8	1rR3k1/6pp/4p1p1/3pN3/p2P4/K3PP2/4b1PP/2R5 b - -	b8c8 c1c8	499	endgame mate mateIn1
+DOqFx	r2r2k1/pp3ppp/1qp2b2/8/3PR3/1PB1Q2P/1P4P1/4R1K1 b - -	b6b3 e4e8 d8e8 e3e8 a8e8 e1e8	496	backRankMate mate mateIn3 middlegame sacrifice
+brUAe	4k3/4P3/p7/3r4/P3R3/6p1/2P3P1/6K1 w - -	e4e6 d5d1 e6e1 d1e1	400	endgame mate mateIn2
+W7D4n	2r3k1/5pp1/3q3p/p7/2r4b/5P2/PP1Q2PP/K1NR4 w - -	d2d6 c4c1 d1c1 c8c1	400	backRankMate endgame mate mateIn2
+w0Aeg	r2q1rk1/1b2ppbp/5npB/p3Q2P/Np1N2P1/5p2/PPP5/2KR1B1R b - -	f6g4 e5g7	483	kingsideAttack mate mateIn1 middlegame
+WNP0L	8/p7/1p1R3k/2p2p1P/2P5/1P3BKP/q7/8 b - -	h6g5 h3h4	475	endgame mate mateIn1
+gHlsC	2R5/4Npkp/4p1p1/1p1b2P1/4r2P/6K1/8/8 b - -	b5b4 c8g8	498	endgame mate mateIn1
+eR46r	5r2/2k5/p4r2/1p1Q4/2p1P3/8/PP4PP/2R4K w - -	b2b3 f6f1 c1f1 f8f1	400	backRankMate endgame mate mateIn2
+aeZ8g	1br1R1k1/p1q2r1p/2p3bB/5p2/8/3P2NP/PPP2PP1/4R1K1 b - -	c8e8 e1e8 f7f8 e8f8	474	kingsideAttack mate mateIn2 middlegame
+bP5td	6k1/4q3/3r1p2/P2B3Q/7p/7P/5P1K/8 b - -	g8f8 h5h8	496	endgame mate mateIn1
+5VSSl	r1b2rk1/pp1q1ppp/2p3n1/3p4/3P3P/3Q1N2/PPB2PP1/2R1R1K1 b - -	g6f4 d3h7	457	kingsideAttack mate mateIn1 middlegame
+kW1C5	8/8/1Q5p/p1P3pk/4q1P1/P4p1P/3r4/6RK b - -	h5h4 b6h6	462	endgame mate mateIn1
+AEkwV	1k1b2r1/ppp1q1P1/8/5Q2/2N5/3p4/PP4PP/3R3K w - -	d1d3 e7e1 f5f1 e1f1	414	endgame mate mateIn2
+9RH6S	4r2k/4r2p/p4q2/1p1p4/3n2Q1/3B2P1/P1P2P1P/3RRK2 b - -	e7e1 d1e1 e8e1 f1e1	490	advantage middlegame
+iixcz	4k1r1/1b2bp2/7p/3p1p2/2pP4/q1P1QN2/5PPP/4R1K1 b - -	a3a6 e3e7	400	mate mateIn1 middlegame
+MrpcY	7k/pp5p/3b1r2/8/2B3QN/1Pn5/6PP/5q1K w - -	c4f1 f6f1	433	endgame mate mateIn1
+zicCV	8/5k2/2R4p/6p1/r5K1/2B5/6PP/8 w - -	g4h5 a4h4	400	endgame mate mateIn1
+9tqoQ	3r2k1/6pb/5r1p/4P2P/ppP2PR1/8/PPP5/1K1q2Q1 w - -	g1d1 d8d1	400	endgame mate mateIn1 queensideAttack
+jrxl2	1R6/2p2pp1/2R1p1kp/1P2P3/5nP1/1r5P/5PK1/8 w - -	g2f1 b3b1 c6c1 b1c1	400	endgame mate mateIn2
+5Mm2u	6k1/5ppp/8/4b3/R3P1K1/p4P2/7r/8 b - -	a3a2 a4a8 e5b8 a8b8	480	backRankMate endgame mate mateIn2
+8LMXp	6k1/6pp/3pb3/r2P4/pp2P3/5P2/PP4PP/2R3K1 b - -	e6f7 c1c8 f7e8 c8e8	498	advantage endgame
+4bpWG	2r3k1/ppb3pp/2p1pq2/8/2QPR3/7n/PP3P1P/4R1KB w - -	g1f1 f6f2	495	mate mateIn1 middlegame
+9k3v8	6k1/pp1r1ppp/2p3b1/2P5/1P6/P3P1P1/B4RPP/7K w - -	f2e2 d7d1 e2e1 d1e1	400	backRankMate endgame mate mateIn2
+4bCmF	1k6/1pp2p2/8/1N6/P5RK/3r2p1/6r1/8 b - -	c7c6 g4g8 d3d8 g8d8	400	endgame mate mateIn2
+JRutn	2rqk2r/p1pb1p2/1p2p1B1/n2n4/3P4/B1P1PN2/P1Q2PPP/R3K2R b KQk -	f7g6 c2g6	437	mate mateIn1 middlegame
+EVFbo	6k1/p4pp1/1r1p3p/2P1p1q1/4Bn2/4KP1b/PP1Q3P/R2R4 b - -	d6c5 d2d8 g5d8 d1d8	436	kingsideAttack mate mateIn2 middlegame
+l6ieB	3r4/8/p5p1/K2nkp2/1P6/3R1B1P/8/8 w - -	f3d5 d8d5 d3d5 e5d5	409	crushing endgame
+ODYhE	4r1k1/p2n4/4r2p/1p2Np2/6p1/P7/5PPP/3RR1K1 w - -	e5d7 e6e1 d1e1 e8e1	400	backRankMate endgame mate mateIn2
+keGEA	r4rk1/bbq2ppp/pnN1p3/Np1n4/1P1Q4/P3PB2/1B3PPP/R4RK1 b - -	b7c6 d4g7	479	kingsideAttack mate mateIn1 middlegame
+imYI6	2k2r1r/1pp2p2/p2p3p/3Pq1p1/4P3/1P5P/1PQ2PP1/2R1R1K1 b - -	f7f5 c2c7	491	endgame mate mateIn1 queensideAttack
+1ZyXY	5rk1/6p1/1p2Rq1p/3p4/2pP4/2P3Q1/6PP/4RrK1 w - -	e1f1 f6f1	402	endgame mate mateIn1
+UGOKW	r1b2rk1/pp2bppp/2n1p3/3q2B1/3P4/3Q1N2/PPB2PPP/R4RK1 b - -	e7g5 d3h7	479	kingsideAttack mate mateIn1 middlegame
+wGIsY	4r1k1/pp1bqpp1/1npb1n1p/8/1PNP4/PB3N1P/1BQ2PP1/R5K1 w - -	a1e1 e7e1 f3e1 e8e1	487	kingsideAttack mate mateIn2 middlegame
+rZDsZ	r2q1rk1/p2n1ppp/b3p3/1pp5/3P4/2PQPN2/P1B2PPP/R4RK1 b - -	c5c4 d3h7	475	kingsideAttack mate mateIn1 middlegame
+8uXoI	5r1k/pQb4p/6p1/8/3pR3/7P/P5P1/4Rq1K w - -	e1f1 f8f1	448	endgame mate mateIn1
+klwzY	r5k1/p1q2ppp/1p2b3/2pnN3/5P2/1P1Q4/1P1R1P1P/3R2K1 b - -	d5f4 d3d8 a8d8 d2d8 c7d8 d1d8	496	kingsideAttack mate mateIn3 middlegame sacrifice
+LXMEu	2rq1rk1/pb1nbpp1/1p2pn1p/8/2PP4/5N2/PBQN1PPP/1BR2RK1 b - -	f6d5 c2h7	486	mate mateIn1 opening
+e3A1G	7k/1p4pp/p2R2n1/4pp2/8/1B4PP/PP2KP2/7q b - -	h1h3 d6d8 g6f8 d8f8	462	backRankMate endgame mate mateIn2
+mVpS9	r3R1k1/p2Q1ppp/1ppB2b1/8/7P/5B2/q1r3P1/7K b - -	a8e8 d7e8	430	mate mateIn1 middlegame
+RdnXB	r1bq2k1/p4ppp/5N2/2p5/8/P2B4/1PPb1PPP/R3Q1K1 b - -	d8f6 e1e8	440	mate mateIn1 middlegame
+Rl8vu	R7/6p1/1r5k/5K1p/p7/8/8/8 b - -	b6g6 a8h8	497	endgame mate mateIn1
+7nR9G	3r2k1/pp2Rp1p/2q2Bp1/2p5/6P1/2P5/P2Q1P1P/4R1K1 b - -	d8d2 e7e8 c6e8 e1e8	400	endgame mate mateIn2
+yIWFQ	8/1B6/4pk2/1R4p1/3r2K1/5P2/8/8 w - -	g4h5 d4h4	433	endgame mate mateIn1
+x0Ipr	6k1/6pp/2R5/1p3Q2/8/bq2B3/5PPP/1R1r2K1 w - -	b1d1 b3d1	488	backRankMate endgame mate mateIn1
+n9Vbb	r2q1rk1/1b2bpp1/p3p2p/1p1nN3/3P4/1P1Q1P2/P1B1N1PP/R3R1K1 b - -	d5b4 d3h7	424	mate mateIn1 middlegame
+iUGB0	2r3k1/5pp1/2r4p/4p3/1RNnP1P1/8/5PP1/1R3K2 w - -	c4e5 c6c1 b1c1 c8c1	487	endgame mate mateIn2
+l0WwG	2r4k/p5p1/7p/1p1NN3/1b6/1Q6/PP3PPP/6K1 w - -	d5b4 c8c1 b3d1 c1d1	400	backRankMate endgame mate mateIn2
+nE02Z	2R5/6pk/1R2np1p/r3p3/8/8/5PPP/7K w - -	b6e6 a5a1 c8c1 a1c1	400	backRankMate endgame mate mateIn2
+SOPOO	r3k2r/pppb2pp/5n2/3q4/Qb5B/2p5/PP1NPPPP/R3KB1R w KQkq -	a4b4 d5d2	490	mate mateIn1 middlegame
+zGGW5	8/R6p/3k1pp1/1pN1p3/1PrP4/4P1Pb/5P1P/6K1 w - -	a7h7 c4c1	402	endgame mate mateIn1
+l7K5e	2rqr3/3b2pp/2nB1p2/p2B3k/p1Pp4/P5P1/1P1Q1PK1/R4R2 b - -	d7h3 g2h3	455	crushing hangingPiece middlegame
+dJ8Mi	3r1n1k/pb3q1p/1p2pPB1/6Q1/8/2p4R/P4PPP/6K1 w - -	g6f7 d8d1	466	endgame mate mateIn1
+rLDYQ	2rr2k1/5ppp/p4n2/1p6/1P1RP3/P1P2P2/5P1P/5K2 b - -	c8c3 d4d8 f6e8 d8e8	415	backRankMate endgame hangingPiece mate mateIn2
+BarWi	6k1/6p1/p2qpp1p/8/1Pp1Q3/4P2P/P4PP1/5K2 w - -	e4c4 d6d1	400	endgame mate mateIn1
+if2pm	rn3rk1/p2nqppp/1p2p3/2pp2N1/3P3P/2PQP3/PP1N1PP1/R3K2R b KQ -	h7h6 d3h7	484	mate mateIn1 middlegame
+5kl98	4r1k1/pp3pp1/7p/8/8/6PP/Pq1r1P2/1BR2RK1 b - -	e8e2 c1c8 d2d8 c8d8 e2e8 d8e8	466	endgame mate mateIn3
+obj6M	3r2k1/pp2ppbp/6p1/3q4/8/2P1B1P1/PPQ2P1P/5RK1 w - -	f1d1 d5d1 c2d1 d8d1	405	advantage endgame kingsideAttack
+4ompW	4r1k1/4N1pp/p3P3/8/4R3/1p4P1/r4P1P/2R2K2 b - -	e8e7 c1c8 e7e8 c8e8	473	endgame mate mateIn2
+dIsdS	r7/Q2n1pk1/p2p2pp/Pppq4/8/1R3N2/1PP2PPP/6K1 w - -	a7d7 d5d1 f3e1 d1e1	485	endgame kingsideAttack mate mateIn2
+br36l	rnb1kb1r/ppp1pppp/3q4/8/3P2n1/2NB4/PPPBNPPP/R2Q1RK1 w kq -	c3b5 d6h2	438	kingsideAttack mate mateIn1 opening
+qRSKS	1k1r4/2p5/p1Q1q2p/1p3pp1/1P6/8/P5PP/7K w - -	c6e6 d8d1 e6e1 d1e1	403	backRankMate endgame mate mateIn2
+BJmki	4Rbk1/p4p1p/1p4p1/8/6q1/5p2/P2Q1PPP/3R2K1 w - -	d2d5 g4g2	490	endgame mate mateIn1
+hY1dC	r5k1/1p3pp1/1b3P1p/1P1b2q1/p2p4/3B4/1KP1QP2/4R3 b - -	g5f6 e2e8 a8e8 e1e8	456	mate mateIn2 middlegame sacrifice
+ajVDA	6R1/kp3R2/2p5/3p4/p7/P2B2p1/KPP5/4r1r1 w - -	g8g7 e1a1	452	endgame mate mateIn1
+AOIAd	8/pppk4/8/6R1/2B5/1P3P1p/r6P/7K w - -	g5h5 a2a1 c4f1 a1f1	453	endgame mate mateIn2
+zNACd	3r4/1p6/1k5p/1pp5/6B1/3q4/5QPP/R6K w - -	a1d1 d3d1 g4d1 d8d1 f2g1 d1g1	412	crushing endgame
+4zT3y	4r1k1/6p1/5p2/2pP1P2/1pP3Qp/pP1B2b1/P5P1/3Rq2K w - -	d1e1 e8e1 d3f1 e1f1	450	endgame mate mateIn2
+BEBJc	4k3/4n1K1/3r1R1p/8/7P/5P2/8/8 b - -	d6d7 f6f8	499	endgame mate mateIn1
+RwRVM	3r2k1/p4ppp/1p3b2/5P2/4Q3/1P4PP/P4q2/4R2K b - -	f2d2 e4e8 d8e8 e1e8	465	backRankMate endgame mate mateIn2 sacrifice
+T5kBg	2rk2Q1/R7/2pq1p1r/4p1p1/1P2PnPp/3PR3/5P1P/6K1 b - -	d6f8 g8f8	498	hangingPiece mate mateIn1 middlegame
+RQgWn	6k1/pb3ppp/1p2p3/4R3/8/5R2/P4PPP/2r3K1 w - -	e5e1 c1e1	400	backRankMate endgame hangingPiece mate mateIn1
+hca8Z	3r4/pp3pk1/2p1bn2/4Q3/8/P1R5/1P2NP2/K5q1 w - -	e2g1 d8d1 c3c1 d1c1	400	endgame fork mate mateIn2
+uGfE2	q5k1/1b6/1pp4p/5QpB/1PPP4/8/5PPP/6K1 w - -	f5f6 a8a1 h5d1 a1d1	440	backRankMate endgame mate mateIn2
+cEnkj	4bk2/1p3rp1/p1pPp3/2P1B3/PPK2P2/7R/8/8 b - -	e8d7 h3h8	495	endgame mate mateIn1
+6fCqS	r4rk1/ppp2pp1/3P3p/3N4/2B1P2q/3P3b/PPP1QbP1/R1B4K w - -	g2h3 h4h3	481	kingsideAttack mate mateIn1 middlegame

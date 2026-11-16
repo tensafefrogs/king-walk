@@ -1,0 +1,300 @@
+LthLP	2r3k1/5p2/2r1p1pp/8/2B5/q5P1/1N2QP1P/4R1K1 w - -	c4b5 c6c2 b2d1 c2e2	1576	advantage middlegame
+PXVl9	1k5r/ppp2p1p/8/1q6/3rB3/2P5/1nKB1PQP/1R5R w - -	b1b2 d4d2 c2d2 b5b2	1515	attraction crushing deflection middlegame
+2haMa	4r1k1/p6p/1p2nbp1/2p2b2/5P2/2N3P1/PPPR1BBP/6K1 w - -	g2e4 f6c3 b2c3 f5e4	1510	advantage capturingDefender middlegame
+h2tfG	2rr2k1/1p3ppp/1pn5/3p1b2/1P1Pp3/P3P3/3NBPPP/2R2RK1 w - -	c1c2 c6d4 c2c8 d4e2	1530	crushing kingsideAttack middlegame
+NBjRV	8/p7/b3p1k1/2p2pP1/3b1P2/3P4/P2R4/3K4 b - -	d4e3 d2e2 e3f4 e2e6 g6g5 e6a6	1545	advantage endgame fork skewer
+EBU4X	3r2k1/Qpq4p/4b1p1/4p3/3pN1P1/3PbB1P/P5K1/4R3 b - -	e6d5 e4f6 g8h8 f6d5 c7c2 e1e2	1538	crushing middlegame
+w2LTc	3r2k1/5ppp/8/2P2R2/Q4N2/2P1q3/PP4P1/1K2rR2 w - -	f1e1 e3e1 b1c2 e1d1	1583	endgame mate mateIn2
+54Ztx	r1bq1rk1/ppp2ppp/3pPnn1/2b5/2P2P2/2NBPN2/PP4PP/R1BQK2R b KQ -	c8e6 f4f5 e6d7 f5g6	1566	advantage fork opening
+dvv4G	4k2r/pp2qp2/2pR4/4p2p/P3Pnp1/1BP5/1P1Q1PPP/6K1 b k -	h5h4 b3f7 e8f7 d6d7 f7e6 d7e7	1547	advantage endgame pin sacrifice
+ktuMZ	rn1qk2r/1p3ppp/p1p5/3p4/P1PPn1b1/B3PN2/5PPP/R2QKB1R w KQkq -	c4d5 d8a5 d1d2 e4d2	1577	crushing opening
+VKejo	8/1b5p/6p1/4k3/2P4b/4Pp1P/3K1P2/3BN3 b - -	h4f2 e1d3 e5f6 d3f2	1580	crushing endgame fork
+jzWqh	7k/pbp5/1p1pQ2p/5p2/2PP1P1q/P1P4r/7K/4RB2 w - -	f1h3 h4f2 h3g2 f2g2	1519	endgame mate mateIn2
+ULsT0	5k1r/2p2p2/p3p2q/1p2P1b1/2nP4/2PB1P2/P1Q2PRP/6RK w - -	d3c4 g5f4 g2g8 h8g8 g1g8 f8g8	1530	crushing middlegame
+24knH	3r2k1/1p3p2/7R/p2rp1pP/q7/2P5/4QPP1/5RK1 b - -	a4b3 e2e4 d8d6 e4h7	1557	crushing endgame
+kalCg	2kr3r/pbpq4/2n2bpp/PPRp1n2/8/5NP1/3Q1PBP/2R3K1 b - -	f6e7 b5c6 e7c5 c6d7	1579	advancedPawn crushing fork middlegame
+nFH8l	3rk2r/pp1qbppp/8/2pB4/2Pn1Bb1/5NP1/P1P1QP1P/R3R1K1 w k -	e2d3 d4f3 d5f3 d7d3 c2d3 g4f3	1528	capturingDefender crushing discoveredAttack fork middlegame
+qbDlb	8/2rk1Q2/1B4p1/7p/1b2pP2/1P2P2K/7P/3q4 b - -	d7c6 f7c7 c6b5 c7c4 b5b6 c4b4	1597	crushing deflection endgame exposedKing
+FxUAh	5r2/p2rqpbk/1p4p1/2pBp2p/2P1P3/1P1RQ1Pb/P4P1P/2BR2K1 b - -	f7f5 d5g8 h7g8 d3d7	1528	crushing discoveredAttack middlegame
+v0105	2rr2k1/1b3pp1/1n1qp2p/pBpp3n/4P3/1PP2P1P/P2N2P1/2RQRNK1 b - -	h5g3 e4e5 d6e7 f1g3	1525	advantage interference middlegame
+vIbSx	2k3r1/2prbp2/2p2pq1/B1Pp3p/P2P4/1P1bPN1Q/5PPP/R2R2K1 w - -	b3b4 d3f5 f3h4 f5h3 h4g6 g8g6	1536	advantage middlegame pin
+idmgk	r4rk1/1p1bppbp/3p2p1/q2P4/3BP3/pP3P2/P2QB1PP/R4RK1 w - -	d2a5 g7d4 g1h1 a8a5	1533	crushing fork hangingPiece intermezzo middlegame
+mneWz	4r3/pp5p/2nk4/8/2PP2r1/3B2P1/PP1KN3/R7 w - -	d3f5 e8e2 d2e2 c6d4 e2f2 d4f5	1543	attraction crushing endgame exposedKing fork
+LB3jD	8/3k4/2p5/2K2P2/p1P5/2B5/8/2n5 w - -	c5b4 c1a2 b4a4 a2c3	1504	crushing deflection endgame
+1gOf7	7r/5pk1/pp1p1p1b/2qNrP1p/2P1P2Q/1P3KPp/P7/4R2R w - -	h1h3 h6g5 h4h5 h8h5	1567	crushing middlegame trappedPiece
+QIpYJ	2r2rk1/1p1nqpp1/p2Np2p/3p4/3P1Q2/1P6/P4PPP/2R2RK1 b - -	g7g5 d6c8 g5f4 c8e7	1587	crushing middlegame
+ZSLGI	3r4/1p4kp/1Q3pp1/3p4/6q1/1BP1P1Pb/P4P1P/3R2K1 w - -	b6b7 d8d7 b7a6 g4f3 a6f1 h3f1	1587	crushing defensiveMove endgame
+u2MxJ	4rr1k/4R2p/p2Q1p2/3p1p2/q7/7P/3NK1P1/5R2 w - -	f1f5 e8e7 d6e7 f8e8 e7e8 a4e8	1526	advantage clearance middlegame pin
+5SryU	3R4/pq4kp/6p1/1Pp5/1n2pN2/1P4P1/P5KP/5R2 b - -	b7b5 f4e6 g7h6 f1f4	1577	clearance crushing endgame
+YagZi	8/8/6p1/5b2/8/4k1Np/1P5K/8 w - -	g3f5 g6f5 h2h3 f5f4 h3g2 e3e2 b2b3 f4f3	1584	crushing endgame quietMove
+B6jI1	5rk1/5nb1/2p3p1/p7/4Bp2/P2Q4/q2N1PP1/1rKR3R w - -	d3b1 a2a3 c1c2 a3c3	1532	mate mateIn2 middlegame queensideAttack
+Kwcxs	4kr2/1R4R1/2p1p3/8/p1r5/P1P4P/8/1K6 b - -	c4c3 b7b8	1520	endgame mate mateIn1
+DtE3B	1rr1n1k1/pQ3pbp/2n2qp1/4p3/B3P1b1/B4N2/P2N2PP/1RR4K w - -	c1c6 b8b7 c6f6 b7b1	1550	advantage middlegame
+KzN7d	1k5r/pb2qp2/B2r3p/3pN1p1/1Q1P4/8/1PP2PPP/5RK1 b - -	d6e6 e5c6 e6c6 b4e7	1571	advantage deflection middlegame pin
+L6eAu	6k1/2Q2pp1/p1p1q2p/3b4/8/2P3B1/PPN2PPK/7r w - -	h2h1 e6h3 h1g1 h3g2	1585	endgame mate mateIn2 pin
+voE3x	8/8/1k6/NpR5/1P4p1/K3n1P1/P5r1/8 w - -	a5b3 e3c4 c5c4 b5c4	1576	crushing endgame
+lfjVc	8/8/1r1Rp1kp/4Ppp1/5P2/6PP/6K1/8 b - -	b6d6 e5d6 g6f7 f4g5	1535	crushing endgame
+8RyBn	2kr4/pp1n3p/2pR1qp1/2P5/8/4Q2P/5PP1/5BK1 b - -	f6e5 d6d7 e5e3 d7d8 c8d8 f2e3	1578	advantage endgame
+5NatC	3r2k1/5pp1/p3q2p/1p1r4/3p4/3QP2P/PP3PPK/3R1R2 w - -	e3d4 d5d4 d3d4 d8d4 d1d4 e6e5 f2f4 e5d4	1577	advantage attraction endgame fork
+HEPKN	7r/p1pq1pk1/3p1pb1/2pNp1b1/2P1P1PN/P2P1QKR/1r6/7R b - -	c7c6 h4f5 g6f5 h3h8	1520	advantage discoveredAttack middlegame
+MWKG6	1rbq1rk1/p1p2pbp/6p1/1p2p3/8/1P2PB2/PBP2PPP/R2Q1RK1 w - -	d1e2 e5e4 b2g7 e4f3 e2f3 g8g7	1556	advantage middlegame
+HI4cm	r3kb1r/pp1b1p2/4p1pp/3pP3/5P1Q/1P1qBR2/P2N2PP/2R3K1 b kq -	f8e7 h4e7 e8e7 e3c5 e7d8 f3d3	1523	attraction crushing discoveredAttack middlegame sacrifice
+mgixh	r2q1rk1/ppp3pp/3b1p2/8/3Q1BP1/8/PP2PP1P/R2R2K1 b - -	d6f4 d4c4 g8h8 d1d8	1514	crushing discoveredAttack fork middlegame
+30ipW	3R1Q2/p1r1kp2/1p6/b4qp1/2p5/P4P2/5P1P/6K1 b - -	e7e6 f8d6	1529	endgame mate mateIn1
+WvHrg	5rk1/5Np1/p6p/1p1Q4/8/2b1R1P1/1q3P1P/6K1 b - -	f8f7 e3e8 g8h7 d5f7	1531	crushing deflection endgame
+SwqvG	r2q1rk1/1ppn1ppp/p1b1pn2/8/2pP4/1QB1PN2/PP2BPPP/2R2RK1 w - -	b3c4 c6b5 c4b3 b5e2	1574	advantage middlegame skewer
+3L9kH	4r1k1/1bp1q1pp/1pPrpp2/p7/8/Q5P1/PPP2PBP/3RR1K1 b - -	b7c6 d1d6 e7d6 a3d6 c7d6 g2c6	1583	capturingDefender crushing middlegame
+38IDS	8/8/p5p1/P1p2p1k/2P2P1p/5KPP/8/8 b - -	h4g3 f3g3 h5h6 g3h4 h6h7 h4g5 h7g7 h3h4	1506	crushing endgame zugzwang
+ef4S6	6k1/ppp2ppp/2P5/4P3/5b2/1P1Q4/PBP1KP2/7q b - -	h1h5 d3f3 h5f3 e2f3 b7c6 f3f4	1583	crushing defensiveMove endgame
+JZ1Q2	5rk1/3q1pb1/p2pp1p1/7p/2p1P2P/2P1PRQN/r5P1/3R2K1 b - -	g7e5 g3e5 d6e5 d1d7	1566	advantage middlegame
+Z1KHk	r2qr1k1/ppp2pb1/3p2pp/3N4/2P5/5BPb/PP1Q1P1P/R3R1K1 b - -	c7c6 e1e8 d8e8 d5c7 e8b8 c7a8	1535	advantage fork middlegame
+0rDOw	rn2k2r/1ppq1pp1/p2p1n2/2b4p/4P3/2NP1N1b/PPP1BPP1/R1BQ1RK1 w kq -	c1g5 d7g4 f3e1 g4g5	1568	crushing opening pin
+iX3ot	r1b2rk1/2q1ppbp/p1pp1np1/P7/4P3/2N1B1PP/1PP2PB1/R2Q1RK1 b - -	c6c5 e4e5 d6e5 g2a8	1541	crushing discoveredAttack middlegame
+sirus	1r4k1/2p3pp/3p1n2/p3p3/qrP1P3/3Q4/P1PN1PPP/KR5R w - -	c2c3 a4a2 a1a2 b4a4	1576	attraction mate mateIn2 middlegame sacrifice
+gT40f	r3r1k1/pp3p1p/6p1/8/1n2B2Q/8/3RK1PP/q3R3 b - -	f7f5 e1a1 e8e4 h4e4	1583	advantage hangingPiece middlegame
+Itgk5	r1bqk1nr/4ppbp/p5p1/3BP3/8/8/PPP2PPP/R1BQK2R b KQkq -	a8b8 d5f7 e8f7 d1d8	1568	crushing deflection discoveredAttack opening
+QK0jR	6k1/2p1rp2/6p1/p2b3p/3q4/PBR5/1P3PPP/5QK1 w - -	c3d3 d4d3 f1d3 e7e1 d3f1 e1f1 g1f1 d5b3	1546	advantage endgame sacrifice
+9KNd1	8/5rk1/2P4p/1P1Q2p1/6P1/3R1p2/5PKN/2q5 w - -	g2g3 c1g1 g3h3 g1g2	1552	endgame mate mateIn2
+n6ONK	5rk1/ppp2rp1/3bpnqp/4p3/4P3/2NPBR1P/PPP2QP1/5RK1 w - -	c3e2 f6e4 f3f7 e4f2	1553	crushing middlegame
+UbrWp	r1b1k1nr/pppp1ppp/8/8/Qn2q3/4B3/PP3PPP/RN2KBNR w KQkq -	b1a3 b4d3 f1d3 e4a4	1508	advantage discoveredAttack opening
+1OGFy	2k4r/pp2qp2/7p/2p1p1p1/3r2b1/1BQ5/PP3PPP/2R1R1K1 b - -	b7b6 c3d4 e5d4 e1e7	1515	crushing middlegame pin
+mAlAA	3rk2r/pb3ppp/4pnn1/1Nq5/PpN5/4P1P1/1PQ1BPP1/R4RK1 b k -	a7a6 c4d6 c5d6 b5d6	1549	crushing fork middlegame
+QsLV3	8/p1p4p/3p1P2/4n3/4r1Pk/1B3R1P/P1P5/6K1 w - -	f6f7 e5f3 g1f2 e4f4	1518	crushing endgame hangingPiece
+429Ms	6k1/p4r1p/1p2p3/4bp2/1P1r4/P1RP1RNP/6P1/5K2 b - -	d4b4 c3c8 f7f8 c8f8 g8f8 a3b4	1587	crushing endgame
+7V3eN	rn4k1/1b3rq1/2p1Q3/1p1pP3/p4N2/8/PP3PPP/R4RK1 b - -	b8a6 f4h5 a6c7 h5g7 c7e6 g7e6	1532	advantage middlegame pin
+dAPcl	8/4R1p1/2k1p3/4P3/3K1P2/1P4rp/8/8 w - -	e7e6 c6d7 e6a6 h3h2	1597	advancedPawn crushing defensiveMove endgame
+te377	8/5p1k/4p1p1/8/1K2P3/pB4P1/3Q1P2/1q6 w - -	d2c2 b1c2 b3c2 a3a2	1564	advancedPawn crushing endgame
+PlNVC	r4r2/4qBpk/2p3b1/pp2p2n/4P1Qb/2NP1R1P/PPPB2P1/5RK1 b - -	g6f7 f3f7 f8f7 g4h5 h7g8 f1f7 e7f7 h5h4	1591	attraction capturingDefender crushing middlegame
+YdUCY	R2nr3/6k1/2pBrp1p/1pPp4/3P4/1R2PP2/5KP1/8 b - -	d8b7 a8a7 e6e7 d6e7	1569	crushing endgame pin
+AuwXS	5rk1/pppq3p/7r/2PP2p1/1P2p1P1/P3Pp1P/1B5K/R2Q1R2 w - -	d5d6 d7g4 d1d5 f8f7 d5g5 g4g5	1593	crushing middlegame pin
+bHWpH	8/2p2ppk/pp2p1np/4P3/1q1r4/1BN2Q2/P4PPP/4R1K1 w - -	e1e4 d4e4 f3e4 b4c3	1535	advantage middlegame
+oeuLj	r2q1rk1/p3pp1p/1p1p2p1/3Nb3/2Q1P3/8/PPP2PPP/2KR3R b - -	a8c8 c4c8 d8c8 d5e7 g8g7 e7c8	1507	attraction crushing fork middlegame sacrifice
+lg8Nf	6k1/5pp1/p6p/8/P5Q1/7P/1r3qP1/3R3K b - -	h6h5 d1d8 g8h7 g4h5	1506	endgame mate mateIn2
+H2EeB	1r2r1k1/p1p1b2p/6pB/2pqP3/6Q1/3B4/PPP4P/5RK1 b - -	c5c4 d3c4 e7c5 f1f2	1549	crushing defensiveMove middlegame pin
+9uOE5	4R3/6kp/3q2p1/4N3/4n3/7P/1P2QPPK/2r5 w - -	f2f4 c1h1 h2h1 e4g3 h1h2 g3e2	1540	advantage attraction endgame fork sacrifice
+808oR	3r4/1p4bk/p1p4p/2BnrNp1/8/8/PP4PP/3R1R1K b - -	d8e8 f5g7 h7g7 c5d4 c6c5 d4e5	1555	advantage middlegame pin
+dOHIh	r2q1rk1/1b3pb1/p2p1n2/1p2n1B1/1P1N4/PQ2P2P/4BPP1/2R2RK1 b - -	b7d5 g5f6 d5b3 f6d8	1521	advantage middlegame
+jNi9b	7k/pq3ppp/8/1Npr1bQ1/P4P2/8/5rPP/3R1RK1 w - -	d1d5 f2f1 g1f1 b7d5	1514	advantage intermezzo middlegame
+PLOr6	r1b2k1r/1p1pnpNp/p1q1p3/8/1b2P3/2N1BP2/2PQ2PP/R3KB1R w KQ -	e3h6 b4c3 g7f5 f8e8 f5d6 e8d8	1561	advantage fork opening pin
+T4nG0	2r5/1p1k3p/1b1p1Bp1/4p3/p1P1P1P1/1b1P1R1P/1P1K4/5R2 w - -	d2c3 b6a5	1593	endgame mate mateIn1
+Df1hq	3q4/1p3pkp/p4p2/8/4P3/1QP1bB2/PP4PP/1K6 w - -	b3b7 d8d3 b1a1 d3f1 f3d1 f1d1	1523	backRankMate endgame mate mateIn3
+xSqI6	r7/1p5R/pq2p1pk/3bQrNp/8/8/PP3PPP/5RK1 b - -	h6g5 h2h4 g5h4 e5g3	1591	attraction mate mateIn2 middlegame
+DMJuJ	r3k2r/5pp1/qp2p3/3pP1Q1/1P6/2N2bP1/1P4BP/1RB4K w kq -	g5g7 a6f1	1580	mate mateIn1 middlegame pin
+yxPKw	3r1rk1/6pp/p7/1p1qb3/3p4/3Q4/PPRB1PPP/5RK1 w - -	f1d1 e5h2 g1h2 d5h5 h2g3 h5d1	1518	attraction crushing fork middlegame sacrifice
+nlTRR	3rrbk1/ppp4p/2b2pp1/8/2NpP3/1P3P1P/PB4P1/3RR1K1 w - -	b2d4 d8d4 d1d4 f8c5 g1h1 c5d4	1567	attraction crushing middlegame pin sacrifice
+TBFwi	r4rk1/pp2bppp/1q2bn2/2np4/3N1BPP/1QNBPP2/PP3K2/R6R w - -	b3b6 c5d3 f2g3 a7b6	1549	advantage hangingPiece intermezzo middlegame
+EETCA	2r1r1k1/5pbp/4q1p1/pPBpP3/P1pP2b1/8/R1P1N1PP/3Q1RK1 w - -	c5d6 g4e2 d1e2 e6d6	1554	advantage middlegame
+RMHco	4r2k/p5bp/3p2p1/2pBr1Q1/2Pp4/3q2PP/P4PN1/R4RK1 w - -	g2f4 d3f1 g1f1 e5g5	1557	advantage kingsideAttack middlegame
+DXNzV	2r4k/p1b3pp/bp1q1p2/3pp3/5P2/6P1/PP1Q1NKP/2RR4 w - -	d2d5 d6d5 d1d5 a6b7 g2g1 b7d5	1583	attraction crushing middlegame pin
+9lQxZ	8/p2N1pk1/2p1p1p1/1q6/3P1bPr/1PP2Q2/P5K1/R7 w - -	f3f4 b5e2 g2g1 h4g4 f4g4 e2g4	1529	advantage endgame exposedKing fork
+1ka6b	2r3k1/1p2nrp1/3pp2p/4p2P/qp2P1P1/3PB3/1PPNQP2/2K3RR w - -	d2b3 a4b3 c1b1 b3a4	1586	advantage middlegame pin
+WZv7g	6k1/5R2/4K1p1/8/r4PPP/8/8/8 w - -	h4h5 a4a6 e6e7 a6a7	1506	crushing endgame
+RFMSH	r2qk2r/ppp1bppp/2npbn2/8/4P3/P2B2Q1/1PP2PPP/RNB1K1NR w KQkq -	g1f3 f6h5 g3g5 e7g5	1549	crushing opening trappedPiece
+oAvFE	r6k/6p1/2p1r2p/P1Qp4/8/7P/2P3PK/8 b - -	a8a6 c5f8 h8h7 f8f5 e6g6 h3h4	1530	crushing defensiveMove endgame fork
+TLVmL	5rk1/Q1p1bppp/4p3/4P3/3Pn3/3qPN2/R5PP/2R3K1 w - -	d4d5 e7c5 a7c5 e4c5	1586	crushing middlegame
+zFUyW	2Q5/5p1k/1q3npp/r7/3p4/3P4/5PPP/2R2BK1 b - -	a5a7 c1c6 b6b7 c8b7 a7b7 c6f6	1517	crushing endgame
+Ym0Zf	5rk1/3n3p/1p2p1pQ/1Pb1P3/3pq3/5N1P/6P1/B3R2K b - -	e4f4 f3g5 f8f7 g5f7	1542	advantage middlegame
+OLVmc	2kr1b1r/pppnpppp/1q1n4/1N1P4/5B2/5N2/PPP1QPPP/R3K2R w KQ -	f4e3 b6b5 e2b5 d6b5	1508	advantage middlegame
+Nse36	r2qkbnr/1b1pppp1/p1n4p/1p3N2/4P2B/2N5/PPP2PPP/R2QKB1R b KQkq -	g7g6 f5d6 e7d6 h4d8	1536	advantage opening
+pdwPG	8/R1p1rk2/p2p1pp1/3Pb2p/P3B3/1P2B2P/4bPP1/6K1 w - -	e3d2 e5d4 a7b7 e7e4	1555	advantage discoveredAttack endgame
+kCH2n	8/p6p/P5p1/2k1Pp2/p1bp1P2/6P1/1PK3P1/3B4 w - -	g3g4 c4b3 c2d2 b3d1	1599	crushing endgame
+3ljlz	4r2k/R4Qp1/1p5p/5p2/1P1P1Pq1/6P1/P4P2/5rK1 w - -	g1f1 g4h3 f1g1 e8e1	1532	endgame mate mateIn2
+4IMol	2r2rk1/pp3ppp/1qn1b3/1P1pPpN1/3P4/P1N5/5PPP/R2Q1RK1 b - -	h7h6 g5e6 f7e6 b5c6	1590	crushing middlegame
+TcGLO	5r1k/1Q4pp/p7/8/4N1K1/5r2/PP5P/8 w - -	e4g5 f8f4 g4h5 g7g6 h5h6 f4h4	1585	endgame mate mateIn3
+ZFuWT	r3k2r/8/p2p4/2pPpqpb/P5P1/3PQP1p/5R1P/5RKB b kq -	h5g4 f3g4 f5g4 e3g3 g4g3 h2g3	1532	crushing middlegame
+b9Fpv	5r2/2r1qpkp/p5p1/1p1Nn3/4P3/4Q3/P4RPP/5R1K b - -	e5g4 e3d4 e7e5 d4e5 g4e5 d5c7	1594	crushing middlegame
+JAnPb	2rq1rk1/5ppp/p7/PpnBP1b1/5B2/5QP1/5P1P/R2R2K1 b - -	g5f4 d5f7 f8f7 d1d8 c8d8 g3f4	1596	crushing discoveredAttack kingsideAttack middlegame
+Bq3Oq	rnb1k2r/ppp2ppp/1q3n2/4p3/8/1PNP1N1P/P1PBKbP1/R2Q1B1R b kq -	b8c6 c3a4 b6a6 e2f2	1550	advantage opening
+jTHxA	4Qbk1/2q2p1p/4p1p1/8/3P4/2P4P/1r1B1PP1/4R1K1 w - -	d2h6 b2b8 e8a4 f8h6	1544	advantage endgame
+TP5wF	5rk1/2q1ppbp/b2p2p1/N7/1RP5/7P/3Q1PP1/2R3K1 w - -	d2d5 e7e6 d5c6 c7a5	1558	advantage middlegame
+DW0jU	4r2k/ppp3pp/2n3r1/2q1p2b/4Rp2/1PP4P/P2P1PPN/R1B1Q1K1 w - -	e4f4 g6g2 g1g2 e5f4	1585	crushing intermezzo kingsideAttack middlegame
+4pyBZ	5r1k/1r6/5p1P/2pPpQR1/2q1P3/8/PP3P2/1K4R1 w - -	g5g7 b7b2 b1b2 f8b8 g7b7 b8b7 b2a1 c4c3	1591	attraction endgame mate mateIn4 sacrifice
+sBZ2H	8/p4p1p/1p6/2q3k1/P2Q2P1/2P1K3/5P2/8 w - -	d4c5 b6c5 f2f3 f7f5 g4f5 g5f5	1592	crushing endgame
+w9k42	6k1/1p3pb1/p1b1q1pp/4P3/5PP1/7P/PP1BBQ2/6K1 w - -	b2b3 e6d5 e2f3 d5f3 f2f3 c6f3	1515	crushing endgame
+3JXRV	8/2q4k/p1r3pp/3N4/4Q3/1pP4P/1P3PP1/6K1 b - -	c6d6 d5c7 d6d1 g1h2	1508	crushing endgame hangingPiece
+BYV6h	5r2/4Qp2/p1k4q/1p3R2/8/2P5/PPK5/8 b - -	h6h2 c2b3 h2d6 f5f6 d6f6 e7f6	1572	crushing defensiveMove endgame pin
+zBlEI	8/R2Pr1pk/1p6/6rp/1P6/7n/7P/5R1K w - -	d7d8q h3f2 f1f2 e7e1 f2f1 e1f1	1554	endgame mate mateIn3 sacrifice
+CEdSJ	1r1qk2r/Q2bnpbp/1p2p1p1/2ppP3/3P4/2P2N2/PP3PPP/RNB2RK1 w k -	a7a3 b8a8 a3b3 d7a4	1580	crushing middlegame
+Pyf0i	8/8/8/2k2K2/6p1/8/7P/8 b - -	c5d4 f5g4 d4e5 g4g5 e5e6 g5g6	1560	crushing defensiveMove endgame
+QiMPD	k7/P5R1/7p/5p2/rp3P1P/6PK/8/8 w - -	g7h7 b4b3 h7h8 a8a7	1516	crushing endgame
+efr8D	r1b1kb1r/p2nq1pp/2np1p2/4p3/4P2N/2N1B3/PPP2PPP/R2Q1RK1 b kq -	c8a6 c3d5 e7f7 d5c7	1559	advantage opening
+e7FUs	6rk/1pn3b1/p2p1NQp/2pP4/2P2P1p/P5Nq/1P6/5RK1 b - -	g7f6 g6h6	1577	kingsideAttack mate mateIn1 middlegame
+momWA	5rk1/3b2p1/p2b4/2p1q3/P7/3Q2N1/3B1PPP/5RK1 b - -	d7a4 d3c4 f8f7 c4a4	1545	crushing fork middlegame
+BluLM	2kr4/1bq2p1Q/p3p3/1p1pPp2/3n1P2/2P1B3/P1P3PP/R5K1 w - -	c3d4 c7c3 a1d1 c3e3	1519	crushing endgame fork
+mvwNg	1r3rk1/p4pp1/2p2n2/q1Pp1B2/3P1P2/2N5/P4QP1/2KR3R w - -	f2c2 a5a3 c1d2 b8b2 d1b1 b2c2	1511	advantage middlegame pin queensideAttack
+GpbuA	8/B4kpp/4pp2/p7/2B5/1P4P1/5K1P/1r6 b - -	a5a4 b3a4 b1b7 a7e3	1525	advantage defensiveMove endgame
+M1cr0	r4rk1/pppqb1pp/3pbn2/5p2/2PQ4/1PN1P1P1/PB3PBP/R3K2R w KQ -	g2b7 c7c5 d4d3 d7b7	1510	advantage discoveredAttack middlegame
+fJg1b	4r1k1/p2br1p1/2pq2P1/3p1p2/2pP1PR1/2N1P3/PPPQ4/2K4R b - -	f5g4 h1h8 g8h8 d2h2 h8g8 h2h7 g8f8 h7h8	1599	attraction kingsideAttack mate mateIn4 middlegame sacrifice
+7Wa5W	r1b2rk1/pppp1ppp/5q2/1Pb5/3p2n1/5N2/PBPPBPPP/RN1QK2R w KQ -	h2h3 g4f2 e1f2 d4d3	1507	advantage discoveredAttack opening sacrifice
+ZH5rO	5rk1/pp3ppp/1q2pn2/8/3PN1b1/bP1Q1N2/P1B2PPP/5RK1 b - -	g4f3 e4f6 g7f6 d3h7	1585	discoveredAttack kingsideAttack mate mateIn2 middlegame
+tDqkO	2r1r1k1/1p4b1/p1b1q2p/4pppQ/1P6/P7/1B2BPPP/2RR2K1 b - -	e8d8 e2c4 c6d5 c4d5	1515	crushing middlegame pin
+P106b	8/pp3k2/3pn3/2p1pKBN/4P3/1P1P2P1/P1P2P2/8 w - -	g3g4 e6d4	1539	endgame mate mateIn1
+urHiU	rnb1k2r/pp1pqp1p/6p1/4p3/4n3/4B3/PPP2PPP/RN1QKB1R b KQkq -	b7b6 d1d5 b8c6 d5e4	1525	advantage fork opening
+zuMC6	8/1p1r1ppk/1Bn4p/8/1P6/P6P/4RK2/8 b - -	c6d4 e2d2 d7d6 b6d4	1530	crushing endgame
+WGIIf	8/6p1/1k5p/8/1pp5/2P2K2/5PPP/8 w - -	c3b4 b6b5 f3e3 b5b4 e3d2 b4b3	1514	crushing defensiveMove endgame
+93Zqs	8/pp1R1nk1/2p4p/4r3/1P4BQ/2q5/P5PP/6K1 w - -	g4h5 e5e1 h4e1 c3e1	1516	endgame mate mateIn2
+cei9E	1r4k1/pQ1b2pp/2p5/3p4/2pPp3/2P2P2/P1P1B1Pq/3K1R2 w - -	b7d7 b8b1 d1d2 h2f4	1535	endgame mate mateIn2
+UBnhc	4rr1k/p1R2Nb1/1pQ1p1p1/2p5/3qPP2/7P/PP3nPK/5R2 b - -	f8f7 c6e8 f7f8 e8g6	1597	crushing fork hangingPiece middlegame skewer
+TYHSk	4r1k1/5ppp/3N4/R7/4b3/1Bb5/2P2PPP/5K2 w - -	a5a4 e4d3 c2d3 e8e1	1597	clearance endgame mate mateIn2 sacrifice
+qsvcO	r5rk/p5pp/1qpp4/1p3NPQ/4n3/2P2R2/PP4PK/R7 b - -	g7g6 h5h7 h8h7 f3h3	1544	attraction kingsideAttack mate mateIn2 middlegame sacrifice
+uKSiK	5k2/1r4pp/1B1PR3/1b2P3/8/6P1/rP5P/2R3K1 w - -	c1f1 b5f1 d6d7 b7d7	1536	advantage endgame
+iGJPo	r3r1k1/pp1n1ppp/2p3b1/8/3P3q/2P1BPN1/P2Q1KPP/R6R b - -	d7b6 e3g5 b6c4 d2c1	1521	crushing defensiveMove middlegame
+x4KAO	1k2r3/ppp2p2/5p1p/8/2qP4/2P2Q1P/PPR2PP1/1K6 w - -	f3f6 e8e1 c2c1 c4d3 b1a1 e1c1	1509	backRankMate deflection endgame mate mateIn3
+iNZB0	8/1b2k2p/1p4pP/pP1p1pP1/P2P1P2/4K3/3N4/8 b - -	e7d6 d2f3 d6e7 f3e5 e7f8 e5d7	1566	crushing endgame quietMove
+CxCiR	8/n1k5/P1p5/2K5/8/5B2/8/8 b - -	c7d7 c5b6 a7c8 b6b7	1523	crushing defensiveMove endgame
+bnW0X	r4rk1/6p1/p2R4/1p2n1P1/3Np2p/2P1B3/P1PK4/7R w - -	h1h4 e5c4 d2e2 c4d6	1539	advantage fork middlegame
+ztNEq	r1bq1rk1/p3bppp/2n2n2/1ppp4/8/PBNP1N1P/1PP2PP1/R1BQK2R w KQ -	c3b5 d8a5 b5c3 d5d4 c1d2 d4c3	1580	advantage fork middlegame
+f0Ni8	3k4/K5p1/3P1p2/4p2p/6P1/P4P2/7P/8 w - -	a7b6 h5g4 f3g4 e5e4 b6c5 e4e3	1565	crushing endgame quietMove
+Y7bcj	2k1r3/1b4p1/8/5P1P/3p1Q2/2q4P/4BK2/4R3 w - -	e2g4 c3e1	1574	endgame mate mateIn1
+B1vsi	3R4/4kr2/2r2n1R/5p2/2N3p1/1PK1P3/5P2/8 w - -	d8a8 f6e4 c3d4 c6h6	1596	crushing discoveredAttack endgame
+XVn6C	2k5/q7/2P4p/8/KP4p1/P5Q1/8/8 w - -	a4b5 a7b8 g3b8 c8b8 b5c5 g4g3	1591	crushing endgame
+tY2jg	4q1k1/7p/r4pp1/p2Q1n2/Pp6/1P3P1P/5P2/B1R3K1 b - -	g8g7 d5b7 g7h6 b7a6	1599	crushing endgame fork
+v8DCO	4Q3/5K2/8/1p6/1P1k1q2/8/8/8 w - -	f7g7 f4e5 e8e5 d4e5	1593	crushing endgame
+WVKwo	r1b3k1/1p1q1ppp/8/p2p1r2/4nbB1/P1BQ3P/1P4P1/RN3R1K w - -	f1f4 f5f4 g4d7 e4f2 h1g1 f2d3	1574	crushing fork middlegame sacrifice
+L60y7	rnb2rk1/p3q1pp/8/2ppp3/4p1N1/6P1/PP1QPPBP/2R2RK1 b - -	c8g4 d2d5 e7e6 d5a8 b8c6 a8b7	1517	advantage fork middlegame
+HPA3q	4n3/1p2k2p/2p1b1p1/2P1B3/K1P1P3/P5P1/3rB2P/5R2 w - -	f1f2 e6c4 e2c4 d2f2	1520	crushing endgame
+EXBE2	3r1rk1/ppp1n3/5q1p/6p1/4Q3/2P1P2B/PP3PPP/RN2K2R w KQ -	e1g1 f6f2 f1f2 d8d1 f2f1 d1f1	1535	kingsideAttack mate mateIn3 middlegame sacrifice
+cmGSc	5rk1/pp1q2bp/6p1/2p1p3/2PnP3/1P4PP/PB1Q2B1/1R4K1 w - -	b1f1 d4f3 g2f3 d7d2	1597	crushing discoveredAttack fork middlegame
+ZgzIl	2kr3r/ppp2pp1/1b2q3/1b2P2p/3P2nP/1N3BP1/PP3P2/R1BQR1K1 b - -	g4e5 e1e5 e6e5 d4e5 d8d1 f3d1	1523	crushing fork middlegame
+I96a8	rnbqk2r/pp2bppp/5n2/2pp4/3P4/3B1N2/PPP1QPPP/RNB1K2R w KQkq -	e1g1 c5c4 d3c4 d5c4	1565	advantage opening trappedPiece
+8exev	8/8/5k2/2P1N1p1/p2P2K1/b7/8/8 b - -	a3b2 c5c6 b2d4 c6c7 d4e5 c7c8q	1572	advancedPawn crushing endgame promotion
+MW2l7	r7/p4Bpp/2k2n2/p1b1p1B1/4P3/2P2P2/4KP1P/3R4 b - -	a5a4 g5f6 g7f6 f7d5	1573	crushing endgame
+HcKFF	rn1k3r/1q1pnpN1/p2b4/1p4B1/8/P1P3p1/1P3P1P/RN1Q1RK1 w - -	g5e7 d6e7 f2g3 e7c5	1574	crushing middlegame
+KaedG	8/8/8/8/6kP/2r1R3/5PK1/8 b - -	c3e3 f2e3 g4h4 g2f3 h4g5 f3e4	1546	crushing defensiveMove endgame
+R8psa	4r3/8/1kp2p2/2Rb1P1p/3P3P/p1BR2P1/5K2/r7 b - -	a1c1 c3a5 b6a6 c5c1 a6a5 d3a3	1580	crushing discoveredAttack endgame
+IcKWP	r1b4r/p5pp/1kp2p2/1p6/P2n4/2NN2B1/1PP3PP/R6K b - -	d4c2 a4a5 b6b7 d3c5	1517	mate mateIn2 middlegame
+v614x	r1b1r1k1/1pp4p/3p2p1/p2P1pq1/nPP1Pp2/PQ3P1P/3NB1P1/R4RK1 b - -	f5e4 d2e4 e8e4 f3e4	1551	advantage middlegame
+2A304	8/3R2bk/7p/1ppN4/8/1PP1r1P1/6P1/6K1 b - -	e3g3 d5f6 h7g6 d7g7 g6g7 f6h5 g7g6 h5g3	1594	attraction crushing endgame fork pin sacrifice
+o2bND	3r1rk1/ppp2ppp/8/3q4/2n2Q2/P4P1P/1P3K2/R4B1R w - -	f1c4 d5c5 f2g2 d8d4	1592	advantage clearance middlegame
+gpj7J	r1b1kb1r/p2p1ppp/2n2n2/q1p1p3/4P3/B1PB1N2/P2N1PPP/R2Q1RK1 b kq -	a5a3 d2c4 a3c3 a1c1 c3c1 d1c1	1518	advantage opening
+yiPPa	6k1/5pp1/2p1b2p/p7/4Pb2/2N2Q1P/PPBq1PP1/6K1 w - -	f3d3 d2e1 d3f1 f4h2 g1h2 e1f1	1598	crushing deflection endgame
+3LJAN	rnbqkb1r/pp3ppp/5n2/3Pp3/4p3/2N5/PP3PPP/R1BQKBNR b KQkq -	f8b4 d1a4 b8c6 d5c6 b4c3 b2c3	1577	advantage fork opening
+kJBX3	r2q1r2/pp1b3k/4p2p/3pBppQ/3P4/P1P1P3/5PPP/R3K2R w KQ -	e5d6 d7e8 h5d1 d8d6	1552	advantage discoveredAttack middlegame
+UKJA8	r4rk1/ppp2pp1/3p2qp/5b2/2B2P2/2P2Q1P/P1P3P1/2K1RR2 b - -	f5c2 f4f5 g6f6 c1c2	1521	advantage interference middlegame
+iRUo2	r1b2rk1/5ppp/p1pqp3/3n4/5P2/2N2Q2/PPP3PP/1K1R1B1R b - -	d6f4 c3d5 f4f3 d5e7 g8h8 g2f3	1563	crushing intermezzo middlegame sacrifice
+DNGZ9	2r1r1k1/p3nppp/1p2p3/2n5/1BR2N2/4PP2/PP4PP/2R3K1 b - -	c5a6 b4e7 c8c4 c1c4	1515	crushing middlegame
+WTRVY	1r1r2k1/1q3ppp/p1b1p3/6P1/1b3R1P/1Q2N3/PP3B2/R5K1 b - -	b7c7 f4b4 b8b4 b3b4	1583	advantage middlegame
+Jywhy	rr4k1/1Qp2qpp/1pPb4/8/2P1B3/4B1P1/PP3P1P/5RK1 b - -	b8b7 c6b7 a8b8 e4d5 f7d5 c4d5	1592	advancedPawn advantage middlegame pin
+7xmhY	r4r1k/3RNppp/p3nb2/1p6/8/P2QBP2/1PP3Pq/2KR4 b - -	h2e5 d3h7 h8h7 d1h1 f6h4 h1h4 e5h5 h4h5	1520	attraction kingsideAttack mate mateIn4 middlegame sacrifice
+Hg5I2	7r/3nkpq1/p3p1p1/1pbpP3/5PP1/P2Q1N2/1PP1N1K1/7R w - -	e2d4 h8h1 g2h1 g7h6 h1g2 h6f4	1507	attraction crushing exposedKing middlegame
+I0H5c	5qk1/p1p3pp/1p2Qp2/3P4/8/7P/P4PP1/6K1 b - -	f8f7 e6c8 f7f8 c8c7 f8e8 d5d6	1511	crushing deflection endgame
+4RbFi	5rk1/8/2p1q2p/2p1prpP/2PpQ3/pP1P1PP1/P5K1/4RR2 b - -	f8f6 g3g4 f5f4 e4e5 e6e5 e1e5	1592	crushing endgame
+WwdQ8	3r2k1/pp3p1p/2p3p1/7q/2P2R2/2Q1PpPP/PP3P2/6K1 w - -	c3f6 d8d1 g1h2 d1h1 h2h1 h5h3 h1g1 h3g2	1552	attraction deflection endgame kingsideAttack mate mateIn4 sacrifice
+BU4qf	rnb2rk1/pp2pp1p/3p2p1/Q2n4/4q3/4BN2/PPP2PPP/2KR1B1R b - -	b8c6 a5d5 e4d5 d1d5	1536	advantage opening
+E3Vg3	4r3/4p1kp/1np3p1/pp1q4/3pR1N1/P2P1P2/1P1K4/4Q3 b - -	c6c5 e4e7 e8e7 e1e7 d5f7 e7e5	1535	crushing endgame
+iSZu3	2r2r2/2q1b1k1/p1np3p/1pp1pbpQ/8/1PPPB2P/P4PPN/2RBR1K1 w - -	d1g4 f5g6 h5g6 g7g6	1510	crushing middlegame trappedPiece
+uN1Ss	6rk/5q1p/2r2N1Q/1p3Pp1/4p2P/8/PP4P1/3R3K w - -	f6g8 c6h6 g8h6 f7h5	1519	advantage endgame pin
+op2if	5rn1/1p4p1/p4Pk1/1P1Pp1p1/3p3R/P2P4/2P4P/5RK1 w - -	f6g7 f8f1 g1f1 g5h4 b5a6 b7a6	1547	advantage endgame
+1lJCC	1kr3r1/pp3p2/3qb3/PPNp3p/3P2pn/3B4/5PPP/R2Q1RK1 w - -	d1e2 h4f3 e2f3 g4f3	1583	crushing kingsideAttack middlegame pin
+Ux9r1	5rk1/1np2p2/p4BpP/3r4/1p2pR2/1P1PK3/P1P3qP/R2Q4 b - -	e4d3 h6h7 g8h7 f4h4 d5h5 h4h5 g6h5 d1h5 h7g8 h5h8	1561	advancedPawn attraction kingsideAttack mate mateIn5 middlegame
+6pY3Z	6k1/5p2/4p1q1/r7/8/2PP1P1p/3Q2P1/3R2K1 w - -	g1h1 h3g2 d2g2 a5h5 h1g1 h5g5	1502	advancedPawn advantage endgame pin
+AulFd	3r4/1p3pk1/3N1np1/1NRP2p1/1Q2p3/4K1q1/4PR2/8 w - -	e3d2 e4e3 d2c2 e3f2	1543	advancedPawn crushing fork middlegame
+kdCdM	1k3r1r/1n3q2/3Q3p/3Np3/4P3/3P2P1/2P2p1P/1R5K b - -	b8c8 d5b6	1595	mate mateIn1 middlegame
+bqm1I	rnbqk2r/ppp1ppb1/3p3p/6p1/3PP3/2NB2P1/PPPQ1PP1/R3K1NR b KQkq -	g7d4 d3b5 c7c6 d2d4	1571	advantage discoveredAttack opening
+XQVC8	2r1r3/1p1kb1Q1/p3p1P1/2qp2Bp/5N1P/nP3P2/P1PR4/2K4R w - -	h1h2 c5g1 d2d1 g1h2 g7e7 e8e7	1537	crushing deflection middlegame
+Wrycz	r2q1rk1/1b2bppp/p4n2/2p1p1B1/4P3/2NB3P/PPP3P1/R2QR1K1 w - -	c3a4 d8d4 g1h1 d4a4	1598	advantage fork middlegame
+gUE5r	r2rn1k1/pp3ppp/8/2p5/6R1/2P1pB2/PPQ2P1q/2K4R b - -	d8d2 h1h2 d2c2 c1c2	1576	crushing middlegame
+Fxibn	2r3k1/1pr2pp1/p4q1p/3Bp3/1QP3b1/P3P1P1/3R1P1P/2R3K1 w - -	d5b7 c8b8 b7e4 b8b4	1527	advantage middlegame
+GZXTb	8/p1pk4/1p1p2p1/3P1p1p/1PPK1P1P/P5P1/8/8 b - -	c7c6 d5c6 d7c6 b4b5 c6c7 d4d5 c7d7 a3a4	1586	attraction crushing defensiveMove endgame zugzwang
+0ZXaN	r4rk1/pp1q3p/3p2p1/3Ppp1P/2P5/1P1QPR1P/P1P5/3R2K1 w - -	h5g6 e5e4 g6h7 g8h7 d3d4 e4f3	1556	crushing endgame fork
+7U94p	6k1/5ppp/p7/5P2/8/1Pp5/P2rK1PP/2R5 w - -	e2f1 c3c2 f1e1 d2g2	1580	advancedPawn crushing endgame
+1SVRa	r2r2k1/p4pp1/1pN1p2p/8/1P1bP3/P7/5PPP/3R1RK1 b - -	d4f2 g1f2 d8d1 f1d1	1556	advantage endgame hangingPiece
+psRnt	k2r1bnr/pp2q1pp/2p5/2npB3/2N5/3R1N2/P1Q2PPP/2R3K1 b - -	c5d3 c4b6 a7b6 c2a4	1510	mate mateIn2 middlegame queensideAttack sacrifice
+YYKvp	8/4P3/7R/p7/2k4p/8/1P2r3/1K6 b - -	e2e4 h6h4 e4h4 e7e8q	1501	advancedPawn crushing deflection endgame pin promotion
+s9ca3	r3r1k1/ppp2ppp/3p1q2/8/5PQ1/b7/1PPB2PP/2KR1B1R w - -	d2c3 f6c3 b2a3 c3a3	1590	crushing middlegame pin queensideAttack
+8v7j8	3r4/2q2ppk/p6p/3ppPb1/2r5/P1P2QP1/1P2RB1P/3R2K1 w - -	d1d5 e5e4 e2e4 d8d5	1574	crushing interference intermezzo middlegame
+bmHND	8/2k3p1/p4p2/1pK1p2p/4P3/3P1PP1/P6P/8 w - -	f3f4 e5f4 g3f4 g7g5	1553	advantage endgame
+QdoIG	1k3r1r/pp6/4R1n1/2Npn3/1P1N4/P5P1/4QKP1/4R2q w - -	d4f3 e5g4	1516	mate mateIn1 middlegame
+WvWN3	8/2B4p/6n1/5p2/2k2P2/5K2/7P/8 w - -	c7e5 g6e5 f4e5 c4d5 f3f4 d5e6	1596	crushing endgame zugzwang
+93xK4	r6r/1bqkb3/pp2p1Qp/4p1p1/8/P1P2NP1/1P3PP1/2KR3R b - -	d7c8 g6e6 c8b8 d1d7	1561	advantage middlegame
+1BSmO	1r2r1k1/1p1q1ppp/8/8/1Q1Nn3/4P2P/5PP1/1R3RK1 b - -	d7e7 b4e7 e8e7 d4c6 b8e8 c6e7	1514	advantage attraction middlegame
+w4MmA	Nnb3kr/bp1p1pp1/p4q1p/P7/1P6/2PQ4/5PPP/R3KB1R w KQ -	d3g3 a7f2 g3f2 f6c3	1585	advantage deflection fork middlegame
+6l7Qf	2r3k1/pp3pp1/7p/3p4/PbqP4/4P1P1/2r2P1P/R1NQ1RK1 w - -	c1d3 c2d2 d1b1 d2d3	1586	advantage middlegame
+qBIBR	1k3r2/1pp4p/p2b4/3p1Q2/3q4/1B1P2PP/PPP2P1K/5R2 w - -	f5g4 f8f2 h2g1 f2f4 g1g2 f4g4	1536	crushing discoveredAttack endgame
+QsdBi	8/1p1P2pk/p6p/8/2P5/PP1b2Q1/3q1PPK/8 b - -	d3g6 g3c7 g6e4 d7d8q d2d8 c7d8	1590	advancedPawn crushing endgame promotion
+4xFQY	4r1k1/2q1n1pp/2pn1p2/1pQp4/r2P4/P6P/NKPNRPP1/4R3 b - -	d6c4 d2c4 a4c4 e2e7	1504	crushing middlegame
+ir9vD	6k1/3q1pbp/1r2rBp1/p1p1P1Q1/3p3R/1P6/P1P3PP/5RK1 b - -	h7h6 h4h6 e6f6 e5f6	1588	crushing middlegame
+vJSwe	4k3/4p2p/2p1N3/1q5p/p7/5R2/2r3P1/4R1K1 b - -	b5b2 f3f8 e8d7 f8d8	1550	endgame mate mateIn2
+CakQB	r2q1rk1/4bppp/p3p3/1ppnP2N/8/3Q4/PPPB1PPP/2KR3R w - -	d2h6 e7g5 f2f4 g5h6	1579	crushing middlegame
+h1AOR	r2qkbnr/ppp2pp1/2np3p/4N3/2B1P1b1/2N5/PPPP1P1P/R1BQK2R b KQkq -	g4d1 c4f7 e8e7 c3d5	1550	mate mateIn2 opening
+jQGaj	8/8/k3Q1p1/5p2/8/6PK/5q1P/8 b - -	f2b6 e6b6 a6b6 h3h4 b6c6 h4g5	1509	crushing endgame
+yYLlF	7r/bp4k1/p4pp1/3Pp3/2p1P3/6Q1/PP1q1P2/R3R1K1 w - -	g1g2 a7f2 g3f2 h8h2 g2h2 d2f2	1585	attraction crushing deflection endgame fork sacrifice
+qvSJy	6k1/1pbq1pp1/p1p3n1/2Pp3p/1P4N1/P1Q3PP/r4PK1/B3R3 b - -	f7f6 g4f6 g7f6 c3f6 g6f4 g3f4	1561	crushing kingsideAttack middlegame
+byeIX	rn2k2r/pp3ppp/2p1b3/4Q3/8/4P1P1/PPqP2BN/RNB1K3 w Qkq -	e5g7 c2c1 e1f2 h8f8	1526	advantage defensiveMove hangingPiece opening
+l6HCq	r4rk1/2q2pp1/1p2pn1p/p2p1n2/3P1P2/2PQ1N1N/PP4PP/R3R1K1 b - -	f6h5 g2g4 f5d6 g4h5	1583	advantage fork middlegame
+PIAXa	r5rk/pp3p1p/2p2PpQ/2p5/2P1P3/3q1R2/P5PP/R6K b - -	d3e4 h6h7 h8h7 f3h3 e4h4 h3h4	1527	attraction endgame kingsideAttack mate mateIn3 sacrifice
+HIhZ2	4q1k1/2pn1pbp/1p1p2p1/p2B4/P1Pn4/6P1/5P1P/R1BQ2K1 w - -	c1b2 d4e2 g1f1 g7b2	1554	crushing discoveredAttack middlegame
+arv3E	3r1rk1/pp3pp1/2pN3p/2P4n/1P4n1/P2pB2Q/4qPPP/R4RK1 w - -	h3h5 g4e3 h5e2 d3e2	1577	advancedPawn advantage middlegame
+PUNv5	5r1k/p3b2p/3pB1pP/1P1Pp3/2n1Pq2/2N5/KPQ5/7R b - -	e7g5 c3e2 f4d2 c2c4	1513	crushing discoveredAttack middlegame
+l0tuc	r4rk1/1p6/2p3p1/p1P4p/1q2N2Q/5P2/6PP/4R1K1 b - -	a5a4 e4f6 f8f6 h4b4	1511	advantage discoveredAttack endgame
+mOX6H	8/8/p6k/2N1r2p/P2p4/1P5K/4nP1P/4R3 w - -	c5d3 e2f4 h3g3 f4d3	1533	advantage endgame
+anqf1	6rk/5p1p/2q2PpQ/1p1pP3/5K2/2P5/6P1/2R5 b - -	c6e6 h6h7 h8h7 c1h1 e6h3 h1h3	1566	attraction endgame mate mateIn3 sacrifice
+k2Hxl	8/p3B2p/8/1p2p3/8/1k1q3P/5R2/2R1K3 w - -	f2d2 d3e3 e1d1 e3g1 d1e2 g1c1	1500	crushing deflection endgame exposedKing skewer
+XtVJe	r2qk2r/pp3ppp/2n1bn2/2Pp2B1/3Q4/P1P1P3/5PPP/R3KBNR w KQkq -	g5f6 c6d4 f6d8 d4c2 e1d1 c2a1	1587	advantage fork middlegame
+6MzWQ	r1bq1rk1/1p3pbp/p3pnp1/4n1B1/8/1NN5/PPP1B1PP/R2Q1RK1 b - -	b7b5 d1d8 f8d8 g5f6 g7f6 f1f6	1568	crushing middlegame
+rh1fr	8/pp4p1/2pp3p/6P1/1PP1KP2/P6k/8/8 b - -	h6h5 f4f5 h3g4 f5f6	1587	crushing endgame quietMove
+C2Jhl	5nrk/p4p1p/4pPp1/q1ppP3/Nr5R/1P1P3P/P2Q2P1/R5K1 w - -	a1c1 b4a4 d2a5 a4a5	1588	crushing middlegame
+QpdKG	b3r1k1/6b1/2q1p1p1/1p3pN1/3p1P1p/1B1Pn2P/1PPBR1P1/4Q2K w - -	g5f3 e3g2 h1g2 c6f3	1560	attraction crushing kingsideAttack middlegame
+VzlAX	3r2k1/p4ppp/1p2pn2/2q1N3/1P1R1P2/2P5/P3Q1PP/6K1 b - -	c5e7 e5c6 d8d4 c6e7	1537	advantage endgame fork
+0Zzgz	r4rk1/Np3ppp/4p3/3p3b/1b1Pn3/1P2PNPP/1P3PB1/R4RK1 w - -	a7b5 h5f3 g2f3 e4d2 g1g2 d2f1	1540	advantage fork middlegame
+qXfIn	1k4r1/2p2p2/p3b3/1PQ1p3/P3P2p/2P5/5PPK/5r2 b - -	a6a5 b5b6 c7b6 c5b6 b8c8 b6a6	1581	crushing endgame
+NHzBc	2b3r1/p7/1p1p1kp1/3P1p2/2P1pR1q/1P5P/P2Q2BK/8 b - -	h4h6 f4f5 c8f5 d2h6	1515	crushing discoveredAttack endgame
+73lTi	2br3r/2p1b1kp/1pB2pp1/p3P3/1PPB1P2/P7/6PP/2RR2K1 w - -	b4a5 d8d4 d1d4 e7c5	1552	advantage middlegame pin sacrifice
+sf5C9	r2qr1k1/pp3ppp/5n2/4n3/1P1p2b1/P2B4/1BP1NPPP/R2Q1RK1 w - -	d1d2 e5d3 d2d3 g4e2	1546	crushing middlegame
+nrf7x	r3k2r/pp2nppp/2b1q3/8/3Q4/4B3/PP1N1PPP/R4RK1 w kq -	d4g7 h8g8 g7g8 e7g8	1554	crushing middlegame
+Qdag2	8/4kppp/4p3/4b3/1P4P1/P4KP1/2R5/1N1r4 w - -	b1c3 d1d3 f3e4 d3c3 c2c3 e5c3	1503	crushing endgame
+jdzsA	8/4k3/P2pP3/6P1/1K5P/8/2P1Bp2/4r3 w - -	e2c4 e1e4 b4b5 e4c4	1574	crushing endgame
+0Lqf2	2kr3r/Qpp2p1p/2q1b1p1/8/2P5/2P1B3/P4PPP/3RR1K1 b - -	d8d1 a7a8 c8d7 e1d1	1520	crushing intermezzo middlegame
+uZbdD	1r1k4/8/R5p1/1p1bPp2/8/5P2/PP2K2P/8 b - -	b8c8 a6d6 d8e7 d6d5 c8c2 d5d2	1527	advantage endgame fork
+yNnBn	3r2k1/p2q1ppp/3Bbb2/8/4Q2P/5BP1/PP3P2/3R2K1 w - -	d6e5 d7d1 f3d1 d8d1 g1g2 e6d5 e4d5 d1d5	1515	crushing middlegame pin
+tzsMM	8/7k/2N1p2b/4Pp1Q/2P1n1p1/1P6/6PK/5r2 w - -	g2g3 f1h1 h2h1 e4g3 h1g1 g3h5	1574	attraction crushing deflection endgame fork sacrifice
+WDyw4	2r3k1/ppN1n1pp/8/4p3/5p1n/3R1P1B/PP2PP1P/6K1 b - -	c8c7 h3e6 g8h8 d3d8 e7g8 d8g8	1504	endgame mate mateIn3
+hk4eQ	2k1r3/pp3pp1/2p5/7p/1N1r4/P4P2/7P/2R2R1K b - -	e8e3 b4c2 d4d3 c2e3	1587	crushing endgame fork
+1claV	8/r3qr1k/4p2P/4Pp1Q/pppp4/8/PPP3R1/2K5 b - -	d4d3 h5g6 h7h8 g6g8	1553	endgame mate mateIn2
+Pirwl	r2q1rk1/pR2ppbp/2np2p1/2pP4/8/3PPNP1/P4PBP/3Q1RK1 b - -	a8b8 d5c6 b8b7 c6b7	1568	advancedPawn crushing hangingPiece middlegame
+NyFIe	7b/k6P/Pp6/1P3nBK/3p4/4p1P1/8/5B2 w - -	g3g4 f5g3 h5g6 g3f1 g5f6 e3e2 f6h8 e2e1q	1563	advancedPawn crushing endgame fork promotion
+mjruC	2r3k1/p3ppbp/1r1p2p1/q6P/2pNn1P1/2N1B3/PPPQ4/KR5R w - -	c3e4 a5a2 a1a2 b6a6 d2a5 a6a5	1598	attraction mate mateIn3 middlegame sacrifice
+6v8YR	R7/5pkp/4p1p1/PN2P3/1b4P1/8/3r1n2/R1K5 w - -	a5a6 f2d3 c1b1 d2b2	1554	endgame mate mateIn2
+uASym	4r1k1/5pbp/Bq4p1/1Pnp1b2/3P4/5N1P/5PP1/Q1R3K1 w - -	c1c5 b6c5 d4c5 g7a1	1539	crushing middlegame
+u9LHL	1r4k1/1q4p1/p7/3Np3/4Q3/1P1P4/P4r2/1K4R1 b - -	b8f8 d5f6 f8f6 e4b7 f2f1 g1f1	1520	crushing discoveredAttack endgame pin
+Imo52	r2q1rk1/pp2npbp/6p1/4p3/B2pP1b1/2PP4/PP2N1PP/R1BQ1RK1 w - -	c3d4 g4e2 d1e2 d8d4 c1e3 d4a4	1506	advantage capturingDefender fork intermezzo middlegame
+QNsLn	8/3n1kP1/nR6/P3pN2/3p4/8/2p2PK1/8 w - -	b6h6 c2c1q g7g8r f7g8	1595	advancedPawn crushing endgame promotion
+ytAw4	r1r5/1p3kpp/4pq2/BB1p1p2/P2PbP2/4P1K1/P2Q2PP/2R4R w - -	c1c8 f6g6 g3f2 g6g2 f2e1 g2h1 b5f1 a8c8	1565	crushing fork middlegame
+brvdZ	r4rk1/1b1q2bp/p2P1p2/1ppP1pB1/8/2P5/PP4PP/RN1QR1K1 w - -	e1e7 d7d6 e7b7 f6g5	1524	advantage middlegame
+6lLlC	r4r1k/pp3ppB/2pnb3/6NQ/3q4/8/PP4PP/RNB2K2 b - -	e6c4 h7d3 h8g8 h5h7	1581	discoveredAttack mate mateIn2 middlegame
+icaka	2kr3r/1pp1qppp/p1p5/8/1b6/1PP1PQ2/PB3PPP/R3K2R b KQ -	e7e5 f3g4 c8b8 g4b4	1555	advantage fork middlegame
+sJJvi	2r3k1/1p1nrpN1/p2pbbp1/8/3B4/5PK1/7R/7R b - -	f6g7 h2h8 g7h8 h1h8	1567	mate mateIn2 middlegame sacrifice
+zjr5n	k4r2/pp1R4/2p5/4Q3/1b2N1P1/5P2/pq2P1KP/4R3 w - -	d7e7 b2e5 e7e5 b4e1	1504	crushing middlegame
+O0xsu	4r1k1/p4pp1/b7/2p4Q/8/1P4BP/Pq3PP1/R5K1 w - -	a1d1 a6e2 h5d5 e2d1	1579	advantage endgame fork
+0z8T1	r2k3r/1q1p2Q1/pp2p3/2b4p/2P5/1PN1nPP1/PB2P1KP/R4R2 w - -	g2f2 e3f5 f2g2 f5g7	1552	crushing discoveredAttack middlegame
+88tJj	1rbq1r1k/ppp2ppB/7p/n2pP1N1/3P1n1Q/5N2/P4PPP/1R3RK1 b - -	h6g5 f3g5 d8g5 h4g5	1589	advantage middlegame
+38O2m	8/1R3ppk/2p3r1/p1Pp3p/3Pn3/P3PP1q/2Q3P1/6K1 b - -	e4f6 c2g6 h7g6 g2h3	1581	crushing endgame
+10AzL	r2q1r1k/ppp3p1/2n3Np/4p3/6Q1/3P2N1/PP4PP/R1B1b2K b - -	h8h7 g6f8 d8f8 g4e4 h7g8 e4e1	1554	advantage fork middlegame
+gJDBr	r1b2rk1/p1b3pp/1pn4q/4pp2/2P5/1P2P1P1/PB3PBP/2RQ1RK1 w - -	g2c6 h6c6 d1d5 c6d5	1518	crushing middlegame
+MWkOR	3b1k1r/p6q/2pN1p2/5P2/4p1Q1/3P1P1P/1R5K/8 w - -	b2b8 h7c7 b8d8 c7d8	1520	advantage endgame fork pin
+vyZ5K	2rq1rk1/p2n1pp1/P1p1pn1p/1p6/3PNb1B/3Q1P1P/1P3PP1/1BR2RK1 b - -	f4c1 e4f6 d7f6 h4f6 g7g6 f6d8	1563	crushing kingsideAttack middlegame
+WplDJ	r2qr1k1/pppb1ppp/3b4/1B6/2Pn1p2/5N1P/PP1Q1PP1/RN3RK1 w - -	b5d7 d4f3 g2f3 d8d7	1564	crushing intermezzo opening
+Q63ZS	r5k1/pp1q1pp1/2pn3p/2PpQ3/8/5N1P/PPP2PP1/4R1K1 b - -	a8e8 e5d6 e8e1 f3e1 d7d6 c5d6	1596	crushing endgame
+G6P1o	6k1/1b3p1p/p3q1p1/1p6/2p1P1N1/2P4P/PPQ2PP1/6K1 b - -	b7e4 c2e4 e6e4 g4f6 g8f8 f6e4	1555	attraction crushing endgame fork sacrifice
+EMgAO	r1b2rk1/q2nbpp1/p1N1p2p/3n4/2p5/P2BPNB1/1PQ2PPP/5RK1 w - -	c6a7 c4d3 c2d3 a8a7	1530	advantage intermezzo middlegame
+8qroL	5R2/8/8/8/4K3/3p4/P1rkn3/1R6 w - -	a2a4 e2c3 e4d4 c3b1	1563	crushing endgame fork
+Ila6h	8/p1pk1Np1/1pr1p1n1/8/4Pp1P/P7/1PP3P1/2K1R3 b - -	e6e5 h4h5 d7e8 h5g6 c6g6 f7e5	1587	advantage capturingDefender endgame
+IbkVV	r4rk1/pp4bp/2p3p1/4pb1q/2P5/5PP1/PP2Q2P/2BRR1KB b - -	e5e4 g3g4 h5h4 g4f5	1590	crushing fork middlegame
+ix1wj	7r/2p5/3p1kPr/NP1P1P1P/1P4K1/8/2B1p3/7R w - -	a5c4 h6h5 g4f3 h5h1	1547	crushing endgame
+NyUiy	8/1p6/p5P1/Pp1k4/1P6/3K2b1/3B4/8 b - -	g3e5 d2c3 e5c3 d3c3	1548	crushing endgame
+WumEH	3q1rk1/2p3bp/1r1nR1p1/1p6/pn1p4/P2P1NQP/1BP2PB1/R5K1 w - -	a3b4 d6f5 g3g5 b6e6 g5d8 f8d8	1595	advantage discoveredAttack middlegame
+PKdv1	1kr5/pp2bp1p/4b3/2P5/5q2/P3pP2/1PQ3PP/2R1KB1R w K -	b2b4 e7h4 g2g3 h4g3 h2g3 f4g3	1514	crushing exposedKing middlegame
+WpS9e	6k1/p4r1p/2pp2pQ/q2Pp1P1/4P3/1R6/PKP2P2/8 b - -	f7f8 b3b7 a5b5 b7b5	1559	crushing endgame
+S5Acf	r2q1rk1/pp1nbppp/2p5/3p2B1/3Pn3/2NQPN1P/PP3PP1/R4RK1 w - -	c3e4 d5e4 d3e4 e7g5	1575	advantage middlegame
+T942P	4N3/k1q3pQ/2p1pr2/p1Pp4/P7/6P1/5P2/6K1 b - -	f6h6 h7h6 g7h6 e8c7	1556	crushing endgame
+TD0K0	3r3r/1pq2pk1/p4p2/6n1/2N2PP1/P1Q3K1/6B1/1R3R2 w - -	b1c1 h8h3 g2h3 g5e4 g3h2 e4c3	1554	crushing fork middlegame pin sacrifice
+VYCfZ	r4rk1/1pR3pp/p2p4/3qn3/8/1P5Q/P4PPP/5R1K b - -	f8f2 c7c8 a8c8 h3c8 g8f7 f1f2	1590	crushing middlegame
+TOnFH	5r2/3k4/3r3p/3Np1p1/1p6/7P/1PPR1PP1/1K6 b - -	f8c8 d5b6 d7c7 d2d6	1514	crushing discoveredAttack endgame pin
+MLKmA	5rk1/ppp3p1/1b1pp2p/8/1P2P3/P2P1P2/2Q1K1P1/q1B2R2 b - -	d6d5 c1b2 a1a2 f1a1 a2a1 b2a1	1534	clearance crushing endgame trappedPiece
+5qpu4	1r3rk1/5ppp/5n2/p1Rnq3/2B2N2/1Q4P1/5P1P/5K1R w - -	f4d5 b8b3 d5f6 e5f6	1597	crushing middlegame
+xYWvz	r1qr2k1/pb2bppp/8/3B4/2p5/1Q4P1/PP2PP1P/R1BR2K1 w - -	b3b7 c8b7 d5b7 d8d1	1528	advantage middlegame
+OHbMc	3r3r/2p5/2P1k3/2QPqpp1/7p/P6P/6p1/2RR2K1 b - -	d8d5 d1d5 e5d5 c1e1	1506	crushing endgame
+lmruJ	r2q1rk1/ppp1bpp1/2npbn1p/1B6/4P3/1QN2N2/PPP2PPP/R1B1R1K1 w - -	b5c4 c6a5 c4e6 a5b3	1582	advantage opening
+LNwQG	3r2k1/6p1/pq2pnNp/1p6/1P2P3/1P5P/2Q2PP1/R5K1 w - -	g6e5 b6d4 a1a6 d4e5	1579	crushing endgame fork
+zRORc	8/2QP1pk1/5b2/3q2p1/7p/5N1P/6P1/6K1 b - -	f6e7 c7e5 d5e5 f3e5 g7f6 e5c6	1576	advantage endgame fork
+wnLSj	r1bqrnk1/pp2bpp1/2p2n1p/8/3PN2B/P2B1N2/1PQ2PPP/R4RK1 w - -	a1d1 f6e4 h4e7 d8e7	1516	crushing middlegame

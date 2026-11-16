@@ -1,0 +1,237 @@
+{
+  "locale": "hr",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Šahovski zadaci",
+    "subtitle": "Zadaci koji uzvraćaju udarac",
+    "promotional_text": "Pronađi vilicu. Daj mat. Preživi niz. 53.000 zadataka iz stvarnih partija. Što bolje igraš, to su teži. Danas Pješak, sutra Kralj.",
+    "description": "Misliš da vidiš tri poteza unaprijed? Dokaži.\n\nKing Walk ti baca prave šahovske zadatke, njih 53.000, izvučenih iz stvarnih partija. Riješiš jedan i sljedeći je tvrđi. Promašiš i igra popusti. Nakon nekoliko desetaka zadataka točno zna koliko vrijediš. I tada počinje stiskati.\n\nPočinješ kao Pješak. Osvoji Skakača, Lovca, Topa i Damu. Dođi do Kralja i put preko cijele ploče je iza tebe.\n\n• 53.000 zadataka iz stvarnih partija: vilice, vezanja, ražnjevi i podmukli matovi na zadnjem redu\n• Rejting koji pronalazi tvoju razinu i raste s tobom\n• Dnevni zadatak, isti za sve. Održi niz i pohvali se emojijima\n• Nizovi rangova: 15 zadataka, bez savjeta, jedan promašaj i ispadaš\n• Izazovi prijatelje u Game Centeru i riješite tko je stvarno dobar\n• Ne ide dalje? Uzmi savjet. Nikome nećemo reći.\n• Nije išlo? Zadatak se kasnije vraća za revanš\n• Velika, glasna slavlja pri svakom novom rangu\n• Widgeti za početni zaslon, zaključani zaslon i način StandBy\n• Dnevni podsjetnik, ako ga želiš\n• Haptika, tamni način, VoiceOver i veći tekst\n• Radi bez interneta. Bez računa, bez oglasa, bez kupnji unutar aplikacije\n\nZadaci potječu iz javno dostupne baze zadataka Lichess. King Walk nije izradio niti ga preporučuje Lichess.",
+    "keywords": "šah,taktika,mat,mat u 2,elo,rejting,trening,strategija,logika,mozgalice,vilica,vezanje,završnica"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Rejting u zadacima",
+        "suffix": " Elo",
+        "suffix_singular": " Elo"
+      },
+      "streak": {
+        "name": "Najbolji niz",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "hardest": {
+        "name": "Najteži zadatak",
+        "suffix": " Elo",
+        "suffix_singular": " Elo"
+      },
+      "streak_p": {
+        "name": "Niz Pješak",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "streak_n": {
+        "name": "Niz Skakač",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "streak_b": {
+        "name": "Niz Lovac",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "streak_r": {
+        "name": "Niz Top",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "streak_q": {
+        "name": "Niz Dama",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "streak_k": {
+        "name": "Niz Kralj",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      },
+      "daily_streak": {
+        "name": "Niz dana",
+        "suffix": " zaredom",
+        "suffix_singular": " zaredom"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Prvi koraci",
+        "before": "Riješi zadatak bez pogreške i bez savjeta.",
+        "earned": "Prvi zadatak riješen bez pogreške i bez savjeta."
+      },
+      "solved_50": {
+        "name": "Pedeset riješenih",
+        "before": "Riješi 50 zadataka bez pogreške i bez savjeta.",
+        "earned": "50 zadataka riješeno bez pogreške."
+      },
+      "solved_250": {
+        "name": "Navika rješavanja",
+        "before": "Riješi 250 zadataka bez pogreške i bez savjeta.",
+        "earned": "250 zadataka riješeno bez pogreške."
+      },
+      "solved_1000": {
+        "name": "Tisuća zadataka",
+        "before": "Riješi 1000 zadataka bez pogreške i bez savjeta.",
+        "earned": "1000 zadataka riješeno bez pogreške."
+      },
+      "streak_5": {
+        "name": "U naletu",
+        "before": "Riješi 5 zadataka zaredom.",
+        "earned": "5 zadataka riješeno zaredom."
+      },
+      "streak_10": {
+        "name": "Deset zaredom",
+        "before": "Riješi 10 zadataka zaredom.",
+        "earned": "10 zadataka riješeno zaredom."
+      },
+      "streak_20": {
+        "name": "Nezaustavljivo",
+        "before": "Riješi 20 zadataka zaredom.",
+        "earned": "20 zadataka riješeno zaredom."
+      },
+      "rank_knight": {
+        "name": "Skakač",
+        "before": "Dosegni rejting 700 u zadacima.",
+        "earned": "Rang Skakač: rejting 700 u zadacima."
+      },
+      "rank_bishop": {
+        "name": "Lovac",
+        "before": "Dosegni rejting 1000 u zadacima.",
+        "earned": "Rang Lovac: rejting 1000 u zadacima."
+      },
+      "rank_rook": {
+        "name": "Top",
+        "before": "Dosegni rejting 1300 u zadacima.",
+        "earned": "Rang Top: rejting 1300 u zadacima."
+      },
+      "rank_queen": {
+        "name": "Dama",
+        "before": "Dosegni rejting 1600 u zadacima.",
+        "earned": "Rang Dama: rejting 1600 u zadacima."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Dosegni rejting 1900 u zadacima.",
+        "earned": "Rang Kralj: rejting 1900 u zadacima. Kralj je prošetao sve do vrha."
+      },
+      "giant_slayer": {
+        "name": "Pad diva",
+        "before": "Bez pogreške riješi zadatak s rejtingom barem 300 višim od tvog.",
+        "earned": "Bez pogreške riješen zadatak s rejtingom barem 300 višim od tvog."
+      },
+      "clear_pawn": {
+        "name": "Niz Pješak riješen",
+        "before": "Riješi niz Pješak: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Pješak riješen: 15 zadataka zaredom od 400 do 699, bez savjeta."
+      },
+      "clear_knight": {
+        "name": "Niz Skakač riješen",
+        "before": "Riješi niz Skakač: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Skakač riješen: 15 zadataka zaredom od 700 do 999, bez savjeta."
+      },
+      "clear_bishop": {
+        "name": "Niz Lovac riješen",
+        "before": "Riješi niz Lovac: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Lovac riješen: 15 zadataka zaredom od 1000 do 1299, bez savjeta."
+      },
+      "clear_rook": {
+        "name": "Niz Top riješen",
+        "before": "Riješi niz Top: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Top riješen: 15 zadataka zaredom od 1300 do 1599, bez savjeta."
+      },
+      "clear_queen": {
+        "name": "Niz Dama riješen",
+        "before": "Riješi niz Dama: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Dama riješen: 15 zadataka zaredom od 1600 do 1899, bez savjeta."
+      },
+      "clear_king": {
+        "name": "Niz Kralj riješen",
+        "before": "Riješi niz Kralj: 15 zadataka zaredom bez savjeta.",
+        "earned": "Niz Kralj riješen: 15 zadataka zaredom od 1900 do 2300, bez savjeta."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Riješi dnevni zadatak 3 dana zaredom.",
+        "earned": "Dnevni zadatak riješen 3 dana zaredom."
+      },
+      "daily_7": {
+        "name": "Cijeli tjedan",
+        "before": "Riješi dnevni zadatak 7 dana zaredom.",
+        "earned": "Dnevni zadatak riješen 7 dana zaredom."
+      },
+      "daily_30": {
+        "name": "Trideset dana",
+        "before": "Riješi dnevni zadatak 30 dana zaredom.",
+        "earned": "Dnevni zadatak riješen 30 dana zaredom."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Najteži zadatak",
+        "description": "Bez pogreške riješi zadatak s najvišim rejtingom koji možeš. U izborniku uključi Teže za zahtjevnije zadatke."
+      },
+      "streak_p_challenge": {
+        "name": "Niz Pješak",
+        "description": "15 zadataka s rejtingom od 400 do 699. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      },
+      "streak_n_challenge": {
+        "name": "Niz Skakač",
+        "description": "15 zadataka s rejtingom od 700 do 999. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      },
+      "streak_b_challenge": {
+        "name": "Niz Lovac",
+        "description": "15 zadataka s rejtingom od 1000 do 1299. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      },
+      "streak_r_challenge": {
+        "name": "Niz Top",
+        "description": "15 zadataka s rejtingom od 1300 do 1599. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      },
+      "streak_q_challenge": {
+        "name": "Niz Dama",
+        "description": "15 zadataka s rejtingom od 1600 do 1899. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      },
+      "streak_k_challenge": {
+        "name": "Niz Kralj",
+        "description": "15 zadataka s rejtingom od 1900 do 2300. Bez savjeta, jedan promašaj i niz je gotov. Tko će dogurati najdalje?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Zadaci koji <b>uzvraćaju udarac</b>",
+      "sub": "Riješiš jedan, sljedeći je tvrđi. Promašiš, igra popusti."
+    },
+    "2": {
+      "caption": "<b>53.000</b> zadataka iz stvarnih partija",
+      "sub": "Vilice, vezanja, ražnjevi i podmukli matovi."
+    },
+    "3": {
+      "caption": "Ne ide? <b>Uzmi savjet.</b>",
+      "sub": "Nikome nećemo reći."
+    },
+    "4": {
+      "caption": "Od Pješaka do <b>Kralja</b>. Kreni!",
+      "sub": "Penji se po rangovima. Riješi nizove. Hvali se."
+    },
+    "5": {
+      "caption": "Novi zadatak <b>svaki dan</b>",
+      "sub": "Isti za sve. Održi svoj niz."
+    },
+    "duo-book-1": {
+      "caption": "Presavij ga kao <b>knjigu</b>",
+      "sub": "Ploča na jednoj stranici. Bilješke na drugoj."
+    },
+    "duo-table-1": {
+      "caption": "Podigni ga. <b>Način prijenosnika.</b>",
+      "sub": "Ploča položena pod rukama, rezultat gore."
+    }
+  }
+}

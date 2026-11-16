@@ -1,0 +1,3 @@
+"Play today's ${applicationName} puzzle" = "เล่นโจทย์วันนี้ของ ${applicationName}";
+"Open the ${applicationName} daily puzzle" = "เปิดโจทย์ประจำวันของ ${applicationName}";
+"${applicationName} daily puzzle" = "โจทย์ประจำวันของ ${applicationName}";

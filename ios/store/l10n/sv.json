@@ -1,0 +1,237 @@
+{
+  "locale": "sv",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Schackproblem",
+    "subtitle": "Problem som slår tillbaka",
+    "promotional_text": "Se gaffeln. Hitta matten. Överlev sviten. 53 000 problem från riktiga partier som blir svårare ju bättre du blir. Bonde i dag, kung en dag.",
+    "description": "Tror du att du ser tre drag framåt? Bevisa det.\n\nKing Walk kastar riktiga schackproblem på dig, 53 000 stycken, hämtade från verkliga partier. Lös ett och nästa blir tuffare. Missa ett och det backar. Efter några dussin problem vet spelet exakt hur bra du är. Sedan börjar det pressa dig.\n\nDu börjar som Bonde. Ta dig till Springare, Löpare, Torn och Dam. Når du Kung har du vandrat över hela brädet.\n\n• 53 000 problem från riktiga partier: gafflar, bindningar, spett och lömska mattsättningar på baslinjen\n• En rating som hittar din nivå och klättrar med dig\n• Ett dagligt problem, samma för alla. Håll sviten vid liv och skryt med emojier\n• Rangsviter: 15 problem, inga ledtrådar, en miss och du är ute\n• Utmana vänner i Game Center och avgör vem som verkligen är bäst\n• Fastnat? Ta en ledtråd. Vi säger inget till någon.\n• Missat ett? Det kommer tillbaka senare för en revansch\n• Stora, högljudda firanden varje gång du går upp i rang\n• Widgetar för hemskärmen, låsskärmen och Väntläge\n• En daglig påminnelse, om du vill\n• Haptik, mörkt läge, VoiceOver och större text\n• Fungerar offline. Inget konto, ingen reklam, inga köp i appen\n\nProblemen kommer från Lichess problemdatabas, som är allmän egendom. King Walk är inte gjort eller godkänt av Lichess.",
+    "keywords": "schack,taktik,schackmatt,matt i 2,elo,rating,träning,strategi,logik,gaffel,bindning,slutspel,dagligt"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Problemrating",
+        "suffix": " poäng",
+        "suffix_singular": " poäng"
+      },
+      "streak": {
+        "name": "Bästa svit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "hardest": {
+        "name": "Svåraste lösningen",
+        "suffix": " poäng",
+        "suffix_singular": " poäng"
+      },
+      "streak_p": {
+        "name": "Bondesvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "streak_n": {
+        "name": "Springarsvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "streak_b": {
+        "name": "Löparsvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "streak_r": {
+        "name": "Tornsvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "streak_q": {
+        "name": "Damsvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "streak_k": {
+        "name": "Kungssvit",
+        "suffix": " i rad",
+        "suffix_singular": " i rad"
+      },
+      "daily_streak": {
+        "name": "Daglig svit",
+        "suffix": " dagar",
+        "suffix_singular": " dag"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Första stegen",
+        "before": "Lös ett problem utan misstag och utan ledtrådar.",
+        "earned": "Du löste ditt första problem utan misstag och utan ledtrådar."
+      },
+      "solved_50": {
+        "name": "Femtio lösta",
+        "before": "Lös 50 problem utan misstag och utan ledtrådar.",
+        "earned": "Du löste 50 problem felfritt."
+      },
+      "solved_250": {
+        "name": "Taktikvana",
+        "before": "Lös 250 problem utan misstag och utan ledtrådar.",
+        "earned": "Du löste 250 problem felfritt."
+      },
+      "solved_1000": {
+        "name": "Tusen problem",
+        "before": "Lös 1 000 problem utan misstag och utan ledtrådar.",
+        "earned": "Du löste 1 000 problem felfritt."
+      },
+      "streak_5": {
+        "name": "På rulle",
+        "before": "Lös 5 problem i rad.",
+        "earned": "Du löste 5 problem i rad."
+      },
+      "streak_10": {
+        "name": "Tio i rad",
+        "before": "Lös 10 problem i rad.",
+        "earned": "Du löste 10 problem i rad."
+      },
+      "streak_20": {
+        "name": "Ostoppbar",
+        "before": "Lös 20 problem i rad.",
+        "earned": "Du löste 20 problem i rad."
+      },
+      "rank_knight": {
+        "name": "Springare",
+        "before": "Nå en problemrating på 700.",
+        "earned": "Du nådde rangen Springare: en problemrating på 700."
+      },
+      "rank_bishop": {
+        "name": "Löpare",
+        "before": "Nå en problemrating på 1000.",
+        "earned": "Du nådde rangen Löpare: en problemrating på 1000."
+      },
+      "rank_rook": {
+        "name": "Torn",
+        "before": "Nå en problemrating på 1300.",
+        "earned": "Du nådde rangen Torn: en problemrating på 1300."
+      },
+      "rank_queen": {
+        "name": "Dam",
+        "before": "Nå en problemrating på 1600.",
+        "earned": "Du nådde rangen Dam: en problemrating på 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Nå en problemrating på 1900.",
+        "earned": "Du nådde rangen Kung: en problemrating på 1900. Kungen har vandrat hela vägen upp."
+      },
+      "giant_slayer": {
+        "name": "Jättedödare",
+        "before": "Lös felfritt ett problem med en rating minst 300 över din.",
+        "earned": "Du löste felfritt ett problem med en rating minst 300 över din."
+      },
+      "clear_pawn": {
+        "name": "Bondesviten klar",
+        "before": "Klara Bondesviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Bondesviten: 15 problem i rad från 400 till 699, utan ledtrådar."
+      },
+      "clear_knight": {
+        "name": "Springarsviten klar",
+        "before": "Klara Springarsviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Springarsviten: 15 problem i rad från 700 till 999, utan ledtrådar."
+      },
+      "clear_bishop": {
+        "name": "Löparsviten klar",
+        "before": "Klara Löparsviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Löparsviten: 15 problem i rad från 1000 till 1299, utan ledtrådar."
+      },
+      "clear_rook": {
+        "name": "Tornsviten klar",
+        "before": "Klara Tornsviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Tornsviten: 15 problem i rad från 1300 till 1599, utan ledtrådar."
+      },
+      "clear_queen": {
+        "name": "Damsviten klar",
+        "before": "Klara Damsviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Damsviten: 15 problem i rad från 1600 till 1899, utan ledtrådar."
+      },
+      "clear_king": {
+        "name": "Kungssviten klar",
+        "before": "Klara Kungssviten: 15 problem i rad, utan ledtrådar.",
+        "earned": "Du klarade Kungssviten: 15 problem i rad från 1900 till 2300, utan ledtrådar."
+      },
+      "daily_3": {
+        "name": "Hattrick",
+        "before": "Lös dagens problem 3 dagar i rad.",
+        "earned": "Du löste dagens problem 3 dagar i rad."
+      },
+      "daily_7": {
+        "name": "Hel vecka",
+        "before": "Lös dagens problem 7 dagar i rad.",
+        "earned": "Du löste dagens problem 7 dagar i rad."
+      },
+      "daily_30": {
+        "name": "Trettio dagar",
+        "before": "Lös dagens problem 30 dagar i rad.",
+        "earned": "Du löste dagens problem 30 dagar i rad."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Svåraste lösningen",
+        "description": "Lös felfritt det högst rankade problem du klarar. Slå på Svårare i menyn för att få tuffare problem."
+      },
+      "streak_p_challenge": {
+        "name": "Bondesvit",
+        "description": "15 problem som klättrar från 400 till 699. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      },
+      "streak_n_challenge": {
+        "name": "Springarsvit",
+        "description": "15 problem som klättrar från 700 till 999. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      },
+      "streak_b_challenge": {
+        "name": "Löparsvit",
+        "description": "15 problem som klättrar från 1000 till 1299. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      },
+      "streak_r_challenge": {
+        "name": "Tornsvit",
+        "description": "15 problem som klättrar från 1300 till 1599. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      },
+      "streak_q_challenge": {
+        "name": "Damsvit",
+        "description": "15 problem som klättrar från 1600 till 1899. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      },
+      "streak_k_challenge": {
+        "name": "Kungssvit",
+        "description": "15 problem som klättrar från 1900 till 2300. Inga ledtrådar, och en miss avslutar sviten. Vem kommer längst?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Problem som <b>slår tillbaka</b>",
+      "sub": "Lös ett, nästa blir tuffare. Missa ett, det backar."
+    },
+    "2": {
+      "caption": "<b>53 000</b> problem från riktiga partier",
+      "sub": "Gafflar, bindningar, spett och lömska mattsättningar."
+    },
+    "3": {
+      "caption": "Fastnat? <b>Ta en ledtråd.</b>",
+      "sub": "Vi säger inget till någon."
+    },
+    "4": {
+      "caption": "Från Bonde till <b>Kung</b>. Kör!",
+      "sub": "Klättra i rang. Klara sviterna. Skryt."
+    },
+    "5": {
+      "caption": "Ett nytt problem <b>varje dag</b>",
+      "sub": "Samma för alla. Håll sviten vid liv."
+    },
+    "duo-book-1": {
+      "caption": "Vik den som en <b>bok</b>",
+      "sub": "Brädet på ena sidan. Anteckningar på den andra."
+    },
+    "duo-table-1": {
+      "caption": "Ställ upp den. <b>Laptopläge.</b>",
+      "sub": "Brädet plant under händerna, ställningen överst."
+    }
+  }
+}

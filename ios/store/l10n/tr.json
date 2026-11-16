@@ -1,0 +1,237 @@
+{
+  "locale": "tr",
+  "from_version": "1.0.2",
+  "listing": {
+    "name": "King Walk: Satranç Bulmacaları",
+    "subtitle": "Sana meydan okuyan bulmacalar",
+    "promotional_text": "Çatalı gör. Matı bul. Seriyi sürdür. Gerçek oyunlardan 53.000 bulmaca, sen geliştikçe zorlaşıyor. Bugün Piyon, bir gün Şah.",
+    "description": "Üç hamle ilerisini görebildiğini mi düşünüyorsun? Kanıtla.\n\nKing Walk sana gerçek satranç bulmacaları fırlatır: gerçek oyunlardan alınmış tam 53.000 bulmaca. Birini çöz, sonraki zorlaşır. Birini kaçır, biraz geri çekilir. Birkaç düzine bulmaca sonra ne kadar iyi olduğunu tam olarak bilir. Sonra da zorlamaya başlar.\n\nPiyon olarak başlarsın. At, Fil, Kale ve Vezir rütbelerini kazan. Şah'a ulaştığında bütün tahtayı yürümüş olursun.\n\n• Gerçek oyunlardan 53.000 bulmaca: çatallar, açmazlar, şişler ve sinsi son sıra matları\n• Seviyeni bulan ve seninle birlikte yükselen bir puan\n• Herkes için aynı olan günün bulmacası. Serini canlı tut, emojilerle hava at\n• Rütbe serileri: 15 bulmaca, ipucu yok, tek hatada elenirsin\n• Game Center'da arkadaşlarına meydan oku ve kimin gerçekten iyi olduğunu gör\n• Takıldın mı? İpucu al. Kimseye söylemeyiz.\n• Birini mi kaçırdın? Rövanş için daha sonra geri gelir\n• Her rütbe atladığında coşkulu, gürültülü kutlamalar\n• Ana ekran, kilitli ekran ve Bekleme modu için widget'lar\n• İstersen günlük bir hatırlatıcı\n• Titreşim, karanlık mod, VoiceOver ve daha büyük metin\n• Çevrimdışı çalışır. Hesap yok, reklam yok, uygulama içi satın alma yok\n\nBulmacalar, kamu malı olan Lichess bulmaca veritabanından gelir. King Walk, Lichess tarafından yapılmamıştır ve onaylanmamıştır.",
+    "keywords": "taktik,şah mat,2 hamlede mat,elo,puan,antrenman,strateji,zeka,mantık,çatal,açmaz,oyun sonu,günlük"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Bulmaca Puanı",
+        "suffix": " puan",
+        "suffix_singular": " puan"
+      },
+      "streak": {
+        "name": "En İyi Seri",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "hardest": {
+        "name": "En Zor Çözüm",
+        "suffix": " bulmaca puanı",
+        "suffix_singular": " bulmaca puanı"
+      },
+      "streak_p": {
+        "name": "Piyon Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "streak_n": {
+        "name": "At Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "streak_b": {
+        "name": "Fil Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "streak_r": {
+        "name": "Kale Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "streak_q": {
+        "name": "Vezir Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "streak_k": {
+        "name": "Şah Serisi",
+        "suffix": " bulmaca",
+        "suffix_singular": " bulmaca"
+      },
+      "daily_streak": {
+        "name": "Günlük Seri",
+        "suffix": " gün",
+        "suffix_singular": " gün"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "İlk Adımlar",
+        "before": "Bir bulmacayı hatasız ve ipucusuz çöz.",
+        "earned": "İlk bulmacanı hatasız ve ipucusuz çözdün."
+      },
+      "solved_50": {
+        "name": "Elli Bulmaca",
+        "before": "50 bulmacayı hatasız ve ipucusuz çöz.",
+        "earned": "50 bulmacayı hatasız çözdün."
+      },
+      "solved_250": {
+        "name": "Bulmaca Alışkanlığı",
+        "before": "250 bulmacayı hatasız ve ipucusuz çöz.",
+        "earned": "250 bulmacayı hatasız çözdün."
+      },
+      "solved_1000": {
+        "name": "Bin Bulmaca",
+        "before": "1.000 bulmacayı hatasız ve ipucusuz çöz.",
+        "earned": "1.000 bulmacayı hatasız çözdün."
+      },
+      "streak_5": {
+        "name": "Seri Başladı",
+        "before": "Üst üste 5 bulmaca çöz.",
+        "earned": "Üst üste 5 bulmaca çözdün."
+      },
+      "streak_10": {
+        "name": "Üst Üste On",
+        "before": "Üst üste 10 bulmaca çöz.",
+        "earned": "Üst üste 10 bulmaca çözdün."
+      },
+      "streak_20": {
+        "name": "Durdurulamaz",
+        "before": "Üst üste 20 bulmaca çöz.",
+        "earned": "Üst üste 20 bulmaca çözdün."
+      },
+      "rank_knight": {
+        "name": "At",
+        "before": "700 bulmaca puanına ulaş.",
+        "earned": "At rütbesine ulaştın: 700 bulmaca puanı."
+      },
+      "rank_bishop": {
+        "name": "Fil",
+        "before": "1000 bulmaca puanına ulaş.",
+        "earned": "Fil rütbesine ulaştın: 1000 bulmaca puanı."
+      },
+      "rank_rook": {
+        "name": "Kale",
+        "before": "1300 bulmaca puanına ulaş.",
+        "earned": "Kale rütbesine ulaştın: 1300 bulmaca puanı."
+      },
+      "rank_queen": {
+        "name": "Vezir",
+        "before": "1600 bulmaca puanına ulaş.",
+        "earned": "Vezir rütbesine ulaştın: 1600 bulmaca puanı."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "1900 bulmaca puanına ulaş.",
+        "earned": "Şah rütbesine ulaştın: 1900 bulmaca puanı. Şah tahtanın en ucuna kadar yürüdü."
+      },
+      "giant_slayer": {
+        "name": "Dev Avcısı",
+        "before": "Puanı seninkinden 300 veya daha fazla yüksek bir bulmacayı hatasız çöz.",
+        "earned": "Puanı seninkinden 300 veya daha fazla yüksek bir bulmacayı hatasız çözdün."
+      },
+      "clear_pawn": {
+        "name": "Piyon Serisi Tamam",
+        "before": "Piyon serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "Piyon serisini tamamladın: 400 ile 699 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "clear_knight": {
+        "name": "At Serisi Tamam",
+        "before": "At serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "At serisini tamamladın: 700 ile 999 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "clear_bishop": {
+        "name": "Fil Serisi Tamam",
+        "before": "Fil serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "Fil serisini tamamladın: 1000 ile 1299 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "clear_rook": {
+        "name": "Kale Serisi Tamam",
+        "before": "Kale serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "Kale serisini tamamladın: 1300 ile 1599 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "clear_queen": {
+        "name": "Vezir Serisi Tamam",
+        "before": "Vezir serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "Vezir serisini tamamladın: 1600 ile 1899 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "clear_king": {
+        "name": "Şah Serisi Tamam",
+        "before": "Şah serisini tamamla: Üst üste 15 bulmaca, ipucusuz.",
+        "earned": "Şah serisini tamamladın: 1900 ile 2300 arasında üst üste 15 bulmaca, ipucusuz."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Günün bulmacasını üst üste 3 gün çöz.",
+        "earned": "Günün bulmacasını üst üste 3 gün çözdün."
+      },
+      "daily_7": {
+        "name": "Tam Hafta",
+        "before": "Günün bulmacasını üst üste 7 gün çöz.",
+        "earned": "Günün bulmacasını üst üste 7 gün çözdün."
+      },
+      "daily_30": {
+        "name": "Otuz Gün",
+        "before": "Günün bulmacasını üst üste 30 gün çöz.",
+        "earned": "Günün bulmacasını üst üste 30 gün çözdün."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "En Zor Çözüm",
+        "description": "Çözebildiğin en yüksek puanlı bulmacayı hatasız çöz. Daha zorlarını görmek için menüden Daha zor seçeneğini aç."
+      },
+      "streak_p_challenge": {
+        "name": "Piyon Serisi",
+        "description": "400 ile 699 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      },
+      "streak_n_challenge": {
+        "name": "At Serisi",
+        "description": "700 ile 999 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      },
+      "streak_b_challenge": {
+        "name": "Fil Serisi",
+        "description": "1000 ile 1299 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      },
+      "streak_r_challenge": {
+        "name": "Kale Serisi",
+        "description": "1300 ile 1599 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      },
+      "streak_q_challenge": {
+        "name": "Vezir Serisi",
+        "description": "1600 ile 1899 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      },
+      "streak_k_challenge": {
+        "name": "Şah Serisi",
+        "description": "1900 ile 2300 arasında yükselen 15 bulmaca. İpucu yok, tek hata seriyi bitirir. En uzağa kim gidecek?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Sana <b>meydan okuyan</b> bulmacalar",
+      "sub": "Birini çöz, sonraki zorlaşır. Kaçır, biraz geri çekilir."
+    },
+    "2": {
+      "caption": "Gerçek oyunlardan <b>53.000</b> bulmaca",
+      "sub": "Çatallar, açmazlar, şişler ve sinsi matlar."
+    },
+    "3": {
+      "caption": "Takıldın mı? <b>İpucu al.</b>",
+      "sub": "Kimseye söylemeyiz."
+    },
+    "4": {
+      "caption": "Piyondan <b>Şah'a</b>. Hadi!",
+      "sub": "Rütbe atla. Serileri tamamla. Hava at."
+    },
+    "5": {
+      "caption": "<b>Her gün</b> yeni bir bulmaca",
+      "sub": "Herkes için aynı. Serini canlı tut."
+    },
+    "duo-book-1": {
+      "caption": "<b>Kitap</b> gibi katla",
+      "sub": "Bir sayfada tahta. Diğerinde notlar."
+    },
+    "duo-table-1": {
+      "caption": "Dik tut. <b>Dizüstü modu.</b>",
+      "sub": "Tahta ellerinin altında, skor yukarıda."
+    }
+  }
+}

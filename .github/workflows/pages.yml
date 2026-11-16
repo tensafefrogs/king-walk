@@ -33,13 +33,13 @@ jobs:
         run: |
           mkdir _site
           # the game, its pages, the brand and press kit, and the store images the press kit links to
-          cp -R index.html chess.js lang.js config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html 404.html .nojekyll p fonts icons brand press _site/
+          cp -R index.html chess.js lang config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html 404.html .nojekyll p fonts icons brand press _site/
           mkdir -p _site/ios/store _site/ios/KingWalk/Assets.xcassets
           cp -R ios/store/screenshots ios/store/header _site/ios/store/ && rm -rf _site/ios/store/screenshots/raw
           cp -R ios/KingWalk/Assets.xcassets/AppIcon.appiconset _site/ios/KingWalk/Assets.xcassets/
-          # the service worker serves puzzles, fonts and icons from its cache first: name the cache after their
-          # contents, so changing any of them makes returning players fetch the new ones
-          files=$(cd _site && find p fonts icons -type f | sort)
+          # the service worker serves fonts and icons from its cache first: name the cache after their contents, so
+          # changing any of them makes returning players fetch the new ones (puzzle chunks carry their own hash, ?v=)
+          files=$(cd _site && find fonts icons -type f | sort)
           hash=$(cd _site && cat $files | sha256sum | cut -c1-10)
           sed -i "s/const CACHE = \"king-walk-[^\"]*\"/const CACHE = \"king-walk-$hash\"/" _site/sw.js
           grep -q "king-walk-$hash" _site/sw.js && echo "service worker cache: king-walk-$hash"
@@ -87,7 +87,7 @@ jobs:
               ld = {'@context': 'https://schema.org', '@type': 'VideoGame', 'name': 'King Walk', 'url': site, 'image': site + 'og.png',
                     'description': 'Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level.',
                     'genre': ['Puzzle', 'Chess'], 'gamePlatform': ['Web browser', 'iOS'], 'applicationCategory': 'Game', 'operatingSystem': 'Any',
-                    'inLanguage': ['en', 'es', 'fr', 'de', 'it', 'pt-BR', 'pt-PT', 'nl', 'ru', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'ar', 'he'], 'isAccessibleForFree': True,
+                    'inLanguage': ['en', 'es', 'fr', 'de', 'it', 'pt-BR', 'pt-PT', 'nl', 'ru', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'ar', 'he', 'hi', 'mr', 'ur', 'bn', 'gu', 'pa', 'ta', 'te', 'kn', 'ml', 'or', 'th', 'tr', 'id', 'ms', 'vi', 'pl', 'cs', 'sk', 'sl', 'hr', 'uk', 'el', 'ro', 'hu', 'ca', 'sv', 'da', 'nb', 'fi'], 'isAccessibleForFree': True,
                     'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'}}
               html = open('_site/index.html').read()
               html = html.replace('</head>', '<script type="application/ld+json">' + json.dumps(ld) + '</script>\n</head>', 1)

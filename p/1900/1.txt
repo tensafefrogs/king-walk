@@ -1,0 +1,300 @@
+thpNR	3q4/1p2r2Q/2pp4/p5p1/k3P3/3P1N1P/2N2PP1/3R1K2 b - -	e7h7 f3d4 d8g8 d1a1 g8a2 a1a2	1940	endgame mate mateIn3
+LiHEP	5r1k/pQ4pp/2p3n1/8/3r3q/8/PP1B1PPP/3R1RK1 w - -	d2c3 h4f2 f1f2 d4d1 c3e1 d1e1 f2f1 e1f1	1992	deflection mate mateIn4 middlegame sacrifice
+H2QBA	r6k/7p/p2P4/4R3/1pp5/2r3P1/7P/3R3K b - -	c3d3 d1d3 c4d3 d6d7 d3d2 e5e8 h8g7 d7d8q d2d1q d8d1	1946	advancedPawn crushing endgame promotion
+81zmj	6k1/7p/3pq1pB/4b1P1/6K1/4Q3/8/5R2 w - -	g4h4 e6c4 f1f4 c4f4 e3f4 e5f4	1972	crushing endgame fork
+WgSo2	8/7p/1pp5/3p4/2kQ4/P1P4P/1q4PK/8 b - -	c4b5 c3c4 b5a6 d4b2	1959	crushing discoveredAttack endgame
+gfr6w	1r3rk1/1p3ppp/2p2n1q/2Np4/3P1PP1/7P/1QPB2P1/1R4K1 b - -	h6h4 d2e1 h4h6 g4g5 h6g6 g5f6	1937	advantage fork middlegame
+dsAYa	r1b1kb1r/pp1ppppp/2n5/2q5/3P1B2/1Pn2N2/P1QN1PPP/R3KB1R b KQkq -	c6d4 f3d4 c5d4 f4e3 d4f6 a1c1	1967	advantage defensiveMove opening
+XqbOh	5bk1/1p4p1/p7/3p2q1/3B4/PQ5P/1P3PP1/2rR2K1 w - -	d1c1 g5c1 g1h2 c1f4	1945	advantage endgame
+Rrbe0	rr3k2/3nppbp/1q1p2p1/1PpP2B1/4P1n1/1QN2N2/1P3PPP/R4RK1 w - -	f3d2 a8a1 f1a1 c5c4	1974	advantage middlegame
+0wqxA	8/5kr1/4P3/5PB1/5K1p/8/8/8 b - -	f7f8 g5h6 f8g8 h6g7	1980	crushing endgame pin
+ph8pv	q2r2k1/5r1p/1pb1pppQ/8/P7/3B3R/1PP2P1P/R5K1 w - -	d3g6 f7g7 h3g3 h7g6	1943	advantage intermezzo middlegame
+pcIiE	5r2/5pk1/p1p1rp1p/2Pp1Q2/1P4N1/P5qP/6P1/5RK1 b - -	g3a3 g4f6 a3e3 g1h1 e6f6 f5f6	1909	advantage endgame
+8XTbx	2k3r1/1pp2p2/p3p1r1/8/1P2Q2R/P1qP3P/2P2RP1/6K1 w - -	f2f7 g6g2 e4g2 c3e1 f7f1 g8g2 g1g2 e1h4	1965	advantage endgame fork intermezzo pin sacrifice
+3Z39o	3qr1k1/1r3ppp/p1N2n2/P2p4/1bp5/1PN4P/2PQ1PP1/R3R1K1 b - -	b4c3 c6d8 c3d2 e1e8 f6e8 d8b7	1967	crushing middlegame
+U6FxV	1r3rk1/pbp2pp1/1p1q2np/8/2BP4/2N2Q1P/PPP3P1/3RR1K1 w - -	d4d5 d6c5 f3f2 c5c4 e1e4 c4c5 f2c5 b6c5	1901	advantage fork middlegame
+wEz0e	3rkr2/1p2b1Qp/pq2b3/2p2p2/2B5/4P3/P1PR2PP/3R2K1 w - -	c4e6 d8d2 d1d2 b6e6	1952	crushing intermezzo middlegame
+IzaSd	r2q2k1/1p4p1/p2p1r2/2pb1PBp/8/6Q1/PPP3PP/3NR1K1 b - -	d5c6 e1e6 f6e6 g5d8	1943	advantage middlegame
+96rDM	8/6k1/7R/4N1K1/4P2p/5P1r/6n1/8 w - -	e5g6 h3g3 g5h5 h4h3	1906	advantage endgame
+ZJm6o	2k1Q3/pp5p/1q4p1/5p2/3N4/P5PP/3r1PK1/8 b - -	c8c7 d4b5 b6b5 e8b5	1937	crushing endgame
+rKYf6	2r3k1/1R5p/pB1p2p1/P2Pb2q/5p2/6Pb/1P3P1P/4R1KQ w - -	b7c7 c8c7 b6c7 f4f3	1964	advantage middlegame
+G4s8e	R1b2rk1/1pp3b1/3P1n2/1N1Pp2q/1P2Pp2/3Q1Pp1/4N1P1/4B1K1 w - -	d6c7 h5h2 g1f1 c8h3 a8f8 g7f8	1996	advantage middlegame
+IDiYG	r2q1rk1/p5p1/1p1n1p1p/2p1N3/4bPQ1/P1B4P/6P1/RN3RK1 w - -	e5g6 e4f5 g4g3 d6e4	1938	advantage middlegame
+fSGm0	8/3QB1k1/5q2/2P3p1/8/P4pP1/4rPK1/7R w - -	g2h3 f6h6 h3g4 e2e4 g4f3 h6h1	1999	endgame mate mateIn3
+KXjZw	2b2r1k/1p4p1/1qp3p1/2p1P3/2Q5/r1N5/1PP4P/1K3B1R b - -	f8e8 c4h4 h8g8 f1c4 c8e6 c4e6 e8e6 h4c4	1974	clearance crushing middlegame pin
+c9BR6	1k6/1p2Nppp/1p6/4r3/1P1r4/5KP1/R6P/R7 w - -	a2e2 e5e2 f3e2 d4e4 e2d3 e4e7	1920	advantage attraction endgame fork
+zbLrJ	r2q1rk1/pb1pbppp/1pn1p3/2p1N2n/3P4/2PBP1B1/PP1NQPPP/R3K2R b KQ -	h5g3 d3h7 g8h7 h2g3 h7g8 e2h5	1998	crushing discoveredAttack intermezzo kingsideAttack middlegame
+SciWB	8/3P1pkp/4n1p1/4P3/1P3R2/5P2/P2R3P/1K4q1 w - -	b1b2 g1e3 d7d8q e6d8	1944	advantage endgame fork
+TUfVf	4q1k1/pp1r2pp/5p2/1PP5/2B1bQ1P/P1B5/5PP1/6K1 b - -	e4d5 c5c6 b7c6 b5c6	1936	crushing endgame pin
+vjHzC	1r4k1/5pbp/3q2p1/4n3/5B2/7P/1N2QPP1/4R1K1 b - -	b8b2 e2b2 e5f3 g2f3	1913	advantage hangingPiece middlegame
+FvBf9	5rk1/p3R3/2p3pp/2Np1b2/3r4/7P/PPP3P1/R6K w - -	c5e6 d4e4 e7g7 g8h8 e6f8 h8g7	1902	advantage endgame
+EReOI	8/5k2/R2p3r/p2P2p1/Pp6/3PK3/8/8 b - -	f7f6 a6d6 f6g7 d6h6 g7h6 d5d6 b4b3 e3d2	1962	crushing defensiveMove endgame
+Yrwzk	4r3/4rpkb/p4p1n/1p1P1P1q/4P1pp/PP1BQ3/2P1R1PN/4R2K w - -	h2f1 h6f5 e4f5 e7e3	1936	advantage middlegame
+xjfHN	r1bq2k1/1pp3r1/2n4Q/p3p3/B1Pp4/B1n5/P5PP/3R1RK1 b - -	c3a4 f1f8 d8f8 a3f8 g8f8 h6h8 f8f7 d1f1	1963	advantage attraction exposedKing fork middlegame
+irjDL	5Q2/7p/1p4pk/2pB4/2Pq4/6bP/P4P2/6K1 b - -	h6h5 f8f3 h5h6 f3g3	1992	crushing endgame fork
+2MbBE	2r3k1/pp3ppp/2rp2b1/4p1b1/6P1/3P3P/PPP1BP2/NK1R3R b - -	e5e4 h3h4 g5f6 h4h5 e4d3 c2d3	1979	advantage middlegame
+2G6NB	2k4r/pp1nbpp1/1qp5/3pPB2/3P3P/1NP5/PP3P2/R1B1K2R b KQ -	h8h4 h1h4 e7h4 b3c5	1943	advantage middlegame
+AkbEk	1nr2rk1/5p1p/6p1/P1Q1P3/5P2/6P1/1q1pR1BP/3R2K1 w - -	c5d5 f8d8 d5d2 d8d2	1956	advantage middlegame
+lJV6W	1r6/7k/4p3/q2pPpNP/2b2P2/pPbpP3/P7/1K1Q2R1 b - -	h7h6 g5f7 h6h7 h5h6	1978	advantage middlegame
+tRiOn	r2q1rk1/p1p1ppbp/1p4N1/6B1/8/2PP2P1/P3PPbP/2RQ1RK1 b - -	g2f1 g6e7 g8h8 e7g6 f7g6 g5d8	1984	advantage discoveredAttack kingsideAttack middlegame
+An7xg	2r1r1k1/2qn1ppp/pp2p3/4P3/PBP5/2Q5/5PPP/3R1RK1 b - -	d7e5 b4d6 c7c4 c3e5	1909	advantage interference intermezzo middlegame
+k2KGp	5rk1/p3bpp1/3pq2p/2pNn3/4p3/P5P1/1P1QPP1P/2R1K1NR w K -	e2e3 e5d3 e1f1 e6d5	1944	advantage fork interference middlegame
+b9O0L	r4r1k/p3q1p1/1pnN3p/3Q1pN1/7P/8/PP3P2/2K4R b - -	a8d8 d6f7 f8f7 g5f7	1943	advantage fork middlegame
+qGl8C	r1bq3r/4bk1N/p1n2ppQ/1ppp4/5P2/3P2P1/PPP3BP/R1B1R1K1 w - -	h7g5 f6g5 g2d5 d8d5	1924	advantage middlegame
+3OiOL	3r3k/pp4p1/2p2q1b/2P1R2Q/1P2p3/P1R1P2P/6P1/7K w - -	c3c4 f6f1 h1h2 f1c4	1936	advantage endgame fork
+pak1K	r2q1rk1/ppp3pp/5B2/1B1p4/3N2b1/4P3/PPP2PPb/R2Q1RK1 w - -	g1h2 d8d6 f2f4 g4d1	1914	advantage fork middlegame
+YVBfR	6k1/1p3pp1/1p4b1/1Pp1p2p/r1B1P1Pq/2P2Q1P/5P2/3R2K1 w - -	g4h5 g6h5 c4f7 h5f7	1941	crushing endgame
+KXi7r	8/p3P1p1/3k1n1p/5PP1/7P/P2P1K2/8/8 b - -	f6e8 f5f6 g7f6 g5h6 d6e7 h6h7	1995	advancedPawn crushing deflection endgame
+yQNDR	8/p7/1p2b1kp/2p1qN2/4ppP1/P1Pr3P/1P2QP2/4R1K1 b - -	e6f5 e2d3 e4d3 e1e5	1937	crushing discoveredAttack endgame
+viazc	r3r1k1/pp3p2/5P1p/6p1/4p1Q1/2q5/P1P3PP/R4R1K b - -	a8d8 g4h5 d8d6 h5h6 d6f6 h6f6 c3f6 f1f6	1962	crushing endgame
+u5Nz6	1r3rk1/p2p1ppp/bq1Np3/4n3/8/Q1P2BP1/P3PP1P/R4RK1 w - -	a1b1 e5f3 e2f3 b6b1	1900	crushing middlegame
+cPCoU	5kr1/ppbq1p2/2p1pQn1/8/1PPP4/P5P1/4N1KP/1R3R2 w - -	f1f3 c7d8 f6f7 d7f7 f3f7 f8f7	1907	advantage middlegame
+qiayz	6k1/1p6/1pp2p1p/p5pP/PP1KP1P1/2P2P2/8/8 b - -	g8f7 b4a5 b6a5 d4c5 b7b5 a4b5	1983	crushing endgame
+upu4f	1r4k1/6pp/2r1p3/p1p1P1P1/2Np3P/1PnP1R2/1KP5/7R w - -	c4a5 c6a6 h1a1 b8a8 b3b4 c5b4	1933	crushing endgame quietMove
+rA2br	8/8/5pp1/7p/3k3P/3P4/4K1P1/8 b - -	g6g5 g2g4 h5g4 h4h5	1995	crushing defensiveMove endgame
+4PKPx	r1b5/ppQn1kp1/2p1pn2/4R1B1/3q4/5PP1/P5KP/4R3 b - -	f7g8 c7d8 g8h7 g5f6 d7e5 d8d4	1990	crushing kingsideAttack middlegame
+cW5Id	6k1/1R4p1/1pp1P3/3b3p/8/2B5/1P4r1/5K2 b - -	g2g6 b7b8 g8h7 e6e7 d5c4 f1f2	1941	advancedPawn advantage endgame
+GdYAy	2r1r1k1/pp3ppp/3b4/4Nbq1/3P4/2P5/PP2Q1PP/2KR1B1R w - -	e2d2 c8c3 b2c3 d6a3	1968	mate mateIn2 middlegame pin queensideAttack sacrifice
+qeFec	8/5p2/8/4p2p/Kpk1P2P/5P2/PP6/8 w - -	a2a3 b4b3 a4a5 c4d3 a5b4 d3c2 a3a4 c2b2	1984	crushing endgame
+qrFSM	8/8/1k2R3/p1r3p1/P1p3Pp/2K4P/8/8 b - -	b6c7 c3d4 c7d7 d4c5 d7e6 c5c4 e6e5 c4b5	1979	crushing endgame
+uwq6q	3r2k1/ppR2ppp/8/2b5/6B1/1P4P1/P1r2PKP/5R2 b - -	h7h6 b3b4 c2f2 f1f2 c5f2 g2f2	1924	advantage endgame
+84zZl	r1br2k1/ppp2p1p/4p1p1/4b3/2PN3q/4BB1P/P2Q1PP1/R4RK1 b - -	e5d4 e3g5 d4f2 f1f2 d8d2 g5h4	1905	crushing fork middlegame
+y8k0B	1k4r1/pp6/3pp1q1/8/5n2/2R2N1p/PPP1Q2P/3R3K w - -	e2f2 g6g2 f2g2 h3g2 h1g1 f4h3	1928	advancedPawn mate mateIn3 middlegame
+UE9OD	1r4k1/2r1q1pp/Q3b3/1pp1p3/4P3/2P3P1/PP3PBP/3RR1K1 w - -	d1d6 e6c8 d6b6 c8a6	1911	advantage middlegame
+GaWXE	1k1r4/p1pr4/BpQ3p1/4p2p/8/4P2P/Pq4P1/6K1 b - -	d7d1 g1h2 d1h1 h2h1 b2c1 c6c1	1973	crushing endgame
+ScuBM	8/7N/6p1/2p5/PnKpk3/1P4PP/8/8 w - -	h7g5 e4e3 g5e6 d4d3 e6c5 d3d2	1918	advancedPawn advantage defensiveMove endgame
+5YbAZ	r4qk1/2BR1pbp/1pp3p1/p7/P2p1Q2/1P1P3P/2P2PP1/6K1 w - -	c7b6 f8e8 d7d4 e8e1 g1h2 g7e5	1939	crushing endgame pin
+BUtSY	8/5k2/8/1r3ppR/4p3/6KP/1P4P1/8 w - -	h5g5 f5f4 g3f4 b5g5	1905	crushing discoveredAttack endgame
+cTnqn	r1bqr1k1/pp1pnp1p/6pB/2ppb3/2P1P3/2NB4/PP3PPP/1R1Q1RK1 w - -	c3d5 e7d5 c4d5 d8h4 f2f4 e5d4	1937	clearance crushing opening
+0SOjE	3r2k1/5p1p/4pbp1/p4bB1/2P5/1P4Pq/P2Q1P2/2R2RK1 w - -	d2e3 d8d3 g5f6 d3e3	1927	crushing middlegame
+xRZ0R	3r1r2/ppp3k1/1b5R/3n4/8/P3PN2/1P2KPP1/7R b - -	d5f6 f3e5 f8g8 h6g6 g7f8 g6f6	1984	crushing deflection exposedKing middlegame quietMove
+y3arA	r5k1/1p3ppp/4pb2/pqNp4/1P1P4/P2bP3/3N1PPP/2Q1K2R b K -	a5b4 a3a4 b5e8 c5d3	1914	advantage middlegame
+7lGk6	r1b2rk1/5ppp/p2q1b2/1pp4Q/5p2/P1PP4/BP3PPP/RN2R1K1 b - -	d6d3 h5f7 f8f7 e1e8	1923	kingsideAttack mate mateIn2 middlegame pin sacrifice
+tsojY	r2qk2r/pppb1pQp/3p1b2/1B6/4PPn1/2N5/PPP3PP/R1B2RK1 w kq -	b5d7 d8d7 g7g5 f6g5	1967	crushing opening trappedPiece
+y48gs	2rq1rk1/1b1p3p/pp1bpnpP/3n4/1P6/2P2NP1/1B3PB1/RN1Q1RK1 b - -	f6g4 d1d4 g4h6 c3c4	1976	advantage middlegame
+jb0st	rnbq1rk1/pp3ppp/2pb1n2/4N1B1/3Pp3/2N5/PPP1BPPP/R2QK2R w KQ -	c3e4 d6e5 d4e5 d8d1 a1d1 f6e4	1972	advantage discoveredAttack opening
+NKInt	8/ppN2kp1/4P2p/8/5r1b/8/PP5P/1K4R1 b - -	f7f8 e6e7 h4e7 c7e6 f8f7 e6f4	1992	advancedPawn crushing endgame fork
+pFPeH	r2q1bnr/pp3kpp/2n1Rp2/8/7B/1Q6/PP3PPP/RN4K1 b - -	c6d4 e6f6 f7e8 b3f7	1931	doubleCheck mate mateIn2 middlegame
+KTX51	8/8/5p2/3k1PpK/Pp5p/1P1P3P/8/8 w - -	h5g6 g5g4 h3g4 h4h3 g4g5 h3h2	1942	advancedPawn crushing endgame
+tnT55	3Q4/pr3ppk/2p1p1np/8/4P3/P1B5/1P2qPPP/3R2K1 w - -	f2f3 g6f4 d8d2 b7d7 d2e2 f4e2 g1f2 d7d1	1917	crushing endgame
+RrAyT	5rk1/p1p4p/2P1b3/4Pr2/3QNp2/6Pq/P6P/R4R1K w - -	e4f6 f8f6 e5f6 e6d5 d4d5 f5d5	1965	crushing middlegame sacrifice
+Qma8l	5r1k/ppQ1Nppp/2p5/4PNqn/8/4R3/PPP1KPPP/3r4 b - -	f8d8 f5d6 d1d6 e5d6	1942	advantage middlegame
+hGYuC	8/5k2/p4Ppp/4P3/1p2P3/3q3P/5Q1K/8 b - -	d3e4 f2a7 f7e6 a7e7 e6d5 e7b7	1989	crushing endgame
+jGMWj	r1b2rk1/1p3ppp/p2p4/3Nn1q1/4PR2/3B4/PPPQ2PP/5R1K b - -	e5g6 f4f7 f8f7 d2g5	1991	crushing discoveredAttack middlegame
+wTXWo	r4k2/pp6/8/6R1/3q2bQ/2N5/PPP3PP/6K1 w - -	g1f1 g4e2 c3e2 d4h4	1917	crushing discoveredAttack endgame
+JTrbt	r3k2r/ppnb1pbp/1n2p1p1/1P1pP3/3P1PPq/NBPQ3P/8/R1B1NRK1 b kq -	h7h5 g4g5 h4e1 f1e1	1994	crushing middlegame quietMove
+hObOP	3r2k1/6pp/1pq5/p3P3/3Pp3/P3Q3/1P1R2PP/6K1 w - -	g1f2 d8f8 f2g3 c6g6 g3h4 f8f5	1920	crushing endgame
+AFl6G	r7/2rk1p1p/1Rb1pq2/8/3p3P/6PB/3Q1P2/2R3K1 b - -	f6e5 b6c6 c7c6 c1c6	1941	advantage middlegame
+GPHH4	2b2k2/ppN3p1/3p1qB1/8/4P1n1/1Q2R1P1/P6r/1R4K1 w - -	b1f1 h2h1 g1h1 f6f1	1968	attraction deflection mate mateIn2 middlegame
+R4GMl	2k1r3/p1p2Q2/4r3/3q2p1/1Pnp4/3N3P/2P2PP1/RR4K1 w - -	a1a7 e6e1 b1e1 e8e1 d3e1 d5f7	1953	crushing middlegame
+KkVMB	3R4/1r4pp/8/4k3/1PK5/4p2P/6P1/8 w - -	g2g3 e5e4 d8e8 e4f3	1993	crushing defensiveMove endgame
+kO69e	4rr1k/1pp1b1p1/pn5p/3P2B1/3P3P/2N2qpQ/PP4R1/3R3K b - -	h6g5 h4g5 h8g8 g5g6 f3d1 c3d1	1975	advantage discoveredAttack middlegame
+XNPT2	6k1/R7/6p1/8/5p2/P1K2Pbp/2P5/8 w - -	a7d7 g3e1 c3c4 h3h2	1967	advancedPawn crushing endgame
+tez1R	3rr3/5pRk/p4P1p/1p6/3N4/1QP4P/PP2p2K/4q3 b - -	h7h8 g7h7 h8h7 b3f7 h7h8 f7g7	1960	attraction endgame exposedKing mate mateIn3 sacrifice
+IHR50	r2qr1k1/1p1n1ppp/1p3b2/8/2P3b1/1Q1B1N2/P2N1PPP/1R3RK1 w - -	h2h3 g4f3 d2f3 d7c5 d3h7 g8h7	1976	crushing middlegame
+ZFyvv	rnbq1rk1/1p2bppp/p4n2/2p1p3/2B1P3/2NP1N2/PPP3PP/R1B1QRK1 w - -	f3e5 d8d4 g1h1 d4e5 c1f4 e5h5	1904	advantage fork opening
+pRbZd	4r3/pp3p1k/1qp2prp/2bp1N2/P4P2/1PN1P1P1/2P1Q2P/3RR1K1 w - -	f5h4 e8e3 g1h1 e3e2	1900	advantage fork middlegame
+tkC6U	4rk2/ppp2ppp/8/4nb1Q/3p1q2/3P4/PPP1RPP1/4R1K1 b - -	f5g4 e2e5 f4e5 h5e5 e8e5 e1e5	1984	crushing middlegame
+muP6W	r4rk1/1pp2p1p/p1nb1qpB/8/2BPQ3/2N3P1/PPP3K1/7R b - -	f8e8 c3d5 f6d4 e4d4 c6d4 d5f6	1983	advantage middlegame
+aKtYb	8/8/8/p1p3k1/2P2r1P/P1K1N3/5P2/8 b - -	g5h4 e3g2 h4g5 g2f4 g5f4 c3b3	1924	crushing defensiveMove endgame fork
+taPUX	2r3k1/2q2ppp/2p5/4b3/8/4PbP1/PPQB1P1P/R4RK1 w - -	d2c3 c7d7 c2d1 f3d1	1946	advantage middlegame quietMove
+NyFZb	4r1k1/5pp1/3p3p/Q7/2Pq4/1P3P2/P3r1PP/R4R1K w - -	a1e1 d4f2 f1f2 e2e1 a5e1 e8e1 f2f1 e1f1	1917	backRankMate deflection endgame mate mateIn4 sacrifice
+C5FJ9	2kn4/6q1/pr6/2p1p2Q/2PpP3/P2P1N2/6r1/R2N1R1K w - -	h5h3 g2g4 d1f2 b6h6	1911	advantage defensiveMove middlegame pin
+fQubV	1rr3k1/5ppp/p1n1q3/3p4/1p1P4/2N2PQ1/PPPR2PP/2K4R w - -	h1e1 b4c3 e1e6 c3d2 c1d2 f7e6	1957	advancedPawn crushing middlegame queensideAttack
+I0jxg	2b1r3/4Pkpp/p2B1n2/1p1p4/8/P7/1qP1Q1PP/5R1K b - -	c8e6 e2h5 f7g8 h5e8 f6e8 f1f8	1933	deflection mate mateIn3 middlegame pin sacrifice
+SEfUM	5rk1/2p5/3ppq1p/6p1/PP2Pn2/1N2B3/2Q2nPP/4R1K1 b - -	f4h3 g2h3 f2h3 g1h1	1940	advantage middlegame
+FaQhQ	3r3r/k2q1pp1/Pp2p2p/3pQ1P1/8/8/1P3P1P/2R2RK1 b - -	a7a6 c1c7 d7c7 e5c7	1976	crushing endgame
+zPsnN	6k1/5pp1/Q3p2p/4P3/1q1p1P1P/b1r3P1/P2R4/K3R3 w - -	e1b1 b4b1 a1b1 c3c1	1948	attraction endgame mate mateIn2 sacrifice
+HfkjC	rnbqr1k1/ppb2ppp/2p2n2/3p2B1/8/1BPN1Q2/PP1N1PPP/R4RK1 b - -	c7h2 g1h2 f6g4 f3g4 c8g4 g5d8	1960	advantage hangingPiece middlegame
+Yk40q	2r5/2p1kBpp/5q2/p3N3/Pp2PP2/4Q1KP/1P4P1/2r5 b - -	c1c2 e3d3 f6d6 d3c2	1956	crushing endgame
+2Nduc	3r2k1/pp1q1ppp/3b4/3p2P1/3P4/P3BQ2/1PP2P2/4R1K1 w - -	e3f4 d7f5 f3e3 f5f4 e3f4 d6f4	1905	crushing endgame
+B3vM7	5rk1/P4pp1/4pn1p/1r5b/1bpP1B2/2N1P3/1P3PPP/R3K2R b KQ -	b5a5 a1a5 b4a5 f4b8	1950	advantage defensiveMove middlegame
+zAoGn	5r1k/1p1N1pp1/p2p1r1p/2p5/PP1nP2q/2Q4P/1B4R1/3R3K b - -	f6f3 c3f3 d4f3 b2g7	1924	crushing discoveredAttack middlegame sacrifice
+HvU9l	4q1k1/5p2/p2R1Pp1/1p2r3/2r1P2R/4Q3/P5PK/8 b - -	c4e4 h4h8 g8h8 e3h6 h8g8 h6g7	1964	attraction endgame mate mateIn3 sacrifice
+NAHz1	8/8/1p2K1Pk/1P6/3b3r/p7/6R1/1B6 b - -	d4a1 g6g7 a1g7 g2g6 h6h5 g6g7	1987	advancedPawn clearance crushing deflection endgame exposedKing
+JWYiD	r3r1k1/1ppb2q1/p2p1n1p/3P1p2/P1P2Q2/1P4B1/5N2/R3RBK1 w - -	f1e2 e8e2 e1e2 f6h5	1994	advantage middlegame sacrifice
+zHuSE	r4rk1/4nppp/2p5/q2pPb1Q/p2B4/P7/1PR1N1PP/5RK1 w - -	f1f5 g7g6 h5f3 e7f5	1991	crushing fork middlegame
+Swsru	r1bqk2r/p1pp1ppp/1p3n2/6B1/4P3/2NQ4/PPPK1bPP/R4B1R b kq -	f2c5 e4e5 f6e4 c3e4	1957	advantage middlegame
+QZ7dK	6rk/7p/3p4/pRb2P2/7P/P2B1qPK/2P4Q/8 w - -	b5a5 c5f2 a5a8 g8a8	1945	advantage endgame
+OmkAv	1k1q3r/1b5p/1p3p1b/2p5/8/R7/Q4PPP/R5K1 b - -	d8d5 a3a8 b7a8 a2a7 b8c8 a7a8 d5a8 a1a8 c8c7 a8h8	1967	advantage clearance deflection exposedKing middlegame sacrifice skewer
+CiOte	2r2bk1/5p2/2r1p1pB/3pP3/4n2Q/7R/q4PPP/5RK1 b - -	a2f2 f1f2 e4f2 g1f2 f8h6 h4h6	1964	crushing middlegame
+mRUKT	3r4/2n1kq2/4pN2/N2pPpr1/Pp6/1P3pP1/2B1bP2/R3K2R b KQ -	d8c8 a5c6 e7f8 h1h8 g5g8 h8g8 f7g8 f6g8	1962	crushing middlegame
+skXxn	rnbqkb1r/2p2ppp/1p2pn2/3pN3/3P4/8/PP2QPPP/RNB1KB1R b KQkq -	b8d7 e5c6 c8a6 e2a6 a8a6 c6d8	1924	advantage opening
+oX0tT	8/8/3k4/pp1P1p2/3K2p1/PP4P1/8/8 b - -	a5a4 b3b4 f5f4 g3f4 g4g3 d4e3 d6d5 e3f3 g3g2 f3g2 d5e4 g2g3 e4f5 g3f3	1919	crushing defensiveMove endgame quietMove zugzwang
+vOqP6	8/8/3kp2P/1K1p1p2/8/7P/1b3N2/8 b - -	e6e5 f2e4 d5e4 h6h7 e4e3 h7h8q	1979	advancedPawn crushing endgame promotion sacrifice
+oXPFD	r2q2k1/2p1rpbp/1p3np1/p7/P1P1N3/2N1PR2/1PQ3PP/3R2K1 b - -	e7d7 e4f6 g7f6 d1d7 d8d7 f3f6	1996	crushing fork middlegame
+VWvlz	r2r2k1/1pq1bppp/pQ2pn2/n7/2P5/2N1BN1P/PP3PP1/3R1RK1 b - -	a8c8 b6c7 c8c7 e3b6	1903	clearance crushing middlegame
+sX8V1	r1bq2k1/2p1r1bp/3p2p1/3Pp1N1/8/3R1N1P/P1Q2PP1/1R4K1 w - -	g5e6 c8e6 d5e6 e5e4	1906	advantage middlegame
+0GaJA	2rk1b1r/pp1bpppp/2n5/1B6/8/2P1BN2/P4PPP/3RK2R b K -	a7a6 b5c6 c8c6 f3e5	1939	crushing middlegame pin
+kCA3z	3rr1k1/pp3pbp/2bQ2p1/q2N3n/4P3/4B1PP/PP3PB1/R3R1K1 w - -	d6c7 d8d5 e4d5 a5c7	1928	capturingDefender crushing middlegame
+zBbgr	r3q1k1/pp3r1p/5ppQ/8/1BB5/1P1p3P/P1b2PP1/5RK1 b - -	a8d8 f1e1 e8e1 b4e1	1917	advantage middlegame pin
+lvg3J	8/1P6/N7/8/7p/4kp2/2B3pP/5K2 w - -	f1g1 h4h3 b7b8q f3f2	1931	advancedPawn endgame mate mateIn2
+veDLo	5r2/7k/R7/5q2/4p2p/4P2P/1P3P2/4Q2K w - -	a6a5 f5h3 h1g1 f8g8 a5g5 g8g5	1952	endgame exposedKing mate mateIn3
+GZFit	1r4k1/pb3ppp/1p1b1Q2/8/8/1NP1P3/PP2BPr1/3R1RK1 w - -	g1h1 g2h2 h1g1 h2h1	1992	doubleCheck kingsideAttack mate mateIn2 middlegame
+mfaJW	3r2k1/1q3p1p/3P2p1/Qp6/8/p4PP1/6KP/3R4 b - -	d8a8 d6d7 a8a5 d7d8q g8g7 d8a5	1946	advancedPawn crushing endgame fork promotion
+5heMC	4r1k1/2p5/p2P2p1/5pq1/3Q3p/7P/PPP1rRP1/R5K1 b - -	c7d6 f2e2 e8e2 d4c4 d6d5 c4e2	1974	attraction crushing endgame exposedKing fork
+UzWwl	r1b2Bk1/pp3ppp/1qp2b2/8/3N4/1nP3P1/P1P1QPBP/4R1K1 b - -	b3d4 e2e8 c8d7 e8a8	1977	crushing middlegame
+CrpJG	r4rk1/pp2qpB1/2np2pp/2pn1b2/2P5/1P2PBP1/P2P3P/2RQNRK1 b - -	d5e3 g7f8 a8f8 d2e3	1908	advantage intermezzo middlegame
+mqc2d	2r1r1k1/pp3p2/5n1p/3p1Q2/3q2pN/6P1/PP4PP/R4R1K b - -	g8g7 f5c8 e8c8 h4f5 g7g6 f5d4	1915	crushing fork middlegame sacrifice
+h3Y6G	r1b2rk1/p4ppp/2p1p3/6B1/4qRn1/1NP5/P1P3PP/R2Q3K b - -	e4g6 f4g4 e6e5 g4g3	1952	advantage defensiveMove hangingPiece middlegame
+bnSTJ	r1bqk2r/ppp2p1p/2np1np1/2b1p3/2B1P3/2NP1Q1P/PPP2PP1/R1B1K1NR b KQkq -	c8e6 c1g5 c6d4 f3f6 d8f6 g5f6	1957	crushing opening
+nx6Ct	r7/1pbk1pB1/2n1p2P/1p1p4/1P4P1/2P2R2/1PK5/8 b - -	c7e5 f3f7 d7d6 g7f8 a8f8 f7f8	1926	advantage endgame
+xxS89	3r1rk1/p1pn1ppp/1p3q2/8/3Q4/2N3P1/PPP2P1P/3RR1K1 w - -	c3b5 d7e5 d4c3 e5f3	1990	advantage middlegame quietMove
+RB2Oq	2r3k1/5p2/2pp2p1/pp1P1n2/8/1Q2nBPP/P3r3/6RK b - -	f5d4 b3d3 d4f3 d3e2 f3g1 e2e3	1974	advantage fork middlegame
+toZVh	r3k2r/pp2ppbp/2p1b1p1/q2NN3/3P1Pn1/3B4/PPPQ3B/1K1R3R b kq -	a5d2 d5c7 e8d8 c7e6 f7e6 d1d2	1930	crushing fork middlegame
+1U3Rd	8/5p2/8/2p2k1p/P1Prp3/2R1K3/8/8 b - -	d4d3 c3d3 e4d3 a4a5	1930	crushing defensiveMove endgame
+q3S0m	8/K7/3k4/2p1p2B/2P1Pp1P/5P2/3n4/8 w - -	h5g4 d2c4 h4h5 d6e7	1906	crushing defensiveMove endgame
+jadIX	r3kb1r/pp1b1ppp/2n1p3/qB4B1/3N4/1QP5/P4PPP/R4RK1 b kq -	c6d4 b5d7 e8d7 b3b7 a5c7 b7a8	1982	attraction crushing discoveredAttack fork middlegame
+1jtNM	3q1k1r/7p/p2pQb1N/1p2p3/4P3/8/PPr3PP/5R1K b - -	f8g7 e6f7 g7h6 f1f6 d8f6 f7f6	1925	crushing deflection middlegame
+wEWsa	3r1r1k/pp3Qpp/2p5/1P2PR2/P1p1P3/b1P4P/3q1BP1/5R1K w - -	f7f8 d8f8 f5f8 a3f8 f2e3 d2d8	1976	crushing defensiveMove middlegame
+9uuZy	2b2r1k/2r1qpp1/7p/pB5Q/8/4PR1P/PPP3PK/3R4 w - -	b5d3 c7c5 d3f5 e7e5 h2g1 c8f5	1909	crushing middlegame
+Kw6ag	3r1r1k/pp2R1pp/2q5/6p1/8/1Q4PP/PPP5/1KR5 b - -	d8d7 b3f7 c6f6 f7f6 g7f6 e7d7	1956	crushing endgame
+TSiwQ	r1b1r1k1/4bppp/pppp1n2/4p3/1PP1Pnq1/P1NP1N2/1Q3PPP/R1BBR1K1 w - -	g2g3 f4d3 b2c2 d3e1	1988	advantage fork opening
+cwp4V	8/4NQp1/6nk/3p3p/P5q1/6P1/r4P2/5RK1 b - -	g6e5 e7g8 h6h7 g8f6	1943	crushing endgame pin
+c0RgF	r4r2/5p1k/p1ppqRp1/6Qp/2p4P/2P5/PP6/K5R1 b - -	e6e5 f6f7 f8f7 g5g6 h7h8 g6f7	1939	attraction crushing endgame fork sacrifice
+AQy7T	r2qkb1r/1b2pnp1/p1n1B2p/8/3p1P2/5N2/PP4PP/R1BQ1RK1 b kq -	d8d6 e6f7 e8f7 d1b3 f7e8 b3b7 a8b8 b7a6	1905	advantage attraction fork opening
+EyQum	8/1p1k4/1p1pRK2/1r1P4/4P3/8/8/8 b - -	b5b1 e6e7 d7d8 f6e6	1951	crushing endgame
+oU29d	8/4Bkpp/pKpP4/4p3/8/8/P1r3PP/8 b - -	e5e4 b6c7 f7e6 d6d7 c2d2 d7d8q d2d8 e7d8	1900	advancedPawn advantage endgame promotion
+Y393C	5rk1/p3bppp/4p3/3p3N/8/qrP1RQ2/1P3PPP/1R4K1 w - -	h5g7 b3b2 b1f1 g8g7 f3g4 g7h8 e3g3 e7f6	1980	advantage intermezzo middlegame
+yfQhd	rn1qk1n1/pp2b2r/2b1p1p1/4P1Bp/2pP1Q2/2P4B/PP4PP/RN3RK1 b q -	e7g5 f4f8 e8d7 f8d6	1947	advantage fork middlegame
+mbQwQ	8/1p5k/p3PQp1/P7/8/6KP/8/4q3 w - -	g3f4 e1f2 f4e5 f2b2 e5d6 b2f6	1923	crushing deflection endgame skewer
+ragqh	1r4k1/6bp/2n3p1/4pp2/2p5/BrPP1qPP/2Q2P1K/R2R2N1 b - -	c4d3 c2b3 b8b3 g1f3	1948	advantage middlegame
+MD3Ls	rn1qk2r/pb3ppp/2pbp3/3n4/B7/5Q2/PPPPNPPP/RNB2RK1 w kq -	d2d3 d8h4 e2g3 h4a4	1963	advantage opening
+nUxKG	5rk1/1pp2pp1/1p5p/3r2q1/5RP1/P1PP1Q2/1P4KP/5R2 b - -	f7f6 h2h4 g5e5 f4f5 e5f5 g4f5	1919	advantage endgame
+SPcWz	4r1k1/1p3ppp/8/p3qNB1/1b4n1/RBN5/1PP2PPP/2Q3K1 w - -	a3a1 e5h2 g1f1 h2h1	1927	kingsideAttack mate mateIn2 middlegame
+U2TWp	r4rk1/ppq1bppp/8/3Qp3/4P3/1P6/1PP3PP/2KR1B1R w - -	f1c4 a8d8 d5b5 a7a6	1967	advantage middlegame
+GlDwa	5brk/P2Q2p1/3p1p1p/3qpP2/2p5/7R/6PP/5RK1 w - -	h3a3 d5c5 g1h1 c5a3 d7b7 f8e7	1955	crushing defensiveMove endgame fork
+c0Frm	r2q1rk1/1pp3b1/2npP1pp/3Npp2/1BP1n3/5B2/P4PPP/1R1QR1K1 b - -	e4c5 b4c5 d6c5 b1b7	1949	advantage capturingDefender discoveredAttack middlegame
+HEw8e	4rk2/pp4pp/5p2/3R4/2B5/1N2PK2/P5Pq/3R4 w - -	d5d7 h2h5 f3f2 h5h4 f2g1 h4c4	1909	crushing endgame fork
+GYztH	5rk1/p4p1p/1qpN1Qp1/8/2b1P3/4R3/P1r2PPP/3R2K1 b - -	c4a2 d6f5 c6c5 f5h6	1911	mate mateIn2 middlegame quietMove
+z7oCw	r1bqkr1Q/p4pQ1/2n1p3/4P3/8/b1p5/P1p2PP1/R1B1K2R w KQq -	c1a3 d8d2 e1f1 d2d1 a1d1 c2d1q	1931	advancedPawn mate mateIn3 middlegame promotion
+xWKR2	8/4k3/np1p2K1/pBpP4/P1P5/P7/8/8 b - -	a6b4 a3b4 a5b4 a4a5 b4b3 b5a4 b3b2 a4c2	1937	clearance crushing defensiveMove endgame
+QY1K2	1r1q1rk1/2pn1ppp/3p4/p1pN4/P3PBQ1/1P1P4/2P3PP/R5K1 b - -	g7g6 g4d7 d8d7 d5f6 g8g7 f6d7	1953	attraction crushing fork middlegame sacrifice
+WDFuH	8/8/8/1p1kp2p/p5pP/P3P3/1P2K1P1/8 w - -	g2g3 d5e4 e2d2 e4f3	1952	crushing endgame zugzwang
+CVxSh	r4rk1/3p1p1p/1qp2Rp1/p4nB1/8/2N5/PPP1Q1PP/R5K1 w - -	g1f1 b6b2 a1e1 b2c3	1971	advantage fork middlegame
+dcVbq	2rr4/6k1/1p5p/p6q/P1PpQB2/1P5b/7K/6R1 b - -	g7f7 e4h7 f7e6 g1g6	1936	advantage middlegame
+h91c7	r2qk2r/2p2pp1/p1p2b1p/3pp3/4P1b1/3PBN2/PPPN1P2/R2QR1K1 w kq -	d2f1 d5e4 f1h2 g4f3 h2f3 e4f3	1939	advantage opening
+AqqzB	r3k1r1/pppb1p1p/3p1p2/8/4PP2/7P/PPP3P1/2KR1BR1 b q -	d7h3 g2h3 g8g1 f1b5 e8e7 d1g1	1992	crushing discoveredAttack endgame sacrifice
+n71X0	2rq1k2/p5pp/1p6/3BRp2/b2P1P2/b1P3B1/P2K2PP/1R6 b - -	a4c6 e5f5 f8e8 b1e1 e8d7 f5f7	1979	advantage middlegame
+S5Yo1	4r2k/1pp3r1/3p1bq1/6Bp/P4P1P/4p3/R1b1B1P1/4QR1K b - -	c2d3 e2d3 g6d3 g5f6	1914	crushing middlegame pin
+wmQQY	1qkr4/pp1n2p1/2p5/1N1p1pp1/Q2P3r/P3P2P/1P3PP1/1KR4R b - -	a7a6 c1c6 b7c6 a4a6 b8b7 b5d6	1925	crushing deflection middlegame queensideAttack sacrifice
+knE0N	rq3rk1/3bb1pp/p3p3/3pPp2/1P1Q1N2/P4N2/5PPP/2R2RK1 b - -	f8c8 f4d5 e6d5 d4d5 g8f8 d5d7	1962	crushing fork middlegame
+fgJwo	r1b3k1/pp4p1/2p2qnb/4p2Q/1PP3P1/PK3N2/8/1B1R4 b - -	g6f4 h5e8 f6f8 b1h7	1964	crushing kingsideAttack middlegame
+eh2Zz	rnb4k/p6n/1b3r1R/4Q3/1P6/P1pq3P/5P2/K5R1 b - -	d3d8 h6h7 h8h7 e5h5 f6h6 h5f7 h7h8 f7g7	1913	attraction exposedKing mate mateIn4 middlegame pin sacrifice
+vijNx	6k1/pp2rppp/2qb4/2p1n3/3p4/3P2P1/PPPB1P1P/R2QR1K1 w - -	d2g5 e5f3 d1f3 e7e1 a1e1 c6f3	1961	advantage deflection discoveredAttack fork intermezzo middlegame
+FMSv5	2QB2k1/1q3p1p/3b2p1/8/8/1p3QPK/pN2r2P/R7 b - -	b7f3 d8e7 g8g7 c8f8	1989	discoveredAttack mate mateIn2 middlegame
+7dYym	r2qk2r/p1ppbppp/np2p3/3nP3/8/5N2/PPPB1PPP/RN1QK2R b KQkq -	d7d6 c2c4 d5b4 d2b4 a6b4 d1a4 c7c6 a4b4	1978	advantage fork opening
+Y1HZg	4rrk1/1R3p1p/6p1/p3b3/2p5/3RBPP1/P3P2P/5K2 w - -	d3a3 e5d6 a3c3 d6b4	1960	advantage endgame
+yKxij	3k1r2/p5pp/8/4Q3/8/8/PP1NbqPP/R1B3RK w - -	d2f1 f2g1 h1g1 f8f1	1904	attraction discoveredAttack mate mateIn2 middlegame
+iRsXW	r3k2r/ppq2ppp/1b3n2/3pn3/1P4b1/2P2N2/P2NBPPP/R1BQR1K1 b kq -	e8g8 f3e5 c7e5 e2g4 e5c3 a1b1	1948	advantage defensiveMove discoveredAttack middlegame
+1lxbO	1r2r1k1/p4p2/b1p2npp/8/3p4/1P4qP/P1Q1PNB1/BRR3K1 w - -	c2c6 a6b7 c6b7 b8b7	1921	crushing middlegame pin
+pZVlu	8/2k4p/3p4/3P1K2/1P6/8/8/8 w - -	f5e6 h7h5 e6f5 c7b6 f5g5 b6b5 g5h5 b5b4	1951	crushing endgame quietMove
+RV7cd	r1b2rk1/ppp1qp2/5npb/4N2p/2B1PP2/2N5/PPPQ3P/2K3RR b - -	e7e5 g1g6 g8h7 g6h6 h7h6 f4e5	1988	crushing discoveredAttack kingsideAttack middlegame pin
+OARvn	8/6p1/p2k1p2/Pp6/3K1PP1/2P5/8/8 w - -	d4e4 d6c5 e4f5 c5c4 f5g6 c4c3 g6g7 b5b4 f4f5 b4b3 g4g5 b3b2 g5f6 b2b1q	1983	advancedPawn crushing endgame promotion quietMove
+FkbUK	8/2p5/p1b3kp/5p2/2p2P2/2P1K1NP/PP6/8 b - -	h6h5 h3h4 c6d5 e3d4	1991	crushing endgame quietMove
+6NDAL	2k5/1p3p2/p1p2q2/P3p3/2BR1b2/7b/1PP1QP2/4R1K1 w - -	e2f3 f4h2 g1h2 f6f3	1922	advantage discoveredAttack middlegame
+4030k	r3k2r/1b1n1pp1/pp1Pp2p/2p1N1qn/3P3b/2PB1N2/PP3PPP/R2Q1RK1 b kq -	b7f3 d1f3 e8g8 e5d7	1926	crushing middlegame
+8cKlc	3r1rk1/pp3ppp/8/2Q1B3/3n3q/8/PP3PPP/3RR1K1 b - -	b7b6 d1d4 h4d4 c5d4 d8d4 e5d4	1951	crushing middlegame
+lPGoV	6k1/2p1Qp1p/5np1/4p3/2N5/1PqrP3/5PPP/5RK1 b - -	f6d5 e7e8 g8g7 c4e5 c3e5 e8e5	1913	advantage endgame
+8J0Rp	4rk2/p5pQ/1p1Pqp1p/2pR4/4r2P/6P1/PP1R1P1K/8 b - -	e6g8 h7e4 e8e4 d6d7 f8f7 d7d8q g8d8 d5d8	1960	advancedPawn crushing endgame promotion sacrifice
+9IFf8	1r2r1k1/pppnqpbp/3p1np1/6B1/3Pp1P1/2PBPQ1P/PP1N1P2/2KRR3 w - -	g5f6 d7f6 d2e4 f6e4 d3e4 e7e4 f3e4 e8e4	1926	advantage middlegame
+d0U6l	4rrk1/1p1q3p/p2p2pb/P2Pp3/1NP1Q2P/2B2nP1/5PK1/R3R3 w - -	e1d1 f8f4 g3f4 d7g4	1969	crushing middlegame sacrifice
+AbKzH	6k1/1R2R3/3K1r2/7p/7P/5P2/4r3/8 w - -	d6d7 e2e7 d7e7 f6f7 e7e6 f7b7	1920	attraction crushing endgame skewer
+pPFv2	2k5/p1p1Bppp/1p2p3/2P1Pb2/8/4P3/4rPPP/3R2K1 b - -	f5c2 d1d8 c8b7 g1f1 c2d3 d8d3	1917	advantage endgame
+frG1a	8/1Q6/p4bpk/1p3p1p/1P6/P5NP/4RPPK/1qr5 w - -	b7b8 h5h4 b8d6 h4g3	1917	advantage endgame
+Yqrg9	r2q1rk1/2pbn1bp/4p1p1/pp6/1n1P1B2/2NBPN2/PP3PP1/1QKR3R w - -	h1h7 b4d3 b1d3 g8h7 d1h1 h7g8	1989	advantage intermezzo middlegame
+jL8wD	8/4k3/2r1p2p/1pN2pp1/3P1K2/P1P5/1P4P1/4R3 w - -	f4e5 c6d6 c5e6 d6e6 e5f5 e6e1	1925	crushing endgame skewer
+0guNr	2r2r2/p7/1p1k1p2/q2p1Q2/5P2/3N4/PP6/1K2R3 b - -	f8e8 f5f6 d6c7 f6f7 c7b8 e1e8	1964	crushing endgame
+xNhxj	4r3/3QPkp1/2np3p/p7/5r1B/P2B4/1P3RqP/K7 b - -	f4f2 d3c4 d6d5 c4d5 g2d5 d7d5	1905	crushing fork middlegame
+XAVns	r3k2r/pppb1ppp/2n2q2/2b5/2B1p3/1QP5/PP1PN1PP/R1B1KR2 b Qkq -	c6a5 c4f7 e8d8 b3d5	1961	crushing middlegame
+9QKaL	3r1r1k/1bq3pp/p3Q3/2p5/1pPn1b2/1P3N2/PB1N1P1P/RB1R2K1 w - -	e6h3 d4f3 d2f3 d8d1	1905	crushing discoveredAttack kingsideAttack middlegame
+AslZu	2k4r/4qpp1/p2p4/1p1R2P1/2n1P3/4B3/PPP1Q3/2K5 w - -	e2g4 e7e6 g4e6 f7e6	1917	crushing defensiveMove endgame
+JCTcP	3R4/4r2p/pQ6/1p1Bp1b1/kP6/P6P/2P2q2/1K6 b - -	f2b6 b1a2 b6e3 d5b3 e3b3 c2b3	1932	endgame mate mateIn3
+uB3vR	r7/p5kp/2pq2p1/2pp1bQ1/6n1/3P2N1/PPP2PPP/4R1K1 b - -	d6f6 g3h5 g7f7 h5f6	1988	crushing middlegame pin
+luJTi	r1b2rk1/ppp1npp1/3p1q1p/1B2bP2/3nP1Q1/2N4R/PPPB2PP/R6K b - -	g8h7 d2g5 d4b5 g5f6 e5f6 c3b5	1962	advantage middlegame pin
+q4wIp	4Q3/1p3rk1/p3pp1p/3b4/P2P1N2/5pP1/5P1P/1q3BK1 b - -	d5c4 f4h5 g7g6 e8g8 g6f5 g3g4	1991	crushing endgame
+pJN4K	r1b2qk1/pp1n3p/4p1p1/3pBrQP/8/1B6/PPP2PP1/RN2K2R w KQ -	h5g6 f5e5 g5e5 d7e5	1926	crushing fork middlegame
+FosbS	4b3/8/4p3/3pNk2/2pP2pp/PpP1P3/1P3PK1/8 b - -	e8g6 e5g6 f5g6 a3a4 g6f5 a4a5 f5e4 a5a6	1968	crushing endgame quietMove
+55zUb	5k2/1R3p1p/6p1/p2p4/3P1n2/P1Pb1Pq1/6PN/3Q3K w - -	d1d2 d3e2 d2f4 g3f4	1994	advantage endgame
+y2QGn	1r4k1/p2p1ppp/2p1p3/4P3/q7/3Q1N2/P4PPP/2KR4 w - -	d3d7 a4c4 c1d2 b8b2 d2e3 b2e2	1985	endgame exposedKing mate mateIn3 queensideAttack
+s1Q9a	1q1R4/4Pk2/5P1p/6pP/2p1N1P1/rrP5/KP6/3R4 w - -	b2a3 b3a3 a2a3 b8b3	1939	attraction endgame mate mateIn2 sacrifice
+GMCcp	4r1k1/pp1b2pp/1n1p4/3P1p2/2P1r1q1/1P3NP1/P2Q1PBP/R2R2K1 w - -	f3d4 e4d4 d2d4 e8e1 d1e1 g4d4	1956	advantage deflection middlegame sacrifice
+zBCmM	r4rk1/1qp1bppp/2bp1n2/2p3N1/4P3/PP1B3P/1B3PP1/R2Q1RK1 w - -	b2f6 e7f6 g5h7 f6a1	1934	advantage fork middlegame
+XtkCe	4rrk1/5ppp/p1pb4/1p1n3q/3PR3/1BP2bP1/PP1N1PQP/R1B3K1 w - -	e4h4 e8e1 g2f1 e1f1	1929	crushing kingsideAttack middlegame
+M6Sco	1r1q1r2/p3pk1p/6p1/1pn1PnN1/8/3Q4/PPPR1PPP/5RK1 b - -	f7g8 d3h3 h7h6 d2d8	1966	advantage discoveredAttack middlegame
+LfzSD	2r2rk1/pp2b1p1/1qn1pn1p/1B1p4/3P3B/2NQ4/PPP3PP/3R1RK1 b - -	b6d4 d3d4 c6d4 d1d4 e7c5 h4f2 c5d4 f2d4	1917	advantage middlegame quietMove
+hQ9bF	br1q1r1b/8/ppnNkPpp/2p1P3/6Q1/P2Pp2P/1PP3B1/R4RK1 b - -	e6e5 d6c4	1995	mate mateIn1 middlegame
+6atsl	8/6p1/5p1p/4kP1P/3p2P1/3K4/2P5/8 w - -	d3c4 e5e4 c4c5 d4d3 c2d3 e4d3	1943	crushing endgame zugzwang
+oWNy8	3r2k1/p4ppp/1b1rq3/8/2PB4/3R2P1/5P1P/Q2R2K1 b - -	e6c4 d4b6 d6d3 b6d8	1948	advantage middlegame
+jroKa	1k1r3r/ppp2ppp/5n2/5Nq1/QnP3B1/5P1P/PP5P/R4RK1 b - -	g7g6 f3f4 g5f5 g4f5	1922	crushing middlegame trappedPiece
+iqeKU	3rq1k1/pp5p/2n3pb/4Pb2/2P2n2/P1Q2N2/1K1N1PPP/3R1B1R w - -	g2g3 f4d3 f1d3 d8d3 d2e4 d3c3	1961	advantage middlegame
+mjbJn	1r3rk1/5p1p/1qb1pbp1/p2pN3/3P4/2PB2P1/P3QPK1/R6R b - -	c6b5 d3b5 b6b5 e2b5 b8b5 e5d7	1907	advantage middlegame
+PyETK	r2qkb1r/p2pB1pp/b1p1pp2/p3N3/2NP4/4PQ2/2P2PPP/1R3RK1 b kq -	d8e7 e5c6 d7c6 f3c6	1939	advantage middlegame
+6tyA5	8/2N5/8/1p1p4/1Pk2PK1/P1n5/8/8 w - -	g4g5 d5d4 f4f5 d4d3 f5f6 c3e4 g5g6 e4f6 g6f6 d3d2	1992	advancedPawn crushing endgame quietMove sacrifice
+l0kmh	r4rk1/pppn1ppp/3q4/3Nb3/5B2/5Q2/PP3PPP/R2R2K1 b - -	c7c6 d5b6 a7b6 d1d6	1982	advantage discoveredAttack middlegame
+HkmcH	r3r1k1/ppp2pp1/3n2p1/2n5/3q4/P1N1NP2/1P3QPP/3RR1K1 b - -	d4f6 e3d5 e8e1 d1e1 c5d3 d5f6	1927	advantage middlegame
+SJcHh	2r1r1k1/p4pp1/1p1qpn1p/8/1PB5/PQ2PP1P/2R2P2/2R3K1 b - -	d6e5 c4e6 c8c2 e6f7 g8f8 c1c2	1949	advantage fork middlegame sacrifice
+NmsQN	r1bq1rk1/p2nbpp1/1p5n/3Bp3/8/2N1PN2/PPQ2P1P/R3K1R1 b Q -	a8b8 c2g6 e7f6 g6h6	1994	crushing middlegame pin
+EpR2Z	2k5/8/4p1P1/p2p4/2pP2K1/2Pq1PQ1/8/8 w - -	g6g7 d3f5 g4h4 f5h7 h4g5 h7g7	1975	crushing endgame interference
+W38u1	4Qbk1/1p4pp/8/6P1/P1qPb2P/1N2B3/2r2P2/R2K2R1 w - -	b3d2 e4f3 d2f3 c4e2	1988	mate mateIn2 middlegame sacrifice
+Kfpkt	5r2/1p5k/3R3p/p3P3/7P/1P3rPq/PQ1R1P2/6K1 w - -	e5e6 f3g3 f2g3 f8f1	1932	clearance endgame mate mateIn2 sacrifice
+fADr5	8/8/8/1p3ppp/1Pk5/P3PP1P/3K4/8 w - -	e3e4 f5e4 f3e4 c4d4 a3a4 b5a4	1935	crushing endgame
+94LpV	r3q1n1/p5p1/2p3k1/1pQ5/8/6n1/PP1P1PPP/R1B1R2K w - -	h2g3 e8e1 h1h2 g8f6 c5c2 g6f7	1900	crushing defensiveMove hangingPiece middlegame quietMove
+MHr5M	r1b1k2r/pp2nppp/4p3/3pP3/1b1q1P2/P1N5/1PQ3PP/R1B1KB1R b KQkq -	b4c5 c3b5 d4e4 c2e4	1924	advantage opening
+RYFsZ	r1br2k1/ppq1b1p1/3Np2p/5p2/3QNP2/2P5/PP4PP/R1BR2K1 w - -	d4c4 c7c4 d6c4 d8d1	1986	crushing opening
+ndKZT	3r2k1/pb3p1p/1p4p1/2pn2N1/2B5/1P5P/P4PP1/3R2K1 b - -	a7a6 g5e4 g8g7 e4c3 d5c3 d1d8	1918	advantage endgame
+TXWJy	2r2rk1/5ppp/p3p3/1p5P/3R2Q1/q7/5PP1/3R2K1 b - -	c8c4 h5h6 g7g6 d4c4 b5c4 g4d4	1991	clearance crushing endgame pin
+zvEaV	8/3q1p1k/1pr3p1/p3Q2P/P2PR3/2P5/8/6K1 w - -	h5g6 c6g6 g1f2 d7h3	1958	advantage endgame
+CvOxo	6k1/1R4p1/5p2/1p5p/3BP2P/5P1K/1r4P1/5n2 b - -	b2b3 e4e5 f6e5 d4e5 g7g6 b7g7 g8f8 g7g6	1935	advantage endgame
+iYePa	3r2k1/p1p2p1p/5pq1/4b3/2p1N2P/1PPr1RP1/P3QP2/R5K1 b - -	e5c3 e4c3 d3f3 e2f3 d8d3 f3a8	1967	crushing middlegame
+JYkgE	6k1/5pp1/Q1p4p/5r2/4N3/8/PPP3PP/4qBK1 b - -	e1e4 a6c8 g8h7 c8f5 e4f5 f1d3	1911	crushing endgame pin sacrifice
+5M8Jh	2r2rk1/pp3pp1/1q2p2p/3pP3/2nP2Q1/2PB3P/PP4P1/1R3RK1 w - -	f1f6 c4e5 g4g3 e5d3	1962	crushing middlegame pin
+xloFF	1r6/p1p3kp/2pqR1p1/3p4/6Q1/1P1B2P1/P1P2r1P/7K b - -	d6f8 e6g6 g7h8 g4d4	1951	crushing endgame
+DWghl	6rk/pppr1qp1/3p1p1p/5Q1R/4PR2/2PP3P/P1P3P1/6K1 b - -	d7e7 f4h4 e7e5 h5h6 g7h6 h4h6 h8g7 h6h7 g7f8 h7f7	1933	advantage endgame kingsideAttack quietMove sacrifice skewer
+YAoHQ	2r2rk1/qb2bppp/p3pn2/P7/1pBN4/1P2P3/1B2QPPP/R1R3K1 b - -	f6e4 d4e6 f7e6 c4e6 g8h8 e6c8	1985	crushing fork middlegame
+jAYQg	4r1k1/1p4q1/p2bb3/4pp1Q/8/PP1B1P1P/2P1KP2/R7 b - -	g7f7 a1g1 g8f8 h5h6 f8e7 g1g7	1986	advantage exposedKing middlegame pin
+SKtIA	4r1k1/pp4q1/2p1rbp1/2Pp2Qp/PP6/3B3P/4R1P1/4R2K w - -	g5g6 g7g6 d3g6 e6e2 e1e2 e8e2	1930	crushing middlegame
+5shuO	6k1/6bp/p2pp1p1/1p1n1p2/1PqP4/PN1QPN1P/5PP1/6K1 w - -	d3d1 d5c3 f3d2 c3d1 d2c4 b5c4	1960	crushing endgame
+VX6Iw	8/pp6/4k1p1/5pK1/3p2pP/PP1P2P1/8/8 b - -	e6f7 h4h5 g6h5 g5f5 h5h4 f5g4 h4g3 g4g3	1971	crushing deflection endgame
+zowBM	r2q1r2/ppk2pbp/3p2p1/3Pp3/6B1/5Q2/PPP2PPP/1K1R3R w - -	d1d3 f7f5 d3c3 c7b8	1913	advantage defensiveMove middlegame
+z0z85	5rk1/2QR1ppp/p3P3/8/4qN2/2P2b1P/5P2/6K1 w - -	d7f7 e4e1 g1h2 e1f2 f4g2 f2g2	1955	deflection endgame mate mateIn3
+E4OTL	3r1rk1/pp2qp2/6B1/n3Pp2/5P1P/P1Pp2Q1/8/R3K1R1 b Q -	f7g6 g3g6 g8h8 g1g5 f8f7 g5h5 f7h7 h5h7 e7h7 g6f6 h7g7 f6d8	1938	crushing exposedKing fork middlegame
+f3gaE	8/8/1p1k4/p5pp/P1P2p2/2K2P1P/6P1/8 w - -	c3d3 d6c5 h3h4 g5h4 d3c3 h4h3 g2h3 h5h4 c3b3 c5d4	1985	crushing endgame quietMove zugzwang
+4DCBN	1r4k1/pN4bp/6p1/4pb2/8/2B2P2/7P/2KR2NR w - -	b7d6 g7h6 f3f4 h6f4 d1d2 b8b1	1951	exposedKing mate mateIn3 middlegame pin
+CBw37	2r3r1/4qp1k/p2p3n/1pnPp2Q/2p1P3/2P1PR1P/PPB3P1/5RK1 b - -	g8g7 f3f6 e7f6 f1f6	1945	crushing middlegame
+CuVV9	6k1/2q3pp/p2n1p2/2p1p3/2P2P2/4B1P1/Pr4Q1/3R3K b - -	d6c4 g2d5 c7f7 d5a8 f7f8 d1d8	1941	clearance crushing endgame fork pin
+J5g62	r4r1k/p4pRp/8/3p3p/8/P4Q2/1q3P2/6RK b - -	f8g8 g7h7 h8h7 f3h5	1976	attraction endgame mate mateIn2 sacrifice
+P5ETB	8/1p3k2/2p2p2/P1Pp2p1/1P1P3p/5P1P/3Q2PK/5q2 w - -	g2g3 h4g3 h2g3 f1g1 d2g2 g1d4	1993	attraction crushing deflection endgame
+BiNpl	r1b1kb1r/p1p2ppp/2p5/3p4/1q2nN2/2P3P1/PP2QPBP/R1B1K2R b KQkq -	b4b5 e2b5 c6b5 f4d5	1960	capturingDefender crushing opening
+5yfkV	2R5/5p2/N1k3p1/5q2/1K1B4/8/8/8 b - -	c6b7 c8c7 b7a6 c7a7	1916	endgame mate mateIn2 sacrifice
+Iw0ld	8/8/4ppp1/p7/Pk1PKPP1/8/8/8 w - -	f4f5 e6f5 g4f5 g6g5 d4d5 b4c5	1972	crushing endgame quietMove
+DNiAy	8/4kppp/4p3/R3P3/N2pbPP1/bP5P/P1rBK3/8 w - -	a4b6 c2d2 e2d2 a3b4	1967	attraction crushing endgame sacrifice
+nbpqh	8/1k3pp1/3Kp2p/1P2P3/5PP1/7P/8/5n2 b - -	f1h2 d6e7 g7g5 f4g5 h6g5 e7f7	1955	crushing endgame
+QZ9ZA	1k6/1pp3p1/p3B3/5PP1/7p/1P4n1/2P5/1K6 b - -	h4h3 f5f6 h3h2 e6d5 g7f6 g5f6 g3e2 f6f7	1928	advancedPawn crushing endgame
+bcOAl	2k1r3/ppp1r1p1/3q2b1/P6p/RP1p3P/4PPP1/4Q1K1/2B1R3 w - -	e3e4 g6e4 f3e4 e7e4 e2e4 e8e4	1993	advantage middlegame
+CPSca	1Q6/5ppk/p3pn2/8/4P3/5PPp/PP2NK1P/7q w - -	b8f4 h1h2 f2e3 h2g2 f4h4 h7g8	1995	crushing defensiveMove endgame
+xoWzZ	r1bq1rk1/npp1bppp/p2p1n2/3P2B1/1P2R3/2PQ1N2/P1B2PPP/RN4K1 b - -	f6e4 d3e4 f7f5 e4e7 d8e7 g5e7	1925	advantage middlegame
+kNAF5	3r1q2/p1QP4/1p4pk/4R1Np/6rP/5p1K/P4P2/8 w - -	c7d8 g4h4 h3h4 f8f4 h4h3 f4g4 h3h2 g4g2	1987	attraction endgame fork mate mateIn4 sacrifice
+qb63J	r2q1k2/pp3p1Q/2pb3p/7b/2B2n2/2N4P/PPP2PP1/4R1K1 b - -	d8g5 h7h8 g5g8 h8h6 g8g7 h6d6	1949	crushing deflection fork middlegame
+Cxn9n	3r1rk1/pp3pp1/7p/2p1P2Q/q2P3R/Pb4R1/1P4PP/7K b - -	d8d4 g3g7 g8g7 h5h6 g7g8 h6g5	1994	attraction kingsideAttack mate mateIn3 middlegame sacrifice
+vmPpp	7r/1p1rkppp/pn2p3/1P2Pn2/3P4/5N1P/B1R2PP1/1R4K1 b - -	f5d4 f3d4 d7d4 b5a6	1960	advantage middlegame
+DGe7H	r6k/1bp1p2p/p2qp1p1/1p2b1N1/5r2/1B4P1/PPP1QP1P/R4RK1 b - -	d6c6 e2e5 f4f6 f2f3	1920	crushing defensiveMove fork hangingPiece middlegame
+Z7R6D	4r1k1/4qpbp/6p1/3Q4/1Pp5/6NP/BP2nPP1/R4K2 w - -	g3e2 e7e2 f1g1 e2b2 a1b1 b2a2	1976	crushing middlegame
+3vkQN	8/p7/5p2/2PP1b1p/5P1P/Pk2K3/8/8 b - -	b3a3 c5c6 a3b4 d5d6 b4c5 d6d7	1988	advancedPawn crushing endgame
+z6khP	3r3r/5pk1/Q2p1b1p/3P2p1/P1NqP3/6P1/3Nb1PP/2R2R1K w - -	f1e1 d4d2 c4d2 e2a6	1976	advantage middlegame
+tus27	2k3r1/3q4/p2b4/1p1p1p2/4p2Q/1R2P2P/2P2PP1/1R5K w - -	b1a1 d7g7 a1g1 g8h8 h4h8 g7h8	1976	crushing endgame trappedPiece
+evwhu	4r1k1/Q6p/3p1pp1/1P1q4/5P2/P6P/6P1/R5K1 w - -	a3a4 e8e2 a7b8 g8g7	1961	crushing defensiveMove endgame
+JdR2J	6k1/5p2/p3b3/3p1BP1/3N1BP1/4R1KP/1q1r4/8 w - -	d4e6 d2g2 g3h4 b2h8 f5h7 h8h7	1972	endgame mate mateIn3
+FmWTW	6k1/5p2/p1b2r1p/2pP1Bp1/8/5Q2/1q3PPP/4R1K1 b - -	b2d2 e1d1 c6d5 f3d5 d2d5 d1d5	1968	advantage endgame xRayAttack
+gzPDV	3R4/8/5r1P/8/4p3/4k3/7K/8 w - -	d8h8 e3f2 h2h3 e4e3 h3g4 e3e2 h8e8 f6h6	1988	advancedPawn crushing endgame
+Xhct1	3k4/ppp4p/5N2/8/4P3/2bn4/PPq1BKPP/R1B2R2 w - -	f2g1 c3d4 g1h1 c2e2	1983	advantage middlegame
+ykiAy	1k6/1P5P/6K1/8/8/8/6p1/1R5r w - -	g6g7 h1b1 h7h8q b8b7	1930	crushing endgame
+XR62p	r2q1rk1/pp1n1p2/2p1p1p1/3n2P1/3PN3/3Q4/PPP2PP1/2KR3R b - -	g8g7 h1h7 g7h7 d3h3 h7g8 d1h1 d8g5 e4g5	1966	attraction crushing middlegame quietMove sacrifice
+0cUEX	r7/pp3pk1/6p1/8/3r1nPK/1BN5/PP5P/R4R2 w - -	f1f2 a8h8 h4g3 h8h3	1993	mate mateIn2 middlegame
+LdvUA	rn3r2/2q2pkp/p4np1/1p6/1P1Q4/1PN2N1P/5PP1/R3K2R b KQ -	b8c6 d4f6 g7f6 c3d5 f6g7 d5c7 a8a7 c7d5	1921	advantage attraction defensiveMove fork middlegame sacrifice
+OF2rL	1n2k2r/r1q2pp1/4pb1p/1P5R/7P/2N1Q3/PP3PP1/R5K1 b k -	f6c3 b5b6 c7b7 b6a7	1953	advancedPawn crushing fork middlegame
+NnsJY	3Q4/p6p/2bP1bp1/2p3k1/2B5/2q5/4RP1P/5K2 w - -	d8c8 c3c1 e2e1 c1c4	1969	crushing endgame fork
+DnWTC	r1b2rk1/pp4pp/1qn1pb2/3p4/1P1P4/P2BPN2/6PP/RN1Q1RK1 w - -	f3e5 c6e5 d4e5 b6e3	1930	crushing kingsideAttack middlegame
+MIxuC	5r2/2p3rk/1p2pq1b/p2p3p/3PpP1P/2P1P1RQ/PPB1bN1K/R7 w - -	a1g1 h6f4 c2e4 d5e4 e3f4 f6f4	1976	crushing middlegame pin
+6c2pB	r1b1k1nr/p2p1pQp/1p5B/2b5/3qP3/8/P1P3PP/RN1K1B1R w kq -	f1d3 g8h6 g7d4 c5d4	1906	crushing middlegame
+7m9m4	rk4Br/pppR2pp/3b4/2q1pQ2/8/8/PPP3PP/5R1K b - -	h8g8 f5f8 g8f8 f1f8 d6f8 d7d8	1973	backRankMate mate mateIn3 middlegame sacrifice
