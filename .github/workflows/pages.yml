@@ -53,8 +53,14 @@ jobs:
               try:
                   r = json.load(urllib.request.urlopen('https://itunes.apple.com/lookup?id=' + cfg['appStoreId'], timeout=20))
                   cfg['appLive'] = r.get('resultCount', 0) > 0
+                  print('App Store lookup: ' + str(r.get('resultCount', 0)) + ' result(s)')
               except Exception as e:
                   print('App Store lookup failed:', e)
+          # Apple's public lookup can lag a day behind a release: App Store Connect's own state, which the App Store
+          # release workflow writes to ios/store/status.md, counts too
+          if not cfg['appLive'] and os.path.exists('ios/store/status.md'):
+              cfg['appLive'] = bool(re.search(r'\| (READY_FOR_DISTRIBUTION|READY_FOR_SALE) \|', open('ios/store/status.md').read()))
+              print('App Store Connect status: ' + ('on sale' if cfg['appLive'] else 'not on sale yet'))
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
           # link previews need absolute addresses: the site's, when it's set
