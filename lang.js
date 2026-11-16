@@ -2,6 +2,13 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "King Walk for iPhone and iPad": "King Walk para iPhone y iPad",
+    "Widgets, daily reminders and iCloud sync": "Widgets, recordatorios diarios y sincronización con iCloud",
+    "Get": "Obtener",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "No te pierdas ni un día: la app te lo recuerda y pone el problema de hoy en tu pantalla de inicio.",
+    "Keep your streak going: the app can remind you every day.": "Mantén tu racha: la app puede recordártelo cada día.",
+    "In the app ›": "En la app ›",
+    "In the app, progress follows you between your devices with iCloud.": "En la app, tu progreso te sigue entre tus dispositivos con iCloud.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "El código es abierto, con licencia MIT. El nombre King Walk, el icono, las piezas y las ilustraciones son originales de este juego; todos los derechos reservados.",
     "Press kit": "Kit de prensa",
     "Copy save code": "Copiar código de guardado",
@@ -301,6 +308,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "King Walk for iPhone and iPad": "King Walk pour iPhone et iPad",
+    "Widgets, daily reminders and iCloud sync": "Widgets, rappels quotidiens et synchronisation iCloud",
+    "Get": "Obtenir",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Ne manquez aucun jour : l'app vous le rappelle et met le problème du jour sur votre écran d'accueil.",
+    "Keep your streak going: the app can remind you every day.": "Gardez votre série : l'app peut vous le rappeler chaque jour.",
+    "In the app ›": "Dans l'app ›",
+    "In the app, progress follows you between your devices with iCloud.": "Dans l'app, votre progression vous suit d'un appareil à l'autre avec iCloud.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Le code est open source, sous licence MIT. Le nom King Walk, l'icône, les pièces et les illustrations sont propres à ce jeu ; tous droits réservés.",
     "Press kit": "Kit presse",
     "Copy save code": "Copier le code de sauvegarde",
@@ -600,6 +614,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "King Walk for iPhone and iPad": "King Walk für iPhone und iPad",
+    "Widgets, daily reminders and iCloud sync": "Widgets, tägliche Erinnerungen und iCloud-Sync",
+    "Get": "Laden",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Keinen Tag verpassen: Die App erinnert dich und zeigt die Tagesaufgabe auf deinem Home-Bildschirm.",
+    "Keep your streak going: the app can remind you every day.": "Halte deine Serie: Die App kann dich jeden Tag erinnern.",
+    "In the app ›": "In der App ›",
+    "In the app, progress follows you between your devices with iCloud.": "In der App folgt dir dein Fortschritt mit iCloud auf alle deine Geräte.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Der Code ist Open Source unter der MIT-Lizenz. Der Name King Walk, das Icon, die Figuren und die Grafiken sind eigens für dieses Spiel gestaltet; alle Rechte vorbehalten.",
     "Press kit": "Pressemappe",
     "Copy save code": "Speichercode kopieren",
@@ -899,6 +920,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "King Walk for iPhone and iPad": "King Walk per iPhone e iPad",
+    "Widgets, daily reminders and iCloud sync": "Widget, promemoria giornalieri e sincronizzazione iCloud",
+    "Get": "Ottieni",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Non saltare un giorno: l'app te lo ricorda e mette il problema di oggi nella schermata Home.",
+    "Keep your streak going: the app can remind you every day.": "Mantieni la serie: l'app può ricordartelo ogni giorno.",
+    "In the app ›": "Nell'app ›",
+    "In the app, progress follows you between your devices with iCloud.": "Nell'app i tuoi progressi ti seguono su tutti i tuoi dispositivi con iCloud.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Il codice è open source con licenza MIT. Il nome King Walk, l'icona, i pezzi e le illustrazioni sono originali di questo gioco; tutti i diritti riservati.",
     "Press kit": "Cartella stampa",
     "Copy save code": "Copia codice di salvataggio",
@@ -1198,6 +1226,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "King Walk for iPhone and iPad": "King Walk para iPhone e iPad",
+    "Widgets, daily reminders and iCloud sync": "Widgets, lembretes diários e sincronização com o iCloud",
+    "Get": "Obter",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Não perca nenhum dia: o app lembra você e coloca o problema de hoje na sua Tela de Início.",
+    "Keep your streak going: the app can remind you every day.": "Mantenha sua sequência: o app pode lembrar você todo dia.",
+    "In the app ›": "No app ›",
+    "In the app, progress follows you between your devices with iCloud.": "No app, seu progresso acompanha você entre seus dispositivos com o iCloud.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "O código é aberto, sob a licença MIT. O nome King Walk, o ícone, as peças e as ilustrações são originais deste jogo; todos os direitos reservados.",
     "Press kit": "Kit de imprensa",
     "Copy save code": "Copiar código de salvamento",
@@ -1497,6 +1532,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "King Walk for iPhone and iPad": "King Walk voor iPhone en iPad",
+    "Widgets, daily reminders and iCloud sync": "Widgets, dagelijkse herinneringen en iCloud-synchronisatie",
+    "Get": "Download",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Mis geen dag: de app herinnert je eraan en zet de puzzel van vandaag op je beginscherm.",
+    "Keep your streak going: the app can remind you every day.": "Houd je reeks vast: de app kan je er elke dag aan herinneren.",
+    "In the app ›": "In de app ›",
+    "In the app, progress follows you between your devices with iCloud.": "In de app gaat je voortgang met iCloud mee naar al je apparaten.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "De code is open source onder de MIT-licentie. De naam King Walk, het icoon, de stukken en de illustraties zijn eigen werk voor dit spel; alle rechten voorbehouden.",
     "Press kit": "Perskit",
     "Copy save code": "Opslagcode kopiëren",
@@ -1796,6 +1838,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "King Walk for iPhone and iPad": "King Walk для iPhone и iPad",
+    "Widgets, daily reminders and iCloud sync": "Виджеты, ежедневные напоминания и синхронизация через iCloud",
+    "Get": "Загрузить",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Не пропускайте ни дня: приложение напомнит и покажет задачу дня на экране «Домой».",
+    "Keep your streak going: the app can remind you every day.": "Сохраните серию: приложение может напоминать вам каждый день.",
+    "In the app ›": "В приложении ›",
+    "In the app, progress follows you between your devices with iCloud.": "В приложении прогресс переходит между вашими устройствами через iCloud.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "Код открыт по лицензии MIT. Название King Walk, значок, фигуры и иллюстрации созданы для этой игры; все права защищены.",
     "Press kit": "Пресс-кит",
     "Copy save code": "Скопировать код сохранения",
@@ -2095,6 +2144,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "King Walk for iPhone and iPad": "iPhone・iPad版 King Walk",
+    "Widgets, daily reminders and iCloud sync": "ウィジェット、毎日のリマインダー、iCloud同期",
+    "Get": "入手",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "毎日を逃さない:アプリがお知らせし、今日のパズルをホーム画面に表示します。",
+    "Keep your streak going: the app can remind you every day.": "連続記録を守ろう:アプリが毎日お知らせできます。",
+    "In the app ›": "アプリで ›",
+    "In the app, progress follows you between your devices with iCloud.": "アプリなら、進行状況がiCloudでデバイス間に引き継がれます。",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "コードはMITライセンスのオープンソースです。King Walkの名前、アイコン、駒、イラストはこのゲームのオリジナルで、無断転載を禁じます。",
     "Press kit": "プレスキット",
     "Copy save code": "セーブコードをコピー",
@@ -2394,6 +2450,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "King Walk for iPhone and iPad": "iPhone 및 iPad용 King Walk",
+    "Widgets, daily reminders and iCloud sync": "위젯, 매일 알림, iCloud 동기화",
+    "Get": "받기",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "하루도 놓치지 마세요: 앱이 알려 주고 오늘의 퍼즐을 홈 화면에 보여 줘요.",
+    "Keep your streak going: the app can remind you every day.": "연속 기록을 지키세요: 앱이 매일 알려 줄 수 있어요.",
+    "In the app ›": "앱에서 ›",
+    "In the app, progress follows you between your devices with iCloud.": "앱에서는 진행 상황이 iCloud로 모든 기기에 이어져요.",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "코드는 MIT 라이선스의 오픈 소스예요. King Walk라는 이름, 아이콘, 기물, 그림은 이 게임만의 것으로, 모든 권리를 보유해요.",
     "Press kit": "보도 자료",
     "Copy save code": "저장 코드 복사",
@@ -2693,6 +2756,13 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "King Walk for iPhone and iPad": "适用于 iPhone 和 iPad 的 King Walk",
+    "Widgets, daily reminders and iCloud sync": "小组件、每日提醒和 iCloud 同步",
+    "Get": "获取",
+    "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "一天也不错过：App 会提醒你，并把今日谜题放到主屏幕上。",
+    "Keep your streak going: the app can remind you every day.": "保持连续记录：App 可以每天提醒你。",
+    "In the app ›": "在 App 中 ›",
+    "In the app, progress follows you between your devices with iCloud.": "在 App 中，进度会通过 iCloud 在你的设备之间同步。",
     "The code is open source under the MIT license. The King Walk name, icon, pieces and artwork are original to this game, all rights reserved.": "代码以 MIT 许可证开源。King Walk 的名称、图标、棋子和美术作品为本游戏原创，保留所有权利。",
     "Press kit": "媒体资料",
     "Copy save code": "复制存档码",
