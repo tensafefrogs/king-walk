@@ -417,6 +417,17 @@ html.fold-h.daily .progress { display: block; }
 .play-btns.run #hintBtn, .play-btns.run #answerBtn { display: none; }
 .play-btns.run #endRunBtn { display: inline-flex; }
 .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+/* the iPhone app, on the website (Promo): a slim bar for browsers without Safari's App Store banner, and quiet lines */
+.appbar { display: flex; align-items: center; gap: 10px; padding: 8px max(12px, env(safe-area-inset-right, 0px)) 8px max(12px, env(safe-area-inset-left, 0px)); background: var(--card); border-bottom: 1px solid var(--line); animation: rise var(--t-in) var(--ease-out) both; }
+.appbar img { width: 38px; height: 38px; border-radius: 9px; flex: none; }
+.appbar div { flex: 1; min-width: 0; font: 600 14px/1.25 var(--font-display); }
+.appbar div span { display: block; font: 600 12.5px/1.3 var(--font-body); color: var(--muted); }
+.appbar a.btn { flex: none; text-decoration: none; }
+.appbar .tip-x { flex: none; }
+html.fold-h .appbar, html.fold-v .appbar { display: none; }
+.cele-app { margin: 10px 22px 0; font: 600 13.5px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 0.3s ease-out both; }
+.cele-app a { color: var(--p-teal); font-weight: 800; text-decoration: none; white-space: nowrap; }
+.app-only { font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; white-space: nowrap; }
 .links a { color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
 .links a:hover { text-decoration: underline; }
 .done-btns #shareRankBtn { width: auto; flex: none; }
@@ -1417,7 +1428,7 @@ function closePromo(soft) {
 async function nextPuzzle() {
   const gen = ++puzzleGen, resume = first || resumeMain;
   resumeMain = false;
-  clearTimers(); closePromo();
+  clearTimers(); closePromo(); promoBar();
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
@@ -1728,6 +1739,7 @@ function celebrate(ids) {
       const daily = /^daily_/.test(id) && dailyDone(me(), dayNumber()) ? dailyShareText(dayNumber(), title) : "";
       const t = daily || "\u2654 King Walk \u00b7 " + title + "\n" + body + (SHARE_URL ? "\n" + SHARE_URL : "");
       track("share/award"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} } });
+  if (/^daily_/.test(id)) promoLine("streak", T("Keep your streak going: the app can remind you every day."));
 }
 /* Today's puzzle is done: a card that says so, with the result, when the next one comes, and Share there (not a
    share sheet straight away). From the Daily button, and from the widgets, Siri, Control Center and reminders. */
@@ -1740,6 +1752,7 @@ function showDailyDone() {
     text: ["\u23f1 " + fmtTime(r.t) + (st >= 2 ? "  \u00b7  \ud83d\udd25 " + T("{n} days in a row", { n: st }) : ""),
            T("Come back tomorrow for the next one"), T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })].filter(Boolean),
     onShare: sh => shareProgress(sh, { daily: { n } }) });
+  promoLine("daily", T("Never miss a day: the app reminds you and puts today's puzzle on your Home Screen."));
 }
 
 /* ---------- the daily puzzle ----------
@@ -2316,16 +2329,71 @@ $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecent
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 $("remindRow").hidden = !(APP && APP.reminders);
-/* the website, on an Apple device, once the app is on sale (the website build checks: CONFIG.appLive): one quiet line */
-if (!APP && CONFIG.appStoreId && CONFIG.appLive && /^(iphone|ipad|mac)$/.test(PLATFORM)) {
-  $("appPromo").hidden = false; $("appLink").href = "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId);
-  $("appLink").addEventListener("click", () => track("app-promo"));
+/* ---------- the iPhone app, on the website ----------
+   On iPhone and iPad (the app's devices), once the app is on sale (the website build checks: CONFIG.appLive) and the
+   player has finished a puzzle, the website mentions the app at a few good moments: a slim bar in browsers without
+   Safari's App Store banner (Chrome, Firefox, Edge...), a line on the daily's card and on a daily streak's achievement.
+   At most one a week, each at most once a month; × hides them for a month; following the link, or arriving from a link
+   in the app (?from=app), hides them for good. The settings and Advanced say what the app adds (always, not counted).
+   A website can't tell whether the app is installed, so this is the best it can know. */
+const STORE_URL = CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : "";
+const Promo = {
+  ok: !APP && !!STORE_URL && !!CONFIG.appLive && /^(iphone|ipad)$/.test(PLATFORM),
+  read() { try { return JSON.parse(localStorage.getItem("kw-promo") || "{}") || {}; } catch (e) { return {}; } },
+  write(v) { try { localStorage.setItem("kw-promo", JSON.stringify(v)); } catch (e) {} },
+  owner() { return !!this.read().got; },
+  can(kind) {
+    if (!this.ok || me().n < 1) return false;
+    const v = this.read(), now = Date.now(), DAY = 864e5;
+    return !v.got && !(v.off > now) && !(now - (v.last || 0) < 7 * DAY) && !(now - ((v.seen || {})[kind] || 0) < 30 * DAY);
+  },
+  shown(kind) { const v = this.read(); v.last = Date.now(); v.seen = Object.assign({}, v.seen, { [kind]: v.last }); this.write(v); track("promo/" + kind + "/shown"); },
+  link(kind, a) {
+    a.href = STORE_URL; a.target = "_blank"; a.rel = "noopener";
+    a.addEventListener("click", () => { const v = this.read(); v.got = true; this.write(v); track("promo/" + kind + "/tap"); });
+    return a;
+  },
+};
+if (/[?&]from=app\b/.test(location.search)) { Promo.write(Object.assign(Promo.read(), { got: true })); history.replaceState(null, "", location.pathname + location.hash); }
+/* a line under a card's text, with a link to the App Store */
+function promoLine(kind, text) {
+  if (!Promo.can(kind)) return;
+  const card = document.querySelector(".cele:not(.out) .cele-card"), btns = card && card.querySelector(".cele-btns"); if (!btns) return;
+  const pEl = document.createElement("p"), a = document.createElement("a"); pEl.className = "cele-app";
+  a.textContent = "App Store \u203a"; pEl.append(text + " ", Promo.link(kind, a)); card.insertBefore(pEl, btns);
+  Promo.shown(kind);
+}
+/* the bar, for browsers on iPhone and iPad that don't show Safari's App Store banner; between puzzles, never during one */
+function promoBar() {
+  if (document.querySelector(".appbar") || !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(navigator.userAgent) || !Promo.can("bar")) return;
+  const bar = document.createElement("div"); bar.className = "appbar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "King Walk for iPhone and iPad");
+  bar.innerHTML = '<img src="icons/apple-touch-icon.png" alt=""><div></div><a class="btn small primary"></a><button type="button" class="tip-x">\u00d7</button>';
+  bar.querySelector("div").append(T("King Walk for iPhone and iPad"), Object.assign(document.createElement("span"), { textContent: T("Widgets, daily reminders and iCloud sync") }));
+  Promo.link("bar", bar.querySelector("a")).textContent = T("Get");
+  bar.querySelector("a").addEventListener("click", () => bar.remove());
+  const x = bar.querySelector(".tip-x"); x.setAttribute("aria-label", T("Close"));
+  x.addEventListener("click", () => { Promo.write(Object.assign(Promo.read(), { off: Date.now() + 30 * 864e5 })); track("promo/bar/close"); hideSoft(bar, () => bar.remove()); });
+  const atTop = window.scrollY < 4;
+  document.body.insertBefore(bar, document.querySelector(".wrap"));
+  if (atTop) window.scrollTo(0, 0);          /* the browser keeps the view still when something appears above it, which would hide the bar */
+  Promo.shown("bar");
+}
+if (Promo.ok && !Promo.owner()) {
+  /* the quiet line under Progress */
+  $("appPromo").hidden = false; $("appLink").href = STORE_URL;
+  $("appLink").addEventListener("click", () => { Promo.write(Object.assign(Promo.read(), { got: true })); track("app-promo"); });
+  /* the settings the app has: shown with a link instead of a control */
+  const appOnly = (row, control) => { const a = Promo.link("settings", document.createElement("a")); a.className = "app-only"; a.textContent = T("In the app \u203a"); control.hidden = true; control.after(a); $(row).hidden = false; };
+  appOnly("remindRow", $("remindSel")); appOnly("gcRow", $("gcBtn"));
+  /* moving progress: the app does it with iCloud */
+  const note = document.createElement("p"), a = Promo.link("save", document.createElement("a")); note.className = "note";
+  a.textContent = "App Store \u203a"; note.append(T("In the app, progress follows you between your devices with iCloud.") + " ", a); $("saveHelp").after(note);
 }
 if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
   $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");
   $("saveHelp").textContent = T("Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy your save code, then paste it there.");
   /* the policy pages open in Safari from the website, so they are the current versions */
-  for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href");
+  for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href") + "?from=app";          /* the website then knows this browser's owner has the app */
   $("links").hidden = !SITE;          /* no site configured: nothing to link to */
 }
 
