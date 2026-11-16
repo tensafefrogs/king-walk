@@ -1,10 +1,11 @@
 // Layout check: every screen size we support (phones upright and sideways, iPad full, split and Slide Over,
-// desktop, iPhone Duo propped up and held like a book) x a few languages (long words: de, ru; tall script: ja)
+// desktop, iPhone Duo propped up and held like a book) x a few languages (long words: de, ru; tall script: ja;
+// right to left: ar)
 // x every overlay (menu, the daily, its done card, celebrations, the paste dialog, the promotion picker, rank streaks,
 // help). It reports the page scrolling sideways, text spilling out of buttons and labels, a card or dialog (or one of
 // its buttons) that doesn't fit the screen, and the board not fully on screen. Screenshots of each problem go to
 // testing/out/.
-// usage: node testing/layout.js [languages, default en-US,de-DE,ru-RU,ja-JP] [size names, default all]
+// usage: node testing/layout.js [languages, default en-US,de-DE,ru-RU,ja-JP,ar-SA] [size names, default all]
 //   e.g. node testing/layout.js en-US,de-DE phone-390-land,duo-book      About 15 minutes for everything.
 const server = require('./server'); const { chromium } = require('playwright'); const path = require('path'), fs = require('fs');
 const OUT = path.join(__dirname, 'out'); fs.mkdirSync(OUT, { recursive: true });
@@ -16,7 +17,7 @@ const VP = [
   ['laptop', 1280, 720, 0], ['desktop', 1920, 1080, 0], ['short-desktop', 1280, 600, 0],
   ['duo-table', 951, 669, 1, '?fold=h'], ['duo-book', 1338, 951, 1, '?fold=v'],
 ];
-const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP').split(',');
+const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP,ar-SA').split(',');
 const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
 const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help'];
 (async () => {
@@ -66,6 +67,8 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
         if (st === 'base' || st === 'daily') { const f = $('frame').getBoundingClientRect(); if (f.bottom > vh + 1 || f.top < -1) out.push('board not fully on screen (' + Math.round(f.top) + '..' + Math.round(f.bottom) + ' of ' + vh + ')'); }
         return out;
       }, st).catch(e => ['error: ' + e.message.slice(0, 120)]);
+      /* a phone browser widens the page to fit something too wide, so the checks above (against the widened page) miss it */
+      const iw = await p.evaluate(() => innerWidth).catch(() => w); if (iw > w + 1) r.push('page wider than the screen (' + iw + ' > ' + w + ')');
       if (r.length) { issues.push({ vp: name, lang, st, r }); await p.screenshot({ path: `${OUT}/x-${name}-${lang}-${st}.png` }); }
     }
     if (errs.length) issues.push({ vp: name, lang, st: 'pageerror', r: [...new Set(errs)].slice(0, 3) });

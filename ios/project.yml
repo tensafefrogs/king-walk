@@ -49,7 +49,7 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
         # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
-        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans]
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans, ar, he]
         LSRequiresIPhoneOS: true
         LSApplicationCategoryType: public.app-category.board-games
         ITSAppUsesNonExemptEncryption: false
@@ -102,7 +102,7 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
         # the languages the game has (lang.js and the .lproj folders): iOS gives the page the player's one of these
-        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans]
+        CFBundleLocalizations: [en, es, fr, de, it, pt-BR, nl, ru, ja, ko, zh-Hans, ar, he]
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:

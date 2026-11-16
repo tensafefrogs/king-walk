@@ -26,8 +26,8 @@ function translations() {
 (async () => {
   const langs = translations();
   const srv = await server.start(), b = await chromium.launch();
-  const page = async (q = "", init) => {
-    const ctx = await b.newContext(), p = await ctx.newPage(), errs = [];
+  const page = async (q = "", init, opts) => {
+    const ctx = await b.newContext(opts), p = await ctx.newPage(), errs = [];
     p.on("pageerror", e => errs.push(e.message));
     await p.route(/zgo\.at|goatcounter/, r => r.abort());
     if (init) await p.addInitScript(init);
@@ -253,6 +253,29 @@ function translations() {
     const x = await w.p.evaluate(() => ({ lang: document.documentElement.lang, widget: (window.sent.find(m => m.op === "widget") || {}).data, title: $("hintLabel").textContent, dict: (window.KW_STRINGS || {})[document.documentElement.lang] }));
     check(x.lang === lang && x.widget && x.widget.piece === "p" && x.widget.rankLine && !w.errs.length, `${lang}: loads, widget gets the piece letter`, { x: x.lang, piece: x.widget && x.widget.piece, errs: w.errs });
     if (lang !== "en") check(x.title === (x.dict || {}).Hint, `${lang}: the Hint button uses the translation`, x.title);
+    await w.ctx.close();
+  }
+  // right to left: Arabic and Hebrew mirror the page but never the board (a1 stays bottom left for White, the file
+  // letters read a to h); a sideways phone keeps the board on the right; other languages stay left to right
+  for (const [lang, size] of [["ar", { width: 390, height: 844 }], ["he", { width: 844, height: 390 }], ["de", { width: 390, height: 844 }]]) {
+    const w = await page("?lang=" + lang, null, { viewport: size });
+    const x = await w.p.evaluate(() => {
+      const sqs = [...document.querySelectorAll("#squares .sq")], first = sqs[0].getBoundingClientRect(), last = sqs[63].getBoundingClientRect();
+      const board = $("board").getBoundingClientRect(), status = $("status").getBoundingClientRect();
+      return { dir: document.documentElement.dir, orient, first: sqs[0].dataset.sq, topLeft: first.left < last.left && first.top < last.top,
+        boardRight: board.left > status.left, rtlText: getComputedStyle($("status")).direction };
+    });
+    const rtl = lang !== "de";
+    check(x.dir === (rtl ? "rtl" : "") && x.topLeft && x.first === (x.orient === "w" ? "a8" : "h1"), `${lang}: ${rtl ? "right to left, " : ""}the board isn't mirrored`, x);
+    if (size.width > size.height) check(x.boardRight && x.rtlText === "rtl", `${lang}: sideways, the board stays on the right and the text runs right to left`, x);
+    await w.ctx.close();
+  }
+  // dates and times follow the player's region in their language: a 24-hour clock in Britain, 12-hour in the US;
+  // Arabic keeps the digits 0-9
+  for (const [locale, want] of [["en-GB", /^20:00$/], ["en-US", /8:00\sPM/i], ["ar-EG", /[0-9]/]]) {
+    const w = await page("", null, { locale });
+    const t = await w.p.evaluate(() => { renderRemind(); return $("remindSel").options[4].textContent; });
+    check(want.test(t) && !/[\u0660-\u0669]/.test(t), `${locale}: the reminder times read ${t}`, t);
     await w.ctx.close();
   }
   check(!errs.length, "no page errors", errs);

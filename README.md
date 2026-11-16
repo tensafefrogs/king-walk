@@ -69,7 +69,7 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 - `chess.js` - the chess rules library (see credits).
 - `p/400.txt` to `p/2400.txt` - the puzzles, one file per 100-point rating band. Each line is tab-separated: puzzle id, position (FEN), solution moves, rating, themes. The first move in the solution is the opponent's move that sets up the puzzle.
 - `manifest.webmanifest`, `sw.js`, `icons/` - home screen install and offline support.
-- `fonts/` - the two typefaces, bundled so the game makes no outside requests.
+- `fonts/` - the typefaces, bundled so the game makes no outside requests: Fredoka and Nunito, with Nunito's Cyrillic letters for Russian, Rubik for Hebrew and Baloo Bhaijaan 2 for Arabic (each loaded only when the page shows that script).
 - `og.png` - the preview image shown when the link is shared.
 - `brand/` - logo, icon, colors and the chess piece set. See `brand/README.md`. `scripts/icon.js` draws the icon, logos, favicon and website icons.
 - `privacy.html`, `terms.html`, `support.html` - the policy and support pages (linked from the menu and the App Store). `404.html` is the page for a mistyped address.
@@ -85,4 +85,4 @@ Parts made by others keep their own licenses:
 
 - **Puzzles:** the [Lichess puzzle database](https://database.lichess.org/#puzzles), released by Lichess into the public domain (CC0). The puzzles here are a sample of that set: 3,000 per rating band from 400 to 1999 and 1,000 per band from 2000 to 2499, limited to well-tested, well-liked puzzles. This game is not made or endorsed by Lichess. Lichess is a free, donation-funded chess site: https://lichess.org
 - **Chess rules:** [chess.js](https://github.com/jhlywa/chess.js) version 0.10.3 by Jeff Hlywa, BSD 2-Clause license. The license text is at the top of `chess.js`.
-- **Fonts:** [Fredoka](https://fonts.google.com/specimen/Fredoka) and [Nunito](https://fonts.google.com/specimen/Nunito), SIL Open Font License. The license files are in `fonts/`.
+- **Fonts:** [Fredoka](https://fonts.google.com/specimen/Fredoka), [Nunito](https://fonts.google.com/specimen/Nunito), [Rubik](https://fonts.google.com/specimen/Rubik) (Hebrew) and [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) (Arabic), SIL Open Font License. The license files are in `fonts/`.
