@@ -11,7 +11,9 @@ const server = require("../../testing/server");
 const { savedPlayer, seedRandom, SHOT_DATE } = require("../../testing/media");
 const LOCALE = (process.argv.find((a, i) => process.argv[i - 1] === "--lang") || "");
 const L10N = LOCALE ? JSON.parse(fs.readFileSync(path.join(__dirname, "l10n", LOCALE + ".json"), "utf8")) : null;
-const PAGE_LANG = LOCALE ? ({ "zh-Hans": "zh", "pt-BR": "pt" }[LOCALE] || LOCALE.split("-")[0]) : "";
+/* Chinese, Japanese and Korean share characters drawn differently in each: the caption font for this one */
+const CJK = { "zh-Hans": "SC", "zh-Hant": "TC", ko: "KR" }[LOCALE] || "JP";
+const PAGE_LANG = LOCALE ? ({ "zh-Hans": "zh", "pt-BR": "pt", "es-MX": "es", "zh-Hant": "zh-Hant", "pt-PT": "pt-PT", "es-ES": "es-ES" }[LOCALE] || LOCALE.split("-")[0]) : "";          /* the page's own regional tables */
 const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x2752, iPhone Duo inner screen 2007x2853
   iphone: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   ipad: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -128,8 +130,8 @@ async function caption(b, name) {
       html[dir=rtl] h1{letter-spacing:0}
       body{margin:0;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(130% 80% at 50% 0%,#1c7868,#143f38 55%,#0d2925)}
       .cap{height:${top}px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:${Math.round(F.sub * 0.5)}px;padding:0 ${Math.round(W * 0.07)}px;box-sizing:border-box;text-align:center}
-      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,"Noto Sans CJK JP","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
-      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 Nunito,"Noto Sans CJK JP","Noto Sans",sans-serif;color:rgba(253,251,242,.78)}
+      h1{margin:0;text-wrap:balance;font:600 ${F.cap}px/1.12 Fredoka,"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:#fdfbf2;letter-spacing:-0.01em}h1 b{color:#f2c230;font-weight:600}
+      p{margin:0;text-wrap:balance;font:700 ${F.sub}px/1.3 Nunito,"Noto Sans CJK ${CJK}","Noto Sans",sans-serif;color:rgba(253,251,242,.78)}
       img{display:block;margin:0 auto;width:${iw}px;border-radius:${F.r}px;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 70px rgba(0,0,0,.45)}</style></head>
       <body><div class="cap"><h1>${s.caption}</h1><p>${s.sub}</p></div><img src="${img}"></body></html>`);
     await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);

@@ -66,7 +66,8 @@ def main():
 
     section('Players', [('new players', 'start')] + [(f'  on {p}', f'platform/{p}', 'start') for p in
         sorted({e.split('/', 1)[1] for k in cols for e in c[k] if e.startswith('platform/')})]
-        + [(f'  in {l}', f'lang/{l}', 'start') for l in sorted({e.split('/', 1)[1] for k in cols for e in c[k] if e.startswith('lang/')})])
+        + [(f'  in {l}', f'lang/{l}', 'start') for l in sorted({e.split('/', 1)[1] for k in cols for e in c[k] if e.startswith('lang/')})]
+        + [(f'  wanted {l} (not in the game)', f'lang-wanted/{l}', 'start') for l in sorted({e.split('/', 1)[1] for k in cols for e in c[k] if e.startswith('lang-wanted/')})])
     section('Coming back (of new players)', [(f'after {d}', f'back/{d}', 'start') for d in ('1d', '7d', '30d')])
     section('How far they get (of new players)', [(f'played {n}', f'played/{n}', 'start') for n in (1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500)])
     section('Ranks reached (of new players)', [(r, f'rank/{r}', 'start') for r in ('knight', 'bishop', 'rook', 'queen', 'king')])

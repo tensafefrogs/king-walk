@@ -5,6 +5,7 @@ What's planned for King Walk, and what's on hold. Done features move out of this
 ## Next
 
 - **Puzzle rush.** Three minutes, as many puzzles as you can, getting harder as you go. A Game Center leaderboard and a challenge to send a friend. It can reuse the rank streak code (`pickRunPuzzle`, `finishRun`) with a timer in place of the one-miss rule.
+- **Languages for India.** Chess is booming there, and the App Store has taken store pages in Hindi and ten more Indian languages since March 2026 (Bangla, Gujarati, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu, Urdu; codes like `ta-IN`). Many Indian players keep their phones in English (`en-IN` already gets Indian date and time formats), so start with Hindi: the game, the app and an App Store page, with Baloo 2's Devanagari to match the Arabic font, and Indian piece names (हाथी, ऊँट, घोड़ा, प्यादा) where players use them. Add more languages where the stats show players.
 
 ## On hold
 

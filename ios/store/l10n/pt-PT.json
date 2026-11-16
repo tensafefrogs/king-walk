@@ -1,0 +1,237 @@
+{
+  "locale": "pt-PT",
+  "from_version": "1.0.3",
+  "listing": {
+    "name": "King Walk: Problemas de xadrez",
+    "subtitle": "Desafios que não dão tréguas",
+    "promotional_text": "Encontra o garfo. Descobre o mate. Aguenta a sequência. 53.000 problemas de partidas reais que ficam mais difíceis à medida que melhoras. Hoje Peão, um dia Rei.",
+    "description": "Achas que consegues ver três lances à frente? Então prova.\n\nO King Walk dá-te problemas de xadrez a sério, 53.000, tirados de partidas reais. Resolves um e o próximo fica mais difícil. Falhas um e ele abranda. Ao fim de umas dezenas de problemas, sabe exatamente qual é o teu nível. E aí começa a apertar.\n\nComeças como Peão. Conquista o Cavalo, o Bispo, a Torre e a Dama. Chega a Rei e terás atravessado o tabuleiro inteiro.\n\n• 53.000 problemas de partidas reais: garfos, cravagens, espetos e mates de corredor traiçoeiros\n• Uma pontuação que encontra o teu nível e sobe contigo\n• Um problema do dia, o mesmo para toda a gente. Mantém a sequência viva e gaba-te com emojis\n• Sequências por patente: 15 problemas, sem dicas, falhaste uma vez, estás fora\n• Desafia os teus amigos no Game Center e descubram quem é bom a sério\n• Encravado? Pede uma dica. Não contamos a ninguém.\n• Falhaste? O problema volta mais tarde para a desforra\n• Celebrações enormes e barulhentas a cada nova patente\n• Widgets para o ecrã principal, o ecrã bloqueado e o modo Em espera\n• Um lembrete diário, se quiseres\n• Vibração, modo escuro, VoiceOver e texto maior\n• Funciona offline. Sem conta, sem anúncios, sem compras na app\n\nOs problemas vêm da base de dados de problemas do Lichess, de domínio público. O King Walk não é feito nem apoiado pelo Lichess.",
+    "keywords": "tática,xeque-mate,mate em 2,elo,quebra-cabeças,treino,estratégia,tabuleiro,lógica,garfo,finais"
+  },
+  "gamecenter": {
+    "leaderboards": {
+      "rating": {
+        "name": "Pontuação de problemas",
+        "suffix": " pontos",
+        "suffix_singular": " ponto"
+      },
+      "streak": {
+        "name": "Melhor sequência",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "hardest": {
+        "name": "Problema mais difícil",
+        "suffix": " pontos",
+        "suffix_singular": " ponto"
+      },
+      "streak_p": {
+        "name": "Sequência de Peão",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_n": {
+        "name": "Sequência de Cavalo",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_b": {
+        "name": "Sequência de Bispo",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_r": {
+        "name": "Sequência de Torre",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_q": {
+        "name": "Sequência de Dama",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "streak_k": {
+        "name": "Sequência de Rei",
+        "suffix": " seguidos",
+        "suffix_singular": " seguido"
+      },
+      "daily_streak": {
+        "name": "Sequência diária",
+        "suffix": " dias",
+        "suffix_singular": " dia"
+      }
+    },
+    "achievements": {
+      "first_solve": {
+        "name": "Primeiros passos",
+        "before": "Resolve um problema sem erros e sem dicas.",
+        "earned": "Resolveste o teu primeiro problema sem erros e sem dicas."
+      },
+      "solved_50": {
+        "name": "Cinquenta resolvidos",
+        "before": "Resolve 50 problemas sem erros e sem dicas.",
+        "earned": "Resolveste 50 problemas sem erros."
+      },
+      "solved_250": {
+        "name": "Hábito tático",
+        "before": "Resolve 250 problemas sem erros e sem dicas.",
+        "earned": "Resolveste 250 problemas sem erros."
+      },
+      "solved_1000": {
+        "name": "Mil problemas",
+        "before": "Resolve 1.000 problemas sem erros e sem dicas.",
+        "earned": "Resolveste 1.000 problemas sem erros."
+      },
+      "streak_5": {
+        "name": "Embalado",
+        "before": "Resolve 5 problemas seguidos.",
+        "earned": "Resolveste 5 problemas seguidos."
+      },
+      "streak_10": {
+        "name": "Dez seguidos",
+        "before": "Resolve 10 problemas seguidos.",
+        "earned": "Resolveste 10 problemas seguidos."
+      },
+      "streak_20": {
+        "name": "Imparável",
+        "before": "Resolve 20 problemas seguidos.",
+        "earned": "Resolveste 20 problemas seguidos."
+      },
+      "rank_knight": {
+        "name": "Cavalo",
+        "before": "Alcança uma pontuação de problemas de 700.",
+        "earned": "Chegaste à patente Cavalo: uma pontuação de problemas de 700."
+      },
+      "rank_bishop": {
+        "name": "Bispo",
+        "before": "Alcança uma pontuação de problemas de 1000.",
+        "earned": "Chegaste à patente Bispo: uma pontuação de problemas de 1000."
+      },
+      "rank_rook": {
+        "name": "Torre",
+        "before": "Alcança uma pontuação de problemas de 1300.",
+        "earned": "Chegaste à patente Torre: uma pontuação de problemas de 1300."
+      },
+      "rank_queen": {
+        "name": "Dama",
+        "before": "Alcança uma pontuação de problemas de 1600.",
+        "earned": "Chegaste à patente Dama: uma pontuação de problemas de 1600."
+      },
+      "rank_king": {
+        "name": "King Walk",
+        "before": "Alcança uma pontuação de problemas de 1900.",
+        "earned": "Chegaste à patente Rei: uma pontuação de problemas de 1900. O rei subiu o tabuleiro inteiro."
+      },
+      "giant_slayer": {
+        "name": "Matador de gigantes",
+        "before": "Resolve sem erros um problema com pontuação 300 ou mais acima da tua.",
+        "earned": "Resolveste sem erros um problema com pontuação 300 ou mais acima da tua."
+      },
+      "clear_pawn": {
+        "name": "Peão concluído",
+        "before": "Conclui a sequência de Peão: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Peão: 15 problemas seguidos de 400 a 699, sem dicas."
+      },
+      "clear_knight": {
+        "name": "Cavalo concluído",
+        "before": "Conclui a sequência de Cavalo: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Cavalo: 15 problemas seguidos de 700 a 999, sem dicas."
+      },
+      "clear_bishop": {
+        "name": "Bispo concluído",
+        "before": "Conclui a sequência de Bispo: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Bispo: 15 problemas seguidos de 1000 a 1299, sem dicas."
+      },
+      "clear_rook": {
+        "name": "Torre concluída",
+        "before": "Conclui a sequência de Torre: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Torre: 15 problemas seguidos de 1300 a 1599, sem dicas."
+      },
+      "clear_queen": {
+        "name": "Dama concluída",
+        "before": "Conclui a sequência de Dama: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Dama: 15 problemas seguidos de 1600 a 1899, sem dicas."
+      },
+      "clear_king": {
+        "name": "Rei concluído",
+        "before": "Conclui a sequência de Rei: 15 problemas seguidos, sem dicas.",
+        "earned": "Concluíste a sequência de Rei: 15 problemas seguidos de 1900 a 2300, sem dicas."
+      },
+      "daily_3": {
+        "name": "Hat-trick",
+        "before": "Resolve o problema do dia 3 dias seguidos.",
+        "earned": "Resolveste o problema do dia 3 dias seguidos."
+      },
+      "daily_7": {
+        "name": "Semana completa",
+        "before": "Resolve o problema do dia 7 dias seguidos.",
+        "earned": "Resolveste o problema do dia 7 dias seguidos."
+      },
+      "daily_30": {
+        "name": "Trinta dias",
+        "before": "Resolve o problema do dia 30 dias seguidos.",
+        "earned": "Resolveste o problema do dia 30 dias seguidos."
+      }
+    },
+    "challenges": {
+      "hardest_challenge": {
+        "name": "Problema mais difícil",
+        "description": "Resolve sem erros o problema com a pontuação mais alta que conseguires. Escolhe Mais difícil no menu para veres problemas mais difíceis."
+      },
+      "streak_p_challenge": {
+        "name": "Sequência de Peão",
+        "description": "15 problemas que sobem de 400 a 699. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      },
+      "streak_n_challenge": {
+        "name": "Sequência de Cavalo",
+        "description": "15 problemas que sobem de 700 a 999. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      },
+      "streak_b_challenge": {
+        "name": "Sequência de Bispo",
+        "description": "15 problemas que sobem de 1000 a 1299. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      },
+      "streak_r_challenge": {
+        "name": "Sequência de Torre",
+        "description": "15 problemas que sobem de 1300 a 1599. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      },
+      "streak_q_challenge": {
+        "name": "Sequência de Dama",
+        "description": "15 problemas que sobem de 1600 a 1899. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      },
+      "streak_k_challenge": {
+        "name": "Sequência de Rei",
+        "description": "15 problemas que sobem de 1900 a 2300. Sem dicas, e um erro encerra a sequência. Quem vai mais longe?"
+      }
+    }
+  },
+  "screenshots": {
+    "1": {
+      "caption": "Desafios que <b>não dão tréguas</b>",
+      "sub": "Resolveste? O próximo fica mais difícil. Falhaste? Ele abranda."
+    },
+    "2": {
+      "caption": "<b>53.000</b> problemas de partidas reais",
+      "sub": "Garfos, cravagens, espetos e mates traiçoeiros."
+    },
+    "3": {
+      "caption": "Encravado? <b>Pede uma dica.</b>",
+      "sub": "Não contamos a ninguém."
+    },
+    "4": {
+      "caption": "De Peão a <b>Rei</b>. Bora lá!",
+      "sub": "Sobe de patente. Vence as sequências. Mostra quem manda."
+    },
+    "5": {
+      "caption": "Um problema novo <b>todos os dias</b>",
+      "sub": "O mesmo para toda a gente. Mantém a sequência viva."
+    },
+    "duo-book-1": {
+      "caption": "Dobra-o como um <b>livro</b>",
+      "sub": "O tabuleiro numa página. As notas na outra."
+    },
+    "duo-table-1": {
+      "caption": "Põe-no de pé. <b>Modo portátil.</b>",
+      "sub": "O tabuleiro deitado sob as tuas mãos, o marcador em cima."
+    }
+  }
+}

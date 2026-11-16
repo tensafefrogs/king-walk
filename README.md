@@ -6,7 +6,7 @@ It is a static web page with no server and no accounts. Progress is saved in the
 
 There is also an iOS app for iPhone and iPad (`ios/`), which plays the same page offline and adds haptics, Game Center, iCloud sync, widgets (rank and daily puzzle, including StandBy and the Lock Screen), a Control Center button, a Siri and Shortcuts action, a Home Screen quick action and an optional daily reminder. See `ios/README.md`.
 
-Every day there's a daily puzzle, the same for everyone, picked from the date with no server (`dailyPuzzle` in `index.html`). What's planned next is in `ROADMAP.md`.
+Every day there's a daily puzzle, the same for everyone, picked from the date with no server (`dailyPuzzle` in `index.html`). What's planned next is in `ROADMAP.md`, and what changed in each release in `CHANGELOG.md`.
 
 The name comes from chess: a king walk is when a king marches up the board to help win the game. The best-known example is Short vs. Timman, Tilburg 1991. In this game you start at Pawn rank and work your way up to King.
 
@@ -43,7 +43,7 @@ Plays puzzles in a browser (Playwright) on the web and in a simulated iOS app: t
 
 ## Stats
 
-The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `lang/<code>`, `played/<n>`, `hint/1`, `hint/2`, `answer`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/daily`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `daily/start`, `daily/resume`, `daily/later`, `daily/solved`, `daily/missed`, `daily/streak/<n>`, `daily/freeze-earned`, `daily/done-card`, `daily/practice`, `daily/freeze-used`, `link/daily`, `open/daily`, `tip/closed`, `promo/<where>/shown`, `promo/<where>/tap`, `promo/bar/close`, `promo/foot/close`, `remind/<hour>`, `remind/off`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`, `icloud/newer`. The privacy policy is `privacy.html`.
+The game sends anonymous events to GoatCounter: no cookies, no identifiers, nothing linked to a person. `testing/STATS.md` lists them: `start`, `platform/<device>`, `lang/<code>`, `lang-wanted/<code>`, `played/<n>`, `hint/1`, `hint/2`, `answer`, `rank/<name>`, `back/<days>`, `mode/<difficulty>`, `share`, `share/daily`, `share/award`, `award/<id>`, `run/start/<rank>`, `run/end/<rank>/<n>`, `run/cleared/<rank>`, `run/quit/<rank>`, `daily/start`, `daily/resume`, `daily/later`, `daily/solved`, `daily/missed`, `daily/streak/<n>`, `daily/freeze-earned`, `daily/done-card`, `daily/practice`, `daily/freeze-used`, `link/daily`, `open/daily`, `tip/closed`, `promo/<where>/shown`, `promo/<where>/tap`, `promo/bar/close`, `promo/foot/close`, `remind/<hour>`, `remind/off`, `fold/table`, `fold/book`, `lefty-on`, `lefty-off`, `gamecenter`, `rate-ask`, `sound-off`, `haptics-off`, `reset`, `save-code/copy`, `save-code/load`, `icloud/newer`. The privacy policy is `privacy.html`.
 
 ## Your own copy
 

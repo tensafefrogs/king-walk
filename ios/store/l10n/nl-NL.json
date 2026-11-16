@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Moeilijkste puzzel",
-        "description": "Los foutloos de hoogst gewaardeerde puzzel op die je kunt. Zet Harder aan in het menu voor moeilijkere puzzels."
+        "description": "Los foutloos de hoogst gewaardeerde puzzel op die je kunt. Zet Moeilijker aan in het menu voor moeilijkere puzzels."
       },
       "streak_p_challenge": {
         "name": "Pion-reeks",

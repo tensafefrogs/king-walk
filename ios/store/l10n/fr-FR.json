@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Problème le plus dur",
-        "description": "Résolvez sans faute le problème le mieux classé possible. Activez Harder dans le menu pour en voir de plus durs."
+        "description": "Résolvez sans faute le problème le mieux classé possible. Activez Plus difficile dans le menu pour en voir de plus durs."
       },
       "streak_p_challenge": {
         "name": "Série Pion",

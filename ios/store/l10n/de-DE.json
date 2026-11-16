@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Schwerste gelöste Aufgabe",
-        "description": "Löse fehlerfrei die höchstbewertete Aufgabe, die du schaffst. Schalte im Menü Harder ein, um schwerere zu sehen."
+        "description": "Löse fehlerfrei die höchstbewertete Aufgabe, die du schaffst. Schalte im Menü Schwerer ein, um schwerere zu sehen."
       },
       "streak_p_challenge": {
         "name": "Bauern-Serie",

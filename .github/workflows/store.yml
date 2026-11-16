@@ -63,7 +63,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        locale: [de-DE, es-ES, es-MX, fr-FR, it, ja, ko, nl-NL, pt-BR, ru, zh-Hans, ar-SA, he]
+        locale: [de-DE, es-ES, es-MX, fr-FR, it, ja, ko, nl-NL, pt-BR, pt-PT, ru, zh-Hans, zh-Hant, ar-SA, he]
     env:
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}

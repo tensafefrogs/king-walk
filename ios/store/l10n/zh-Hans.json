@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "解出的最难题",
-        "description": "干净利落地解出你能解的最高等级分谜题。在菜单中打开 Harder 可以看到更难的题。"
+        "description": "干净利落地解出你能解的最高等级分谜题。在菜单中打开「难一些」可以看到更难的题。"
       },
       "streak_p_challenge": {
         "name": "兵段连胜",

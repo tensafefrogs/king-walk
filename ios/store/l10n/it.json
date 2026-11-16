@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Problema più difficile",
-        "description": "Risolvi senza errori il problema col punteggio più alto possibile. Attiva Harder nel menu per vederne di più difficili."
+        "description": "Risolvi senza errori il problema col punteggio più alto possibile. Attiva Più difficile nel menu per vederne di più difficili."
       },
       "streak_p_challenge": {
         "name": "Serie Pedone",
