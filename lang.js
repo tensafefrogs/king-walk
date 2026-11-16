@@ -2,8 +2,10 @@
    (T("...") calls and the page's markup); missing entries show in English. {name} placeholders are filled in by the game. */
 window.KW_STRINGS = {
   "es": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, recordatorio diario, Game Center, sincronización con iCloud",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "También en iPhone y iPad, con widgets en la pantalla de inicio, un recordatorio diario, Game Center y sincronización con iCloud.",
+    "Home Screen widget": "Widget de la pantalla de inicio",
     "King Walk for iPhone and iPad": "King Walk para iPhone y iPad",
-    "Widgets, daily reminders and iCloud sync": "Widgets, recordatorios diarios y sincronización con iCloud",
     "Get": "Obtener",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "No te pierdas ni un día: la app te lo recuerda y pone el problema de hoy en tu pantalla de inicio.",
     "Keep your streak going: the app can remind you every day.": "Mantén tu racha: la app puede recordártelo cada día.",
@@ -32,7 +34,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Resuelve el de hoy para empezar una racha.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Hoy todos tienen el mismo problema. El del lunes es suave; cada día es más difícil, hasta el domingo.",
     "Next puzzle in {h}h {m}m": "Siguiente problema en {h} h {m} min",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "También en iPhone y iPad, con widgets, Game Center y sincronización con iCloud.",
     "{n} of {total} cleared": "{n} de {total} superadas",
     ", becomes a {piece}": ", se convierte en {piece}",
     ", can move here": ", se puede mover aquí",
@@ -308,8 +309,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Racha {rank}, problema {n} de {total}"
   },
   "fr": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, rappel quotidien, Game Center, synchronisation iCloud",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Aussi sur iPhone et iPad, avec des widgets sur l'écran d'accueil, un rappel quotidien, Game Center et la synchronisation iCloud.",
+    "Home Screen widget": "Widget de l'écran d'accueil",
     "King Walk for iPhone and iPad": "King Walk pour iPhone et iPad",
-    "Widgets, daily reminders and iCloud sync": "Widgets, rappels quotidiens et synchronisation iCloud",
     "Get": "Obtenir",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Ne manquez aucun jour : l'app vous le rappelle et met le problème du jour sur votre écran d'accueil.",
     "Keep your streak going: the app can remind you every day.": "Gardez votre série : l'app peut vous le rappeler chaque jour.",
@@ -338,7 +341,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Résous celui du jour pour lancer une série.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Aujourd'hui, tout le monde a le même problème. Celui du lundi est facile ; chaque jour est plus dur, jusqu'au dimanche.",
     "Next puzzle in {h}h {m}m": "Prochain problème dans {h} h {m} min",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Aussi sur iPhone et iPad, avec widgets, Game Center et synchronisation iCloud.",
     "{n} of {total} cleared": "{n} sur {total} réussies",
     ", becomes a {piece}": ", promu en {piece}",
     ", can move here": ", déplacement possible",
@@ -614,8 +616,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Série {rank}, problème {n} sur {total}"
   },
   "de": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, tägliche Erinnerung, Game Center, iCloud-Sync",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Auch auf iPhone und iPad, mit Widgets für den Home-Bildschirm, täglicher Erinnerung, Game Center und iCloud-Sync.",
+    "Home Screen widget": "Widget für den Home-Bildschirm",
     "King Walk for iPhone and iPad": "King Walk für iPhone und iPad",
-    "Widgets, daily reminders and iCloud sync": "Widgets, tägliche Erinnerungen und iCloud-Sync",
     "Get": "Laden",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Keinen Tag verpassen: Die App erinnert dich und zeigt die Tagesaufgabe auf deinem Home-Bildschirm.",
     "Keep your streak going: the app can remind you every day.": "Halte deine Serie: Die App kann dich jeden Tag erinnern.",
@@ -644,7 +648,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Löse die heutige, um eine Serie zu starten.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Heute bekommen alle dieselbe Aufgabe. Montags ist sie leicht, jeden Tag etwas schwerer, bis Sonntag.",
     "Next puzzle in {h}h {m}m": "Nächste Aufgabe in {h} Std. {m} Min.",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Auch für iPhone und iPad, mit Widgets, Game Center und iCloud-Sync.",
     "{n} of {total} cleared": "{n} von {total} geschafft",
     ", becomes a {piece}": ", Umwandlung in {piece}",
     ", can move here": ", Zug hierhin möglich",
@@ -920,8 +923,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, Aufgabe {n} von {total}"
   },
   "it": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widget, promemoria giornaliero, Game Center, sincronizzazione iCloud",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Anche su iPhone e iPad, con widget nella schermata Home, un promemoria giornaliero, Game Center e sincronizzazione iCloud.",
+    "Home Screen widget": "Widget della schermata Home",
     "King Walk for iPhone and iPad": "King Walk per iPhone e iPad",
-    "Widgets, daily reminders and iCloud sync": "Widget, promemoria giornalieri e sincronizzazione iCloud",
     "Get": "Ottieni",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Non saltare un giorno: l'app te lo ricorda e mette il problema di oggi nella schermata Home.",
     "Keep your streak going: the app can remind you every day.": "Mantieni la serie: l'app può ricordartelo ogni giorno.",
@@ -950,7 +955,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Risolvi quello di oggi per iniziare una serie.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Oggi tutti hanno lo stesso problema. Quello del lunedì è facile; ogni giorno è più difficile, fino alla domenica.",
     "Next puzzle in {h}h {m}m": "Prossimo problema tra {h} h {m} min",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Anche su iPhone e iPad, con widget, Game Center e sincronizzazione iCloud.",
     "{n} of {total} cleared": "{n} su {total} superate",
     ", becomes a {piece}": ", promosso a {piece}",
     ", can move here": ", puoi muovere qui",
@@ -1226,8 +1230,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Serie {rank}, problema {n} su {total}"
   },
   "pt": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, lembrete diário, Game Center, sincronização com o iCloud",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Também no iPhone e iPad, com widgets na Tela de Início, um lembrete diário, Game Center e sincronização com o iCloud.",
+    "Home Screen widget": "Widget da Tela de Início",
     "King Walk for iPhone and iPad": "King Walk para iPhone e iPad",
-    "Widgets, daily reminders and iCloud sync": "Widgets, lembretes diários e sincronização com o iCloud",
     "Get": "Obter",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Não perca nenhum dia: o app lembra você e coloca o problema de hoje na sua Tela de Início.",
     "Keep your streak going: the app can remind you every day.": "Mantenha sua sequência: o app pode lembrar você todo dia.",
@@ -1256,7 +1262,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Resolva o de hoje para começar uma sequência.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Hoje todo mundo recebe o mesmo problema. O de segunda é tranquilo; cada dia fica mais difícil, até domingo.",
     "Next puzzle in {h}h {m}m": "Próximo problema em {h} h {m} min",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Também no iPhone e iPad, com widgets, Game Center e sincronização com o iCloud.",
     "{n} of {total} cleared": "{n} de {total} concluídas",
     ", becomes a {piece}": ", promove a {piece}",
     ", can move here": ", pode ir para cá",
@@ -1532,8 +1537,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Sequência {rank}, problema {n} de {total}"
   },
   "nl": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, dagelijkse herinnering, Game Center, iCloud-synchronisatie",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Ook op iPhone en iPad, met widgets op je beginscherm, een dagelijkse herinnering, Game Center en iCloud-synchronisatie.",
+    "Home Screen widget": "Widget op het beginscherm",
     "King Walk for iPhone and iPad": "King Walk voor iPhone en iPad",
-    "Widgets, daily reminders and iCloud sync": "Widgets, dagelijkse herinneringen en iCloud-synchronisatie",
     "Get": "Download",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Mis geen dag: de app herinnert je eraan en zet de puzzel van vandaag op je beginscherm.",
     "Keep your streak going: the app can remind you every day.": "Houd je reeks vast: de app kan je er elke dag aan herinneren.",
@@ -1562,7 +1569,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Los die van vandaag op om een reeks te beginnen.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Vandaag krijgt iedereen dezelfde puzzel. Die van maandag is makkelijk; elke dag wordt moeilijker, tot zondag.",
     "Next puzzle in {h}h {m}m": "Volgende puzzel over {h} u {m} min",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Ook op iPhone en iPad, met widgets, Game Center en iCloud-synchronisatie.",
     "{n} of {total} cleared": "{n} van {total} gehaald",
     ", becomes a {piece}": ", promoveert tot {piece}",
     ", can move here": ", hierheen mogelijk",
@@ -1838,8 +1844,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Reeks {rank}, puzzel {n} van {total}"
   },
   "ru": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "Виджеты, ежедневное напоминание, Game Center, синхронизация iCloud",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "Также на iPhone и iPad: виджеты на экране «Домой», ежедневное напоминание, Game Center и синхронизация через iCloud.",
+    "Home Screen widget": "Виджет на экране «Домой»",
     "King Walk for iPhone and iPad": "King Walk для iPhone и iPad",
-    "Widgets, daily reminders and iCloud sync": "Виджеты, ежедневные напоминания и синхронизация через iCloud",
     "Get": "Загрузить",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Не пропускайте ни дня: приложение напомнит и покажет задачу дня на экране «Домой».",
     "Keep your streak going: the app can remind you every day.": "Сохраните серию: приложение может напоминать вам каждый день.",
@@ -1868,7 +1876,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "Решите сегодняшнюю, чтобы начать серию.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Сегодня у всех одна и та же задача. В понедельник — лёгкая, дальше каждый день сложнее, до воскресенья.",
     "Next puzzle in {h}h {m}m": "Следующая задача через {h} ч {m} мин",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "Также на iPhone и iPad: виджеты, Game Center и синхронизация через iCloud.",
     "{n} of {total} cleared": "Пройдено: {n} из {total}",
     ", becomes a {piece}": ", превращается в {piece}",
     ", can move here": ", можно пойти сюда",
@@ -2144,8 +2151,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "Серия {rank}, задача {n} из {total}"
   },
   "ja": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "ウィジェット、毎日のリマインダー、Game Center、iCloud同期",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "iPhone・iPad版もあります:ホーム画面ウィジェット、毎日のリマインダー、Game Center、iCloud同期付き。",
+    "Home Screen widget": "ホーム画面ウィジェット",
     "King Walk for iPhone and iPad": "iPhone・iPad版 King Walk",
-    "Widgets, daily reminders and iCloud sync": "ウィジェット、毎日のリマインダー、iCloud同期",
     "Get": "入手",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "毎日を逃さない:アプリがお知らせし、今日のパズルをホーム画面に表示します。",
     "Keep your streak going: the app can remind you every day.": "連続記録を守ろう:アプリが毎日お知らせできます。",
@@ -2174,7 +2183,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "今日のパズルを解いて連続記録をスタート。",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "今日は全員が同じパズル。月曜はやさしく、日曜に向けて毎日少しずつ難しくなります。",
     "Next puzzle in {h}h {m}m": "次のパズルまで{h}時間{m}分",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone・iPad版もあります。ウィジェット、Game Center、iCloud同期に対応。",
     "{n} of {total} cleared": "{total}中{n}クリア",
     ", becomes a {piece}": "、{piece}に昇格",
     ", can move here": "、ここへ移動できます",
@@ -2450,8 +2458,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank}チャレンジ、{n}/{total}問目"
   },
   "ko": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "위젯, 매일 알림, Game Center, iCloud 동기화",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "iPhone과 iPad에서도: 홈 화면 위젯, 매일 알림, Game Center, iCloud 동기화.",
+    "Home Screen widget": "홈 화면 위젯",
     "King Walk for iPhone and iPad": "iPhone 및 iPad용 King Walk",
-    "Widgets, daily reminders and iCloud sync": "위젯, 매일 알림, iCloud 동기화",
     "Get": "받기",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "하루도 놓치지 마세요: 앱이 알려 주고 오늘의 퍼즐을 홈 화면에 보여 줘요.",
     "Keep your streak going: the app can remind you every day.": "연속 기록을 지키세요: 앱이 매일 알려 줄 수 있어요.",
@@ -2480,7 +2490,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "오늘 퍼즐을 풀고 연속 기록을 시작하세요.",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "오늘은 모두 같은 퍼즐을 풉니다. 월요일은 쉽고, 일요일까지 매일 조금씩 어려워져요.",
     "Next puzzle in {h}h {m}m": "다음 퍼즐까지 {h}시간 {m}분",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "iPhone과 iPad에서도 즐기세요. 위젯, Game Center, iCloud 동기화 지원.",
     "{n} of {total} cleared": "{total}개 중 {n}개 클리어",
     ", becomes a {piece}": ", {piece} 승진",
     ", can move here": ", 이동 가능",
@@ -2756,8 +2765,10 @@ window.KW_STRINGS = {
     "{rank} streak, puzzle {n} of {total}": "{rank} 도전, {n}/{total}번째 퍼즐"
   },
   "zh": {
+    "Widgets, a daily reminder, Game Center, iCloud sync": "小组件、每日提醒、Game Center、iCloud 同步",
+    "Also on iPhone and iPad, with Home Screen widgets, a daily reminder, Game Center and iCloud sync.": "也可在 iPhone 和 iPad 上使用：主屏幕小组件、每日提醒、Game Center 和 iCloud 同步。",
+    "Home Screen widget": "主屏幕小组件",
     "King Walk for iPhone and iPad": "适用于 iPhone 和 iPad 的 King Walk",
-    "Widgets, daily reminders and iCloud sync": "小组件、每日提醒和 iCloud 同步",
     "Get": "获取",
     "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "一天也不错过：App 会提醒你，并把今日谜题放到主屏幕上。",
     "Keep your streak going: the app can remind you every day.": "保持连续记录：App 可以每天提醒你。",
@@ -2786,7 +2797,6 @@ window.KW_STRINGS = {
     "Solve today's to start a streak.": "解出今天的题，开始连胜。",
     "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "今天所有人做同一道题。周一最简单，之后每天更难一点，直到周日。",
     "Next puzzle in {h}h {m}m": "下一题还有 {h} 小时 {m} 分钟",
-    "Also on iPhone and iPad, with widgets, Game Center and iCloud sync.": "也有 iPhone 和 iPad 版，支持小组件、Game Center 和 iCloud 同步。",
     "{n} of {total} cleared": "已通关 {n}/{total}",
     ", becomes a {piece}": "，升变为{piece}",
     ", can move here": "，可以走到这里",
