@@ -236,14 +236,15 @@ def submit_for_review(app_id, v):
         log(f"App Store: already {s['attributes']['state'].replace('_', ' ').lower()}"); return
     if not s:
         s = create('reviewSubmissions', {'platform': 'IOS'}, {'app': rel('apps', app_id)})
-    items = call('GET', f"/v1/reviewSubmissions/{s['id']}/items?include=appStoreVersion")['data']
-    if not any((i['relationships'].get('appStoreVersion', {}).get('data') or {}).get('id') == v['id'] for i in items):
-        create('reviewSubmissionItems', relationships={'reviewSubmission': rel('reviewSubmissions', s['id']),
-                                                      'appStoreVersion': rel('appStoreVersions', v['id'])})
-    # screenshots and previews just uploaded are still being processed for a few minutes, and the submission is
-    # refused until they're done ("Asset is being processed", "Version is not ready to be submitted yet"): wait and retry
+    # screenshots and previews just uploaded are still being processed for a few minutes, and adding the version to the
+    # submission, or submitting it, is refused until they're done ("Asset is being processed", "Version is not ready
+    # to be submitted yet"): wait and retry both
     for attempt in range(30):
         try:
+            items = call('GET', f"/v1/reviewSubmissions/{s['id']}/items?include=appStoreVersion")['data']
+            if not any((i['relationships'].get('appStoreVersion', {}).get('data') or {}).get('id') == v['id'] for i in items):
+                create('reviewSubmissionItems', relationships={'reviewSubmission': rel('reviewSubmissions', s['id']),
+                                                              'appStoreVersion': rel('appStoreVersions', v['id'])})
             request('PATCH', f"/v1/reviewSubmissions/{s['id']}",
                     {'data': {'type': 'reviewSubmissions', 'id': s['id'], 'attributes': {'submitted': True}}})
             break
@@ -284,7 +285,7 @@ def app_store(app_id, build, cfg):
             done = []
             for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations")['data']:
                 lang = loc['attributes']['locale']
-                notes = plain_notes(wn.get(lang) or wn.get(lang.split('-')[0]) or wn.get('en-US', ''))
+                notes = plain_notes(wn.get(lang) or (lang != 'zh-Hant' and wn.get(lang.split('-')[0])) or wn.get('en-US', ''))   # never Simplified for Traditional
                 if not notes: continue
                 try:
                     request('PATCH', f"/v1/appStoreVersionLocalizations/{loc['id']}",
