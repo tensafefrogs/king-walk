@@ -929,20 +929,25 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
    data-t, whose inner HTML is the key (for sentences with links in them). */
 const LANGS = ["en", "es", "fr", "de", "it", "pt", "nl", "ru", "ja", "ko", "zh", "ar", "he"];
 const RTL = ["ar", "he"];          /* written right to left: the page mirrors, the board and the chart don't */
+/* Regional variants: a table in lang.js under the variant's tag, laid over the language's own. Traditional Chinese
+   (Taiwan, Hong Kong, Macau) is a whole table; Portugal's Portuguese and Spain's Spanish only replace the strings that
+   read differently there (the base Portuguese is Brazil's, the base Spanish Latin America's). */
+const VARIANTS = { "zh-Hant": /^zh-(hant|tw|hk|mo)\b/i, "pt-PT": /^pt-(pt|ao|mz|cv|gw|st|tl)\b/i, "es-ES": /^es-es\b/i };
+const LANG_PARAM = (location.search.match(/[?&]lang=([a-z]{2}(?:-[A-Za-z]{2,4})?)/) || [])[1];          /* ?lang=de, ?lang=pt-PT: for testing and screenshots */
 const LANG = (() => {
-  const q = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];          /* ?lang=de, for testing and screenshots */
+  const q = LANG_PARAM && LANG_PARAM.slice(0, 2);
   if (q && LANGS.includes(q)) return q;
   for (const l of navigator.languages || [navigator.language || "en"]) { const c = String(l).toLowerCase().slice(0, 2); if (LANGS.includes(c === "iw" ? "he" : c)) return c === "iw" ? "he" : c; }
   return "en";
 })();
+/* the player's own tag in that language (es-MX, zh-TW), for the variant and for dates and times */
+const USER_TAG = LANG_PARAM && LANG_PARAM.slice(0, 2) === LANG ? LANG_PARAM : ((navigator.languages || [navigator.language || ""]).map(String).find(l => l.toLowerCase().slice(0, 2) === LANG) || LANG);
+const VARIANT = Object.keys(VARIANTS).find(v => v.slice(0, 2) === LANG && (VARIANTS[v].test(USER_TAG) || USER_TAG.toLowerCase() === v.toLowerCase())) || "";
+const LANG_TAG = VARIANT || LANG;          /* the page's lang attribute, and the lang/ stat */
 /* LOCALE: the player's own language and region for dates and times (en-GB: a 24-hour clock, es-MX, pt-PT), when
    it's the language the game shows; digits always 0-9, as in the rest of the game and on the board */
-const LOCALE = (() => {
-  let tag = LANG;
-  for (const l of navigator.languages || [navigator.language || ""]) if (String(l).toLowerCase().slice(0, 2) === LANG) { tag = String(l); break; }
-  try { return Intl.getCanonicalLocales(tag + "-u-nu-latn")[0]; } catch (e) { return LANG; }
-})();
-const DICT = (window.KW_STRINGS || {})[LANG] || {};
+const LOCALE = (() => { try { return Intl.getCanonicalLocales(USER_TAG + "-u-nu-latn")[0]; } catch (e) { return LANG; } })();
+const DICT = Object.assign({}, (window.KW_STRINGS || {})[LANG], VARIANT && (window.KW_STRINGS || {})[VARIANT]);
 function T(text, v) {
   let t = DICT[text] || text;
   if (v) t = t.replace(/\{(\w+)\}/g, (m, k) => v[k] !== undefined ? v[k] : m);
@@ -950,7 +955,7 @@ function T(text, v) {
 }
 const cap1 = t => t ? t.charAt(0).toLocaleUpperCase(LANG) + t.slice(1) : t;
 function localizePage() {
-  document.documentElement.lang = LANG;
+  document.documentElement.lang = LANG_TAG;
   if (RTL.includes(LANG)) document.documentElement.dir = "rtl";
   if (LANG === "en") return;
   const norm = t => t.replace(/\s+/g, " ").trim();
@@ -2630,7 +2635,10 @@ localizePage();
 renderPanel();
 {
   const p = me(), fresh = !S.updatedAt;
-  if (fresh) { track("start"); track("platform/" + PLATFORM); track("lang/" + LANG); }
+  if (fresh) { track("start"); track("platform/" + PLATFORM); track("lang/" + LANG_TAG);
+    /* the player's first language when the game doesn't have it (hi, ta, pl…): which language to add next */
+    const want = String((navigator.languages || [navigator.language || ""])[0] || "").toLowerCase().slice(0, 2);
+    if (/^[a-z]{2}$/.test(want) && !LANGS.includes(want === "iw" ? "he" : want)) track("lang-wanted/" + want); }
   else {
     if (!p.since) { p.since = Date.now(); save(); }          /* a save from before this was recorded: count from now */
     const days = (Date.now() - p.since) / 864e5;

@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Problema mais difícil",
-        "description": "Resolva sem erros o problema de rating mais alto que conseguir. Ative Harder no menu para ver problemas mais difíceis."
+        "description": "Resolva sem erros o problema de rating mais alto que conseguir. Ative Mais difícil no menu para ver problemas mais difíceis."
       },
       "streak_p_challenge": {
         "name": "Sequência de Peão",

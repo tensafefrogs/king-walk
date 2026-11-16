@@ -87,7 +87,7 @@ jobs:
               ld = {'@context': 'https://schema.org', '@type': 'VideoGame', 'name': 'King Walk', 'url': site, 'image': site + 'og.png',
                     'description': 'Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level.',
                     'genre': ['Puzzle', 'Chess'], 'gamePlatform': ['Web browser', 'iOS'], 'applicationCategory': 'Game', 'operatingSystem': 'Any',
-                    'inLanguage': ['en', 'es', 'fr', 'de', 'it', 'pt-BR', 'nl', 'ru', 'ja', 'ko', 'zh-Hans', 'ar', 'he'], 'isAccessibleForFree': True,
+                    'inLanguage': ['en', 'es', 'fr', 'de', 'it', 'pt-BR', 'pt-PT', 'nl', 'ru', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'ar', 'he'], 'isAccessibleForFree': True,
                     'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'}}
               html = open('_site/index.html').read()
               html = html.replace('</head>', '<script type="application/ld+json">' + json.dumps(ld) + '</script>\n</head>', 1)

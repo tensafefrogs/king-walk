@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "가장 어려운 퍼즐",
-        "description": "실수 없이 풀 수 있는 가장 높은 레이팅의 퍼즐에 도전하세요. 메뉴에서 Harder를 켜면 더 어려운 퍼즐이 나옵니다."
+        "description": "실수 없이 풀 수 있는 가장 높은 레이팅의 퍼즐에 도전하세요. 메뉴에서 '어렵게'를 켜면 더 어려운 퍼즐이 나옵니다."
       },
       "streak_p_challenge": {
         "name": "폰 연속 도전",

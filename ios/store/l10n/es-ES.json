@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "Problema más difícil",
-        "description": "Resuelve sin fallos el problema de mayor puntuación que puedas. Activa Harder en el menú para ver otros más difíciles."
+        "description": "Resuelve sin fallos el problema de mayor puntuación que puedas. Activa Más difícil en el menú para ver otros más difíciles."
       },
       "streak_p_challenge": {
         "name": "Racha de Peón",

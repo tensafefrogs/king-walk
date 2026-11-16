@@ -175,7 +175,7 @@
     "challenges": {
       "hardest_challenge": {
         "name": "解いた最難問",
-        "description": "ノーミスで解けたパズルの最高レーティングを競います。メニューでHarderをオンにすると、より難しい問題が出ます。"
+        "description": "ノーミスで解けたパズルの最高レーティングを競います。メニューで「難しく」をオンにすると、より難しい問題が出ます。"
       },
       "streak_p_challenge": {
         "name": "ポーン連続正解",

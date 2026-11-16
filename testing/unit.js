@@ -14,9 +14,10 @@ function translations() {
   const langs = ctx.window.KW_STRINGS || {};
   const keys = new Set([...html.matchAll(/\bT\("((?:[^"\\]|\\.)+)"/g)].map(m => JSON.parse('"' + m[1] + '"')));
   const holes = k => (k.match(/\{\w+\}/g) || []).sort().join();
+  const OVERRIDES = ["pt-PT", "es-ES"];          /* regional tables that only replace some of their language's strings */
   for (const [lang, dict] of Object.entries(langs)) {
-    const missing = [...keys].filter(k => !(k in dict));
-    check(!missing.length, `${lang}: every T() key translated`, missing.slice(0, 8));
+    const missing = OVERRIDES.includes(lang) ? Object.keys(dict).filter(k => !(k in langs[lang.slice(0, 2)])) : [...keys].filter(k => !(k in dict));
+    check(!missing.length, OVERRIDES.includes(lang) ? `${lang}: replaces only strings ${lang.slice(0, 2)} has` : `${lang}: every T() key translated`, missing.slice(0, 8));
     const broken = Object.entries(dict).filter(([k, v]) => holes(k) !== holes(v)).map(([k]) => k);
     check(!broken.length, `${lang}: placeholders kept`, broken.slice(0, 8));
   }
@@ -250,9 +251,10 @@ function translations() {
   for (const lang of langs) {
     const w = await page("?lang=" + lang, () => { window.sent = []; window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(m) } } }; window.kingWalkApp = { widget: true }; });
     await w.p.waitForTimeout(1800);
-    const x = await w.p.evaluate(() => ({ lang: document.documentElement.lang, widget: (window.sent.find(m => m.op === "widget") || {}).data, title: $("hintLabel").textContent, dict: (window.KW_STRINGS || {})[document.documentElement.lang] }));
+    const x = await w.p.evaluate(lang => ({ lang: document.documentElement.lang, widget: (window.sent.find(m => m.op === "widget") || {}).data, title: $("hintLabel").textContent,
+      want: ((window.KW_STRINGS || {})[lang] || {}).Hint || ((window.KW_STRINGS || {})[lang.slice(0, 2)] || {}).Hint }), lang);
     check(x.lang === lang && x.widget && x.widget.piece === "p" && x.widget.rankLine && !w.errs.length, `${lang}: loads, widget gets the piece letter`, { x: x.lang, piece: x.widget && x.widget.piece, errs: w.errs });
-    if (lang !== "en") check(x.title === (x.dict || {}).Hint, `${lang}: the Hint button uses the translation`, x.title);
+    if (lang !== "en") check(x.title === x.want, `${lang}: the Hint button uses the translation`, x.title);
     await w.ctx.close();
   }
   // right to left: Arabic and Hebrew mirror the page but never the board (a1 stays bottom left for White, the file
@@ -268,6 +270,22 @@ function translations() {
     const rtl = lang !== "de";
     check(x.dir === (rtl ? "rtl" : "") && x.topLeft && x.first === (x.orient === "w" ? "a8" : "h1"), `${lang}: ${rtl ? "right to left, " : ""}the board isn't mirrored`, x);
     if (size.width > size.height) check(x.boardRight && x.rtlText === "rtl", `${lang}: sideways, the board stays on the right and the text runs right to left`, x);
+    await w.ctx.close();
+  }
+  // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
+  // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
+  for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {
+    const w = await page("", null, { locale });
+    const got = await w.p.evaluate(() => document.documentElement.lang);
+    check(got === want, `${locale}: the page is in ${want}`, got);
+    await w.ctx.close();
+  }
+  // a new player whose first language the game doesn't have: counted, so we know which language to add next
+  for (const [locale, want] of [["hi-IN", "lang-wanted/hi"], ["de-DE", null]]) {
+    const w = await page("", () => { Object.defineProperty(window, "KING_WALK_CONFIG", { get: () => ({ goatcounter: "https://example.invalid/count" }), set() {} });
+      window.counted = []; Object.defineProperty(window, "goatcounter", { get: () => ({ count: o => window.counted.push(o.title) }), set() {} }); }, { locale });
+    const got = await w.p.evaluate(() => window.counted.filter(t => /^lang/.test(t)));
+    check(want ? got.includes(want) : !got.some(t => t.startsWith("lang-wanted")), `${locale}: ${want || "no lang-wanted"}`, got);
     await w.ctx.close();
   }
   // dates and times follow the player's region in their language: a 24-hour clock in Britain, 12-hour in the US;
