@@ -54,6 +54,49 @@ function translations() {
   check(r.easyWin === 1, "a far easier clean solve still gains 1", r.easyWin);
   check(r.hardWin > 20 && r.easyMiss < -20, "a hard win gains a lot, an easy miss costs a lot", r);
 
+  // placement: players of known strength (solving by the Elo odds) are placed near it, within 10 puzzles
+  const pl = await p.evaluate(() => {
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const out = {};
+    for (const S of [450, 800, 1200, 1600, 2000, 2300]) {
+      const errs = [], ks = [];
+      for (let t = 0; t < 300; t++) {
+        let q = newPlace();
+        while (!q.done) { const pr = clamp(q.r + (rnd() - 0.5) * 50, 400, 2499), solve = rnd() < 1 / (1 + Math.pow(10, (pr - S) / 400)); q = placeStep(q, solve ? 1 : 0); }
+        errs.push(Math.abs(q.r - S)); ks.push(q.k);
+      }
+      errs.sort((a, b) => a - b);
+      out[S] = { median: errs[150], p90: errs[270], maxK: Math.max(...ks), avgK: ks.reduce((a, b) => a + b) / ks.length };
+    }
+    const hint = placeStep(newPlace(), 0.5);
+    return { out, hint: [hint.r, hint.k], first: placeStep(newPlace(), 1).r, miss: placeStep(newPlace(), 0).r };
+  });
+  check(Object.values(pl.out).every(o => o.maxK <= 10), "placement ends within 10 puzzles", pl.out);
+  check(Object.values(pl.out).every(o => o.median <= 250), "placement lands near the player's strength (median within 250)", pl.out);
+  check(pl.first === 800 && pl.miss === 400 && pl.hint.join() === "600,1", "placement steps 200 up or down, a hint stays", pl);
+  const pc = await p.evaluate(() => {
+    const a = cleanState({ players: [{ rating: 600, n: 0 }] }).players[0], b = cleanState({ players: [{ rating: 1100, n: 40 }] }).players[0];
+    const c = cleanState({ players: [{ rating: 600, n: 3, place: { r: 9999, step: 7, dir: 5, turns: -2, k: 99 } }] }).players[0];
+    return { fresh: !!a.place, old: !!b.place, damaged: c.place, newcomer: !!newPlayer(600).place };
+  });
+  check(pc.fresh && !pc.old && pc.newcomer, "a new or never-played save places; one that played before is already placed", pc);
+  check(pc.damaged && pc.damaged.r === 2400 && pc.damaged.step === 50 && pc.damaged.dir === 1 && pc.damaged.k === 10, "a damaged placement is cleaned", pc.damaged);
+  // the last placement puzzle: the level becomes the rating, passed ranks are earned quietly, the number shows again
+  const pf = await p.evaluate(async () => {
+    const q = me(); S.awards = []; q.place = { r: 1300, step: 50, dir: 1, turns: 2, k: 9 }; renderPanel();
+    const shown = $("rating").textContent, rankLine = $("rankName").textContent;
+    failed = false; hintLevel = 0; finish(true);
+    await new Promise(r => setTimeout(r, 1500));
+    const card = document.querySelector(".cele .cele-title");
+    return { shown, rankLine, place: q.place, rating: q.rating, hist: q.hist, awards: S.awards.slice(), text: $("rating").textContent, card: card && card.textContent, mode: $("modeNote").textContent };
+  });
+  check(pf.shown === "?" && pf.rankLine === "Finding your level", "during placement the rating and rank are hidden", pf);
+  check(!pf.place && pf.rating === 1350 && pf.hist.join() === "1350", "placement ends: the level found is the rating", pf);
+  check(["rank_knight", "rank_bishop", "rank_rook"].every(id => pf.awards.includes(id)) && !pf.awards.includes("rank_queen"), "the ranks passed are earned quietly", pf.awards);
+  check(pf.card === "You placed at Rook", "one card says where the player placed", pf.card);
+  check(/about 6 in 10/.test(pf.mode) && /fair in any mode/.test(pf.mode), "the difficulty says what it means", pf.mode);
+  await p.evaluate(() => { document.querySelectorAll(".cele").forEach(e => e.remove()); });
+
   // damaged saves never break the game: cleanState gives a valid state or null
   const fuzz = await p.evaluate(() => {
     const cases = [null, 1, "x", {}, { players: [] }, { players: [null, { rating: "abc" }] }, { players: [{ rating: 1e9, hist: ["a", 5, 99999], last: [3, 1], review: [{ b: 7 }], runs: { p: 99, x: 3 }, now: { b: 450, i: -1 } }] },

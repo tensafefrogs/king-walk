@@ -33,7 +33,7 @@ async function run(b, url, app) {
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
   const share = await p.evaluate(() => shareText(lastResult));
   await p.waitForTimeout(1200);          // the first-solve celebration comes a moment after the solve
-  const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], n: me().n, solved: me().solved, rating: me().rating, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
+  const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], n: me().n, solved: me().solved, rating: me().rating, level: me().place && me().place.r, shown: $("rating").textContent, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
     sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent }));
   // a wrong move, a hint and the answer
   await p.waitForFunction(() => !locked && !done, null, { timeout: 15000 });
@@ -64,16 +64,17 @@ async function run(b, url, app) {
     const name = app ? "iOS app (simulated)" : "web";
     const check = (ok, what) => { if (!ok) { bad++; console.log("FAIL", name, what); } };
     check(r.n === 3 && r.solved === 3, "three puzzles solved: " + JSON.stringify(r));
-    check(r.rating > 600, "rating went up");
+    check(r.level > 600 && r.rating === 600 && r.shown === "?", "placement: three clean solves raise the level being tried, the rating stays hidden: " + JSON.stringify([r.level, r.rating, r.shown]));
     check(r.celebrated.includes("First Steps"), "the first clean solve is celebrated: " + JSON.stringify(r.celebrated));
     check(after.n === 4 && after.streak === 0 && after.review === 1, "a missed puzzle counts as a miss and comes back: " + JSON.stringify(after));
     check(!errs.length, "no page errors: " + errs.join(" | "));
-    check(/King Walk \u00b7 \w+ \u00b7 \d+/.test(share) && /\u2705\u2705\u2705/.test(share) && /3 solved/.test(share), "share text: " + JSON.stringify(share));
+    check(/King Walk \u00b7 Finding your level/.test(share) && /\u2705\u2705\u2705/.test(share) && /3 solved/.test(share), "share text: " + JSON.stringify(share));
     if (!app) check(share.includes("http://127.0.0.1") === false && !/apps\.apple/.test(share), "web share links to the site, not the App Store");
     if (app) {
       check(r.sent.includes("haptic:move") || r.sent.includes("haptic:take"), "sent haptic:move or haptic:take");
-      for (const op of ["haptic:pick", "haptic:opp", "haptic:solve", "score:rating", "score:streak", "achieve:first_solve", "widget"]) check(r.sent.includes(op), "sent " + op);
+      for (const op of ["haptic:pick", "haptic:opp", "haptic:solve", "score:streak", "achieve:first_solve", "widget"]) check(r.sent.includes(op), "sent " + op);
       for (const op of ["haptic:wrong", "haptic:hint"]) check(after.sent.includes(op), "sent " + op);
+      check(!r.sent.includes("score:rating"), "no rating sent to Game Center during placement");
       check(r.haptics && r.gc, "Haptics and Game Center rows shown");
       check(/iCloud/.test(r.help), "the help text mentions iCloud");
     } else {

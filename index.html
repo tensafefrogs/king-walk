@@ -394,6 +394,7 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 .mode-switch button { position: relative; border: 0; background: none; cursor: pointer; width: 42px; padding: 0; border-radius: 9px; color: var(--muted); display: grid; place-items: center; transition: background-color 0.2s, color 0.2s; }
 .mode-switch svg.ic { width: 22px; height: 22px; }
 /* the thumb under the active mode slides across, and turns coral for the daily */
+html.placing .chart-box { display: none; }          /* placement: no rating to chart yet */
 .mode-switch::before { content: ""; position: absolute; top: 3px; left: 3px; bottom: 3px; width: 42px; border-radius: 9px; background: var(--card); box-shadow: 0 1px 3px rgba(16, 40, 36, 0.22);
   transition: transform 0.32s var(--ease-io), background-color 0.32s var(--ease-io); }
 html.daily .mode-switch::before { transform: translateX(44px); background: var(--p-coral); }
@@ -879,11 +880,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="setrow" id="hapticsRow" hidden><span id="hapticsLabel">Haptics</span><button type="button" id="hapticsBtn" class="switch" aria-pressed="true" aria-labelledby="hapticsLabel"></button></div>
         <div class="setrow"><span>Puzzle difficulty</span>
           <div class="seg" id="modeSeg">
-            <button type="button" data-mode="easy" aria-pressed="false">Easier</button>
-            <button type="button" data-mode="normal" aria-pressed="true">Just right</button>
-            <button type="button" data-mode="hard" aria-pressed="false">Harder</button>
+            <button type="button" data-mode="easy" aria-pressed="false">Relaxed</button>
+            <button type="button" data-mode="normal" aria-pressed="true">Balanced</button>
+            <button type="button" data-mode="hard" aria-pressed="false">Challenging</button>
           </div>
         </div>
+        <p class="note" id="modeNote" aria-live="polite"></p>
         <div class="setrow"><span id="langLabel">Language</span><select id="langSel" aria-labelledby="langLabel"></select></div>
         <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
         <div class="setrow" id="remindRow" hidden><span id="remindLabel">Daily reminder</span><select id="remindSel" aria-labelledby="remindLabel"></select></div>
@@ -896,6 +898,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <ul class="body help">
               <li>Each puzzle starts with the other side's move. Then it is your turn.</li>
               <li>Tap a piece, then tap where it goes. You can also drag it.</li>
+              <li>Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.</li>
               <li>Solve a puzzle with no mistakes and no hints and your puzzle rating goes up. The next puzzles get harder.</li>
               <li>Miss one and your rating goes down a little. The next puzzles get easier.</li>
               <li>The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.</li>
@@ -987,6 +990,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <div><h3>Ranks</h3><p>You start as a Pawn. As your puzzle rating goes up you earn the next rank: Knight at 700, Bishop at 1000, Rook at 1300, Queen at 1600 and King at 1900.</p></div>
               <div><h3>Your puzzle rating</h3><p>Every puzzle has a number that says how hard it is. You have a number too. Solve a puzzle and you win some points. Miss one and you give some back.</p></div>
               <div><h3>Hard puzzles are worth more</h3><p>Beating a puzzle rated above you earns a lot of points. Beating an easy one earns only a few. Missing an easy one costs more than missing a hard one.</p></div>
+              <div><h3>Your first puzzles</h3><p>The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.</p></div>
               <div><h3>It finds your level</h3><p>The game keeps giving you puzzles close to your number. When you are solving a little more than half of them, your number settles. That is your level right now. Get better and it climbs again.</p></div>
               <div><h3>Where this comes from</h3><p>This way of rating is called Elo, after Arpad Elo, who invented it to rank chess players. Yours is a puzzle rating on the Lichess puzzle scale, so it usually reads higher than a rating earned by playing full games.</p></div>
             </div>
@@ -1097,6 +1101,24 @@ const START_RATING = 600;
 const REVIEW_GAP = 30;                 /* new puzzles between a miss and its one second try */
 const MODES = { easy: -300, normal: -50, hard: 100 };                     /* puzzle rating minus player rating */
 const MODE_INDEX = { easy: 0, normal: 1, hard: 2 };
+/* what each mode means in practice: the share solved at its offset, by the Elo odds ratingChange uses (0.85, 0.57, 0.36) */
+const MODE_NOTE = { easy: () => T("Most solved, about 8 in 10."), normal: () => T("Some misses, about 6 in 10."), hard: () => T("A real fight, about 1 in 3.") };
+/* Placement: a new player's first puzzles find their level in big steps, instead of small Elo moves from 600 (a strong
+   player would need 40-60 easy puzzles to climb). p.place = { r: the level being tried, step, dir: the last step's
+   direction, turns: how often it changed, k: puzzles so far }. A clean solve steps up, a miss steps down, a hint stays;
+   each change of direction halves the step. It ends after PLACE_MAX puzzles, or sooner once it has settled. Meanwhile
+   the rating and rank stay hidden and don't move (no rank-ups); at the end one card says where the player placed. */
+const PLACE_STEP = 200, PLACE_MIN = 50, PLACE_MAX = 10, PLACE_SETTLE = 6;
+const newPlace = () => ({ r: START_RATING, step: PLACE_STEP, dir: 0, turns: 0, k: 0 });
+function placeStep(pl, score) {
+  const q = Object.assign({}, pl, { k: pl.k + 1 }), dir = score === 1 ? 1 : score === 0 ? -1 : 0;
+  if (dir) {
+    if (q.dir && dir !== q.dir) { q.step = Math.max(PLACE_MIN, Math.round(q.step / 2)); q.turns++; }
+    q.r = clamp(q.r + dir * q.step, MIN_R, 2400); q.dir = dir;
+  }
+  q.done = q.k >= PLACE_MAX || (q.k >= PLACE_SETTLE && q.turns >= 2 && q.step <= PLACE_MIN);
+  return q;
+}
 /* Rank streaks: STREAK_LEN puzzles climbing from the bottom of a rank to its top (RUN_RANGE, by rank) */
 const STREAK_LEN = 15;
 const RUN_RANGE = [[400, 699], [700, 999], [1000, 1299], [1300, 1599], [1600, 1899], [1900, 2300]];
@@ -1136,7 +1158,7 @@ function toggleSection(btn, section) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily() };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace() };
 }
 function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
 const FREEZE_MAX = 2;          /* streak freezes a player can hold */
@@ -1166,6 +1188,9 @@ function cleanState(raw) {
     if (p.seen && typeof p.seen === "object") for (const b of BANDS) if (typeof p.seen[b] === "string" && p.seen[b].length < 4000) q.seen[b] = p.seen[b];
     if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(0, 20).map(r => ({ b: r.b, i: count(r.i), due: count(r.due), tries: clamp(count(r.tries), 0, 3) }));
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
+    const pl = p.place;
+    if (pl && typeof pl === "object" && isFinite(pl.r)) q.place = { r: clamp(Math.round(+pl.r), MIN_R, 2400), step: clamp(count(pl.step), PLACE_MIN, PLACE_STEP), dir: Math.sign(+pl.dir || 0), turns: count(pl.turns), k: clamp(count(pl.k), 0, PLACE_MAX) };
+    else if (q.n > 0) delete q.place;          /* played before placement existed: already placed */
     q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
     q.daily = cleanDaily(p.daily);
     q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
@@ -1271,7 +1296,7 @@ async function pickPuzzle(resume) {
       if (pz) return { band: rv.b, i: rv.i, pz, size: bandSize(rv.b), review: true, tries: rv.tries };
     } catch (e) {}          /* the file did not load: leave the second try queued */
   }
-  const target = clamp(Math.round(p.rating + MODES[p.mode] + gauss() * 40), MIN_R, MAX_R);
+  const target = clamp(Math.round(p.place ? p.place.r + gauss() * 25 : p.rating + MODES[p.mode] + gauss() * 40), MIN_R, MAX_R);
   for (const w of [50, 120, 250, 500, 2200]) {          /* widen the search until something unseen turns up */
     const cands = [];
     for (let b = bandOf(target - w); b <= bandOf(target + w); b += 100) {
@@ -1397,7 +1422,7 @@ function achieve(id) { if (APP && APP.gameCenter) APP.post({ op: "achieve", id }
 function reportProgress(p, puzzle) {
   if (!APP) return;
   if (APP.gameCenter) {
-    if (p.n > 0) APP.post({ op: "score", board: "rating", value: p.rating });
+    if (p.n > 0 && !p.place) APP.post({ op: "score", board: "rating", value: p.rating });
     /* Hardest Solve (and each rank streak) are Game Center challenges, which count only scores sent while a challenge runs:
        so these send what this solve achieved (the current run, this puzzle's rating), never an old best */
     if (puzzle && puzzle.clean) {
@@ -1408,7 +1433,7 @@ function reportProgress(p, puzzle) {
   }
   if (APP.widget) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
-    const data = { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
+    const data = { rating: p.rating, placing: !!p.place, rank: rankName(ri), rankLine: p.place ? T("Finding your level") : T("{rank} rank", { rank: rankName(ri) }), nextLine: p.place ? "" : nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
       labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
       solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now(),
       dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0, dailyPlayed: dailyDone(p) ? dayKey(dayNumber()) : "" };
@@ -1457,7 +1482,7 @@ function shareText(last) {
     if (SHARE_URL) lines.push(SHARE_URL);
     return lines.join("\n");
   }
-  lines.push(RANK_GLYPH[ri] + " King Walk \u00b7 " + rankName(ri) + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
+  lines.push(p.place ? "\u265f King Walk \u00b7 " + T("Finding your level") : RANK_GLYPH[ri] + " King Walk \u00b7 " + rankName(ri) + " \u00b7 " + p.rating + (last && last.delta ? " (" + (last.delta > 0 ? "+" : "") + last.delta + ")" : ""));
   if (last && last.rankUp) lines.push("\ud83c\udf89 " + T("New rank: {rank}", { rank: rankName(ri) }) + "!");
   if (p.last.length) lines.push(p.last.slice(-10).map(v => v === 1 ? "\u2705" : v ? "\ud83d\udca1" : "\u274c").join(""));
   lines.push((p.streak >= 2 ? "\ud83d\udd25 " + T("{n} in a row", { n: p.streak }) + " \u00b7 " : "") + T("{n} solved", { n: p.solved }));
@@ -1809,15 +1834,22 @@ function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
   if (RUN) { finishRun(solvedIt && !failed && !hintLevel); return; }
   if (DAILY) { finishDaily(solvedIt); return; }
-  const p = me(), before = p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
+  const p = me(), before = p.rating, level = p.place ? p.place.r : p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
-  let delta = 0;
+  let delta = 0, placed = false;
   if (!cur.review) {          /* second tries are practice and leave the rating alone */
-    delta = ratingChange(p.rating, cur.pz.r, score, p.n);
-    p.rating = Math.max(RATING_FLOOR, p.rating + delta);
-    p.n++; p.hist.push(p.rating); if (p.hist.length > 300) p.hist.shift();
+    if (p.place) {          /* placement: the rating stays hidden and still until the level is found */
+      const pl = placeStep(p.place, score);
+      if (pl.done) { placed = true; delete p.place; p.rating = p.peak = Math.max(RATING_FLOOR, pl.r); p.hist = [p.rating]; }
+      else p.place = pl;
+    } else {
+      delta = ratingChange(p.rating, cur.pz.r, score, p.n);
+      p.rating = Math.max(RATING_FLOOR, p.rating + delta);
+      p.hist.push(p.rating); if (p.hist.length > 300) p.hist.shift();
+      p.peak = Math.max(p.peak, p.rating);
+    }
+    p.n++;
     p.last.push(score); if (p.last.length > 20) p.last.shift();
-    p.peak = Math.max(p.peak, p.rating);
     markSeen(cur.band, cur.i, cur.size);
   }
   if (score === 1) { p.solved++; p.streak++; p.best = Math.max(p.best, p.streak); } else if (score === 0) p.streak = 0;
@@ -1828,14 +1860,20 @@ function finish(solvedIt) {
   save();
   if (!cur.review && PLAYED_MARKS.includes(p.n)) track("played/" + p.n);
   for (let i = peakRankBefore + 1; i <= rankIndex(p.peak); i++) track("rank/" + RANKS[i][1].toLowerCase());
+  if (placed) {
+    track("placed/" + RANKS[rankIndex(p.rating)][1].toLowerCase());
+    /* the ranks passed on the way are earned quietly (Game Center gets them); one card says where the player placed */
+    if (S.awards) for (let i = 1; i <= rankIndex(p.rating); i++) { const id = "rank_" + RANKS[i][1].toLowerCase(); if (!S.awards.includes(id)) { S.awards.push(id); achieve(id); } }
+    save();
+  }
   reportProgress(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before });
-  checkAwards(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before });
+  if (placed) setTimeout(() => showPlaced(p), REDUCED ? 300 : 900); else checkAwards(p, { clean: score === 1 && !cur.review, r: cur.pz.r, before: level });          /* Giant Slayer: above the level being tried */
 
-  const rankUp = rankIndex(p.rating) > rankBefore;
+  const rankUp = !placed && rankIndex(p.rating) > rankBefore;
   frameEl.classList.add(score > 0 ? "ok" : "miss");
   if (score === 1) {
-    setStatus("good", T("Solved!"), rankUp ? T("New rank: {rank}", { rank: rankName(rankIndex(p.rating)) }) : cur.review ? T("You got it this time") : "", "good");
-    rankUp ? sfx.rank() : sfx.good(); haptic(rankUp ? "rank" : "solve");
+    setStatus("good", T("Solved!"), placed ? T("You placed at {rank}", { rank: rankName(rankIndex(p.rating)) }) : rankUp ? T("New rank: {rank}", { rank: rankName(rankIndex(p.rating)) }) : cur.review ? T("You got it this time") : "", "good");
+    rankUp || placed ? sfx.rank() : sfx.good(); haptic(rankUp || placed ? "rank" : "solve");
     restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   }
@@ -1847,11 +1885,12 @@ function finish(solvedIt) {
   const d = $("delta");
   d.textContent = cur.review ? T("practice") : (delta > 0 ? "+" : "") + delta;
   d.className = "delta" + (cur.review ? "" : delta > 0 ? " up" : delta < 0 ? " down" : "");
-  void d.offsetWidth; d.classList.add("show");
+  if (p.place || placed) d.textContent = "";          /* placement: no points to show */
+  else { void d.offsetWidth; d.classList.add("show"); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   if (score === 1 && !rankUp) maybeAskForRating(p);
-  renderPanel(before);
+  renderPanel(placed ? undefined : before);
   if (rankUp) { const cu = document.querySelector(".lad.cur"); if (cu) restart(cu, "pop"); }
   if (delta) restart($("rate"), "bump");
   if (score === 1) restart($("stStreak"), "bump");
@@ -1975,6 +2014,15 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
   return el;
 }
 /* the celebration screen, one award after another */
+/* Placement is over: one card with the rank and rating found, then any other new achievements */
+function showPlaced(p) {
+  const ri = rankIndex(p.rating), rank = rankName(ri);
+  openCard({ art: { piece: RANKS[ri][2], rank: ri }, kind: T("Your level"), title: T("You placed at {rank}", { rank }),
+    text: T("Your puzzle rating is {n}. From here it moves a little with each puzzle.", { n: p.rating }), closeLabel: T("Continue"), loud: true,
+    then: () => checkAwards(p),
+    onShare: sh => { const t = RANK_GLYPH[ri] + " King Walk \u00b7 " + T("You placed at {rank}", { rank }) + " \u00b7 " + p.rating + (SHARE_URL ? "\n" + SHARE_URL : "");
+      track("share/placed"); if (APP) APP.post({ op: "share", text: t }); else if (navigator.share) navigator.share({ text: t }).catch(() => {}); else try { navigator.clipboard.writeText(t); sh.textContent = T("Copied"); } catch (e) {} } });
+}
 function celebrate(ids) {
   const id = ids.shift(); if (!id || !AWARDS[id]) return;
   const [kind, name, text, art] = AWARDS[id], rank = art.rank !== undefined ? rankName(art.rank) : "";
@@ -2569,22 +2617,25 @@ function tweenNumber(el, from, to) {
 /* Rating, rank ladder, stats, chart and settings. `fromRating` makes the number count up from the old value. */
 function renderPanel(fromRating) {
   const p = me();
-  tweenNumber($("rating"), fromRating === undefined ? p.rating : fromRating, p.rating);
-  const ri = rankIndex(p.rating), lo = ri === 0 ? 400 : RANKS[ri][0], nxt = RANKS[ri + 1];
+  const ri = rankIndex(p.rating), lo = ri === 0 ? 400 : RANKS[ri][0], nxt = RANKS[ri + 1], placing = !!p.place;
+  if (placing) $("rating").textContent = "?"; else tweenNumber($("rating"), fromRating === undefined || $("rating").textContent === "?" ? p.rating : fromRating, p.rating);
+  document.documentElement.classList.toggle("placing", placing);
   $("rateUse").setAttribute("href", "#pc-w" + RANKS[ri][2]);
   $("rankName").textContent = T("{rank} rank", { rank: rankName(ri) });
   const lad = $("ladder"); lad.textContent = "";
   RANKS.forEach((r, i) => {
-    const t = document.createElement("div"); t.className = "lad" + (i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[0] ? T("{rank} at {n}", { rank: rankName(i), n: r[0] }) : rankName(i);
-    t.setAttribute("role", "img"); t.setAttribute("aria-label", t.title + (i === ri ? ", " + T("{rank} rank", { rank: rankName(i) }) : ""));
+    const t = document.createElement("div"); t.className = "lad" + (placing ? "" : i < ri ? " done" : i === ri ? " cur" : ""); t.title = r[0] ? T("{rank} at {n}", { rank: rankName(i), n: r[0] }) : rankName(i);
+    t.setAttribute("role", "img"); t.setAttribute("aria-label", t.title + (i === ri && !placing ? ", " + T("{rank} rank", { rank: rankName(i) }) : ""));
     t.append(pieceSvg("w" + r[2])); lad.append(t);
   });
-  if (nxt) { $("rankNext").textContent = T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }); $("rankBar").style.width = clamp((p.rating - lo) / (nxt[0] - lo) * 100, 4, 100) + "%"; }
+  if (placing) { $("rankName").textContent = T("Finding your level"); $("rankNext").textContent = T("A few puzzles to see where you start"); $("rankBar").style.width = clamp(p.place.k / PLACE_MAX * 100, 4, 100) + "%"; }
+  else if (nxt) { $("rankNext").textContent = T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }); $("rankBar").style.width = clamp((p.rating - lo) / (nxt[0] - lo) * 100, 4, 100) + "%"; }
   else { $("rankNext").textContent = T("Top rank"); $("rankBar").style.width = "100%"; }
   $("stSolved").textContent = p.solved; $("stStreak").textContent = p.streak;
   $("stAcc").textContent = p.last.length ? Math.round(p.last.reduce((a, b) => a + b, 0) / p.last.length * 100) + "%" : "-";
   for (const b of $("modeSeg").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.mode === p.mode));
   $("modeSeg").style.setProperty("--i", MODE_INDEX[p.mode]);
+  $("modeNote").textContent = MODE_NOTE[p.mode]() + " " + (placing ? T("It starts once your level is found.") : T("Your rating is fair in any mode."));
   $("soundBtn").setAttribute("aria-pressed", String(S.sound));
   $("hapticsBtn").setAttribute("aria-pressed", String(S.haptics !== false));
   $("leftyBtn").setAttribute("aria-pressed", String(!!S.lefty));

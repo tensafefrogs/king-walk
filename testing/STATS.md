@@ -15,14 +15,16 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `lang-chosen/<tag>` | The player picks a language in Settings (`device`: back to the device's). How many prefer a language other than their device's | Settings |
 | `played/<n>` | The player finishes their nth rated puzzle, for n = 1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500 | `finish()` |
 | `rank/<name>` | The player reaches a rank for the first time: `knight`, `bishop`, `rook`, `queen`, `king` | `finish()` |
+| `placed/<name>` | A new player's placement ends (their first puzzles found their level), with the rank they placed at: `pawn` … `king`. The ranks passed on the way also count as `rank/...` | `finish()` |
 | `back/1d`, `back/7d`, `back/30d` | The game is opened 1, 7 or 30 days or more after the player's first visit (once each) | startup |
-| `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed | the difficulty buttons |
+| `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed (shown as Relaxed, Balanced, Challenging) | the difficulty buttons |
 | `hint/1`, `hint/2` | The first and second hint on a puzzle (divide by `played` for how often they help) | `showHint()` |
 | `answer` | Answer pressed: the solution is shown | `showAnswer()` |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
 | `share/daily` | Share pressed after the daily puzzle (its coloured squares); `share` is then everything else (the progress summary) | `shareProgress()` |
 | `award/<id>` | An award is earned for the first time (the ids in `ios/store/gamecenter.json`, e.g. `award/rank_knight`, `award/clear_pawn`) | `checkAwards()` |
 | `share/award` | Share is pressed on an award's celebration screen | `celebrate()` |
+| `share/placed` | Share is pressed on the card that says where a new player placed | `showPlaced()` |
 | `fold/table`, `fold/book` | The screen is folded across like a laptop, or top to bottom like a book (iPhone Duo or another foldable), once per fold | `foldLayout()` |
 | `run/start/<rank>` | A rank streak starts (`pawn` … `king`) | `startRun()` |
 | `run/end/<rank>/<n>` | A rank streak ends on a miss after n solves | `finishRun()` |
@@ -58,7 +60,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 
 - **Funnel:** `start` → `played/1` → `played/10` → `played/50` → `played/100`. The drop from `start` to `played/1` shows people who left before finishing a puzzle; from `played/1` to `played/10`, people who tried it and didn't stay.
 - **Retention:** `back/1d`, `back/7d` and `back/30d` as a share of `start` from the period before (a week earlier for `back/7d`).
-- **Difficulty:** how many reach each `rank/...`, and `mode/easy` versus `mode/hard`.
+- **Difficulty:** how many reach each `rank/...`, and `mode/easy` versus `mode/hard`. Since placement (November 2026), `placed/...` against `start` shows where new players begin; fewer `mode/hard` from new players is the sign it's working.
 - **Platforms:** `platform/...` counts, and the web against the app (`king-walk/` against `king-walk-ios/`).
 
 GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Open the GoatCounter dashboard and filter by `king-walk`.

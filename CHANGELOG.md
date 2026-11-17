@@ -15,6 +15,13 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
+- **Your first puzzles find your level:** a new player's first few puzzles (up to 10) take big steps up or down
+  instead of starting everyone at 600 and climbing slowly, so a strong player isn't stuck on easy puzzles for an hour.
+  Meanwhile the rank and rating stay hidden, with no rank-ups; at the end one card says "You placed at Bishop" with the
+  rating. Players who have already played are unaffected. (Website now; the app with the next version.)
+- **Difficulty says what it means:** Relaxed, Balanced, Challenging (were Easier, Just right, Harder), with what to
+  expect under them ("Some misses, about 6 in 10") and that the rating is fair in any mode. (Website now; the app with
+  the next version.)
 - Everything in 1.0.2 below is already on the website.
 - **Opened from X, Instagram, TikTok and the like,** a quiet line says progress stays in that app's browser, with
   a link that opens the game in Safari (or Chrome), and a pointer to the save code once there's progress to bring.

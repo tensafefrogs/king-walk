@@ -89,7 +89,7 @@ struct ProgressWidgetView: View {
             switch family {
             case .accessoryCircular: CircularView(p: p)
             case .accessoryRectangular: RectangularView(p: p)
-            case .accessoryInline: Text("\(p.rank) · \(p.rating)")
+            case .accessoryInline: Text(p.rankAndRating)
             case .systemMedium: MediumView(p: p, date: entry.date)
             default: SmallView(p: p, date: entry.date)
             }
@@ -169,7 +169,7 @@ struct SmallView: View {
             }
             Spacer(minLength: 2)
             Text(p.rankLine ?? "\(p.rank)").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
-            Text("\(p.rating)").font(Brand.number(36)).foregroundColor(Palette.cream)
+            Text(p.ratingText).font(Brand.number(36)).foregroundColor(Palette.cream)
                 .minimumScaleFactor(0.7).lineLimit(1)
             RankBar(fraction: p.rankFraction)
             Text(p.nextText).font(.system(size: 12, weight: .semibold, design: .rounded))
@@ -249,7 +249,7 @@ struct CircularView: View {
         Gauge(value: p.rankFraction) {
             Image("piece-w" + p.piece).resizable().scaledToFit()
         } currentValueLabel: {
-            Text("\(p.rating)").font(.system(size: 12, weight: .bold, design: .rounded))
+            Text(p.ratingText).font(.system(size: 12, weight: .bold, design: .rounded))
         }
         .gaugeStyle(.accessoryCircular)
     }
@@ -260,7 +260,7 @@ struct RectangularView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {
             Text("King Walk").font(.system(size: 12, weight: .semibold, design: .rounded)).widgetAccentable()
-            Text("\(p.rank) · \(p.rating)").font(.system(size: 17, weight: .bold, design: .rounded))
+            Text(p.rankAndRating).font(.system(size: 17, weight: .bold, design: .rounded))
             Text(p.nextText).font(.system(size: 12, weight: .medium, design: .rounded))
         }
         .frame(maxWidth: .infinity, alignment: .leading)

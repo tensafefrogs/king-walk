@@ -22,6 +22,11 @@ struct Progress: Codable, Equatable {
     var rankLine: String?   // "Bishop rank"
     var nextLine: String?   // "176 to Rook", or "Top rank"
     var labels: [String: String]?   // chart, solved, inRow, best
+    var placing: Bool?      // a new player's first puzzles, still finding their level: the rating is hidden
+    /// the rating as the widgets show it: "?" while the level is still being found
+    var ratingText: String { placing == true ? "?" : "\(rating)" }
+    /// "Bishop · 1240", or "Finding your level" while it's being found
+    var rankAndRating: String { placing == true ? (rankLine ?? "?") : "\(rank) · \(rating)" }
     // the daily puzzle (missing from saves made before it existed)
     var dailyDay: String?   // the local date of the last daily solved, yyyy-MM-dd, or ""
     var dailyStreak: Int?   // days in a row, as of that day

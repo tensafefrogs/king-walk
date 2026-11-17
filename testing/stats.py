@@ -71,6 +71,7 @@ def main():
     section('Coming back (of new players)', [(f'after {d}', f'back/{d}', 'start') for d in ('1d', '7d', '30d')])
     section('How far they get (of new players)', [(f'played {n}', f'played/{n}', 'start') for n in (1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500)])
     section('Ranks reached (of new players)', [(r, f'rank/{r}', 'start') for r in ('knight', 'bishop', 'rook', 'queen', 'king')])
+    section('Placed at (of new players)', [(r, f'placed/{r}', 'start') for r in ('pawn', 'knight', 'bishop', 'rook', 'queen', 'king')])
     section('Daily puzzle', [('started', 'daily/start'), ('solved', 'daily/solved', 'daily/start'), ('answer shown', 'daily/missed', 'daily/start'),
         ('left to finish later', 'daily/later', 'daily/start'), ('came back to it', 'daily/resume', 'daily/start'),
         ('done card seen', 'daily/done-card'), ('tried again (practice)', 'daily/practice'), ('shared', 'share/daily', 'daily/solved'),
@@ -81,7 +82,7 @@ def main():
     section('Rank streaks', [x for r in ('pawn', 'knight', 'bishop', 'rook', 'queen', 'king')
         for x in ((f'{r}: started', f'run/start/{r}'), (f'{r}: cleared', f'run/cleared/{r}', f'run/start/{r}'), (f'{r}: quit', f'run/quit/{r}', f'run/start/{r}'))])
     section('Help (times used; the game counts milestones, not every puzzle, so compare these over time)', [('first hint', 'hint/1'), ('second hint', 'hint/2'), ('answer shown', 'answer')])
-    section('Sharing', [('progress', 'share'), ('daily result', 'share/daily'), ('an achievement', 'share/award')])
+    section('Sharing', [('progress', 'share'), ('daily result', 'share/daily'), ('an achievement', 'share/award'), ('placement', 'share/placed')])
     section('Settings and other', [(e, e) for e in ('mode/easy', 'mode/normal', 'mode/hard', 'remind/8', 'remind/12', 'remind/18', 'remind/20', 'remind/off',
         'lefty-on', 'sound-off', 'haptics-off', 'gamecenter', 'rate-ask', 'fold/table', 'fold/book', 'save-code/copy', 'save-code/load', 'icloud/newer', 'reset', 'tip/closed', 'app-promo')])
     print('A % is of what the section title names (new players), or of the first row of its group.')

@@ -5,6 +5,6 @@
     "groups": [
       "Internal"
     ],
-    "whats_new": "1.0.4 preview for the widgets, not for the App Store yet: the daily widget shows today's puzzle on the board (medium and large) and a close-up of it (small; StandBy keeps the big number). Try each size, waiting and done, in another language too (Settings > Language), and tell me anything that looks off."
+    "whats_new": "1.0.4 preview, not for the App Store yet. Widgets: the daily widget shows today's puzzle on the board (medium and large) and a close-up of it (small; StandBy keeps the big number). Placement: tap Settings > Start over to try it; your first few puzzles find your level, with the rating hidden until one card says where you placed. Difficulty is now Relaxed, Balanced, Challenging, with what each means. Tell me anything that looks off. Start over erases this device's progress, so copy your save code first (Settings > Advanced) if you want it back."
   }
 }
