@@ -296,7 +296,7 @@ struct DailyWidget: Widget {
         }
         .configurationDisplayName("Daily puzzle")
         .description("Today's puzzle and your daily streak.")
-        .supportedFamilies([.systemSmall, .accessoryCircular, .accessoryRectangular, .accessoryInline])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryCircular, .accessoryRectangular, .accessoryInline])
     }
 }
 
@@ -311,6 +311,7 @@ struct DailyWidgetView: View {
         let label = p?.dailyLabelText ?? "Daily"
         let count: String = streak > 0 ? "\(streak)" : "#\(n)"
         let inline: String = done ? "\(label) #\(n) ✓" : "\(label) #\(n)"
+        let board = p?.dailyBoard(on: entry.date)          // the position, once the app has sent it (medium and large)
         Group {
             switch family {
             case .accessoryCircular:
@@ -330,6 +331,8 @@ struct DailyWidgetView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             case .accessoryInline:
                 Label(inline, systemImage: done ? "checkmark.circle" : "calendar")
+            case .systemMedium where board != nil, .systemLarge where board != nil:   // each size its own condition: a where binds to one pattern
+                DailyBoardLayout(board: board!, large: family == .systemLarge, label: label, streak: streak, done: done, status: status)
             default:
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 6) {
@@ -371,6 +374,131 @@ struct DailyWidgetView: View {
         }
         .widgetURL(Daily.url)
         .widgetBackground(family.isAccessory ? AnyView(Color.clear) : AnyView(Palette.backdrop(bright: !done)))   // brighter while today's waits
+    }
+}
+
+// MARK: Today's puzzle on the board
+
+/// The daily widget's medium and large sizes: the position itself, as the player first sees it (the opponent's move
+/// highlighted, seen from the side to play, in the daily's coral frame), with the number, whose turn, the goal, the
+/// streak and done or waiting. Solved, the board dims under the game's green check.
+struct DailyBoardLayout: View {
+    let board: DailyBoard
+    let large: Bool
+    let label: String
+    let streak: Int
+    let done: Bool
+    let status: String
+
+    var body: some View {
+        if large {
+            VStack(alignment: .leading, spacing: 8) {
+                header
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text("#\(board.n)").font(Brand.number(26)).foregroundColor(Palette.cream)
+                    Text(board.toPlay).font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
+                    Text(board.goal).font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.7)).lineLimit(1).minimumScaleFactor(0.8)
+                }
+                BoardView(board: board, done: done).frame(maxWidth: .infinity, maxHeight: .infinity)
+                statusLine
+            }
+        } else {
+            HStack(spacing: 14) {
+                BoardView(board: board, done: done).aspectRatio(1, contentMode: .fit)
+                VStack(alignment: .leading, spacing: 3) {
+                    header
+                    Spacer(minLength: 0)
+                    Text("#\(board.n)").font(Brand.number(30)).foregroundColor(Palette.cream).lineLimit(1)
+                    Text(board.toPlay).font(.system(size: 14, weight: .bold, design: .rounded)).foregroundColor(Palette.cream).lineLimit(1).minimumScaleFactor(0.8)
+                    Text(board.goal).font(.system(size: 13, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.7)).lineLimit(2).minimumScaleFactor(0.8)
+                    Spacer(minLength: 4)
+                    statusLine
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+
+    private var header: some View {
+        HStack(spacing: 6) {
+            Mark(size: 16)
+            Text(label.uppercased()).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.75))
+            Spacer(minLength: 4)
+            if streak > 0 {
+                HStack(spacing: 3) {
+                    Image(systemName: "flame.fill").font(.system(size: 13, weight: .bold))
+                    Text("\(streak)").font(Brand.number(16))
+                }
+                .foregroundColor(Palette.gold)
+            }
+        }
+    }
+
+    @ViewBuilder private var statusLine: some View {
+        if done {
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(1).minimumScaleFactor(0.8)
+            }
+        } else {
+            HStack(spacing: 5) {
+                Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(1).minimumScaleFactor(0.75)
+            }
+            .foregroundColor(Palette.ink)
+            .padding(.horizontal, 9).padding(.vertical, 5)
+            .background(RoundedRectangle(cornerRadius: 9, style: .continuous).fill(Palette.gold)
+                            .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2))
+        }
+    }
+}
+
+/// A chess position drawn as the game draws it: its square colors, the last move in gold, the board's pieces
+struct BoardView: View {
+    let board: DailyBoard
+    var done = false
+    private static let light = Color(red: 0xec / 255, green: 0xee / 255, blue: 0xd8 / 255)
+    private static let dark = Color(red: 0x7c / 255, green: 0x9d / 255, blue: 0x70 / 255)
+    private static let last = Color(red: 0xf4 / 255, green: 0xcd / 255, blue: 0x46 / 255).opacity(0.58)
+    private static let files = Array("abcdefgh")
+
+    var body: some View {
+        GeometryReader { g in
+            let side = min(g.size.width, g.size.height), frame = max(3, side * 0.03), cell = (side - frame * 2) / 8
+            let rows = board.squares, flip = board.turn == "b"
+            ZStack {
+                RoundedRectangle(cornerRadius: side * 0.06, style: .continuous).fill(Palette.coral)
+                VStack(spacing: 0) {
+                    ForEach(0..<8, id: \.self) { r in
+                        HStack(spacing: 0) {
+                            ForEach(0..<8, id: \.self) { c in
+                                let row = flip ? 7 - r : r, file = flip ? 7 - c : c
+                                let name = String(Self.files[file]) + String(8 - row)
+                                ZStack {
+                                    ((file + 8 - row) % 2 == 1 ? Self.dark : Self.light)
+                                    if name == board.from || name == board.to { Self.last }
+                                    if let piece = rows.indices.contains(row) ? rows[row][file] : nil {
+                                        Image("piece-" + piece).resizable().scaledToFit().padding(cell * 0.04)
+                                    }
+                                }
+                                .frame(width: cell, height: cell)
+                            }
+                        }
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: side * 0.035, style: .continuous))
+                .padding(frame)
+                if done {
+                    RoundedRectangle(cornerRadius: side * 0.06, style: .continuous).fill(Palette.night.opacity(0.45))
+                    Image(systemName: "checkmark.circle.fill").font(.system(size: side * 0.28, weight: .bold))
+                        .foregroundStyle(.white, Palette.solved)
+                }
+            }
+            .frame(width: side, height: side)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(board.toPlay). \(board.goal).")
     }
 }
 

@@ -1408,11 +1408,30 @@ function reportProgress(p, puzzle) {
   }
   if (APP.widget) {
     const ri = rankIndex(p.rating), nxt = RANKS[ri + 1];
-    APP.post({ op: "widget", data: { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
+    const data = { rating: p.rating, rank: rankName(ri), rankLine: T("{rank} rank", { rank: rankName(ri) }), nextLine: nxt ? T("{n} to {rank}", { n: nxt[0] - p.rating, rank: rankName(ri + 1) }) : T("Top rank"),
       labels: { chart: T("Rating over time"), solved: T("solved"), inRow: T("in a row"), best: T("best run") }, piece: RANKS[ri][2], next: nxt ? nxt[1] : "", toNext: nxt ? nxt[0] - p.rating : 0,
       solved: p.solved, streak: p.streak, best: p.best, played: p.n, hist: p.hist.slice(-30), at: Date.now(),
-      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0, dailyPlayed: dailyDone(p) ? dayKey(dayNumber()) : "" } });
+      dailyDay: p.daily.last ? dayKey(p.daily.last) : "", dailyStreak: p.daily.streak, dailyTodo: T("Today's puzzle is ready"), dailyDone: T("Today's puzzle: done"), dailyLabel: T("Daily"), dailyFreezes: p.daily.freezes || 0, dailyPlayed: dailyDone(p) ? dayKey(dayNumber()) : "" };
+    /* today's puzzle and the next six, for the daily widget's board (it has them past midnight, the app closed) */
+    dailyBoards().then(b => { data.dailyBoards = b; }, () => {}).then(() => APP.post({ op: "widget", data }));
   }
+}
+
+/* The daily widget's boards: for today and the next six days, the position the player sees (after the opponent's
+   first move), whose turn, the goal and the last move, in the player's language. Worked out once a day. */
+let boardsCache = null;
+function dailyBoards() {
+  const n = dayNumber();
+  if (boardsCache && boardsCache.n === n) return boardsCache.p;
+  const p = Promise.all([...Array(7).keys()].map(async k => {
+    const d = await dailyPuzzle(n + k), pz = d.pz, g = new Chess(pz.fen + " 0 1"), u = pz.moves[0];
+    g.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
+    return { n: n + k, day: dayKey(n + k), fen: g.fen().split(" ")[0], turn: g.turn(), toPlay: g.turn() === "w" ? T("White to play") : T("Black to play"),
+      goal: goalText(pz), from: u.slice(0, 2), to: u.slice(2, 4) };
+  }));
+  boardsCache = { n, p };
+  p.catch(() => { boardsCache = null; });
+  return p;
 }
 
 /* Sharing: the iOS share sheet in the app, the system share sheet where the browser has one, or the clipboard. */
@@ -1623,8 +1642,8 @@ function setStatus(mode, main, sub, icon) {
   $("stMain").textContent = main; $("stSub").textContent = sub || "";
   restart(st, "swap");
 }
-function goalText() {
-  const th = cur.pz.th, mate = th.find(t => /^mateIn\d$/.test(t));
+function goalText(pz = cur.pz) {
+  const th = pz.th, mate = th.find(t => /^mateIn\d$/.test(t));
   return mate ? T("Checkmate in {n}", { n: mate.slice(6) }) : th.includes("mate") ? T("Find the checkmate") : T("Find the best move");
 }
 function showTurn() { setStatus("turn", (orient === "w" ? T("White to play") : T("Black to play")), goalText(), "token"); }

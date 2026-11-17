@@ -369,6 +369,21 @@ function translations() {
     check(/save code/.test(withProgress) && !afterClose, "with progress it points to the save code; × hides it for good", { withProgress, afterClose });
     await x.w.ctx.close();
   }
+  // the daily widget's boards: seven days from today, each the position the player sees (today's matches the game's
+  // board once the daily has started), whose turn, the goal and the last move
+  {
+    const w = await page("", () => { window.sent = []; window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(m) } } }; window.kingWalkApp = { widget: true }; });
+    await w.p.waitForFunction(() => window.sent.some(m => m.op === "widget" && m.data.dailyBoards), null, { timeout: 15000 }).catch(() => {});
+    const r = await w.p.evaluate(async () => {
+      const b = (window.sent.filter(m => m.op === "widget" && m.data.dailyBoards).pop() || { data: {} }).data.dailyBoards || [];
+      startDaily(); await new Promise(r => setTimeout(r, 2500));
+      return { count: b.length, first: b[0] && b[0].n, today: dayNumber(), days: b.map(x => x.n), shape: b.every(x => x.fen.split("/").length === 8 && /^[wb]$/.test(x.turn) && x.toPlay && x.goal && /^[a-h][1-8]$/.test(x.from) && /^[a-h][1-8]$/.test(x.to)),
+        same: b[0] && game.fen().split(" ")[0] === b[0].fen && game.turn() === b[0].turn };
+    });
+    check(r.count === 7 && r.first === r.today && r.days.join() === [0, 1, 2, 3, 4, 5, 6].map(k => r.today + k).join() && r.shape && r.same,
+      "the widget gets seven daily boards from today; today's is the board the daily shows", r);
+    await w.ctx.close();
+  }
   // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
   // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
   for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {

@@ -30,6 +30,7 @@ struct Progress: Codable, Equatable {
     var dailyLabel: String? // "Daily"
     var dailyFreezes: Int?  // streak freezes held: each covers one skipped day
     var dailyPlayed: String? // the local date today's daily was played (solved or not), or ""
+    var dailyBoards: [DailyBoard]?   // today's daily puzzle and the next six, for the daily widget's board
 
     static let key = "progress"
     static let widgetKind = "KingWalkProgress"
@@ -46,6 +47,8 @@ struct Progress: Codable, Equatable {
     var dailyTodoText: String { dailyTodo ?? "Today's puzzle is ready" }
     var dailyDoneText: String { dailyDone ?? "Today's puzzle: done" }
     var dailyLabelText: String { dailyLabel ?? "Daily" }
+    /// the daily puzzle's board for this date, if the page has sent it
+    func dailyBoard(on date: Date = Date()) -> DailyBoard? { dailyBoards?.first { $0.day == Daily.key(date) } }
 
     /// The rating each rank starts at, by its piece letter (rank names come translated), for the bar to the next rank
     static let rankFloors: [String: Int] = ["p": 400, "n": 700, "b": 1000, "r": 1300, "q": 1600, "k": 1900]
@@ -66,11 +69,39 @@ struct Progress: Codable, Equatable {
     static let sample = Progress(rating: 1124, rank: "Bishop", piece: "b", next: "Rook", toNext: 176, solved: 142, streak: 4, best: 11,
                                  played: 210, hist: [1020, 1031, 1018, 1044, 1052, 1047, 1066, 1071, 1063, 1080, 1092, 1088, 1101, 1097, 1112, 1124],
                                  at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil,
-                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1, dailyPlayed: nil)
+                                 dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1, dailyPlayed: nil,
+                                 dailyBoards: [DailyBoard(n: Daily.number(Date()), day: Daily.key(Date()), fen: "r1b2rk1/pp3ppp/2n5/3qp3/8/2PB1N2/P4PPP/R2Q1RK1",
+                                                          turn: "w", toPlay: "White to play", goal: "Checkmate in 2", from: "e6", to: "d5")])
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }
         return try? JSONDecoder().decode(Progress.self, from: data)
+    }
+}
+
+/// One day's daily puzzle as the player first sees it (dailyBoards in index.html): the pieces (a FEN's board part,
+/// rank 8 first), whose turn ("w" or "b", which is also the side the board is seen from), the turn and goal in the
+/// player's language, and the opponent's move that led here (squares like "e6").
+struct DailyBoard: Codable, Equatable {
+    var n: Int
+    var day: String
+    var fen: String
+    var turn: String
+    var toPlay: String
+    var goal: String
+    var from: String
+    var to: String
+
+    /// the piece on each square, rank 8 to rank 1 and file a to h: "wk", "bp"… or nil
+    var squares: [[String?]] {
+        fen.split(separator: "/").map { row in
+            var out: [String?] = []
+            for ch in row {
+                if let gap = ch.wholeNumberValue { out += Array(repeating: nil, count: gap) }
+                else { out.append((ch.isUppercase ? "w" : "b") + ch.lowercased()) }
+            }
+            return Array((out + Array(repeating: nil, count: 8)).prefix(8))
+        }
     }
 }
 

@@ -9,7 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
-- Nothing yet.
+- **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
+  turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
 
 ### Website only (live on kingwalk.app)
 

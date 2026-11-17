@@ -170,13 +170,13 @@ function leaderboardArt(id) {
     { appearances: [{ appearance: "luminosity", value: "tinted" }], filename: "icon-tinted-1024.png", idiom: "universal", platform: "ios", size: "1024x1024" },
   ], info: { author: "xcode", version: 1 } }, null, 2) + "\n");
 
-  // the white pieces for the widget, at 3x for 64 points
+  // the pieces for the widgets, at 3x for 64 points: white for the rank badge, both colors for the daily board
   const wcat = mkdir(path.join(ROOT, "ios/KingWalkWidget/Assets.xcassets"));
   fs.writeFileSync(path.join(wcat, "Contents.json"), JSON.stringify({ info: { author: "xcode", version: 1 } }, null, 2) + "\n");
-  for (const t of "kqrbnp") {
-    const dir = mkdir(path.join(wcat, `piece-w${t}.imageset`));
-    await render(pieceSvg("w" + t), 192, path.join(dir, `piece-w${t}@3x.png`), true);
-    fs.writeFileSync(path.join(dir, "Contents.json"), JSON.stringify({ images: [{ filename: `piece-w${t}@3x.png`, idiom: "universal", scale: "3x" }], info: { author: "xcode", version: 1 } }, null, 2) + "\n");
+  for (const c of "wb") for (const t of "kqrbnp") {
+    const dir = mkdir(path.join(wcat, `piece-${c}${t}.imageset`));
+    await render(pieceSvg(c + t), 192, path.join(dir, `piece-${c}${t}@3x.png`), true);
+    fs.writeFileSync(path.join(dir, "Contents.json"), JSON.stringify({ images: [{ filename: `piece-${c}${t}@3x.png`, idiom: "universal", scale: "3x" }], info: { author: "xcode", version: 1 } }, null, 2) + "\n");
   }
 
   // Game Center achievement images (512x512, opaque)
