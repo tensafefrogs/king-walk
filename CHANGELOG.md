@@ -9,11 +9,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
-- **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
-  with reminders on, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
-- **Settings → Language:** play in a language other than the device's (already on the website).
-- **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
-  the green check once it's done, and the King Walk icon on the daily widget.
+- Nothing yet.
 
 ### Website only (live on kingwalk.app)
 
@@ -29,7 +25,16 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.2 (in App Review, submitted 16 November 2026)
+## 1.0.3 (queued: built for TestFlight, submitted once 1.0.2 is out, released on approval)
+
+- **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
+  with reminders on, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
+- **Settings → Language:** play in a language other than the device's (already on the website).
+- **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
+  the green check once it's done, and the King Walk icon on the daily widget.
+
+## 1.0.2 (in App Review, third build submitted 16 November 2026)
+
 - **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
   whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
   cause of the stuck zoom). The game now lays itself out for the bigger text and always fits.
