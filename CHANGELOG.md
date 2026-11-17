@@ -9,19 +9,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
-- **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
-  turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
-  The small size shows a close-up of the board: the king to be mated, or the square the opponent just moved to.
+- Nothing yet.
 
 ### Website only (live on kingwalk.app)
 
-- **Your first puzzles find your level:** a new player's first few puzzles (up to 10) take big steps up or down
-  instead of starting everyone at 600 and climbing slowly, so a strong player isn't stuck on easy puzzles for an hour.
-  Meanwhile the rank and rating stay hidden, with no rank-ups; at the end one card says "You placed at Bishop" with the
-  rating. Players who have already played are unaffected. (Website now; the app with the next version.)
-- **Difficulty says what it means:** Relaxed, Balanced, Challenging (were Easier, Just right, Harder), with what to
-  expect under them ("Some misses, about 6 in 10") and that the rating is fair in any mode. (Website now; the app with
-  the next version.)
 - Everything in 1.0.2 below is already on the website.
 - **Opened from X, Instagram, TikTok and the like,** a quiet line says progress stays in that app's browser, with
   a link that opens the game in Safari (or Chrome), and a pointer to the save code once there's progress to bring.
@@ -38,6 +29,16 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## 1.0.3 (queued: built for TestFlight, submitted once 1.0.2 is out, released on approval)
 
+- **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
+  turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
+  The small size shows a close-up of the board: the king to be mated, or the square the opponent just moved to.
+- **Your first puzzles find your level:** a new player's first few puzzles (up to 10) take big steps up or down
+  instead of starting everyone at 600 and climbing slowly, so a strong player isn't stuck on easy puzzles for an hour.
+  Meanwhile the rank and rating stay hidden, with no rank-ups; at the end one card says "You placed at Bishop" with the
+  rating. Players who have already played are unaffected. (Also live on the website.)
+- **Difficulty says what it means:** Relaxed, Balanced, Challenging (were Easier, Just right, Harder), with what to
+  expect under them ("Some misses, about 6 in 10") and that the rating is fair in any mode. (Also live on the
+  website.)
 - **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
   with a reminder set before 7 pm, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
 - **Settings → Language:** play in a language other than the device's (already on the website).
