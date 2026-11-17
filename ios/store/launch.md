@@ -80,3 +80,13 @@ Then submit, by changing `ios/release.json` and pushing to `main`:
 - [ ] **Apple Vision Pro:** the same page → "Apple Vision Pro": "Make this app available" ticked (the default for a compatible iPad app).
 - [ ] After either: the press kit and listing can say "also on Mac and Apple Vision Pro".
 
+## China mainland compliance (App Store Connect → King Walk → App Compliance; Account Holder or Admin)
+
+Required of every app on the China mainland store by January 31, 2027 (new apps at once). Apple's notices read as if documents are needed; they're only needed for a Yes.
+
+- [ ] **AI-Generated or Synthetic Content: No.** No chatbot, no generated text, images, video or voice: the puzzles are from the Lichess database and the game's text is fixed. (A Yes needs an approved LLM or algorithm filing number, and a provider's authorization.)
+- [ ] **Security Assessment: No.** No AI content distributed, no messaging of any kind. (A Yes needs a passed assessment and its report from the National Internet Security Management Service Platform.)
+- **Anti Telecom Fraud Law:** nothing to do; it's for organizations based in China mainland.
+- **Selling there at all:** China requires a government game license (an ISBN approval number) for paid games, and Apple holds back games without one, so King Walk is likely not on sale in China mainland whatever these say (Pricing and Availability shows it).
+- **If an AI feature is ever added** (ROADMAP: "Why does this work?" explanations), these answers change: turn it off in China mainland and keep No, or file for it.
+
