@@ -56,7 +56,8 @@ def wait_for_build(app_id, version, number, minutes=45):
     deadline = time.time() + minutes * 60
     while True:
         resp = builds(app_id, version=version, number=number, limit=5)
-        b = next(iter(resp['data']), None)
+        # an expired build can't go to testers or App Review: the newest one that isn't, unless asked for by number
+        b = next((x for x in resp['data'] if number or not x['attributes'].get('expired')), None)
         state = b and b['attributes']['processingState']
         if b and state == 'VALID':
             log(f"Build {b['attributes']['version']} is processed")
@@ -156,16 +157,26 @@ def test_information(app_id):
 
 
 def prune(app_id, build):
-    """Expire older TestFlight builds so testers see two: the current one (attached to an App Store version: live,
-    in review or being prepared) and this new one. Builds attached to a version are never touched."""
+    """Expire older TestFlight builds of each version, so testers see one build per version: the newest of each, this
+    new one, and any build attached to an App Store version (live, in review or being prepared) are never touched. A
+    build waiting for its version's App Store step (release.json queued behind another version) is the newest of its
+    version, so it stays, whatever else is uploaded meanwhile (a TestFlight-only build of the next version, say)."""
     vr = versions(app_id)
     keep = {build['id']} | {v['relationships']['build']['data']['id'] for v in vr['data']
                             if (v['relationships'].get('build') or {}).get('data')}
-    for b in builds(app_id, limit=50)['data']:
+    resp = builds(app_id, limit=50)
+    newest = set()
+    for b in resp['data']:          # newest first: the first build seen of each version is its newest
+        pre = (b['relationships'].get('preReleaseVersion') or {}).get('data')
+        ver = (included(resp, 'preReleaseVersions', pre['id']) or {}).get('attributes', {}).get('version') if pre else None
+        if b['attributes'].get('expired'): continue
+        if ver not in newest:
+            newest.add(ver); keep.add(b['id'])
+    for b in resp['data']:
         if b['id'] in keep or b['attributes'].get('expired'): continue
         try:
             request('PATCH', f"/v1/builds/{b['id']}", {'data': {'type': 'builds', 'id': b['id'], 'attributes': {'expired': True}}})
-            log(f"TestFlight: build {b['attributes']['version']} expired (testers keep current and next)")
+            log(f"TestFlight: build {b['attributes']['version']} expired (an older build of its version)")
         except ApiError as e:
             log(f"TestFlight: could not expire build {b['attributes']['version']}: {e.code}")
 
@@ -405,12 +416,24 @@ def release(build_number):
         if cfg.get('app_store'): app_store(app_id, build, {'version': cfg['version'], **cfg['app_store']})
 
 
+def beta(build_number):
+    """A TestFlight-only build from ios/beta.json (a version ahead of the one release.json is taking to the App Store):
+    gives it to its groups and never touches the App Store, so a queued App Store step in release.json is unaffected."""
+    cfg = json.load(open(os.path.join(ROOT, 'ios', 'beta.json')))
+    a = get_app(); app_id = a['id']
+    log(f"Beta: {json.dumps(cfg)}")
+    testflight(app_id, wait_for_build(app_id, cfg['version'], build_number), cfg['testflight'])
+
+
 if __name__ == '__main__':
     args = sys.argv[1:]
     if args[:1] == ['status']:
         status()
     elif args[:1] == ['pending']:
         pending()
+    elif args[:1] == ['beta']:
+        n = args[args.index('--build-number') + 1] if '--build-number' in args else None
+        beta(n or None)
     elif args[:1] == ['release']:
         n = args[args.index('--build-number') + 1] if '--build-number' in args else None
         release(n or None)
