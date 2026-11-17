@@ -11,6 +11,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
   turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
+  The small size shows a close-up of the board: the king to be mated, or the square the opponent just moved to.
 
 ### Website only (live on kingwalk.app)
 

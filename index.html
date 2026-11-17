@@ -1426,8 +1426,12 @@ function dailyBoards() {
   const p = Promise.all([...Array(7).keys()].map(async k => {
     const d = await dailyPuzzle(n + k), pz = d.pz, g = new Chess(pz.fen + " 0 1"), u = pz.moves[0];
     g.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
+    /* focus: where the small widget's close-up looks: for a checkmate, the king that's mated (and its escape squares);
+       otherwise the square the opponent just moved to */
+    const mate = pz.th.some(t => /mate/i.test(t)), at = g.board().flat().findIndex(q => q && q.type === "k" && q.color !== g.turn());
+    const king = at >= 0 ? "abcdefgh"[at % 8] + (8 - Math.floor(at / 8)) : null;   // board() is rank 8 first, file a first
     return { n: n + k, day: dayKey(n + k), fen: g.fen().split(" ")[0], turn: g.turn(), toPlay: g.turn() === "w" ? T("White to play") : T("Black to play"),
-      goal: goalText(pz), from: u.slice(0, 2), to: u.slice(2, 4) };
+      goal: goalText(pz), from: u.slice(0, 2), to: u.slice(2, 4), focus: mate && king ? king : u.slice(2, 4) };
   }));
   boardsCache = { n, p };
   p.catch(() => { boardsCache = null; });

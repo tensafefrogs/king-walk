@@ -71,7 +71,7 @@ struct Progress: Codable, Equatable {
                                  at: Date().timeIntervalSince1970 * 1000, rankLine: nil, nextLine: nil, labels: nil,
                                  dailyDay: Daily.key(Date()), dailyStreak: 5, dailyTodo: nil, dailyDone: nil, dailyLabel: nil, dailyFreezes: 1, dailyPlayed: nil,
                                  dailyBoards: [DailyBoard(n: Daily.number(Date()), day: Daily.key(Date()), fen: "r1b2rk1/pp3ppp/2n5/3qp3/8/2PB1N2/P4PPP/R2Q1RK1",
-                                                          turn: "w", toPlay: "White to play", goal: "Checkmate in 2", from: "e6", to: "d5")])
+                                                          turn: "w", toPlay: "White to play", goal: "Checkmate in 2", from: "e6", to: "d5", focus: "g8")])
 
     static func load() -> Progress? {
         guard let data = SharedStore.read(key) else { return nil }
@@ -91,6 +91,15 @@ struct DailyBoard: Codable, Equatable {
     var goal: String
     var from: String
     var to: String
+    var focus: String?   // where the small widget's close-up looks: the king to be mated, else the opponent's last move
+
+    /// the focus square as (row, file): row 0 is rank 8, file 0 is a
+    var focusSquare: (row: Int, file: Int) {
+        let sq = Array(focus ?? to)
+        guard sq.count == 2, let f = "abcdefgh".firstIndex(of: sq[0]), let rank = sq[1].wholeNumberValue, (1...8).contains(rank)
+        else { return (4, 4) }
+        return (8 - rank, "abcdefgh".distance(from: "abcdefgh".startIndex, to: f))
+    }
 
     /// the piece on each square, rank 8 to rank 1 and file a to h: "wk", "bp"… or nil
     var squares: [[String?]] {

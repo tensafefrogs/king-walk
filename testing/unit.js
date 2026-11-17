@@ -377,7 +377,7 @@ function translations() {
     const r = await w.p.evaluate(async () => {
       const b = (window.sent.filter(m => m.op === "widget" && m.data.dailyBoards).pop() || { data: {} }).data.dailyBoards || [];
       startDaily(); await new Promise(r => setTimeout(r, 2500));
-      return { count: b.length, first: b[0] && b[0].n, today: dayNumber(), days: b.map(x => x.n), shape: b.every(x => x.fen.split("/").length === 8 && /^[wb]$/.test(x.turn) && x.toPlay && x.goal && /^[a-h][1-8]$/.test(x.from) && /^[a-h][1-8]$/.test(x.to)),
+      return { count: b.length, first: b[0] && b[0].n, today: dayNumber(), days: b.map(x => x.n), shape: b.every(x => x.fen.split("/").length === 8 && /^[wb]$/.test(x.turn) && x.toPlay && x.goal && /^[a-h][1-8]$/.test(x.from) && /^[a-h][1-8]$/.test(x.to) && /^[a-h][1-8]$/.test(x.focus)),
         same: b[0] && game.fen().split(" ")[0] === b[0].fen && game.turn() === b[0].turn };
     });
     check(r.count === 7 && r.first === r.today && r.days.join() === [0, 1, 2, 3, 4, 5, 6].map(k => r.today + k).join() && r.shape && r.same,

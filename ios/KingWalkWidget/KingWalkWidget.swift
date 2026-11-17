@@ -332,48 +332,73 @@ struct DailyWidgetView: View {
             case .accessoryInline:
                 Label(inline, systemImage: done ? "checkmark.circle" : "calendar")
             case .systemMedium where board != nil, .systemLarge where board != nil:   // each size its own condition: a where binds to one pattern
-                DailyBoardLayout(board: board!, large: family == .systemLarge, label: label, streak: streak, done: done, status: status)
+                DailyBoardLayout(board: board!, size: family == .systemLarge ? .large : .medium, label: label, streak: streak, done: done, status: status)
+            case .systemSmall where board != nil:
+                // a close-up of the board on the Home Screen; StandBy (no container background) keeps the big number below
+                StandByAware(standBy: AnyView(plainDaily(n: n, label: label, streak: streak, done: done, status: status)),
+                             home: AnyView(DailyBoardLayout(board: board!, size: .small, label: label, streak: streak, done: done, status: status)))
             default:
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
-                        Mark(size: 16)
-                        Text(label.uppercased()).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.75))
-                        Spacer()
-                        if streak > 0 {
-                            HStack(spacing: 3) {
-                                Image(systemName: "flame.fill").font(.system(size: 13, weight: .bold))
-                                Text("\(streak)").font(Brand.number(16))
-                            }
-                            .foregroundColor(Palette.gold)
-                        }
-                    }
-                    Spacer(minLength: 0)
-                    Text("#\(n)").font(Brand.number(46)).foregroundColor(Palette.cream).minimumScaleFactor(0.6).lineLimit(1)
-                    Text(entry.date, format: .dateTime.weekday(.wide)).font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
-                    Spacer(minLength: 4)
-                    if done {
-                        // solved: the game's green check
-                        HStack(spacing: 5) {
-                            Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
-                            Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(2).minimumScaleFactor(0.8)
-                        }
-                    } else {
-                        // waiting: the game's gold button, ink on gold
-                        HStack(spacing: 5) {
-                            Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
-                            Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(2).minimumScaleFactor(0.75)
-                        }
-                        .foregroundColor(Palette.ink)
-                        .padding(.horizontal, 9).padding(.vertical, 5)
-                        .background(RoundedRectangle(cornerRadius: 9, style: .continuous).fill(Palette.gold)
-                                        .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                plainDaily(n: n, label: label, streak: streak, done: done, status: status)
             }
         }
         .widgetURL(Daily.url)
         .widgetBackground(family.isAccessory ? AnyView(Color.clear) : AnyView(Palette.backdrop(bright: !done)))   // brighter while today's waits
+    }
+
+    /// the daily without the board: the number and the day, big enough to read across a room in StandBy
+    private func plainDaily(n: Int, label: String, streak: Int, done: Bool, status: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 6) {
+                Mark(size: 16)
+                Text(label.uppercased()).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.75))
+                Spacer()
+                if streak > 0 {
+                    HStack(spacing: 3) {
+                        Image(systemName: "flame.fill").font(.system(size: 13, weight: .bold))
+                        Text("\(streak)").font(Brand.number(16))
+                    }
+                    .foregroundColor(Palette.gold)
+                }
+            }
+            Spacer(minLength: 0)
+            Text("#\(n)").font(Brand.number(46)).foregroundColor(Palette.cream).minimumScaleFactor(0.6).lineLimit(1)
+            Text(entry.date, format: .dateTime.weekday(.wide)).font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8))
+            Spacer(minLength: 4)
+            if done {
+                // solved: the game's green check
+                HStack(spacing: 5) {
+                    Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
+                    Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(2).minimumScaleFactor(0.8)
+                }
+            } else {
+                // waiting: the game's gold button, ink on gold
+                HStack(spacing: 5) {
+                    Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
+                    Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(2).minimumScaleFactor(0.75)
+                }
+                .foregroundColor(Palette.ink)
+                .padding(.horizontal, 9).padding(.vertical, 5)
+                .background(RoundedRectangle(cornerRadius: 9, style: .continuous).fill(Palette.gold)
+                                .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+/// Shows `standBy` where the widget has no container background (StandBy, iOS 17 and later), else `home`
+struct StandByAware: View {
+    let standBy: AnyView
+    let home: AnyView
+    var body: some View {
+        if #available(iOSApplicationExtension 17.0, *) { Picker17(standBy: standBy, home: home) } else { home }
+    }
+    @available(iOSApplicationExtension 17.0, *)
+    private struct Picker17: View {
+        @Environment(\.showsWidgetContainerBackground) private var background
+        let standBy: AnyView
+        let home: AnyView
+        var body: some View { if background { home } else { standBy } }
     }
 }
 
@@ -383,15 +408,33 @@ struct DailyWidgetView: View {
 /// highlighted, seen from the side to play, in the daily's coral frame), with the number, whose turn, the goal, the
 /// streak and done or waiting. Solved, the board dims under the game's green check.
 struct DailyBoardLayout: View {
+    enum Size { case small, medium, large }
     let board: DailyBoard
-    let large: Bool
+    let size: Size
     let label: String
     let streak: Int
     let done: Bool
     let status: String
 
     var body: some View {
-        if large {
+        if size == .small {
+            // a 3 × 3 close-up around the focus square beside the number and goal
+            VStack(alignment: .leading, spacing: 6) {
+                header
+                Spacer(minLength: 0)
+                HStack(alignment: .center, spacing: 8) {
+                    BoardView(board: board, done: done, crop: 3).frame(width: 62, height: 62)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("#\(board.n)").font(Brand.number(22)).foregroundColor(Palette.cream).lineLimit(1).minimumScaleFactor(0.7)
+                        Text(board.goal).font(.system(size: 11, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8)).lineLimit(3).minimumScaleFactor(0.75)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                Spacer(minLength: 0)
+                statusLine
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } else if size == .large {
             VStack(alignment: .leading, spacing: 8) {
                 header
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -435,15 +478,16 @@ struct DailyBoardLayout: View {
     }
 
     @ViewBuilder private var statusLine: some View {
+        let lines = size == .small ? 2 : 1   // the small size is too narrow for one line
         if done {
             HStack(spacing: 5) {
                 Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
-                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(1).minimumScaleFactor(0.8)
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(lines).minimumScaleFactor(0.8)
             }
         } else {
             HStack(spacing: 5) {
                 Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
-                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(1).minimumScaleFactor(0.75)
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(lines).minimumScaleFactor(0.75)
             }
             .foregroundColor(Palette.ink)
             .padding(.horizontal, 9).padding(.vertical, 5)
@@ -457,6 +501,7 @@ struct DailyBoardLayout: View {
 struct BoardView: View {
     let board: DailyBoard
     var done = false
+    var crop = 8   // squares across: under 8, a close-up around the board's focus square
     private static let light = Color(red: 0xec / 255, green: 0xee / 255, blue: 0xd8 / 255)
     private static let dark = Color(red: 0x7c / 255, green: 0x9d / 255, blue: 0x70 / 255)
     private static let last = Color(red: 0xf4 / 255, green: 0xcd / 255, blue: 0x46 / 255).opacity(0.58)
@@ -464,15 +509,20 @@ struct BoardView: View {
 
     var body: some View {
         GeometryReader { g in
-            let side = min(g.size.width, g.size.height), frame = max(3, side * 0.03), cell = (side - frame * 2) / 8
+            let n = min(max(crop, 1), 8)
+            let side = min(g.size.width, g.size.height), frame = max(3, side * 0.03), cell = (side - frame * 2) / CGFloat(n)
             let rows = board.squares, flip = board.turn == "b"
+            // the window's first drawn row and column: the focus square in the middle (with an even size, the half
+            // toward the board's middle), kept on the board
+            let fs = board.focusSquare, fr = flip ? 7 - fs.row : fs.row, fc = flip ? 7 - fs.file : fs.file
+            let r0 = Self.start(fr, n), c0 = Self.start(fc, n)
             ZStack {
                 RoundedRectangle(cornerRadius: side * 0.06, style: .continuous).fill(Palette.coral)
                 VStack(spacing: 0) {
-                    ForEach(0..<8, id: \.self) { r in
+                    ForEach(0..<n, id: \.self) { r in
                         HStack(spacing: 0) {
-                            ForEach(0..<8, id: \.self) { c in
-                                let row = flip ? 7 - r : r, file = flip ? 7 - c : c
+                            ForEach(0..<n, id: \.self) { c in
+                                let row = flip ? 7 - (r0 + r) : r0 + r, file = flip ? 7 - (c0 + c) : c0 + c
                                 let name = String(Self.files[file]) + String(8 - row)
                                 ZStack {
                                     ((file + 8 - row) % 2 == 1 ? Self.dark : Self.light)
@@ -499,6 +549,11 @@ struct BoardView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(board.toPlay). \(board.goal).")
+    }
+
+    private static func start(_ at: Int, _ n: Int) -> Int {
+        let before = n % 2 == 1 ? n / 2 : (at >= 4 ? n / 2 : n / 2 - 1)
+        return min(max(at - before, 0), 8 - n)
     }
 }
 
