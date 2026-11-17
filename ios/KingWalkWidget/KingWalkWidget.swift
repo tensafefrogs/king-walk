@@ -418,20 +418,18 @@ struct DailyBoardLayout: View {
 
     var body: some View {
         if size == .small {
-            // a 3 × 3 close-up around the focus square beside the number and goal
+            // a 3 × 3 close-up around the focus square and the number, done or waiting, with the goal under them. No
+            // status sentence: in many languages it doesn't fit this size (the board's check and the gold play button say it)
             VStack(alignment: .leading, spacing: 6) {
                 header
                 Spacer(minLength: 0)
-                HStack(alignment: .center, spacing: 8) {
-                    BoardView(board: board, done: done, crop: 3).frame(width: 62, height: 62)
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text("#\(board.n)").font(Brand.number(22)).foregroundColor(Palette.cream).lineLimit(1).minimumScaleFactor(0.7)
-                        Text(board.goal).font(.system(size: 11, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.8)).lineLimit(3).minimumScaleFactor(0.75)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack(alignment: .center, spacing: 10) {
+                    BoardView(board: board, done: done, crop: 3).frame(width: 64, height: 64)
+                    numberBadge
                 }
+                Text(board.goal).font(.system(size: 12, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.85))
+                    .lineLimit(2).minimumScaleFactor(0.75).fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 0)
-                statusLine
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } else if size == .large {
@@ -439,7 +437,7 @@ struct DailyBoardLayout: View {
                 header
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text("#\(board.n)").font(Brand.number(26)).foregroundColor(Palette.cream)
-                    Text(board.toPlay).font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Palette.cream)
+                    Text(board.toPlay).font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Palette.cream).lineLimit(1).minimumScaleFactor(0.7)
                     Text(board.goal).font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.7)).lineLimit(1).minimumScaleFactor(0.8)
                 }
                 BoardView(board: board, done: done).frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -462,6 +460,27 @@ struct DailyBoardLayout: View {
         }
     }
 
+    /// the small size's number: the game's gold play button while today's puzzle waits, with the green check once done
+    @ViewBuilder private var numberBadge: some View {
+        if done {
+            HStack(spacing: 4) {
+                Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .bold)).foregroundColor(Palette.solved)
+                Text("#\(board.n)").font(Brand.number(22)).foregroundColor(Palette.cream).lineLimit(1).minimumScaleFactor(0.6)
+            }
+            .accessibilityElement(children: .ignore).accessibilityLabel(status)
+        } else {
+            HStack(spacing: 4) {
+                Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
+                Text("#\(board.n)").font(Brand.number(20)).lineLimit(1).minimumScaleFactor(0.6)
+            }
+            .foregroundColor(Palette.ink)
+            .padding(.horizontal, 9).padding(.vertical, 4)
+            .background(RoundedRectangle(cornerRadius: 9, style: .continuous).fill(Palette.gold)
+                            .shadow(color: Palette.night.opacity(0.6), radius: 0, x: 2, y: 2))
+            .accessibilityElement(children: .ignore).accessibilityLabel(status)
+        }
+    }
+
     private var header: some View {
         HStack(spacing: 6) {
             Mark(size: 16)
@@ -478,16 +497,15 @@ struct DailyBoardLayout: View {
     }
 
     @ViewBuilder private var statusLine: some View {
-        let lines = size == .small ? 2 : 1   // the small size is too narrow for one line
         if done {
             HStack(spacing: 5) {
                 Image(systemName: "checkmark.circle.fill").font(.system(size: 15, weight: .bold)).foregroundColor(Palette.solved)
-                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(lines).minimumScaleFactor(0.8)
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundColor(Palette.cream.opacity(0.9)).lineLimit(1).minimumScaleFactor(0.65)
             }
         } else {
             HStack(spacing: 5) {
                 Image(systemName: "play.fill").font(.system(size: 11, weight: .bold))
-                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(lines).minimumScaleFactor(0.75)
+                Text(status).font(.system(size: 12, weight: .bold, design: .rounded)).lineLimit(1).minimumScaleFactor(0.65)
             }
             .foregroundColor(Palette.ink)
             .padding(.horizontal, 9).padding(.vertical, 5)
@@ -537,6 +555,7 @@ struct BoardView: View {
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: side * 0.035, style: .continuous))
+                .environment(\.layoutDirection, .leftToRight)   // a chess board reads a to h in every language, as in the game
                 .padding(frame)
                 if done {
                     RoundedRectangle(cornerRadius: side * 0.06, style: .continuous).fill(Palette.night.opacity(0.45))
