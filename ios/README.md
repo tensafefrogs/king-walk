@@ -105,7 +105,7 @@ Pushes to `main` that change the app or `index.html` also run a simulator build 
 
 Any change to the file runs it again; change `note` to re-run with the same settings. Don't submit to App Review or release without the owner's go-ahead for that version.
 
-**A TestFlight build of the next version while release.json is busy** (a version queued for the App Store, say): put the version and its `testflight` settings in `ios/beta.json` (`version`, `xcode27`, `testflight` as above), push, then Actions → **App Store release** → Run workflow with "Build ios/beta.json's version for TestFlight only" checked. It builds `main` as that version and gives it to the groups; it never touches the App Store, so whatever release.json is waiting to do still happens (the 6-hourly run submits the newest build of release.json's version, not this one).
+**A TestFlight build of the next version while release.json is busy** (a version queued for the App Store, say): put the version and its `testflight` settings in `ios/beta.json` (`version`, `xcode27`, `testflight` as above), push, then Actions → **App Store release** → Run workflow with "Build ios/beta.json's version for TestFlight only" checked. It builds `main` as that version and gives it to the groups; it never touches the App Store, so whatever release.json is waiting to do still happens (the 6-hourly run submits the newest build of release.json's version, not this one). Each upload expires older builds of the same version only, so the newest build of every version stays (an expired build can't be submitted).
 
 To submit 1.0 for review once TestFlight looks good:
 
