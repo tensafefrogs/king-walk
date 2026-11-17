@@ -20,6 +20,10 @@ on:
         description: Only check where the app stands (and do a waiting App Store step), like the 6-hourly run
         type: boolean
         default: false
+      beta:
+        description: Build ios/beta.json's version for TestFlight only (never the App Store; release.json is left alone)
+        type: boolean
+        default: false
 
 concurrency:
   group: app-store-release
@@ -33,6 +37,7 @@ jobs:
       version: ${{ steps.read.outputs.version }}
       xcode27: ${{ steps.read.outputs.xcode27 }}
       act: ${{ steps.read.outputs.act }}
+      beta: ${{ steps.read.outputs.beta }}
       ready: ${{ steps.read.outputs.ready }}
     steps:
       - uses: actions/checkout@v4
@@ -44,12 +49,15 @@ jobs:
           # which of the settings are there (yes/no only, never the values), so a skipped run says what's missing
           HAVE: "ASC_KEY_ID=${{ secrets.ASC_KEY_ID != '' }} ASC_ISSUER_ID=${{ secrets.ASC_ISSUER_ID != '' }} ASC_KEY_P8=${{ secrets.ASC_KEY_P8 != '' }} APPLE_TEAM_ID=${{ secrets.APPLE_TEAM_ID != '' || vars.APPLE_TEAM_ID != '' }} BUNDLE_ID=${{ vars.BUNDLE_ID != '' }}"
           STATUS_ONLY: ${{ inputs.status_only }}
+          BETA: ${{ inputs.beta }}
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import json, os
-          c = json.load(open('ios/release.json'))
+          beta = os.environ.get('BETA') == 'true'
+          c = json.load(open('ios/beta.json' if beta else 'ios/release.json'))
           act = os.environ['EVENT'] != 'schedule' and os.environ.get('STATUS_ONLY') != 'true'   # the schedule only reports status
-          print('build=' + str(bool(act and c.get('build'))).lower())
+          print('build=' + str(bool(act and (beta or c.get('build')))).lower())
+          print('beta=' + str(beta).lower())
           print('version=' + c['version'])
           print('xcode27=' + str(c.get('xcode27', True)).lower())
           print('act=' + str(act).lower())
@@ -98,8 +106,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install pyjwt cryptography
+      - name: TestFlight only (ios/beta.json)
+        if: needs.plan.outputs.act == 'true' && needs.plan.outputs.beta == 'true'
+        run: python3 ios/store/release.py beta ${{ needs.build.outputs.build_number && format('--build-number {0}', needs.build.outputs.build_number) || '' }}
       - name: Release
-        if: needs.plan.outputs.act == 'true'
+        if: needs.plan.outputs.act == 'true' && needs.plan.outputs.beta != 'true'
         run: python3 ios/store/release.py release ${{ needs.build.outputs.build_number && format('--build-number {0}', needs.build.outputs.build_number) || '' }}
       - name: An App Store submission that waited for another version
         if: github.event_name == 'schedule' || inputs.status_only

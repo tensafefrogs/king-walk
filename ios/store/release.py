@@ -405,12 +405,24 @@ def release(build_number):
         if cfg.get('app_store'): app_store(app_id, build, {'version': cfg['version'], **cfg['app_store']})
 
 
+def beta(build_number):
+    """A TestFlight-only build from ios/beta.json (a version ahead of the one release.json is taking to the App Store):
+    gives it to its groups and never touches the App Store, so a queued App Store step in release.json is unaffected."""
+    cfg = json.load(open(os.path.join(ROOT, 'ios', 'beta.json')))
+    a = get_app(); app_id = a['id']
+    log(f"Beta: {json.dumps(cfg)}")
+    testflight(app_id, wait_for_build(app_id, cfg['version'], build_number), cfg['testflight'])
+
+
 if __name__ == '__main__':
     args = sys.argv[1:]
     if args[:1] == ['status']:
         status()
     elif args[:1] == ['pending']:
         pending()
+    elif args[:1] == ['beta']:
+        n = args[args.index('--build-number') + 1] if '--build-number' in args else None
+        beta(n or None)
     elif args[:1] == ['release']:
         n = args[args.index('--build-number') + 1] if '--build-number' in args else None
         release(n or None)

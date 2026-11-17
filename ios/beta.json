@@ -1,0 +1,10 @@
+{
+  "version": "1.0.4",
+  "xcode27": true,
+  "testflight": {
+    "groups": [
+      "Internal"
+    ],
+    "whats_new": "1.0.4 preview for the widgets, not for the App Store yet: the daily widget shows today's puzzle on the board (medium and large) and a close-up of it (small; StandBy keeps the big number). Try each size, waiting and done, in another language too (Settings > Language), and tell me anything that looks off."
+  }
+}
