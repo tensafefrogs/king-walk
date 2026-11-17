@@ -10,7 +10,7 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.3: a reminder offer at a 3-day daily streak and a 9 pm note when today's puzzle isn't played yet (turn on the daily reminder to see it), Settings > Language, restyled widgets. Tell me anything that's broken or reads wrong."
+    "whats_new": "1.0.3 (second build): a reminder offer at a 3-day daily streak and, with a reminder before 7 pm, a 9 pm note when today's puzzle isn't played yet; Settings > Language; restyled widgets. Tell me anything that's broken or reads wrong."
   },
   "app_store": {
     "submit": true,
@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead: 1.0.3 (the streak saver, Settings > Language, restyled widgets) is built now for TestFlight, submitted to App Review by the 6-hourly run once 1.0.2 is approved and released, and released on approval. No emoji in What's New."
+  "note": "Owner's go-ahead: 1.0.3 (the streak saver, Settings > Language, restyled widgets), second build: the 9 pm streak note only for reminders before 7 pm. Built now for TestFlight, submitted to App Review by the 6-hourly run once 1.0.2 is approved and released (the newest 1.0.3 build), released on approval."
 }

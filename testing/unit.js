@@ -333,6 +333,7 @@ function translations() {
       recordDaily(D, n - 2, "g", 30, true); recordDaily(D, n - 1, "g", 30, true);
       sendDaily(); const today = lates(), hourNow = new Date().getHours();
       recordDaily(D, n, "g", 30, true); sendDaily(); const tomorrow = lates();
+      S.remind = 20; sendDaily(); const evening = lates(); S.remind = 18; sendDaily(); const six = lates();
       S.remind = -1; try { localStorage.removeItem("kw-remind-offered"); } catch (e) {}
       showDailyDone(); await sleep(600);
       const btn = document.querySelector(".cele-app button"), offered = !!btn;
@@ -340,10 +341,11 @@ function translations() {
       const after = { remind: S.remind, text: (document.querySelector(".cele-app") || {}).textContent || "" };
       document.querySelector(".cele .go").click(); await sleep(500);
       showDailyDone(); await sleep(600); const again = !!document.querySelector(".cele-app button");
-      return { none, today, hourNow, tomorrow, dayToday: dayKey(n), dayTomorrow: dayKey(n + 1), offered, after, again };
+      return { none, today, hourNow, tomorrow, evening, six, dayToday: dayKey(n), dayTomorrow: dayKey(n + 1), offered, after, again };
     });
-    check(!r.none.length && (r.hourNow >= 21 ? !r.today.length : r.today.join() === r.dayToday + "@21") && r.tomorrow.join() === r.dayTomorrow + "@21",
-      "streak saver: a 9 pm note only with a streak, today until it's played, then tomorrow", r);
+    check(!r.none.length && (r.hourNow >= 21 ? !r.today.length : r.today.join() === r.dayToday + "@21") && r.tomorrow.join() === r.dayTomorrow + "@21"
+      && !r.evening.length && r.six.join() === r.dayTomorrow + "@21",
+      "streak saver: a 9 pm note only with a streak and a reminder before 7 pm, today until it's played, then tomorrow", r);
     check(r.offered && r.after.remind === 18 && /18|6/.test(r.after.text) && !r.again, "the done card offers a reminder once at a streak of 3; a tap sets 6 pm", r);
     await w.ctx.close();
   }
