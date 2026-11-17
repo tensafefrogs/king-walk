@@ -28,7 +28,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 ## 1.0.3 (queued: built for TestFlight, submitted once 1.0.2 is out, released on approval)
 
 - **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
-  with reminders on, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
+  with a reminder set before 7 pm, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
 - **Settings → Language:** play in a language other than the device's (already on the website).
 - **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
   the green check once it's done, and the King Walk icon on the daily widget.

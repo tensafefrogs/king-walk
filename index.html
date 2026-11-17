@@ -2202,10 +2202,12 @@ function sendDaily() {
     items.push({ date: dayKey(k), title: T("Daily puzzle #{n}", { n: k }), body: st >= 2 ? T("Keep your {n}-day streak going. Today's puzzle is ready.", { n: st }) : T("Today's puzzle is ready.") });
   }
   /* the streak saver: with a streak of 2 or more, a second note at 9 pm on a day not yet played (today, or tomorrow
-     once today's is done); solving sends the list again without it. Only with reminders on: it needs their permission. */
-  const LATE = 21, st = dailyStreak(p), late = k => ({ date: dayKey(k), hour: LATE, id: "late", title: T("Your streak ends at midnight"),
+     once today's is done); solving sends the list again without it. Only with reminders on (it needs their
+     permission), and only for a reminder before 7 pm: a later one is already an evening nudge, and two an hour or two
+     apart is too many. */
+  const LATE = 21, EVENING = 19, st = dailyStreak(p), late = k => ({ date: dayKey(k), hour: LATE, id: "late", title: T("Your streak ends at midnight"),
     body: "\ud83d\udd25 " + T("{n} days in a row", { n: st }) + ". " + T("One puzzle keeps it going.") });
-  if (hour >= 0 && hour < LATE && st >= 2) {
+  if (hour >= 0 && hour < EVENING && st >= 2) {
     if (!dailyDone(p, n) && new Date().getHours() < LATE) items.push(late(n));
     if (dailyDone(p, n)) items.push(late(n + 1));
   }
