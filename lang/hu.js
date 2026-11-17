@@ -310,5 +310,8 @@
   "Remind me at {time}": "Emlékeztess {time}-kor",
   "A reminder every day at {time}.": "Napi emlékeztető {time}-kor.",
   "Your streak ends at midnight": "Éjfélkor véget ér a sorozatod",
-  "One puzzle keeps it going.": "Egy feladvány, és folytatódik."
+  "One puzzle keeps it going.": "Egy feladvány, és folytatódik.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} alkalmazásban játszol? Az előrehaladásod ebben a böngészőben marad.",
+  "Open in {browser}": "Megnyitás itt: {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Ha magaddal vinnéd a feladványokat, előbb másold ki a mentési kódodat: Beállítások, Haladó."
 };

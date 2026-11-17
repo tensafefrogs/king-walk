@@ -310,5 +310,8 @@
   "Remind me at {time}": "Ingatkan aku pukul {time}",
   "A reminder every day at {time}.": "Pengingat setiap hari pukul {time}.",
   "Your streak ends at midnight": "Runtunanmu berakhir tengah malam",
-  "One puzzle keeps it going.": "Satu puzzle cukup untuk menjaganya."
+  "One puzzle keeps it going.": "Satu puzzle cukup untuk menjaganya.",
+  "Playing inside {app}? Your progress stays in this browser.": "Main di dalam {app}? Progresmu tetap di browser ini.",
+  "Open in {browser}": "Buka di {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Agar puzzle-mu ikut pindah, salin dulu kode simpananmu: Pengaturan, Lanjutan."
 };

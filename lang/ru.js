@@ -310,5 +310,8 @@
   "Remind me at {time}": "Напомнить в {time}",
   "A reminder every day at {time}.": "Напоминание каждый день в {time}.",
   "Your streak ends at midnight": "Серия прервётся в полночь",
-  "One puzzle keeps it going.": "Хватит одной задачи, чтобы её продолжить."
+  "One puzzle keeps it going.": "Хватит одной задачи, чтобы её продолжить.",
+  "Playing inside {app}? Your progress stays in this browser.": "Играете в приложении {app}? Прогресс остаётся в этом браузере.",
+  "Open in {browser}": "Открыть в {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Чтобы перенести свои задачи, сначала скопируйте код сохранения: Настройки, Дополнительно."
 };

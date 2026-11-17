@@ -310,5 +310,8 @@
   "Remind me at {time}": "Amintește-mi la {time}",
   "A reminder every day at {time}.": "Un memento în fiecare zi la {time}.",
   "Your streak ends at midnight": "Seria ta se încheie la miezul nopții",
-  "One puzzle keeps it going.": "O singură problemă o ține în viață."
+  "One puzzle keeps it going.": "O singură problemă o ține în viață.",
+  "Playing inside {app}? Your progress stays in this browser.": "Joci în aplicația {app}? Progresul tău rămâne în acest browser.",
+  "Open in {browser}": "Deschide în {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Ca să-ți iei problemele cu tine, copiază întâi codul de salvare: Setări, Avansat."
 };

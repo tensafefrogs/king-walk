@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}-ന് ഓർമ്മിപ്പിക്കൂ",
   "A reminder every day at {time}.": "എല്ലാ ദിവസവും {time}-ന് ഓർമ്മപ്പെടുത്തൽ.",
   "Your streak ends at midnight": "നിങ്ങളുടെ സ്ട്രീക്ക് അർധരാത്രി തീരും",
-  "One puzzle keeps it going.": "ഒരു പസിൽ മതി, സ്ട്രീക്ക് തുടരും."
+  "One puzzle keeps it going.": "ഒരു പസിൽ മതി, സ്ട്രീക്ക് തുടരും.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} ആപ്പിനുള്ളിലാണോ കളിക്കുന്നത്? നിങ്ങളുടെ പുരോഗതി ഈ ബ്രൗസറിൽ മാത്രമേ ഉണ്ടാകൂ.",
+  "Open in {browser}": "{browser} ബ്രൗസറിൽ തുറക്കൂ",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "നിങ്ങളുടെ പസിലുകൾ കൂടെ കൊണ്ടുപോകാൻ ആദ്യം സേവ് കോഡ് പകർത്തൂ: ക്രമീകരണങ്ങൾ, വിപുലമായവ."
 };

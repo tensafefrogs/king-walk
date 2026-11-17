@@ -310,5 +310,8 @@
   "Remind me at {time}": "Nhắc tôi lúc {time}",
   "A reminder every day at {time}.": "Nhắc mỗi ngày lúc {time}.",
   "Your streak ends at midnight": "Chuỗi của bạn kết thúc lúc nửa đêm",
-  "One puzzle keeps it going.": "Chỉ cần một câu đố để giữ chuỗi."
+  "One puzzle keeps it going.": "Chỉ cần một câu đố để giữ chuỗi.",
+  "Playing inside {app}? Your progress stays in this browser.": "Đang chơi trong {app}? Tiến trình của bạn chỉ ở lại trong trình duyệt này.",
+  "Open in {browser}": "Mở bằng {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Để mang theo các câu đố, hãy sao chép mã lưu trước: Cài đặt, Nâng cao."
 };

@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}にお知らせ",
   "A reminder every day at {time}.": "毎日{time}にお知らせします。",
   "Your streak ends at midnight": "連続記録は今夜0時まで",
-  "One puzzle keeps it going.": "パズル1問で記録が続きます。"
+  "One puzzle keeps it going.": "パズル1問で記録が続きます。",
+  "Playing inside {app}? Your progress stays in this browser.": "{app}アプリの中で遊んでいますか？進行状況はこのブラウザにだけ残ります。",
+  "Open in {browser}": "{browser}で開く",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "パズルを引き継ぐには、先にセーブコードをコピーしてください:設定、詳細。"
 };

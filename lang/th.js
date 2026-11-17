@@ -310,5 +310,8 @@
   "Remind me at {time}": "เตือนฉันเวลา {time}",
   "A reminder every day at {time}.": "แจ้งเตือนทุกวันเวลา {time}",
   "Your streak ends at midnight": "สตรีคของคุณจะจบตอนเที่ยงคืน",
-  "One puzzle keeps it going.": "แค่โจทย์เดียวก็รักษาไว้ได้"
+  "One puzzle keeps it going.": "แค่โจทย์เดียวก็รักษาไว้ได้",
+  "Playing inside {app}? Your progress stays in this browser.": "กำลังเล่นในแอป {app} อยู่หรือเปล่า ความคืบหน้าจะอยู่ในเบราว์เซอร์นี้เท่านั้น",
+  "Open in {browser}": "เปิดใน {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "หากต้องการนำโจทย์ไปด้วย ให้คัดลอกรหัสเซฟก่อน: การตั้งค่า, ขั้นสูง"
 };

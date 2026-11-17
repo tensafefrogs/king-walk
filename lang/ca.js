@@ -310,5 +310,8 @@
   "Remind me at {time}": "Recorda-m'ho a les {time}",
   "A reminder every day at {time}.": "Un recordatori cada dia a les {time}.",
   "Your streak ends at midnight": "La teva ratxa s'acaba a mitjanit",
-  "One puzzle keeps it going.": "Un problema basta per mantenir-la."
+  "One puzzle keeps it going.": "Un problema basta per mantenir-la.",
+  "Playing inside {app}? Your progress stays in this browser.": "Jugues dins de l'app {app}? El teu progrés es queda en aquest navegador.",
+  "Open in {browser}": "Obrir a {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Per endur-te els problemes, copia primer el teu codi de desament: Configuració, Avançat."
 };

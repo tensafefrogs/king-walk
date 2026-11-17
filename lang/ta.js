@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time} மணிக்கு நினைவூட்டு",
   "A reminder every day at {time}.": "தினமும் {time} மணிக்கு நினைவூட்டல்.",
   "Your streak ends at midnight": "உங்கள் தொடர் நள்ளிரவில் முடியும்",
-  "One puzzle keeps it going.": "ஒரு புதிர் போதும், தொடர் தொடரும்."
+  "One puzzle keeps it going.": "ஒரு புதிர் போதும், தொடர் தொடரும்.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} செயலிக்குள் விளையாடுகிறீர்களா? உங்கள் முன்னேற்றம் இந்த பிரவுசரிலேயே இருக்கும்.",
+  "Open in {browser}": "{browser} பிரவுசரில் திற",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "உங்கள் புதிர்களை எடுத்துச் செல்ல, முதலில் உங்கள் சேமிப்புக் குறியீட்டை நகலெடுங்கள்: அமைப்புகள், மேம்பட்டவை."
 };

@@ -310,5 +310,8 @@
   "Remind me at {time}": "Herinner me om {time}",
   "A reminder every day at {time}.": "Elke dag een herinnering om {time}.",
   "Your streak ends at midnight": "Je reeks eindigt om middernacht",
-  "One puzzle keeps it going.": "Eén puzzel houdt hem in stand."
+  "One puzzle keeps it going.": "Eén puzzel houdt hem in stand.",
+  "Playing inside {app}? Your progress stays in this browser.": "Speel je in {app}? Je voortgang blijft in deze browser.",
+  "Open in {browser}": "Openen in {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Om je puzzels mee te nemen, kopieer je eerst je opslagcode: Instellingen, Geavanceerd."
 };

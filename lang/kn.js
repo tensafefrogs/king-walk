@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}ಕ್ಕೆ ನೆನಪಿಸಿ",
   "A reminder every day at {time}.": "ಪ್ರತಿದಿನ {time}ಕ್ಕೆ ಜ್ಞಾಪನೆ.",
   "Your streak ends at midnight": "ನಿಮ್ಮ ಸರಣಿ ಮಧ್ಯರಾತ್ರಿ ಮುಗಿಯುತ್ತದೆ",
-  "One puzzle keeps it going.": "ಒಂದು ಒಗಟು ಸಾಕು, ಸರಣಿ ಮುಂದುವರಿಯುತ್ತದೆ."
+  "One puzzle keeps it going.": "ಒಂದು ಒಗಟು ಸಾಕು, ಸರಣಿ ಮುಂದುವರಿಯುತ್ತದೆ.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} ಆ್ಯಪ್‌ನಲ್ಲಿ ಆಡುತ್ತಿದ್ದೀರಾ? ನಿಮ್ಮ ಪ್ರಗತಿ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತದೆ.",
+  "Open in {browser}": "{browser} ಬ್ರೌಸರ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "ನಿಮ್ಮ ಒಗಟುಗಳನ್ನು ಜೊತೆಗೆ ಕೊಂಡೊಯ್ಯಲು, ಮೊದಲು ನಿಮ್ಮ ಸೇವ್ ಕೋಡ್ ನಕಲಿಸಿ: ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಸುಧಾರಿತ."
 };

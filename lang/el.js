@@ -310,5 +310,8 @@
   "Remind me at {time}": "Θύμισέ μου στις {time}",
   "A reminder every day at {time}.": "Υπενθύμιση κάθε μέρα στις {time}.",
   "Your streak ends at midnight": "Το σερί σου λήγει τα μεσάνυχτα",
-  "One puzzle keeps it going.": "Ένας γρίφος αρκεί για να συνεχιστεί."
+  "One puzzle keeps it going.": "Ένας γρίφος αρκεί για να συνεχιστεί.",
+  "Playing inside {app}? Your progress stays in this browser.": "Παίζεις μέσα από την εφαρμογή {app}; Η πρόοδός σου μένει σε αυτό το πρόγραμμα περιήγησης.",
+  "Open in {browser}": "Άνοιγμα στο {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Για να πάρεις μαζί σου τους γρίφους, αντίγραψε πρώτα τον κωδικό αποθήκευσης: Ρυθμίσεις, Για προχωρημένους."
 };

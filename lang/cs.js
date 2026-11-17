@@ -310,5 +310,8 @@
   "Remind me at {time}": "Připomeň mi to v {time}",
   "A reminder every day at {time}.": "Připomínka každý den v {time}.",
   "Your streak ends at midnight": "Tvoje série o půlnoci skončí",
-  "One puzzle keeps it going.": "Stačí jedna úloha a série pokračuje."
+  "One puzzle keeps it going.": "Stačí jedna úloha a série pokračuje.",
+  "Playing inside {app}? Your progress stays in this browser.": "Hraješ v aplikaci {app}? Tvůj postup zůstane v tomto prohlížeči.",
+  "Open in {browser}": "Otevřít v prohlížeči {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Chceš-li si úlohy vzít s sebou, nejdřív zkopíruj kód uložení: Nastavení, Pokročilé."
 };

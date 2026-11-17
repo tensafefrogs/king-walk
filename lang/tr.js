@@ -310,5 +310,8 @@
   "Remind me at {time}": "Saat {time} için hatırlatıcı kur",
   "A reminder every day at {time}.": "Her gün saat {time} için hatırlatıcı kuruldu.",
   "Your streak ends at midnight": "Serin gece yarısı bitiyor",
-  "One puzzle keeps it going.": "Tek bir bulmaca serini sürdürür."
+  "One puzzle keeps it going.": "Tek bir bulmaca serini sürdürür.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} uygulamasında mı oynuyorsun? İlerlemen bu tarayıcıda kalır.",
+  "Open in {browser}": "{browser} ile aç",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Bulmacalarını yanında götürmek için önce kayıt kodunu kopyala: Ayarlar, Gelişmiş."
 };

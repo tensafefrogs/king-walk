@@ -310,5 +310,8 @@
   "Remind me at {time}": "Minn meg på det kl. {time}",
   "A reminder every day at {time}.": "En påminnelse hver dag kl. {time}.",
   "Your streak ends at midnight": "Rekka di slutter ved midnatt",
-  "One puzzle keeps it going.": "Én oppgave holder den i gang."
+  "One puzzle keeps it going.": "Én oppgave holder den i gang.",
+  "Playing inside {app}? Your progress stays in this browser.": "Spiller du i {app}? Framgangen din blir i denne nettleseren.",
+  "Open in {browser}": "Åpne i {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Vil du ta med deg oppgavene, kopierer du først lagringskoden: Innstillinger, Avansert."
 };

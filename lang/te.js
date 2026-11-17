@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}కి గుర్తు చేయండి",
   "A reminder every day at {time}.": "ప్రతి రోజు {time}కి రిమైండర్.",
   "Your streak ends at midnight": "మీ వరుస అర్ధరాత్రికి ముగుస్తుంది",
-  "One puzzle keeps it going.": "ఒక్క పజిల్ చాలు, వరుస కొనసాగుతుంది."
+  "One puzzle keeps it going.": "ఒక్క పజిల్ చాలు, వరుస కొనసాగుతుంది.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} యాప్‌లో ఆడుతున్నారా? మీ పురోగతి ఈ బ్రౌజర్‌లోనే ఉంటుంది.",
+  "Open in {browser}": "{browser} బ్రౌజర్‌లో తెరవండి",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "మీ పజిల్స్‌ను వెంట తీసుకెళ్లడానికి, ముందుగా మీ సేవ్ కోడ్‌ను కాపీ చేయండి: సెట్టింగ్‌లు, అధునాతనం."
 };

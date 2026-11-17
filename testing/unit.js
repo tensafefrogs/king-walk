@@ -349,6 +349,26 @@ function translations() {
     check(r.offered && r.after.remind === 18 && /18|6/.test(r.after.text) && !r.again, "the done card offers a reminder once at a streak of 3; a tap sets 6 pm", r);
     await w.ctx.close();
   }
+  // inside a social app's browser (X here), a quiet line says progress stays there, with a link that opens Safari;
+  // with progress it points to the save code; × hides it for good; plain Safari never sees it
+  {
+    const X = "Mozilla/5.0 (iPhone; CPU iPhone OS 26_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Twitter for iPhone/11.20";
+    const SAFARI = "Mozilla/5.0 (iPhone; CPU iPhone OS 26_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.1 Mobile/15E148 Safari/604.1";
+    const look = async ua => { const w = await page("", null, { userAgent: ua, isMobile: true, hasTouch: true, viewport: { width: 390, height: 844 } });
+      const r = await w.p.evaluate(() => { const b = document.querySelector(".appbar.inapp"); return b ? { text: b.textContent, href: b.querySelector("a").href } : null; }); return { w, r }; };
+    const safari = await look(SAFARI); await safari.w.ctx.close();
+    const x = await look(X);
+    check(!safari.r && x.r && /inside X/.test(x.r.text) && /^x-safari-https:\/\/127\.0\.0\.1:\d+\/$/.test(x.r.href) && !/save code/.test(x.r.text),
+      "in X's browser: a line with an Open in Safari link to this page; none in Safari", { safari: safari.r, x: x.r });
+    await x.w.p.evaluate(() => { S.players[S.cur].n = 5; save(); });
+    await x.w.p.reload(); await x.w.p.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 });
+    const withProgress = await x.w.p.evaluate(() => (document.querySelector(".appbar.inapp") || {}).textContent || "");
+    await x.w.p.click(".appbar.inapp .tip-x"); await x.w.p.waitForTimeout(400);
+    await x.w.p.reload(); await x.w.p.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 });
+    const afterClose = await x.w.p.evaluate(() => !!document.querySelector(".appbar.inapp"));
+    check(/save code/.test(withProgress) && !afterClose, "with progress it points to the save code; × hides it for good", { withProgress, afterClose });
+    await x.w.ctx.close();
+  }
   // the player's region picks the variant: Taiwan and Hong Kong get Traditional Chinese, Portugal and Angola Portugal's
   // Portuguese, Spain Spain's Spanish; Mexico and Brazil the base tables
   for (const [locale, want] of [["zh-TW", "zh-Hant"], ["zh-HK", "zh-Hant"], ["zh-CN", "zh"], ["pt-PT", "pt-PT"], ["pt-AO", "pt-PT"], ["pt-BR", "pt"], ["es-ES", "es-ES"], ["es-MX", "es"]]) {

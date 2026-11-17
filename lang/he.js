@@ -310,5 +310,8 @@
   "Remind me at {time}": "להזכיר לי ב-{time}",
   "A reminder every day at {time}.": "תזכורת כל יום ב-{time}.",
   "Your streak ends at midnight": "הרצף נגמר בחצות",
-  "One puzzle keeps it going.": "חידה אחת שומרת עליו."
+  "One puzzle keeps it going.": "חידה אחת שומרת עליו.",
+  "Playing inside {app}? Your progress stays in this browser.": "משחקים בתוך {app}? ההתקדמות נשארת בדפדפן הזה.",
+  "Open in {browser}": "פתיחה ב-{browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "כדי להעביר את החידות, קודם מעתיקים את קוד השמירה: הגדרות, מתקדם."
 };

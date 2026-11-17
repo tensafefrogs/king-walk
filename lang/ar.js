@@ -310,5 +310,8 @@
   "Remind me at {time}": "ذكّرني الساعة {time}",
   "A reminder every day at {time}.": "تذكير كل يوم الساعة {time}.",
   "Your streak ends at midnight": "سلسلتك تنتهي عند منتصف الليل",
-  "One puzzle keeps it going.": "لغز واحد يحافظ عليها."
+  "One puzzle keeps it going.": "لغز واحد يحافظ عليها.",
+  "Playing inside {app}? Your progress stays in this browser.": "تلعب داخل تطبيق {app}؟ يبقى تقدمك في هذا المتصفح.",
+  "Open in {browser}": "فتح في {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "لتأخذ ألغازك معك، انسخ رمز الحفظ أولًا: الإعدادات، خيارات متقدمة."
 };

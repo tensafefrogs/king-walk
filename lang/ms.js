@@ -310,5 +310,8 @@
   "Remind me at {time}": "Ingatkan saya pada {time}",
   "A reminder every day at {time}.": "Peringatan setiap hari pada {time}.",
   "Your streak ends at midnight": "Rentetan anda tamat tengah malam",
-  "One puzzle keeps it going.": "Satu teka-teki cukup untuk meneruskannya."
+  "One puzzle keeps it going.": "Satu teka-teki cukup untuk meneruskannya.",
+  "Playing inside {app}? Your progress stays in this browser.": "Bermain di dalam {app}? Kemajuan anda kekal dalam pelayar ini.",
+  "Open in {browser}": "Buka dalam {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Untuk membawa teka-teki anda, salin kod simpanan anda dahulu: Tetapan, Lanjutan."
 };

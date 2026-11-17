@@ -14,6 +14,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 ### Website only (live on kingwalk.app)
 
 - Everything in 1.0.2 below is already on the website.
+- **Opened from X, Instagram, TikTok and the like,** a quiet line says progress stays in that app's browser, with
+  a link that opens the game in Safari (or Chrome), and a pointer to the save code once there's progress to bring.
 - **A page in each language** (kingwalk.app/de/, /hi/, /ja/…) with its title and description in that language, so
   search engines and shared links show the game in it.
 - **The website downloads only your language**, so it starts as fast as before however many languages it has.

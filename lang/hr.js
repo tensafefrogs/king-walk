@@ -310,5 +310,8 @@
   "Remind me at {time}": "Podsjeti me u {time}",
   "A reminder every day at {time}.": "Podsjetnik svaki dan u {time}.",
   "Your streak ends at midnight": "Tvoj niz završava u ponoć",
-  "One puzzle keeps it going.": "Jedan zadatak ga održava."
+  "One puzzle keeps it going.": "Jedan zadatak ga održava.",
+  "Playing inside {app}? Your progress stays in this browser.": "Igraš u aplikaciji {app}? Tvoj napredak ostaje u ovom pregledniku.",
+  "Open in {browser}": "Otvori u pregledniku {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Za prijenos zadataka najprije kopiraj kod spremanja: Postavke, Napredno."
 };

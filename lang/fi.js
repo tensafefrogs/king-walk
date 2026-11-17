@@ -310,5 +310,8 @@
   "Remind me at {time}": "Muistuta klo {time}",
   "A reminder every day at {time}.": "Muistutus joka päivä klo {time}.",
   "Your streak ends at midnight": "Putkesi katkeaa keskiyöllä",
-  "One puzzle keeps it going.": "Yksi tehtävä pitää sen käynnissä."
+  "One puzzle keeps it going.": "Yksi tehtävä pitää sen käynnissä.",
+  "Playing inside {app}? Your progress stays in this browser.": "Pelaatko sovelluksessa {app}? Edistymisesi pysyy tässä selaimessa.",
+  "Open in {browser}": "Avaa selaimessa {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Jos haluat ottaa tehtäväsi mukaan, kopioi ensin tallennuskoodisi: Asetukset, Lisäasetukset."
 };

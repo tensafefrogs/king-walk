@@ -77,5 +77,8 @@
   "{rank} at {n}": "{rank} aos {n}",
   "Don't break the streak.": "Não quebres a sequência.",
   "A reminder every day at {time}.": "Um lembrete todos os dias às {time}.",
-  "Your streak ends at midnight": "A tua sequência termina à meia-noite"
+  "Your streak ends at midnight": "A tua sequência termina à meia-noite",
+  "Playing inside {app}? Your progress stays in this browser.": "Estás a jogar na app {app}? O teu progresso fica neste navegador.",
+  "Open in {browser}": "Abrir no {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Para levares os teus problemas, copia primeiro o teu código de gravação: Definições, Avançado."
 };

@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}-এ মনে করিয়ে দিয়ো",
   "A reminder every day at {time}.": "প্রতিদিন {time}-এ রিমাইন্ডার।",
   "Your streak ends at midnight": "তোমার স্ট্রিক মাঝরাতে শেষ হবে",
-  "One puzzle keeps it going.": "একটা পাজলেই স্ট্রিক চালু থাকবে।"
+  "One puzzle keeps it going.": "একটা পাজলেই স্ট্রিক চালু থাকবে।",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} অ্যাপের ভেতরে খেলছ? তোমার অগ্রগতি এই ব্রাউজারেই থাকবে।",
+  "Open in {browser}": "{browser} দিয়ে খোলো",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "তোমার পাজলগুলো সঙ্গে নিতে আগে সেভ কোড কপি করো: সেটিংস, উন্নত।"
 };

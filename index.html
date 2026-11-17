@@ -449,6 +449,9 @@ html.fold-h.daily .progress { display: block; }
 .appbar div span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font: 600 12.5px/1.3 var(--font-body); color: var(--muted); }          /* at most two lines, so the board stays on a small screen */
 .appbar a.btn { flex: none; text-decoration: none; }
 .appbar .tip-x { flex: none; }
+.appbar.inapp { padding-block: 6px; }          /* the in-app browser line: one quiet row, no icon */
+.appbar.inapp div { font: 600 13px/1.35 var(--font-body); color: var(--muted); }
+.appbar.inapp a { color: var(--accent); font-weight: 800; text-decoration: none; white-space: nowrap; unicode-bidi: isolate; }
 html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .appfoot { display: none; }
 /* the quiet bar at the end of the page (part of the page, not fixed) */
 .appfoot { display: flex; align-items: center; gap: 10px; max-width: 616px; margin: 4px auto calc(var(--u) * 2 + env(safe-area-inset-bottom, 0px)); padding-block: 10px; padding-inline: 14px 8px;
@@ -2664,6 +2667,38 @@ function promoBar() {
   if (atTop) window.scrollTo(0, 0);          /* the browser keeps the view still when something appears above it, which would hide the bar */
   Promo.shown("bar");
 }
+/* Inside a social app's own browser (a link from X, Instagram, TikTok…), progress is saved in that app's browser and
+   doesn't carry over to Safari or Chrome. A quiet line at the top says so, with a link that opens the page in the
+   phone's browser (iOS 17+: x-safari-https:; Android: an intent for Chrome). With progress already made, it points to
+   the save code instead. × hides it for good (kw-inapp-off). It takes the App Store bar's place: never both. */
+const IN_APP = !APP && (() => {
+  const ua = navigator.userAgent;
+  for (const [re, name] of [[/Barcelona/, "Threads"], [/\bInstagram\b/, "Instagram"], [/FBAN|FBAV|FB_IAB/, "Facebook"], [/Twitter/, "X"], [/musical_ly|BytedanceWebview|TikTok/, "TikTok"],
+    [/LinkedInApp/, "LinkedIn"], [/Snapchat/, "Snapchat"], [/Pinterest/, "Pinterest"], [/\bLine\//, "LINE"]]) if (re.test(ua)) return name;
+  return "";
+})();
+function inAppBar() {
+  if (!IN_APP || document.querySelector(".appbar")) return;
+  try { if (localStorage.getItem("kw-inapp-off")) return; } catch (e) { return; }
+  const ios = /iPhone|iPad|iPod/.test(navigator.userAgent), android = /Android/.test(navigator.userAgent); if (!ios && !android) return;
+  const sideways = matchMedia("(orientation: landscape) and (max-height: 520px)");
+  if (sideways.matches) { sideways.addEventListener("change", inAppBar, { once: true }); return; }          /* the board needs the whole height: wait for upright */
+  const here = location.host + location.pathname + location.search;
+  const bar = document.createElement("div"); bar.className = "appbar inapp"; bar.setAttribute("role", "region");
+  bar.innerHTML = '<div></div><button type="button" class="tip-x">\u00d7</button>';
+  const text = bar.querySelector("div"), a = document.createElement("a");
+  a.href = ios ? "x-safari-https://" + here : "intent://" + here + "#Intent;scheme=https;package=com.android.chrome;end";
+  a.textContent = T("Open in {browser}", { browser: ios ? "Safari" : "Chrome" }) + " \u203a";
+  a.addEventListener("click", () => track("inapp/open/" + IN_APP));
+  text.append(T("Playing inside {app}? Your progress stays in this browser.", { app: IN_APP }) + " ");
+  if (me().n >= 3) text.append(T("To bring your puzzles along, copy your save code first: Settings, Advanced.") + " ");
+  text.append(a);
+  const x = bar.querySelector(".tip-x"); x.setAttribute("aria-label", T("Close"));
+  x.addEventListener("click", () => { try { localStorage.setItem("kw-inapp-off", "1"); } catch (e) {} track("inapp/close"); hideSoft(bar, () => bar.remove()); });
+  document.body.insertBefore(bar, document.querySelector(".wrap"));
+  window.scrollTo(0, 0);
+  track("inapp/shown/" + IN_APP);
+}
 /* the quiet bar at the end of the page, on iPhone and iPad: part of the page, so it's there for whoever scrolls down,
    app owners too (the App Store page shows them Open); × hides it for a month */
 function promoFoot() {
@@ -2675,6 +2710,7 @@ function promoFoot() {
   x.addEventListener("click", () => { Promo.write(Object.assign(Promo.read(), { off: Date.now() + 30 * 864e5 })); track("promo/foot/close"); hideSoft(foot, () => foot.remove()); });
   document.querySelector(".wrap").after(foot);
 }
+inAppBar();
 if (Promo.ok) promoFoot();
 if (Promo.ok) {
   /* the settings the app has: shown with a link instead of a control */

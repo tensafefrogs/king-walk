@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time}에 알림 받기",
   "A reminder every day at {time}.": "매일 {time}에 알려 드려요.",
   "Your streak ends at midnight": "연속 기록이 자정에 끊겨요",
-  "One puzzle keeps it going.": "퍼즐 하나면 기록이 이어져요."
+  "One puzzle keeps it going.": "퍼즐 하나면 기록이 이어져요.",
+  "Playing inside {app}? Your progress stays in this browser.": "{app} 앱에서 플레이 중인가요? 진행 상황은 이 브라우저에만 남아요.",
+  "Open in {browser}": "{browser}에서 열기",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "퍼즐을 가져가려면 먼저 저장 코드를 복사하세요: 설정, 고급."
 };

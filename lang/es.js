@@ -310,5 +310,8 @@
   "Remind me at {time}": "Recuérdamelo a las {time}",
   "A reminder every day at {time}.": "Un recordatorio todos los días a las {time}.",
   "Your streak ends at midnight": "Tu racha termina a medianoche",
-  "One puzzle keeps it going.": "Un problema basta para mantenerla."
+  "One puzzle keeps it going.": "Un problema basta para mantenerla.",
+  "Playing inside {app}? Your progress stays in this browser.": "¿Juegas dentro de {app}? Tu progreso se queda en este navegador.",
+  "Open in {browser}": "Abrir en {browser}",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Para llevarte tus problemas, copia antes tu código de guardado: Ajustes, Avanzado."
 };

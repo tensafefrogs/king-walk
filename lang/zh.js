@@ -310,5 +310,8 @@
   "Remind me at {time}": "{time} 提醒我",
   "A reminder every day at {time}.": "每天 {time} 提醒你。",
   "Your streak ends at midnight": "连续纪录午夜就会断掉",
-  "One puzzle keeps it going.": "解一道谜题就能继续。"
+  "One puzzle keeps it going.": "解一道谜题就能继续。",
+  "Playing inside {app}? Your progress stays in this browser.": "在 {app} 里玩？你的进度只保存在这个浏览器里。",
+  "Open in {browser}": "在 {browser} 中打开",
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "想带走你的谜题进度，请先复制存档码：设置，高级。"
 };
