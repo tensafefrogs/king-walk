@@ -261,7 +261,7 @@ function translations() {
     return { marks, share: dailyShareText(n) };
   });
   check(mk.marks === "gr", "a worse daily mark wins", mk.marks);
-  check(/^\u265f\ufe0f King Walk Daily #\d+ \u00b7 \S+\n\ud83d\udfe9\ud83d\udfe5  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number, squares, time, streak", mk.share);
+  check(/^\u265f\ufe0f King Walk Daily #\d+\n\ud83d\udfe9\ud83d\udfe5  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), squares, time, streak", mk.share);
   // damaged daily data is cleaned
   const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
   check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);
