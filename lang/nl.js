@@ -328,5 +328,6 @@
   "Your first puzzles": "Je eerste puzzels",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De eerste puzzels zoeken je niveau in grote stappen, zodat je begint waar je hoort. Je rang en puzzelrating verschijnen zodra het gevonden is.",
   "Paused": "Gepauzeerd",
-  "Pick up where you left off.": "Ga verder waar je gebleven was."
+  "Pick up where you left off.": "Ga verder waar je gebleven was.",
+  "Pause": "Pauzeren"
 };

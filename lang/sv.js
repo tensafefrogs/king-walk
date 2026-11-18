@@ -328,5 +328,6 @@
   "Your first puzzles": "Dina första problem",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De första problemen hittar din nivå med stora kliv, så att du börjar där du hör hemma. Din rang och problemrating visas när den har hittats.",
   "Paused": "Pausad",
-  "Pick up where you left off.": "Fortsätt där du slutade."
+  "Pick up where you left off.": "Fortsätt där du slutade.",
+  "Pause": "Pausa"
 };

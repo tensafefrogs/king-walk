@@ -10,9 +10,9 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.4: the daily puzzle pauses when you leave it (the app in the background, or Puzzles) and picks up where you left off, under a Paused card with your time; Continue starts the clock again. Try leaving mid-puzzle, and picking it up on another device signed in to the same iCloud. Tell me anything that's broken or reads wrong."
+    "whats_new": "1.0.4: the daily puzzle's clock in the status bar (tap it to pause); the daily pauses when you leave it and picks up where you left off, under a Paused card with your time; Continue starts the clock again. Try leaving mid-puzzle, and picking it up on another device on the same iCloud. Tell me anything that's broken or reads wrong."
   },
   "app_store": null,
   "release_now": false,
-  "note": "1.0.4: the daily pauses and resumes (save, pause, Continue cover, iCloud). Built from main for TestFlight; the App Store step waits for the owner's go-ahead for 1.0.4."
+  "note": "1.0.4: the daily's clock, and pause and resume (save, Continue cover, iCloud). Built from main for TestFlight; the App Store step waits for the owner's go-ahead for 1.0.4."
 }

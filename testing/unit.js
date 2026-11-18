@@ -277,6 +277,19 @@ function translations() {
   check(!pz.going.cover && !pz.going.locked && pz.going.clock, "Continue: the cover goes, the clock runs", pz.going);
   check(pz.again.cover && pz.again.sub === "Pick up where you left off." && pz.again.idx === pz.kAfter && pz.again.fen === pz.fen && pz.again.spent >= 35 && pz.saved.k === pz.kAfter,
     "the daily, left and opened again: the same position and time, under the cover", { kAfter: pz.kAfter, saved: pz.saved, again: pz.again });
+  // the daily's clock: in the status bar while it's played, the time so far; a tap pauses it; gone once it's done
+  const tm = await p.evaluate(async () => {
+    const wait = ms => new Promise(r => setTimeout(r, ms)), n = dayNumber(), q = me();
+    delete q.daily.days[n]; delete q.daily.now; DAILY = null; done = true; renderDaily();
+    startDaily(); for (let i = 0; i < 60 && (locked || !DAILY || idx < 1); i++) await wait(100);
+    DAILY.spent = 65; DAILY.t0 = Date.now(); renderTimer();
+    const shown = { hidden: $("dTimer").hidden, text: $("dTimer").textContent };
+    $("dTimer").click(); const tapped = { cover: !$("dailyCover").hidden, paused: !!DAILY.paused, cls: $("dTimer").classList.contains("paused") };
+    $("dcGo").click(); leaveDaily(); await wait(300); renderTimer(); const after = $("dTimer").hidden; delete q.daily.now;
+    return { shown, tapped, after };
+  });
+  check(!tm.shown.hidden && /1:0[56]/.test(tm.shown.text), "the daily's clock shows the time so far", tm.shown);
+  check(tm.tapped.cover && tm.tapped.paused && tm.tapped.cls && tm.after, "a tap on the clock pauses the daily; it goes with the daily", tm);
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, mode: "play", marks: [], spent: 0, t0: 0 };

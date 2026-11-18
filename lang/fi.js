@@ -328,5 +328,6 @@
   "Your first puzzles": "Ensimmäiset tehtäväsi",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Ensimmäiset tehtävät löytävät tasosi isoin askelin, joten aloitat sieltä, minne kuulut. Arvosi ja vahvuuslukusi näkyvät, kun se on löytynyt.",
   "Paused": "Tauolla",
-  "Pick up where you left off.": "Jatka siitä, mihin jäit."
+  "Pick up where you left off.": "Jatka siitä, mihin jäit.",
+  "Pause": "Tauko"
 };

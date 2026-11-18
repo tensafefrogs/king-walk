@@ -328,5 +328,6 @@
   "Your first puzzles": "最初のパズル",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初の数問は大きな幅で実力を測り、ふさわしい位置からスタートできるようにします。ランクとパズルレーティングは、実力がわかると表示されます。",
   "Paused": "一時停止中",
-  "Pick up where you left off.": "前回の続きから再開できます。"
+  "Pick up where you left off.": "前回の続きから再開できます。",
+  "Pause": "一時停止"
 };

@@ -328,5 +328,6 @@
   "Your first puzzles": "Tvoje první úlohy",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvních pár úloh hledá tvou úroveň velkými kroky, takže začneš tam, kam patříš. Hodnost a rating se ukážou, jakmile ji hra najde.",
   "Paused": "Pozastaveno",
-  "Pick up where you left off.": "Pokračuj tam, kde hra skončila."
+  "Pick up where you left off.": "Pokračuj tam, kde hra skončila.",
+  "Pause": "Pozastavit"
 };

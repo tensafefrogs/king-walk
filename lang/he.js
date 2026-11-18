@@ -328,5 +328,6 @@
   "Your first puzzles": "החידות הראשונות שלך",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "החידות הראשונות מוצאות את הרמה שלך בצעדים גדולים, כך שמתחילים במקום הנכון. הדרגה ודירוג החידות יופיעו כשהרמה תימצא.",
   "Paused": "מושהה",
-  "Pick up where you left off.": "אפשר להמשיך מאיפה שעצרת."
+  "Pick up where you left off.": "אפשר להמשיך מאיפה שעצרת.",
+  "Pause": "השהיה"
 };

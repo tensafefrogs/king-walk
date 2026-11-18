@@ -34,6 +34,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `daily/resume` | Today's daily puzzle starts again after leaving it | `startDaily()` |
 | `daily/later` | The player leaves the daily puzzle before finishing it | `leaveDaily()` |
 | `daily/continue` | Continue is pressed on the daily's Paused cover: after the game was in the background, or when a daily left earlier is opened again | `resumeDaily()` |
+| `daily/pause` | The daily's clock (in the status bar) is tapped to pause it | the clock's tap handler |
 | `daily/solved` | The daily puzzle solved (hints and wrong tries allowed) | `finishDaily()` |
 | `daily/missed` | The daily puzzle's answer shown | `finishDaily()` |
 | `daily/streak/<n>` | The daily streak reaches 3, 7, 14, 30, 50, 100 or 365 days | `finishDaily()` |

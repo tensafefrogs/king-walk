@@ -328,5 +328,6 @@
   "Your first puzzles": "آپ کے پہلے پزلز",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "پہلے چند پزلز بڑے قدموں میں آپ کا لیول ڈھونڈتے ہیں، تاکہ آپ صحیح جگہ سے شروع کریں۔ لیول ملنے پر آپ کا درجہ اور پزل ریٹنگ نظر آئیں گے۔",
   "Paused": "رکا ہوا",
-  "Pick up where you left off.": "جہاں چھوڑا تھا، وہیں سے جاری رکھیں۔"
+  "Pick up where you left off.": "جہاں چھوڑا تھا، وہیں سے جاری رکھیں۔",
+  "Pause": "روکیں"
 };

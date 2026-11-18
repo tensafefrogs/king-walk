@@ -328,5 +328,6 @@
   "Your first puzzles": "最初的谜题",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初几道题会大步调整，找到你的水平，让你从合适的位置起步。找到后会显示你的段位和谜题等级分。",
   "Paused": "已暂停",
-  "Pick up where you left off.": "从上次停下的地方继续。"
+  "Pick up where you left off.": "从上次停下的地方继续。",
+  "Pause": "暂停"
 };

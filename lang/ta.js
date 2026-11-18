@@ -328,5 +328,6 @@
   "Your first puzzles": "உங்கள் முதல் புதிர்கள்",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "முதல் சில புதிர்கள் பெரிய படிகளில் உங்கள் திறனைக் கண்டறியும், அதனால் நீங்கள் சரியான இடத்திலிருந்து தொடங்குவீர்கள். அது கண்டறியப்பட்டதும் உங்கள் நிலையும் புதிர் ரேட்டிங்கும் தெரியும்.",
   "Paused": "இடைநிறுத்தப்பட்டது",
-  "Pick up where you left off.": "நிறுத்திய இடத்திலிருந்தே தொடருங்கள்."
+  "Pick up where you left off.": "நிறுத்திய இடத்திலிருந்தே தொடருங்கள்.",
+  "Pause": "இடைநிறுத்து"
 };

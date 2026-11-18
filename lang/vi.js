@@ -328,5 +328,6 @@
   "Your first puzzles": "Những câu đố đầu tiên",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Vài câu đố đầu tiên tìm trình độ của bạn theo từng bước lớn, để bạn bắt đầu đúng chỗ của mình. Cấp bậc và điểm câu đố sẽ hiện khi đã tìm ra.",
   "Paused": "Tạm dừng",
-  "Pick up where you left off.": "Tiếp tục từ chỗ bạn dừng lại."
+  "Pick up where you left off.": "Tiếp tục từ chỗ bạn dừng lại.",
+  "Pause": "Tạm dừng"
 };

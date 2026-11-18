@@ -328,5 +328,6 @@
   "Your first puzzles": "Els teus primers problemes",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Els primers problemes troben el teu nivell a grans passes, perquè comencis on et toca. El rang i la puntuació de problemes apareixen quan s'ha trobat.",
   "Paused": "En pausa",
-  "Pick up where you left off.": "Continua on ho havies deixat."
+  "Pick up where you left off.": "Continua on ho havies deixat.",
+  "Pause": "Posa en pausa"
 };

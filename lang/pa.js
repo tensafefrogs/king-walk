@@ -328,5 +328,6 @@
   "Your first puzzles": "ਤੁਹਾਡੀਆਂ ਪਹਿਲੀਆਂ ਪਹੇਲੀਆਂ",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ਪਹਿਲੀਆਂ ਕੁਝ ਪਹੇਲੀਆਂ ਵੱਡੇ ਕਦਮਾਂ ਨਾਲ ਤੁਹਾਡਾ ਪੱਧਰ ਲੱਭਦੀਆਂ ਹਨ, ਤਾਂ ਜੋ ਤੁਸੀਂ ਸਹੀ ਥਾਂ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ। ਪੱਧਰ ਲੱਭਣ ਤੋਂ ਬਾਅਦ ਤੁਹਾਡਾ ਰੈਂਕ ਅਤੇ ਪਹੇਲੀ ਰੇਟਿੰਗ ਦਿਖਾਈ ਦੇਣਗੇ।",
   "Paused": "ਰੁਕਿਆ ਹੋਇਆ",
-  "Pick up where you left off.": "ਜਿੱਥੇ ਛੱਡਿਆ ਸੀ, ਉੱਥੋਂ ਜਾਰੀ ਰੱਖੋ।"
+  "Pick up where you left off.": "ਜਿੱਥੇ ਛੱਡਿਆ ਸੀ, ਉੱਥੋਂ ਜਾਰੀ ਰੱਖੋ।",
+  "Pause": "ਰੋਕੋ"
 };

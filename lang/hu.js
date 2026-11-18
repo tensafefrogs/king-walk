@@ -328,5 +328,6 @@
   "Your first puzzles": "Az első feladványaid",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Az első néhány feladvány nagy lépésekben megtalálja a szintedet, így ott kezdesz, ahová tartozol. A rangod és a feladvány-értékszámod akkor jelenik meg, ha megvan.",
   "Paused": "Szüneteltetve",
-  "Pick up where you left off.": "Folytasd ott, ahol abbahagytad."
+  "Pick up where you left off.": "Folytasd ott, ahol abbahagytad.",
+  "Pause": "Szünet"
 };

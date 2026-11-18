@@ -328,5 +328,6 @@
   "Your first puzzles": "Οι πρώτοι σου γρίφοι",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Οι πρώτοι γρίφοι βρίσκουν το επίπεδό σου με μεγάλα βήματα, ώστε να ξεκινάς εκεί που ανήκεις. Η βαθμίδα και η βαθμολογία γρίφων σου εμφανίζονται μόλις βρεθεί.",
   "Paused": "Σε παύση",
-  "Pick up where you left off.": "Συνέχισε από εκεί που σταμάτησες."
+  "Pick up where you left off.": "Συνέχισε από εκεί που σταμάτησες.",
+  "Pause": "Παύση"
 };

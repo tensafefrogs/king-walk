@@ -328,5 +328,6 @@
   "Your first puzzles": "आपकी पहली पहेलियाँ",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "पहली कुछ पहेलियाँ बड़े कदमों में आपका स्तर खोजती हैं, ताकि आप सही जगह से शुरू करें। स्तर मिलते ही आपकी रैंक और पहेली रेटिंग दिखने लगेंगी।",
   "Paused": "रुका हुआ",
-  "Pick up where you left off.": "जहाँ छोड़ा था, वहीं से जारी रखें।"
+  "Pick up where you left off.": "जहाँ छोड़ा था, वहीं से जारी रखें।",
+  "Pause": "रोकें"
 };

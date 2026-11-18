@@ -328,5 +328,6 @@
   "Your first puzzles": "మీ మొదటి పజిల్స్",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "మొదటి కొన్ని పజిల్స్ పెద్ద అడుగులతో మీ స్థాయిని కనుగొంటాయి, కాబట్టి మీరు సరైన చోట మొదలుపెడతారు. అది తెలిశాక మీ ర్యాంక్, పజిల్ రేటింగ్ కనిపిస్తాయి.",
   "Paused": "పాజ్ చేయబడింది",
-  "Pick up where you left off.": "ఆపిన చోటు నుంచే కొనసాగించండి."
+  "Pick up where you left off.": "ఆపిన చోటు నుంచే కొనసాగించండి.",
+  "Pause": "పాజ్ చేయండి"
 };

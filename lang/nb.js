@@ -328,5 +328,6 @@
   "Your first puzzles": "De første oppgavene dine",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De første oppgavene finner nivået ditt med store steg, så du starter der du hører hjemme. Rangen og oppgaveratingen din vises når det er funnet.",
   "Paused": "På pause",
-  "Pick up where you left off.": "Fortsett der du slapp."
+  "Pick up where you left off.": "Fortsett der du slapp.",
+  "Pause": "Pause"
 };

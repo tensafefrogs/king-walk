@@ -328,5 +328,6 @@
   "Your first puzzles": "तुमची पहिली कोडी",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "पहिली काही कोडी मोठ्या टप्प्यांत तुमचा स्तर शोधतात, म्हणजे तुम्ही योग्य ठिकाणी सुरुवात करता. स्तर सापडला की तुमचा दर्जा आणि कोडे रेटिंग दिसू लागेल.",
   "Paused": "थांबवले",
-  "Pick up where you left off.": "जिथे थांबला होतात, तिथून पुढे सुरू करा."
+  "Pick up where you left off.": "जिथे थांबला होतात, तिथून पुढे सुरू करा.",
+  "Pause": "थांबवा"
 };

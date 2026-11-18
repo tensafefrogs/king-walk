@@ -328,5 +328,6 @@
   "Your first puzzles": "ତୁମର ପ୍ରଥମ ପଜଲ",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ପ୍ରଥମ କିଛି ପଜଲ ବଡ଼ ବଡ଼ ପାଦରେ ତୁମ ସ୍ତର ଖୋଜେ, ଯାହାଫଳରେ ତୁମେ ଠିକ୍ ଜାଗାରୁ ଆରମ୍ଭ କରିବ। ସ୍ତର ମିଳିବା ପରେ ତୁମ ର‍୍ୟାଙ୍କ ଓ ପଜଲ ରେଟିଂ ଦେଖାଯିବ।",
   "Paused": "ବିରତି",
-  "Pick up where you left off.": "ଯେଉଁଠି ଛାଡ଼ିଥିଲ, ସେଠାରୁ ଆଗକୁ ଖେଳ।"
+  "Pick up where you left off.": "ଯେଉଁଠି ଛାଡ଼ିଥିଲ, ସେଠାରୁ ଆଗକୁ ଖେଳ।",
+  "Pause": "ବିରତି ଦିଅ"
 };

@@ -328,5 +328,6 @@
   "Your first puzzles": "Tvoje prve uganke",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekaj ugank išče tvojo raven z velikimi koraki, da začneš tam, kamor spadaš. Naziv in rating se pokažeta, ko jo igra najde.",
   "Paused": "Začasno ustavljeno",
-  "Pick up where you left off.": "Nadaljuj tam, kjer se je igra ustavila."
+  "Pick up where you left off.": "Nadaljuj tam, kjer se je igra ustavila.",
+  "Pause": "Začasno ustavi"
 };

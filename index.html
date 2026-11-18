@@ -529,6 +529,11 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
    a frosted cover, so the time off doesn't buy thinking time; Continue starts the clock again */
 .dcover { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; border-radius: inherit; background: rgba(20, 63, 56, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .dcover[hidden] { display: none; }
+/* the daily's clock, at the end of the status bar while it's played; a tap pauses it */
+.dtimer { flex: none; border: 0; margin: 0; padding: 4px 10px; border-radius: 999px; background: var(--tile); color: var(--fg); font: 700 15px/1.2 var(--font-display); font-variant-numeric: tabular-nums; white-space: nowrap; cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
+.dtimer[hidden] { display: none; }
+.dtimer.paused { color: var(--muted); }
+@media (max-width: 280px) { .dtimer { padding: 2px 6px; font-size: 13px; } .dtimer .dt-ic { display: none; } }          /* the biggest text sizes: the clock gives the words room */
 .dc-card { width: min(78%, 320px); box-sizing: border-box; padding: 22px 20px 20px; border-radius: 22px; background: var(--card); color: var(--fg); text-align: center; box-shadow: 0 6px 0 rgba(8, 28, 25, 0.35), 0 18px 50px rgba(0, 0, 0, 0.3); }
 .dc-kind { margin: 0; font: 800 12px var(--font-body, system-ui); letter-spacing: 0.12em; text-transform: uppercase; color: var(--p-coral); }
 .dc-title { margin: 4px 0 0; font: 700 clamp(26px, 8cqi, 34px)/1.1 var(--font-display); }
@@ -965,7 +970,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="status" id="status" aria-live="polite">
       <span class="st-ic" id="stIc"></span>
       <span class="st-text"><span class="st-main" id="stMain">Getting the puzzles ready</span><span class="st-sub" id="stSub"></span></span>
-      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><span class="delta" id="delta"></span></span>
+      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><span class="delta" id="delta"></span><button type="button" class="dtimer" id="dTimer" role="timer" aria-live="off" hidden></button></span>
     </div>
 
     <div class="frame" id="frame">
@@ -2174,6 +2179,17 @@ function pauseDaily(back) {
   $("dailyCover").hidden = false;
   if (!document.hidden) $("dcGo").focus({ preventScroll: true });
 }
+/* the clock in the status bar: shown while the daily is being played, the time so far (stopped while paused) */
+function renderTimer() {
+  const el = $("dTimer"), on = !!(DAILY && DAILY.mode === "play" && !done && cur && cur.daily);
+  el.hidden = !on; if (!on) return;
+  if (!el.firstChild) el.innerHTML = '<span class="dt-ic">\u23f1 </span><span class="dt-t"></span>';
+  const t = fmtTime(dailySpent()), tt = el.lastChild;
+  if (tt.textContent !== t) tt.textContent = t;
+  el.classList.toggle("paused", !!DAILY.paused);
+  el.setAttribute("aria-label", (DAILY.paused ? T("Paused") : T("Pause")) + ", " + fmtTime(dailySpent()));
+}
+setInterval(renderTimer, 500);
 function resumeDaily() {
   $("dailyCover").hidden = true;
   if (!DAILY || !DAILY.paused) return;
@@ -2716,6 +2732,7 @@ function renderPanel(fromRating) {
 
 $("hintBtn").addEventListener("click", showHint);
 $("dcGo").addEventListener("click", resumeDaily);
+$("dTimer").addEventListener("click", () => { if (!DAILY || DAILY.mode !== "play" || done) return; if (DAILY.paused) resumeDaily(); else if (locked) DAILY.pauseWhenReady = true; else { pauseDaily(false); track("daily/pause"); } renderTimer(); });
 $("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */

@@ -328,5 +328,6 @@
   "Your first puzzles": "โจทย์แรก ๆ ของคุณ",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "โจทย์ไม่กี่ข้อแรกจะหาระดับของคุณแบบก้าวใหญ่ ๆ เพื่อให้คุณเริ่มในจุดที่เหมาะกับคุณ ยศและเรตติ้งโจทย์จะแสดงเมื่อหาเจอแล้ว",
   "Paused": "หยุดชั่วคราว",
-  "Pick up where you left off.": "เล่นต่อจากที่ค้างไว้ได้เลย"
+  "Pick up where you left off.": "เล่นต่อจากที่ค้างไว้ได้เลย",
+  "Pause": "หยุดชั่วคราว"
 };

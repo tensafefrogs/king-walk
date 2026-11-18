@@ -328,5 +328,6 @@
   "Your first puzzles": "Твої перші задачі",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Перші кілька задач шукають твій рівень великими кроками, тож ти починаєш там, де тобі місце. Звання й рейтинг у задачах з’являться, щойно його визначимо.",
   "Paused": "Пауза",
-  "Pick up where you left off.": "Продовжуй з місця, де гра зупинилася."
+  "Pick up where you left off.": "Продовжуй з місця, де гра зупинилася.",
+  "Pause": "Пауза"
 };

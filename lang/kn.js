@@ -328,5 +328,6 @@
   "Your first puzzles": "ನಿಮ್ಮ ಮೊದಲ ಒಗಟುಗಳು",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ಮೊದಲ ಕೆಲವು ಒಗಟುಗಳು ದೊಡ್ಡ ಹೆಜ್ಜೆಗಳಲ್ಲಿ ನಿಮ್ಮ ಮಟ್ಟವನ್ನು ಕಂಡುಹಿಡಿಯುತ್ತವೆ, ಹೀಗಾಗಿ ನೀವು ಸರಿಯಾದ ಸ್ಥಳದಿಂದ ಆರಂಭಿಸುತ್ತೀರಿ. ಅದು ತಿಳಿದ ನಂತರ ನಿಮ್ಮ ಶ್ರೇಣಿ ಮತ್ತು ಒಗಟು ರೇಟಿಂಗ್ ಕಾಣಿಸುತ್ತವೆ.",
   "Paused": "ವಿರಾಮ",
-  "Pick up where you left off.": "ನಿಲ್ಲಿಸಿದ ಕಡೆಯಿಂದಲೇ ಮುಂದುವರಿಸಿ."
+  "Pick up where you left off.": "ನಿಲ್ಲಿಸಿದ ಕಡೆಯಿಂದಲೇ ಮುಂದುವರಿಸಿ.",
+  "Pause": "ವಿರಾಮ ನೀಡಿ"
 };

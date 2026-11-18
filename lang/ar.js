@@ -328,5 +328,6 @@
   "Your first puzzles": "ألغازك الأولى",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "تحدد الألغاز الأولى مستواك بخطوات كبيرة، فتكون البداية في المكان المناسب لك. تظهر رتبتك وتقييمك في الألغاز بعد تحديده.",
   "Paused": "متوقف مؤقتًا",
-  "Pick up where you left off.": "تابع من حيث توقفت."
+  "Pick up where you left off.": "تابع من حيث توقفت.",
+  "Pause": "إيقاف مؤقت"
 };

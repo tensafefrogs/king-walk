@@ -328,5 +328,6 @@
   "Your first puzzles": "I tuoi primi problemi",
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "I primi problemi cercano il tuo livello a grandi passi, così parti dal punto giusto. Grado e punteggio compaiono appena è stato trovato.",
   "Paused": "In pausa",
-  "Pick up where you left off.": "Riprendi da dove avevi lasciato."
+  "Pick up where you left off.": "Riprendi da dove avevi lasciato.",
+  "Pause": "Pausa"
 };
