@@ -57,6 +57,16 @@ canvas { position: fixed; inset: 0; }
 .hit { left: 50%; bottom: 12%; transform: translateX(-50%); white-space: nowrap; padding: 26px 46px; border-radius: 30px; background: var(--cream); color: var(--ink); font: 700 64px Fredoka, sans-serif; box-shadow: 0 9px 0 rgba(8, 28, 25, 0.5), 0 30px 80px rgba(0, 0, 0, 0.3); }
 .hit b { color: var(--teal); }
 #flash { inset: 0; background: #fff; }
+/* upright (YouTube Shorts and the like): narrower captions and cards */
+@media (orientation: portrait) {
+  .cap { left: 7%; bottom: 8%; font-size: 76px; max-width: 86%; }
+  .cap small { font-size: 32px; }
+  .hit { white-space: normal; text-align: center; width: 78%; font-size: 54px; padding: 24px 30px; bottom: 9%; }
+  #logo { width: 92%; } #logo p { white-space: nowrap; }
+  #c1, #c2 { top: 7%; bottom: auto; }          /* the fork is low in the frame, the sky above it is free */
+  #hud, #streak { top: 7%; right: 50%; margin-right: -280px; } #streak { margin-right: -260px; }
+  #daily { top: 7%; right: 50%; margin-right: -210px; }
+}
 #vignette { inset: 0; opacity: 1 !important; background: radial-gradient(130% 100% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.45) 100%); }
 /* shade under the captions (bottom left) and behind the logo, so text reads over the light squares */
 #shade { inset: 0; background: radial-gradient(70% 60% at 0% 100%, rgba(6, 22, 19, 0.72) 0%, rgba(6, 22, 19, 0.35) 45%, transparent 75%); }
@@ -241,7 +251,7 @@ const CAM = [
   [29.4, 2.5, 1.2, 15, [0, 0, 0]],
   [32.0, 2.8, 1.45, 24, [0, 0, 0]],
 ];
-if (VERT) for (const k of CAM) { k[3] *= 1.12; k[4] = [k[4][0] * 0.25, k[4][1], k[4][2] + 1.2]; }
+if (VERT) for (const k of CAM) { k[2] = Math.max(k[2], 0.66); k[3] *= k[3] < 9 ? 1.75 : 1.5; k[4] = [k[4][0] * 0.15, k[4][1], k[4][2] + 0.6]; }
 function camAt(t) {
   let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1][0]) i++;
   const A = CAM[i], B = CAM[i + 1], k = easeIO(prog(t, A[0], B[0]));

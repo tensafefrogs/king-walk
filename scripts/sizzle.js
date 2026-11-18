@@ -4,7 +4,7 @@
 // every frame is exactly 1/30 s, however slowly the machine draws. Music: scripts/sizzle/music.py (made, not recorded).
 // usage: node scripts/sizzle.js [--vertical] [--frames 0,4.5,12]   Needs Playwright, ffmpeg, npm (for three) and
 // python3 with numpy. --frames saves stills at those times instead (to look at a cut quickly).
-// Output: press/king-walk-sizzle.mp4 (1920x1080) or press/king-walk-sizzle-vertical.mp4 (1080x1920), and a poster .jpg.
+// Output: press/king-walk-sizzle.mp4 (1920x1080) or press/king-walk-sizzle-vertical.mp4 (1080x1920), and a poster (-poster.jpg). Also a YouTube thumbnail (1280x720) for the wide one: press/king-walk-sizzle-thumbnail.jpg.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path"), os = require("os"), { execFileSync } = require("child_process");
 const server = require("../testing/server");
@@ -49,7 +49,8 @@ fs.copyFileSync(path.join(TMP, "node_modules", "three", "build", "three.module.m
   const mp4 = path.join(OUT, NAME + ".mp4");
   execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-framerate", String(FPS), "-i", path.join(dir, "%05d.jpg"), "-i", wav,
     "-c:v", "libx264", "-preset", "slow", "-crf", "23", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", mp4]);
-  fs.copyFileSync(path.join(dir, String(Math.round(29.6 * FPS)).padStart(5, "0") + ".jpg"), path.join(OUT, NAME + ".jpg"));
+  fs.copyFileSync(path.join(dir, String(Math.round(29.6 * FPS)).padStart(5, "0") + ".jpg"), path.join(OUT, NAME + "-poster.jpg"));
+  if (!vertical) execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", path.join(OUT, NAME + "-poster.jpg"), "-vf", "scale=1280:720", "-q:v", "3", path.join(OUT, NAME + "-thumbnail.jpg")]);
   fs.rmSync(TMP, { recursive: true, force: true });
   console.log("wrote", path.relative(ROOT, mp4));
 })().catch(e => { console.error(e); process.exit(1); });
