@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>King Walk sizzle</title>
+<!-- The sizzle reel's scene: a 3D board (Three.js) with the game's pieces standing on it as cut-outs, and captions
+     over it. Everything is a function of time: renderAt(t) draws the frame at t seconds, so scripts/sizzle.js can film
+     it frame by frame. Open it in a browser with ?play to watch it live. -->
+<style>
+@font-face { font-family: Fredoka; font-weight: 700; src: url(fonts/fredoka-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: Fredoka; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: Nunito; font-weight: 700; src: url(fonts/nunito-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: Nunito; font-weight: 800; src: url(fonts/nunito-latin-800-normal.woff2) format("woff2"); }
+:root { --ink: #102824; --teal: #1c7868; --deep: #143f38; --cream: #fdfbf2; --gold: #f2c230; --coral: #e2704f; --mint: #4fbfa8; --solved: #22a06b; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d2925; }
+#sky { position: fixed; inset: 0; background: radial-gradient(120% 90% at 50% 18%, #2a8c79 0%, #1c7868 30%, #143f38 65%, #0b241f 100%); }
+#sky2 { position: fixed; inset: 0; background: radial-gradient(120% 90% at 50% 18%, #f08a66 0%, #e2704f 30%, #a8452d 70%, #4a1d14 100%); opacity: 0; }
+canvas { position: fixed; inset: 0; }
+#ui { position: fixed; inset: 0; font-family: Nunito, sans-serif; color: var(--cream); pointer-events: none; }
+#ui > * { position: absolute; opacity: 0; will-change: transform, opacity; }
+.cap { left: 6%; bottom: 11%; font: 700 82px/1.02 Fredoka, sans-serif; letter-spacing: -0.5px; text-shadow: 0 4px 0 rgba(8, 28, 25, 0.55), 0 10px 40px rgba(0, 0, 0, 0.35); max-width: 60%; }
+.cap small { display: block; font: 800 34px/1.25 Nunito, sans-serif; letter-spacing: 0; margin-top: 14px; color: #dff3ec; text-shadow: 0 2px 0 rgba(8, 28, 25, 0.5); }
+.cap b { color: var(--gold); font-weight: 700; }
+.cap.right { left: auto; right: 6%; text-align: right; }
+#logo { left: 50%; top: 50%; text-align: center; transform: translate(-50%, -50%); }
+#logo img.mark { width: 190px; height: 190px; display: block; margin: 0 auto 26px; filter: drop-shadow(0 10px 0 rgba(8, 28, 25, 0.45)); }
+#logo img.word { height: 120px; display: block; margin: 0 auto; filter: drop-shadow(0 6px 0 rgba(8, 28, 25, 0.45)); }
+#logo p { font: 800 40px Nunito, sans-serif; margin: 26px 0 0; text-shadow: 0 3px 0 rgba(8, 28, 25, 0.5); }
+#logo p.url { font: 700 54px Fredoka, sans-serif; color: var(--gold); margin-top: 12px; }
+#logo p.sub { font-size: 32px; margin-top: 30px; color: #dff3ec; }
+/* the rating card: like the game's rating tile and rank row */
+#hud { right: 5%; top: 12%; width: 560px; padding: 30px 34px 34px; border-radius: 34px; background: var(--cream); color: var(--ink); box-shadow: 0 10px 0 rgba(8, 28, 25, 0.5), 0 30px 80px rgba(0, 0, 0, 0.35); }
+#hud .row { display: flex; align-items: center; gap: 22px; }
+#hud .tile { width: 104px; height: 104px; border-radius: 26px; background: #dcefe9; display: grid; place-items: center; }
+#hud .tile img { width: 84px; height: 84px; }
+#hud .num { font: 700 112px/0.9 Fredoka, sans-serif; color: var(--ink); font-variant-numeric: tabular-nums; }
+#hud .lbl { font: 800 24px Nunito, sans-serif; letter-spacing: 2px; text-transform: uppercase; color: #4a6b65; margin-top: 8px; }
+#hud .chip { margin-left: auto; align-self: flex-start; font: 700 40px Fredoka, sans-serif; color: var(--solved); }
+#hud .ladder { display: flex; gap: 12px; margin-top: 28px; }
+#hud .lad { flex: 1; aspect-ratio: 1; border-radius: 18px; background: #eef1ea; display: grid; place-items: center; transition: none; }
+#hud .lad img { width: 74%; opacity: 0.35; filter: grayscale(1); }
+#hud .lad.on { background: var(--gold); box-shadow: 0 5px 0 #b48a12; }
+#hud .lad.on img { opacity: 1; filter: none; }
+#hud .rank { margin-top: 22px; font: 700 34px Fredoka, sans-serif; color: var(--teal); height: 40px; }
+/* the daily card */
+#daily { right: 7%; top: 13%; width: 420px; border-radius: 34px; overflow: hidden; background: var(--cream); color: var(--ink); text-align: center; box-shadow: 0 10px 0 rgba(60, 20, 10, 0.5), 0 30px 80px rgba(0, 0, 0, 0.35); transform-origin: 50% 0; }
+#daily .head { background: var(--coral); color: #fff; font: 700 34px Fredoka, sans-serif; letter-spacing: 4px; padding: 18px 0; }
+#daily .n { font: 700 150px/1 Fredoka, sans-serif; margin-top: 18px; }
+#daily .day { font: 800 34px Nunito, sans-serif; color: #6b524b; margin: 6px 0 28px; }
+#streak { right: 7%; top: 13%; width: 520px; padding: 30px 34px; border-radius: 34px; background: var(--cream); color: var(--ink); box-shadow: 0 10px 0 rgba(60, 20, 10, 0.5), 0 30px 80px rgba(0, 0, 0, 0.35); }
+#streak .top { display: flex; align-items: center; gap: 18px; font: 700 96px/1 Fredoka, sans-serif; }
+#streak .top span { font: 800 30px Nunito, sans-serif; color: #6b524b; line-height: 1.15; }
+#streak .week { display: flex; gap: 10px; margin-top: 26px; }
+#streak .d { flex: 1; aspect-ratio: 1; border-radius: 50%; background: #f1e3dc; display: grid; place-items: center; font: 800 24px Nunito, sans-serif; color: #9b7f76; }
+#streak .d.on { background: var(--solved); color: #fff; }
+#streak .share { margin-top: 26px; padding: 18px 22px; border-radius: 22px 22px 22px 6px; background: #e7f1ff; font: 800 30px/1.35 Nunito, sans-serif; color: #24324a; }
+.hit { left: 50%; bottom: 12%; transform: translateX(-50%); white-space: nowrap; padding: 26px 46px; border-radius: 30px; background: var(--cream); color: var(--ink); font: 700 64px Fredoka, sans-serif; box-shadow: 0 9px 0 rgba(8, 28, 25, 0.5), 0 30px 80px rgba(0, 0, 0, 0.3); }
+.hit b { color: var(--teal); }
+#flash { inset: 0; background: #fff; }
+#vignette { inset: 0; opacity: 1 !important; background: radial-gradient(130% 100% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.45) 100%); }
+/* shade under the captions (bottom left) and behind the logo, so text reads over the light squares */
+#shade { inset: 0; background: radial-gradient(70% 60% at 0% 100%, rgba(6, 22, 19, 0.72) 0%, rgba(6, 22, 19, 0.35) 45%, transparent 75%); }
+#dim { inset: 0; background: radial-gradient(60% 60% at 50% 50%, rgba(6, 22, 19, 0.82) 0%, rgba(6, 22, 19, 0.55) 55%, rgba(6, 22, 19, 0.2) 100%); }
+</style>
+</head>
+<body>
+<div id="sky"></div><div id="sky2"></div>
+<div id="ui">
+  <div id="vignette"></div><div id="shade"></div><div id="dim"></div>
+  <div id="logo"><img class="mark" src="brand/mark.svg" alt=""><img class="word" src="brand/wordmark-on-dark.svg" alt="">
+    <p id="tag">Chess puzzles that fight back.</p><p class="sub" id="where">On iPhone, iPad and the web</p><p class="url" id="url">kingwalk.app</p></div>
+  <div class="cap" id="c1">Find the move.</div>
+  <div class="cap" id="c2">Forks, pins, skewers<br>and sneaky mates.<small>53,000 puzzles from real games</small></div>
+  <div class="cap" id="c3">Solve one,<br>the next gets <b>tougher.</b></div>
+  <div class="cap" id="c4">Miss one,<br>it backs off.</div>
+  <div class="cap" id="c5">Pawn to <b>King.</b><small>Your level, found in a few puzzles. Then climb.</small></div>
+  <div class="cap" id="c6">A new puzzle<br><b>every day.</b></div>
+  <div class="cap" id="c7">Same one<br>for everyone.</div>
+  <div class="cap" id="c8">Keep your<br>streak alive.</div>
+  <div id="hud">
+    <div class="row"><div class="tile"><img id="hudPiece" src="brand/pieces/wp.svg" alt=""></div>
+      <div><div class="num" id="hudNum">640</div><div class="lbl">puzzle rating</div></div><div class="chip" id="hudChip"></div></div>
+    <div class="ladder" id="ladder"></div>
+    <div class="rank" id="hudRank"></div>
+  </div>
+  <div id="daily"><div class="head">DAILY PUZZLE</div><div class="n">#6</div><div class="day">Wednesday</div></div>
+  <div id="streak"><div class="top"><span style="font-size:84px">🔥</span><b id="stN">1</b><span>days<br>in a row</span></div>
+    <div class="week" id="week"></div>
+    <div class="share">King Walk Daily #6<br>🟩🟩🟨🟩 ⏱ 0:41</div></div>
+  <div class="hit" id="h1"><b>53,000</b> real-game puzzles</div>
+  <div class="hit" id="h2">Hints when you're <b>stuck</b></div>
+  <div class="hit" id="h3">Today's puzzle on your <b>Home Screen</b></div>
+  <div class="hit" id="h4">In <b>44</b> languages</div>
+  <div class="hit" id="h5">No ads. No account. <b>Works offline.</b></div>
+  <div id="flash"></div>
+</div>
+<script type="module">
+import * as THREE from "./three.module.min.js";
+
+const W = innerWidth, H = innerHeight, VERT = H > W;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(devicePixelRatio); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.insertBefore(renderer.domElement, document.getElementById("ui"));
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(VERT ? 46 : 34, W / H, 0.1, 200);
+scene.add(new THREE.HemisphereLight(0xfffbe8, 0x1c4a43, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(-4, 10, 6); scene.add(sun);
+
+// ---------- helpers ----------
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+const easeIO = k => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const easeOut = k => 1 - Math.pow(1 - k, 3);
+const easeBack = k => { const c = 1.9; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const bounce = k => { const n = 7.5625, d = 2.75; if (k < 1 / d) return n * k * k; if (k < 2 / d) return n * (k -= 1.5 / d) * k + 0.75; if (k < 2.5 / d) return n * (k -= 2.25 / d) * k + 0.9375; return n * (k -= 2.625 / d) * k + 0.984375; };
+const sq = s => ({ x: "abcdefgh".indexOf(s[0]) - 3.5, z: 3.5 - (+s[1] - 1) });
+function rng(seed) { let a = seed; return () => (a = (a * 16807) % 2147483647) / 2147483647; }
+
+// ---------- the board ----------
+const board = new THREE.Group(); scene.add(board);
+const frameMat = new THREE.MeshLambertMaterial({ color: 0x1c4a43 });
+const frame = new THREE.Mesh(new THREE.BoxGeometry(9.1, 0.6, 9.1), frameMat); frame.position.y = -0.31; board.add(frame);
+const lip = new THREE.Mesh(new THREE.BoxGeometry(8.2, 0.62, 8.2), new THREE.MeshLambertMaterial({ color: 0x0f2f29 })); lip.position.y = -0.34; board.add(lip);
+const lightM = new THREE.MeshLambertMaterial({ color: 0xeceed8 }), darkM = new THREE.MeshLambertMaterial({ color: 0x7c9d70 });
+const sqGeo = new THREE.BoxGeometry(1, 0.08, 1);
+for (let f = 0; f < 8; f++) for (let r = 0; r < 8; r++) {
+  const m = new THREE.Mesh(sqGeo, (f + r) % 2 === 0 ? darkM : lightM); m.position.set(f - 3.5, -0.04, 3.5 - r); board.add(m);
+}
+// highlights: the last move in gold, like the game
+const hiGeo = new THREE.PlaneGeometry(1, 1); hiGeo.rotateX(-Math.PI / 2);
+const his = [0, 1].map(() => { const m = new THREE.Mesh(hiGeo, new THREE.MeshBasicMaterial({ color: 0xf4cd46, transparent: true, opacity: 0 })); m.position.y = 0.002; board.add(m); return m; });
+// rings that pulse under attacked pieces
+const ringGeo = new THREE.RingGeometry(0.34, 0.46, 48); ringGeo.rotateX(-Math.PI / 2);
+const rings = [0, 1].map(() => { const m = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xf2c230, transparent: true, opacity: 0 })); m.position.y = 0.01; board.add(m); return m; });
+// beams from the forking knight
+const beamMat = new THREE.MeshBasicMaterial({ color: 0xffd84a, transparent: true, opacity: 0 });
+const beams = [0, 1].map(() => { const m = new THREE.Mesh(new THREE.BoxGeometry(1, 0.06, 0.06), beamMat); board.add(m); return m; });
+
+// ---------- pieces: the game's own art, standing up, always turned to the camera ----------
+const tex = {};
+async function loadTex(k) {
+  const img = new Image(); img.src = `brand/pieces/${k}.svg`; await img.decode();
+  const c = document.createElement("canvas"); c.width = c.height = 512; c.getContext("2d").drawImage(img, 0, 0, 512, 512);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; tex[k] = t;
+}
+const shadowTex = (() => { const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+  const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62); gr.addColorStop(0, "rgba(8,28,25,0.55)"); gr.addColorStop(1, "rgba(8,28,25,0)");
+  g.fillStyle = gr; g.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c); })();
+const pieceGeo = new THREE.PlaneGeometry(1.08, 1.08); pieceGeo.translate(0, 0.5, 0);
+const shGeo = new THREE.PlaneGeometry(0.9, 0.9); shGeo.rotateX(-Math.PI / 2);
+const pool = [];
+function piece(i) {
+  if (!pool[i]) {
+    const g = new THREE.Group(), m = new THREE.Mesh(pieceGeo, new THREE.MeshBasicMaterial({ transparent: true, alphaTest: 0.35, side: THREE.DoubleSide }));
+    const s = new THREE.Mesh(shGeo, new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+    s.position.y = 0.005; m.renderOrder = 2; g.add(m); board.add(s); board.add(g); pool[i] = { g, m, s };
+  }
+  return pool[i];
+}
+
+// ---------- the positions (board part of a FEN) and what happens in them ----------
+function parse(fen) { const out = []; fen.split("/").forEach((row, i) => { let f = 0; for (const ch of row) { if (/\d/.test(ch)) f += +ch; else { out.push({ k: (ch === ch.toUpperCase() ? "w" : "b") + ch.toLowerCase(), s: "abcdefgh"[f] + (8 - i) }); f++; } } }); return out; }
+// each scene: a position, when it drops in and sweeps out, and its moves { at, from, to, hop?, take? }
+const SETS = [
+  { fen: "2q3k1/pp3ppp/8/3N4/8/8/PP3PPP/6K1", in: 0.9, out: 10.0, moves: [
+    { at: 6.0, from: "d5", to: "e7", hop: 1.6, dur: 0.6 }, { at: 7.7, from: "g8", to: "h8", dur: 0.45 },
+    { at: 8.5, from: "e7", to: "c8", hop: 1.4, dur: 0.6, take: true }] },
+  { fen: "6k1/5ppp/8/8/8/8/5PPP/R5K1", in: 10.2, out: 12.25, moves: [{ at: 11.0, from: "a1", to: "a8", dur: 0.5, arc: 0.5 }] },
+  { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR", in: 12.3, out: 14.05, moves: [{ at: 13.0, from: "h5", to: "f7", dur: 0.5, arc: 0.5, take: true }] },
+  { fen: "6rk/6pp/8/6N1/8/8/6PP/6K1", in: 14.1, out: 16.0, moves: [{ at: 14.8, from: "g5", to: "f7", hop: 1.5, dur: 0.55 }] },
+  { fen: "6k1/5p1p/6p1/8/8/6Q1/1B3PPP/6K1", in: 16.6, out: 24.0, daily: true, moves: [{ at: 19.4, from: "g3", to: "g7", dur: 0.55, arc: 0.5 }] },
+  { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", in: 24.05, out: 99, moves: [] },
+];
+for (const set of SETS) {
+  set.pieces = parse(set.fen).map((p, i) => ({ ...p, i }));
+  // replay the moves to know each piece's square at any time
+  for (const mv of set.moves) { const p = set.pieces.find(q => q.s === mv.from && !q.gone); mv.p = p; if (mv.take) { mv.victim = set.pieces.find(q => q.s === mv.to && q !== p && !q.gone); if (mv.victim) mv.victim.gone = mv; } p.s = mv.to; }
+  set.pieces.forEach(p => { delete p.gone; });
+  for (const p of set.pieces) { const first = set.moves.find(m => m.p === p); p.start = first ? first.from : p.s; }
+}
+for (const set of SETS) for (const p of set.pieces) { p.s = p.start; }
+
+// the square a piece stands on, its lift and squash at time t
+function where(set, p, t) {
+  let at = sq(p.start), y = 0, sx = 1, sy = 1, gone = 0;
+  for (const mv of set.moves) {
+    if (mv.victim === p && t >= mv.at + mv.dur * 0.85) gone = t - (mv.at + mv.dur * 0.85);
+    if (mv.p !== p || t < mv.at) continue;
+    const a = sq(mv.from), b = sq(mv.to), k = prog(t, mv.at, mv.at + mv.dur), e = easeIO(k);
+    at = { x: lerp(a.x, b.x, e), z: lerp(a.z, b.z, e) };
+    y = Math.sin(Math.PI * k) * (mv.hop || mv.arc || 0.3);
+    const land = t - (mv.at + mv.dur);           // a squash as it lands
+    if (land > 0 && land < 0.3) { const q = Math.sin(land / 0.3 * Math.PI) * 0.22; sy = 1 - q; sx = 1 + q * 0.6; }
+    if (k > 0 && k < 1) { sy = 1 + 0.12 * Math.sin(Math.PI * k); sx = 1 - 0.06 * Math.sin(Math.PI * k); }
+  }
+  return { ...at, y, sx, sy, gone };
+}
+
+// ---------- confetti (worked out from t, so any frame can be drawn on its own) ----------
+const CONF_COLORS = [0xf2c230, 0xe2704f, 0x4fbfa8, 0xfdfbf2, 0x1c7868];
+const confGeo = new THREE.PlaneGeometry(0.12, 0.2);
+const BURSTS = [{ at: 8.95, s: "c8", n: 70 }, { at: 11.5, s: "a8", n: 50 }, { at: 13.5, s: "f7", n: 50 }, { at: 15.35, s: "f7", n: 60 }, { at: 19.95, s: "g7", n: 90 }];
+const conf = [];
+for (const b of BURSTS) { const r = rng(Math.round(b.at * 1000)); const o = sq(b.s);
+  for (let i = 0; i < b.n; i++) { const m = new THREE.Mesh(confGeo, new THREE.MeshBasicMaterial({ color: CONF_COLORS[i % 5], side: THREE.DoubleSide, transparent: true }));
+    const a = r() * Math.PI * 2, sp = 1.5 + r() * 3.2;
+    conf.push({ m, b, o, vx: Math.cos(a) * sp, vz: Math.sin(a) * sp, vy: 4 + r() * 5, rx: r() * 9, ry: r() * 9 }); board.add(m); m.visible = false; } }
+
+// ---------- the captions over the scene ----------
+const $ = id => document.getElementById(id);
+const RANK_P = ["p", "n", "b", "r", "q", "k"], RANK_N = ["Pawn", "Knight", "Bishop", "Rook", "Queen", "King"];
+for (const p of RANK_P) { const d = document.createElement("div"); d.className = "lad"; d.innerHTML = `<img src="brand/pieces/w${p}.svg" alt="">`; $("ladder").append(d); }
+for (const d of ["M", "T", "W", "T", "F", "S", "S"]) { const e = document.createElement("div"); e.className = "d"; e.textContent = d; $("week").append(e); }
+// show an element from a to b: it pops in and slides out
+function show(id, t, a, b, { from = 50, scale = true, out = 0.3 } = {}) {
+  const el = $(id); const k = prog(t, a, a + 0.45), o = prog(t, b - out, b);
+  if (t < a || t > b) { el.style.opacity = 0; return; }
+  const e = easeBack(k), y = (1 - e) * from - easeIO(o) * 30, s = scale ? lerp(0.86, 1, e) : 1;
+  el.style.opacity = Math.min(k * 2, 1) * (1 - o);
+  const base = el.classList.contains("hit") ? "translateX(-50%) " : id === "logo" ? "translate(-50%, -50%) " : "";
+  el.style.transform = `${base}translateY(${y}px) scale(${s})`;
+}
+
+// ---------- the camera: keyframes of (angle around the board, height angle, distance, look-at point) ----------
+const CAM = [
+  [0.0, -0.9, 1.25, 22, [0, 0, 0]],
+  [2.2, -0.3, 1.0, 15.5, [0, 0, 0]],
+  [4.0, 0.0, 0.92, 13.5, [0, 0, 0]],
+  [5.6, 0.55, 0.42, 7.2, [0.2, 0.6, -1.6]],
+  [8.0, 0.25, 0.36, 6.6, [-0.4, 0.6, -2.6]],
+  [9.8, -0.15, 0.5, 8.0, [-0.8, 0.4, -2.4]],
+  [10.6, -0.35, 0.95, 12.5, [-2.2, 0, 0]],
+  [15.9, 0.0, 1.0, 12.8, [-2.2, 0, 0]],
+  [17.0, 0.4, 0.78, 12.2, [-2.0, 0, 0]],
+  [20.0, 0.62, 0.62, 10.5, [-2.0, 0.2, -1]],
+  [23.8, 0.3, 0.9, 12.6, [-2.2, 0, 0]],
+  [24.4, 0.6, 0.75, 13.5, [0, 0, 0.5]],
+  [28.0, 2.2, 0.62, 12.5, [0, 0, 0]],
+  [29.4, 2.5, 1.2, 15, [0, 0, 0]],
+  [32.0, 2.8, 1.45, 24, [0, 0, 0]],
+];
+if (VERT) for (const k of CAM) { k[3] *= 1.12; k[4] = [k[4][0] * 0.25, k[4][1], k[4][2] + 1.2]; }
+function camAt(t) {
+  let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1][0]) i++;
+  const A = CAM[i], B = CAM[i + 1], k = easeIO(prog(t, A[0], B[0]));
+  const ang = lerp(A[1], B[1], k), el = lerp(A[2], B[2], k), d = lerp(A[3], B[3], k);
+  const look = new THREE.Vector3(...A[4].map((v, j) => lerp(v, B[4][j], k)));
+  camera.position.set(look.x + Math.sin(ang) * Math.cos(el) * d, look.y + Math.sin(el) * d, look.z + Math.cos(ang) * Math.cos(el) * d);
+  camera.lookAt(look);
+}
+
+// ---------- one frame ----------
+function renderAt(t) {
+  // the board flies in, and turns coral for the daily
+  const fin = easeBack(prog(t, 0, 1.5));
+  board.position.y = lerp(-9, 0, fin); board.rotation.y = lerp(-1.2, 0, easeOut(prog(t, 0, 1.6)));
+  const daily = prog(t, 16.4, 17.0) - prog(t, 23.8, 24.4);
+  frameMat.color.set(0x1c4a43).lerp(new THREE.Color(0xe2704f), daily);
+  $("sky2").style.opacity = daily * 0.9;
+  camAt(t);
+
+  // pieces
+  board.updateMatrixWorld(); const boardInv = board.quaternion.clone().invert();
+  let used = 0; his.forEach(h => { h.material.opacity = 0; });
+  for (const set of SETS) {
+    if (t < set.in - 0.1 || t > set.out + 1.2) continue;
+    for (const p of set.pieces) {
+      const P = piece(used++), w = where(set, p, t);
+      P.m.material.map = tex[p.k]; P.m.material.needsUpdate = P.m.material._k !== p.k; P.m.material._k = p.k;
+      // drop in, one after another; sweep out upward with a spin
+      const d0 = set.in + p.i * 0.035, kIn = prog(t, d0, d0 + 0.55), drop = (1 - bounce(kIn)) * 7;
+      const kOut = prog(t, set.out + p.i * 0.012, set.out + p.i * 0.012 + 0.5), out = easeIO(kOut);
+      let y = w.y + drop + out * 9, x = w.x, z = w.z, rot = out * 6, vis = kIn > 0;
+      if (w.gone) { const g = w.gone; y += 3.5 * g - 6 * g * g + 0.4; x += g * 2.2; rot += g * 14; vis = vis && g < 1.2; }
+      P.g.visible = vis; P.s.visible = vis && !w.gone;
+      P.g.position.set(x, y, z); P.g.scale.set(w.sx, w.sy, 1);
+      // face the camera (in the board's frame, which turns as it flies in), standing on its base; spin as it leaves
+      P.g.quaternion.copy(boardInv).multiply(camera.quaternion); if (rot) P.g.rotateZ(rot);
+      P.s.position.set(x, 0.006, z); P.s.material.opacity = clamp(1 - y / 4, 0, 1); P.s.scale.setScalar(clamp(1 - y / 8, 0.4, 1));
+    }
+    // the last move in gold
+    for (const mv of set.moves) if (t >= mv.at + mv.dur * 0.6 && t < set.out) {
+      const a = sq(mv.from), b = sq(mv.to), o = prog(t, mv.at + mv.dur * 0.6, mv.at + mv.dur) * 0.6;
+      his[0].position.x = a.x; his[0].position.z = a.z; his[1].position.x = b.x; his[1].position.z = b.z;
+      his[0].material.opacity = his[1].material.opacity = o;
+    }
+  }
+  for (let i = used; i < pool.length; i++) { pool[i].g.visible = false; pool[i].s.visible = false; }
+
+  // the fork: beams to the king and queen, rings under them
+  const fk = prog(t, 6.65, 6.95) * (1 - prog(t, 7.6, 7.9));
+  const kn = sq("e7"), tg = [sq("g8"), sq("c8")];
+  beams.forEach((b, i) => { const dx = tg[i].x - kn.x, dz = tg[i].z - kn.z, len = Math.hypot(dx, dz);
+    b.position.set(kn.x + dx / 2, 0.45, kn.z + dz / 2); b.scale.x = len * easeOut(prog(t, 6.65, 7.0)); b.rotation.y = -Math.atan2(dz, dx); });
+  beamMat.opacity = fk * (0.75 + 0.25 * Math.sin(t * 18));
+  rings.forEach((r, i) => { r.position.set(tg[i].x, 0.01, tg[i].z); const pulse = (t * 1.6) % 1; r.scale.setScalar(1 + pulse * 0.5); r.material.opacity = fk * (1 - pulse); });
+
+  // confetti
+  for (const c of conf) { const g = t - c.b.at; if (g < 0 || g > 2.6) { c.m.visible = false; continue; }
+    c.m.visible = true; c.m.position.set(c.o.x + c.vx * g * 0.6, 0.6 + c.vy * g - 4.9 * g * g * 0.9, c.o.z + c.vz * g * 0.6);
+    c.m.rotation.set(c.rx * g, c.ry * g, 0); c.m.material.opacity = 1 - prog(g, 1.8, 2.6); }
+
+  // captions
+  $("where").style.display = $("url").style.display = t > 27 ? "" : "none"; $("tag").style.display = "";
+  show("c1", t, 4.3, 6.6); show("c2", t, 6.9, 9.9);
+  show("c3", t, 10.5, 12.9); show("c4", t, 12.9, 14.2); show("c5", t, 14.2, 16.2);
+  show("c6", t, 17.2, 19.2); show("c7", t, 19.2, 20.9); show("c8", t, 20.9, 23.9);
+  show("hud", t, 10.3, 16.2, { from: -40 });
+  show("daily", t, 17.4, 21.0, { from: -60 }); $("daily").style.transform += ` rotateX(${(1 - easeBack(prog(t, 17.4, 18.0))) * -80}deg)`;
+  show("streak", t, 21.0, 24.0, { from: -40 });
+  ["h1", "h2", "h3", "h4", "h5"].forEach((h, i) => show(h, t, 24.3 + i * 0.75, 24.3 + (i + 1) * 0.75 + (i === 4 ? 0.15 : 0), { from: 40, out: 0.15 }));
+  show("logo", t, t > 26 ? 28.3 : 1.7, t > 26 ? 40 : 3.9);
+  $("dim").style.opacity = Math.max(prog(t, 1.6, 2.1) * (1 - prog(t, 3.6, 4.0)), prog(t, 28.0, 28.8));
+  $("shade").style.opacity = 1 - prog(t, 24.0, 24.4);
+  // the rating climbs with each solve, ranks light up
+  const steps = [[10.0, 640], [11.5, 712], [13.5, 1004], [15.35, 1306]];
+  let num = 640, lit = 0, chip = "", rank = "";
+  for (let i = 1; i < steps.length; i++) { const k = easeOut(prog(t, steps[i][0], steps[i][0] + 0.7)); if (k > 0) { num = Math.round(lerp(steps[i - 1][1], steps[i][1], k)); lit = i; chip = "+" + (steps[i][1] - steps[i - 1][1]); rank = "New rank: " + RANK_N[i] + "!"; } }
+  $("hudNum").textContent = num; $("hudChip").textContent = chip; $("hudRank").textContent = rank;
+  $("hudPiece").src = `brand/pieces/w${RANK_P[lit]}.svg`;
+  [...$("ladder").children].forEach((d, i) => { d.classList.toggle("on", i <= lit); d.style.transform = i === lit && lit ? `scale(${1 + 0.25 * Math.sin(Math.PI * prog(t, steps[lit][0], steps[lit][0] + 0.45))})` : ""; });
+  // the streak counts up to 7
+  const sN = clamp(Math.floor(lerp(1, 8, prog(t, 21.3, 23.0))), 1, 7);
+  $("stN").textContent = sN; [...$("week").children].forEach((d, i) => d.classList.toggle("on", i < sN));
+  // white flashes on the cuts
+  const fl = Math.max(...[10.0, 16.0, 24.0].map(c => 1 - prog(Math.abs(t - c), 0, 0.18)));
+  $("flash").style.opacity = fl * 0.55;
+  renderer.render(scene, camera);
+}
+
+await Promise.all(["wp", "wn", "wb", "wr", "wq", "wk", "bp", "bn", "bb", "br", "bq", "bk"].map(loadTex));
+await document.fonts.load("700 80px Fredoka"); await document.fonts.load("800 30px Nunito");
+window.renderAt = renderAt; window.DURATION = 32; window.ready = true;
+if (location.search.includes("play")) { const t0 = performance.now(); const loop = () => { renderAt(((performance.now() - t0) / 1000) % 32); requestAnimationFrame(loop); }; loop(); }
+else renderAt(0);
+</script>
+</body>
+</html>
