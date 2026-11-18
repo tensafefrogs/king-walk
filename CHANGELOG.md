@@ -7,10 +7,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.4: building for TestFlight from main; App Store submission waits for the go-ahead)
+### Next app version (1.0.4: on TestFlight; App Store submission waits for the go-ahead)
 
-- **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
-  day. (Live on the website; the 1.0.3 build in review was made just before it.)
+- Nothing yet.
+
 
 ### Website only (live on kingwalk.app)
 
@@ -28,8 +28,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.3 (in App Review, submitted 18 November 2026, build 2611180446; released on approval)
+## 1.0.3 (in App Review, submitted 18 November 2026; build swapped to 2611180506 the same day; released on approval)
 
+- **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
+  day. (Also live on the website.)
 - **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
   turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
   The small size shows a close-up of the board: the king to be mated, or the square the opponent just moved to.
