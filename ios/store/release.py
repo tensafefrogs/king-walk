@@ -295,6 +295,11 @@ def app_store(app_id, build, cfg):
         if cfg.get('listing', True):   # "listing": false submits without uploading it again (screenshots restart processing)
             import upload_listing
             upload_listing.main()   # text, URLs, age rating, screenshots
+            # the header art and app preview (creative.py): placed on the version being prepared, which this one now
+            # is (pushing a new preview while no version is being prepared leaves the old one, which a new version copies)
+            import creative
+            try: creative.main()
+            except Exception as e: log(f'App Store: the header art or app preview could not be placed ({e}); see creative.py')
         # What's New: one text for every language, or {"en-US": ..., "de-DE": ...} (a language without one gets en-US's)
         wn = cfg.get('whats_new') or ''
         wn = wn if isinstance(wn, dict) else ({'en-US': wn} if wn else {})

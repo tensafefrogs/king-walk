@@ -306,6 +306,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
 .cele-kind { margin: 14px 0 0; font: 800 13px var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--p-teal); animation: cele-up 0.4s 0.75s ease-out both; }
 .cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); text-wrap: balance; word-break: auto-phrase; }
+.cele-title .w { display: inline-block; max-width: 100%; font-weight: inherit; }          /* a word: kept on one line if it fits */
 .cele-title span { display: inline-block; animation: cele-slam 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both; white-space: pre; }
 .cele-text { margin: 8px 22px 0; font: 600 15px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 1.1s ease-out both; }
 .cele-btns { display: flex; flex-wrap: wrap; gap: 10px;          /* a second row only when even single words can't fit side by side (the main button grows from nothing, so it wraps late) */
@@ -1992,7 +1993,15 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
   el.querySelector(".cele-kind").textContent = kind;
   const h = el.querySelector(".cele-title");
   if (loud) { h.setAttribute("aria-label", title);
-    [...title].forEach((ch, i) => { const sp = document.createElement("span"); sp.textContent = ch; sp.setAttribute("aria-hidden", "true"); sp.style.animationDelay = (0.8 + Math.min(i, 14) * 0.045) + "s"; h.append(sp); }); }
+    /* a letter at a time, for the slam; each word's letters held together (b.w), so a line breaks between words */
+    let i = 0;
+    for (const part of title.split(/(\s+)/)) {
+      if (!part) continue;
+      if (/^\s+$/.test(part)) { h.append(part); continue; }
+      const w = document.createElement("b"); w.className = "w"; w.setAttribute("aria-hidden", "true");
+      for (const ch of part) { const sp = document.createElement("span"); sp.textContent = ch; sp.style.animationDelay = (0.8 + Math.min(i++, 14) * 0.045) + "s"; w.append(sp); }
+      h.append(w);
+    } }
   else h.textContent = title;
   const tx = el.querySelector(".cele-text");
   [].concat(text).forEach((line, i) => { if (i) tx.append(document.createElement("br")); tx.append(line); });

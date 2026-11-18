@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead: 1.0.3 with everything on main (owner: fold it all into 1.0.3): the board widgets, placement, the difficulty labels, the streak saver, Settings > Language, restyled widgets. Built from main now; submitted by the 6-hourly run once 1.0.2 is approved and released (the newest 1.0.3 build), released on approval."
+  "note": "Owner's go-ahead: 1.0.3 with everything on main (owner: fold it all into 1.0.3): the board widgets, placement, the difficulty labels, the streak saver, Settings > Language, restyled widgets. Built from main now (fourth build: celebration titles break between words; the new app preview with placement and music); submitted by the 6-hourly run once 1.0.2 is approved and released (the newest 1.0.3 build), released on approval."
 }

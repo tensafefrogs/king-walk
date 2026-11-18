@@ -184,10 +184,13 @@ const T=window.T={
 
   // a fresh game from a save; loaded on the stepped clock, so the shot can start as the pieces are dealt
   // (frames before the puzzle is ready are not kept)
-  const open = async (to, seed) => {
+  // a new player on the last puzzle of placement (index.html, PLACE_*): the rating still hidden, the level near 1180
+  const placing = sv => { const q = sv.players[0]; Object.assign(q, { rating: 600, peak: 600, hist: [600], n: 9, solved: 7, streak: 3, best: 4,
+    last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1], place: { r: 1180, step: 50, dir: 1, turns: 2, k: 9 } }); return sv; };
+  const open = async (to, seed, edit = sv => sv) => {
     await E(() => T.show("#win", false)); await p.waitForTimeout(800);
     await E(() => __vt.enter());
-    await E(([u, s, n]) => T.load(u, s, n), [URL, JSON.stringify(savedPlayer(to)), seed]);
+    await E(([u, s, n]) => T.load(u, s, n), [URL, JSON.stringify(edit(savedPlayer(to))), seed]);
     for (let i = 0; !(await E(() => { try { return !T.win().__old&&!!T.g("typeof cur!=='undefined'&&cur"); } catch (e) { return false; } })); i++) {
       if (i > 600) throw new Error("the game did not load");
       await E(ms => __vt.tick(ms), 1000 / FPS); await p.waitForTimeout(20);
@@ -213,13 +216,22 @@ const T=window.T={
 
   // 1. title card
   await rec(); await wait(400);
-  await E(() => T.show("#title", true)); await wait(preview ? 2200 : 3200);
+  await E(() => T.show("#title", true)); await wait(preview ? 1900 : 3200);
   await E(() => T.show("#title", false)); await wait(500); await stop();
 
-  // 2. the other side moves first, then the player answers: a mate in 2, confetti, the rating goes up
-  await open(1112, SEEDS.solve); await puzzle("solve:");
-  await rec(); await E(() => T.caption("They move. <b>You strike back.</b>"));
-  await solve(); await wait(preview ? 1600 : 2600); await end();
+  // 2. the other side moves first, then the player answers: a mate in 2, confetti, the rating goes up.
+  // The preview has a new player's last placement puzzle instead: solved, it ends on the card that says where they placed.
+  if (preview) {
+    await open(1112, SEEDS.solve, placing); await puzzle("placement:");
+    await rec(); await E(() => T.caption("They move. <b>You strike back.</b>"));
+    await solve(); await until("!!document.querySelector('.cele .go')");
+    await E(() => T.caption("Your level, found in <b>a few puzzles</b>.")); await wait(2300);
+    await E(() => T.press(".cele .go")); await wait(500); await end();
+  } else {
+    await open(1112, SEEDS.solve); await puzzle("solve:");
+    await rec(); await E(() => T.caption("They move. <b>You strike back.</b>"));
+    await solve(); await wait(2600); await end();
+  }
 
   // 3. the next puzzle, a little harder (not in the preview)
   if (!preview) {
@@ -252,7 +264,8 @@ const T=window.T={
   await E(() => T.press(".cele .go")); await wait(preview ? 900 : 1400); await end();
 
   // 6. a rank up: a player just below Rook (1300) solves one; on a phone the page then scrolls down to show the
-  // progress card down to its chart
+  // progress card down to its chart. Not in the preview (30 seconds at most), whose placement card shows a rank instead.
+  if (!preview) {
   await open(1295, SEEDS.rank); await puzzle("rank:");
   await rec(); await E(() => T.caption("Rank up. <b>Pawn to King.</b>"));
   await solve(); await wait(1400);
@@ -260,11 +273,12 @@ const T=window.T={
     const y = await G("(()=>{const r=document.querySelector('.chart-cap').getBoundingClientRect();return Math.max(0,Math.round(r.bottom+scrollY-innerHeight+20));})()");
     await E(y => T.scroll(y, 1100), y); await wait(1300);
   }
-  await wait(preview ? 1300 : 2400); await end();
+  await wait(2400); await end();
+  }
 
   // 7. end card
   await rec(); await E(() => T.show("#win", false)); await wait(700);
-  await E(() => T.show("#end", true)); await wait(preview ? 2800 : 4200); await stop();
+  await E(() => T.show("#end", true)); await wait(preview ? 2500 : 4200); await stop();
 
   if (errs.length) console.log("page errors", errs);
   await b.close(); srv.close();
@@ -275,10 +289,16 @@ const T=window.T={
   const W = preview ? 886 : vertical ? 1080 : 1920, H = vertical ? 1920 : 1080;
   fc += `${last}scale=${W}:${H}:flags=lanczos,format=yuv420p[out]`;
   const mp4 = path.join(OUT, F.name + ".mp4");
-  // the App Store wants a stereo AAC track (silent here) and 10-12 Mbps H.264: held at 11 Mbps (constant bitrate),
+  // the App Store wants a stereo AAC track and 10-12 Mbps H.264: held at 11 Mbps (constant bitrate),
   // since this mostly still picture would otherwise come out well under 10
-  const audio = preview ? ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"] : [];
-  const enc = preview ? ["-map", `${segs.length}:a`, "-shortest", "-c:a", "aac", "-b:a", "256k", "-b:v", "11M", "-minrate", "11M", "-maxrate", "11M", "-bufsize", "22M", "-x264-params", "nal-hrd=cbr"] : ["-crf", "21"];
+  // the preview's music: the sizzle reel's groove as a bed (scripts/sizzle/music.py --bed), its last chord under the end card
+  let audio = [];
+  if (preview) {
+    const total = segs.reduce((a, s) => a + s.dur, 0) - FADE * (segs.length - 1), wav = path.join(TMP, "music.wav");
+    execFileSync("python3", [path.join(__dirname, "sizzle", "music.py"), wav, total.toFixed(2), "--bed"], { stdio: "inherit" });
+    audio = ["-i", wav];
+  }
+  const enc = preview ? ["-map", `${segs.length}:a`, "-shortest", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-b:v", "11M", "-minrate", "11M", "-maxrate", "11M", "-bufsize", "22M", "-x264-params", "nal-hrd=cbr"] : ["-crf", "21"];
   execFileSync("ffmpeg", ["-y", "-loglevel", "error", ...inputs, ...audio, "-filter_complex", fc, "-map", "[out]", ...enc, "-r", String(FPS), "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-movflags", "+faststart", mp4]);
   const len = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", mp4]).toString());
   if (preview) console.log("preview length", len.toFixed(1) + "s", len < 15 || len > 30 ? "(outside the 15-30 seconds the App Store accepts)" : "");

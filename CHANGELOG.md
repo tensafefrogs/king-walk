@@ -39,6 +39,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 - **Difficulty says what it means:** Relaxed, Balanced, Challenging (were Easier, Just right, Harder), with what to
   expect under them ("Some misses, about 6 in 10") and that the rating is fair in any mode. (Also live on the
   website.)
+- **Celebration titles break between words:** a two-line title ("You placed at Bishop", "Streak saved!") could break in
+  the middle of a word on a phone. (Also live on the website.)
 - **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
   with a reminder set before 7 pm, a day not yet played gets one more note at 9 pm: "Your streak ends at midnight".
 - **Settings → Language:** play in a language other than the device's (already on the website).

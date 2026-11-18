@@ -4,14 +4,18 @@ a bar (2 s) each. Its sections follow the cuts in scene.html: a soft intro with 
 a lift with bells for the daily (16 s), busier drums under the quick features (24 s), a last chord under the end card
 (28 s). A chime marks each solved puzzle and a whoosh each cut, at the times the scene uses.
 
-usage: python3 scripts/sizzle/music.py out.wav [seconds]
+usage: python3 scripts/sizzle/music.py out.wav [seconds] [--bed]
+  --bed: the same groove under another video (the App Store preview, scripts/trailer.js --preview): no chimes or
+  whooshes at the sizzle's times, no daily or busy sections, and the last chord on the last bar that leaves 3.5 s.
 """
 import sys, wave
 import numpy as np
 
 SR = 44100
 OUT = sys.argv[1]
-DUR = float(sys.argv[2]) if len(sys.argv) > 2 else 32.0
+DUR = float(sys.argv[2]) if len(sys.argv) > 2 and not sys.argv[2].startswith('-') else 32.0
+BED = '--bed' in sys.argv
+END_T = 28.0 if not BED else max(4.0, np.floor((DUR - 3.5) / 2) * 2)          # where the last chord starts
 N = int(SR * (DUR + 0.5))
 L = np.zeros(N); R = np.zeros(N)
 rng = np.random.default_rng(7)
@@ -83,14 +87,14 @@ for bar in range(BARS):
             for b in range(4): add(kick(), t0 + b * BEAT, 0.9)
             for b in range(4): add(stab(ch), t0 + b * BEAT + 0.25, 0.8, -0.2)
         continue
-    end = t0 >= 28
+    end = t0 >= END_T
     if end:             # the end card: one big chord ringing out
-        if bar == 14:
+        if t0 == END_T:
             add(kick(), t0, 1.1); add(pad([36] + [m - 12 for m in CHORDS[0][1]] + CHORDS[0][1] + [72], 4.2), t0, 2.2)
             add(chime(84, 3.0), t0 + 0.05, 0.8, 0.3); add(chime(79, 3.0), t0 + 0.5, 0.6, -0.3)
             add(bass(36, 1.6), t0, 1.0)
         continue
-    daily = 16 <= t0 < 24; busy = 24 <= t0 < 28
+    daily = not BED and 16 <= t0 < 24; busy = not BED and 24 <= t0 < 28
     for b in range(4):
         tb = t0 + b * BEAT
         if not (daily and bar == 8 and b < 2): add(kick(), tb, 1.0)
@@ -106,15 +110,15 @@ for bar in range(BARS):
         for k, m in enumerate([ch[0] + 12, ch[2] + 12, ch[1] + 12, ch[2] + 24]):
             add(chime(m, 0.9), t0 + k * BEAT, 0.35, 0.4 if k % 2 else -0.4)
         add(pad(ch, 2.0), t0, 0.9)
-    if busy and bar == 13:          # a snare roll into the end card
+    if (busy and bar == 13) or (BED and t0 == END_T - 2):          # a snare roll into the end card
         for k in range(16): add(clap(), t0 + 1.0 + k * 0.0625, 0.25 + k * 0.03)
 
 # chimes on the solves, whooshes on the cuts (times from scene.html)
-for t, m in [(6.65, 76), (8.95, 79), (11.5, 79), (13.5, 81), (15.35, 84), (19.95, 84)]:
+for t, m in [] if BED else [(6.65, 76), (8.95, 79), (11.5, 79), (13.5, 81), (15.35, 84), (19.95, 84)]:
     add(chime(m), t, 1.0, 0.15); add(chime(m + 7), t + 0.08, 0.5, -0.2)
-for t in (10.0, 16.0, 24.0):
+for t in () if BED else (10.0, 16.0, 24.0):
     add(whoosh(0.6), t - 0.45, 0.9)
-for t in (0.9, 10.2, 12.3, 14.1, 16.6, 24.05):          # pieces dropping in: a soft whoosh down
+for t in () if BED else (0.9, 10.2, 12.3, 14.1, 16.6, 24.05):          # pieces dropping in: a soft whoosh down
     add(whoosh(0.5, rise=False), t + 0.1, 0.35)
 
 # a little room: two short delays

@@ -100,7 +100,7 @@ Ideas for later sets: the widget on a home screen (needs a real device screensho
 
 ## App preview (video)
 
-`previews/iphone-1.mp4`: 886×1920, under 30 seconds, a silent stereo track, real gameplay at normal speed, no URL or price on screen. Made with `node scripts/trailer.js --preview`; re-record it when the game's look changes, and watch it before committing. Placed for iPhone by `creative.py`. App Store Connect makes the poster frame from the video.
+`previews/iphone-1.mp4`: 886×1920, under 30 seconds, real gameplay at normal speed (a new player's last placement puzzle and the card saying where they placed, then the daily puzzle and its done card), no URL or price on screen, with the sizzle reel's music as a bed (`scripts/sizzle/music.py --bed`). Only screen recordings of the game: Apple accepts nothing else in a preview (guideline 2.3.4), so the sizzle reel and any drawn widget stay out. Made with `node scripts/trailer.js --preview`; re-record it when the game's look changes, and watch it before committing. Placed for iPhone by `creative.py`, on the store workflow when it changes while a version is being prepared, and by `release.py` when it prepares a version. App Store Connect makes the poster frame from the video.
 
 ## Game Center
 
