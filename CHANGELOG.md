@@ -13,6 +13,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
+- **The support, privacy and terms pages open with a Play card:** search can land people there ("king walk app" found
+  the terms), so each starts with the game's name and a Play button, in the visitor's language, going to that
+  language's page. The game's own page is titled "King Walk: Chess Puzzles" now, as on the App Store.
 - Everything in 1.0.2 below is already on the website.
 - **Opened from X, Instagram, TikTok and the like,** a quiet line says progress stays in that app's browser, with
   a link that opens the game in Safari (or Chrome), and a pointer to the save code once there's progress to bring.

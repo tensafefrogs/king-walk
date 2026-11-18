@@ -27,6 +27,13 @@ function translations() {
   const variants = Object.keys(langs).filter(t => t.includes("-"));
   check(listed.filter(l => l !== "en" && !langs[l]).length === 0 && Object.keys(langs).every(t => listed.includes(t) || variants.includes(t)),
     "every listed language has a table in lang/, and every table is listed", { missing: listed.filter(l => l !== "en" && !langs[l]), extra: Object.keys(langs).filter(t => !listed.includes(t) && !variants.includes(t)) });
+  // the Play card on the support, privacy and terms pages: cta.js has every language, and each page has the card
+  const cta = fs.readFileSync(path.join(__dirname, "..", "cta.js"), "utf8"), C = JSON.parse(cta.match(/var C = (\{.*?\});/)[1]);
+  const LANGS = JSON.parse(html.match(/var LANGS = (\[[^\]]+\])/)[1]);
+  const lacking = [...LANGS.filter(t => t !== "en"), "pt-PT", "es-ES", "zh-Hant"].filter(t => !(C[t] && C[t].every(Boolean)));
+  check(!lacking.length, "cta.js has the Play card in every language (python3 scripts/cta.py)", lacking);
+  for (const f of ["support.html", "privacy.html", "terms.html"]) { const pg = fs.readFileSync(path.join(__dirname, "..", f), "utf8");
+    check(/<a class="play" id="play" href="\.\/">/.test(pg) && /<script src="cta\.js">/.test(pg), f + " starts with the Play card"); }
   return Object.keys(langs);
 }
 

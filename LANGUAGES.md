@@ -49,7 +49,7 @@ Chinese. This page says how the game picks and loads them, how to add one, and t
    build has the language; the locale in the screenshots list in `.github/workflows/store.yml`; and What's New for it
    in `ios/release.json` when that version ships.
 6. Its name in `LANG_NAMES` (`index.html`, the Settings picker), the website's structured data (`inLanguage` in
-   `.github/workflows/pages.yml`; its language page comes by itself once the store listing exists), the list in `testing/STATS.md`,
+   `.github/workflows/pages.yml`; its language page comes by itself once the store listing exists), the list in `testing/STATS.md`, the Play card on the support, privacy and terms pages (`python3 scripts/cta.py`, from the listing's name and subtitle and the game's "Play"),
    the press kit's language list and the count wherever the listing and `CHANGELOG.md` give one.
 7. Test: `node testing/unit.js` (every key, placeholders, the loader's list matches the files), then the layout check
    in the new language on the sizes that break first, and look at it on a phone (`?lang=<tag>`).

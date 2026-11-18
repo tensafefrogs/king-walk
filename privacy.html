@@ -13,9 +13,18 @@ main{max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(-
 h1,h2{font-family:Fredoka,system-ui,sans-serif;font-weight:600;line-height:1.2}h1{font-size:30px;margin:4px 0 6px}h2{font-size:20px;margin:28px 0 4px}
 .top{display:flex;align-items:center;gap:12px}.top img{width:48px;height:48px;border-radius:12px}
 a{color:var(--accent);font-weight:700}.muted{color:var(--muted);font-size:15px}footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}
+.play{display:flex;align-items:center;gap:14px;margin:0 0 22px;padding:14px 16px;border-radius:18px;background:#1c7868;color:#fdfbf2;text-decoration:none;box-shadow:0 4px 0 #0f4a40}
+.play img{width:52px;height:52px;border-radius:13px;flex:none}.play span:first-of-type{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.play b{font:600 19px Fredoka,system-ui,sans-serif}.play small{font-size:15px;opacity:.85}
+.play .go{flex:none;padding:9px 18px;border-radius:12px;background:#f2c230;color:#16302c;font:600 17px Fredoka,system-ui,sans-serif;box-shadow:0 3px 0 #b48a12;white-space:nowrap}
+.play:hover .go,.play:focus-visible .go{background:#f7d35a}
+@media (max-width:380px){.play{flex-wrap:wrap}.play .go{width:100%;box-sizing:border-box;text-align:center}}
 </style>
 <script>/* opened from a link in the app: no App Store suggestions on the website in this browser */if(/[?&]from=app\b/.test(location.search))try{var v=JSON.parse(localStorage.getItem("kw-promo")||"{}")||{};v.got=true;localStorage.setItem("kw-promo",JSON.stringify(v))}catch(e){}</script>
 </head><body><main>
+<a class="play" id="play" href="./"><img src="icons/icon-192.png" alt=""><span><b>King Walk: Chess Puzzles</b><small>Chess puzzles that fight back</small></span><span class="go">Play</span></a>
+<script src="cta.js"></script>
+
 <div class="top"><img src="icons/icon-192.png" alt=""><h1>Privacy Policy</h1></div>
 <p class="muted">Last updated November 14, 2026. This covers King Walk on the web and the King Walk app for iPhone and iPad.</p>
 <p>King Walk has no accounts, ads or in-app purchases, and collects nothing that identifies you.</p>
