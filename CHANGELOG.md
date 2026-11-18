@@ -27,7 +27,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.3 (in App Review; resubmitted 18 November 2026 with a sixth build: the daily's clock and pause and resume; released on approval)
+## 1.0.3 (in App Review; resubmitted 18 November 2026 with build 2611181939: the daily's clock and pause and resume; released on approval)
 
 - **The daily puzzle pauses and picks up where you left off:** leave it (the app to the background, Puzzles, another
   tab) and its clock stops and the position is saved, with your marks and time, and in the app to iCloud, so it carries
