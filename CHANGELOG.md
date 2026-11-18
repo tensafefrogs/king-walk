@@ -9,7 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version
 
-- Nothing yet.
+- **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
+  day. (Live on the website; the 1.0.3 build in review was made just before it.)
 
 ### Website only (live on kingwalk.app)
 
@@ -27,7 +28,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.3 (queued: built for TestFlight, submitted once 1.0.2 is out, released on approval)
+## 1.0.3 (in App Review, submitted 18 November 2026, build 2611180446; released on approval)
 
 - **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
   turn and the goal ("Black to play · Checkmate in 2"), with the streak; tap to play. It changes at midnight on its own.
@@ -39,8 +40,6 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 - **Difficulty says what it means:** Relaxed, Balanced, Challenging (were Easier, Just right, Harder), with what to
   expect under them ("Some misses, about 6 in 10") and that the rating is fair in any mode. (Also live on the
   website.)
-- **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
-  day. (Also live on the website.)
 - **Celebration titles break between words:** a two-line title ("You placed at Bishop", "Streak saved!") could break in
   the middle of a word on a phone. (Also live on the website.)
 - **Keep the streak alive:** at a 3-day daily streak the done card offers a daily reminder ("Remind me at 6 pm"), and
@@ -49,7 +48,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 - **Widgets look more like the game:** its rounded Fredoka numbers, the gold play button while today's puzzle waits,
   the green check once it's done, and the King Walk icon on the daily widget.
 
-## 1.0.2 (in App Review, third build submitted 16 November 2026)
+## 1.0.2 (released 18 November 2026)
 
 - **Bigger text no longer zooms the game off the screen:** with the iPhone's text even one size larger, the app drew the
   whole page bigger but kept it as wide as the screen, so it was cut off and slid sideways (a player's report: the real
