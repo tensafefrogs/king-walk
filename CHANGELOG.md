@@ -9,13 +9,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.4: on TestFlight; App Store submission waits for the go-ahead)
 
-- **The daily puzzle pauses and picks up where you left off:** leave it (the app to the background, Puzzles, another
-  tab) and its clock stops and the position is saved, with your marks and time, and in the app to iCloud, so it carries
-  on on another device too. Back, the board waits under a Paused card with the time so far; Continue starts the clock
-  again. (Also live on the website.)
-- **The daily's clock:** the time so far, at the end of the status bar while you play the daily; tap it to pause.
-  (Also live on the website.)
-
+- Nothing yet.
 
 ### Website only (live on kingwalk.app)
 
@@ -33,8 +27,14 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.3 (in App Review, submitted 18 November 2026; build swapped to 2611180506 the same day; released on approval)
+## 1.0.3 (in App Review; resubmitted 18 November 2026 with a sixth build: the daily's clock and pause and resume; released on approval)
 
+- **The daily puzzle pauses and picks up where you left off:** leave it (the app to the background, Puzzles, another
+  tab) and its clock stops and the position is saved, with your marks and time, and in the app to iCloud, so it carries
+  on on another device too. Back, the board waits under a Paused card with the time so far; Continue starts the clock
+  again. (Also live on the website.)
+- **The daily's clock:** the time so far, at the end of the status bar while you play the daily; tap it to pause.
+  (Also live on the website.)
 - **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
   day. (Also live on the website.)
 - **Today's puzzle on your Home Screen:** the daily widget in medium and large sizes shows the position itself, whose
