@@ -7,7 +7,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version
+### Next app version (1.0.4: building for TestFlight from main; App Store submission waits for the go-ahead)
 
 - **The daily share leaves out the weekday:** "♟️ King Walk Daily #12", then the squares; the number already says which
   day. (Live on the website; the 1.0.3 build in review was made just before it.)
