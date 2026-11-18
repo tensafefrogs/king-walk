@@ -1,6 +1,6 @@
 # App Store status: King Walk: Chess Puzzles
 
-Updated 2026-11-18 20:01 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
+Updated 2026-11-18 20:05 UTC by `ios/store/release.py status` (the App Store release workflow, after each release and every 6 hours). Not edited by hand.
 
 App Store page: https://apps.apple.com/app/id6834615859
 
@@ -31,7 +31,7 @@ App Store page: https://apps.apple.com/app/id6834615859
 | 2611181917 | 1.0.4 | VALID | 2026-11-18 19:23 UTC | WAITING_FOR_BETA_REVIEW | Internal, Friends |
 | 2611181906 | 1.0.4 | VALID (expired) | 2026-11-18 19:13 UTC | EXPIRED |  |
 | 2611181330 | 1.0.4 | VALID (expired) | 2026-11-18 13:37 UTC | EXPIRED |  |
-| 2611180506 | 1.0.3 | VALID | 2026-11-18 05:11 UTC | IN_BETA_TESTING | Internal, Friends |
+| 2611180506 | 1.0.3 | VALID (expired) | 2026-11-18 05:11 UTC | EXPIRED |  |
 | 2611180446 | 1.0.3 | VALID (expired) | 2026-11-18 04:59 UTC | EXPIRED |  |
 
 ## TestFlight groups
