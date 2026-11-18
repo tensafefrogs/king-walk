@@ -140,12 +140,12 @@ for (let f = 0; f < 8; f++) for (let r = 0; r < 8; r++) {
 }
 // highlights: the last move in gold, like the game
 const hiGeo = new THREE.PlaneGeometry(1, 1); hiGeo.rotateX(-Math.PI / 2);
-const his = [0, 1].map(() => { const m = new THREE.Mesh(hiGeo, new THREE.MeshBasicMaterial({ color: 0xf4cd46, transparent: true, opacity: 0 })); m.position.y = 0.002; board.add(m); return m; });
+const his = [0, 1].map(() => { const m = new THREE.Mesh(hiGeo, new THREE.MeshBasicMaterial({ color: 0xf4cd46, transparent: true, opacity: 0, depthWrite: false })); m.position.y = 0.002; board.add(m); return m; });
 // rings that pulse under attacked pieces
 const ringGeo = new THREE.RingGeometry(0.34, 0.46, 48); ringGeo.rotateX(-Math.PI / 2);
-const rings = [0, 1].map(() => { const m = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xf2c230, transparent: true, opacity: 0 })); m.position.y = 0.01; board.add(m); return m; });
+const rings = [0, 1].map(() => { const m = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xf2c230, transparent: true, opacity: 0, depthWrite: false })); m.position.y = 0.01; board.add(m); return m; });
 // beams from the forking knight
-const beamMat = new THREE.MeshBasicMaterial({ color: 0xffd84a, transparent: true, opacity: 0 });
+const beamMat = new THREE.MeshBasicMaterial({ color: 0xffd84a, transparent: true, opacity: 0, depthWrite: false });
 const beams = [0, 1].map(() => { const m = new THREE.Mesh(new THREE.BoxGeometry(1, 0.06, 0.06), beamMat); board.add(m); return m; });
 
 // ---------- pieces: the game's own art, standing up, always turned to the camera ----------
@@ -297,6 +297,7 @@ function renderAt(t) {
       his[0].material.opacity = his[1].material.opacity = o;
     }
   }
+  his.forEach(h => { h.visible = h.material.opacity > 0.001; });
   for (let i = used; i < pool.length; i++) { pool[i].g.visible = false; pool[i].s.visible = false; }
 
   // the fork: beams to the king and queen, rings under them
@@ -304,8 +305,8 @@ function renderAt(t) {
   const kn = sq("e7"), tg = [sq("g8"), sq("c8")];
   beams.forEach((b, i) => { const dx = tg[i].x - kn.x, dz = tg[i].z - kn.z, len = Math.hypot(dx, dz);
     b.position.set(kn.x + dx / 2, 0.45, kn.z + dz / 2); b.scale.x = len * easeOut(prog(t, 6.65, 7.0)); b.rotation.y = -Math.atan2(dz, dx); });
-  beamMat.opacity = fk * (0.75 + 0.25 * Math.sin(t * 18));
-  rings.forEach((r, i) => { r.position.set(tg[i].x, 0.01, tg[i].z); const pulse = (t * 1.6) % 1; r.scale.setScalar(1 + pulse * 0.5); r.material.opacity = fk * (1 - pulse); });
+  beamMat.opacity = fk * (0.75 + 0.25 * Math.sin(t * 18)); beams.forEach(b => { b.visible = fk > 0.001; });
+  rings.forEach((r, i) => { r.position.set(tg[i].x, 0.01, tg[i].z); const pulse = (t * 1.6) % 1; r.scale.setScalar(1 + pulse * 0.5); r.material.opacity = fk * (1 - pulse); r.visible = fk > 0.001; });
 
   // confetti
   for (const c of conf) { const g = t - c.b.at; if (g < 0 || g > 2.6) { c.m.visible = false; continue; }
