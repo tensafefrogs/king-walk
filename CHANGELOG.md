@@ -9,7 +9,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.4: on TestFlight; App Store submission waits for the go-ahead)
 
-- Nothing yet.
+- **The daily puzzle pauses and picks up where you left off:** leave it (the app to the background, Puzzles, another
+  tab) and its clock stops and the position is saved, with your marks and time, and in the app to iCloud, so it carries
+  on on another device too. Back, the board waits under a Paused card with the time so far; Continue starts the clock
+  again. (Also live on the website.)
 
 
 ### Website only (live on kingwalk.app)

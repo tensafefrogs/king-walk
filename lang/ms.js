@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Rating teka-teki anda ialah {n}. Mulai sekarang, ia berubah sedikit dengan setiap teka-teki.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Beberapa teka-teki pertama anda mencari tahap anda. Pangkat dan rating teka-teki anda muncul sebaik tahap itu ditemui.",
   "Your first puzzles": "Teka-teki pertama anda",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Beberapa teka-teki pertama mencari tahap anda dengan langkah besar, supaya anda bermula di tempat yang sesuai. Pangkat dan rating teka-teki anda muncul sebaik tahap itu ditemui."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Beberapa teka-teki pertama mencari tahap anda dengan langkah besar, supaya anda bermula di tempat yang sesuai. Pangkat dan rating teka-teki anda muncul sebaik tahap itu ditemui.",
+  "Paused": "Dijeda",
+  "Pick up where you left off.": "Sambung dari tempat anda berhenti."
 };

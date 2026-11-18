@@ -525,6 +525,24 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
   position: relative; aspect-ratio: 1; width: 100%; border-radius: calc(var(--r) - var(--frame-pad));
   touch-action: pan-x pan-y; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; container-type: inline-size; cursor: default;
 }
+/* the daily, paused (the app went to the background, or the player left it and came back): the board hidden under
+   a frosted cover, so the time off doesn't buy thinking time; Continue starts the clock again */
+.dcover { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; border-radius: inherit; background: rgba(20, 63, 56, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.dcover[hidden] { display: none; }
+.dc-card { width: min(78%, 320px); box-sizing: border-box; padding: 22px 20px 20px; border-radius: 22px; background: var(--card); color: var(--fg); text-align: center; box-shadow: 0 6px 0 rgba(8, 28, 25, 0.35), 0 18px 50px rgba(0, 0, 0, 0.3); }
+.dc-kind { margin: 0; font: 800 12px var(--font-body, system-ui); letter-spacing: 0.12em; text-transform: uppercase; color: var(--p-coral); }
+.dc-title { margin: 4px 0 0; font: 700 clamp(26px, 8cqi, 34px)/1.1 var(--font-display); }
+.dc-time { margin: 6px 0 0; font: 700 20px var(--font-display); font-variant-numeric: tabular-nums; color: var(--muted); }
+.dc-sub { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+.dc-sub:empty { display: none; }
+.dc-card .btn { margin-top: 16px; width: 100%; }
+.dc-card .btn { white-space: nowrap; }
+@container (max-width: 260px) {          /* a small board (the biggest text sizes): the card fits inside it */
+  .dc-card { width: 90%; padding: 10px 10px 12px; border-radius: 14px; }
+  .dc-kind { font-size: 10px; } .dc-title { font-size: 20px; } .dc-time { font-size: 15px; margin-top: 2px; }
+  .dc-sub { display: none; }
+  .dc-card .btn { margin-top: 8px; min-height: 34px; padding: 0 6px; font-size: 14px; }
+}
 .squares { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); grid-template-rows: repeat(8, minmax(0, 1fr)); }
 .board.loading .squares { animation: breathe 1.2s var(--ease-io) infinite alternate; }
 .sq { position: relative; min-width: 0; min-height: 0; }
@@ -955,6 +973,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="squares" id="squares"></div>
         <div class="pieces" id="pieces" aria-hidden="true"></div>
         <svg class="hint-arrow" id="hintArrow" viewBox="0 0 8 8" aria-hidden="true"></svg>
+        <div class="dcover" id="dailyCover" role="dialog" aria-labelledby="dcTitle" hidden><div class="dc-card">
+          <p class="dc-kind" id="dcKind"></p><h2 class="dc-title" id="dcTitle">Paused</h2><p class="dc-time" id="dcTime"></p><p class="dc-sub" id="dcSub"></p>
+          <button type="button" class="btn primary" id="dcGo">Continue</button></div></div>
       </div>
       <canvas id="fx"></canvas>
     </div>
@@ -1171,7 +1192,7 @@ function cleanDaily(d) {
   if (d.days && typeof d.days === "object") for (const k of Object.keys(d.days).map(Number).filter(n => n > 0).sort((a, b) => a - b).slice(-60)) {
     const v = d.days[k]; if (v && v.fz === true) q.days[k] = { fz: true }; else if (v && typeof v.m === "string" && /^[gyrx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
   }
-  if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400) };
+  if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400), k: clamp(count(d.now.k), 0, 40) };
   return q;
 }
 /* Rebuild saved data field by field so a damaged save or a hand-edited save code cannot break the game. */
@@ -1676,7 +1697,11 @@ function goalText(pz = cur.pz) {
   const th = pz.th, mate = th.find(t => /^mateIn\d$/.test(t));
   return mate ? T("Checkmate in {n}", { n: mate.slice(6) }) : th.includes("mate") ? T("Find the checkmate") : T("Find the best move");
 }
-function showTurn() { setStatus("turn", (orient === "w" ? T("White to play") : T("Black to play")), goalText(), "token"); }
+function showTurn() {
+  setStatus("turn", (orient === "w" ? T("White to play") : T("Black to play")), goalText(), "token");
+  /* the daily: each time it's the player's turn, the position is saved (and so goes to iCloud in the app) */
+  if (DAILY && DAILY.mode === "play" && !done) { DAILY.k = idx; saveDailyNow(); if (DAILY.pauseWhenReady) pauseDaily(false); }
+}
 function fitBar() {
   const row = document.querySelector(".actions .bar-row"); if (!row) return;
   row.classList.remove("tight");
@@ -1699,7 +1724,7 @@ function closePromo(soft) {
 async function nextPuzzle() {
   const gen = ++puzzleGen, resume = first || resumeMain;
   resumeMain = false;
-  clearTimers(); closePromo(); promoBar();
+  clearTimers(); closePromo(); promoBar(); $("dailyCover").hidden = true;
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
@@ -1733,9 +1758,15 @@ async function nextPuzzle() {
   else setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   if (DAILY && DAILY.mode === "review") { showDailyFinal(); return; }
+  /* the daily, picked up where it was left: its moves so far, straight onto the board, under the Continue cover */
+  if (DAILY && DAILY.mode === "play" && DAILY.k >= 1 && DAILY.k < cur.pz.moves.length) {
+    for (let j = 0; j < DAILY.k; j++) { const u = cur.pz.moves[j]; game.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); }
+    idx = DAILY.k; const u = cur.pz.moves[idx - 1]; lastMove = [u.slice(0, 2), u.slice(2, 4)];
+    dealPieces(); paint(); locked = false; showTurn(); renderSetup(); pauseDaily(true); return;
+  }
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
-    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY) DAILY.t0 = Date.now(); showTip(); }, 300);
+    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY && !DAILY.paused) DAILY.t0 = Date.now(); showTip(); }, 300);
   }, REDUCED ? 300 : 760);
 }
 
@@ -2114,17 +2145,40 @@ function startDaily() {
     renderDaily(); nextPuzzle(); return;
   }
   const now = p.daily.now && p.daily.now.n === n ? p.daily.now : null;
-  DAILY = { n, mode: "play", marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0 };
-  p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent }; save();
+  DAILY = { n, mode: "play", marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0, k: now ? now.k || 0 : 0 };
+  p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent, k: DAILY.k }; save();
   track(now ? "daily/resume" : "daily/start");
   renderDaily();
   window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
   nextPuzzle();
 }
-document.addEventListener("visibilitychange", () => {          /* the daily's clock stops while the game is hidden */
-  if (!DAILY || done) return;
-  if (document.hidden) { if (DAILY.t0) { DAILY.spent = dailySpent(); DAILY.t0 = 0; } } else if (!locked) DAILY.t0 = Date.now();
+/* The daily's clock stops while the game is hidden (the app in the background, another tab), and what's been played is
+   saved then (the app may be closed from the background). Back, it waits under the Continue cover; one that was
+   mid-move is covered once its turn comes. */
+document.addEventListener("visibilitychange", () => {
+  if (!DAILY || DAILY.mode !== "play" || done) return;
+  if (document.hidden) { if (DAILY.t0) { DAILY.spent = dailySpent(); DAILY.t0 = 0; } saveDailyNow(); }
+  else if (!DAILY.paused) { if (locked) DAILY.pauseWhenReady = true; else pauseDaily(false); }
 });
+addEventListener("pagehide", () => { if (DAILY && DAILY.mode === "play" && !done) { if (DAILY.t0) { DAILY.spent = dailySpent(); DAILY.t0 = 0; } saveDailyNow(); } });
+/* back: true when picking up a daily left earlier (it says so); false after a moment away from the game */
+function pauseDaily(back) {
+  if (!DAILY || DAILY.mode !== "play" || done) return;
+  if (DAILY.t0) { DAILY.spent = dailySpent(); DAILY.t0 = 0; }
+  DAILY.paused = true; DAILY.pauseWhenReady = false; locked = true; setButtons(false); saveDailyNow();
+  $("dcKind").textContent = T("Daily puzzle #{n}", { n: DAILY.n });
+  $("dcTitle").textContent = T("Paused");
+  $("dcTime").textContent = "\u23f1 " + fmtTime(DAILY.spent);
+  $("dcSub").textContent = back ? T("Pick up where you left off.") : "";
+  $("dcGo").textContent = T("Continue");
+  $("dailyCover").hidden = false;
+  if (!document.hidden) $("dcGo").focus({ preventScroll: true });
+}
+function resumeDaily() {
+  $("dailyCover").hidden = true;
+  if (!DAILY || !DAILY.paused) return;
+  DAILY.paused = false; locked = false; setButtons(true); DAILY.t0 = Date.now(); track("daily/continue");
+}
 function dailySpent() { return DAILY.spent + (DAILY.t0 ? Math.round((Date.now() - DAILY.t0) / 1000) : 0); }
 /* note how the player's move at index k (an odd index in the move list) went; a worse mark wins */
 function dailyMark(m, k = idx) {
@@ -2134,7 +2188,7 @@ function dailyMark(m, k = idx) {
   saveDailyNow();
 }
 /* the daily being played, saved so leaving and coming back keeps its marks and time */
-function saveDailyNow() { me().daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent() }; save(); }
+function saveDailyNow() { me().daily.now = { n: DAILY.n, m: Array.from(DAILY.marks, c => c || "_").join(""), t: dailySpent(), k: DAILY.k || 0 }; save(); }
 function leaveDaily() {
   if (DAILY && DAILY.mode === "play" && !done) { saveDailyNow(); track("daily/later"); }
   DAILY = null; resumeMain = true; nextPuzzle(); renderPanel();
@@ -2661,6 +2715,7 @@ function renderPanel(fromRating) {
 }
 
 $("hintBtn").addEventListener("click", showHint);
+$("dcGo").addEventListener("click", resumeDaily);
 $("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
 $("answerBtn").addEventListener("click", showAnswer);
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */

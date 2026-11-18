@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Il tuo punteggio è {n}. Da qui in poi cambia un po' a ogni problema.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "I tuoi primi problemi trovano il tuo livello. Grado e punteggio compaiono appena è stato trovato.",
   "Your first puzzles": "I tuoi primi problemi",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "I primi problemi cercano il tuo livello a grandi passi, così parti dal punto giusto. Grado e punteggio compaiono appena è stato trovato."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "I primi problemi cercano il tuo livello a grandi passi, così parti dal punto giusto. Grado e punteggio compaiono appena è stato trovato.",
+  "Paused": "In pausa",
+  "Pick up where you left off.": "Riprendi da dove avevi lasciato."
 };

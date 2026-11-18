@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "તમારું કોયડા રેટિંગ {n} છે. હવેથી તે દરેક કોયડા સાથે થોડું બદલાશે.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "તમારા પહેલા થોડા કોયડા તમારું લેવલ શોધે છે. લેવલ મળતાં જ તમારો રેન્ક અને કોયડા રેટિંગ દેખાશે.",
   "Your first puzzles": "તમારા પહેલા કોયડા",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "પહેલા થોડા કોયડા મોટાં પગલાંમાં તમારું લેવલ શોધે છે, જેથી તમે યોગ્ય જગ્યાએથી શરૂ કરો. લેવલ મળતાં જ તમારો રેન્ક અને કોયડા રેટિંગ દેખાશે."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "પહેલા થોડા કોયડા મોટાં પગલાંમાં તમારું લેવલ શોધે છે, જેથી તમે યોગ્ય જગ્યાએથી શરૂ કરો. લેવલ મળતાં જ તમારો રેન્ક અને કોયડા રેટિંગ દેખાશે.",
+  "Paused": "થોભાવેલું",
+  "Pick up where you left off.": "જ્યાં અટક્યા હતા ત્યાંથી આગળ વધો."
 };

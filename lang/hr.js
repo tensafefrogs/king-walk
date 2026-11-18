@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Tvoj rejting u zadacima je {n}. Odsad se malo mijenja sa svakim zadatkom.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Prvih nekoliko zadataka pronalazi tvoju razinu. Rang i rejting u zadacima pojavljuju se kad je pronađena.",
   "Your first puzzles": "Tvoji prvi zadaci",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekoliko zadataka pronalazi tvoju razinu u velikim koracima, pa krećeš tamo gdje ti je mjesto. Rang i rejting u zadacima pojavljuju se kad je pronađena."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekoliko zadataka pronalazi tvoju razinu u velikim koracima, pa krećeš tamo gdje ti je mjesto. Rang i rejting u zadacima pojavljuju se kad je pronađena.",
+  "Paused": "Pauzirano",
+  "Pick up where you left off.": "Nastavi tamo gdje je igra stala."
 };

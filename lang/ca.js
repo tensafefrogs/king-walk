@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "La teva puntuació de problemes és {n}. A partir d'ara es mou una mica amb cada problema.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Els primers problemes troben el teu nivell. El rang i la puntuació de problemes apareixen quan s'ha trobat.",
   "Your first puzzles": "Els teus primers problemes",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Els primers problemes troben el teu nivell a grans passes, perquè comencis on et toca. El rang i la puntuació de problemes apareixen quan s'ha trobat."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Els primers problemes troben el teu nivell a grans passes, perquè comencis on et toca. El rang i la puntuació de problemes apareixen quan s'ha trobat.",
+  "Paused": "En pausa",
+  "Pick up where you left off.": "Continua on ho havies deixat."
 };

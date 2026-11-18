@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Bulmaca puanın: {n}. Bundan sonra her bulmacayla biraz değişir.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "İlk birkaç bulmaca seviyeni bulur. Rütben ve bulmaca puanın, seviyen bulununca görünür.",
   "Your first puzzles": "İlk bulmacaların",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "İlk birkaç bulmaca seviyeni büyük adımlarla bulur, böylece sana uygun yerden başlarsın. Rütben ve bulmaca puanın, seviyen bulununca görünür."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "İlk birkaç bulmaca seviyeni büyük adımlarla bulur, böylece sana uygun yerden başlarsın. Rütben ve bulmaca puanın, seviyen bulununca görünür.",
+  "Paused": "Duraklatıldı",
+  "Pick up where you left off.": "Kaldığın yerden devam et."
 };

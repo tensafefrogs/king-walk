@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "آپ کی پزل ریٹنگ {n} ہے۔ اب سے یہ ہر پزل کے ساتھ تھوڑی بدلے گی۔",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "آپ کے پہلے چند پزلز آپ کا لیول ڈھونڈتے ہیں۔ لیول ملنے پر آپ کا درجہ اور پزل ریٹنگ نظر آئیں گے۔",
   "Your first puzzles": "آپ کے پہلے پزلز",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "پہلے چند پزلز بڑے قدموں میں آپ کا لیول ڈھونڈتے ہیں، تاکہ آپ صحیح جگہ سے شروع کریں۔ لیول ملنے پر آپ کا درجہ اور پزل ریٹنگ نظر آئیں گے۔"
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "پہلے چند پزلز بڑے قدموں میں آپ کا لیول ڈھونڈتے ہیں، تاکہ آپ صحیح جگہ سے شروع کریں۔ لیول ملنے پر آپ کا درجہ اور پزل ریٹنگ نظر آئیں گے۔",
+  "Paused": "رکا ہوا",
+  "Pick up where you left off.": "جہاں چھوڑا تھا، وہیں سے جاری رکھیں۔"
 };

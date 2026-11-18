@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "דירוג החידות שלך הוא {n}. מעכשיו הוא ישתנה קצת עם כל חידה.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "החידות הראשונות שלך מוצאות את הרמה שלך. הדרגה ודירוג החידות יופיעו כשהרמה תימצא.",
   "Your first puzzles": "החידות הראשונות שלך",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "החידות הראשונות מוצאות את הרמה שלך בצעדים גדולים, כך שמתחילים במקום הנכון. הדרגה ודירוג החידות יופיעו כשהרמה תימצא."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "החידות הראשונות מוצאות את הרמה שלך בצעדים גדולים, כך שמתחילים במקום הנכון. הדרגה ודירוג החידות יופיעו כשהרמה תימצא.",
+  "Paused": "מושהה",
+  "Pick up where you left off.": "אפשר להמשיך מאיפה שעצרת."
 };

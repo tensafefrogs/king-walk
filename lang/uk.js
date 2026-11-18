@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Твій рейтинг у задачах — {n}. Далі він потроху змінюється з кожною задачею.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Перші кілька задач визначають твій рівень. Звання й рейтинг у задачах з’являться, щойно його визначимо.",
   "Your first puzzles": "Твої перші задачі",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Перші кілька задач шукають твій рівень великими кроками, тож ти починаєш там, де тобі місце. Звання й рейтинг у задачах з’являться, щойно його визначимо."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Перші кілька задач шукають твій рівень великими кроками, тож ти починаєш там, де тобі місце. Звання й рейтинг у задачах з’являться, щойно його визначимо.",
+  "Paused": "Пауза",
+  "Pick up where you left off.": "Продовжуй з місця, де гра зупинилася."
 };

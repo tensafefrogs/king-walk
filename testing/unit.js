@@ -252,6 +252,31 @@ function translations() {
     $("puzzlesBtn").click(); await new Promise(r => setTimeout(r, 300));
     return { before, during, after: document.documentElement.classList.contains("daily") }; });
   check(ms.before.puzzles === "true" && !ms.before.mode && ms.during.daily === "true" && ms.during.mode && ms.during.card && ms.during.rate === "none" && !ms.after, "the Puzzles | Daily switch", ms);
+  // the daily pauses: hidden, its clock stops and it's saved; back, it waits under the Continue cover; left and opened
+  // again, it picks up at the same move with its time, the cover saying so
+  const pz = await p.evaluate(async () => {
+    const wait = ms => new Promise(r => setTimeout(r, ms)), n = dayNumber(), q = me();
+    delete q.daily.days[n]; delete q.daily.now; DAILY = null; done = true; renderDaily();
+    startDaily(); for (let i = 0; i < 60 && (locked || !DAILY || idx < 1); i++) await wait(100);
+    const hide = h => { Object.defineProperty(document, "hidden", { configurable: true, get: () => h }); document.dispatchEvent(new Event("visibilitychange")); };
+    DAILY.spent = 30; DAILY.t0 = Date.now() - 5000;          /* 35 s played so far */
+    hide(true); const away = { t0: DAILY.t0, saved: q.daily.now && q.daily.now.t, k: q.daily.now && q.daily.now.k };
+    await wait(1200); hide(false);
+    const back = { cover: !$("dailyCover").hidden, locked, title: $("dcTitle").textContent, time: $("dcTime").textContent, sub: $("dcSub").textContent, clock: DAILY.t0 };
+    $("dcGo").click(); const going = { cover: !$("dailyCover").hidden, locked, clock: DAILY.t0 > 0 };
+    /* the player's first move, then the reply: their turn again, two moves on */
+    tryMove(cur.pz.moves[1].slice(0, 2), cur.pz.moves[1].slice(2, 4)); for (let i = 0; i < 40 && locked; i++) await wait(100);
+    const kAfter = idx, fen = game.fen(), saved = { ...q.daily.now };
+    leaveDaily(); await wait(400); startDaily(); for (let i = 0; i < 60 && !(DAILY && DAILY.paused); i++) await wait(100);
+    const again = { cover: !$("dailyCover").hidden, sub: $("dcSub").textContent, idx, fen: game.fen(), spent: DAILY.spent, marks: DAILY.marks.join("") };
+    $("dcGo").click(); leaveDaily(); delete q.daily.now;
+    return { away, back, going, kAfter, fen, saved, again, moves: cur && cur.pz.moves.length };
+  });
+  check(pz.away.t0 === 0 && pz.away.saved >= 35 && pz.away.k === 1, "the daily, hidden: its clock stops and it's saved with its place", pz.away);
+  check(pz.back.cover && pz.back.locked && pz.back.title === "Paused" && /0:3[5-6]/.test(pz.back.time) && !pz.back.sub && pz.back.clock === 0, "back to the game: the daily waits under Paused, the clock stopped", pz.back);
+  check(!pz.going.cover && !pz.going.locked && pz.going.clock, "Continue: the cover goes, the clock runs", pz.going);
+  check(pz.again.cover && pz.again.sub === "Pick up where you left off." && pz.again.idx === pz.kAfter && pz.again.fen === pz.fen && pz.again.spent >= 35 && pz.saved.k === pz.kAfter,
+    "the daily, left and opened again: the same position and time, under the cover", { kAfter: pz.kAfter, saved: pz.saved, again: pz.again });
   // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, mode: "play", marks: [], spent: 0, t0: 0 };

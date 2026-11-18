@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "നിങ്ങളുടെ പസിൽ റേറ്റിങ്: {n}. ഇനി ഓരോ പസിലിലും ഇത് അല്പം മാറും.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "ആദ്യത്തെ കുറച്ച് പസിലുകൾ നിങ്ങളുടെ നിലവാരം കണ്ടെത്തും. അത് കണ്ടെത്തിയാൽ നിങ്ങളുടെ റാങ്കും പസിൽ റേറ്റിങ്ങും കാണാം.",
   "Your first puzzles": "നിങ്ങളുടെ ആദ്യ പസിലുകൾ",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ആദ്യത്തെ കുറച്ച് പസിലുകൾ വലിയ ചുവടുകളിൽ നിങ്ങളുടെ നിലവാരം കണ്ടെത്തും, അതുവഴി നിങ്ങൾ ശരിയായ ഇടത്തുനിന്ന് തുടങ്ങും. അത് കണ്ടെത്തിയാൽ നിങ്ങളുടെ റാങ്കും പസിൽ റേറ്റിങ്ങും കാണാം."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ആദ്യത്തെ കുറച്ച് പസിലുകൾ വലിയ ചുവടുകളിൽ നിങ്ങളുടെ നിലവാരം കണ്ടെത്തും, അതുവഴി നിങ്ങൾ ശരിയായ ഇടത്തുനിന്ന് തുടങ്ങും. അത് കണ്ടെത്തിയാൽ നിങ്ങളുടെ റാങ്കും പസിൽ റേറ്റിങ്ങും കാണാം.",
+  "Paused": "താൽക്കാലികമായി നിർത്തി",
+  "Pick up where you left off.": "നിർത്തിയിടത്തുനിന്ന് തുടരൂ."
 };

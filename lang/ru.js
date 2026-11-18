@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Ваш рейтинг: {n}. Дальше он немного меняется с каждой задачей.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Первые задачи определят ваш уровень. Звание и рейтинг появятся, когда он определится.",
   "Your first puzzles": "Ваши первые задачи",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Первые задачи ищут ваш уровень большими шагами, чтобы вы начали там, где вам место. Звание и рейтинг появятся, когда он определится."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Первые задачи ищут ваш уровень большими шагами, чтобы вы начали там, где вам место. Звание и рейтинг появятся, когда он определится.",
+  "Paused": "Пауза",
+  "Pick up where you left off.": "Продолжайте с того места, где остановились."
 };

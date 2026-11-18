@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "你的謎題積分是 {n}。之後每解一題都會小幅變動。",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "最初幾道題會找出你的程度。找到後就會顯示你的階級和謎題積分。",
   "Your first puzzles": "最初的謎題",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初幾道題會大幅調整，找出你的程度，讓你從適合的位置起步。找到後就會顯示你的階級和謎題積分。"
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初幾道題會大幅調整，找出你的程度，讓你從適合的位置起步。找到後就會顯示你的階級和謎題積分。",
+  "Paused": "已暫停",
+  "Pick up where you left off.": "從上次停下的地方繼續。"
 };

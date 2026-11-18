@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Η βαθμολογία γρίφων σου είναι {n}. Από εδώ και πέρα αλλάζει λίγο με κάθε γρίφο.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Οι πρώτοι σου γρίφοι βρίσκουν το επίπεδό σου. Η βαθμίδα και η βαθμολογία γρίφων σου εμφανίζονται μόλις βρεθεί.",
   "Your first puzzles": "Οι πρώτοι σου γρίφοι",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Οι πρώτοι γρίφοι βρίσκουν το επίπεδό σου με μεγάλα βήματα, ώστε να ξεκινάς εκεί που ανήκεις. Η βαθμίδα και η βαθμολογία γρίφων σου εμφανίζονται μόλις βρεθεί."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Οι πρώτοι γρίφοι βρίσκουν το επίπεδό σου με μεγάλα βήματα, ώστε να ξεκινάς εκεί που ανήκεις. Η βαθμίδα και η βαθμολογία γρίφων σου εμφανίζονται μόλις βρεθεί.",
+  "Paused": "Σε παύση",
+  "Pick up where you left off.": "Συνέχισε από εκεί που σταμάτησες."
 };

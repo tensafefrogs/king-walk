@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Tvůj rating je {n}. Odteď se s každou úlohou trochu pohne.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Prvních pár úloh najde tvou úroveň. Hodnost a rating se ukážou, jakmile ji hra najde.",
   "Your first puzzles": "Tvoje první úlohy",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvních pár úloh hledá tvou úroveň velkými kroky, takže začneš tam, kam patříš. Hodnost a rating se ukážou, jakmile ji hra najde."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvních pár úloh hledá tvou úroveň velkými kroky, takže začneš tam, kam patříš. Hodnost a rating se ukážou, jakmile ji hra najde.",
+  "Paused": "Pozastaveno",
+  "Pick up where you left off.": "Pokračuj tam, kde hra skončila."
 };

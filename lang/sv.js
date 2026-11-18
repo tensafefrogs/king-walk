@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Din problemrating är {n}. Härifrån rör den sig lite för varje problem.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Dina första problem hittar din nivå. Din rang och problemrating visas när den har hittats.",
   "Your first puzzles": "Dina första problem",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De första problemen hittar din nivå med stora kliv, så att du börjar där du hör hemma. Din rang och problemrating visas när den har hittats."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De första problemen hittar din nivå med stora kliv, så att du börjar där du hör hemma. Din rang och problemrating visas när den har hittats.",
+  "Paused": "Pausad",
+  "Pick up where you left off.": "Fortsätt där du slutade."
 };

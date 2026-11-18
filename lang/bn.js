@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "তোমার পাজল রেটিং {n}। এখন থেকে প্রতিটা পাজলে এটা একটু একটু বদলাবে।",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "প্রথম কয়েকটা পাজল তোমার লেভেল খুঁজে নেয়। লেভেল পাওয়া গেলেই তোমার র‍্যাঙ্ক আর পাজল রেটিং দেখা যাবে।",
   "Your first puzzles": "তোমার প্রথম পাজলগুলো",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "প্রথম কয়েকটা পাজল বড় বড় ধাপে তোমার লেভেল খুঁজে নেয়, যাতে তুমি ঠিক জায়গা থেকে শুরু করো। লেভেল পাওয়া গেলেই তোমার র‍্যাঙ্ক আর পাজল রেটিং দেখা যাবে।"
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "প্রথম কয়েকটা পাজল বড় বড় ধাপে তোমার লেভেল খুঁজে নেয়, যাতে তুমি ঠিক জায়গা থেকে শুরু করো। লেভেল পাওয়া গেলেই তোমার র‍্যাঙ্ক আর পাজল রেটিং দেখা যাবে।",
+  "Paused": "বিরতি",
+  "Pick up where you left off.": "যেখানে থেমেছিলে, সেখান থেকে চালিয়ে যাও।"
 };

@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Vahvuuslukusi on {n}. Tästä eteenpäin se muuttuu vähän jokaisen tehtävän myötä.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Ensimmäiset tehtäväsi löytävät tasosi. Arvosi ja vahvuuslukusi näkyvät, kun se on löytynyt.",
   "Your first puzzles": "Ensimmäiset tehtäväsi",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Ensimmäiset tehtävät löytävät tasosi isoin askelin, joten aloitat sieltä, minne kuulut. Arvosi ja vahvuuslukusi näkyvät, kun se on löytynyt."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Ensimmäiset tehtävät löytävät tasosi isoin askelin, joten aloitat sieltä, minne kuulut. Arvosi ja vahvuuslukusi näkyvät, kun se on löytynyt.",
+  "Paused": "Tauolla",
+  "Pick up where you left off.": "Jatka siitä, mihin jäit."
 };

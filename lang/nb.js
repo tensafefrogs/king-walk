@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Oppgaveratingen din er {n}. Herfra endrer den seg litt for hver oppgave.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "De første oppgavene dine finner nivået ditt. Rangen og oppgaveratingen din vises når det er funnet.",
   "Your first puzzles": "De første oppgavene dine",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De første oppgavene finner nivået ditt med store steg, så du starter der du hører hjemme. Rangen og oppgaveratingen din vises når det er funnet."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De første oppgavene finner nivået ditt med store steg, så du starter der du hører hjemme. Rangen og oppgaveratingen din vises når det er funnet.",
+  "Paused": "På pause",
+  "Pick up where you left off.": "Fortsett der du slapp."
 };

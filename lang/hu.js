@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "A feladvány-értékszámod: {n}. Innentől minden feladvánnyal kicsit változik.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Az első néhány feladvány megtalálja a szintedet. A rangod és a feladvány-értékszámod akkor jelenik meg, ha megvan.",
   "Your first puzzles": "Az első feladványaid",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Az első néhány feladvány nagy lépésekben megtalálja a szintedet, így ott kezdesz, ahová tartozol. A rangod és a feladvány-értékszámod akkor jelenik meg, ha megvan."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Az első néhány feladvány nagy lépésekben megtalálja a szintedet, így ott kezdesz, ahová tartozol. A rangod és a feladvány-értékszámod akkor jelenik meg, ha megvan.",
+  "Paused": "Szüneteltetve",
+  "Pick up where you left off.": "Folytasd ott, ahol abbahagytad."
 };

@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "మీ పజిల్ రేటింగ్: {n}. ఇకపై ప్రతి పజిల్‌తో ఇది కొంచెం మారుతుంది.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "మీ మొదటి కొన్ని పజిల్స్ మీ స్థాయిని కనుగొంటాయి. అది తెలిశాక మీ ర్యాంక్, పజిల్ రేటింగ్ కనిపిస్తాయి.",
   "Your first puzzles": "మీ మొదటి పజిల్స్",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "మొదటి కొన్ని పజిల్స్ పెద్ద అడుగులతో మీ స్థాయిని కనుగొంటాయి, కాబట్టి మీరు సరైన చోట మొదలుపెడతారు. అది తెలిశాక మీ ర్యాంక్, పజిల్ రేటింగ్ కనిపిస్తాయి."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "మొదటి కొన్ని పజిల్స్ పెద్ద అడుగులతో మీ స్థాయిని కనుగొంటాయి, కాబట్టి మీరు సరైన చోట మొదలుపెడతారు. అది తెలిశాక మీ ర్యాంక్, పజిల్ రేటింగ్ కనిపిస్తాయి.",
+  "Paused": "పాజ్ చేయబడింది",
+  "Pick up where you left off.": "ఆపిన చోటు నుంచే కొనసాగించండి."
 };

@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "आपकी पहेली रेटिंग {n} है। अब से यह हर पहेली के साथ थोड़ी बदलेगी।",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "आपकी पहली कुछ पहेलियाँ आपका स्तर खोजती हैं। स्तर मिलते ही आपकी रैंक और पहेली रेटिंग दिखने लगेंगी।",
   "Your first puzzles": "आपकी पहली पहेलियाँ",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "पहली कुछ पहेलियाँ बड़े कदमों में आपका स्तर खोजती हैं, ताकि आप सही जगह से शुरू करें। स्तर मिलते ही आपकी रैंक और पहेली रेटिंग दिखने लगेंगी।"
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "पहली कुछ पहेलियाँ बड़े कदमों में आपका स्तर खोजती हैं, ताकि आप सही जगह से शुरू करें। स्तर मिलते ही आपकी रैंक और पहेली रेटिंग दिखने लगेंगी।",
+  "Paused": "रुका हुआ",
+  "Pick up where you left off.": "जहाँ छोड़ा था, वहीं से जारी रखें।"
 };

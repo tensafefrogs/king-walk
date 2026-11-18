@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "เรตติ้งโจทย์ของคุณคือ {n} จากนี้จะขยับทีละนิดในแต่ละโจทย์",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "โจทย์ไม่กี่ข้อแรกจะหาระดับของคุณ ยศและเรตติ้งโจทย์จะแสดงเมื่อหาเจอแล้ว",
   "Your first puzzles": "โจทย์แรก ๆ ของคุณ",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "โจทย์ไม่กี่ข้อแรกจะหาระดับของคุณแบบก้าวใหญ่ ๆ เพื่อให้คุณเริ่มในจุดที่เหมาะกับคุณ ยศและเรตติ้งโจทย์จะแสดงเมื่อหาเจอแล้ว"
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "โจทย์ไม่กี่ข้อแรกจะหาระดับของคุณแบบก้าวใหญ่ ๆ เพื่อให้คุณเริ่มในจุดที่เหมาะกับคุณ ยศและเรตติ้งโจทย์จะแสดงเมื่อหาเจอแล้ว",
+  "Paused": "หยุดชั่วคราว",
+  "Pick up where you left off.": "เล่นต่อจากที่ค้างไว้ได้เลย"
 };

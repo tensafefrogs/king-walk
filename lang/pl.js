@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Twój ranking to {n}. Od teraz zmienia się trochę z każdym zadaniem.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Pierwsze zadania ustalą twój poziom. Ranga i ranking pojawią się, gdy gra go znajdzie.",
   "Your first puzzles": "Twoje pierwsze zadania",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Pierwsze zadania szukają twojego poziomu dużymi krokami, więc startujesz tam, gdzie twoje miejsce. Ranga i ranking pojawią się, gdy gra go znajdzie."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Pierwsze zadania szukają twojego poziomu dużymi krokami, więc startujesz tam, gdzie twoje miejsce. Ranga i ranking pojawią się, gdy gra go znajdzie.",
+  "Paused": "Wstrzymano",
+  "Pick up where you left off.": "Graj dalej od miejsca, w którym przerwano."
 };

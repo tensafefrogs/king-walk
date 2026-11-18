@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "퍼즐 레이팅: {n}. 이제부터 퍼즐마다 조금씩 바뀌어요.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "처음 몇 문제로 실력을 찾아요. 실력을 찾으면 등급과 퍼즐 레이팅이 표시돼요.",
   "Your first puzzles": "첫 퍼즐",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "처음 몇 문제는 큰 폭으로 실력을 찾아서, 내 실력에 맞는 곳에서 시작하게 해 줘요. 실력을 찾으면 등급과 퍼즐 레이팅이 표시돼요."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "처음 몇 문제는 큰 폭으로 실력을 찾아서, 내 실력에 맞는 곳에서 시작하게 해 줘요. 실력을 찾으면 등급과 퍼즐 레이팅이 표시돼요.",
+  "Paused": "일시 정지",
+  "Pick up where you left off.": "멈춘 곳에서 이어서 하세요."
 };

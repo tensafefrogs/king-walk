@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Tvoj rating je {n}. Odslej se z vsako uganko malo premakne.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Prvih nekaj ugank najde tvojo raven. Naziv in rating se pokažeta, ko jo igra najde.",
   "Your first puzzles": "Tvoje prve uganke",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekaj ugank išče tvojo raven z velikimi koraki, da začneš tam, kamor spadaš. Naziv in rating se pokažeta, ko jo igra najde."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekaj ugank išče tvojo raven z velikimi koraki, da začneš tam, kamor spadaš. Naziv in rating se pokažeta, ko jo igra najde.",
+  "Paused": "Začasno ustavljeno",
+  "Pick up where you left off.": "Nadaljuj tam, kjer se je igra ustavila."
 };

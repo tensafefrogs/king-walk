@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "تقييمك في الألغاز {n}. من الآن يتغير قليلًا مع كل لغز.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "ألغازك الأولى تحدد مستواك. تظهر رتبتك وتقييمك في الألغاز بعد تحديده.",
   "Your first puzzles": "ألغازك الأولى",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "تحدد الألغاز الأولى مستواك بخطوات كبيرة، فتكون البداية في المكان المناسب لك. تظهر رتبتك وتقييمك في الألغاز بعد تحديده."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "تحدد الألغاز الأولى مستواك بخطوات كبيرة، فتكون البداية في المكان المناسب لك. تظهر رتبتك وتقييمك في الألغاز بعد تحديده.",
+  "Paused": "متوقف مؤقتًا",
+  "Pick up where you left off.": "تابع من حيث توقفت."
 };

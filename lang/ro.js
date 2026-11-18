@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Ratingul tău la probleme e {n}. De acum se schimbă puțin cu fiecare problemă.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Primele probleme îți găsesc nivelul. Rangul și ratingul la probleme apar după ce e găsit.",
   "Your first puzzles": "Primele tale probleme",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Primele probleme îți găsesc nivelul în pași mari, ca să începi acolo unde îți e locul. Rangul și ratingul la probleme apar după ce e găsit."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Primele probleme îți găsesc nivelul în pași mari, ca să începi acolo unde îți e locul. Rangul și ratingul la probleme apar după ce e găsit.",
+  "Paused": "În pauză",
+  "Pick up where you left off.": "Continuă de unde ai rămas."
 };

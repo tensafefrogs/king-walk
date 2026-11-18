@@ -326,5 +326,7 @@
   "Your puzzle rating is {n}. From here it moves a little with each puzzle.": "Điểm câu đố của bạn là {n}. Từ giờ, điểm sẽ thay đổi một chút sau mỗi câu đố.",
   "Your first few puzzles find your level. Your rank and puzzle rating show up once it's found.": "Vài câu đố đầu tiên sẽ tìm ra trình độ của bạn. Cấp bậc và điểm câu đố sẽ hiện khi đã tìm ra.",
   "Your first puzzles": "Những câu đố đầu tiên",
-  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Vài câu đố đầu tiên tìm trình độ của bạn theo từng bước lớn, để bạn bắt đầu đúng chỗ của mình. Cấp bậc và điểm câu đố sẽ hiện khi đã tìm ra."
+  "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Vài câu đố đầu tiên tìm trình độ của bạn theo từng bước lớn, để bạn bắt đầu đúng chỗ của mình. Cấp bậc và điểm câu đố sẽ hiện khi đã tìm ra.",
+  "Paused": "Tạm dừng",
+  "Pick up where you left off.": "Tiếp tục từ chỗ bạn dừng lại."
 };
