@@ -73,6 +73,16 @@ out("index.html", page.slice(0, a) + head + page.slice(b));
   await png("brand/mark-square.svg", "icons/apple-touch-icon.png", 180);          // iOS rounds the corners itself
   await png("brand/mark-maskable.svg", "icons/icon-maskable-512.png", 512);
   await png("icons/favicon.svg", "icons/favicon-32.png", 32);
+  // search results use a square icon in multiples of 48 px, and many look for /favicon.ico first
+  await png("icons/favicon.svg", "icons/favicon-48.png", 48);
+  await png("icons/favicon.svg", "icons/favicon-96.png", 96);
+  const sizes = [16, 32, 48], pngs = [];
+  for (const s of sizes) { const f = path.join(require("os").tmpdir(), `kw-fav-${s}.png`); await png("icons/favicon.svg", path.relative(ROOT, f), s); pngs.push(fs.readFileSync(f)); fs.unlinkSync(f); }
+  /* favicon.ico: a header, one entry per size, then each size's PNG (a .ico may hold PNGs) */
+  const head = Buffer.alloc(6 + 16 * sizes.length); head.writeUInt16LE(0, 0); head.writeUInt16LE(1, 2); head.writeUInt16LE(sizes.length, 4);
+  let off = head.length;
+  sizes.forEach((s, i) => { const e = 6 + 16 * i; head[e] = s; head[e + 1] = s; head[e + 2] = 0; head[e + 3] = 0; head.writeUInt16LE(1, e + 4); head.writeUInt16LE(32, e + 6); head.writeUInt32LE(pngs[i].length, e + 8); head.writeUInt32LE(off, e + 12); off += pngs[i].length; });
+  fs.writeFileSync(path.join(ROOT, "favicon.ico"), Buffer.concat([head, ...pngs]));
   await png("brand/logo.svg", "brand/logo.png", 1600, 490);
   await png("brand/logo-on-dark.svg", "brand/logo-on-dark.png", 1600, 490);
   await b.close();
