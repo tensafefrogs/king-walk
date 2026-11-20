@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12 and later: the save goes to Google backup and moves with a phone-to-phone transfer. The WebView's own
+     files stay out (the app rebuilds its storage from the save), and so do the scheduled reminders. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="save.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="save.xml" />
+    </device-transfer>
+</data-extraction-rules>

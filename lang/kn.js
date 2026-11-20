@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ಮೊದಲ ಕೆಲವು ಒಗಟುಗಳು ದೊಡ್ಡ ಹೆಜ್ಜೆಗಳಲ್ಲಿ ನಿಮ್ಮ ಮಟ್ಟವನ್ನು ಕಂಡುಹಿಡಿಯುತ್ತವೆ, ಹೀಗಾಗಿ ನೀವು ಸರಿಯಾದ ಸ್ಥಳದಿಂದ ಆರಂಭಿಸುತ್ತೀರಿ. ಅದು ತಿಳಿದ ನಂತರ ನಿಮ್ಮ ಶ್ರೇಣಿ ಮತ್ತು ಒಗಟು ರೇಟಿಂಗ್ ಕಾಣಿಸುತ್ತವೆ.",
   "Paused": "ವಿರಾಮ",
   "Pick up where you left off.": "ನಿಲ್ಲಿಸಿದ ಕಡೆಯಿಂದಲೇ ಮುಂದುವರಿಸಿ.",
-  "Pause": "ವಿರಾಮ ನೀಡಿ"
+  "Pause": "ವಿರಾಮ ನೀಡಿ",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "ಪ್ರಗತಿಯನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಲಾಗುತ್ತದೆ, ಮತ್ತು ನಿಮ್ಮ ಫೋನ್‌ನ Google ಬ್ಯಾಕಪ್ ನಿಮ್ಮ ಮುಂದಿನ ಫೋನ್‌ಗಾಗಿ ಅದರ ಪ್ರತಿಯನ್ನು ಇಟ್ಟುಕೊಳ್ಳುತ್ತದೆ. ಖಾತೆಗಳಿಲ್ಲ.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "ಪ್ರಗತಿಯನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಲಾಗುತ್ತದೆ. ವೆಬ್‌ಸೈಟ್‌ನಂತಹ ಬೇರೆಡೆಗೆ ಅದನ್ನು ಸರಿಸಲು, ನಿಮ್ಮ ಸೇವ್ ಕೋಡ್ ನಕಲಿಸಿ, ನಂತರ ಅಲ್ಲಿ ಅಂಟಿಸಿ."
 };

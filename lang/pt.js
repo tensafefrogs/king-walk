@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Os primeiros problemas buscam seu nível em grandes saltos, para você começar no lugar certo. Sua patente e sua pontuação aparecem assim que ele for encontrado.",
   "Paused": "Pausado",
   "Pick up where you left off.": "Continue de onde parou.",
-  "Pause": "Pausar"
+  "Pause": "Pausar",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "O progresso fica salvo neste dispositivo, e o backup do Google do seu celular guarda uma cópia para o seu próximo celular. Não há contas.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "O progresso fica salvo neste dispositivo. Para levá-lo para outro lugar, como o site, copie seu código de salvamento e cole lá."
 };

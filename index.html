@@ -1378,23 +1378,26 @@ const sfx = {
 
 /* ---------- the iOS app, haptics, Game Center, sharing, stats ----------
    The iOS app (ios/) serves this page from inside the app, sets window.kingWalkApp before it runs, and listens on
-   window.webkit.messageHandlers.kingwalk. On the web none of the app parts run; Android browsers get haptics
-   through the vibration API instead. */
+   window.webkit.messageHandlers.kingwalk. The Android app (android/) does the same with window.KingWalkAndroid, whose
+   postMessage() takes the message as JSON. APP.os says which ("ios", "android"). On the web none of the app parts run;
+   Android browsers get haptics through the vibration API instead. */
 const APP = (() => {
   try {
-    const h = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kingwalk;
-    if (!h) return null;
-    return Object.assign({ platform: "iphone", gameCenter: false, widget: false }, window.kingWalkApp || {}, { post: m => { try { h.postMessage(m); } catch (e) {} } });
+    const h = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kingwalk, a = !h && window.KingWalkAndroid;
+    if (!h && !a) return null;
+    const post = h ? m => { try { h.postMessage(m); } catch (e) {} } : m => { try { a.postMessage(JSON.stringify(m)); } catch (e) {} };
+    return Object.assign({ os: h ? "ios" : "android", platform: h ? "iphone" : "android-phone", gameCenter: false, widget: false }, window.kingWalkApp || {}, { post });
   } catch (e) { return null; }
 })();
 /* Settings for this copy (config.js, written from GitHub Actions variables when the site deploys and the app builds) */
-const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "" }, window.KING_WALK_CONFIG || {});
+const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "", playId: "" }, window.KING_WALK_CONFIG || {});
 /* The website's address: on the web, wherever this page is; in the app, the configured site */
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
   ? new URL(ROOT || "./", location.href.replace(/[?#].*$/, "").replace(/index\.html$/, "")).href : CONFIG.site;          /* the site's top, also from a language page */
-/* What Share links to: the App Store page from the app (the site until the App Store ID is set), the site from the web.
+/* What Share links to: the app's store page from the app (the site until its ID is set), the site from the web.
    The daily puzzle's share always links the site's daily (dailyShareText). */
-const SHARE_URL = APP && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : SITE;
+const SHARE_URL = APP && APP.os === "ios" && CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId)
+  : APP && APP.os === "android" && CONFIG.playId ? "https://play.google.com/store/apps/details?id=" + encodeURIComponent(CONFIG.playId) : SITE;
 if (CONFIG.goatcounter) {          /* the stats script, only when this copy has a GoatCounter address */
   const gs = document.createElement("script");
   gs.async = true; gs.src = "https://gc.zgo.at/count.js"; gs.dataset.goatcounter = CONFIG.goatcounter;
@@ -1431,7 +1434,7 @@ const PLATFORM = (() => {
   } catch (e) {}
   return "other";
 })();
-const TRACK_PREFIX = APP ? "king-walk-ios/" : "king-walk/";
+const TRACK_PREFIX = APP ? (APP.os === "android" ? "king-walk-android/" : "king-walk-ios/") : "king-walk/";
 const trackQ = [];
 let trackTimer = 0;
 function track(name) { if (!CONFIG.goatcounter) return; trackQ.push(name); flushTrack(); }
@@ -1531,8 +1534,8 @@ function shareProgress(btn, last) {
   try { navigator.clipboard.writeText(text).then(done, () => window.prompt(T("Copy this:"), text)); } catch (e) { window.prompt(T("Copy this:"), text); }
 }
 
-/* The App Store rating prompt: only in the app, only right after a clean solve, only once someone has solved 20
-   puzzles, and at most every 4 months. iOS decides whether it actually shows (and limits it further). */
+/* The store's rating prompt (App Store, Google Play): only in the app, only right after a clean solve, only once someone has solved 20
+   puzzles, and at most every 4 months. The system decides whether it actually shows (and limits it further). */
 function maybeAskForRating(p) {
   if (!APP || p.solved < 20 || Date.now() - (S.rateAsked || 0) < 120 * 864e5) return;
   S.rateAsked = Date.now(); save(); track("rate-ask");
@@ -2887,9 +2890,14 @@ if (Promo.ok) {
   const note = document.createElement("p"), a = Promo.link("save", document.createElement("a")); note.className = "note";
   a.textContent = "App Store \u203a"; note.append(T("In the app, progress follows you between your devices with iCloud.") + " ", a); $("saveHelp").after(note);
 }
-if (APP) {          /* in the app the save also goes to the player's iCloud, so it follows them to their other devices */
+if (APP && APP.os === "ios") {          /* in the iOS app the save also goes to the player's iCloud, so it follows them to their other devices */
   $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");
   $("saveHelp").textContent = T("Progress is saved on this device and in your iCloud account. To move it somewhere else, such as the website, copy your save code, then paste it there.");
+} else if (APP) {          /* the Android app: on the device, and in the phone's own Google backup, which a new phone restores */
+  $("helpSaved").textContent = T("Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.");
+  $("saveHelp").textContent = T("Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.");
+}
+if (APP) {
   /* the policy pages open in Safari from the website, so they are the current versions */
   for (const a of document.querySelectorAll(".links a")) a.href = SITE + a.getAttribute("href") + "?from=app";          /* the website then knows this browser's owner has the app */
   $("links").hidden = !SITE;          /* no site configured: nothing to link to */
@@ -3052,10 +3060,18 @@ if (typeof Chess !== "function") {
   /* #daily (a shared result's link): today's puzzle, or, once it's done, the solved board with its card and Share */
   if (/^#daily$/.test(location.hash) && dailyOpen()) { history.replaceState(null, "", location.pathname + location.search); track("link/daily"); startDaily(); } else nextPuzzle();
   if (APP) APP.post({ op: "ready" });          /* the app can now pass on a request, such as the daily puzzle from a widget */
+  /* Android's back gesture: closes what's open (a card or dialog, the promotion picker, the menu), and says whether it
+     did; with nothing open the app goes to the background */
+  window.kingWalkBack = () => {
+    if (document.querySelector(".cele:not(.out)")) { document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })); return true; }
+    if (promoCancel) { promoCancel(); return true; }
+    if ($("menu").classList.contains("open")) { toggleSection($("menuBtn"), $("menu")); return true; }
+    return false;
+  };
 }
 </script>
 <script>
-if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+if ("serviceWorker" in navigator && !window.KingWalkAndroid && (location.protocol === "https:" || location.hostname === "localhost")) {
   window.addEventListener("load", function () { navigator.serviceWorker.register((window.KW_ROOT || "") + "sw.js").catch(function () {}); });
 }
 </script>

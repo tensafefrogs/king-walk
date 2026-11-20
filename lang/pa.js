@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ਪਹਿਲੀਆਂ ਕੁਝ ਪਹੇਲੀਆਂ ਵੱਡੇ ਕਦਮਾਂ ਨਾਲ ਤੁਹਾਡਾ ਪੱਧਰ ਲੱਭਦੀਆਂ ਹਨ, ਤਾਂ ਜੋ ਤੁਸੀਂ ਸਹੀ ਥਾਂ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ। ਪੱਧਰ ਲੱਭਣ ਤੋਂ ਬਾਅਦ ਤੁਹਾਡਾ ਰੈਂਕ ਅਤੇ ਪਹੇਲੀ ਰੇਟਿੰਗ ਦਿਖਾਈ ਦੇਣਗੇ।",
   "Paused": "ਰੁਕਿਆ ਹੋਇਆ",
   "Pick up where you left off.": "ਜਿੱਥੇ ਛੱਡਿਆ ਸੀ, ਉੱਥੋਂ ਜਾਰੀ ਰੱਖੋ।",
-  "Pause": "ਰੋਕੋ"
+  "Pause": "ਰੋਕੋ",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "ਤਰੱਕੀ ਇਸ ਡਿਵਾਈਸ 'ਤੇ ਸੇਵ ਹੁੰਦੀ ਹੈ, ਅਤੇ ਤੁਹਾਡੇ ਫ਼ੋਨ ਦਾ Google ਬੈਕਅੱਪ ਤੁਹਾਡੇ ਅਗਲੇ ਫ਼ੋਨ ਲਈ ਇਸਦੀ ਇੱਕ ਕਾਪੀ ਰੱਖਦਾ ਹੈ। ਕੋਈ ਖਾਤਾ ਨਹੀਂ।",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "ਤਰੱਕੀ ਇਸ ਡਿਵਾਈਸ 'ਤੇ ਸੇਵ ਹੁੰਦੀ ਹੈ। ਇਸਨੂੰ ਕਿਤੇ ਹੋਰ, ਜਿਵੇਂ ਵੈੱਬਸਾਈਟ 'ਤੇ, ਲਿਜਾਣ ਲਈ ਆਪਣਾ ਸੇਵ ਕੋਡ ਕਾਪੀ ਕਰੋ, ਫਿਰ ਉੱਥੇ ਪੇਸਟ ਕਰੋ।"
 };

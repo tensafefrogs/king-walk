@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "మొదటి కొన్ని పజిల్స్ పెద్ద అడుగులతో మీ స్థాయిని కనుగొంటాయి, కాబట్టి మీరు సరైన చోట మొదలుపెడతారు. అది తెలిశాక మీ ర్యాంక్, పజిల్ రేటింగ్ కనిపిస్తాయి.",
   "Paused": "పాజ్ చేయబడింది",
   "Pick up where you left off.": "ఆపిన చోటు నుంచే కొనసాగించండి.",
-  "Pause": "పాజ్ చేయండి"
+  "Pause": "పాజ్ చేయండి",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "పురోగతి ఈ పరికరంలో సేవ్ అవుతుంది, మీ ఫోన్ Google బ్యాకప్ మీ తదుపరి ఫోన్ కోసం దాని కాపీని ఉంచుతుంది. ఖాతాలు లేవు.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "పురోగతి ఈ పరికరంలో సేవ్ అవుతుంది. దాన్ని వెబ్‌సైట్ వంటి వేరే చోటికి తరలించడానికి, మీ సేవ్ కోడ్‌ను కాపీ చేసి, అక్కడ పేస్ట్ చేయండి."
 };

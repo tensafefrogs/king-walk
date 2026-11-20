@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Primele probleme îți găsesc nivelul în pași mari, ca să începi acolo unde îți e locul. Rangul și ratingul la probleme apar după ce e găsit.",
   "Paused": "În pauză",
   "Pick up where you left off.": "Continuă de unde ai rămas.",
-  "Pause": "Pauză"
+  "Pause": "Pauză",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Progresul se salvează pe acest dispozitiv, iar backupul Google al telefonului tău păstrează o copie pentru următorul tău telefon. Nu există conturi.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Progresul se salvează pe acest dispozitiv. Ca să-l muți în altă parte, de exemplu pe site, copiază codul de salvare, apoi lipește-l acolo."
 };

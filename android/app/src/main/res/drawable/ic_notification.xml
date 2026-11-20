@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the reminder's small icon: the brand king (brand/pieces), as one white shape -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="100" android:viewportHeight="100">
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M46,4h8v24h-8z M38,9h24v8h-24z M23,31 C23,21 41,20 50,31 C59,20 77,21 77,31 C77,40 71,46 67,51 L33,51 C29,46 23,40 23,31 Z M31,47h38v8.5h-38z M38,53 L62,53 L60,61 L40,61 Z M32,58h36v7.5h-36z M39,63 L61,63 C61,69 66,74 70,79 L30,79 C34,74 39,69 39,63 Z M22,77h56v13h-56z" />
+</vector>

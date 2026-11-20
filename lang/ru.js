@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Первые задачи ищут ваш уровень большими шагами, чтобы вы начали там, где вам место. Звание и рейтинг появятся, когда он определится.",
   "Paused": "Пауза",
   "Pick up where you left off.": "Продолжайте с того места, где остановились.",
-  "Pause": "Пауза"
+  "Pause": "Пауза",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Прогресс сохраняется на этом устройстве, а резервное копирование Google на вашем телефоне сохранит копию для следующего телефона. Учётных записей нет.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Прогресс сохраняется на этом устройстве. Чтобы перенести его в другое место, например на сайт, скопируйте код сохранения и вставьте его там."
 };

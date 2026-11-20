@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- made by android/scripts/strings.py from the iOS app's translations -->
+<resources>
+    <string name="app_name" translatable="false">King Walk</string>
+    <string name="channel_daily">Today\'s puzzle</string>
+</resources>

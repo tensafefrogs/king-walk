@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "İlk birkaç bulmaca seviyeni büyük adımlarla bulur, böylece sana uygun yerden başlarsın. Rütben ve bulmaca puanın, seviyen bulununca görünür.",
   "Paused": "Duraklatıldı",
   "Pick up where you left off.": "Kaldığın yerden devam et.",
-  "Pause": "Duraklat"
+  "Pause": "Duraklat",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "İlerleme bu cihazda kaydedilir; telefonunun Google yedeği de bir sonraki telefonun için bir kopyasını saklar. Hesap yok.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "İlerleme bu cihazda kaydedilir. Başka bir yere, örneğin web sitesine taşımak için kayıt kodunu kopyala ve oraya yapıştır."
 };

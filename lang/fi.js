@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Ensimmäiset tehtävät löytävät tasosi isoin askelin, joten aloitat sieltä, minne kuulut. Arvosi ja vahvuuslukusi näkyvät, kun se on löytynyt.",
   "Paused": "Tauolla",
   "Pick up where you left off.": "Jatka siitä, mihin jäit.",
-  "Pause": "Tauko"
+  "Pause": "Tauko",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Edistyminen tallentuu tähän laitteeseen, ja puhelimesi Google-varmuuskopio säilyttää kopion seuraavaa puhelintasi varten. Tilejä ei ole.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Edistyminen tallentuu tähän laitteeseen. Jos haluat siirtää sen muualle, vaikkapa verkkosivustolle, kopioi tallennuskoodisi ja liitä se sinne."
 };

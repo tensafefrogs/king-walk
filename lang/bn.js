@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "প্রথম কয়েকটা পাজল বড় বড় ধাপে তোমার লেভেল খুঁজে নেয়, যাতে তুমি ঠিক জায়গা থেকে শুরু করো। লেভেল পাওয়া গেলেই তোমার র‍্যাঙ্ক আর পাজল রেটিং দেখা যাবে।",
   "Paused": "বিরতি",
   "Pick up where you left off.": "যেখানে থেমেছিলে, সেখান থেকে চালিয়ে যাও।",
-  "Pause": "বিরতি দাও"
+  "Pause": "বিরতি দাও",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "অগ্রগতি এই ডিভাইসে সেভ থাকে, আর তোমার ফোনের Google ব্যাকআপে একটা কপি থাকে তোমার পরের ফোনের জন্য। কোনো অ্যাকাউন্ট নেই।",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "অগ্রগতি এই ডিভাইসে সেভ থাকে। অন্য কোথাও, যেমন ওয়েবসাইটে, নিতে চাইলে সেভ কোড কপি করো, তারপর সেখানে পেস্ট করো।"
 };

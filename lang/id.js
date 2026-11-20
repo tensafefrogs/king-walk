@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Beberapa puzzle pertama mencari levelmu dengan langkah besar, jadi kamu mulai di tempat yang tepat. Pangkat dan rating puzzle-mu muncul setelah levelmu ditemukan.",
   "Paused": "Dijeda",
   "Pick up where you left off.": "Lanjutkan dari terakhir kali kamu berhenti.",
-  "Pause": "Jeda"
+  "Pause": "Jeda",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Progres disimpan di perangkat ini, dan cadangan Google di ponselmu menyimpan salinannya untuk ponselmu berikutnya. Tidak ada akun.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Progres disimpan di perangkat ini. Untuk memindahkannya ke tempat lain, misalnya situs web, salin kode simpananmu, lalu tempel di sana."
 };

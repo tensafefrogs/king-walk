@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "تحدد الألغاز الأولى مستواك بخطوات كبيرة، فتكون البداية في المكان المناسب لك. تظهر رتبتك وتقييمك في الألغاز بعد تحديده.",
   "Paused": "متوقف مؤقتًا",
   "Pick up where you left off.": "تابع من حيث توقفت.",
-  "Pause": "إيقاف مؤقت"
+  "Pause": "إيقاف مؤقت",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "يُحفظ التقدم على هذا الجهاز، ويحتفظ النسخ الاحتياطي من Google في هاتفك بنسخة لهاتفك التالي. لا توجد حسابات.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "يُحفظ التقدم على هذا الجهاز. لنقله إلى مكان آخر، مثل الموقع، انسخ رمز الحفظ ثم الصقه هناك."
 };

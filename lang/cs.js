@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvních pár úloh hledá tvou úroveň velkými kroky, takže začneš tam, kam patříš. Hodnost a rating se ukážou, jakmile ji hra najde.",
   "Paused": "Pozastaveno",
   "Pick up where you left off.": "Pokračuj tam, kde hra skončila.",
-  "Pause": "Pozastavit"
+  "Pause": "Pozastavit",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Postup se ukládá v tomto zařízení a záloha Google ve tvém telefonu si ponechá kopii pro tvůj příští telefon. Účty tu nejsou.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Postup se ukládá v tomto zařízení. Chceš-li ho přenést jinam, třeba na web, zkopíruj kód uložení a vlož ho tam."
 };

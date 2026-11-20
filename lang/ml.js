@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "ആദ്യത്തെ കുറച്ച് പസിലുകൾ വലിയ ചുവടുകളിൽ നിങ്ങളുടെ നിലവാരം കണ്ടെത്തും, അതുവഴി നിങ്ങൾ ശരിയായ ഇടത്തുനിന്ന് തുടങ്ങും. അത് കണ്ടെത്തിയാൽ നിങ്ങളുടെ റാങ്കും പസിൽ റേറ്റിങ്ങും കാണാം.",
   "Paused": "താൽക്കാലികമായി നിർത്തി",
   "Pick up where you left off.": "നിർത്തിയിടത്തുനിന്ന് തുടരൂ.",
-  "Pause": "താൽക്കാലികമായി നിർത്തുക"
+  "Pause": "താൽക്കാലികമായി നിർത്തുക",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "പുരോഗതി ഈ ഉപകരണത്തിൽ സേവ് ചെയ്യുന്നു, നിങ്ങളുടെ ഫോണിന്റെ Google ബാക്കപ്പ് അടുത്ത ഫോണിനായി ഒരു പകർപ്പ് സൂക്ഷിക്കുന്നു. അക്കൗണ്ടുകളില്ല.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "പുരോഗതി ഈ ഉപകരണത്തിൽ സേവ് ചെയ്യുന്നു. വെബ്സൈറ്റ് പോലെ മറ്റൊരിടത്തേക്ക് മാറ്റാൻ സേവ് കോഡ് പകർത്തി അവിടെ ഒട്ടിക്കൂ."
 };

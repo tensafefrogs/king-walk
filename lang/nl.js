@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De eerste puzzels zoeken je niveau in grote stappen, zodat je begint waar je hoort. Je rang en puzzelrating verschijnen zodra het gevonden is.",
   "Paused": "Gepauzeerd",
   "Pick up where you left off.": "Ga verder waar je gebleven was.",
-  "Pause": "Pauzeren"
+  "Pause": "Pauzeren",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Je voortgang wordt op dit apparaat opgeslagen, en de Google-back-up van je telefoon bewaart een kopie voor je volgende telefoon. Er zijn geen accounts.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Je voortgang wordt op dit apparaat bewaard. Om hem ergens anders heen te zetten, zoals de website, kopieer je je opslagcode en plak je die daar."
 };

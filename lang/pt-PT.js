@@ -80,5 +80,7 @@
   "Your streak ends at midnight": "A tua sequência termina à meia-noite",
   "Playing inside {app}? Your progress stays in this browser.": "Estás a jogar na app {app}? O teu progresso fica neste navegador.",
   "Open in {browser}": "Abrir no {browser}",
-  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Para levares os teus problemas, copia primeiro o teu código de gravação: Definições, Avançado."
+  "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Para levares os teus problemas, copia primeiro o teu código de gravação: Definições, Avançado.",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "O progresso fica guardado neste dispositivo, e a cópia de segurança da Google do teu telemóvel mantém uma cópia para o teu próximo telemóvel. Não há contas.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "O progresso fica guardado neste dispositivo. Para o levares para outro lado, como o site, copia o teu código de gravação e cola-o lá."
 };

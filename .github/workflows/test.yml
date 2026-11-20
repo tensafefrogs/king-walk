@@ -1,4 +1,4 @@
-# On every push and pull request: plays puzzles in a browser (on the web and in a simulated iOS app), then checks
+# On every push and pull request: plays puzzles in a browser (on the web and in simulated iOS and Android apps), then checks
 # the game's rules one by one (rating, saves, streaks, awards, translations).
 name: Test
 

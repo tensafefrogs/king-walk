@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "โจทย์ไม่กี่ข้อแรกจะหาระดับของคุณแบบก้าวใหญ่ ๆ เพื่อให้คุณเริ่มในจุดที่เหมาะกับคุณ ยศและเรตติ้งโจทย์จะแสดงเมื่อหาเจอแล้ว",
   "Paused": "หยุดชั่วคราว",
   "Pick up where you left off.": "เล่นต่อจากที่ค้างไว้ได้เลย",
-  "Pause": "หยุดชั่วคราว"
+  "Pause": "หยุดชั่วคราว",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "ความคืบหน้าบันทึกไว้ในอุปกรณ์นี้ และการสำรองข้อมูล Google ของโทรศัพท์คุณจะเก็บสำเนาไว้สำหรับโทรศัพท์เครื่องถัดไป ไม่มีระบบบัญชี",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "ความคืบหน้าบันทึกไว้ในอุปกรณ์นี้ หากต้องการย้ายไปที่อื่น เช่น เว็บไซต์ ให้คัดลอกรหัสเซฟ แล้ววางที่นั่น"
 };

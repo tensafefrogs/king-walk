@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Prvih nekaj ugank išče tvojo raven z velikimi koraki, da začneš tam, kamor spadaš. Naziv in rating se pokažeta, ko jo igra najde.",
   "Paused": "Začasno ustavljeno",
   "Pick up where you left off.": "Nadaljuj tam, kjer se je igra ustavila.",
-  "Pause": "Začasno ustavi"
+  "Pause": "Začasno ustavi",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Napredek se shranjuje v tej napravi, varnostna kopija Google v tvojem telefonu pa ohrani kopijo za tvoj naslednji telefon. Računov ni.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Napredek se shranjuje v tej napravi. Če ga želiš prenesti drugam, na primer na spletno stran, kopiraj kodo shranjevanja in jo prilepi tja."
 };

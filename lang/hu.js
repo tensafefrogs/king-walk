@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Az első néhány feladvány nagy lépésekben megtalálja a szintedet, így ott kezdesz, ahová tartozol. A rangod és a feladvány-értékszámod akkor jelenik meg, ha megvan.",
   "Paused": "Szüneteltetve",
   "Pick up where you left off.": "Folytasd ott, ahol abbahagytad.",
-  "Pause": "Szünet"
+  "Pause": "Szünet",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Az előrehaladás ezen az eszközön mentődik, a telefonod Google-biztonsági mentése pedig megőriz egy másolatot a következő telefonodhoz. Nincsenek fiókok.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Az előrehaladás ezen az eszközön mentődik. Ha máshová vinnéd, például a weboldalra, másold ki a mentési kódodat, majd illeszd be ott."
 };

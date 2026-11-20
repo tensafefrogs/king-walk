@@ -4,7 +4,7 @@ The game sends a few anonymous events to GoatCounter (no cookies, nothing linked
 
 ## Events
 
-Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the website and `king-walk-ios` for the iOS app. Events are only sent where the GoatCounter address is set (the `GOATCOUNTER_URL` Actions variable, written into `config.js`); a copy of the repo sends none. The website's page view is counted too (`/king-walk/`); the app doesn't count one.
+Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the website, `king-walk-ios` for the iOS app and `king-walk-android` for the Android app (not on Google Play yet; `testing/stats.py` doesn't report it yet). Events are only sent where the GoatCounter address is set (the `GOATCOUNTER_URL` Actions variable, written into `config.js`); a copy of the repo sends none. The website's page view is counted too (`/king-walk/`); the app doesn't count one.
 
 | Event | Sent when | Code (index.html) |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 - **Funnel:** `start` → `played/1` → `played/10` → `played/50` → `played/100`. The drop from `start` to `played/1` shows people who left before finishing a puzzle; from `played/1` to `played/10`, people who tried it and didn't stay.
 - **Retention:** `back/1d`, `back/7d` and `back/30d` as a share of `start` from the period before (a week earlier for `back/7d`).
 - **Difficulty:** how many reach each `rank/...`, and `mode/easy` versus `mode/hard`. Since placement (November 2026), `placed/...` against `start` shows where new players begin; fewer `mode/hard` from new players is the sign it's working.
-- **Platforms:** `platform/...` counts, and the web against the app (`king-walk/` against `king-walk-ios/`).
+- **Platforms:** `platform/...` counts, and the web against the apps (`king-walk/` against `king-walk-ios/` and `king-walk-android/`).
 
 GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Open the GoatCounter dashboard and filter by `king-walk`.
 

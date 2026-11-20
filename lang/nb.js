@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "De første oppgavene finner nivået ditt med store steg, så du starter der du hører hjemme. Rangen og oppgaveratingen din vises når det er funnet.",
   "Paused": "På pause",
   "Pick up where you left off.": "Fortsett der du slapp.",
-  "Pause": "Pause"
+  "Pause": "Pause",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Framgangen lagres på denne enheten, og telefonens Google-sikkerhetskopi tar vare på en kopi til din neste telefon. Det finnes ingen kontoer.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Framgangen lagres på denne enheten. Vil du flytte den et annet sted, for eksempel til nettsiden, kopierer du lagringskoden og limer den inn der."
 };

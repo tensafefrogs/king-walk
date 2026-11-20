@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "처음 몇 문제는 큰 폭으로 실력을 찾아서, 내 실력에 맞는 곳에서 시작하게 해 줘요. 실력을 찾으면 등급과 퍼즐 레이팅이 표시돼요.",
   "Paused": "일시 정지",
   "Pick up where you left off.": "멈춘 곳에서 이어서 하세요.",
-  "Pause": "일시 정지"
+  "Pause": "일시 정지",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "진행 상황은 이 기기에 저장되고, 휴대폰의 Google 백업에도 사본이 남아 다음 휴대폰에서 이어서 할 수 있어요. 계정은 없어요.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "진행 상황은 이 기기에 저장돼요. 웹사이트 등 다른 곳으로 옮기려면 저장 코드를 복사해 그곳에 붙여 넣으세요."
 };

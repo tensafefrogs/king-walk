@@ -1,5 +1,6 @@
-// Plays a few puzzles in a browser and checks the game works on the web and inside the iOS app.
-// The app is simulated: window.webkit.messageHandlers.kingwalk records what the page sends to it.
+// Plays a few puzzles in a browser and checks the game works on the web and inside the iOS and Android apps.
+// The apps are simulated: window.webkit.messageHandlers.kingwalk (iOS) and window.KingWalkAndroid record what the page
+// sends to them. android/testing/device.js plays the real Android app on an emulator.
 // usage: node testing/smoke.js            Needs Playwright (npm i -g playwright, or the one in this environment).
 const { chromium } = require("playwright");
 const server = require("./server");
@@ -24,17 +25,23 @@ async function run(b, url, app) {
   const p = await ctx.newPage(), errs = [];
   p.on("pageerror", e => errs.push(e.message)); p.on("console", m => { if (m.type() === "error" && !/ERR_FAILED/.test(m.text())) errs.push(m.text()); });   // ERR_FAILED: the stats script, blocked here
   await p.route(/zgo\.at|goatcounter/, r => r.abort());
-  if (app) await p.addInitScript(() => {
+  if (app === "ios") await p.addInitScript(() => {
     window.sent = [];
     window.webkit = { messageHandlers: { kingwalk: { postMessage: m => window.sent.push(JSON.parse(JSON.stringify(m))) } } };
     window.kingWalkApp = { platform: "iphone", gameCenter: true, widget: true };
+  });
+  if (app === "android") await p.addInitScript(() => {          // as android/app/src/main/java/kingwalk/android/MainActivity.kt sets it up
+    window.sent = [];
+    window.KingWalkAndroid = { postMessage: json => window.sent.push(JSON.parse(json)) };
+    window.kingWalkApp = { platform: "android-phone", gameCenter: false, widget: false, reminders: true };
   });
   await p.goto(url);
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
   const share = await p.evaluate(() => shareText(lastResult));
   await p.waitForTimeout(1200);          // the first-solve celebration comes a moment after the solve
   const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], n: me().n, solved: me().solved, rating: me().rating, level: me().place && me().place.r, shown: $("rating").textContent, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
-    sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent }));
+    sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent,
+    os: APP && APP.os, prefix: TRACK_PREFIX, remind: !$("remindRow").hidden, back: typeof kingWalkBack === "function" }));
   // a wrong move, a hint and the answer
   await p.waitForFunction(() => !locked && !done, null, { timeout: 15000 });
   await p.evaluate(() => {
@@ -59,9 +66,9 @@ async function run(b, url, app) {
     new MutationObserver(() => { const g = document.querySelector(".cele:not(.out) .go"); if (g && !g.dataset.seen) { g.dataset.seen = 1; window.celebrated = (window.celebrated || []).concat(document.querySelector(".cele-title").getAttribute("aria-label")); g.click(); } })
       .observe(document, { childList: true, subtree: true }); }); return c; };
   let bad = 0;
-  for (const app of [false, true]) {
+  for (const app of [false, "ios", "android"]) {
     const { r, after, errs, share } = await run(b, srv.url, app);
-    const name = app ? "iOS app (simulated)" : "web";
+    const name = app === "ios" ? "iOS app (simulated)" : app === "android" ? "Android app (simulated)" : "web";
     const check = (ok, what) => { if (!ok) { bad++; console.log("FAIL", name, what); } };
     check(r.n === 3 && r.solved === 3, "three puzzles solved: " + JSON.stringify(r));
     check(r.level > 600 && r.rating === 600 && r.shown === "?", "placement: three clean solves raise the level being tried, the rating stays hidden: " + JSON.stringify([r.level, r.rating, r.shown]));
@@ -70,7 +77,16 @@ async function run(b, url, app) {
     check(!errs.length, "no page errors: " + errs.join(" | "));
     check(/King Walk \u00b7 Finding your level/.test(share) && /\u2705\u2705\u2705/.test(share) && /3 solved/.test(share), "share text: " + JSON.stringify(share));
     if (!app) check(share.includes("http://127.0.0.1") === false && !/apps\.apple/.test(share), "web share links to the site, not the App Store");
-    if (app) {
+    if (app === "android") {
+      check(r.os === "android" && r.prefix === "king-walk-android/", "the page knows it's the Android app: " + JSON.stringify([r.os, r.prefix]));
+      check(r.sent.includes("ready") && r.sent.includes("reminders"), "ready and the reminder list reach the app");
+      for (const op of ["haptic:pick", "haptic:solve"]) check(r.sent.includes(op), "sent " + op);
+      check(!r.sent.some(m => /^(score|achieve|widget)/.test(m)), "no Game Center or widget messages: " + r.sent.filter(m => /^(score|achieve|widget)/.test(m)).join(", "));
+      check(r.haptics && !r.gc && r.remind, "Haptics and reminder rows shown, no Game Center row");
+      check(/Google/.test(r.help) && !/iCloud/.test(r.help), "the help text mentions the Google backup, not iCloud: " + r.help);
+      check(r.back, "the back gesture has kingWalkBack");
+    } else if (app) {
+      check(r.os === "ios" && r.prefix === "king-walk-ios/", "the page knows it's the iOS app");
       check(r.sent.includes("haptic:move") || r.sent.includes("haptic:take"), "sent haptic:move or haptic:take");
       for (const op of ["haptic:pick", "haptic:opp", "haptic:solve", "score:streak", "achieve:first_solve", "widget"]) check(r.sent.includes(op), "sent " + op);
       for (const op of ["haptic:wrong", "haptic:hint"]) check(after.sent.includes(op), "sent " + op);

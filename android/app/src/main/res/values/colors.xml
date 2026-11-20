@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- the page's background (theme-color in index.html), behind the status and navigation bars -->
+    <color name="page">#edf1ef</color>
+    <color name="gold">#f2c230</color>
+</resources>

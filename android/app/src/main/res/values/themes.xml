@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- a light theme in light mode and a dark one in dark mode (values-night): the WebView reports the same to the
+         page (prefers-color-scheme), so the game follows the phone -->
+    <style name="Theme.KingWalk" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/page</item>
+        <item name="android:colorAccent">@color/gold</item>
+    </style>
+</resources>

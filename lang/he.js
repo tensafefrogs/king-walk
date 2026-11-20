@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "החידות הראשונות מוצאות את הרמה שלך בצעדים גדולים, כך שמתחילים במקום הנכון. הדרגה ודירוג החידות יופיעו כשהרמה תימצא.",
   "Paused": "מושהה",
   "Pick up where you left off.": "אפשר להמשיך מאיפה שעצרת.",
-  "Pause": "השהיה"
+  "Pause": "השהיה",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "ההתקדמות נשמרת במכשיר הזה, והגיבוי של Google בטלפון שומר עותק בשביל הטלפון הבא. אין חשבונות.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "ההתקדמות נשמרת במכשיר הזה. כדי להעביר אותה למקום אחר, למשל לאתר, מעתיקים את קוד השמירה ומדביקים אותו שם."
 };

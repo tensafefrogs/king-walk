@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Οι πρώτοι γρίφοι βρίσκουν το επίπεδό σου με μεγάλα βήματα, ώστε να ξεκινάς εκεί που ανήκεις. Η βαθμίδα και η βαθμολογία γρίφων σου εμφανίζονται μόλις βρεθεί.",
   "Paused": "Σε παύση",
   "Pick up where you left off.": "Συνέχισε από εκεί που σταμάτησες.",
-  "Pause": "Παύση"
+  "Pause": "Παύση",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Η πρόοδος αποθηκεύεται σε αυτή τη συσκευή, και το αντίγραφο ασφαλείας Google του τηλεφώνου σου κρατά ένα αντίγραφο για το επόμενο τηλέφωνό σου. Δεν υπάρχουν λογαριασμοί.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Η πρόοδος αποθηκεύεται σε αυτή τη συσκευή. Για να τη μεταφέρεις αλλού, π.χ. στον ιστότοπο, αντίγραψε τον κωδικό αποθήκευσης και επικόλλησέ τον εκεί."
 };

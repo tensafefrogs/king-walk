@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Vài câu đố đầu tiên tìm trình độ của bạn theo từng bước lớn, để bạn bắt đầu đúng chỗ của mình. Cấp bậc và điểm câu đố sẽ hiện khi đã tìm ra.",
   "Paused": "Tạm dừng",
   "Pick up where you left off.": "Tiếp tục từ chỗ bạn dừng lại.",
-  "Pause": "Tạm dừng"
+  "Pause": "Tạm dừng",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Tiến trình được lưu trên thiết bị này, và bản sao lưu Google của điện thoại sẽ giữ một bản sao cho điện thoại tiếp theo của bạn. Không có tài khoản nào cả.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Tiến trình được lưu trên thiết bị này. Để chuyển sang nơi khác, chẳng hạn trang web, hãy sao chép mã lưu rồi dán vào đó."
 };

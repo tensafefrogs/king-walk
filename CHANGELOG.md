@@ -11,6 +11,13 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - Nothing yet.
 
+### Android app (new; not on Google Play yet)
+
+- **King Walk for Android:** the same game in an app for Android phones and tablets (`android/`), playable offline,
+  with the daily reminder, haptics, Share, the Google Play rating prompt and the back gesture. Progress goes into the
+  phone's Google backup, so a new phone starts where the old one left off. Not there yet: widgets, Google Play Games,
+  and progress moving between devices while they're in use.
+
 ### Website only (live on kingwalk.app)
 
 - **Computers hear about the app too:** on a Mac, Windows or Linux (not Android), the website shows the App Store bar

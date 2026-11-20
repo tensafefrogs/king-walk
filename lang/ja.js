@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初の数問は大きな幅で実力を測り、ふさわしい位置からスタートできるようにします。ランクとパズルレーティングは、実力がわかると表示されます。",
   "Paused": "一時停止中",
   "Pick up where you left off.": "前回の続きから再開できます。",
-  "Pause": "一時停止"
+  "Pause": "一時停止",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "進行状況はこの端末に保存され、スマートフォンのGoogleバックアップにもコピーが残るので、次のスマートフォンでも続きから遊べます。アカウントはありません。",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "進行状況はこのデバイスに保存されます。ウェブサイトなど別の場所に移すには、セーブコードをコピーして、そこに貼り付けてください。"
 };

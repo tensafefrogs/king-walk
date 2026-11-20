@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Els primers problemes troben el teu nivell a grans passes, perquè comencis on et toca. El rang i la puntuació de problemes apareixen quan s'ha trobat.",
   "Paused": "En pausa",
   "Pick up where you left off.": "Continua on ho havies deixat.",
-  "Pause": "Posa en pausa"
+  "Pause": "Posa en pausa",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "El progrés es desa en aquest dispositiu, i la còpia de seguretat de Google del teu telèfon en guarda una còpia per al teu proper telèfon. No hi ha comptes.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "El progrés es desa en aquest dispositiu. Per passar-lo a un altre lloc, com ara el web, copia el teu codi de desament i enganxa'l allà."
 };

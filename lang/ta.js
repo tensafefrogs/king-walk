@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "முதல் சில புதிர்கள் பெரிய படிகளில் உங்கள் திறனைக் கண்டறியும், அதனால் நீங்கள் சரியான இடத்திலிருந்து தொடங்குவீர்கள். அது கண்டறியப்பட்டதும் உங்கள் நிலையும் புதிர் ரேட்டிங்கும் தெரியும்.",
   "Paused": "இடைநிறுத்தப்பட்டது",
   "Pick up where you left off.": "நிறுத்திய இடத்திலிருந்தே தொடருங்கள்.",
-  "Pause": "இடைநிறுத்து"
+  "Pause": "இடைநிறுத்து",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "முன்னேற்றம் இந்தச் சாதனத்தில் சேமிக்கப்படுகிறது; உங்கள் ஃபோனின் Google காப்புப்பிரதி உங்கள் அடுத்த ஃபோனுக்காக அதன் நகலை வைத்திருக்கும். கணக்குகள் எதுவும் இல்லை.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "முன்னேற்றம் இந்தச் சாதனத்தில் சேமிக்கப்படுகிறது. இணையதளம் போன்ற வேறு இடத்துக்கு மாற்ற, உங்கள் சேமிப்புக் குறியீட்டை நகலெடுத்து அங்கே ஒட்டுங்கள்."
 };

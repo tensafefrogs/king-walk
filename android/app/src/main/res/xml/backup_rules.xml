@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and earlier: Google backup keeps the save (SaveStore's copy of the page's storage) for a new phone -->
+<full-backup-content>
+    <include domain="sharedpref" path="save.xml" />
+</full-backup-content>

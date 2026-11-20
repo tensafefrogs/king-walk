@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "最初几道题会大步调整，找到你的水平，让你从合适的位置起步。找到后会显示你的段位和谜题等级分。",
   "Paused": "已暂停",
   "Pick up where you left off.": "从上次停下的地方继续。",
-  "Pause": "暂停"
+  "Pause": "暂停",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "进度保存在这台设备上，手机的 Google 备份也会保留一份副本，供你的下一部手机使用。没有账号。",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "进度保存在这台设备上。要转移到其他地方（例如网站），请复制你的存档码，然后粘贴到那里。"
 };

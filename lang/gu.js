@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "પહેલા થોડા કોયડા મોટાં પગલાંમાં તમારું લેવલ શોધે છે, જેથી તમે યોગ્ય જગ્યાએથી શરૂ કરો. લેવલ મળતાં જ તમારો રેન્ક અને કોયડા રેટિંગ દેખાશે.",
   "Paused": "થોભાવેલું",
   "Pick up where you left off.": "જ્યાં અટક્યા હતા ત્યાંથી આગળ વધો.",
-  "Pause": "થોભાવો"
+  "Pause": "થોભાવો",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "પ્રગતિ આ ડિવાઇસ પર સેવ થાય છે, અને તમારા ફોનનું Google બેકઅપ તમારા આગલા ફોન માટે તેની એક કૉપિ રાખે છે. કોઈ એકાઉન્ટ નથી.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "પ્રગતિ આ ડિવાઇસ પર સેવ થાય છે. તેને બીજે, જેમ કે વેબસાઇટ પર, લઈ જવા માટે તમારો સેવ કોડ કૉપિ કરો, પછી ત્યાં પેસ્ટ કરો."
 };

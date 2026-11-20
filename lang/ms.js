@@ -329,5 +329,7 @@
   "The first few puzzles find your level in big steps, so you start where you belong. Your rank and puzzle rating show up once it's found.": "Beberapa teka-teki pertama mencari tahap anda dengan langkah besar, supaya anda bermula di tempat yang sesuai. Pangkat dan rating teka-teki anda muncul sebaik tahap itu ditemui.",
   "Paused": "Dijeda",
   "Pick up where you left off.": "Sambung dari tempat anda berhenti.",
-  "Pause": "Jeda"
+  "Pause": "Jeda",
+  "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "Kemajuan disimpan pada peranti ini, dan sandaran Google telefon anda menyimpan salinan untuk telefon anda yang seterusnya. Tiada akaun.",
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "Kemajuan disimpan pada peranti ini. Untuk memindahkannya ke tempat lain, seperti laman web, salin kod simpanan anda, kemudian tampal di sana."
 };
