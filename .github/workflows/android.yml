@@ -72,7 +72,7 @@ jobs:
           profile: pixel_7
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
-          script: node android/testing/device.js apk/app/build/outputs/apk/debug/app-debug.apk android-shots
+          script: node android/testing/device.js "$(find apk -name app-debug.apk | head -1)" android-shots
       - uses: actions/upload-artifact@v4
         if: always()
         with:
