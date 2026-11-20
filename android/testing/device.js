@@ -124,14 +124,9 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await device.screenshot({ path: path.join(out, "7-sideways.png") });
   await sh("settings put system user_rotation 0"); await sleep(2000);
 
-  // a tablet-sized screen (the same emulator with a bigger, less dense display), upright and sideways
-  await sh("wm size 1600x2560"); await sh("wm density 320"); await sleep(3000);
-  await fitCheck("tablet: the board fits and nothing runs off the side");
-  await device.screenshot({ path: path.join(out, "8-tablet.png") });
-  await sh("wm size 2560x1600"); await sleep(3000);
-  await fitCheck("tablet sideways: the board fits and nothing runs off the side");
-  await device.screenshot({ path: path.join(out, "9-tablet-sideways.png") });
-  await sh("wm size reset"); await sh("wm density reset"); await sh("settings put system accelerometer_rotation 1"); await sleep(2500);
+  // (tablet sizes: testing/layout.js lays the page out at iPad and other tablet sizes in Chromium, the engine of
+  // Android's WebView; changing this emulator's screen size with wm stops the emulator)
+  await sh("settings put system accelerometer_rotation 1");
 
   // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
   const nBefore = await page.evaluate(() => me().n);
