@@ -1,0 +1,17 @@
+{
+  "_about": "Google Play's store listing for King Walk (en-US), entered in Play Console > Grow users > Store presence > Main store listing. Kept in step with ios/store/listing.json; Android has no Game Center or widgets yet, so they're left out.",
+  "title": "King Walk: Chess Puzzles",
+  "short_description": "Chess puzzles that fight back: 53,000 from real games, plus a daily puzzle.",
+  "full_description": "Think you can see three moves ahead? Prove it.\n\nKing Walk throws real chess puzzles at you, 53,000 of them, pulled from actual games. Solve one and the next gets tougher. Miss one and it backs off. A few dozen puzzles in, it knows exactly how good you are. Then it starts pushing.\n\nYou start as a Pawn. Earn Knight, Bishop, Rook and Queen. Reach King and you've walked the whole board.\n\n• 53,000 puzzles from real games: forks, pins, skewers and sneaky back-rank mates\n• A rating that finds your level and climbs with you\n• A daily puzzle, the same for everyone. Keep the streak alive, brag in emoji\n• Rank streaks: 15 puzzles, no hints, one miss and you're out\n• Stuck? Take a hint. We won't tell anyone.\n• Missed one? It comes back later for a rematch\n• Big, loud celebrations every time you rank up\n• A daily reminder, if you want one\n• Haptics, dark mode, screen reader support and larger text\n• Plays in 45 languages\n• Works offline. No account, no ads, no in-app purchases\n\nThe puzzles come from the public-domain Lichess puzzle database. King Walk is not made or endorsed by Lichess.",
+  "category": "Puzzle (Games)",
+  "tags": [
+    "Chess",
+    "Puzzle",
+    "Board"
+  ],
+  "contact_website": "https://kingwalk.app/",
+  "privacy_policy": "https://kingwalk.app/privacy.html",
+  "icon": "android/store/icon-512.png",
+  "feature_graphic": "not made yet (1024 x 500)",
+  "screenshots": "not made yet (phone: 2 to 8, 9:16)"
+}

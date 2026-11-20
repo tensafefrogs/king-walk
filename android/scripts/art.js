@@ -12,7 +12,7 @@ if (!mark.includes(BG)) throw new Error("brand/mark-square.svg changed: update a
 // the adaptive icon is 108 dp, of which a launcher may show only the middle 66 dp circle: the art keeps inside it
 const inner = mark.replace(BG, "").replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 const fit = (body, k) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g transform="translate(256 256) scale(${k}) translate(-256 -256)">${body}</g></svg>`;
-const SCALE = 0.62 / 0.78;          // mark-square fills 78% of its box with the tiles; this leaves them at 62% of 108 dp
+const SCALE = 0.64;          // the art (73% of mark-square) at 47% of 108 dp: inside the 72 dp a launcher shows, even in a circle
 const foreground = fit(inner, SCALE);
 // monochrome: one colour, the shape is what counts (Android tints it); every fill opaque white
 const mono = fit(inner.replace(/fill="#[0-9a-f]{6}"/gi, 'fill="#ffffff"').replace(/stroke="#[0-9a-f]{6}"/gi, 'stroke="#ffffff"'), SCALE);
