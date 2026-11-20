@@ -72,3 +72,17 @@ If you add, rename or remove a `track()` call, update this page and the events l
 ## The report
 
 `python3 testing/stats.py` prints the funnel (new players, coming back, puzzles played, ranks), the daily puzzle, every achievement (from `ios/store/gamecenter.json`), rank streaks, hints, sharing and settings, for the website and the app side by side. It needs `GOATCOUNTER_TOKEN` (GoatCounter > Settings > API, "Read statistics" only) and `GOATCOUNTER_URL` (the count address the website uses) in the environment. `--days 30`, `--since`/`--until`, `--web` or `--app` change what it shows.
+
+## Moving to another GoatCounter site
+
+The website and the app send to the address in the `GOATCOUNTER_URL` Actions variable, read when they're built (the
+website on every push, the app with each build). To move King Walk to a site of its own:
+
+1. In GoatCounter, add the site (for example `kingwalk`, giving `https://kingwalk.goatcounter.com/count`), and under its
+   Settings → API make a token that can only read statistics.
+2. Change `GOATCOUNTER_URL` in the repository's Actions variables to the new address, and push anything (or run the
+   **Website** workflow) so the website picks it up. The app sends there from the next build.
+3. App versions built before the change keep sending to the old site until players update, so for a while read both:
+   `GOATCOUNTER_URL="https://<new>.goatcounter.com/count https://<old>.goatcounter.com/count" python3 testing/stats.py`
+   adds their counts together. Counts from before the move stay on the old site.
+4. Update `privacy.html` if it names the GoatCounter site.

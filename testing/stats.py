@@ -6,7 +6,10 @@ usage: python3 testing/stats.py [--since 2026-11-10] [--until 2026-11-16] [--day
   --since/--until  a date range (UTC days, inclusive); default: the last 7 days (--days to change)
   --web, --app     the website (king-walk/...) or the iOS app (king-walk-ios/...); --both (the default) shows them side by side
 Needs GOATCOUNTER_TOKEN (GoatCounter > Settings > API, "Read statistics" only) and GOATCOUNTER_URL, the same count address
-the website uses (https://<site>.goatcounter.com/count), in the environment.
+the website uses (https://<site>.goatcounter.com/count), in the environment. After moving to a new GoatCounter site, list
+both addresses (new then old, a space between): app versions built before the move keep sending to the old one, and
+their counts are added together. In a cloud session the token can be the network secret for each host instead (set
+GOATCOUNTER_TOKEN=proxy-injected).
 The achievements are read from ios/store/gamecenter.json, so new ones show up by themselves.
 """
 import argparse, datetime, json, os, re, sys, time, urllib.error, urllib.request
@@ -17,8 +20,18 @@ PREFIX = {'web': 'king-walk/', 'app': 'king-walk-ios/'}
 
 
 def fetch(start, end):
-    tok = os.environ.get('GOATCOUNTER_TOKEN', '').strip() or sys.exit('Set GOATCOUNTER_TOKEN (see testing/STATS.md).')
+    """Every event's count over the days, added up over the GoatCounter sites in GOATCOUNTER_URL: several addresses
+    (spaces or commas between them) while the game moves to a new site and app versions already out still send to the
+    old one."""
     url = os.environ.get('GOATCOUNTER_URL', '').strip() or sys.exit('Set GOATCOUNTER_URL, e.g. https://example.goatcounter.com/count')
+    counts = {}
+    for one in re.split(r'[\s,]+', url):
+        for path, n in fetch_site(one, start, end).items(): counts[path] = counts.get(path, 0) + n
+    return counts
+
+
+def fetch_site(url, start, end):
+    tok = os.environ.get('GOATCOUNTER_TOKEN', '').strip() or sys.exit('Set GOATCOUNTER_TOKEN (see testing/STATS.md).')
     base = re.sub(r'/count/?$', '', url.rstrip('/')) + '/api/v0/stats/hits'
     counts, seen = {}, []
     while True:   # the API pages 100 paths at a time; exclude the ones already read
