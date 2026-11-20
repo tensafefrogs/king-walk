@@ -75,6 +75,10 @@ If you add, rename or remove a `track()` call, update this page and the events l
 
 ## Moving to another GoatCounter site
 
+King Walk moved to its own site, kingwalk.goatcounter.com, on 20 November 2026 (the website that day, the app from 1.0.4).
+Counts before that are on geoffstearns.goatcounter.com (paths `king-walk/...` and `king-walk-ios/...`); read both with
+`GOATCOUNTER_URL="https://kingwalk.goatcounter.com/count https://geoffstearns.goatcounter.com/count"`.
+
 The website and the app send to the address in the `GOATCOUNTER_URL` Actions variable, read when they're built (the
 website on every push, the app with each build). To move King Walk to a site of its own:
 
