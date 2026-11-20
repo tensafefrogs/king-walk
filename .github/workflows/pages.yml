@@ -66,7 +66,7 @@ jobs:
           if cfg['appStoreId'] and cfg['appLive']:
               try:
                   import segno
-                  segno.make('https://apps.apple.com/app/id' + cfg['appStoreId'], error='m').save('_site/app-qr.svg', border=0, dark='#000', light=None)
+                  segno.make('https://apps.apple.com/app/id' + cfg['appStoreId'], error='m').save('_site/app-qr.svg', border=2, dark='#000', light=None, omitsize=True)
                   cfg['qr'] = 'app-qr.svg'
                   print('App Store QR code: app-qr.svg')
               except Exception as e:
