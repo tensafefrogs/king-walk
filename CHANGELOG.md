@@ -14,7 +14,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 ### Android app (new; not on Google Play yet)
 
 - **King Walk for Android:** the same game in an app for Android phones and tablets (`android/`), playable offline,
-  with the daily reminder, haptics, Share, the Google Play rating prompt and the back gesture. Progress goes into the
+  with the daily reminder, haptics, Share, the Google Play rating prompt, the back gesture and a "Today's puzzle"
+  shortcut on the app's icon (touch and hold). It turns with the phone, follows dark mode and the phone's text size
+  while a game is open, and gives the launcher a themed icon. Progress goes into the
   phone's Google backup, so a new phone starts where the old one left off. Not there yet: widgets, Google Play Games,
   and progress moving between devices while they're in use.
 

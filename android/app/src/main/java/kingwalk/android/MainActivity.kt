@@ -40,6 +40,7 @@ import java.util.Locale
  */
 class MainActivity : ComponentActivity() {
     private lateinit var web: WebView
+    private lateinit var frame: FrameLayout
     private lateinit var saves: SaveStore
     private var startScripts = listOf<ScriptHandler>()
     private var pageReady = false
@@ -88,7 +89,7 @@ class MainActivity : ComponentActivity() {
         installScripts()
 
         // edge to edge: the game sits inside the status and navigation bars and any camera cutout, on its own colour
-        val frame = FrameLayout(this)
+        frame = FrameLayout(this)
         frame.setBackgroundColor(ContextCompat.getColor(this, R.color.page))
         frame.addView(web, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         ViewCompat.setOnApplyWindowInsetsListener(frame) { v, insets ->
@@ -116,9 +117,14 @@ class MainActivity : ComponentActivity() {
         intent.getStringExtra(EXTRA_OPEN)?.let { pendingOpen = it; openRequested() }
     }
 
-    /** the font size changed in the phone's settings (the activity handles fontScale itself, see the manifest) */
+    /** the font size, dark mode or the screen changed (the activity handles these itself, see the manifest, so a game
+     *  in progress isn't restarted): the page is laid out again, and the colours behind it and the bars' icons follow
+     *  dark mode (the page follows it on its own, through prefers-color-scheme) */
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
+        val page = ContextCompat.getColor(this, R.color.page)
+        frame.setBackgroundColor(page); web.setBackgroundColor(page)
+        enableEdgeToEdge()
         sendViewport(force = true)
     }
 

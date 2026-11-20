@@ -23,8 +23,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   // notifications allowed up front: the permission dialog is Android's, not the game's
   await sh(`pm grant ${PKG} android.permission.POST_NOTIFICATIONS`).catch(() => {});
 
-  const open = async () => {
-    await sh(`am start -W -n ${ACTIVITY}`);
+  const open = async (how = `-n ${ACTIVITY}`) => {
+    await sh(`am start -W ${how}`);
     const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
     const page = await view.page();
     await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && !locked, null, { timeout: 60000 });
@@ -69,7 +69,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check(/chess-climb-v1/.test(prefs), "the save is copied to save.xml", prefs.slice(0, 200));
 
   // the menu: open it, then back closes it and the app stays open
-  await page.evaluate(() => $("menuBtn").click()); await sleep(600);
+  await page.evaluate(() => { if (!$("menu").classList.contains("open")) $("menuBtn").click(); }); await sleep(600);
+  check(await page.evaluate(() => $("menu").classList.contains("open")), "the menu opens");
   await device.screenshot({ path: path.join(out, "3-menu.png") });
   await sh("input keyevent KEYCODE_BACK"); await sleep(800);
   check(await page.evaluate(() => !$("menu").classList.contains("open")), "back closes the menu");
@@ -107,6 +108,55 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "nothing runs off the side at a bigger font size");
   await device.screenshot({ path: path.join(out, "6-big-text.png") });
   await sh("settings put system font_scale 1.0");
+
+  // the page fits: no sideways scrolling, the whole board on screen
+  const fits = () => page.evaluate(() => {
+    const b = document.querySelector(".board, #board").getBoundingClientRect();
+    return { sideways: document.documentElement.scrollWidth > window.innerWidth + 1, board: Math.round(b.width), w: window.innerWidth, h: window.innerHeight,
+      boardOn: b.left >= -1 && b.right <= window.innerWidth + 1 };
+  });
+  const fitCheck = async what => { const f = await fits(); check(!f.sideways && f.boardOn && f.board > 150, what, JSON.stringify(f)); };
+
+  // sideways: the app turns with the phone (no orientation is locked) and the game lays itself out for it
+  await sh("settings put system accelerometer_rotation 0"); await sh("settings put system user_rotation 1"); await sleep(2500);
+  check(await page.evaluate(() => window.innerWidth > window.innerHeight), "the app turns sideways with the phone");
+  await fitCheck("sideways: the board fits and nothing runs off the side");
+  await device.screenshot({ path: path.join(out, "7-sideways.png") });
+  await sh("settings put system user_rotation 0"); await sleep(2000);
+
+  // a tablet-sized screen (the same emulator with a bigger, less dense display), upright and sideways
+  await sh("wm size 1600x2560"); await sh("wm density 320"); await sleep(3000);
+  await fitCheck("tablet: the board fits and nothing runs off the side");
+  await device.screenshot({ path: path.join(out, "8-tablet.png") });
+  await sh("wm size 2560x1600"); await sleep(3000);
+  await fitCheck("tablet sideways: the board fits and nothing runs off the side");
+  await device.screenshot({ path: path.join(out, "9-tablet-sideways.png") });
+  await sh("wm size reset"); await sh("wm density reset"); await sh("settings put system accelerometer_rotation 1"); await sleep(2500);
+
+  // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
+  const nBefore = await page.evaluate(() => me().n);
+  await sh("cmd uimode night yes"); await sleep(3000);
+  check(await page.evaluate(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
+  check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
+  await device.screenshot({ path: path.join(out, "10-dark.png") });
+  await sh("cmd uimode night no"); await sleep(3000);
+  check(await page.evaluate(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
+
+  // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page's
+  // reduced motion follows it
+  const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const scale = (await sh("settings get global animator_duration_scale")).trim();
+  check(reduced === (parseFloat(scale) === 0), "the page's reduced motion follows Remove animations", `scale ${scale}, reduce ${reduced}`);
+
+  // the app shortcut (touch and hold the icon): Today's puzzle
+  const shortcuts = await sh(`dumpsys shortcut | grep -A3 "Package: ${PKG}" | head -20; dumpsys shortcut | grep -c "id=daily"`);
+  check(/[1-9]\s*$/.test(shortcuts), "the Today's puzzle shortcut is published", shortcuts.trim().slice(-300));
+  // (from a closed app, which opens on the ordinary puzzles)
+  await sh(`am force-stop ${PKG}`);
+  page = await open(`-a kingwalk.android.OPEN --es open daily -p ${PKG}`);
+  page.on("pageerror", e => errs.push(e.message));
+  await sleep(2500);
+  check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "the shortcut opens the daily puzzle");
 
   check(!errs.length, "no page errors", errs.join(" | "));
   await device.close();

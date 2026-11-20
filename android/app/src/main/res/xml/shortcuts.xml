@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Touch and hold the app's icon: "Today's puzzle" opens the daily puzzle (the iOS app's quick action; a reminder's tap
+     does the same through MainActivity.openIntent). The package name is a build setting, so the intent names an action
+     MainActivity listens for rather than the package. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="daily"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_daily"
+        android:shortcutShortLabel="@string/channel_daily">
+        <intent
+            android:action="kingwalk.android.OPEN">
+            <extra android:name="open" android:value="daily" />
+        </intent>
+    </shortcut>
+</shortcuts>
