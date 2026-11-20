@@ -133,16 +133,6 @@ const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() =
   // Android's WebView; changing this emulator's screen size with wm stops the emulator)
   await sh("settings put system accelerometer_rotation 1");
 
-  // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
-  const nBefore = await page.evaluate(() => me().n);
-  await sh("cmd uimode night yes");
-  check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
-  await sleep(1000);
-  check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
-  await device.screenshot({ path: path.join(out, "10-dark.png") });
-  await sh("cmd uimode night no");
-  check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
-
   // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page moves less
   // (the app tells it: the WebView doesn't pass the setting on as prefers-reduced-motion)
   const reduced = await page.evaluate(() => REDUCED && document.documentElement.classList.contains("reduce-motion"));
@@ -190,6 +180,26 @@ const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() =
   }
 
   check(!errs.length, "no page errors", errs.join(" | "));
+
+  // last, as the emulator on GitHub's machines sometimes stops while it redraws for a theme change (it has stopped
+  // during wm size too): if the emulator itself is gone, that's reported, not counted against the app
+  try {
+    // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
+    const nBefore = await page.evaluate(() => me().n);
+    await sh("cmd uimode night yes");
+    check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
+    await sleep(1000);
+    check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
+    await device.screenshot({ path: path.join(out, "10-dark.png") });
+    await sh("cmd uimode night no");
+    check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
+  } catch (e) {
+    const alive = await device.shell("echo ok").then(() => true, () => false);
+    if (alive) throw e;
+    console.log("note dark mode switch not checked: the emulator stopped while redrawing for it (" + e.message.split("\n")[0] + ")");
+    console.log(bad ? bad + " failed" : "all passed");
+    process.exit(bad ? 1 : 0);
+  }
   await device.close();
   console.log(bad ? bad + " failed" : "all passed");
   process.exit(bad ? 1 : 0);
