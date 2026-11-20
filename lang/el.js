@@ -1,5 +1,7 @@
 /* King Walk in Ελληνικά. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["el"] = {
+  "Achievements": "Επιτεύγματα",
+  "Leaderboards": "Πίνακες κατάταξης",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Γραφικά στοιχεία, καθημερινή υπενθύμιση, Game Center, συγχρονισμός iCloud",
   "Home Screen widget": "Γραφικό στοιχείο στην οθόνη Αφετηρίας",
   "King Walk for iPhone and iPad": "King Walk για iPhone και iPad",

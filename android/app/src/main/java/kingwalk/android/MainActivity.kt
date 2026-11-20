@@ -41,6 +41,7 @@ import java.util.Locale
 class MainActivity : ComponentActivity() {
     private lateinit var web: WebView
     private lateinit var frame: FrameLayout
+    private lateinit var updates: Updates
     private lateinit var saves: SaveStore
     private var startScripts = listOf<ScriptHandler>()
     private var pageReady = false
@@ -62,7 +63,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         saves = SaveStore(this)
-        pendingOpen = intent.getStringExtra(EXTRA_OPEN)
+        pendingOpen = requested(intent)
+        PlayGames.init(this)
+        updates = Updates(this).also { it.check() }
 
         web = WebView(this)
         web.setBackgroundColor(ContextCompat.getColor(this, R.color.page))
@@ -114,8 +117,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(EXTRA_OPEN)?.let { pendingOpen = it; openRequested() }
+        requested(intent)?.let { pendingOpen = it; openRequested() }
     }
+
+    /** what an intent asks the game to open: a reminder, widget, tile or shortcut says (EXTRA_OPEN); a website link
+     *  to a shared daily puzzle ends in #daily (App Links) */
+    private fun requested(intent: Intent): String? =
+        intent.getStringExtra(EXTRA_OPEN) ?: intent.data?.takeIf { it.fragment == "daily" }?.let { "daily" }
 
     /** the font size, dark mode or the screen changed (the activity handles these itself, see the manifest, so a game
      *  in progress isn't restarted): the page is laid out again, and the colours behind it and the bars' icons follow
@@ -139,6 +147,11 @@ class MainActivity : ComponentActivity() {
         super.onPause()
     }
 
+    override fun onStop() {
+        super.onStop()
+        updates.installIfReady()          // an update Play has downloaded goes in while the player is away
+    }
+
     override fun onDestroy() {
         (web.parent as? ViewGroup)?.removeView(web)
         web.destroy()
@@ -154,12 +167,13 @@ class MainActivity : ComponentActivity() {
         startScripts.forEach { it.remove() }
         val app = JSONObject()
             .put("platform", platform())
-            .put("gameCenter", false)
+            .put("gameCenter", PlayGames.enabled)          // Google Play Games, in Game Center's place (PlayGames.kt)
             .put("widget", false)
             .put("reminders", true)
             // Remove animations (Settings, Accessibility): Chrome passes it to pages as prefers-reduced-motion, the
             // WebView doesn't, so the app does
             .put("reducedMotion", !android.animation.ValueAnimator.areAnimatorsEnabled())
+        Languages.current(this)?.let { app.put("lang", it) }          // the phone's per-app language (Languages.kt)
         val viewport = """
             window.kingWalkViewport=function(w,z){var m=document.querySelector('meta[name=viewport]');if(!m||!(w>0))return;
             var c=z===1?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
@@ -219,6 +233,10 @@ class MainActivity : ComponentActivity() {
             "remove" -> if (body.has("key")) saves.remove(body.getString("key"))
             "clear" -> saves.clear()
             "copy" -> getSystemService(ClipboardManager::class.java)?.setPrimaryClip(ClipData.newPlainText("King Walk", body.optString("text")))
+            "lang" -> Languages.set(this, body.optString("tag"))          // the app then opens again in it
+            "achieve" -> PlayGames.achieve(this, body.optString("id"))
+            "score" -> PlayGames.score(this, body.optString("board"), body.optLong("value"))
+            "gamecenter" -> PlayGames.show(this, body.optJSONArray("labels")?.let { a -> List(a.length()) { a.optString(it) } } ?: emptyList())
             "haptic" -> Haptics.play(web, body.optString("kind"))
             "share" -> share(body.optString("text"))
             "review" -> review()

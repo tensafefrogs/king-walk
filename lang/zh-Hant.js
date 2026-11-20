@@ -1,5 +1,7 @@
 /* King Walk in 繁體中文. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["zh-Hant"] = {
+  "Achievements": "成就",
+  "Leaderboards": "排行榜",
   "Widgets, a daily reminder, Game Center, iCloud sync": "小工具、每日提醒、Game Center、iCloud 同步",
   "Home Screen widget": "主畫面小工具",
   "King Walk for iPhone and iPad": "King Walk iPhone 與 iPad 版",

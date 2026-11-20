@@ -8,6 +8,12 @@ The game's page (`index.html`, the same file as the website and the iOS app) in 
 | `SaveStore.kt` | A copy of the page's save, which Android's Google backup takes: a new phone, or the app installed again, starts with the player's progress |
 | `Reminders.kt` | The daily puzzle reminder, scheduled on the phone (no server), with the text in the player's language from the page |
 | `Haptics.kt` | The page's haptic kinds as Android's own touch feedback |
+| `Languages.kt` | The game's language as the phone's per-app language (Android 13 and later), set from either side |
+| `DailyTile.kt` | The Today's puzzle tile for Quick Settings |
+| `PlayGames.kt` | Google Play Games: achievements and leaderboards, the same as Game Center's |
+| `Updates.kt` | Google Play updates, downloaded while the game is open and installed when the player leaves it |
+| `res/xml/shortcuts.xml` | The Today's puzzle shortcut (touch and hold the app's icon) |
+| `store/playgames.py` | Makes the Play Games achievements and leaderboards, and prints the ids the app needs |
 | `scripts/prepare-web.sh` | Copies the game into the app and writes its `config.js` (run before building) |
 | `scripts/art.js` | The launcher icon (adaptive, with a themed version) and the Play listing icon, from `brand/` |
 | `scripts/strings.py` | The app's own few words in 45 languages, from the iOS app's translations |
@@ -46,6 +52,9 @@ The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected
 5. **Upload it by hand once:** Play Console → King Walk → Test and release → Testing → Internal testing → Create new release. Leave "Play App Signing" on. Google's API only knows a new app after this first upload.
 6. **Let the workflow upload from then on (optional):** in Google Cloud, enable the *Google Play Android Developer API* in a project, create a service account and a JSON key for it. In Play Console → Users and permissions, invite the service account's email with permission to release to testing tracks. Add the JSON as the secret **`PLAY_SERVICE_ACCOUNT_JSON`**, and set `"upload": true` in `release.json`.
 
+7. **Google Play Games (optional):** in Play Console → Grow users → Play Games Services → Setup and management, create the game's Play Games project (choose "No, my game doesn't use Google APIs"), and add the Android app to it (Credentials; the package name and the Play signing key's SHA-1 from Test and release → App integrity). Add the project id shown under the game's name as the variable **`ANDROID_PLAY_GAMES_APP_ID`**. Then make the 22 achievements and 10 leaderboards: run Actions → Android app with "playgames" ticked (it uses `PLAY_SERVICE_ACCOUNT_JSON`; give that account access to the game), or enter them by hand from `python3 android/store/playgames.py list`. The script hasn't been run against Google yet, so check what it made. Put the id map it prints into the variable **`ANDROID_PLAY_GAMES_IDS`**, add yourself as a tester under Play Games Services → Testers, and publish the Play Games project when the app goes out. Until both variables are set, the app has no Play Games row.
+8. **Website links open the app:** add the variable **`ANDROID_CERT_SHA256`**, the SHA-256 fingerprint of Google Play's app signing key (App integrity → App signing; several can be given, separated by commas). The website build then writes `.well-known/assetlinks.json`, and Android sends links to the game's page and to a shared daily puzzle (`#daily`) to the app. `SITE_URL` (already set for the website) names the site in the app.
+
 ### Before the app can go to production
 
 - **Personal developer accounts** (made after November 2023) must run a closed test with **at least 12 testers opted in for 14 days in a row** before Play Console lets the app apply for production. Start the closed test early: the internal track doesn't count.
@@ -60,4 +69,4 @@ Edit `release.json` (version, track, notes), push, then run Actions → Android 
 
 ## Not in the Android app yet
 
-The iOS app's home screen widgets, Game Center (Google Play Games would be the Android version), progress moving between devices while they're in use (iCloud on iOS; here only the backup), and website links that open the app (needs the Play signing key's fingerprint in `kingwalk.app/.well-known/assetlinks.json`).
+Progress moving between devices while they're in use (iCloud on iOS; here only the backup, which covers a new phone). Play Games' saved games could do it later. Siri and Shortcuts on iOS have no Android counterpart here: Google's App Actions for Assistant are being retired.

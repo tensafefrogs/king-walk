@@ -1,5 +1,7 @@
 /* King Walk in Română. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["ro"] = {
+  "Achievements": "Realizări",
+  "Leaderboards": "Clasamente",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgeturi, memento zilnic, Game Center, sincronizare iCloud",
   "Home Screen widget": "Widget pe ecranul principal",
   "King Walk for iPhone and iPad": "King Walk pentru iPhone și iPad",

@@ -1,5 +1,7 @@
 /* King Walk in ไทย. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["th"] = {
+  "Achievements": "ความสำเร็จ",
+  "Leaderboards": "ลีดเดอร์บอร์ด",
   "Widgets, a daily reminder, Game Center, iCloud sync": "วิดเจ็ต การแจ้งเตือนรายวัน Game Center และซิงก์ iCloud",
   "Home Screen widget": "วิดเจ็ตหน้าจอโฮม",
   "King Walk for iPhone and iPad": "King Walk สำหรับ iPhone และ iPad",

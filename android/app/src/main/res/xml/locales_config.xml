@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The languages the phone offers for the app in its own settings (Android 13 and later; Languages.kt): the game's,
+     LANG_NAMES in index.html (testing/unit.js checks they match). The page's "es", "pt" and "zh" are es-419, pt-BR and
+     zh-Hans here. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="es-419" />
+    <locale android:name="es-ES" />
+    <locale android:name="fr" />
+    <locale android:name="de" />
+    <locale android:name="it" />
+    <locale android:name="pt-BR" />
+    <locale android:name="pt-PT" />
+    <locale android:name="nl" />
+    <locale android:name="ru" />
+    <locale android:name="ja" />
+    <locale android:name="ko" />
+    <locale android:name="zh-Hans" />
+    <locale android:name="zh-Hant" />
+    <locale android:name="ar" />
+    <locale android:name="he" />
+    <locale android:name="hi" />
+    <locale android:name="mr" />
+    <locale android:name="ur" />
+    <locale android:name="bn" />
+    <locale android:name="gu" />
+    <locale android:name="pa" />
+    <locale android:name="ta" />
+    <locale android:name="te" />
+    <locale android:name="kn" />
+    <locale android:name="ml" />
+    <locale android:name="or" />
+    <locale android:name="th" />
+    <locale android:name="tr" />
+    <locale android:name="id" />
+    <locale android:name="ms" />
+    <locale android:name="vi" />
+    <locale android:name="pl" />
+    <locale android:name="cs" />
+    <locale android:name="sk" />
+    <locale android:name="sl" />
+    <locale android:name="hr" />
+    <locale android:name="uk" />
+    <locale android:name="el" />
+    <locale android:name="ro" />
+    <locale android:name="hu" />
+    <locale android:name="ca" />
+    <locale android:name="sv" />
+    <locale android:name="da" />
+    <locale android:name="nb" />
+    <locale android:name="fi" />
+</locale-config>

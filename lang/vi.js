@@ -1,5 +1,7 @@
 /* King Walk in Tiếng Việt. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["vi"] = {
+  "Achievements": "Thành tích",
+  "Leaderboards": "Bảng xếp hạng",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Tiện ích, lời nhắc hằng ngày, Game Center, đồng bộ iCloud",
   "Home Screen widget": "Tiện ích trên Màn hình chính",
   "King Walk for iPhone and iPad": "King Walk cho iPhone và iPad",

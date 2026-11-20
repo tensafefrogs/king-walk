@@ -1,5 +1,7 @@
 /* King Walk in Bahasa Indonesia. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["id"] = {
+  "Achievements": "Pencapaian",
+  "Leaderboards": "Papan peringkat",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widget, pengingat harian, Game Center, sinkronisasi iCloud",
   "Home Screen widget": "Widget Layar Utama",
   "King Walk for iPhone and iPad": "King Walk untuk iPhone dan iPad",

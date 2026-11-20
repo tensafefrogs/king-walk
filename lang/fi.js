@@ -1,5 +1,7 @@
 /* King Walk in Suomi. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["fi"] = {
+  "Achievements": "Saavutukset",
+  "Leaderboards": "Tulostaulukot",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgetit, päivittäinen muistutus, Game Center, iCloud-synkronointi",
   "Home Screen widget": "Widget Koti-valikkoon",
   "King Walk for iPhone and iPad": "King Walk iPhonelle ja iPadille",

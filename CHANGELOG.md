@@ -17,8 +17,14 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   with the daily reminder, haptics, Share, the Google Play rating prompt, the back gesture and a "Today's puzzle"
   shortcut on the app's icon (touch and hold). It turns with the phone, follows dark mode and the phone's text size
   while a game is open, moves less when the phone's Remove animations is on, and gives the launcher a themed icon. Progress goes into the
-  phone's Google backup, so a new phone starts where the old one left off. Not there yet: widgets, Google Play Games,
-  and progress moving between devices while they're in use.
+  phone's Google backup, so a new phone starts where the old one left off. Not there yet: progress moving between
+  devices while they're in use.
+- **Android's own parts:** the game's language is the app's language in the phone's settings (Android 13 and later),
+  in both directions; a Today's puzzle tile for Quick Settings; links to the website's game and to a shared daily
+  puzzle open the app (once Google Play's signing key is known to the site); Google Play updates download while the
+  game is open and go in when the player leaves it.
+- **Google Play Games:** the same achievements and leaderboards as Game Center, in Settings as "Google Play Games"
+  (on once they're made in Play Console). Two new strings in every language: "Achievements" and "Leaderboards".
 
 ### Website only (live on kingwalk.app)
 

@@ -4,6 +4,9 @@
 //   ANDROID_APPLICATION_ID  the app's package name on Google Play (default: a placeholder for local builds)
 //   VERSION_NAME, VERSION_CODE  from android/release.json and the build time (scripts in .github/workflows/android.yml)
 //   ANDROID_KEYSTORE, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD  the upload key, for release builds
+//   ANDROID_PLAY_GAMES_APP_ID, ANDROID_PLAY_GAMES_IDS  Google Play Games: the game's project id and the map from the
+//     page's achievement and leaderboard ids to Play's (store/playgames.py prints it); without them Play Games is off
+//   SITE_URL  the website, whose links open the app (App Links; the site's .well-known/assetlinks.json names the app)
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,6 +24,12 @@ android {
         targetSdk = 36
         versionCode = env("VERSION_CODE")?.toInt() ?: 1
         versionName = env("VERSION_NAME") ?: "0.0.0"
+        val games = env("ANDROID_PLAY_GAMES_APP_ID")?.filter { it.isDigit() } ?: ""
+        buildConfigField("String", "PLAY_GAMES_APP_ID", "\"$games\"")
+        val gameIds = (env("ANDROID_PLAY_GAMES_IDS") ?: "{}").replace("\\", "\\\\").replace("\"", "\\\"")
+        buildConfigField("String", "PLAY_GAMES_IDS", "\"$gameIds\"")
+        resValue("string", "game_services_project_id", games)
+        manifestPlaceholders["siteHost"] = env("SITE_URL")?.let { Regex("^https?://([^/:]+)").find(it)?.groupValues?.get(1) } ?: "kingwalk.invalid"
     }
 
     signingConfigs {
@@ -61,5 +70,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.11.0")
     implementation("androidx.webkit:webkit:1.14.0")
     implementation("com.google.android.play:review-ktx:2.0.2")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
+    implementation("com.google.android.gms:play-services-games-v2:21.0.0")
     implementation("androidx.fragment:fragment:1.8.8")          // review pulls in an old one, which mishandles permission results
 }

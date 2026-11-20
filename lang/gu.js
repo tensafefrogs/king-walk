@@ -1,5 +1,7 @@
 /* King Walk in ગુજરાતી. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["gu"] = {
+  "Achievements": "સિદ્ધિઓ",
+  "Leaderboards": "લીડરબોર્ડ",
   "Widgets, a daily reminder, Game Center, iCloud sync": "વિજેટ, દૈનિક રિમાઇન્ડર, Game Center, iCloud સિંક",
   "Home Screen widget": "હોમ સ્ક્રીન વિજેટ",
   "King Walk for iPhone and iPad": "iPhone અને iPad માટે King Walk",

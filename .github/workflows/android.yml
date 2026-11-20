@@ -14,6 +14,10 @@ on:
         description: Build the signed bundle for Google Play (and upload it, as android/release.json says)
         type: boolean
         default: false
+      playgames:
+        description: Make the Play Games achievements and leaderboards (android/store/playgames.py) and print the id map
+        type: boolean
+        default: false
 
 defaults:
   run:
@@ -23,6 +27,8 @@ env:
   ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
   GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
   SITE_URL: ${{ vars.SITE_URL }}
+  ANDROID_PLAY_GAMES_APP_ID: ${{ vars.ANDROID_PLAY_GAMES_APP_ID }}
+  ANDROID_PLAY_GAMES_IDS: ${{ vars.ANDROID_PLAY_GAMES_IDS }}
 
 jobs:
   build:
@@ -51,6 +57,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write          # the screenshots branch, below
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -80,6 +88,18 @@ jobs:
           name: android-screenshots
           path: android-shots
           if-no-files-found: ignore
+      # the same screenshots on the branch android-screenshots (replaced each run, one commit), so they can be fetched
+      # with git and looked at without downloading the artifact
+      - name: Screenshots to the android-screenshots branch
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          [ -d android-shots ] || exit 0
+          cd android-shots
+          git init -q -b android-screenshots
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "Android emulator screenshots for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -fq "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:android-screenshots
 
   release:
     if: github.event_name == 'workflow_dispatch' && inputs.release
@@ -123,3 +143,15 @@ jobs:
         run: |
           pip install --quiet google-auth==2.40.3 requests==2.32.5
           python3 android/store/play.py android/app/build/outputs/bundle/release/app-release.aab
+
+  playgames:
+    if: github.event_name == 'workflow_dispatch' && inputs.playgames
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install --quiet google-auth==2.40.3 requests==2.32.5
+      - name: Achievements and leaderboards
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: python3 android/store/playgames.py apply

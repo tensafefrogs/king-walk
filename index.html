@@ -1074,6 +1074,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
      build: <meta name="kw-lang">), else the one chosen in Settings (kw-lang in localStorage), else the device's */
   var fixed = document.querySelector('meta[name="kw-lang"]'), chosen = null;
   try { chosen = localStorage.getItem("kw-lang"); } catch (e) {}
+  /* the Android app on Android 13 and later keeps the choice in the phone's own per-app language setting (Settings,
+     Apps, King Walk, Language), so the two always agree: it says which, "" for the phone's language */
+  var appLang = window.kingWalkApp && typeof window.kingWalkApp.lang === "string" ? window.kingWalkApp.lang : null;
+  if (appLang !== null) chosen = appLang || null;
   var param = (location.search.match(/[?&]lang=([a-z]{2}(?:-[A-Za-z]{2,4})?)/) || [])[1] || (fixed && fixed.content) || chosen || "";
   var lang = param && LANGS.indexOf(base(param)) >= 0 ? base(param) : "en";
   if (!param || lang === "en" && base(param) !== "en") for (var i = 0; i < mine.length; i++) if (LANGS.indexOf(base(mine[i])) >= 0) { lang = base(mine[i]); break; }
@@ -1082,7 +1086,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   var variant = ""; for (var v in VARIANTS) if (v.slice(0, 2) === lang && (VARIANTS[v].test(tag) || tag.toLowerCase() === v.toLowerCase())) variant = v;
   /* ROOT: the way back to the site's top folder from this page ("../" on a language page), for the game's files */
   var root = document.querySelector('meta[name="kw-root"]'); window.KW_ROOT = root ? root.content : "";
-  window.KW_LANG = { langs: LANGS, lang: lang, variant: variant, tag: tag, first: base(mine[0] || ""), chosen: chosen || "" };
+  window.KW_LANG = { langs: LANGS, lang: lang, variant: variant, tag: tag, first: base(mine[0] || ""), chosen: chosen ? (appLang !== null ? variant || lang : chosen) : "", appLang: appLang !== null };
   if (lang !== "en") document.write('<script src="' + KW_ROOT + 'lang/' + lang + '.js"><\/script>' + (variant ? '<script src="' + KW_ROOT + 'lang/' + variant + '.js"><\/script>' : ""));
 })();
 </script>
@@ -1449,7 +1453,8 @@ function flushTrack() {
 }
 const PLAYED_MARKS = [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500];
 
-/* Game Center (iOS app only). Achievement and leaderboard ids match ios/store/gamecenter.json; the desktop-style
+/* Game Center (the iOS app), or Google Play Games (the Android app, which maps the ids: android/store/playgames.py).
+   Achievement and leaderboard ids match ios/store/gamecenter.json; the desktop-style
    achieve() name is kept so another wrapper could pick the same calls up. Game Center ignores repeats. */
 function achieve(id) { if (APP && APP.gameCenter) APP.post({ op: "achieve", id }); }
 function reportProgress(p, puzzle) {
@@ -2407,8 +2412,10 @@ function renderLang() {
 }
 $("langSel").addEventListener("change", e => {
   const v = e.target.value;
-  try { if (v) localStorage.setItem("kw-lang", v); else localStorage.removeItem("kw-lang"); } catch (err) {}
   track("lang-chosen/" + (v || "device"));
+  /* the Android app: the phone's per-app language is set, and the app opens again in it */
+  if (APP && window.KW_LANG.appLang) { APP.post({ op: "lang", tag: v }); return; }
+  try { if (v) localStorage.setItem("kw-lang", v); else localStorage.removeItem("kw-lang"); } catch (err) {}
   location.replace(new URL(ROOT || "./", location.href).href);          /* the main page, without ?lang=, in the new language */
 });
 function renderRemind() {
@@ -2757,7 +2764,9 @@ $("hapticsBtn").addEventListener("click", () => { S.haptics = S.haptics === fals
 $("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined && me().mode !== b.dataset.mode) { me().mode = b.dataset.mode; save(); renderPanel(); haptic("toggle"); track("mode/" + b.dataset.mode); } });
 $("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
 $("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn"), lastResult));
-$("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter" }); track("gamecenter"); } });
+/* Game Center on iOS, Google Play Games on Android (whose app asks which of the two to open, in these words) */
+$("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter", labels: [T("Achievements"), T("Leaderboards")] }); track("gamecenter"); } });
+if (APP && APP.os === "android") $("gcRow").firstElementChild.textContent = "Google Play Games";
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 $("remindRow").hidden = !(APP && APP.reminders);

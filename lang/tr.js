@@ -1,5 +1,7 @@
 /* King Walk in Türkçe. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["tr"] = {
+  "Achievements": "Başarılar",
+  "Leaderboards": "Lider tabloları",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widget'lar, günlük hatırlatıcı, Game Center, iCloud eşzamanlama",
   "Home Screen widget": "Ana ekran widget'ı",
   "King Walk for iPhone and iPad": "iPhone ve iPad için King Walk",

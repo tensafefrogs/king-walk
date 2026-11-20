@@ -1,5 +1,7 @@
 /* King Walk in Norsk bokmål. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["nb"] = {
+  "Achievements": "Prestasjoner",
+  "Leaderboards": "Poengtavler",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgeter, daglig påminnelse, Game Center, iCloud-synk",
   "Home Screen widget": "Widget for Hjem-skjermen",
   "King Walk for iPhone and iPad": "King Walk for iPhone og iPad",

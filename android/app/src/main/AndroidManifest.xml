@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:localeConfig="@xml/locales_config"
         android:theme="@style/Theme.KingWalk"
         android:enableOnBackInvokedCallback="true">
 
@@ -29,6 +30,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- the website's links open the app (App Links): the game's page and its language pages, and a shared
+                 daily puzzle (#daily). Android checks the site's .well-known/assetlinks.json (pages.yml writes it). -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:host="${siteHost}" />
+                <data android:path="/" />
+                <data android:pathPattern="/../" />          <!-- /de/ -->
+                <data android:pathPattern="/..-../" />          <!-- /pt-PT/ -->
+                <data android:pathPattern="/..-..../" />          <!-- /zh-Hant/ -->
+            </intent-filter>
             <!-- the app shortcut (res/xml/shortcuts.xml) -->
             <intent-filter>
                 <action android:name="kingwalk.android.OPEN" />
@@ -36,6 +50,21 @@
             </intent-filter>
             <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
         </activity>
+
+        <!-- the Quick Settings tile: Today's puzzle -->
+        <service
+            android:name=".DailyTile"
+            android:exported="true"
+            android:icon="@drawable/ic_tile_daily"
+            android:label="@string/channel_daily"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- Google Play Games (PlayGames.kt): the game's project id, from the build ("" turns it off) -->
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/game_services_project_id" />
 
         <receiver android:name=".Reminders$Alarm" android:exported="false" />
         <receiver android:name=".Reminders$Boot" android:exported="false">

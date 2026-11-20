@@ -12,6 +12,9 @@ fs.mkdirSync(out, { recursive: true });
 let bad = 0;
 const check = (ok, what, detail = "") => { console.log((ok ? "ok   " : "FAIL ") + what + (ok || !detail ? "" : ": " + detail)); if (!ok) bad++; };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+let page;
+/** whether fn becomes true on the page within 10 seconds (the phone turning or changing theme takes a moment) */
+const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() => true, () => false);
 
 (async () => {
   const [device] = await _android.devices();
@@ -27,11 +30,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await sh(`am start -W ${how}`);
     const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
     const page = await view.page();
-    await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && !locked, null, { timeout: 60000 });
+    // a puzzle ready to play, or today's daily already played (it opens on its result)
+    await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && (!locked || (typeof DAILY !== "undefined" && DAILY)), null, { timeout: 60000 });
     return page;
   };
   const errs = [];
-  let page = await open();
+  page = await open();
   page.on("pageerror", e => errs.push(e.message));
   const app = await page.evaluate(() => ({ os: APP && APP.os, platform: PLATFORM, reminders: APP && APP.reminders, help: $("helpSaved").textContent, viewport: document.querySelector("meta[name=viewport]").content }));
   check(app.os === "android" && /^android-|chromeos/.test(app.platform), "the page runs as the Android app", JSON.stringify(app));
@@ -118,8 +122,9 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const fitCheck = async what => { const f = await fits(); check(!f.sideways && f.boardOn && f.board > 150, what, JSON.stringify(f)); };
 
   // sideways: the app turns with the phone (no orientation is locked) and the game lays itself out for it
-  await sh("settings put system accelerometer_rotation 0"); await sh("settings put system user_rotation 1"); await sleep(2500);
-  check(await page.evaluate(() => window.innerWidth > window.innerHeight), "the app turns sideways with the phone");
+  await sh("settings put system accelerometer_rotation 0"); await sh("settings put system user_rotation 1");
+  check(await until(() => window.innerWidth > window.innerHeight), "the app turns sideways with the phone");
+  await sleep(1000);
   await fitCheck("sideways: the board fits and nothing runs off the side");
   await device.screenshot({ path: path.join(out, "7-sideways.png") });
   await sh("settings put system user_rotation 0"); await sleep(2000);
@@ -130,18 +135,39 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
   const nBefore = await page.evaluate(() => me().n);
-  await sh("cmd uimode night yes"); await sleep(3000);
-  check(await page.evaluate(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
+  await sh("cmd uimode night yes");
+  check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
+  await sleep(1000);
   check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
   await device.screenshot({ path: path.join(out, "10-dark.png") });
-  await sh("cmd uimode night no"); await sleep(3000);
-  check(await page.evaluate(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
+  await sh("cmd uimode night no");
+  check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
 
   // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page moves less
   // (the app tells it: the WebView doesn't pass the setting on as prefers-reduced-motion)
   const reduced = await page.evaluate(() => REDUCED && document.documentElement.classList.contains("reduce-motion"));
   const scale = (await sh("settings get global animator_duration_scale")).trim();
   check(reduced === (parseFloat(scale) === 0), "the page's reduced motion follows Remove animations", `scale ${scale}, reduce ${reduced}`);
+
+  // the language: picked in the game, it's the phone's per-app language for the app (Settings, Apps, King Walk,
+  // Language), and the app opens again in it; set there, the game follows
+  await page.evaluate(() => { const s = $("langSel"); s.value = "fr"; s.dispatchEvent(new Event("change", { bubbles: true })); });
+  await sleep(4000);
+  const appLocale = await sh(`cmd locale get-app-locales ${PKG}`);
+  check(/\bfr\b/.test(appLocale), "a language picked in the game becomes the app's language on the phone", appLocale.trim());
+  await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
+  check(await page.evaluate(() => LANG === "fr" && $("langSel").value === "fr"), "the game opens in it", await page.evaluate(() => LANG + " " + $("langSel").value));
+  await sh(`cmd locale set-app-locales ${PKG} --locales de-DE`); await sleep(2000);
+  await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
+  check(await page.evaluate(() => LANG === "de" && $("langSel").value === "de"), "a language set in the phone's settings is the game's", await page.evaluate(() => LANG + " " + $("langSel").value));
+  await device.screenshot({ path: path.join(out, "11-german.png") });
+  await sh(`cmd locale set-app-locales ${PKG} --locales ""`); await sleep(2000);
+  await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
+  check(await page.evaluate(() => LANG === "en" && $("langSel").value === ""), "and back to the phone's own", await page.evaluate(() => LANG + " " + $("langSel").value));
+
+  // the Quick Settings tile is there to add
+  const tile = await sh(`dumpsys package ${PKG} | grep -c "android.service.quicksettings.action.QS_TILE"`).catch(() => "0");
+  check(parseInt(tile, 10) > 0, "the Today's puzzle Quick Settings tile is offered", tile.trim());
 
   // the app shortcut (touch and hold the icon): Today's puzzle
   const shortcuts = await sh(`dumpsys shortcut | grep -A3 "Package: ${PKG}" | head -20; dumpsys shortcut | grep -c "id=daily"`);
@@ -152,6 +178,16 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   page.on("pageerror", e => errs.push(e.message));
   await sleep(2500);
   check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "the shortcut opens the daily puzzle");
+
+  // a shared daily puzzle's link (the website's address, #daily) opens the app on it (App Links; on a phone Android
+  // sends such links to the app once the site's assetlinks.json names it, here the test names the app itself)
+  if (process.env.SITE_URL) {
+    await sh(`am force-stop ${PKG}`);
+    page = await open(`-a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "${process.env.SITE_URL.replace(/\/?$/, "/")}#daily" -p ${PKG}`);
+    page.on("pageerror", e => errs.push(e.message));
+    await sleep(2500);
+    check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a link to the daily puzzle opens it in the app");
+  }
 
   check(!errs.length, "no page errors", errs.join(" | "));
   await device.close();

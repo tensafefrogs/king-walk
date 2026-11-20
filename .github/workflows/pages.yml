@@ -30,6 +30,8 @@ jobs:
           GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
           SITE_URL: ${{ vars.SITE_URL }}
           APP_STORE_ID: ${{ vars.APP_STORE_ID }}
+          ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
+          ANDROID_CERT_SHA256: ${{ vars.ANDROID_CERT_SHA256 }}
         run: |
           pip install --quiet segno==1.6.1          # draws the App Store link's QR code (app-qr.svg) for computers
           mkdir _site
@@ -71,6 +73,13 @@ jobs:
                   print('App Store QR code: app-qr.svg')
               except Exception as e:
                   print('App Store QR code failed:', e)
+          # the Android app's App Links: the site says which app may open its links (the package name and the SHA-256
+          # fingerprint of Google Play's signing key, Play Console → Test and release → App integrity), android/README.md
+          pkg, certs = os.environ.get('ANDROID_APPLICATION_ID', '').strip(), [c.strip() for c in os.environ.get('ANDROID_CERT_SHA256', '').split(',') if c.strip()]
+          if pkg and certs:
+              os.makedirs('_site/.well-known', exist_ok=True)
+              json.dump([{'relation': ['delegate_permission/common.handle_all_urls'], 'target': {'namespace': 'android_app', 'package_name': pkg, 'sha256_cert_fingerprints': certs}}], open('_site/.well-known/assetlinks.json', 'w'), indent=2)
+              print('assetlinks.json: written')
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
           # link previews need absolute addresses: the site's, when it's set

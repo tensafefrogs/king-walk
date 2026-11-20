@@ -1,5 +1,6 @@
 /* King Walk in Português (Portugal), over pt. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["pt-PT"] = {
+  "Leaderboards": "Tabelas de classificação",
   "Home Screen widget": "Widget do ecrã principal",
   "Never miss a day: the app reminds you and puts today's puzzle on your Home Screen.": "Não percas nenhum dia: a app lembra-te e põe o problema de hoje no teu ecrã principal.",
   "Keep your streak going: the app can remind you every day.": "Mantém a tua sequência: a app pode lembrar-te todos os dias.",

@@ -1,5 +1,7 @@
 /* King Walk in Slovenščina. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["sl"] = {
+  "Achievements": "Dosežki",
+  "Leaderboards": "Lestvice",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Pripomočki, dnevni opomnik, Game Center, sinhronizacija z iCloud",
   "Home Screen widget": "Pripomoček za začetni zaslon",
   "King Walk for iPhone and iPad": "King Walk za iPhone in iPad",

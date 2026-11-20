@@ -1,5 +1,7 @@
 /* King Walk in Français. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["fr"] = {
+  "Achievements": "Succès",
+  "Leaderboards": "Classements",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, rappel quotidien, Game Center, synchronisation iCloud",
   "Home Screen widget": "Widget de l'écran d'accueil",
   "King Walk for iPhone and iPad": "King Walk pour iPhone et iPad",

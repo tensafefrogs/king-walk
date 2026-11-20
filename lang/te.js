@@ -1,5 +1,7 @@
 /* King Walk in తెలుగు. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["te"] = {
+  "Achievements": "విజయాలు",
+  "Leaderboards": "లీడర్‌బోర్డ్‌లు",
   "Widgets, a daily reminder, Game Center, iCloud sync": "విడ్జెట్‌లు, రోజువారీ రిమైండర్, Game Center, iCloud సింక్",
   "Home Screen widget": "హోమ్ స్క్రీన్ విడ్జెట్",
   "King Walk for iPhone and iPad": "iPhone, iPad కోసం King Walk",
