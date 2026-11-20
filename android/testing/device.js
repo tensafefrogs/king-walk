@@ -57,7 +57,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await device.screenshot({ path: path.join(out, "2-solved.png") });
   // a celebration may be showing (the first solve): the back gesture closes it
   if (await page.evaluate(() => !!document.querySelector(".cele:not(.out)"))) {
-    await device.input.press("Back"); await sleep(800);
+    await sh("input keyevent KEYCODE_BACK"); await sleep(800);
     check(await page.evaluate(() => !document.querySelector(".cele:not(.out)")), "back closes the celebration");
   }
   const n1 = await page.evaluate(() => me().n);
@@ -71,7 +71,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   // the menu: open it, then back closes it and the app stays open
   await page.evaluate(() => $("menuBtn").click()); await sleep(600);
   await device.screenshot({ path: path.join(out, "3-menu.png") });
-  await device.input.press("Back"); await sleep(800);
+  await sh("input keyevent KEYCODE_BACK"); await sleep(800);
   check(await page.evaluate(() => !$("menu").classList.contains("open")), "back closes the menu");
   const top = await sh("dumpsys activity activities | grep -E 'topResumedActivity|mResumedActivity' | head -1");
   check(top.includes(PKG), "the app is still in front after back closed the menu", top.trim());
