@@ -365,11 +365,9 @@ html.kbd .cele-btns button:focus-visible { outline: 3px solid var(--p-ink); outl
 @keyframes cele-pop { 0% { transform: translateY(70%) scale(0.7, 1.3); } 55% { transform: translateY(-14%) scale(1.12, 0.9); } 78% { transform: translateY(3%) scale(0.96, 1.05); } 100% { transform: none; } }
 @keyframes cele-slam { 0% { opacity: 0; transform: translateY(-60px) scale(2.2) rotate(-12deg); } 100% { opacity: 1; transform: none; } }
 @keyframes cele-up { 0% { opacity: 0; transform: translateY(18px); } }
-@media (prefers-reduced-motion: reduce) {
-  .cele-swipe, .cele-lines { display: none; }
-  .cele-card, .cele-piece, .cele-sun, .cele-title span, .cele-kind, .cele-text, .cele-btns { animation: cele-fade 0.3s ease-out both !important; }
-  .cele-rays { animation: none; }
-}
+html.reduce-motion :is(.cele-swipe, .cele-lines) { display: none; }          /* less motion (REDUCED in the script) */
+html.reduce-motion :is(.cele-card, .cele-piece, .cele-sun, .cele-title span, .cele-kind, .cele-text, .cele-btns) { animation: cele-fade 0.3s ease-out both !important; }
+html.reduce-motion .cele-rays { animation: none; }
 /* rank streak badges: a little poster in a ring; the ring fills with your best; cleared ones get gold and a ribbon */
 .run-btn { all: unset; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 2px; min-width: 0; cursor: pointer; text-align: center; padding: 2px 0 4px; border-radius: 12px; }
 .run-btn svg.badge { width: 100%; max-width: 62px; height: auto; overflow: visible; transition: transform 0.2s var(--ease-out); }
@@ -716,9 +714,7 @@ html[dir="rtl"].fold-h .wrap > *, html[dir="rtl"].fold-h .main > *, html[dir="rt
 @keyframes pop { from { transform: scale(0.6); } to { transform: none; } }
 @keyframes nope { 15% { transform: rotate(-9deg); } 40% { transform: rotate(8deg); } 65% { transform: rotate(-5deg); } 85% { transform: rotate(3deg); } 100% { transform: none; } }
 @keyframes win { 35% { transform: translateY(-14%) scale(1.14); } 100% { transform: none; } }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 </style>
 <meta name="description" content="Chess puzzles that fight back. 53,000 puzzles from real games, a new daily puzzle every day, and a rating that finds your level. Free, no account.">
 <meta name="theme-color" content="#edf1ef" media="(prefers-color-scheme: light)">
@@ -1170,7 +1166,10 @@ const ICONS = {
   wait: '<span class="dots"><i></i><i></i><i></i></span>'
 };
 const $ = id => document.getElementById(id);
-const REDUCED = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+/* less motion: the system's setting, or the Android app's (its WebView doesn't pass "Remove animations" on); the CSS
+   for it hangs off html.reduce-motion, so both take the same path */
+const REDUCED = !!((window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) || (window.kingWalkApp && window.kingWalkApp.reducedMotion));
+if (REDUCED) document.documentElement.classList.add("reduce-motion");
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const restart = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };   /* replay a CSS animation */
 /* Hide with a short exit (.leave), then set hidden. Showing needs nothing: an element's entry animation runs when it appears. */

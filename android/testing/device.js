@@ -137,9 +137,9 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await sh("cmd uimode night no"); await sleep(3000);
   check(await page.evaluate(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
 
-  // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page's
-  // reduced motion follows it
-  const reduced = await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+  // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page moves less
+  // (the app tells it: the WebView doesn't pass the setting on as prefers-reduced-motion)
+  const reduced = await page.evaluate(() => REDUCED && document.documentElement.classList.contains("reduce-motion"));
   const scale = (await sh("settings get global animator_duration_scale")).trim();
   check(reduced === (parseFloat(scale) === 0), "the page's reduced motion follows Remove animations", `scale ${scale}, reduce ${reduced}`);
 

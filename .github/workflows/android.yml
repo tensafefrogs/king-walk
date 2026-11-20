@@ -70,6 +70,7 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_7
+          ram-size: 4096M          # the default 2 GB ran out late in the test, and the emulator stopped
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
           script: node android/testing/device.js "$(find apk -name app-debug.apk | head -1)" android-shots

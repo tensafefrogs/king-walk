@@ -157,6 +157,9 @@ class MainActivity : ComponentActivity() {
             .put("gameCenter", false)
             .put("widget", false)
             .put("reminders", true)
+            // Remove animations (Settings, Accessibility): Chrome passes it to pages as prefers-reduced-motion, the
+            // WebView doesn't, so the app does
+            .put("reducedMotion", !android.animation.ValueAnimator.areAnimatorsEnabled())
         val viewport = """
             window.kingWalkViewport=function(w,z){var m=document.querySelector('meta[name=viewport]');if(!m||!(w>0))return;
             var c=z===1?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
