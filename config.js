@@ -4,5 +4,6 @@
    goatcounter: a GoatCounter count URL, like https://example.goatcounter.com/count (empty: no stats are sent)
    site:        the website's address, for the app's Share link and its Support/Privacy/Terms links
    appStoreId:  the app's Apple ID in App Store Connect, for the app's Share link (empty: the app shares the site)
-   appLive:     the app is on sale (the website build looks it up), so the website may point iPhone users to it */
-window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "", appLive: false };
+   appLive:     the app is on sale (the website build looks it up), so the website may point people to it
+   qr:          a QR code of the App Store link (the website build draws app-qr.svg), shown to computers to scan */
+window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "" };

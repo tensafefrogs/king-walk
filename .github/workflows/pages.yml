@@ -31,6 +31,7 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           APP_STORE_ID: ${{ vars.APP_STORE_ID }}
         run: |
+          pip install --quiet segno==1.6.1          # draws the App Store link's QR code (app-qr.svg) for computers
           mkdir _site
           # the game, its pages, the brand and press kit, and the store images the press kit links to
           cp -R index.html favicon.ico chess.js cta.js lang config.js sw.js manifest.webmanifest og.png privacy.html terms.html support.html 404.html .nojekyll p fonts icons brand press _site/
@@ -61,6 +62,15 @@ jobs:
           if not cfg['appLive'] and os.path.exists('ios/store/status.md'):
               cfg['appLive'] = bool(re.search(r'\| (READY_FOR_DISTRIBUTION|READY_FOR_SALE) \|', open('ios/store/status.md').read()))
               print('App Store Connect status: ' + ('on sale' if cfg['appLive'] else 'not on sale yet'))
+          # a QR code of the App Store link, at the end of the page on computers: scanned with an iPhone, it opens the app's page
+          if cfg['appStoreId'] and cfg['appLive']:
+              try:
+                  import segno
+                  segno.make('https://apps.apple.com/app/id' + cfg['appStoreId'], error='m').save('_site/app-qr.svg', border=0, dark='#000', light=None)
+                  cfg['qr'] = 'app-qr.svg'
+                  print('App Store QR code: app-qr.svg')
+              except Exception as e:
+                  print('App Store QR code failed:', e)
           open('_site/config.js', 'w').write('/* written by .github/workflows/pages.yml */\nwindow.KING_WALK_CONFIG = ' + json.dumps(cfg) + ';\n')
           print('config.js:', ', '.join(f"{k}={'set' if v else 'empty'}" for k, v in cfg.items()))
           # link previews need absolute addresses: the site's, when it's set

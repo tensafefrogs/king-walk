@@ -30,7 +30,8 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
        suggestions (the bar, the settings rows, the cards' lines) show and get checked too */
     const ua = !mobile ? undefined : 'Mozilla/5.0 (' + (/ipad/.test(name) ? 'iPad; CPU OS 26_1' : 'iPhone; CPU iPhone OS 26_1') + ' like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/140.0 Mobile/15E148 Safari/604.1';
     const ctx = await b.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1, isMobile: !!mobile, hasTouch: !!mobile, locale: lang, reducedMotion: 'reduce', userAgent: ua });
-    await ctx.route('**/config.js', r => r.fulfill({ contentType: 'application/javascript', body: 'window.KING_WALK_CONFIG={goatcounter:"",site:"",appStoreId:"123",appLive:true};' }));
+    await ctx.route('**/config.js', r => r.fulfill({ contentType: 'application/javascript', body: 'window.KING_WALK_CONFIG={goatcounter:"",site:"",appStoreId:"123",appLive:true,qr:"app-qr.svg"};' }));
+    await ctx.route('**/app-qr.svg', r => r.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><path d="M0 0h7v7H0zM18 0h7v7h-7zM0 18h7v7H0zM9 9h7v7H9z"/></svg>' }));
     /* the text-size sizes only happen in the app: play them as the app (no App Store suggestions, the app's settings) */
     if (/^text-/.test(name)) await ctx.addInitScript(() => { window.kingWalkApp = { platform: 'iphone', gameCenter: true, widget: true, reminders: true }; window.webkit = { messageHandlers: { kingwalk: { postMessage() {} } } }; });
     const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));

@@ -13,6 +13,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
+- **Computers hear about the app too:** on a Mac, Windows or Linux (not Android), the website shows the App Store bar
+  at the end of the page, with a QR code to scan with an iPhone, plus the app's lines in Settings and on the daily's
+  card, as iPhone and iPad already did. A Mac with Apple silicon can install the app from the Mac App Store.
 - **The support, privacy and terms pages open with a Play card:** search can land people there ("king walk app" found
   the terms), so each starts with the game's name and a Play button, in the visitor's language, going to that
   language's page. The game's own page is titled "King Walk: Chess Puzzles" now, as on the App Store.
