@@ -29,11 +29,19 @@ const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() =
 
   const open = async (how = `-n ${ACTIVITY}`) => {
     await sh(`am start -W ${how}`);
-    const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
-    const page = await view.page();
-    // a puzzle ready to play, or today's daily already played (it opens on its result)
-    await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && (!locked || (typeof DAILY !== "undefined" && DAILY)), null, { timeout: 60000 });
-    return page;
+    // the app closed a moment ago can still be listed: if the page found is that one (it closes under us), look again
+    for (let tries = 1; ; tries++) {
+      const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
+      const page = await view.page();
+      try {
+        // a puzzle ready to play, or today's daily already played (it opens on its result)
+        await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && (!locked || (typeof DAILY !== "undefined" && DAILY)), null, { timeout: 60000 });
+        return page;
+      } catch (e) {
+        if (tries >= 4 || !/closed/.test(e.message)) throw e;
+        await sleep(2000);
+      }
+    }
   };
   const errs = [];
   page = await open();
