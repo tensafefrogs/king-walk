@@ -5,6 +5,7 @@
 // usage: node scripts/sizzle.js [--vertical] [--frames 0,4.5,12]   Needs Playwright, ffmpeg, npm (for three) and
 // python3 with numpy. --frames saves stills at those times instead (to look at a cut quickly).
 // Output: press/king-walk-sizzle.mp4 (1920x1080) or press/king-walk-sizzle-vertical.mp4 (1080x1920), and a poster (-poster.jpg). Also a YouTube thumbnail (1280x720) for the wide one: press/king-walk-sizzle-thumbnail.jpg.
+// The videos are kept on the media branch, not in main: after watching one, python3 scripts/media.py publish, then commit media.json.
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path"), os = require("os"), { execFileSync } = require("child_process");
 const server = require("../testing/server");

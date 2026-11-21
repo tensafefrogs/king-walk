@@ -6,6 +6,7 @@
 // Math.random (SEEDS below), so every run plays the same puzzles.
 // usage: node scripts/trailer.js [--vertical | --preview]     Needs Playwright and ffmpeg.
 // Output: press/king-walk-trailer.mp4 (1920x1080) or press/king-walk-trailer-vertical.mp4 (1080x1920), and a poster .jpg.
+// The videos are kept on the media branch, not in main: after watching one, python3 scripts/media.py publish, then commit media.json.
 // --preview makes the App Store app preview instead: ios/store/previews/iphone-1.mp4 (886x1920, 20 to 29 seconds,
 // a silent stereo track, no URL or price on screen).
 const { chromium } = require("playwright");

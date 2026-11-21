@@ -11,3 +11,9 @@ node_modules/
 __pycache__/
 testing/out/
 .claude/
+# the videos: on the media branch, fetched by scripts/media.py (media.json says which versions)
+ios/store/previews/iphone-1.mp4
+press/king-walk-trailer.mp4
+press/king-walk-trailer-vertical.mp4
+press/king-walk-sizzle.mp4
+press/king-walk-sizzle-vertical.mp4

@@ -8,8 +8,8 @@ on:
   push:
     branches: [main]
     paths: ['ios/store/listing.json', 'ios/store/l10n/*', 'ios/store/screenshots/*.png', 'ios/store/screenshots.js', 'ios/store/upload_listing.py', 'ios/store/creative.py',
-            'ios/store/header/*', 'ios/store/previews/*', 'ios/store/gamecenter.json', 'ios/store/gamecenter/*', 'ios/store/gamecenter.py',
-            'press/king-walk-trailer.mp4', '.github/workflows/store.yml']
+            'ios/store/header/*', 'media.json', 'ios/store/gamecenter.json', 'ios/store/gamecenter/*', 'ios/store/gamecenter.py',
+            '.github/workflows/store.yml']
   workflow_dispatch:
     inputs:
       discover:
@@ -34,6 +34,8 @@ jobs:
       BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
       - uses: actions/checkout@v4
+      - name: The videos (the app preview; media branch, as media.json names them)
+        run: python3 scripts/media.py fetch
       - name: Check the secrets are set
         id: secrets
         run: |
