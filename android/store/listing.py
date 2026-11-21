@@ -73,7 +73,12 @@ def main():
             print('::warning::' + msg); return None
         return r.json() if r.content else {}
 
-    edit = ok(s.post(f'{api}/edits'), 'Starting an edit')['id']
+    r = s.post(f'{api}/edits')
+    if r.status_code in (403, 404):          # before the app is in Play Console, or before the service account is invited there
+        print(f'::notice::Google Play doesn\'t know this app for this account yet ({r.status_code}): create the app in Play Console and invite '
+              'the service account (android/README.md, Setting up Google Play). Nothing uploaded.')
+        return
+    edit = ok(r, 'Starting an edit')['id']
     for lang, d in data.items():
         if ok(s.put(f'{api}/edits/{edit}/listings/{lang}', json={'language': lang, **d}), f'The {lang} listing', fatal=lang == 'en-US') is not None:
             print('listing:', lang)
