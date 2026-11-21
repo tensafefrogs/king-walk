@@ -17,6 +17,13 @@ Not worth it now: Live Activities (a puzzle takes a minute, nothing to follow on
 - **Puzzle rush.** Three minutes, as many puzzles as you can, getting harder as you go. A Game Center leaderboard and a challenge to send a friend. It can reuse the rank streak code (`pickRunPuzzle`, `finishRun`) with a timer in place of the one-miss rule.
 - **Store screenshots in the new languages.** The 30 languages added in November 2026 show the English screenshots on their App Store pages; the listing workflow makes and uploads localized ones once a version is editable (the next version).
 
+Android (the app is built: `android/README.md`; it launches once Google Play is set up):
+
+1. **Launch steps (the owner's).** Package name, Play Console app, upload key, first bundle by hand, then the closed test (12 testers for 14 days on a personal account) before production. Play Games and App Links once the app is in Play Console. Everything after that is automated (release, listing, Play Games ids).
+2. **Check on a real phone before the first release.** TalkBack, haptics, the widgets on a home screen, the Quick Settings tile, Play Games' screens: the emulator test can't see these.
+3. **Progress between devices while they're in use (later).** iCloud does it on iOS; on Android only the Google backup (a new phone). Play Games' saved games could carry the save the same way.
+4. **Store screenshots in other languages.** Google Play shows the English ones everywhere; `screenshots.js android --lang` can make them, and `store/listing.py` would upload them per language.
+
 ## On hold
 
 - **Practice by theme, and a weak-spots coach.** Every puzzle is tagged (fork, pin, back-rank mate and so on), and the game knows which ones a player misses. A theme picker would let players practise one idea. A coach note would point at their weakest theme ("you miss pins most; here are 10"). No AI is needed: the data is already in the save.
