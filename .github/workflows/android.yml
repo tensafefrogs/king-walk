@@ -73,14 +73,15 @@ jobs:
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
-      - name: Play the app on an emulator (Android 14, test image)
+      - name: Play the app on an emulator (Android 13)
         timeout-minutes: 18
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          # Google's image for automated tests (ATD): no screen to drive, fewer background apps, lighter on the
-          # machine. The usual images (Android 15, then 14) stopped or hung at random points on GitHub's machines.
-          api-level: 34
-          target: google_atd
+          # Android 13 (per-app languages need 13 or later), the image most often run on GitHub's machines. Android 15,
+          # 14 and Google's test image (ATD) each crashed or hung at random points here, the emulator itself (its own
+          # shell segfaulting), not the app.
+          api-level: 33
+          target: google_apis
           arch: x86_64
           profile: pixel_7
           ram-size: 4096M
