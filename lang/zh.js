@@ -1,5 +1,7 @@
 /* King Walk in 简体中文. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["zh"] = {
+  "King Walk for Android": "适用于 Android 的 King Walk",
+  "Widgets, a daily reminder, Google Play Games": "小组件、每日提醒、Google Play Games",
   "Achievements": "成就",
   "Leaderboards": "排行榜",
   "Widgets, a daily reminder, Game Center, iCloud sync": "小组件、每日提醒、Game Center、iCloud 同步",

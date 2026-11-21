@@ -32,6 +32,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
+- **Android phones hear about the Android app,** once it's on Google Play: the same bar, end-of-page line and settings
+  links that point iPhones to the App Store point Android browsers to Google Play ("King Walk for Android"), with
+  Google Play Games in place of Game Center. Until the website build finds the app's Google Play page, nothing changes.
+  Two new strings in every language.
 - **Computers hear about the app too:** on a Mac, Windows or Linux (not Android), the website shows the App Store bar
   at the end of the page, with a QR code to scan with an iPhone, plus the app's lines in Settings and on the daily's
   card, as iPhone and iPad already did. A Mac with Apple silicon can install the app from the Mac App Store.

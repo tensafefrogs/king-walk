@@ -1,5 +1,7 @@
 /* King Walk in Slovenščina. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["sl"] = {
+  "King Walk for Android": "King Walk za Android",
+  "Widgets, a daily reminder, Google Play Games": "Pripomočki, dnevni opomnik, Google Play Games",
   "Achievements": "Dosežki",
   "Leaderboards": "Lestvice",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Pripomočki, dnevni opomnik, Game Center, sinhronizacija z iCloud",

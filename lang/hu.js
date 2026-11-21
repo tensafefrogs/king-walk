@@ -1,5 +1,7 @@
 /* King Walk in Magyar. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["hu"] = {
+  "King Walk for Android": "King Walk Androidre",
+  "Widgets, a daily reminder, Google Play Games": "Widgetek, napi emlékeztető, Google Play Games",
   "Achievements": "Teljesítmények",
   "Leaderboards": "Ranglisták",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgetek, napi emlékeztető, Game Center, iCloud-szinkronizálás",

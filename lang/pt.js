@@ -1,5 +1,7 @@
 /* King Walk in Português (Brasil). Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["pt"] = {
+  "King Walk for Android": "King Walk para Android",
+  "Widgets, a daily reminder, Google Play Games": "Widgets, lembrete diário, Google Play Games",
   "Achievements": "Conquistas",
   "Leaderboards": "Placares",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgets, lembrete diário, Game Center, sincronização com o iCloud",

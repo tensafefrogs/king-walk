@@ -1,5 +1,7 @@
 /* King Walk in Suomi. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["fi"] = {
+  "King Walk for Android": "King Walk Androidille",
+  "Widgets, a daily reminder, Google Play Games": "Widgetit, päivittäinen muistutus, Google Play Games",
   "Achievements": "Saavutukset",
   "Leaderboards": "Tulostaulukot",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgetit, päivittäinen muistutus, Game Center, iCloud-synkronointi",

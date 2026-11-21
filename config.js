@@ -5,5 +5,7 @@
    site:        the website's address, for the app's Share link and its Support/Privacy/Terms links
    appStoreId:  the app's Apple ID in App Store Connect, for the app's Share link (empty: the app shares the site)
    appLive:     the app is on sale (the website build looks it up), so the website may point people to it
-   qr:          a QR code of the App Store link (the website build draws app-qr.svg), shown to computers to scan */
-window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "" };
+   qr:          a QR code of the App Store link (the website build draws app-qr.svg), shown to computers to scan
+   playId:      the Android app's package name on Google Play, for its Share link and the website's Google Play links
+   playLive:    the Android app's Google Play page is public (the website build checks), so Android browsers are pointed there */
+window.KING_WALK_CONFIG = { goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "", playId: "", playLive: false };

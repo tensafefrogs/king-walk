@@ -1393,7 +1393,7 @@ const APP = (() => {
   } catch (e) { return null; }
 })();
 /* Settings for this copy (config.js, written from GitHub Actions variables when the site deploys and the app builds) */
-const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "", playId: "" }, window.KING_WALK_CONFIG || {});
+const CONFIG = Object.assign({ goatcounter: "", site: "", appStoreId: "", appLive: false, qr: "", playId: "", playLive: false }, window.KING_WALK_CONFIG || {});
 /* The website's address: on the web, wherever this page is; in the app, the configured site */
 const SITE = /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname)
   ? new URL(ROOT || "./", location.href.replace(/[?#].*$/, "").replace(/index\.html$/, "")).href : CONFIG.site;          /* the site's top, also from a language page */
@@ -2766,13 +2766,13 @@ $("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
 $("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn"), lastResult));
 /* Game Center on iOS, Google Play Games on Android (whose app asks which of the two to open, in these words) */
 $("gcBtn").addEventListener("click", () => { if (APP) { APP.post({ op: "gamecenter", labels: [T("Achievements"), T("Leaderboards")] }); track("gamecenter"); } });
-if (APP && APP.os === "android") $("gcRow").firstElementChild.textContent = "Google Play Games";
+if (APP ? APP.os === "android" : /^android/.test(PLATFORM)) $("gcRow").firstElementChild.textContent = "Google Play Games";          /* the app, or the website on Android pointing to it */
 $("hapticsRow").hidden = !APP && !canVibrate;
 $("gcRow").hidden = !(APP && APP.gameCenter);
 $("remindRow").hidden = !(APP && APP.reminders);
 /* ---------- the iPhone app, on the website ----------
    On iPhone and iPad (the app's devices) and on computers (a Mac with Apple silicon runs it too, and anyone can send the
-   App Store page to their phone, or scan the code at the end of the page), but not on Android, once the app is on sale
+   App Store page to their phone, or scan the code at the end of the page), and on Android pointing to Google Play (STORE), once the app is on sale
    (the website build checks: CONFIG.appLive) and the player has finished a puzzle, the website mentions the app at a
    few good moments: a slim bar in iPhone and iPad browsers without Safari's App Store banner (Chrome, Firefox, Edge...),
    a line on the daily's card and on a daily streak's achievement.
@@ -2780,8 +2780,15 @@ $("remindRow").hidden = !(APP && APP.reminders);
    from a link in the app, ?from=app) get at most one a month. The settings and Advanced say what the app adds (always, not counted).
    A website can't tell whether the app is installed, so this is the best it can know. */
 const STORE_URL = CONFIG.appStoreId ? "https://apps.apple.com/app/id" + encodeURIComponent(CONFIG.appStoreId) : "";
+/* the store this browser's device gets its apps from: Google Play on Android (once the app is there: CONFIG.playLive,
+   checked by the website build), the App Store everywhere else */
+const STORE = /^android/.test(PLATFORM)
+  ? { android: true, url: CONFIG.playId ? "https://play.google.com/store/apps/details?id=" + encodeURIComponent(CONFIG.playId) : "", live: !!CONFIG.playLive,
+      name: "Google Play", title: T("King Walk for Android"), pitch: T("Widgets, a daily reminder, Google Play Games"), label: "King Walk for Android" }
+  : { android: false, url: STORE_URL, live: !!CONFIG.appLive,
+      name: "App Store", title: T("King Walk for iPhone and iPad"), pitch: T("Widgets, a daily reminder, Game Center, iCloud sync"), label: "King Walk for iPhone and iPad" };
 const Promo = {
-  ok: !APP && !!STORE_URL && !!CONFIG.appLive && !/^android/.test(PLATFORM),
+  ok: !APP && !!STORE.url && STORE.live,
   desk: !/^(iphone|ipad|android)/.test(PLATFORM),          /* a computer: the bar at the end of the page adds a code to scan */
   read() { try { return JSON.parse(localStorage.getItem("kw-promo") || "{}") || {}; } catch (e) { return {}; } },
   write(v) { try { localStorage.setItem("kw-promo", JSON.stringify(v)); } catch (e) {} },
@@ -2794,7 +2801,7 @@ const Promo = {
   },
   shown(kind) { const v = this.read(); v.last = Date.now(); v.seen = Object.assign({}, v.seen, { [kind]: v.last }); this.write(v); track("promo/" + kind + "/shown"); },
   link(kind, a) {
-    a.href = STORE_URL; a.target = "_blank"; a.rel = "noopener";
+    a.href = STORE.url; a.target = "_blank"; a.rel = "noopener";
     a.addEventListener("click", () => { const v = this.read(); v.got = true; this.write(v); track("promo/" + kind + "/tap"); });
     return a;
   },
@@ -2803,10 +2810,10 @@ const Promo = {
 if (/[?&]why-app\b/.test(location.search)) {
   const v = Promo.read(), now = Date.now(), day = t => new Date(t).toISOString().slice(0, 10);
   const why = [
-    "device: " + PLATFORM + (/^android/.test(PLATFORM) ? " (no suggestions on Android: the app is for iPhone and iPad)" : " (ok)"),
+    "device: " + PLATFORM + " (suggests " + STORE.name + ")",
     "in the app: " + (APP ? "yes (no suggestions there)" : "no (ok)"),
-    "App Store ID set: " + (STORE_URL ? "yes (ok)" : "no"),
-    "app on sale: " + (CONFIG.appLive ? "yes (ok)" : "not yet, as far as the website knows"),
+    STORE.name + " link set: " + (STORE.url ? "yes (ok)" : "no"),
+    "app on " + STORE.name + ": " + (STORE.live ? "yes (ok)" : "not yet, as far as the website knows"),
     "puzzles finished here: " + me().n + (me().n >= 1 ? " (ok)" : " (the bar waits for the first one)"),
     "app owner (followed an App Store link, or opened the website from the app): " + (v.got ? "yes, so at most one suggestion a month" : "no (a week between suggestions)"),
     "closed with ×: " + (v.off > now ? "yes, hidden until " + day(v.off) : "no (ok)"),
@@ -2821,16 +2828,16 @@ function promoLine(kind, text) {
   if (!Promo.can(kind)) return;
   const card = document.querySelector(".cele:not(.out) .cele-card"), btns = card && card.querySelector(".cele-btns"); if (!btns) return;
   const pEl = document.createElement("p"), a = document.createElement("a"); pEl.className = "cele-app";
-  a.textContent = "App Store \u203a"; pEl.append(text + " ", Promo.link(kind, a)); card.insertBefore(pEl, btns);
+  a.textContent = STORE.name + " \u203a"; pEl.append(text + " ", Promo.link(kind, a)); card.insertBefore(pEl, btns);
   Promo.shown(kind);
 }
-/* the bar, for browsers on iPhone and iPad that don't show Safari's App Store banner; between puzzles, never during one */
+/* the bar, for browsers on iPhone and iPad that don't show Safari's App Store banner, and on Android; between puzzles, never during one */
 function promoBar() {
-  if (document.querySelector(".appbar") || !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(navigator.userAgent) || !Promo.can("bar")) return;
+  if (document.querySelector(".appbar") || !(STORE.android || /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(navigator.userAgent)) || !Promo.can("bar")) return;
   if (matchMedia("(orientation: landscape) and (max-height: 520px)").matches) return;          /* sideways the board needs the whole height: wait for upright */
-  const bar = document.createElement("div"); bar.className = "appbar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "King Walk for iPhone and iPad");
+  const bar = document.createElement("div"); bar.className = "appbar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", STORE.label);
   bar.innerHTML = '<img src="' + ROOT + 'icons/apple-touch-icon.png" alt=""><div></div><a class="btn small primary"></a><button type="button" class="tip-x">\u00d7</button>';
-  bar.querySelector("div").append(T("King Walk for iPhone and iPad"), Object.assign(document.createElement("span"), { textContent: T("Widgets, a daily reminder, Game Center, iCloud sync") }));
+  bar.querySelector("div").append(STORE.title, Object.assign(document.createElement("span"), { textContent: STORE.pitch }));
   Promo.link("bar", bar.querySelector("a")).textContent = T("Get");
   bar.querySelector("a").addEventListener("click", () => bar.remove());
   const x = bar.querySelector(".tip-x"); x.setAttribute("aria-label", T("Close"));
@@ -2877,9 +2884,9 @@ function inAppBar() {
    (app-qr.svg, made by the website build from the App Store link), which opens the same page there. */
 function promoFoot() {
   const v = Promo.read(); if (v.off > Date.now()) return;
-  const foot = document.createElement("div"); foot.className = "appfoot"; foot.setAttribute("role", "region"); foot.setAttribute("aria-label", "King Walk for iPhone and iPad");
+  const foot = document.createElement("div"); foot.className = "appfoot"; foot.setAttribute("role", "region"); foot.setAttribute("aria-label", STORE.label);
   foot.innerHTML = '<img src="' + ROOT + 'icons/apple-touch-icon.png" alt=""><a></a><button type="button" class="tip-x">\u00d7</button>';
-  const a = Promo.link("foot", foot.querySelector("a")); a.append(T("King Walk for iPhone and iPad") + " ", Object.assign(document.createElement("b"), { textContent: "App Store \u203a" }));
+  const a = Promo.link("foot", foot.querySelector("a")); a.append(STORE.title + " ", Object.assign(document.createElement("b"), { textContent: STORE.name + " \u203a" }));
   if (Promo.desk && CONFIG.qr) {
     const qr = Object.assign(document.createElement("img"), { className: "qr", src: ROOT + CONFIG.qr, alt: "" });
     qr.addEventListener("error", () => qr.remove()); a.after(qr);
@@ -2894,9 +2901,11 @@ if (Promo.ok) {
   /* the settings the app has: shown with a link instead of a control */
   const appOnly = (row, control) => { const a = Promo.link("settings", document.createElement("a")); a.className = "app-only"; a.textContent = T("In the app \u203a"); control.hidden = true; control.after(a); $(row).hidden = false; };
   appOnly("remindRow", $("remindSel")); appOnly("widgetRow", $("widgetCtl")); appOnly("gcRow", $("gcBtn"));
-  /* moving progress: the app does it with iCloud */
+  /* moving progress: the iOS app does it with iCloud (Android's backup only covers a new phone, so nothing to say there) */
+  if (!STORE.android) {
   const note = document.createElement("p"), a = Promo.link("save", document.createElement("a")); note.className = "note";
   a.textContent = "App Store \u203a"; note.append(T("In the app, progress follows you between your devices with iCloud.") + " ", a); $("saveHelp").after(note);
+  }
 }
 if (APP && APP.os === "ios") {          /* in the iOS app the save also goes to the player's iCloud, so it follows them to their other devices */
   $("helpSaved").textContent = T("Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.");

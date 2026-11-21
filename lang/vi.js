@@ -1,5 +1,7 @@
 /* King Walk in Tiếng Việt. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["vi"] = {
+  "King Walk for Android": "King Walk cho Android",
+  "Widgets, a daily reminder, Google Play Games": "Tiện ích, lời nhắc hằng ngày, Google Play Games",
   "Achievements": "Thành tích",
   "Leaderboards": "Bảng xếp hạng",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Tiện ích, lời nhắc hằng ngày, Game Center, đồng bộ iCloud",

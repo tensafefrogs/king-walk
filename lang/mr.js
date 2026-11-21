@@ -1,5 +1,7 @@
 /* King Walk in मराठी. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["mr"] = {
+  "King Walk for Android": "Android साठी King Walk",
+  "Widgets, a daily reminder, Google Play Games": "विजेट, रोजचे स्मरणपत्र, Google Play Games",
   "Achievements": "उपलब्धी",
   "Leaderboards": "लीडरबोर्ड",
   "Widgets, a daily reminder, Game Center, iCloud sync": "विजेट, रोजचे स्मरणपत्र, Game Center, iCloud सिंक",

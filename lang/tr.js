@@ -1,5 +1,7 @@
 /* King Walk in Türkçe. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["tr"] = {
+  "King Walk for Android": "Android için King Walk",
+  "Widgets, a daily reminder, Google Play Games": "Widget'lar, günlük hatırlatıcı, Google Play Games",
   "Achievements": "Başarılar",
   "Leaderboards": "Lider tabloları",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widget'lar, günlük hatırlatıcı, Game Center, iCloud eşzamanlama",

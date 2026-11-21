@@ -1,5 +1,7 @@
 /* King Walk in اردو. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["ur"] = {
+  "King Walk for Android": "Android کے لیے King Walk",
+  "Widgets, a daily reminder, Google Play Games": "ویجٹس، روزانہ یاد دہانی، Google Play Games",
   "Achievements": "کامیابیاں",
   "Leaderboards": "لیڈر بورڈز",
   "Widgets, a daily reminder, Game Center, iCloud sync": "ویجٹس، روزانہ یاد دہانی، Game Center، iCloud سنک",

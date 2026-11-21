@@ -1,5 +1,7 @@
 /* King Walk in Bahasa Indonesia. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["id"] = {
+  "King Walk for Android": "King Walk untuk Android",
+  "Widgets, a daily reminder, Google Play Games": "Widget, pengingat harian, Google Play Games",
   "Achievements": "Pencapaian",
   "Leaderboards": "Papan peringkat",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widget, pengingat harian, Game Center, sinkronisasi iCloud",

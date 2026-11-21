@@ -1,5 +1,7 @@
 /* King Walk in Ελληνικά. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["el"] = {
+  "King Walk for Android": "King Walk για Android",
+  "Widgets, a daily reminder, Google Play Games": "Γραφικά στοιχεία, καθημερινή υπενθύμιση, Google Play Games",
   "Achievements": "Επιτεύγματα",
   "Leaderboards": "Πίνακες κατάταξης",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Γραφικά στοιχεία, καθημερινή υπενθύμιση, Game Center, συγχρονισμός iCloud",

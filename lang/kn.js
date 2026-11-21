@@ -1,5 +1,7 @@
 /* King Walk in ಕನ್ನಡ. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["kn"] = {
+  "King Walk for Android": "Androidಗಾಗಿ King Walk",
+  "Widgets, a daily reminder, Google Play Games": "ವಿಜೆಟ್‌ಗಳು, ದೈನಂದಿನ ಜ್ಞಾಪನೆ, Google Play Games",
   "Achievements": "ಸಾಧನೆಗಳು",
   "Leaderboards": "ಲೀಡರ್‌ಬೋರ್ಡ್‌ಗಳು",
   "Widgets, a daily reminder, Game Center, iCloud sync": "ವಿಜೆಟ್‌ಗಳು, ದೈನಂದಿನ ಜ್ಞಾಪನೆ, Game Center, iCloud ಸಿಂಕ್",

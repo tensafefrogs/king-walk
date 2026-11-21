@@ -1,5 +1,7 @@
 /* King Walk in Română. Keys are the English text (T() calls and the page markup); see index.html, languages. */
 (window.KW_STRINGS = window.KW_STRINGS || {})["ro"] = {
+  "King Walk for Android": "King Walk pentru Android",
+  "Widgets, a daily reminder, Google Play Games": "Widgeturi, memento zilnic, Google Play Games",
   "Achievements": "Realizări",
   "Leaderboards": "Clasamente",
   "Widgets, a daily reminder, Game Center, iCloud sync": "Widgeturi, memento zilnic, Game Center, sincronizare iCloud",
