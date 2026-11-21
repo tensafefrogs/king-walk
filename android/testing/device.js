@@ -11,13 +11,30 @@ const apk = process.argv[2], out = process.argv[3] || path.join(__dirname, "out"
 const PKG = process.env.ANDROID_APPLICATION_ID || "kingwalk.android.dev", ACTIVITY = PKG + "/kingwalk.android.MainActivity";
 fs.mkdirSync(out, { recursive: true });
 let bad = 0;
-const check = (ok, what, detail = "") => { console.log((ok ? "ok   " : "FAIL ") + what + (ok || !detail ? "" : ": " + detail)); if (!ok) bad++; };
+let last = "starting";          // the last check that finished, for a run that stops answering
+const check = (ok, what, detail = "") => { console.log((ok ? "ok   " : "FAIL ") + what + (ok || !detail ? "" : ": " + detail)); if (!ok) bad++; last = what; };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let page;
 /** whether fn becomes true on the page within 10 seconds (the phone turning or changing theme takes a moment) */
 const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() => true, () => false);
 
 let device;
+// the whole run takes about 4 minutes: if it's still going after 12, something hangs (adb, the emulator, a page that
+// never answers), so say where, show the phone's log and stop, rather than wait for GitHub's limit
+setTimeout(async () => {
+  console.log(`FAIL the run stopped answering after "${last}"`);
+  await report();
+  process.exit(1);
+}, 12 * 60 * 1000);
+/** what the phone saw: the app's crash, if any, its last log lines, and the screen (each step given 20 seconds) */
+async function report() {
+  if (!device) return;
+  const within = p => Promise.race([p, new Promise(r => setTimeout(() => r(""), 20000))]);
+  const sh = c => within(device.shell(c).then(b => b.toString(), () => ""));
+  console.log("--- crash log\n" + (await sh("logcat -d -b crash")).slice(-6000));
+  console.log("--- the app's log\n" + (await sh(`logcat -d -t 400 | grep -iE "${PKG}|chromium|webview|AndroidRuntime"`)).slice(-8000));
+  await within(device.screenshot({ path: path.join(out, "failed.png") }).catch(() => {}));
+}
 (async () => {
   [device] = await _android.devices();
   if (!device) throw new Error("no device: start an emulator or connect a phone (adb devices)");
@@ -229,12 +246,7 @@ let device;
   process.exit(bad ? 1 : 0);
 })().catch(async e => {
   console.error(e);
-  // what the phone saw: the app's crash, if any, and its last log lines, and the screen
-  if (device) {
-    const sh = c => device.shell(c).then(b => b.toString(), () => "");
-    console.log("--- crash log\n" + (await sh("logcat -d -b crash")).slice(-6000));
-    console.log("--- the app's log\n" + (await sh(`logcat -d -t 400 | grep -iE "${PKG}|chromium|webview|AndroidRuntime"`)).slice(-8000));
-    await device.screenshot({ path: path.join(out, "failed.png") }).catch(() => {});
-  }
+  console.log(`(after "${last}")`);
+  await report();
   process.exit(1);
 });
