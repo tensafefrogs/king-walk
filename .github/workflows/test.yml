@@ -1,5 +1,6 @@
 # On every push and pull request: plays puzzles in a browser (on the web and in simulated iOS and Android apps), then checks
-# the game's rules one by one (rating, saves, streaks, awards, translations).
+# the game's rules one by one (rating, saves, streaks, awards, translations), after checking the website and both apps
+# are in step (testing/parity.js).
 name: Test
 
 on:
@@ -13,6 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: 22}
+      - run: node testing/parity.js          # the website, the iOS app and the Android app in step (fast: first)
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - run: node testing/smoke.js
       - run: node testing/unit.js

@@ -67,7 +67,7 @@ The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected
 
 ## Releasing
 
-Edit `release.json` (version, track, notes), push, then run Actions → Android app with "release" ticked. Each run builds, checks the app on the emulator, signs and uploads (or keeps the bundle in Artifacts if `upload` is false). The build number is the build time, so it always goes up.
+Edit `release.json` (version, track, notes) and push to `main`, as for the iOS app: the workflow builds and releases as it says (or run Actions → Android app with "release" ticked). The version is the iOS app's (`ios/release.json`): `testing/parity.js` fails until both say the same. Each run builds, checks the app on the emulator, signs and uploads (or keeps the bundle in Artifacts if `upload` is false). The build number is the build time, so it always goes up.
 
 `status: draft` leaves the release in Play Console for a person to start; `completed` sends it to the track's testers at once. Production releases wait for the owner's go-ahead, as on iOS.
 

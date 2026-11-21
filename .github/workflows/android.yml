@@ -105,8 +105,12 @@ jobs:
           git add -A && git commit -qm "Android emulator screenshots for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
           git push -fq "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:android-screenshots
 
+  # by hand with "release" ticked, or (as the iOS app's release.json does) a push to main that changes
+  # android/release.json once the upload key is set; Google Play production still needs "track": "production"
   release:
-    if: github.event_name == 'workflow_dispatch' && inputs.release
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.release) ||
+      (github.event_name == 'push' && contains(toJSON(github.event.commits.*.modified), 'android/release.json'))
     needs: emulator
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -124,13 +128,19 @@ jobs:
         env:
           KEYSTORE: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
         run: |
+          if [ -z "$KEYSTORE" ] && [ "$GITHUB_EVENT_NAME" = push ]; then
+            echo "::notice::android/release.json changed, but there's no upload key yet (android/README.md, Setting up): nothing to build"
+            echo "NO_KEY=1" >> "$GITHUB_ENV"; exit 0
+          fi
           [ -n "$KEYSTORE" ] || { echo "::error::The ANDROID_UPLOAD_KEYSTORE secret isn't set (android/README.md, Setting up)"; exit 1; }
           [ -n "$ANDROID_APPLICATION_ID" ] || { echo "::error::The ANDROID_APPLICATION_ID variable isn't set (android/README.md, Setting up)"; exit 1; }
           echo "$KEYSTORE" | base64 -d > "$RUNNER_TEMP/upload.jks"
           echo "ANDROID_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
       - name: Copy the game into the app
+        if: env.NO_KEY != '1'
         run: android/scripts/prepare-web.sh
       - name: Signed bundle
+        if: env.NO_KEY != '1'
         working-directory: android
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -138,10 +148,12 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: ./gradlew --no-daemon :app:bundleRelease && echo "Built $VERSION_NAME ($VERSION_CODE)"
       - uses: actions/upload-artifact@v4
+        if: env.NO_KEY != '1'
         with:
           name: king-walk-${{ env.VERSION_NAME }}-${{ env.VERSION_CODE }}.aab
           path: android/app/build/outputs/bundle/release/app-release.aab
       - name: Upload to Google Play
+        if: env.NO_KEY != '1'
         env:
           PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
         run: |

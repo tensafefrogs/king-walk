@@ -27,12 +27,6 @@ function translations() {
   const variants = Object.keys(langs).filter(t => t.includes("-"));
   check(listed.filter(l => l !== "en" && !langs[l]).length === 0 && Object.keys(langs).every(t => listed.includes(t) || variants.includes(t)),
     "every listed language has a table in lang/, and every table is listed", { missing: listed.filter(l => l !== "en" && !langs[l]), extra: Object.keys(langs).filter(t => !listed.includes(t) && !variants.includes(t)) });
-  // the Android app's per-app language list (android/.../res/xml/locales_config.xml) is the game's (LANG_NAMES)
-  const names = Object.keys(vm.runInNewContext("(" + html.match(/const LANG_NAMES = (\{[\s\S]*?\});/)[1] + ")"));
-  const phone = { es: "es-419", pt: "pt-BR", zh: "zh-Hans" };
-  const config = fs.readFileSync(path.join(__dirname, "..", "android/app/src/main/res/xml/locales_config.xml"), "utf8");
-  const inConfig = [...config.matchAll(/<locale android:name="([^"]+)"/g)].map(m => m[1]);
-  check(names.map(t => phone[t] || t).join() === inConfig.join(), "the Android app offers the game's languages in the phone's settings", { names, inConfig });
   // the Play card on the support, privacy and terms pages: cta.js has every language, and each page has the card
   const cta = fs.readFileSync(path.join(__dirname, "..", "cta.js"), "utf8"), C = JSON.parse(cta.match(/var C = (\{.*?\});/)[1]);
   const LANGS = JSON.parse(html.match(/var LANGS = (\[[^\]]+\])/)[1]);
