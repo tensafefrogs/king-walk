@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">החידה של היום</string>
+    <string name="widget_progress_description">הדרגה ודירוג החידות שלך.</string>
+    <string name="widget_daily_name">חידה יומית</string>
+    <string name="widget_daily_description">החידה של היום והרצף היומי שלך.</string>
+    <string name="widget_empty">אחרי שפותרים חידה, הדרגה שלך תופיע כאן.</string>
 </resources>

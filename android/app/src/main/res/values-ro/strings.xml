@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Problema zilei</string>
+    <string name="widget_progress_description">Rangul și ratingul tău la probleme.</string>
+    <string name="widget_daily_name">Problema zilei</string>
+    <string name="widget_daily_description">Problema zilei și seria ta zilnică.</string>
+    <string name="widget_empty">Rezolvă o problemă ca să-ți vezi rangul aici.</string>
 </resources>

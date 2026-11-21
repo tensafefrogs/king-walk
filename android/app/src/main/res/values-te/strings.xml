@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">ఈ రోజు పజిల్</string>
+    <string name="widget_progress_description">మీ ర్యాంక్, పజిల్ రేటింగ్.</string>
+    <string name="widget_daily_name">రోజువారీ పజిల్</string>
+    <string name="widget_daily_description">ఈ రోజు పజిల్, మీ రోజువారీ వరుస.</string>
+    <string name="widget_empty">మీ ర్యాంక్‌ను ఇక్కడ చూడటానికి ఒక పజిల్ పరిష్కరించండి.</string>
 </resources>

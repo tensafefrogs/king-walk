@@ -168,7 +168,7 @@ class MainActivity : ComponentActivity() {
         val app = JSONObject()
             .put("platform", platform())
             .put("gameCenter", PlayGames.enabled)          // Google Play Games, in Game Center's place (PlayGames.kt)
-            .put("widget", false)
+            .put("widget", true)          // the home screen widgets (Widgets.kt) take the page's progress
             .put("reminders", true)
             // Remove animations (Settings, Accessibility): Chrome passes it to pages as prefers-reduced-motion, the
             // WebView doesn't, so the app does
@@ -242,7 +242,7 @@ class MainActivity : ComponentActivity() {
             "review" -> review()
             "ready" -> { pageReady = true; openRequested() }
             "reminders" -> reminders(body.optInt("hour", -1), body.optJSONArray("items") ?: JSONArray())
-            // Game Center's messages (score, achieve, gamecenter) and the widget's have no Android part yet
+            "widget" -> body.optJSONObject("data")?.let { Widgets.save(this, it) }
         }
     }
 

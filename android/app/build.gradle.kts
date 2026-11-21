@@ -57,6 +57,8 @@ android {
     buildFeatures { buildConfig = true }
     // the libraries' newest versions need Android Gradle plugin 9; these are the newest for 8.13
     lint { disable += "GradleDependency" }
+    // the widgets' tests (app/src/test) run on Robolectric, which draws with Android's own graphics code
+    testOptions { unitTests.isIncludeAndroidResources = true }
     androidResources {
         // the game's files are served as they are (the puzzle chunks, fonts, icons): no compression to undo
         noCompress += listOf("txt", "woff2", "js", "html", "json", "png", "svg")
@@ -73,4 +75,6 @@ dependencies {
     implementation("com.google.android.play:app-update-ktx:2.1.0")
     implementation("com.google.android.gms:play-services-games-v2:21.0.0")
     implementation("androidx.fragment:fragment:1.8.8")          // review pulls in an old one, which mishandles permission results
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.16")
 }

@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Dzisiejsze zadanie</string>
+    <string name="widget_progress_description">Twoja ranga i ranking zadań.</string>
+    <string name="widget_daily_name">Zadanie dnia</string>
+    <string name="widget_daily_description">Dzisiejsze zadanie i twoja seria dni.</string>
+    <string name="widget_empty">Rozwiąż zadanie, aby zobaczyć tu swoją rangę.</string>
 </resources>

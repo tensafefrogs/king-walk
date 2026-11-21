@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">آج کا پزل</string>
+    <string name="widget_progress_description">آپ کا درجہ اور پزل ریٹنگ۔</string>
+    <string name="widget_daily_name">روزانہ پزل</string>
+    <string name="widget_daily_description">آج کا پزل اور آپ کا روزانہ سلسلہ۔</string>
+    <string name="widget_empty">اپنا درجہ یہاں دیکھنے کے لیے ایک پزل حل کریں۔</string>
 </resources>

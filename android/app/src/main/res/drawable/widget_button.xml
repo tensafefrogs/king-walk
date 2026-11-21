@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the game's gold button on its hard shadow: today's puzzle is waiting -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="2dp" android:top="2dp">
+        <shape android:shape="rectangle"><corners android:radius="9dp" /><solid android:color="@color/widget_shadow" /></shape>
+    </item>
+    <item android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle"><corners android:radius="9dp" /><solid android:color="@color/widget_gold" /></shape>
+    </item>
+</layer-list>

@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">今天的谜题</string>
+    <string name="widget_progress_description">你的段位和谜题等级分。</string>
+    <string name="widget_daily_name">每日谜题</string>
+    <string name="widget_daily_description">今天的谜题和你的每日连胜。</string>
+    <string name="widget_empty">解出一道谜题后，这里会显示你的段位。</string>
 </resources>

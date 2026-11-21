@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">ഇന്നത്തെ പസിൽ</string>
+    <string name="widget_progress_description">നിങ്ങളുടെ റാങ്കും പസിൽ റേറ്റിങ്ങും.</string>
+    <string name="widget_daily_name">ഡെയ്‌ലി പസിൽ</string>
+    <string name="widget_daily_description">ഇന്നത്തെ പസിലും നിങ്ങളുടെ ഡെയ്‌ലി സ്ട്രീക്കും.</string>
+    <string name="widget_empty">നിങ്ങളുടെ റാങ്ക് ഇവിടെ കാണാൻ ഒരു പസിൽ പരിഹരിക്കൂ.</string>
 </resources>

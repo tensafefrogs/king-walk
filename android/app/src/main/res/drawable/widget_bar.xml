@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the bar to the next rank: gold on a faint track -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle"><corners android:radius="3dp" /><solid android:color="@color/widget_track" /></shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <scale android:scaleWidth="100%">
+            <shape android:shape="rectangle"><corners android:radius="3dp" /><solid android:color="@color/widget_gold" /></shape>
+        </scale>
+    </item>
+</layer-list>

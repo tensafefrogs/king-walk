@@ -33,7 +33,7 @@ async function run(b, url, app) {
   if (app === "android") await p.addInitScript(() => {          // as android/app/src/main/java/kingwalk/android/MainActivity.kt sets it up
     window.sent = [];
     window.KingWalkAndroid = { postMessage: json => window.sent.push(JSON.parse(json)) };
-    window.kingWalkApp = { platform: "android-phone", gameCenter: false, widget: false, reminders: true };
+    window.kingWalkApp = { platform: "android-phone", gameCenter: false, widget: true, reminders: true };
   });
   await p.goto(url);
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
@@ -81,7 +81,8 @@ async function run(b, url, app) {
       check(r.os === "android" && r.prefix === "king-walk-android/", "the page knows it's the Android app: " + JSON.stringify([r.os, r.prefix]));
       check(r.sent.includes("ready") && r.sent.includes("reminders"), "ready and the reminder list reach the app");
       for (const op of ["haptic:pick", "haptic:solve"]) check(r.sent.includes(op), "sent " + op);
-      check(!r.sent.some(m => /^(score|achieve|widget)/.test(m)), "no Game Center or widget messages: " + r.sent.filter(m => /^(score|achieve|widget)/.test(m)).join(", "));
+      check(!r.sent.some(m => /^(score|achieve)/.test(m)), "no Game Center messages: " + r.sent.filter(m => /^(score|achieve)/.test(m)).join(", "));
+      check(r.sent.includes("widget"), "the progress reaches the app's home screen widgets");
       check(r.haptics && !r.gc && r.remind, "Haptics and reminder rows shown, no Game Center row");
       check(/Google/.test(r.help) && !/iCloud/.test(r.help), "the help text mentions the Google backup, not iCloud: " + r.help);
       check(r.back, "the back gesture has kingWalkBack");

@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">لغز اليوم</string>
+    <string name="widget_progress_description">رتبتك وتقييمك في الألغاز.</string>
+    <string name="widget_daily_name">لغز اليوم</string>
+    <string name="widget_daily_description">لغز اليوم وسلسلتك اليومية.</string>
+    <string name="widget_empty">حلّ لغزًا لتظهر رتبتك هنا.</string>
 </resources>

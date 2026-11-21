@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Päivän tehtävä</string>
+    <string name="widget_progress_description">Arvosi ja vahvuuslukusi.</string>
+    <string name="widget_daily_name">Päivän tehtävä</string>
+    <string name="widget_daily_description">Päivän tehtävä ja päiväputkesi.</string>
+    <string name="widget_empty">Ratkaise tehtävä, niin näet arvosi tässä.</string>
 </resources>

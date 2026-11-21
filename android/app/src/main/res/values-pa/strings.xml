@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">ਅੱਜ ਦੀ ਪਹੇਲੀ</string>
+    <string name="widget_progress_description">ਤੁਹਾਡਾ ਰੈਂਕ ਅਤੇ ਪਹੇਲੀ ਰੇਟਿੰਗ।</string>
+    <string name="widget_daily_name">ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ</string>
+    <string name="widget_daily_description">ਅੱਜ ਦੀ ਪਹੇਲੀ ਅਤੇ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਟ੍ਰੀਕ।</string>
+    <string name="widget_empty">ਇੱਥੇ ਆਪਣਾ ਰੈਂਕ ਦੇਖਣ ਲਈ ਇੱਕ ਪਹੇਲੀ ਹੱਲ ਕਰੋ।</string>
 </resources>

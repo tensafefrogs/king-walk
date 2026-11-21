@@ -25,6 +25,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   game is open and go in when the player leaves it.
 - **Google Play Games:** the same achievements and leaderboards as Game Center, in Settings as "Google Play Games"
   (on once they're made in Play Console). Two new strings in every language: "Achievements" and "Leaderboards".
+- **Home screen widgets on Android,** as on iPhone: your rank and rating (wider, with the rating chart and your
+  counts), and the daily puzzle with today's board seen from the side to play, the opponent's last move in gold and
+  your daily streak (a close-up of the board at 2 x 2, the whole board when it's bigger). The daily one changes to the
+  next day's board at midnight with the app closed; tapping it opens today's puzzle.
 
 ### Website only (live on kingwalk.app)
 

@@ -41,9 +41,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Copy the game into the app
         run: android/scripts/prepare-web.sh
-      - name: Debug build and lint
+      - name: Debug build, lint and unit tests
         working-directory: android
-        run: ./gradlew --no-daemon :app:assembleDebug :app:lintDebug
+        # the unit tests (app/src/test) check the widgets' rules and draw them, as PNGs in app/build/widgets/
+        run: ./gradlew --no-daemon :app:assembleDebug :app:lintDebug :app:testDebugUnitTest
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -51,6 +52,7 @@ jobs:
           path: |
             android/app/build/outputs/apk/debug/app-debug.apk
             android/app/build/reports/lint-results-debug.html
+            android/app/build/widgets/
           if-no-files-found: ignore
 
   emulator:

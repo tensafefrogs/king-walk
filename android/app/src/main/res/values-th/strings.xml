@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">โจทย์วันนี้</string>
+    <string name="widget_progress_description">ยศและเรตติ้งโจทย์ของคุณ</string>
+    <string name="widget_daily_name">โจทย์ประจำวัน</string>
+    <string name="widget_daily_description">โจทย์วันนี้และสตรีครายวันของคุณ</string>
+    <string name="widget_empty">แก้โจทย์สักข้อเพื่อดูยศของคุณที่นี่</string>
 </resources>

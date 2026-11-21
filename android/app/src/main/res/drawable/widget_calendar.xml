@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the progress widget's daily chip: today's puzzle is waiting -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#00000000" android:strokeColor="@color/widget_gold" android:strokeWidth="2.4" android:strokeLineJoin="round"
+        android:strokeLineCap="round" android:pathData="M5,5h14a2,2 0,0 1,2 2v12a2,2 0,0 1,-2 2h-14a2,2 0,0 1,-2 -2v-12a2,2 0,0 1,2 -2zM3,10h18M8,2.5v4M16,2.5v4" />
+</vector>
