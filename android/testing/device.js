@@ -11,6 +11,9 @@ const apk = process.argv[2], out = process.argv[3] || path.join(__dirname, "out"
 const PKG = process.env.ANDROID_APPLICATION_ID || "kingwalk.android.dev", ACTIVITY = PKG + "/kingwalk.android.MainActivity";
 fs.mkdirSync(out, { recursive: true });
 let bad = 0;
+/* a picture of the game: drawn by the WebView itself (Chromium's own capture), not the emulator's screen capture,
+   which stopped the CI emulator more than once. It shows the page without Android's status and navigation bars. */
+const shot = name => page.screenshot({ path: path.join(out, name) }).catch(e => console.log("note no picture " + name + ": " + e.message.split("\n")[0]));
 let last = "starting";          // the last check that finished, for a run that stops answering
 const check = (ok, what, detail = "") => { console.log((ok ? "ok   " : "FAIL ") + what + (ok || !detail ? "" : ": " + detail)); if (!ok) bad++; last = what; };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -67,7 +70,7 @@ async function report() {
   const app = await page.evaluate(() => ({ os: APP && APP.os, platform: PLATFORM, reminders: APP && APP.reminders, help: $("helpSaved").textContent, viewport: document.querySelector("meta[name=viewport]").content }));
   check(app.os === "android" && /^android-|chromeos/.test(app.platform), "the page runs as the Android app", JSON.stringify(app));
   check(/Google/.test(app.help), "the help mentions the Google backup", app.help);
-  await device.screenshot({ path: path.join(out, "1-start.png") });
+  await shot("1-start.png");
 
   // solve one puzzle with taps on the screen, like a player
   const solve = async () => {
@@ -85,7 +88,7 @@ async function report() {
   };
   await solve();
   await sleep(1500);
-  await device.screenshot({ path: path.join(out, "2-solved.png") });
+  await shot("2-solved.png");
   // a celebration may be showing (the first solve): the back gesture closes it
   if (await page.evaluate(() => !!document.querySelector(".cele:not(.out)"))) {
     await sh("input keyevent KEYCODE_BACK"); await sleep(800);
@@ -116,7 +119,7 @@ async function report() {
   // the menu: open it, then back closes it and the app stays open
   await page.evaluate(() => { if (!$("menu").classList.contains("open")) $("menuBtn").click(); }); await sleep(600);
   check(await page.evaluate(() => $("menu").classList.contains("open")), "the menu opens");
-  await device.screenshot({ path: path.join(out, "3-menu.png") });
+  await shot("3-menu.png");
   await sh("input keyevent KEYCODE_BACK"); await sleep(800);
   check(await page.evaluate(() => !$("menu").classList.contains("open")), "back closes the menu");
   const top = await sh("dumpsys activity activities | grep -E 'topResumedActivity|mResumedActivity' | head -1");
@@ -138,20 +141,20 @@ async function report() {
   await sh(`run-as ${PKG} rm -rf app_webview/Default/Local\\ Storage app_webview/Local\\ Storage`);
   page = await open();
   check(await page.evaluate(() => me().n) === n1, "progress comes back from the app's copy when the WebView's storage is empty");
-  await device.screenshot({ path: path.join(out, "4-restored.png") });
+  await shot("4-restored.png");
 
   // a reminder's tap opens the daily puzzle
   await sh(`am start -W -n ${ACTIVITY} --es open daily`);
   await sleep(2500);
   check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a reminder's tap opens the daily puzzle");
-  await device.screenshot({ path: path.join(out, "5-daily.png") });
+  await shot("5-daily.png");
 
   // larger text: the page is laid out at the phone's font size
   await sh("settings put system font_scale 1.3"); await sleep(2500);
   const vp = await page.evaluate(() => document.querySelector("meta[name=viewport]").content);
   check(/initial-scale=1\.3/.test(vp), "the page follows the phone's font size", vp);
   check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "nothing runs off the side at a bigger font size");
-  await device.screenshot({ path: path.join(out, "6-big-text.png") });
+  await shot("6-big-text.png");
   await sh("settings put system font_scale 1.0");
 
   // the page fits: no sideways scrolling, the whole board on screen
@@ -179,7 +182,7 @@ async function report() {
   await sh(`cmd locale set-app-locales ${PKG} --locales de-DE`); await sleep(2000);
   await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
   check(await page.evaluate(() => LANG === "de" && $("langSel").value === "de"), "a language set in the phone's settings is the game's", await page.evaluate(() => LANG + " " + $("langSel").value));
-  await device.screenshot({ path: path.join(out, "11-german.png") });
+  await shot("11-german.png");
   await sh(`cmd locale set-app-locales ${PKG} --locales ""`); await sleep(2000);
   await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
   check(await page.evaluate(() => LANG === "en" && $("langSel").value === ""), "and back to the phone's own", await page.evaluate(() => LANG + " " + $("langSel").value));
@@ -218,7 +221,7 @@ async function report() {
     check(await until(() => window.innerWidth > window.innerHeight), "the app turns sideways with the phone");
     await sleep(1000);
     await fitCheck("sideways: the board fits and nothing runs off the side");
-    await device.screenshot({ path: path.join(out, "7-sideways.png") });
+    await shot("7-sideways.png");
     await sh("settings put system user_rotation 0"); await sleep(2000);
 
     // (tablet sizes: testing/layout.js lays the page out at iPad and other tablet sizes in Chromium, the engine of
@@ -231,7 +234,7 @@ async function report() {
     check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
     await sleep(1000);
     check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
-    await device.screenshot({ path: path.join(out, "10-dark.png") });
+    await shot("10-dark.png");
     await sh("cmd uimode night no");
     check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
   } catch (e) {
