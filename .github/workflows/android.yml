@@ -102,7 +102,7 @@ jobs:
       - name: Screenshots to the android-screenshots branch
         if: always() && github.ref == 'refs/heads/main'
         run: |
-          [ -d android-shots ] || exit 0
+          [ -n "$(ls -A android-shots 2>/dev/null)" ] || exit 0          # none taken (the test stopped early)
           cd android-shots
           git init -q -b android-screenshots
           git config user.name "github-actions[bot]"
