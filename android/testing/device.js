@@ -241,15 +241,16 @@ async function report() {
     // Android's WebView; changing this emulator's screen size with wm stops the emulator)
     await sh("settings put system accelerometer_rotation 1");
 
-    // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
+    // dark mode, switched while the game is open: the page (its background, as seen) and the colour behind the bars
+    // follow it, the game goes on
     const nBefore = await (await live()).evaluate(() => me().n);
     await sh("cmd uimode night yes");
-    check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
+    check(await until(() => { const c = getComputedStyle(document.body).backgroundColor.match(/\d+/g).map(Number); return c[0] + c[1] + c[2] < 300; }), "the page turns dark with the phone");
     await sleep(1000);
     check(await (await live()).evaluate(() => me().n) === nBefore, "the game goes on through the switch");
     await shot("10-dark.png");
     await sh("cmd uimode night no");
-    check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
+    check(await until(() => { const c = getComputedStyle(document.body).backgroundColor.match(/\d+/g).map(Number); return c[0] + c[1] + c[2] > 500; }), "and light again");
   } catch (e) {
     const alive = await device.shell("echo ok").then(() => true, () => false);
     if (alive) throw e;

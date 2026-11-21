@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var web: WebView
     private lateinit var frame: FrameLayout
     private lateinit var updates: Updates
+    private var lastNight: Boolean? = null          // dark mode as the page last heard it (onConfigurationChanged)
     private lateinit var saves: SaveStore
     private var startScripts = listOf<ScriptHandler>()
     private var pageReady = false
@@ -133,6 +134,10 @@ class MainActivity : ComponentActivity() {
         val page = ContextCompat.getColor(this, R.color.page)
         frame.setBackgroundColor(page); web.setBackgroundColor(page)
         enableEdgeToEdge()
+        // some WebView versions (Android 13's) don't pass a dark mode change on to the open page (prefers-color-scheme):
+        // the page's own theme setting does it then (data-theme, which its colours follow)
+        val night = (newConfig.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (night != lastNight) { lastNight = night; tellPage("document.documentElement.dataset.theme='${if (night) "dark" else "light"}'") }
         sendViewport(force = true)
     }
 
