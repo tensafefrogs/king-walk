@@ -61,7 +61,8 @@ The iOS secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`) a
 ## Install it
 
 - **iPhone or iPad:** get the app (`ios/`), or open the site in Safari, tap Share, then "Add to Home Screen".
-- **Android or desktop Chrome:** use "Install app" in the browser menu.
+- **Android:** get the app (`android/`, once it's on Google Play), or use "Install app" in Chrome's menu.
+- **Desktop Chrome or Edge:** use "Install app" in the browser menu.
 
 ## Files
 
