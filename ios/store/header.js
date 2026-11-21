@@ -1,7 +1,9 @@
 // Makes the App Store header and search results art (creative assets, iOS 27 and later), also the press kit's key art:
 // a real puzzle board from the game, tilted, beside the King Walk icon, name and tagline, on the brand's deep teal.
 // Also the website's link preview, og.png (1200x630): the same board and tagline, laid out for a wide card.
-// usage: node ios/store/header.js     Needs Playwright.
+// usage: node ios/store/header.js [--play]     Needs Playwright.
+// Also Google Play's feature graphic, android/store/feature-1024x500.png (the same board and tagline, 1024x500, RGB);
+// --play makes only that one.
 // Output in ios/store/header/: universal-16x9.png (5244x2950, fills both placements), header-21x9.png (3840x1646)
 // and search-3x2.png (3840x2560), both cut from the middle. Everything that matters stays inside the area both cuts
 // keep (the middle 2212x1124 of the 2622x1475 page). Flattened to RGB (Apple rejects alpha).
@@ -30,6 +32,8 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
   const board = await (await gp.$("#frame")).screenshot({ omitBackground: true });
   await g.close();
 
+  const playOnly = process.argv.includes("--play");
+  if (!playOnly) {
   // 2. the picture
   const p = await (await b.newContext({ viewport: { width: 2622, height: 1475 }, deviceScaleFactor: 2 })).newPage();
   const mark = fs.readFileSync(path.join(ROOT, "brand/mark.svg"), "utf8").trim();
@@ -72,7 +76,6 @@ const font = (name, w) => `@font-face{font-family:${name};font-weight:${w};src:u
       <div class="chips"><span>53,000 puzzles</span><span>A daily puzzle</span><span>Free</span></div></div></body></html>`);
   await o.evaluate(() => document.fonts.ready); await o.waitForTimeout(300);
   await o.screenshot({ path: path.join(ROOT, "og.png") });
-  await b.close(); srv.close();
   execFileSync("python3", ["-c", `
 from PIL import Image
 d='${out}'
@@ -87,4 +90,34 @@ cut(round(H*3/2),H,(3840,2560),'search-3x2.png')
 `]);
   fs.unlinkSync(path.join(out, "raw-16x9.png"));
   console.log("saved to", out);
+  }
+
+  // 4. Google Play's feature graphic: 1024x500, drawn at 2x then made exactly that size; the words kept in the middle
+  // area (Play may cut the edges or put a play button over the centre on some screens, so nothing sits there alone)
+  const f = await (await b.newContext({ viewport: { width: 1024, height: 500 }, deviceScaleFactor: 2 })).newPage();
+  const fmark = fs.readFileSync(path.join(ROOT, "brand/mark.svg"), "utf8").trim();
+  const fword = fs.readFileSync(path.join(ROOT, "brand/wordmark-on-dark.svg"), "utf8").trim();
+  await f.setContent(`<!doctype html><html><head><style>${font("Fredoka", 600)}${font("Nunito", 700)}
+    html,body{margin:0;width:1024px;height:500px;overflow:hidden}
+    body{background:radial-gradient(80% 110% at 25% 40%,#1f8572 0%,#165547 50%,#0e2f29 100%);position:relative}
+    .board{position:absolute;left:560px;top:40px;width:420px;transform:perspective(1800px) rotateY(-14deg) rotateX(4deg) rotate(3deg);
+      filter:drop-shadow(0 26px 44px rgba(0,0,0,.5))}
+    .board img{display:block;width:100%}
+    .side{position:absolute;left:70px;top:0;bottom:0;width:460px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+    .mark{width:92px;height:92px}.mark svg{width:100%;height:100%}
+    .word svg{width:380px;height:auto;display:block}
+    .tag{font:600 40px/1.1 Fredoka,sans-serif;color:#fdfbf2;margin:0}.tag b{color:#f2c230;font-weight:600}</style></head><body>
+    <div class="board"><img src="data:image/png;base64,${board.toString("base64")}"></div>
+    <div class="side"><div class="mark">${fmark}</div><div class="word">${fword}</div><p class="tag">Chess puzzles that<br><b>fight back.</b></p></div>
+    </body></html>`);
+  await f.evaluate(() => document.fonts.ready); await f.waitForTimeout(300);
+  const playOut = path.join(ROOT, "android", "store"), raw = path.join(playOut, "raw-feature.png");
+  await f.screenshot({ path: raw });
+  await b.close(); srv.close();
+  execFileSync("python3", ["-c", `
+from PIL import Image
+Image.open('${raw}').convert('RGB').resize((1024,500),Image.LANCZOS).save('${path.join(playOut, "feature-1024x500.png")}')
+`]);
+  fs.unlinkSync(raw);
+  console.log("saved", path.join(playOut, "feature-1024x500.png"));
 })();

@@ -39,12 +39,12 @@ A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ fr
 After any change that alters what's on screen (layout, text in the panels, colors, the board, pieces), regenerate the store screenshots in the same change and look at them before committing:
 
 ```
-node ios/store/screenshots.js      # iPhone, iPad and iPhone Duo
+node ios/store/screenshots.js      # iPhone, iPad, iPhone Duo and Google Play's Android phone
 python3 scripts/press-kit.py       # the press page's small copies
 python3 scripts/producthunt.py     # the Product Hunt gallery and thumbnail
 ```
 
-If a change makes a caption in `ios/store/screenshots.js` untrue, update it. The listing text is in `ios/store/listing.json` (described in `ios/store/listing.md`); keep it in step with the game (puzzle count, features). The header art is `node ios/store/header.js`, the app preview and trailers `node scripts/trailer.js` (`--preview`, `--vertical`), the 3D sizzle reel `node scripts/sizzle.js` (`--vertical`; its scene is `scripts/sizzle/scene.html`, its music `scripts/sizzle/music.py`); re-record them when the game's look changes noticeably, and watch them before publishing. The videos aren't in main's history (they'd add tens of MB to every clone each time): `python3 scripts/media.py publish` puts them on the `media` branch and updates `media.json`, which you commit; `python3 scripts/media.py fetch` gets them (the website and App Store workflows do). The press kit is `press/index.html` (linked from the menu); keep its description and facts in step with the listing.
+If a change makes a caption in `ios/store/screenshots.js` untrue, update it. The listing text is in `ios/store/listing.json` (described in `ios/store/listing.md`); keep it in step with the game (puzzle count, features). The header art is `node ios/store/header.js` (`--play` for Google Play's feature graphic only), the app preview and trailers `node scripts/trailer.js` (`--preview`, `--vertical`), the 3D sizzle reel `node scripts/sizzle.js` (`--vertical`; its scene is `scripts/sizzle/scene.html`, its music `scripts/sizzle/music.py`); re-record them when the game's look changes noticeably, and watch them before publishing. The videos aren't in main's history (they'd add tens of MB to every clone each time): `python3 scripts/media.py publish` puts them on the `media` branch and updates `media.json`, which you commit; `python3 scripts/media.py fetch` gets them (the website and App Store workflows do). The press kit is `press/index.html` (linked from the menu); keep its description and facts in step with the listing. Google Play's listing is `android/store/listing.json` (English; the other languages are made from the iOS ones by `android/store/listing.py`), uploaded by the Google Play listing workflow when it or its pictures change.
 
 ## Player stats
 

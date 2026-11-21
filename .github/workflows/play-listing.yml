@@ -1,0 +1,35 @@
+# Uploads the Google Play store listing (android/store/listing.json, the other languages from ios/store/l10n/, the icon,
+# the feature graphic and the phone screenshots) whenever they change on main, as store.yml does for the App Store.
+# Needs the ANDROID_APPLICATION_ID variable and the PLAY_SERVICE_ACCOUNT_JSON secret (android/README.md); until they're
+# set it says so and does nothing.
+name: Google Play listing
+
+on:
+  push:
+    branches: [main]
+    paths: ['android/store/listing.json', 'android/store/listing.py', 'android/store/icon-512.png', 'android/store/feature-1024x500.png',
+            'android/store/screenshots/*.png', 'ios/store/l10n/*', 'ios/store/listing.json', '.github/workflows/play-listing.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: play-listing
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: What would be sent
+        run: python3 android/store/listing.py --dry-run
+      - name: Upload
+        run: |
+          if [ -z "$PLAY_SERVICE_ACCOUNT_JSON" ] || [ -z "$ANDROID_APPLICATION_ID" ]; then
+            echo "::notice::Google Play isn't set up yet (android/README.md, Setting up Google Play): nothing uploaded"; exit 0
+          fi
+          pip install --quiet google-auth==2.40.3 requests==2.32.5
+          python3 android/store/listing.py

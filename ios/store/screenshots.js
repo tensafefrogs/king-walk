@@ -1,6 +1,6 @@
 // Makes the App Store screenshots: loads the game with a saved player partway up the ranks, poses five moments,
 // captures the screen at the exact device size, then frames each with a caption.
-// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table] [--lang <locale>]   (default: all devices,
+// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table|android] [--lang <locale>]   (default: all devices,
 //        in English). Needs Playwright.
 // Output: ios/store/screenshots/<device>-<n>.png (captioned, upload these) and raw/<device>-<n>.png.
 // --lang de-DE (a file in l10n/): the game in that language with the captions from that file's "screenshots", saved to
@@ -21,9 +21,12 @@ const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x275
   "duo-inner": { viewport: { width: 669, height: 951 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
   "duo-book": { viewport: { width: 669, height: 951 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=v" },
   "duo-table": { viewport: { width: 951, height: 669 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=h" },
+  // Google Play's phone screenshots: 1080x2160 (Play takes at most 2:1), saved to android/store/screenshots/
+  android: { viewport: { width: 360, height: 720 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
 };
 const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56, sub: 28, top: 0.15, r: 22 },   // caption sizes, caption band height, corner radius
-  "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-book": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 } };
+  "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-book": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 },
+  android: { cap: 28, sub: 16, top: 0.2, r: 26 } };
 // captions that say what a half-open iPhone Duo does, in place of the usual ones
 const CAPTIONS = {
   "duo-book": { 1: { caption: "Fold it like a <b>book</b>", sub: "Board on one page. Notes on the other." } },
@@ -44,6 +47,9 @@ if (L10N) {
 }
 const out = LOCALE ? path.join(__dirname, "screenshots", "l10n", LOCALE) : path.join(__dirname, "screenshots"), raw = path.join(out, "raw");
 fs.mkdirSync(raw, { recursive: true });
+/* where a device's pictures go: Google Play's beside the Android app's other store files */
+const PLAY = LOCALE ? path.join(__dirname, "..", "..", "android", "store", "screenshots", "l10n", LOCALE) : path.join(__dirname, "..", "..", "android", "store", "screenshots");
+const outFor = name => name === "android" ? PLAY : out, rawFor = name => path.join(outFor(name), "raw");
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
 // the captions use the game's own fonts: its @font-face rules for the weights they use (Fredoka 600 and Nunito 700), each script's file inlined, so a caption in any language is drawn as the game draws it
 const CAPTION_FONTS = (fs.readFileSync(path.join(__dirname, "..", "..", "index.html"), "utf8").match(/@font-face\{[^}]*\}/g) || [])
@@ -74,7 +80,7 @@ async function playMove(p) {
   await p.evaluate(() => { if (done) return; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); });
 }
 async function solve(p) { while (!(await p.evaluate(() => done))) { await playMove(p); await p.waitForTimeout(200); } }
-const shot = (p, name, id) => p.screenshot({ path: path.join(raw, `${name}-${id}.png`) });
+const shot = (p, name, id) => { fs.mkdirSync(rawFor(name), { recursive: true }); return p.screenshot({ path: path.join(rawFor(name), `${name}-${id}.png`) }); };
 
 // Seeds that deal a good-looking puzzle (a full-ish board with a clear goal); found by trying a few
 const SEEDS = { 1: 11, 2: 5, 3: 23, 4: 11, 5: 41 };
@@ -120,7 +126,7 @@ async function caption(b, name) {
   const ctx = await b.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: d.deviceScaleFactor }); const p = await ctx.newPage();
   for (const s0 of SHOTS) {
     const s = Object.assign({}, s0, (CAPTIONS[name] || {})[s0.id]);
-    const f = path.join(raw, `${name}-${s.id}.png`); if (!fs.existsSync(f)) continue;
+    const f = path.join(rawFor(name), `${name}-${s.id}.png`); if (!fs.existsSync(f)) continue;
     const img = "data:image/png;base64," + fs.readFileSync(f).toString("base64");
     const top = Math.round(H * F.top), iw = Math.round(Math.min(W * 0.86, (H - top - H * 0.035) * W / H));
     await p.setContent(`<!doctype html><html lang="${(LOCALE || "en").split("-")[0]}"${/^(ar|he|ur)/.test(LOCALE || "") ? ' dir="rtl"' : ""}><head><style>${CAPTION_FONTS}
@@ -132,7 +138,7 @@ async function caption(b, name) {
       img{display:block;margin:0 auto;width:${iw}px;border-radius:${F.r}px;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 70px rgba(0,0,0,.45)}</style></head>
       <body><div class="cap"><h1>${s.caption}</h1><p>${s.sub}</p></div><img src="${img}"></body></html>`);
     await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);
-    await p.screenshot({ path: path.join(out, `${name}-${s.id}.png`) });
+    await p.screenshot({ path: path.join(outFor(name), `${name}-${s.id}.png`) });
   }
   await ctx.close();
 }

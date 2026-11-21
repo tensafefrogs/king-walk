@@ -21,6 +21,7 @@ The game's page (`index.html`, the same file as the website and the iOS app) in 
 | `scripts/strings.py` | The app's own few words in 45 languages (the reminders' channel, the widgets' names in the widget picker), from the iOS app's and its widget's translations |
 | `testing/device.js` | Plays the real app on an emulator or phone and checks the app's parts |
 | `release.json`, `store/play.py` | What to upload to Google Play, and the upload |
+| `store/listing.py` | The Google Play store listing in every language, with its pictures (the Google Play listing workflow) |
 
 The page talks to the app the same way as to the iOS app (`APP` in `index.html`; on Android `window.KingWalkAndroid.postMessage(json)`), so a change to the game reaches both apps. `APP.os` is `"android"` here, and the stats go under `king-walk-android/`.
 
@@ -63,7 +64,7 @@ The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected
 
 - **Personal developer accounts** (made after November 2023) must run a closed test with **at least 12 testers opted in for 14 days in a row** before Play Console lets the app apply for production. Start the closed test early: the internal track doesn't count.
 - **App content** (Policy → App content): privacy policy (the website's `privacy.html`), ads (none), content rating questionnaire, target audience, data safety. For data safety: the game sends anonymous counts to GoatCounter (`testing/STATS.md`), no account, nothing linked to a person; Google's form counts that as app interactions collected for analytics, not shared, not linked to the user.
-- **Store listing:** short and full description, the 512 px icon (`android/store/icon-512.png`), a 1024 x 500 feature graphic and phone screenshots. Not made yet; the iOS listing (`ios/store/listing.json`) is the starting point.
+- **Store listing:** made and uploaded by the **Google Play listing** workflow (`android/store/listing.py`) once `PLAY_SERVICE_ACCOUNT_JSON` is set: the text in English (`android/store/listing.json`) and in the iOS app's 45 languages, the 512 px icon (`store/icon-512.png`), the feature graphic (`store/feature-1024x500.png`, `node ios/store/header.js --play`) and five phone screenshots (`store/screenshots/`, `node ios/store/screenshots.js android`). Play Console still asks for the category (Games → Puzzle), contact email and the App content forms by hand.
 
 ## Releasing
 
