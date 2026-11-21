@@ -88,7 +88,9 @@ jobs:
           cores: 2          # the machine has 4: the rest are for adb and the test
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
-          script: node android/testing/device.js "$(find apk -name app-debug.apk | head -1)" android-shots
+          # a second try when the first fails: the emulator here sometimes falls over by itself (a real fault in the app
+          # fails both times); the test clears the app's data first, so each try starts fresh
+          script: node android/testing/device.js "$(find apk -name app-debug.apk | head -1)" android-shots || (echo "--- trying once more" && node android/testing/device.js "$(find apk -name app-debug.apk | head -1)" android-shots)
       - uses: actions/upload-artifact@v4
         if: always()
         with:
