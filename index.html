@@ -43,6 +43,7 @@
   --gap: var(--u);
   --pad: var(--u);
   --bar: 40px;         /* height of the header row: logo and settings button are this size */
+  --safe: calc(env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));          /* the status bar and home indicator the page is padded by (body, in the app) */
   --r: 14px;           /* blocks: status line, board frame, cards */
   --r-ctl: 10px;       /* controls and tiles */
   --frame-pad: 6px;
@@ -92,9 +93,9 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
   padding-left: max(var(--u), env(safe-area-inset-left, 0px));
   padding-right: max(var(--u), env(safe-area-inset-right, 0px));
   display: grid; grid-template-columns: minmax(0, 1fr);
-  --bw: min(100%, 616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 88px)));
+  --bw: min(100%, 616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 90px - var(--safe))));
 }
-@supports (height: 100dvh) { .wrap { --bw: min(100%, 616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px))); } }
+@supports (height: 100dvh) { .wrap { --bw: min(100%, 616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 90px - var(--safe)))); } }
 @media (max-width: 519.98px) { .wrap { --bw: 100%; } }
 .main {
   display: grid; gap: var(--gap) 22px; align-items: start; margin-top: var(--gap);
@@ -104,12 +105,12 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--fo
 /* one column: every block shares the board's width */
 .top, .menu, .status, .frame, .actions, .progress { width: var(--bw); justify-self: center; }
 @media (min-width: 840px) {
-  .wrap { --bw: min(616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); }
+  .wrap { --bw: min(616px, max(276px, calc(100vh - var(--u) * 6 - var(--bar) - 90px - var(--safe))), calc(100vw - var(--u) * 2 - 366px)); }
   .main { grid-template-columns: var(--bw) 344px; justify-content: center; grid-template-areas: "status progress" "board progress" "actions progress"; grid-template-rows: auto auto 1fr; }
   .top, .menu { width: calc(var(--bw) + 366px); }
   .progress { width: 100%; }
 }
-@supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px)), calc(100vw - var(--u) * 2 - 366px)); } } }
+@supports (height: 100dvh) { @media (min-width: 840px) { .wrap { --bw: min(616px, max(276px, calc(100dvh - var(--u) * 6 - var(--bar) - 90px - var(--safe))), calc(100vw - var(--u) * 2 - 366px)); } } }
 /* phone held sideways: the board on one side sized to the screen height, everything else beside it. The board is on
    the right, under a right thumb; the Left-handed layout setting (html.board-left) puts it on the left. The header
    moves into the other column, so the board can use the whole height; the board stays put as that column scrolls. */
@@ -196,16 +197,16 @@ html.fold-v .page.notes .menu { flex: none; }
 html.fold-v .page.board .ranks-card { display: grid; }
 /* tablets held upright (iPad): one column with a big board, the progress card below it */
 @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) {
-  .wrap { max-width: none; --bw: min(calc(100vw - var(--u) * 2), calc(100vh - 470px), 900px); }
+  .wrap { max-width: none; --bw: min(calc(100vw - var(--u) * 2), calc(100vh - 470px - var(--safe)), 900px); }
   .main { grid-template-columns: minmax(0, 1fr); grid-template-areas: "status" "board" "actions" "progress"; grid-template-rows: none; }
   .top, .menu, .progress { width: var(--bw); }
 }
-@supports (height: 100dvh) { @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) { .wrap { --bw: min(calc(100vw - var(--u) * 2), calc(100dvh - 470px), 900px); } } }
+@supports (height: 100dvh) { @media (min-width: 700px) and (orientation: portrait) and (min-height: 960px) { .wrap { --bw: min(calc(100vw - var(--u) * 2), calc(100dvh - 470px - var(--safe)), 900px); } } }
 /* big screens (iPad on its side, desktops): let the board grow past 616px when there is room */
 @media (min-width: 1180px) and (min-height: 820px) and (orientation: landscape) {
-  .wrap { max-width: 1280px; --bw: min(820px, calc(100vh - var(--u) * 6 - var(--bar) - 88px), calc(100vw - var(--u) * 2 - 366px)); }
+  .wrap { max-width: 1280px; --bw: min(820px, calc(100vh - var(--u) * 6 - var(--bar) - 90px - var(--safe)), calc(100vw - var(--u) * 2 - 366px)); }
 }
-@supports (height: 100dvh) { @media (min-width: 1180px) and (min-height: 820px) and (orientation: landscape) { .wrap { --bw: min(820px, calc(100dvh - var(--u) * 6 - var(--bar) - 88px), calc(100vw - var(--u) * 2 - 366px)); } } }
+@supports (height: 100dvh) { @media (min-width: 1180px) and (min-height: 820px) and (orientation: landscape) { .wrap { --bw: min(820px, calc(100dvh - var(--u) * 6 - var(--bar) - 90px - var(--safe)), calc(100vw - var(--u) * 2 - 366px)); } } }
 
 /* ---------- header ---------- */
 .top { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); height: var(--bar); }

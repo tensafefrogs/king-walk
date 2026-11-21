@@ -13,7 +13,7 @@ const VP = [
   ['phone-320', 320, 568, 1], ['phone-375', 375, 667, 1], ['phone-390', 390, 844, 1], ['phone-430', 430, 932, 1],
   ['phone-375-land', 667, 375, 1], ['phone-390-land', 844, 390, 1], ['phone-430-land', 932, 430, 1],
   ['ipad-mini', 744, 1133, 1], ['ipad-mini-land', 1133, 744, 1], ['ipad', 820, 1180, 1], ['ipad-land', 1180, 820, 1],
-  ['ipad-split-half', 507, 1024, 1], ['ipad-slideover', 320, 1024, 1], ['ipad-pro-land', 1366, 1024, 1],
+  ['ipad-9-land', 1024, 768, 1], ['ipad-10-land', 1080, 810, 1], ['ipad-split-half', 507, 1024, 1], ['ipad-slideover', 320, 1024, 1], ['ipad-pro-land', 1366, 1024, 1],
   ['laptop', 1280, 720, 0], ['desktop', 1920, 1080, 0], ['short-desktop', 1280, 600, 0],
   ['duo-table', 951, 669, 1, '?fold=h'], ['duo-book', 1338, 951, 1, '?fold=v'],
   /* the app follows the iPhone's text size by zooming the page: an iPhone 16 Pro (402 x 874 points) at the largest

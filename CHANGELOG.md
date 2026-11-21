@@ -32,6 +32,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
+- **Fits sideways on older iPads:** on a 9.7" or 10.2" iPad held sideways, and on any wide screen where the board's
+  size comes from the height, the page no longer scrolls a little. The board now leaves room for the status bar and
+  home indicator (in the app) and is 2 pixels smaller. Live on the website; reaches the iOS app with the next build.
 - **Android phones hear about the Android app,** once it's on Google Play: the same bar, end-of-page line and settings
   links that point iPhones to the App Store point Android browsers to Google Play ("King Walk for Android"), with
   Google Play Games in place of Game Center. Until the website build finds the app's Google Play page, nothing changes.
