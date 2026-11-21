@@ -17,8 +17,9 @@ let page;
 /** whether fn becomes true on the page within 10 seconds (the phone turning or changing theme takes a moment) */
 const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() => true, () => false);
 
+let device;
 (async () => {
-  const [device] = await _android.devices();
+  [device] = await _android.devices();
   if (!device) throw new Error("no device: start an emulator or connect a phone (adb devices)");
   console.log("device:", device.model(), device.serial());
   const sh = async c => (await device.shell(c)).toString();
@@ -226,4 +227,14 @@ const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() =
   await device.close();
   console.log(bad ? bad + " failed" : "all passed");
   process.exit(bad ? 1 : 0);
-})().catch(e => { console.error(e); process.exit(1); });
+})().catch(async e => {
+  console.error(e);
+  // what the phone saw: the app's crash, if any, and its last log lines, and the screen
+  if (device) {
+    const sh = c => device.shell(c).then(b => b.toString(), () => "");
+    console.log("--- crash log\n" + (await sh("logcat -d -b crash")).slice(-6000));
+    console.log("--- the app's log\n" + (await sh(`logcat -d -t 400 | grep -iE "${PKG}|chromium|webview|AndroidRuntime"`)).slice(-8000));
+    await device.screenshot({ path: path.join(out, "failed.png") }).catch(() => {});
+  }
+  process.exit(1);
+});
