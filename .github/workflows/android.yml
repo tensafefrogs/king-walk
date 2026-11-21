@@ -58,7 +58,7 @@ jobs:
   emulator:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     permissions:
       contents: write          # the screenshots branch, below
     steps:
@@ -74,7 +74,7 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
       - name: Play the app on an emulator (Android 13)
-        timeout-minutes: 18
+        timeout-minutes: 27          # two tries of up to 12 minutes each, and the emulator's start
         uses: reactivecircus/android-emulator-runner@v2
         with:
           # Android 13 (per-app languages need 13 or later), the image most often run on GitHub's machines. Android 15,
