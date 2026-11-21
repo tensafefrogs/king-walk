@@ -31,6 +31,14 @@ ul.feat{padding-left:20px}ul.feat li{margin:4px 0}
 .shots a{flex:none;scroll-snap-align:start}.shots img{display:block;height:440px;width:auto;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
 .shots.ipad img,.shots.duo img{height:400px}
 video{width:100%;border-radius:18px;background:#143f38;display:block}
+/* the sizzle reel on YouTube: its poster and a play button (in the corner, clear of the title) until clicked, so the page asks nothing of YouTube before then;
+   then YouTube's privacy-enhanced player (youtube-nocookie.com) in its place */
+.yt{all:unset;box-sizing:border-box;display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#143f38;cursor:pointer}
+.yt img{width:100%;height:100%;object-fit:cover;display:block}
+.yt span{position:absolute;inset:auto auto 16px 16px;width:68px;height:48px;border-radius:14px;background:rgba(0,0,0,.72);transition:background .15s}
+.yt span::after{content:"";position:absolute;inset:14px auto auto 27px;border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff}
+.yt:hover span,.yt:focus-visible span{background:#e1341e}.yt:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
+iframe.yt-player{width:100%;aspect-ratio:16/9;border:0;border-radius:18px;display:block;background:#000}
 .vids{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:start}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
@@ -88,11 +96,22 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-si
 <h2>Trailers</h2>
 <p class="muted">A 30-second sizzle reel, and gameplay as it really plays.</p>
 <div class="vids">
-  <div><video src="king-walk-sizzle.mp4" poster="king-walk-sizzle-poster.jpg" controls preload="none" playsinline></video><p class="muted">Sizzle reel. <a href="https://youtu.be/kcMp7IIMqV0">Watch on YouTube</a> · <a href="king-walk-sizzle.mp4" download>Download (1920×1080, MP4)</a></p></div>
+  <div><button type="button" class="yt" data-id="kcMp7IIMqV0" aria-label="Play the sizzle reel (YouTube)"><img src="king-walk-sizzle-poster.jpg" alt=""><span aria-hidden="true"></span></button><p class="muted">Sizzle reel. <a href="https://youtu.be/kcMp7IIMqV0">Watch on YouTube</a> · <a href="king-walk-sizzle.mp4" download>Download (1920×1080, MP4)</a></p></div>
   <div><video src="king-walk-sizzle-vertical.mp4" poster="king-walk-sizzle-vertical-poster.jpg" controls preload="none" playsinline></video><p class="muted">Sizzle reel, upright. <a href="king-walk-sizzle-vertical.mp4" download>Download (1080×1920, MP4)</a></p></div>
   <div><video src="king-walk-trailer.mp4" poster="king-walk-trailer-poster.jpg" controls preload="none" playsinline></video><p class="muted">Gameplay. <a href="king-walk-trailer.mp4" download>Download (1920×1080, MP4)</a></p></div>
   <div><video src="king-walk-trailer-vertical.mp4" poster="king-walk-trailer-vertical-poster.jpg" controls preload="none" playsinline></video><p class="muted">Gameplay, upright. <a href="king-walk-trailer-vertical.mp4" download>Download (1080×1920, MP4)</a></p></div>
 </div>
+<script>
+document.querySelectorAll(".yt").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var f = document.createElement("iframe");
+    f.className = "yt-player"; f.title = "King Walk sizzle reel";
+    f.src = "https://www.youtube-nocookie.com/embed/" + b.dataset.id + "?autoplay=1&rel=0&playsinline=1";
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+    b.replaceWith(f); f.focus();
+  });
+});
+</script>
 
 <h2>Screenshots</h2>
 <p class="muted">iPhone (1320×2868). Click for the full-size PNG.</p>
