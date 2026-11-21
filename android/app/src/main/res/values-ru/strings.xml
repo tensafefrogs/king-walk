@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Задача дня</string>
+    <string name="widget_progress_description">Ваше звание и рейтинг в задачах.</string>
+    <string name="widget_daily_name">Задача дня</string>
+    <string name="widget_daily_description">Задача дня и ваша серия дней.</string>
+    <string name="widget_empty">Решите задачу, чтобы увидеть здесь своё звание.</string>
 </resources>

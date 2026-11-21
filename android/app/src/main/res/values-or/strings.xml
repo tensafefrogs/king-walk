@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">ଆଜିର ପଜଲ</string>
+    <string name="widget_progress_description">ତୁମ ର‍୍ୟାଙ୍କ ଓ ପଜଲ ରେଟିଂ।</string>
+    <string name="widget_daily_name">ଦୈନିକ ପଜଲ</string>
+    <string name="widget_daily_description">ଆଜିର ପଜଲ ଓ ତୁମ ଦୈନିକ ଷ୍ଟ୍ରିକ।</string>
+    <string name="widget_empty">ତୁମ ର‍୍ୟାଙ୍କ ଏଠାରେ ଦେଖିବାକୁ ଏକ ପଜଲ ସମାଧାନ କର।</string>
 </resources>

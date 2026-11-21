@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the rank's piece sits on a gold tile with the game's hard shadow -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="2dp" android:top="2dp">
+        <shape android:shape="rectangle"><corners android:radius="10dp" /><solid android:color="@color/widget_shadow" /></shape>
+    </item>
+    <item android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle"><corners android:radius="10dp" /><solid android:color="@color/widget_gold" /></shape>
+    </item>
+</layer-list>

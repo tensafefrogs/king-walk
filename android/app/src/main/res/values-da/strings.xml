@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Dagens opgave</string>
+    <string name="widget_progress_description">Din rang og opgaverating.</string>
+    <string name="widget_daily_name">Dagens opgave</string>
+    <string name="widget_daily_description">Dagens opgave og din daglige stime.</string>
+    <string name="widget_empty">Løs en opgave for at se din rang her.</string>
 </resources>

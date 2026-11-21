@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">ಇಂದಿನ ಒಗಟು</string>
+    <string name="widget_progress_description">ನಿಮ್ಮ ಶ್ರೇಣಿ ಮತ್ತು ಒಗಟು ರೇಟಿಂಗ್.</string>
+    <string name="widget_daily_name">ದೈನಂದಿನ ಒಗಟು</string>
+    <string name="widget_daily_description">ಇಂದಿನ ಒಗಟು ಮತ್ತು ನಿಮ್ಮ ದೈನಂದಿನ ಸರಣಿ.</string>
+    <string name="widget_empty">ನಿಮ್ಮ ಶ್ರೇಣಿಯನ್ನು ಇಲ್ಲಿ ನೋಡಲು ಒಂದು ಒಗಟು ಬಿಡಿಸಿ.</string>
 </resources>

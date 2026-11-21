@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The daily widget without a board (before the game has sent today's): the number and the day, done or waiting -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg_bright"
+    android:clipToOutline="true"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_padding"
+    tools:ignore="UselessLeaf,NestedWeights,ContentDescription,UseCompoundDrawables"
+    tools:targetApi="31">
+
+    <include layout="@layout/widget_daily_header" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/daily_number"
+        style="@style/WidgetNumber"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:autoSizeMaxTextSize="46sp"
+        android:autoSizeMinTextSize="24sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_vertical|start" />
+
+    <TextView
+        android:id="@+id/daily_weekday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/widget_cream_80"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minHeight="4dp" />
+
+    <include layout="@layout/widget_daily_status" />
+</LinearLayout>

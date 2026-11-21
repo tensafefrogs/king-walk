@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The progress widget (Widgets.kt, ProgressWidget): 2 x 2, or wider with the rating chart. It's drawn again when the
+     game sends new progress and at midnight, so the launcher's own timer is off (updatePeriodMillis 0). -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/widget_progress_description"
+    android:initialLayout="@layout/widget_empty"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="100dp"
+    android:minResizeHeight="100dp"
+    android:previewImage="@drawable/widget_preview_progress"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"
+    tools:ignore="UnusedAttribute" />

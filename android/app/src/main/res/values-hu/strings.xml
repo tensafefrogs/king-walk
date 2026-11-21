@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Mai feladvány</string>
+    <string name="widget_progress_description">A rangod és a feladvány-értékszámod.</string>
+    <string name="widget_daily_name">Napi feladvány</string>
+    <string name="widget_daily_description">A mai feladvány és a napi sorozatod.</string>
+    <string name="widget_empty">Oldj meg egy feladványt, és itt látod a rangodat.</string>
 </resources>

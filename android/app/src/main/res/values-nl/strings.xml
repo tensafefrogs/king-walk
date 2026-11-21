@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Puzzel van vandaag</string>
+    <string name="widget_progress_description">Je rang en puzzelrating.</string>
+    <string name="widget_daily_name">Puzzel van de dag</string>
+    <string name="widget_daily_description">De puzzel van vandaag en je dagreeks.</string>
+    <string name="widget_empty">Los een puzzel op om hier je rang te zien.</string>
 </resources>

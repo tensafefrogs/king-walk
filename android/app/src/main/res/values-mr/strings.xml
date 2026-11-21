@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">आजचे कोडे</string>
+    <string name="widget_progress_description">तुमचा दर्जा आणि कोडे रेटिंग.</string>
+    <string name="widget_daily_name">दैनिक कोडे</string>
+    <string name="widget_daily_description">आजचे कोडे आणि तुमची दैनिक स्ट्रीक.</string>
+    <string name="widget_empty">तुमचा दर्जा इथे पाहण्यासाठी एक कोडे सोडवा.</string>
 </resources>

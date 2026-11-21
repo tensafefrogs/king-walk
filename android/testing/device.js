@@ -1,6 +1,7 @@
 // Plays the real Android app on a device or emulator (adb) and checks the parts only the app has: the page talks to the
 // app, progress survives the app being closed and its WebView storage being lost (the copy SaveStore keeps, which the
-// Google backup takes), the back gesture closes the menu, reminders are scheduled, and the screen looks right.
+// Google backup takes), the home screen widgets get the progress, the back gesture closes the menu, reminders are
+// scheduled, and the screen looks right.
 // The GitHub workflow (.github/workflows/android.yml) runs it on an emulator after each build.
 // usage: node android/testing/device.js <app-debug.apk> [screenshots folder]   (a debug build: its WebView can be inspected)
 const { _android } = require("playwright");
@@ -67,6 +68,20 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await sleep(500);
   const prefs = await sh(`run-as ${PKG} cat shared_prefs/save.xml`);
   check(/chess-climb-v1/.test(prefs), "the save is copied to save.xml", prefs.slice(0, 200));
+
+  // the home screen widgets: the progress reaches the app (Widgets.kt keeps it in widget.xml), with today's board,
+  // and the phone knows both widgets (placing them on a home screen is the launcher's, not tried here)
+  const rating = await page.evaluate(() => me().rating);
+  let widget = "";
+  for (let i = 0; i < 10 && !/dailyBoards/.test(widget); i++) {          // the boards come once today's puzzles are loaded
+    await sleep(500);
+    widget = await sh(`run-as ${PKG} cat shared_prefs/widget.xml`).catch(() => "");
+  }
+  check(new RegExp(`rating&quot;:${rating}\\b|"rating":${rating}\\b`).test(widget) && /dailyBoards/.test(widget), "the widgets get the progress and today's board", widget.slice(0, 300));
+  const providers = await sh("dumpsys appwidget");
+  const offered = name => providers.split("\n").some(l => l.includes(PKG + "/") && l.includes(name));
+  check(offered("ProgressWidget") && offered("DailyWidget"),
+    "both widgets are offered", providers.split("\n").filter(l => l.includes(PKG)).slice(0, 4).join(" | "));
 
   // the menu: open it, then back closes it and the app stays open
   await page.evaluate(() => { if (!$("menu").classList.contains("open")) $("menuBtn").click(); }); await sleep(600);

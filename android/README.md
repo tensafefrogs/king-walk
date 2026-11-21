@@ -8,9 +8,11 @@ The game's page (`index.html`, the same file as the website and the iOS app) in 
 | `SaveStore.kt` | A copy of the page's save, which Android's Google backup takes: a new phone, or the app installed again, starts with the player's progress |
 | `Reminders.kt` | The daily puzzle reminder, scheduled on the phone (no server), with the text in the player's language from the page |
 | `Haptics.kt` | The page's haptic kinds as Android's own touch feedback |
+| `Widgets.kt`, `Progress.kt`, `WidgetArt.kt` | The home screen widgets, as the iOS app's: rank and rating, and today's daily puzzle with its board. The page sends the progress (op `widget`); `Progress.kt` is `ios/Shared/Progress.swift`'s rules, `WidgetArt.kt` draws the board and the rating chart, the layouts are `res/layout/widget_*.xml`. An alarm redraws them at midnight, for the new daily |
+| `app/src/test/…/WidgetsTest.kt` | The widgets' rules, and every size drawn to PNGs in `app/build/widgets/` (Robolectric): `./gradlew :app:testDebugUnitTest`. The widget picker's pictures (`res/drawable-nodpi/widget_preview_*.png`) are its `preview-*.png`, copied by hand when the widgets' look changes |
 | `scripts/prepare-web.sh` | Copies the game into the app and writes its `config.js` (run before building) |
 | `scripts/art.js` | The launcher icon (adaptive, with a themed version) and the Play listing icon, from `brand/` |
-| `scripts/strings.py` | The app's own few words in 45 languages, from the iOS app's translations |
+| `scripts/strings.py` | The app's own few words in 45 languages (the reminders' channel, the widgets' names in the widget picker), from the iOS app's and its widget's translations |
 | `testing/device.js` | Plays the real app on an emulator or phone and checks the app's parts |
 | `release.json`, `store/play.py` | What to upload to Google Play, and the upload |
 
@@ -27,6 +29,8 @@ android/scripts/prepare-web.sh
 ```bash
 cd android && ./gradlew :app:assembleDebug
 ```
+
+The unit tests (the widgets) run with `./gradlew :app:testDebugUnitTest`.
 
 The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected (`adb devices`): `node android/testing/device.js android/app/build/outputs/apk/debug/app-debug.apk`.
 
@@ -60,4 +64,4 @@ Edit `release.json` (version, track, notes), push, then run Actions → Android 
 
 ## Not in the Android app yet
 
-The iOS app's home screen widgets, Game Center (Google Play Games would be the Android version), progress moving between devices while they're in use (iCloud on iOS; here only the backup), and website links that open the app (needs the Play signing key's fingerprint in `kingwalk.app/.well-known/assetlinks.json`).
+Game Center (Google Play Games would be the Android version), progress moving between devices while they're in use (iCloud on iOS; here only the backup), and website links that open the app (needs the Play signing key's fingerprint in `kingwalk.app/.well-known/assetlinks.json`).

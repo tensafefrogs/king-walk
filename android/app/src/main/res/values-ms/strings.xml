@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Teka-teki hari ini</string>
+    <string name="widget_progress_description">Pangkat dan rating teka-teki anda.</string>
+    <string name="widget_daily_name">Teka-teki harian</string>
+    <string name="widget_daily_description">Teka-teki hari ini dan rentetan harian anda.</string>
+    <string name="widget_empty">Selesaikan teka-teki untuk melihat pangkat anda di sini.</string>
 </resources>

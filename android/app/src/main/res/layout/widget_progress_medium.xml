@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The progress widget, wide: the rank and rating, and beside them the rating over the last puzzles (a picture drawn by
+     WidgetArt.chart) and the counts: solved, in a row, best run -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:clipToOutline="true"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="@dimen/widget_padding"
+    tools:ignore="UselessLeaf,NestedWeights,ContentDescription,UseCompoundDrawables"
+    tools:targetApi="31">
+
+    <include
+        layout="@layout/widget_progress_column"
+        android:layout_width="124dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chart_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="@color/widget_cream_70"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/solved"
+                    style="@style/WidgetStat" />
+                <TextView
+                    android:id="@+id/solved_label"
+                    style="@style/WidgetStatLabel" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/in_row"
+                    style="@style/WidgetStat" />
+                <TextView
+                    android:id="@+id/in_row_label"
+                    style="@style/WidgetStatLabel" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/best"
+                    style="@style/WidgetStat" />
+                <TextView
+                    android:id="@+id/best_label"
+                    style="@style/WidgetStatLabel" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

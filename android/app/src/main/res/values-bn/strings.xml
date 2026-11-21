@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">আজকের পাজল</string>
+    <string name="widget_progress_description">তোমার র‍্যাঙ্ক আর পাজল রেটিং।</string>
+    <string name="widget_daily_name">দৈনিক পাজল</string>
+    <string name="widget_daily_description">আজকের পাজল আর তোমার দৈনিক স্ট্রিক।</string>
+    <string name="widget_empty">এখানে তোমার র‍্যাঙ্ক দেখতে একটা পাজল সমাধান করো।</string>
 </resources>

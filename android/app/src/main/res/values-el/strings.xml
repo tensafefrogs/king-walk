@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Σημερινός γρίφος</string>
+    <string name="widget_progress_description">Η βαθμίδα και η βαθμολογία σου στους γρίφους.</string>
+    <string name="widget_daily_name">Γρίφος της ημέρας</string>
+    <string name="widget_daily_description">Ο σημερινός γρίφος και το καθημερινό σου σερί.</string>
+    <string name="widget_empty">Λύσε έναν γρίφο για να δεις εδώ τη βαθμίδα σου.</string>
 </resources>

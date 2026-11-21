@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">આજનો કોયડો</string>
+    <string name="widget_progress_description">તમારો રેન્ક અને કોયડા રેટિંગ.</string>
+    <string name="widget_daily_name">દૈનિક કોયડો</string>
+    <string name="widget_daily_description">આજનો કોયડો અને તમારી દૈનિક સ્ટ્રીક.</string>
+    <string name="widget_empty">અહીં તમારો રેન્ક જોવા એક કોયડો ઉકેલો.</string>
 </resources>

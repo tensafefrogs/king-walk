@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Câu đố hôm nay</string>
+    <string name="widget_progress_description">Cấp bậc và điểm câu đố của bạn.</string>
+    <string name="widget_daily_name">Câu đố hằng ngày</string>
+    <string name="widget_daily_description">Câu đố hôm nay và chuỗi ngày của bạn.</string>
+    <string name="widget_empty">Giải một câu đố để xem cấp bậc của bạn ở đây.</string>
 </resources>

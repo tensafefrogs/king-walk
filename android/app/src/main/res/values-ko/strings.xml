@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">오늘의 퍼즐</string>
+    <string name="widget_progress_description">내 등급과 퍼즐 레이팅.</string>
+    <string name="widget_daily_name">데일리 퍼즐</string>
+    <string name="widget_daily_description">오늘의 퍼즐과 데일리 연속 기록.</string>
+    <string name="widget_empty">퍼즐을 풀면 여기에 등급이 표시돼요.</string>
 </resources>

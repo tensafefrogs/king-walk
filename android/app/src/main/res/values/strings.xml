@@ -3,4 +3,8 @@
 <resources>
     <string name="app_name" translatable="false">King Walk</string>
     <string name="channel_daily">Today\'s puzzle</string>
+    <string name="widget_progress_description">Your rank and puzzle rating.</string>
+    <string name="widget_daily_name">Daily puzzle</string>
+    <string name="widget_daily_description">Today\'s puzzle and your daily streak.</string>
+    <string name="widget_empty">Solve a puzzle to see your rank here.</string>
 </resources>

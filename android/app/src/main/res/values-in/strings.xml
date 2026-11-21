@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Puzzle hari ini</string>
+    <string name="widget_progress_description">Pangkat dan rating puzzle-mu.</string>
+    <string name="widget_daily_name">Puzzle harian</string>
+    <string name="widget_daily_description">Puzzle hari ini dan runtunan harianmu.</string>
+    <string name="widget_empty">Selesaikan puzzle untuk melihat pangkatmu di sini.</string>
 </resources>

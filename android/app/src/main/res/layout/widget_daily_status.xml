@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Today's puzzle done (the game's green check) or waiting (the game's gold button); Widgets.kt shows one -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="MergeRootFrame,UseCompoundDrawables">
+
+    <LinearLayout
+        android:id="@+id/status_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/widget_check" />
+        <TextView
+            android:id="@+id/status_done_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:textColor="@color/widget_cream_90"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- the padding leaves room for the button's shadow, which is always at its bottom right -->
+    <LinearLayout
+        android:id="@+id/status_todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/widget_button"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="9dp"
+        android:paddingTop="5dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="7dp"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/widget_play" />
+        <TextView
+            android:id="@+id/status_todo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:textColor="@color/widget_ink"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</FrameLayout>

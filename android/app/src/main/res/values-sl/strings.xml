@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Današnja uganka</string>
+    <string name="widget_progress_description">Tvoj naziv in rating ugank.</string>
+    <string name="widget_daily_name">Dnevna uganka</string>
+    <string name="widget_daily_description">Današnja uganka in tvoj niz dni.</string>
+    <string name="widget_empty">Reši uganko in tu se bo prikazal tvoj naziv.</string>
 </resources>

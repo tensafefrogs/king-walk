@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">இன்றைய புதிர்</string>
+    <string name="widget_progress_description">உங்கள் நிலையும் புதிர் ரேட்டிங்கும்.</string>
+    <string name="widget_daily_name">தினசரி புதிர்</string>
+    <string name="widget_daily_description">இன்றைய புதிரும் உங்கள் தினசரி தொடரும்.</string>
+    <string name="widget_empty">உங்கள் நிலையை இங்கே பார்க்க ஒரு புதிரைத் தீர்த்திடுங்கள்.</string>
 </resources>

@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Problème du jour</string>
+    <string name="widget_progress_description">Votre rang et votre classement problèmes.</string>
+    <string name="widget_daily_name">Problème du jour</string>
+    <string name="widget_daily_description">Le problème du jour et votre série quotidienne.</string>
+    <string name="widget_empty">Résolvez un problème pour voir votre rang ici.</string>
 </resources>

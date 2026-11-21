@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Problema de hoje</string>
+    <string name="widget_progress_description">A tua patente e a tua pontuação de problemas.</string>
+    <string name="widget_daily_name">Problema do dia</string>
+    <string name="widget_daily_description">O problema de hoje e a tua sequência diária.</string>
+    <string name="widget_empty">Resolve um problema para veres aqui a tua patente.</string>
 </resources>

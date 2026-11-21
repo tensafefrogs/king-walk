@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The home screen widgets' colours and sizes: the iOS widgets' Palette (ios/KingWalkWidget/KingWalkWidget.swift), a dark
+     green card in light and dark mode alike -->
+<resources>
+    <color name="widget_gold">#f2c230</color>
+    <color name="widget_ink">#16302c</color>
+    <color name="widget_cream">#fdfbf2</color>
+    <color name="widget_cream_90">#e6fdfbf2</color>
+    <color name="widget_cream_80">#ccfdfbf2</color>
+    <color name="widget_cream_70">#b3fdfbf2</color>
+    <color name="widget_deep_teal">#143f38</color>
+    <color name="widget_teal">#1c7868</color>
+    <color name="widget_night">#0d2925</color>
+    <color name="widget_shadow">#990d2925</color>
+    <color name="widget_coral">#e2704f</color>
+    <color name="widget_solved">#22a06b</color>
+    <color name="widget_track">#2effffff</color>
+    <dimen name="widget_radius">16dp</dimen>
+    <dimen name="widget_padding">14dp</dimen>
+
+    <!-- the progress widget's counts: a number over its label -->
+    <style name="WidgetStat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/widget_cream</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="WidgetStatLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/widget_cream_70</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    <!-- the daily widget's number, "#8" -->
+    <style name="WidgetNumber">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/widget_cream</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

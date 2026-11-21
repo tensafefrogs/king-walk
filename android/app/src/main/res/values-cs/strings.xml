@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Dnešní úloha</string>
+    <string name="widget_progress_description">Tvoje hodnost a rating v úlohách.</string>
+    <string name="widget_daily_name">Úloha dne</string>
+    <string name="widget_daily_description">Dnešní úloha a tvoje denní série.</string>
+    <string name="widget_empty">Vyřeš úlohu a uvidíš tu svou hodnost.</string>
 </resources>

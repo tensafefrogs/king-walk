@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Günün bulmacası</string>
+    <string name="widget_progress_description">Rütben ve bulmaca puanın.</string>
+    <string name="widget_daily_name">Günün bulmacası</string>
+    <string name="widget_daily_description">Günün bulmacası ve günlük serin.</string>
+    <string name="widget_empty">Rütbeni burada görmek için bir bulmaca çöz.</string>
 </resources>

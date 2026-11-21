@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The progress widget's small size, and the left column of its wider one: the rank's piece and today's daily puzzle,
+     the rank, the rating, the bar to the next rank and how far it is. Filled in by Widgets.kt. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="UselessLeaf,NestedWeights,ContentDescription,UseCompoundDrawables">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/widget_badge">
+            <ImageView
+                android:id="@+id/piece"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="6dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/widget_piece_wp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- today's daily puzzle: a check and the daily streak when it's done, a coral dot while it waits -->
+        <LinearLayout
+            android:id="@+id/chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/chip_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/widget_calendar" />
+            <TextView
+                android:id="@+id/chip_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/widget_gold"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/chip_dot"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginStart="3dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/widget_dot" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minHeight="2dp" />
+
+    <TextView
+        android:id="@+id/rank_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/widget_cream_80"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:autoSizeMaxTextSize="36sp"
+        android:autoSizeMinTextSize="20sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_vertical|start"
+        android:maxLines="1"
+        android:textColor="@color/widget_cream"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="2dp"
+        android:importantForAccessibility="no"
+        android:indeterminate="false"
+        android:max="1000"
+        android:progressDrawable="@drawable/widget_bar" />
+
+    <TextView
+        android:id="@+id/next_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/widget_cream_70"
+        android:textSize="12sp" />
+</LinearLayout>

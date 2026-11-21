@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">आज की पहेली</string>
+    <string name="widget_progress_description">आपकी रैंक और पहेली रेटिंग।</string>
+    <string name="widget_daily_name">दैनिक पहेली</string>
+    <string name="widget_daily_description">आज की पहेली और आपकी दैनिक स्ट्रीक।</string>
+    <string name="widget_empty">अपनी रैंक यहाँ देखने के लिए एक पहेली हल करें।</string>
 </resources>

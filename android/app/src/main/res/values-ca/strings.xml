@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Problema d\'avui</string>
+    <string name="widget_progress_description">El teu rang i la teva puntuació de problemes.</string>
+    <string name="widget_daily_name">Problema del dia</string>
+    <string name="widget_daily_description">El problema d\'avui i la teva ratxa diària.</string>
+    <string name="widget_empty">Resol un problema per veure aquí el teu rang.</string>
 </resources>

@@ -2,4 +2,8 @@
 <!-- made by android/scripts/strings.py from the iOS app's translations -->
 <resources>
     <string name="channel_daily">Današnji zadatak</string>
+    <string name="widget_progress_description">Tvoj rang i rejting u zadacima.</string>
+    <string name="widget_daily_name">Dnevni zadatak</string>
+    <string name="widget_daily_description">Današnji zadatak i tvoj niz dana.</string>
+    <string name="widget_empty">Riješi zadatak i ovdje ćeš vidjeti svoj rang.</string>
 </resources>
