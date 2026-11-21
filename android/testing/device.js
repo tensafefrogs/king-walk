@@ -13,13 +13,23 @@ fs.mkdirSync(out, { recursive: true });
 let bad = 0;
 /* a picture of the game: drawn by the WebView itself (Chromium's own capture), not the emulator's screen capture,
    which stopped the CI emulator more than once. It shows the page without Android's status and navigation bars. */
-const shot = name => page.screenshot({ path: path.join(out, name) }).catch(e => console.log("note no picture " + name + ": " + e.message.split("\n")[0]));
+const shot = name => live().then(p => p.screenshot({ path: path.join(out, name) })).catch(e => console.log("note no picture " + name + ": " + e.message.split("\n")[0]));
 let last = "starting";          // the last check that finished, for a run that stops answering
 const check = (ok, what, detail = "") => { console.log((ok ? "ok   " : "FAIL ") + what + (ok || !detail ? "" : ": " + detail)); if (!ok) bad++; last = what; };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-let page;
+let page, attach;
+/** the page to talk to: if the WebView loaded the game again (the app does after its renderer restarts), the new one */
+async function live() {
+  if (page && page.isClosed()) {
+    console.log("note the game's page loaded again in the WebView: carrying on with the new one");
+    page = await attach();
+    page.on("pageerror", e => errs.push(e.message));
+  }
+  return page;
+}
+const errs = [];
 /** whether fn becomes true on the page within 10 seconds (the phone turning or changing theme takes a moment) */
-const until = fn => page.waitForFunction(fn, null, { timeout: 10000 }).then(() => true, () => false);
+const until = fn => live().then(p => p.waitForFunction(fn, null, { timeout: 10000 })).then(() => true, () => false);
 
 let device;
 // the whole run takes about 4 minutes: if it's still going after 12, something hangs (adb, the emulator, a page that
@@ -50,6 +60,10 @@ async function report() {
 
   const open = async (how = `-n ${ACTIVITY}`) => {
     await sh(`am start -W ${how}`);
+    return attach();
+  };
+  /** the game's page in the app's WebView, once it's ready */
+  attach = async () => {
     // the app closed a moment ago can still be listed: if the page found is that one (it closes under us), look again
     for (let tries = 1; ; tries++) {
       const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
@@ -64,23 +78,22 @@ async function report() {
       }
     }
   };
-  const errs = [];
   page = await open();
   page.on("pageerror", e => errs.push(e.message));
-  const app = await page.evaluate(() => ({ os: APP && APP.os, platform: PLATFORM, reminders: APP && APP.reminders, help: $("helpSaved").textContent, viewport: document.querySelector("meta[name=viewport]").content }));
+  const app = await (await live()).evaluate(() => ({ os: APP && APP.os, platform: PLATFORM, reminders: APP && APP.reminders, help: $("helpSaved").textContent, viewport: document.querySelector("meta[name=viewport]").content }));
   check(app.os === "android" && /^android-|chromeos/.test(app.platform), "the page runs as the Android app", JSON.stringify(app));
   check(/Google/.test(app.help), "the help mentions the Google backup", app.help);
   await shot("1-start.png");
 
   // solve one puzzle with taps on the screen, like a player
   const solve = async () => {
-    while (!(await page.evaluate(() => done))) {
+    while (!(await (await live()).evaluate(() => done))) {
       await page.waitForFunction(() => done || !locked, null, { timeout: 20000 });
-      if (await page.evaluate(() => done)) break;
-      const m = await page.evaluate(() => cur.pz.moves[idx]);
-      if (m.length > 4) await page.evaluate(m => commit(m.slice(0, 2), m.slice(2, 4), m[4]), m);
+      if (await (await live()).evaluate(() => done)) break;
+      const m = await (await live()).evaluate(() => cur.pz.moves[idx]);
+      if (m.length > 4) await (await live()).evaluate(m => commit(m.slice(0, 2), m.slice(2, 4), m[4]), m);
       else for (const sq of [m.slice(0, 2), m.slice(2, 4)]) {          // tap the piece, then the square
-        const box = await page.evaluate(sq => { const r = sqEls[sq].getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }, sq);
+        const box = await (await live()).evaluate(sq => { const r = sqEls[sq].getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }, sq);
         await page.mouse.click(box.x, box.y); await sleep(80);
       }
       await sleep(300);
@@ -90,11 +103,11 @@ async function report() {
   await sleep(1500);
   await shot("2-solved.png");
   // a celebration may be showing (the first solve): the back gesture closes it
-  if (await page.evaluate(() => !!document.querySelector(".cele:not(.out)"))) {
+  if (await (await live()).evaluate(() => !!document.querySelector(".cele:not(.out)"))) {
     await sh("input keyevent KEYCODE_BACK"); await sleep(800);
-    check(await page.evaluate(() => !document.querySelector(".cele:not(.out)")), "back closes the celebration");
+    check(await (await live()).evaluate(() => !document.querySelector(".cele:not(.out)")), "back closes the celebration");
   }
-  const n1 = await page.evaluate(() => me().n);
+  const n1 = await (await live()).evaluate(() => me().n);
   check(n1 >= 1, "a puzzle was played", String(n1));
 
   // the save reaches the app's copy (SaveStore: shared_prefs/save.xml, which the backup takes)
@@ -104,7 +117,7 @@ async function report() {
 
   // the home screen widgets: the progress reaches the app (Widgets.kt keeps it in widget.xml), with today's board,
   // and the phone knows both widgets (placing them on a home screen is the launcher's, not tried here)
-  const rating = await page.evaluate(() => me().rating);
+  const rating = await (await live()).evaluate(() => me().rating);
   let widget = "";
   for (let i = 0; i < 10 && !/dailyBoards/.test(widget); i++) {          // the boards come once today's puzzles are loaded
     await sleep(500);
@@ -117,16 +130,16 @@ async function report() {
     "both widgets are offered", providers.split("\n").filter(l => l.includes(PKG)).slice(0, 4).join(" | "));
 
   // the menu: open it, then back closes it and the app stays open
-  await page.evaluate(() => { if (!$("menu").classList.contains("open")) $("menuBtn").click(); }); await sleep(600);
-  check(await page.evaluate(() => $("menu").classList.contains("open")), "the menu opens");
+  await (await live()).evaluate(() => { if (!$("menu").classList.contains("open")) $("menuBtn").click(); }); await sleep(600);
+  check(await (await live()).evaluate(() => $("menu").classList.contains("open")), "the menu opens");
   await shot("3-menu.png");
   await sh("input keyevent KEYCODE_BACK"); await sleep(800);
-  check(await page.evaluate(() => !$("menu").classList.contains("open")), "back closes the menu");
+  check(await (await live()).evaluate(() => !$("menu").classList.contains("open")), "back closes the menu");
   const top = await sh("dumpsys activity activities | grep -E 'topResumedActivity|mResumedActivity' | head -1");
   check(top.includes(PKG), "the app is still in front after back closed the menu", top.trim());
 
   // the daily reminder: turn it on, and alarms are set for the coming days
-  await page.evaluate(() => { const s = $("remindSel"); s.value = String([...s.options].map(o => o.value).find(v => +v >= 0)); s.dispatchEvent(new Event("change", { bubbles: true })); });
+  await (await live()).evaluate(() => { const s = $("remindSel"); s.value = String([...s.options].map(o => o.value).find(v => +v >= 0)); s.dispatchEvent(new Event("change", { bubbles: true })); });
   await sleep(1500);
   const alarms = await sh(`dumpsys alarm | grep -c "${PKG}"`).catch(() => "0");
   check(parseInt(alarms, 10) > 0, "reminders are scheduled", alarms.trim());
@@ -134,26 +147,26 @@ async function report() {
   // closed and opened again: the same progress
   await sh(`am force-stop ${PKG}`);
   page = await open();
-  check(await page.evaluate(() => me().n) === n1, "progress is there after the app is closed and opened again");
+  check(await (await live()).evaluate(() => me().n) === n1, "progress is there after the app is closed and opened again");
 
   // the WebView's own storage lost (as after a restore from Google backup, which brings only save.xml): progress comes back
   await sh(`am force-stop ${PKG}`);
   await sh(`run-as ${PKG} rm -rf app_webview/Default/Local\\ Storage app_webview/Local\\ Storage`);
   page = await open();
-  check(await page.evaluate(() => me().n) === n1, "progress comes back from the app's copy when the WebView's storage is empty");
+  check(await (await live()).evaluate(() => me().n) === n1, "progress comes back from the app's copy when the WebView's storage is empty");
   await shot("4-restored.png");
 
   // a reminder's tap opens the daily puzzle
   await sh(`am start -W -n ${ACTIVITY} --es open daily`);
   await sleep(2500);
-  check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a reminder's tap opens the daily puzzle");
+  check(await (await live()).evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a reminder's tap opens the daily puzzle");
   await shot("5-daily.png");
 
   // larger text: the page is laid out at the phone's font size
   await sh("settings put system font_scale 1.3"); await sleep(2500);
-  const vp = await page.evaluate(() => document.querySelector("meta[name=viewport]").content);
+  const vp = await (await live()).evaluate(() => document.querySelector("meta[name=viewport]").content);
   check(/initial-scale=1\.3/.test(vp), "the page follows the phone's font size", vp);
-  check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "nothing runs off the side at a bigger font size");
+  check(await (await live()).evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "nothing runs off the side at a bigger font size");
   await shot("6-big-text.png");
   await sh("settings put system font_scale 1.0");
 
@@ -167,25 +180,25 @@ async function report() {
 
   // Remove animations (Settings → Accessibility; the emulator here starts with animations off): the page moves less
   // (the app tells it: the WebView doesn't pass the setting on as prefers-reduced-motion)
-  const reduced = await page.evaluate(() => REDUCED && document.documentElement.classList.contains("reduce-motion"));
+  const reduced = await (await live()).evaluate(() => REDUCED && document.documentElement.classList.contains("reduce-motion"));
   const scale = (await sh("settings get global animator_duration_scale")).trim();
   check(reduced === (parseFloat(scale) === 0), "the page's reduced motion follows Remove animations", `scale ${scale}, reduce ${reduced}`);
 
   // the language: picked in the game, it's the phone's per-app language for the app (Settings, Apps, King Walk,
   // Language), and the app opens again in it; set there, the game follows
-  await page.evaluate(() => { const s = $("langSel"); s.value = "fr"; s.dispatchEvent(new Event("change", { bubbles: true })); });
+  await (await live()).evaluate(() => { const s = $("langSel"); s.value = "fr"; s.dispatchEvent(new Event("change", { bubbles: true })); });
   await sleep(4000);
   const appLocale = await sh(`cmd locale get-app-locales ${PKG}`);
   check(/\bfr\b/.test(appLocale), "a language picked in the game becomes the app's language on the phone", appLocale.trim());
   await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
-  check(await page.evaluate(() => LANG === "fr" && $("langSel").value === "fr"), "the game opens in it", await page.evaluate(() => LANG + " " + $("langSel").value));
+  check(await (await live()).evaluate(() => LANG === "fr" && $("langSel").value === "fr"), "the game opens in it", await (await live()).evaluate(() => LANG + " " + $("langSel").value));
   await sh(`cmd locale set-app-locales ${PKG} --locales de-DE`); await sleep(2000);
   await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
-  check(await page.evaluate(() => LANG === "de" && $("langSel").value === "de"), "a language set in the phone's settings is the game's", await page.evaluate(() => LANG + " " + $("langSel").value));
+  check(await (await live()).evaluate(() => LANG === "de" && $("langSel").value === "de"), "a language set in the phone's settings is the game's", await (await live()).evaluate(() => LANG + " " + $("langSel").value));
   await shot("11-german.png");
   await sh(`cmd locale set-app-locales ${PKG} --locales ""`); await sleep(2000);
   await sh(`am force-stop ${PKG}`); page = await open(); page.on("pageerror", e => errs.push(e.message));
-  check(await page.evaluate(() => LANG === "en" && $("langSel").value === ""), "and back to the phone's own", await page.evaluate(() => LANG + " " + $("langSel").value));
+  check(await (await live()).evaluate(() => LANG === "en" && $("langSel").value === ""), "and back to the phone's own", await (await live()).evaluate(() => LANG + " " + $("langSel").value));
 
   // the Quick Settings tile is there to add
   const tile = await sh(`dumpsys package ${PKG} | grep -c "android.service.quicksettings.action.QS_TILE"`).catch(() => "0");
@@ -199,7 +212,7 @@ async function report() {
   page = await open(`-a kingwalk.android.OPEN --es open daily -p ${PKG}`);
   page.on("pageerror", e => errs.push(e.message));
   await sleep(2500);
-  check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "the shortcut opens the daily puzzle");
+  check(await (await live()).evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "the shortcut opens the daily puzzle");
 
   // a shared daily puzzle's link (the website's address, #daily) opens the app on it (App Links; on a phone Android
   // sends such links to the app once the site's assetlinks.json names it, here the test names the app itself)
@@ -208,7 +221,7 @@ async function report() {
     page = await open(`-a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "${process.env.SITE_URL.replace(/\/?$/, "/")}#daily" -p ${PKG}`);
     page.on("pageerror", e => errs.push(e.message));
     await sleep(2500);
-    check(await page.evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a link to the daily puzzle opens it in the app");
+    check(await (await live()).evaluate(() => typeof DAILY !== "undefined" && !!DAILY), "a link to the daily puzzle opens it in the app");
   }
 
   check(!errs.length, "no page errors", errs.join(" | "));
@@ -229,11 +242,11 @@ async function report() {
     await sh("settings put system accelerometer_rotation 1");
 
     // dark mode, switched while the game is open: the page and the colour behind the bars follow it, the game goes on
-    const nBefore = await page.evaluate(() => me().n);
+    const nBefore = await (await live()).evaluate(() => me().n);
     await sh("cmd uimode night yes");
     check(await until(() => matchMedia("(prefers-color-scheme: dark)").matches), "the page turns dark with the phone");
     await sleep(1000);
-    check(await page.evaluate(() => me().n) === nBefore, "the game goes on through the switch");
+    check(await (await live()).evaluate(() => me().n) === nBefore, "the game goes on through the switch");
     await shot("10-dark.png");
     await sh("cmd uimode night no");
     check(await until(() => !matchMedia("(prefers-color-scheme: dark)").matches), "and light again");
