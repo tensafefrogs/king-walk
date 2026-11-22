@@ -28,7 +28,7 @@ A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ fr
 
 ## Mistakes to avoid (each has happened)
 
-- Committing with a failing test: check the last line says `0 failed` (and smoke `all passed`) before every commit; don't pipe the output through `tail` and miss a failure above it.
+- Committing with a failing test: `main` refuses a commit whose Test run hasn't passed (the repository's ruleset; `docs/mistake-catalog.md` §2), so run the tests before pushing a branch to save a wait.
 - The layout check in other languages: the Test workflow's `layout` job checks English and German at the sizes that break first on every push (`docs/mistake-catalog.md` §1). For a change that can break in a tall script or right to left (a card, a font, a language), run `node testing/layout.js` with `ja-JP,ar-SA` and those sizes (`phone-320,phone-375-land,ipad-slideover,duo-book,text-xxxl,text-ax5`); `LAYOUT_OUT=<folder>` per run lets several run at once.
 - Assuming Chromium shows what an iPhone does: Safari and the app's web view zoom, pick fonts and treat safe areas differently. The layout check can't see a zoom; a player's screenshot can. Ask for one.
 - Anything that changes a band's puzzle order: the daily puzzle and saves find puzzles by their place in the band, and the app versions already out pick the daily from the same files.
