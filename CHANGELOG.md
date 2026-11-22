@@ -11,7 +11,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - Nothing yet.
 
-### 1.0.4 (submitted 2026-11-22 with the owner's go-ahead; released when Apple approves)
+### 1.0.4 (in App Review since 2026-11-22, build 2611220327; released automatically when Apple approves)
 
 - **Fits sideways on older iPads:** on a 9.7" or 10.2" iPad held sideways the game no longer scrolls a little: the
   board leaves room for the status bar. (Live on the website since 2026-11-21.)
