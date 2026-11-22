@@ -13,6 +13,7 @@
 //   - release.json and beta.json are as App Store Connect takes them
 //   - the store scripts read App Store Connect's lists past their first page
 //   - two devices sharing a save through iCloud lose no progress (testing/sync-model.js)
+//   - release.py's TestFlight and submission steps hold up against a pretend App Store Connect
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -120,6 +121,11 @@ catch (e) { check(false, "the store scripts read App Store Connect's lists to th
 // two devices sharing a save through iCloud, as a model (testing/sync-model.js): no progress lost, under a second
 try { execFileSync("node", [path.join(ROOT, "testing/sync-model.js")], { stdio: "pipe" }); check(true); }
 catch (e) { check(false, "two devices' saves: no progress lost through iCloud (node testing/sync-model.js)", e.stdout.toString().trim().split("\n")); }
+
+// release.py against a pretend App Store Connect (ios/store/release_model.py): queued versions keep a build, and a
+// submission waits for screenshots to process; a request the model doesn't know fails it, so it moves with release.py
+try { execFileSync("python3", ["-I", path.join(ROOT, "ios/store/release_model.py")], { stdio: "pipe" }); check(true); }
+catch (e) { check(false, "release.py keeps every queued version's build and waits for processing (python3 ios/store/release_model.py)", (e.stdout.toString() + e.stderr.toString()).trim().split("\n").slice(-4)); }
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

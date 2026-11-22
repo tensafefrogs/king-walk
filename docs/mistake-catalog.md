@@ -26,7 +26,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 |---|---|---|---|---|---|---|
 | 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Enforced: the Test workflow's `layout` job | test |
 | 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
-| 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | Pagination enforced (all_pages + check_pages.py); a model of the release steps (Phase 4) | architecture + lint + model |
+| 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | Enforced: all_pages + check_pages.py; release_model.py | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | Enforced: testing/daily-model.js (`daily-model` job) | model |
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Enforced: release_config.py, run on every push | parse at the boundary |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
@@ -209,7 +209,35 @@ creative.py:47 reads the list {relationship} with call() or request(), which sto
 On `644dd9f`, that line is gone (it followed `links.next` by hand); the other reads it still flags there were moved
 in this change. Today: no findings.
 
-**Status (state): see Phase 4** (the release model, below).
+**Status (state): enforced** (model, Phase 4). `ios/store/release_model.py` runs the real `release.py` against a
+pretend App Store Connect (its `asc` module swapped for one that keeps builds, versions and review submissions, and
+refuses what Apple refuses while screenshots process). It drives random sequences:
+- uploads of builds of three versions, with `prune` after each;
+- versions queued behind another;
+- new screenshots processing for a few minutes;
+- submissions.
+
+The rules: a queued version always has its newest build (not expired), and a submission started while screenshots
+process gets through once they're done. 300 runs take well under a second, from parity.js.
+
+Kept in step with release.py: the pretend App Store Connect fails on any request it doesn't know ("the model has no
+GET …"), so release.py can't start calling something new without the model learning it. Python stdlib, no
+Hypothesis, for the same reason as the daily model.
+
+**Proof (state):**
+
+```
+05a1059^  FAIL 1.0.3 is queued for the App Store, but its newest build was expired (seed 1)
+          steps: upload 1.0.5, upload 1.0.4, upload 1.0.4, queue 1.0.4, submit 1.0.4, upload 1.0.3, queue 1.0.3, queue 1.0.4, screenshots 1.0.3, upload 1.0.5
+78036b6^  (today's prune backported, to isolate it)
+          FAIL the submission of 1.0.5 failed instead of waiting: POST /v1/reviewSubmissionItems failed with 409 ... ASSET_IN_POST_PROCESSING
+today     3000 runs of 25 steps: every rule held
+```
+
+**A bug it found:** `78036b6`'s fix never worked for the step it moved into the retry. Adding the version to the
+review submission went through `create()`, which exits the program on an error rather than raising `ApiError`, so
+the retry couldn't catch "still processing" there. The model fails on `78036b6` itself and every version after
+(checked on `1b44d80`). It's fixed here: that step sends its request directly.
 
 ## §4. `ios/release.json` has text App Store Connect refuses
 
@@ -546,5 +574,5 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §5: enforced (daily-model.js), proven on `cb08c29^`, `fe15eb9^`, `99c1408^`; found and fixed two new bugs.
 - §6: enforced (unit.js's fixed clock), proven on `48d589d`.
 - §7: enforced (shared cases, Swift job with a mutant, sync model), proven with the pre-`fe15eb9` rule.
-- §3 pagination: enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`.
+- §3: pagination enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`; state enforced (release_model.py), proven on `05a1059^` and `78036b6^`; found that `78036b6`'s fix never worked, fixed.
 - §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.

@@ -255,8 +255,9 @@ def submit_for_review(app_id, v):
         try:
             items = all_pages(f"/v1/reviewSubmissions/{s['id']}/items?include=appStoreVersion")['data']
             if not any((i['relationships'].get('appStoreVersion', {}).get('data') or {}).get('id') == v['id'] for i in items):
-                create('reviewSubmissionItems', relationships={'reviewSubmission': rel('reviewSubmissions', s['id']),
-                                                              'appStoreVersion': rel('appStoreVersions', v['id'])})
+                # request, not create: create exits on an error, and this one (still processing) has to be retried
+                request('POST', '/v1/reviewSubmissionItems', {'data': {'type': 'reviewSubmissionItems', 'relationships': {
+                    'reviewSubmission': rel('reviewSubmissions', s['id']), 'appStoreVersion': rel('appStoreVersions', v['id'])}}})
             request('PATCH', f"/v1/reviewSubmissions/{s['id']}",
                     {'data': {'type': 'reviewSubmissions', 'id': s['id'], 'attributes': {'submitted': True}}})
             break
