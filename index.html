@@ -2322,7 +2322,7 @@ function finishDaily(solved) {
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
 const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };          /* first try, a hint (the hint button's bulb), one wrong try, more, shown */
-/* Like:   ♟️ King Walk Daily #12
+/* Like:   ♟️ King Walk Daily #12 · Thursday
            ⏱ 1:07  🟩💡🟩
            🔥 5
            kingwalk.app/#daily
@@ -2331,7 +2331,9 @@ const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };       
 /* award: an achievement's name to add after the streak (a daily achievement's card shares the day's result) */
 function dailyShareText(n, award) {
   const p = me(), r = dailyDone(p, n); if (!r) return "";
-  const lines = ["\u265f\ufe0f King Walk Daily #" + n];          /* ♟️: the one chess piece with an emoji form, so it shows in colour everywhere; the number says which day */
+  /* ♟️: the one chess piece with an emoji form, so it shows in colour everywhere; the number says which day, and the
+     weekday how hard it was (Monday's is gentle, Sunday's the hardest), in the player's language */
+  const lines = ["\u265f\ufe0f King Walk Daily #" + n + " \u00b7 " + new Intl.DateTimeFormat(LOCALE, { weekday: "long" }).format(dayDate(n))];
   lines.push("⏱ " + fmtTime(r.t) + "  " + Array.from(r.m, c => SQUARE[c]).join(""));
   const st = p.daily.last === n ? p.daily.streak : 0;
   if (st >= 2 || award) lines.push([st >= 2 ? "🔥 " + st : "", award ? "🏆 " + award : ""].filter(Boolean).join("  "));

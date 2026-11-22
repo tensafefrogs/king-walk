@@ -307,7 +307,7 @@ function translations() {
     return { marks, share: dailyShareText(n) };
   });
   check(mk.marks === "grsx", "a worse daily mark wins, and a second wrong try on a move is its own mark", mk.marks);
-  check(/^\u265f\ufe0f King Walk Daily #\d+\n\u23f1 1:07  🟩💡🟨🟧🟥\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), time, a square per move (Duolingo's colours, a bulb for a hint), streak", mk.share);
+  check(/^\u265f\ufe0f King Walk Daily #\d+ \u00b7 [A-Z][a-z]+day\n\u23f1 1:07  🟩💡🟨🟧🟥\n\ud83d\udd25 2/.test(mk.share), "the daily share: number and weekday (the weekday says how hard), time, a square per move (Duolingo's colours, a bulb for a hint), streak", mk.share);
   // damaged daily data is cleaned
   const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
   check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);
