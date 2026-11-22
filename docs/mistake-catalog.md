@@ -27,13 +27,13 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 | 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Enforced: the Test workflow's `layout` job | test |
 | 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
 | 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | Pagination enforced (all_pages + check_pages.py); a model of the release steps (Phase 4) | architecture + lint + model |
-| 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
+| 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | Enforced: testing/daily-model.js (`daily-model` job) | model |
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Enforced: release_config.py, run on every push | parse at the boundary |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
 | 7 (§12) | A string missing from a language | 2 | 2 | 4 | Already enforced (unit.js); §2 stops it reaching the site | test |
 | 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Shared test cases run by the page's rule and the Swift rule; a two-device model (Phase 4) | test + model |
 | 9 (§8) | Submitting to the App Store without the owner's go-ahead | 1 | 3 | 3 → kept, production incident | Not enforced: the owner's decision | — |
-| 10 (§6) | Tests that depend on today's date | 2 | 1 | 2 | One injectable clock, used by the model in §5 | architecture (with §5) |
+| 10 (§6) | Tests that depend on today's date | 2 | 1 | 2 | Enforced: unit.js on a fixed clock | architecture (tests) |
 | 11 (§10) | A workflow uses a file it didn't fetch | 1 run (a release) | 2 | 2 → kept, release failed | Already enforced (parity.js) | test |
 | 12 (§11) | The website and the two apps drift apart | 1+ | 2 | 2 | Already enforced (parity.js) | test |
 
@@ -275,24 +275,46 @@ opened from a link or a widget, or when an award arrives with it.
 
 **How it was caught:** a code review before launch (`fe15eb9`), the owner using the game (`cb08c29`, `99c1408`).
 
-**Proposal (model, Phase 4):**
-- A model-based test in `testing/` (plain JS, no fast-check, to avoid a dependency).
-- It drives the page through random sequences:
-  - start, move, pause, resume, finish;
-  - pass midnight;
-  - open `#daily`, open from the app;
-  - earn a freeze, skip a day.
-- A small model says what should be true after each step:
-  - which day's puzzle is open;
-  - the streak and freezes;
-  - whether the clock runs;
-  - which card shows first.
-- It needs the clock from §6.
+**Status: enforced** (a model-based test, Phase 4), as the Test workflow's `daily-model` job (about 40 seconds).
 
-Why a model rather than more unit tests: each bug was an order of events nobody wrote a test for.
+`testing/daily-model.js` drives the real page through random, seeded sequences of what a player does across days:
+- the button, a link in the open game, a link opened fresh, the app's request;
+- right and wrong moves, a hint, the answer;
+- hiding the game, coming back, Continue, leaving, reloading, closing cards;
+- minutes, midnight and whole days passing on Playwright's fake clock.
 
-**Proof:** at `fe15eb9^`, passing midnight during yesterday's daily spends a freeze. At `cb08c29^`, `#daily` after
-done opens a regular puzzle.
+After every step it checks the rules the past bugs broke (listed at the top of the file), plus "the page didn't
+throw" and "a solved day stays solved". A failure prints the seed and the steps, which replay exactly.
+
+Why a model and not more unit tests: each bug was an order of events nobody had written a test for, and the
+random walk finds orders like that by itself.
+
+Why plain JS, not fast-check: the page runs in Playwright already, and a 30-line seeded random walk covers what
+fast-check's model runner would, without a dependency. Shrinking (fast-check's minimal failing sequence) is the one
+thing missing; the step lists it prints are short enough to read.
+
+**Proof** (30 runs of 30 steps on each commit; the two bugs below, which exist in all of them, backported as fixed
+so they don't hide the older ones):
+
+```
+cb08c29^  FAIL with today's done, a link or the app shows today's solved board  {"today":8,"daily":null,"done":false}
+          steps: wrong wrong hide answer reload wrong button wrong hide solve solve reload solve show resume visit
+fe15eb9^  FAIL opening the daily opened another day's  {"today":12,"daily":{"n":7}}
+          steps: show button wrong days good hide resume solve days wrong link
+99c1408^  FAIL a card came before the day's card  ["Achievement|Hat Trick"]
+today     30 runs of 30 steps: every rule held
+```
+
+It also found the same rule broken at `fe15eb9` itself (the app opening yesterday's daily after midnight; fixed by
+`cb08c29`'s change to `kingWalkOpen`).
+
+**Two new bugs it found, fixed in the same change:**
+- **A daily finished after midnight crashed `finishDaily`.** `renderPanel` drops a daily from an earlier day, so
+  `DAILY.mode = "review"` threw on null. The result was saved, but the day's card and Share never showed. It was
+  there in every version since the daily's card. The fix uses the daily being finished (`d`) and gives
+  `showDailyDone` its day.
+- **The clock ran in the background.** A daily whose first move came while the game was hidden (switching apps
+  right after opening it) started its clock anyway, and counted every hour away. It now starts on Continue.
 
 ## §6. Tests that depend on today's date
 
@@ -301,14 +323,24 @@ done opens a regular puzzle.
 **Where:** the freeze test that failed six pushes in a row near Daily §1 (fixed in `49c0bf4`). `unit.js`'s
 weekday check also relies on English weekday names, which is fine, but it reads the real date.
 
-**Proposal (architecture, with §5):** the page gets its time from one function, `now()`, which tests can set
-(`?now=` or a test hook). Then a lint rule in unit.js fails on `Date.now()` or `new Date()` without an argument in
-`index.html` outside `now()`. Its error: "Read the time through now(), so tests can set the day."
+**Status: enforced** (architecture of the tests, not the page). Every page `unit.js` opens starts at the same
+moment (2026-11-15 00:30 UTC, the time the freeze test failed in CI) in the same time zone, on Playwright's clock,
+whatever day the tests run. `UNIT_NOW` and `UNIT_TZ` try another moment.
 
-Existing uses go in a baseline that may only shrink.
+The daily model (§5) explores other moments and days on purpose. No change to the page was needed: Playwright's
+clock replaces `Date` and the timers, so the proposed `now()` function and its lint rule would add nothing.
 
-**Proof:** the freeze test at `48d589d`, run with the clock set to 2026-11-15 00:30 UTC, fails as it did in CI.
-The lint flags the date reads in that test's path.
+Two language-loading tests read `performance` entries, which the fake clock replaces. They now record the page's
+requests instead.
+
+**Proof:** the freeze test as it was at `48d589d`, under the same clock:
+
+```
+UNIT_NOW=2026-11-15T00:30:00Z  FAIL freezes cover skipped days and the streak carries on {... "used":0,"after":{"streak":0,"freezes":2,"frozen":false} ...}  81 passed, 1 failed
+UNIT_NOW=2026-11-22T12:00:00Z  82 passed, 0 failed
+```
+
+The same test passed or failed by the day it ran. With the clock pinned, it fails every time or never.
 
 ## §7. Two devices' saves: the wrong copy wins
 
@@ -491,5 +523,7 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
 - §10, §11: proofs recorded.
 - §1: enforced (the `layout` job), proven on `adf7899^`; the iPad scroll (`fd44f9a`) unproven.
+- §5: enforced (daily-model.js), proven on `cb08c29^`, `fe15eb9^`, `99c1408^`; found and fixed two new bugs.
+- §6: enforced (unit.js's fixed clock), proven on `48d589d`.
 - §3 pagination: enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`.
 - §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.

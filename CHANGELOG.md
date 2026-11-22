@@ -15,6 +15,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   The first line has the weekday again ("King Walk Daily #10 · Sunday", in the player's language), since the day says
   how hard the puzzle was. The time comes first, then the squares, and the card's title is a short, smaller "Solved!" (or "That was the
   answer") in place of "Today's puzzle: done".
+- **A daily finished after midnight gets its card:** a daily started before midnight and finished after it saved its
+  result but stopped there, with no card and no Share; now it shows the day's card as usual. And a daily whose first
+  move came while the game was in the background (switching apps right after opening it) no longer counts the time
+  spent away.
 - **The day's card comes first:** an achievement the daily earns (such as a 3-day streak) now celebrates after the
   daily's card is closed, so the card and its Share are always the first thing after the daily.
 

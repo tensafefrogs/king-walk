@@ -37,17 +37,29 @@ function translations() {
   return Object.keys(langs);
 }
 
+// Every page here starts at the same moment, in the same time zone, whatever day the tests run: the daily, streaks and
+// freezes follow the date, and a test once passed or failed by the day it ran (the freeze test, six red runs near
+// Daily #1). UNIT_NOW tries another moment (an ISO time); the clock runs on from it.
+const NOW = new Date(process.env.UNIT_NOW || "2026-11-15T00:30:00Z"), ZONE = process.env.UNIT_TZ || "UTC";
+if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); process.exit(1); }
+
 (async () => {
   const langs = translations();
-  const srv = await server.start(), b = await chromium.launch();
+  const srv = await server.start(), b0 = await chromium.launch();
+  const b = { newContext: async (opts = {}) => {          /* every context on the tests' clock */
+    const ctx = await b0.newContext({ timezoneId: ZONE, ...opts });
+    const np = ctx.newPage.bind(ctx); ctx.newPage = async () => { const p = await np(); await p.clock.install({ time: NOW }); return p; };
+    return ctx;
+  }, close: () => b0.close() };
   const page = async (q = "", init, opts) => {
     const ctx = await b.newContext(opts), p = await ctx.newPage(), errs = [];
+    const reqs = []; p.on("request", r => reqs.push(r.url()));
     p.on("pageerror", e => errs.push(e.message));
     await p.route(/zgo\.at|goatcounter/, r => r.abort());
     if (init) await p.addInitScript(init);
     await p.goto(srv.url + q);
     await p.waitForFunction(() => typeof locked !== "undefined" && !locked && cur, null, { timeout: 15000 });
-    return { p, ctx, errs };
+    return { p, ctx, errs, reqs };
   };
   const { p, ctx, errs } = await page();
 
@@ -370,7 +382,7 @@ function translations() {
   // only this player's tables are downloaded (lang/<tag>.js): none in English, one in German, two in Portugal
   for (const [locale, want] of [["en-US", []], ["de-DE", ["de"]], ["pt-PT", ["pt", "pt-PT"]], ["fil-PH", []]]) {
     const w = await page("", null, { locale });
-    const got = await w.p.evaluate(() => performance.getEntriesByType("resource").map(e => (e.name.match(/\/lang\/([\w-]+)\.js/) || [])[1]).filter(Boolean).sort());
+    const got = [...new Set(w.reqs.map(u => (u.match(/\/lang\/([\w-]+)\.js/) || [])[1]).filter(Boolean))].sort();
     check(got.join() === want.join(), `${locale}: loads only ${want.join(", ") || "no language table"}`, got);
     await w.ctx.close();
   }

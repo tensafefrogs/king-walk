@@ -1785,7 +1785,7 @@ async function nextPuzzle() {
   }
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
-    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY && !DAILY.paused) DAILY.t0 = Date.now(); showTip(); }, 300);
+    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY && !DAILY.paused && !document.hidden) DAILY.t0 = Date.now(); showTip(); }, 300);          /* hidden by now: it starts on Continue */
   }, REDUCED ? 300 : 760);
 }
 
@@ -2104,8 +2104,8 @@ function celebrate(ids) {
 /* a line of text with words before it that only a screen reader says */
 function heard(said, line) { const f = document.createDocumentFragment(); f.append(Object.assign(document.createElement("span"), { className: "sr", textContent: said }), line); return f; }
 /* after: achievements the daily earned, celebrated once this card closes, so the day's card always comes first */
-function showDailyDone(after) {
-  const p = me(), n = dayNumber(), r = dailyDone(p, n); if (!r) return;
+function showDailyDone(after, n = dayNumber()) {          /* n: the day finished, which is yesterday's when it was played past midnight */
+  const p = me(), r = dailyDone(p, n); if (!r) return;
   const st = dailyStreak(p), left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000));
   track("daily/done-card");
   openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: r.ok ? T("Solved!") : T("That was the answer"), small: true, closeLabel: T("Close"),
@@ -2317,8 +2317,8 @@ function finishDaily(solved) {
   } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
   dailyDoneButtons();
   renderPanel(); sendDaily();
-  DAILY.mode = "review";          /* counted: from here it's the result to look at */
-  setTimeout(() => whenNoCard(() => showDailyDone(awards)), REDUCED ? 600 : 1500);          /* the day's card, then any achievement it earned */
+  d.mode = "review";          /* counted: from here it's the result to look at (d: renderPanel drops a daily from before midnight) */
+  setTimeout(() => whenNoCard(() => showDailyDone(awards, d.n)), REDUCED ? 600 : 1500);          /* the day's card, then any achievement it earned */
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
 const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };          /* first try, a hint (the hint button's bulb), one wrong try, more, shown */
