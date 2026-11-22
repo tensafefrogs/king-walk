@@ -300,6 +300,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-lines { position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background: repeating-linear-gradient(-24deg, transparent 0 46px, rgba(253, 251, 242, 0.55) 46px 49px, transparent 49px 120px);
   animation: cele-lines 0.9s 0.1s ease-out both; }
+.cele-share { margin: 12px auto 0; padding: 8px 16px; max-width: 100%; box-sizing: border-box; width: fit-content; border-radius: 12px; background: var(--tile); color: var(--fg); font: 600 16px/1.5 var(--font-body); white-space: pre-line; text-align: center; overflow-wrap: anywhere; }
 .cele-card { position: relative; width: min(360px, 100%); padding: 0 0 18px; text-align: center; overflow: hidden; animation: cele-card 0.62s 0.38s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
 .cele-art { display: block; width: 100%; height: auto; border-bottom: 4px solid var(--p-ink); }
 .cele-rays { animation: cele-rays-in 1.1s var(--ease-out) 0.45s both, cele-spin 30s linear 1.55s infinite; }          /* sweep in, then turn slowly */
@@ -1198,14 +1199,14 @@ function newPlayer(rating) {
 function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
 const FREEZE_MAX = 2;          /* streak freezes a player can hold */
 const count = v => Math.max(0, v | 0);
-const MARKS = "gyrx";          /* a daily puzzle move: g first try, y with a hint, r after a wrong try, x shown */
+const MARKS = "gyrsx";          /* a daily puzzle move: g first try, y with a hint, r after one wrong try, s after more, x shown (worse to the right) */
 function cleanDaily(d) {
   const q = newDaily(); if (!d || typeof d !== "object") return q;
   q.streak = count(d.streak); q.best = Math.max(count(d.best), q.streak); q.last = count(d.last); q.freezes = clamp(count(d.freezes), 0, FREEZE_MAX);
   if (d.days && typeof d.days === "object") for (const k of Object.keys(d.days).map(Number).filter(n => n > 0).sort((a, b) => a - b).slice(-60)) {
-    const v = d.days[k]; if (v && v.fz === true) q.days[k] = { fz: true }; else if (v && typeof v.m === "string" && /^[gyrx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
+    const v = d.days[k]; if (v && v.fz === true) q.days[k] = { fz: true }; else if (v && typeof v.m === "string" && /^[gyrsx]{1,12}$/.test(v.m)) q.days[k] = { m: v.m, t: clamp(count(v.t), 0, 86400), ok: !!v.ok };
   }
-  if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400), k: clamp(count(d.now.k), 0, 40) };
+  if (d.now && d.now.n > 0 && typeof d.now.m === "string" && /^[gyrsx_]{0,12}$/.test(d.now.m)) q.now = { n: count(d.now.n), m: d.now.m, t: clamp(count(d.now.t), 0, 86400), k: clamp(count(d.now.k), 0, 40) };
   return q;
 }
 /* Rebuild saved data field by field so a damaged save or a hand-edited save code cannot break the game. */
@@ -1981,15 +1982,18 @@ function earnedAwards(p, puzzle) {
   return out;
 }
 /* new awards: remember them, tell Game Center, and celebrate (rank-ups first) */
-function checkAwards(p, puzzle) {
-  if (!S.awards) { S.awards = earnedAwards(p); save(); return; }
+/* hold: return the new ones instead of celebrating them now (the daily celebrates them after its own card) */
+function checkAwards(p, puzzle, hold) {
+  if (!S.awards) { S.awards = earnedAwards(p); save(); return []; }
   const fresh = earnedAwards(p, puzzle).filter(id => !S.awards.includes(id));
-  if (!fresh.length) return;
+  if (!fresh.length) return [];
   S.awards.push(...fresh); save();
   fresh.forEach(achieve);
   fresh.forEach(id => track("award/" + id));
   fresh.sort((a, b) => /^(rank|clear)_/.test(b) - /^(rank|clear)_/.test(a));
+  if (hold) return fresh;
   setTimeout(() => celebrate(fresh), REDUCED ? 300 : 900);
+  return fresh;
 }
 
 /* the poster at the top of the celebration screen, 300 x 220 */
@@ -2032,7 +2036,7 @@ function burst(canvas, x, y) {
 }
 /* A card over the game: the poster, a small heading, a title, a few lines, Share and a close button. A celebration
    (loud) swipes in with confetti, sound and haptics; an info card (the daily puzzle done) just appears. */
-function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
+function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, preview }) {
   const back = document.activeElement;
   const el = document.createElement("div"); el.className = "cele scrim" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
   el.innerHTML = `${loud ? '<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>' : ""}
@@ -2053,6 +2057,8 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then }) {
   else h.textContent = title;
   const tx = el.querySelector(".cele-text");
   [].concat(text).forEach((line, i) => { if (i) tx.append(document.createElement("br")); tx.append(line); });
+  /* what Share sends, as it will read (the squares say the rest, so it's hidden from screen readers) */
+  if (preview) { const pv = document.createElement("p"); pv.className = "cele-share"; pv.setAttribute("aria-hidden", "true"); pv.dir = "ltr"; pv.textContent = preview; tx.after(pv); }
   const go = el.querySelector(".go"), sh = el.querySelector(".sh");
   go.textContent = closeLabel; sh.textContent = T("Share");
   let closed = false;
@@ -2093,14 +2099,20 @@ function celebrate(ids) {
 }
 /* Today's puzzle is done: a card that says so, with the result, when the next one comes, and Share there (not a
    share sheet straight away). From the Daily button, and from the widgets, Siri, Control Center and reminders. */
-function showDailyDone() {
+/* a line of text with words before it that only a screen reader says */
+function heard(said, line) { const f = document.createDocumentFragment(); f.append(Object.assign(document.createElement("span"), { className: "sr", textContent: said }), line); return f; }
+/* after: achievements the daily earned, celebrated once this card closes, so the day's card always comes first */
+function showDailyDone(after) {
   const p = me(), n = dayNumber(), r = dailyDone(p, n); if (!r) return;
   const st = dailyStreak(p), left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000));
   track("daily/done-card");
   openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: T("Today's puzzle: done"), closeLabel: T("Close"),
-    /* the time and the streak in words: the share's squares (one per move) read like days next to a streak */
-    text: ["\u23f1 " + fmtTime(r.t) + (st >= 2 ? "  \u00b7  \ud83d\udd25 " + T("{n} days in a row", { n: st }) : ""),
-           T("Come back tomorrow for the next one"), T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })].filter(Boolean),
+    /* the time and the streak are in the preview of the share below (with the squares, one per move); a screen
+       reader, which skips the preview, hears them here */
+    text: [heard(fmtTime(r.t) + (st >= 2 ? ", " + T("{n} days in a row", { n: st }) : "") + ". ", T("Come back tomorrow for the next one")),
+           T("Next puzzle in {h}h {m}m", { h: Math.floor(left / 60), m: left % 60 })],
+    preview: dailyShareText(n).split("\n").filter(l => !/^https?:/.test(l)).join("\n"),
+    then: after && after.length ? () => celebrate(after) : undefined,
     onShare: sh => shareProgress(sh, { daily: { n } }) });
   promoLine("daily", T("Never miss a day: the app reminds you and puts today's puzzle on your Home Screen."));
   remindOffer(st);
@@ -2212,6 +2224,7 @@ function dailySpent() { return DAILY.spent + (DAILY.t0 ? Math.round((Date.now() 
 function dailyMark(m, k = idx) {
   if (!DAILY || DAILY.mode !== "play") return;
   const j = (k - 1) >> 1, was = DAILY.marks[j] || "";
+  if (m === "r" && (was === "r" || was === "s")) m = "s";          /* a second wrong try on the same move */
   if (!was || MARKS.indexOf(m) > MARKS.indexOf(was)) DAILY.marks[j] = m;
   saveDailyNow();
 }
@@ -2293,7 +2306,7 @@ function finishDaily(solved) {
   track(solved ? "daily/solved" : "daily/missed");
   if (solved && [3, 7, 14, 30, 50, 100, 365].includes(D.streak)) track("daily/streak/" + D.streak);
   if (APP && APP.gameCenter && solved) APP.post({ op: "score", board: "daily_streak", value: D.streak });
-  checkAwards(p);
+  const awards = checkAwards(p, undefined, true);          /* celebrated after the day's card */
   frameEl.classList.add(solved ? "ok" : "miss");
   if (solved) {
     setStatus("good", T("Daily #{n} solved!", { n: d.n }), froze ? "\ud83e\uddca " + T("Streak freeze earned") : D.streak >= 2 ? T("{n} days in a row", { n: D.streak }) : T("Come back tomorrow for the next one"), "good");
@@ -2303,15 +2316,16 @@ function finishDaily(solved) {
   dailyDoneButtons();
   renderPanel(); sendDaily();
   DAILY.mode = "review";          /* counted: from here it's the result to look at */
-  setTimeout(() => whenNoCard(showDailyDone), REDUCED ? 600 : 1500);          /* then the share card (after any award) */
+  setTimeout(() => whenNoCard(() => showDailyDone(awards)), REDUCED ? 600 : 1500);          /* the day's card, then any achievement it earned */
 }
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
-const SQUARE = { g: "🟩", y: "💡", r: "🟥", x: "⬛" };          /* first try, a hint (the hint button's bulb), a wrong try, shown */
+const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };          /* first try, a hint (the hint button's bulb), one wrong try, more, shown */
 /* Like:   ♟️ King Walk Daily #12
            🟩💡🟩  ⏱ 1:07
            🔥 5
            kingwalk.app/#daily
-   One square per move: first try, with a hint, after a wrong try, or shown. No moves, so nothing is spoiled. */
+   One square per move, as in Duolingo: green first try, yellow after one wrong try, orange after more, red shown, and
+   a bulb with a hint. No moves, so nothing is spoiled. */
 /* award: an achievement's name to add after the streak (a daily achievement's card shares the day's result) */
 function dailyShareText(n, award) {
   const p = me(), r = dailyDone(p, n); if (!r) return "";

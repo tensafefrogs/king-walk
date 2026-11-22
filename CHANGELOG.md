@@ -7,9 +7,13 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.5: nothing yet)
+### Next app version (1.0.5: on the website now; reaches the app with the next build)
 
-- Nothing yet.
+- **The daily's share, previewed and in Duolingo's colours:** the card at the end of the daily shows exactly what Share
+  sends: the day's number, one square per move and the time, and the streak. The squares: 🟩 first try, 🟨 after one
+  wrong try, 🟧 after more, 🟥 answer shown, 💡 solved with a hint (they were 🟩, 🟥 for any wrong try, ⬛ shown).
+- **The day's card comes first:** an achievement the daily earns (such as a 3-day streak) now celebrates after the
+  daily's card is closed, so the card and its Share are always the first thing after the daily.
 
 ### 1.0.4 (in App Review since 2026-11-22, build 2611220327; released automatically when Apple approves)
 

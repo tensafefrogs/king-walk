@@ -297,16 +297,17 @@ function translations() {
   });
   check(!tm.shown.hidden && /1:0[56]/.test(tm.shown.text), "the daily's clock shows the time so far", tm.shown);
   check(tm.tapped.cover && tm.tapped.paused && tm.tapped.cls && tm.after, "a tap on the clock pauses the daily; it goes with the daily", tm);
-  // marks: a worse one wins (first try < hint < wrong try < shown), and the share has a square per move and no moves
+  // marks: a worse one wins (first try < hint < one wrong try < more < shown), and the share has a square per move and no moves
   const mk = await p.evaluate(() => {
     const n = dayNumber(); DAILY = { n, mode: "play", marks: [], spent: 0, t0: 0 };
-    dailyMark("g", 1); dailyMark("y", 3); dailyMark("r", 3); dailyMark("y", 3); dailyMark("g", 3); const marks = DAILY.marks.join("");
-    DAILY = null; const p = me(); recordDaily(p.daily, n, "gr", 67, true); recordDaily(p.daily, n - 1, "g", 5, true);
+    dailyMark("g", 1); dailyMark("y", 3); dailyMark("r", 3); dailyMark("y", 3); dailyMark("g", 3);
+    dailyMark("r", 5); dailyMark("r", 5); dailyMark("x", 7); const marks = DAILY.marks.join("");
+    DAILY = null; const p = me(); recordDaily(p.daily, n, "gyrsx", 67, true); recordDaily(p.daily, n - 1, "g", 5, true);
     p.daily.streak = 2; p.daily.last = n;
     return { marks, share: dailyShareText(n) };
   });
-  check(mk.marks === "gr", "a worse daily mark wins", mk.marks);
-  check(/^\u265f\ufe0f King Walk Daily #\d+\n\ud83d\udfe9\ud83d\udfe5  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), squares, time, streak", mk.share);
+  check(mk.marks === "grsx", "a worse daily mark wins, and a second wrong try on a move is its own mark", mk.marks);
+  check(/^\u265f\ufe0f King Walk Daily #\d+\n🟩💡🟨🟧🟥  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), a square per move (Duolingo's colours, a bulb for a hint), time, streak", mk.share);
   // damaged daily data is cleaned
   const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
   check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);
