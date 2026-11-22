@@ -141,9 +141,27 @@ The ruleset itself is a repository setting, which only the owner can create (ste
 **CI time:** none added to the Test workflow. A change waits for its Test run (about 5 minutes) before it can go
 to `main`.
 
-**Proof (after the ruleset exists):** recreate `c60539e`'s mistake on a branch from `main`: the share text changed
-without its unit test (put back the previous expectation in `testing/unit.js`). Its Test run fails, and `git push
-origin HEAD:main` is refused. The current commit, after its green run, is accepted.
+**Status: enforced** (the owner created the ruleset on 2026-11-22: required check `smoke`, no bypass).
+
+**Proof:** `c60539e`'s mistake recreated on a branch from `main` (`2433f3c`: the share's first line changed,
+`testing/unit.js` not). Pushed straight to `main`, a fast-forward, before its tests had run:
+
+```
+! [remote rejected] HEAD -> main (push declined due to repository rule violations)
+- Required status check "smoke" is expected.
+```
+
+After its Test run:
+
+```
+FAIL the daily share: number and weekday ..., streak "♟️ King Walk daily #3 · Sunday\n⏱ 1:07  🟩💡🟨🟧🟥\n🔥 2"
+286 passed, 2 failed
+! [remote rejected] 2433f3c -> main (push declined due to repository rule violations)
+- Required status check "smoke" is failing.
+```
+
+The same flow with green tests was accepted (`f0335c6`, the commit before this one). CLAUDE.md's "Committing with
+a failing test" now points here instead of asking for care.
 
 ## §3. The release scripts assume what App Store Connect returns or accepts
 
@@ -601,7 +619,7 @@ waiting time is unchanged.
 | § | Class | Status | Check | Proof |
 |---|---|---|---|---|
 | 1 | Layout at a screen or text size | Enforced; one case unproven | `layout` job (`testing/layout.js`) | `adf7899^` fails; `fd44f9a` (the iPad scroll) doesn't reproduce in Chromium |
-| 2 | Red pushes reach `main` | Partly enforced: waiting on the owner's ruleset | workflows never push to `main` (parity.js); ruleset requires `smoke` | parity on `3108604`'s release.yml fails; the ruleset proof runs once it exists |
+| 2 | Red pushes reach `main` | Enforced | the `main` ruleset (required check `smoke`); workflows never push to `main` (parity.js) | `2433f3c` (c60539e's mistake) refused, before and after its tests ran; parity on `3108604`'s release.yml fails |
 | 3 | Release scripts assume App Store Connect | Enforced | `asc.all_pages` + `check_pages.py`; `release_model.py` | `644dd9f^`, `05a1059^`, `78036b6^` fail |
 | 4 | release.json text App Store Connect refuses | Enforced | `release_config.py` (parity.js; release.py loads through it) | `c8d4575`, `d5eac30`, `c3757d3` fail |
 | 5 | Daily state across days | Enforced | `daily-model` job (`testing/daily-model.js`) | `cb08c29^`, `fe15eb9^`, `99c1408^` fail |
@@ -621,7 +639,6 @@ Bugs the new checks found and this work fixed:
 - a Python cache file was still tracked;
 - three App Store Connect lists read only their first page.
 
-Left for the owner:
-- Create the `main` ruleset (required checks `smoke`; also `layout`, `daily-model` and `save-rank` once they've
-  run on `main`).
-- Then the §2 proof can run, and the failing-test rule in CLAUDE.md can go.
+Left for the owner: add `layout`, `daily-model` and `save-rank` to the ruleset's required checks beside `smoke`.
+They run on every push and pass on `main`. Until they're required, a layout problem, a daily-model failure or a
+SaveRank drift shows as a red job but doesn't keep a commit off `main`.
