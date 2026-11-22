@@ -15,7 +15,7 @@ Not covered by the API, so done in App Store Connect: App Privacy answers, App R
 submitting for review. See listing.md.
 """
 import hashlib, json, os, sys
-from asc import ApiError, app as get_app, call, patch, request, upload_parts
+from asc import ApiError, app as get_app, call, patch, request, upload_parts, all_pages, all_pages_or_raise
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REQUIRED = {'APP_IPHONE_67', 'APP_IPAD_PRO_3GEN_129'}
@@ -29,7 +29,7 @@ def main():
     print('App:', app['attributes']['name'], app['id'])
 
     # App information: the parts that apply to every version
-    infos = call('GET', f"/v1/apps/{app['id']}/appInfos")['data']   # the one not yet live, if there are two
+    infos = all_pages(f"/v1/apps/{app['id']}/appInfos")['data']   # the one not yet live, if there are two
     info = next((i for i in infos if i['attributes'].get('appStoreState') != 'READY_FOR_SALE'), infos[0])
     state = info['attributes'].get('appStoreState') or info['attributes'].get('state')
     if state not in (None, 'PREPARE_FOR_SUBMISSION', 'DEVELOPER_REJECTED', 'REJECTED', 'METADATA_REJECTED'):
@@ -37,7 +37,7 @@ def main():
         # the next version is created, so there's nothing to update now. Not an error; run again later.
         print(f'The listing is locked ({state}); nothing uploaded. Run this again once the next version is created.')
         return
-    loc = next(l for l in call('GET', f"/v1/appInfos/{info['id']}/appInfoLocalizations")['data'] if l['attributes']['locale'] == 'en-US')
+    loc = next(l for l in all_pages(f"/v1/appInfos/{info['id']}/appInfoLocalizations")['data'] if l['attributes']['locale'] == 'en-US')
     a = listing['app_info']
     patch('appInfoLocalizations', loc['id'], {'name': a['name'], 'subtitle': a['subtitle'], 'privacyPolicyUrl': a['privacy_policy_url']})
     rel = {'primaryCategory': {'data': {'type': 'appCategories', 'id': a['category']}}}
@@ -71,14 +71,14 @@ def main():
     print('Age rating: answered', len(answers), 'questions')
 
     # The version being prepared
-    versions = call('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
+    versions = all_pages(f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
     if not versions:   # nothing to update until the next version is created in App Store Connect; not an error
         print('No version is being prepared, so the version text and screenshots were left as they are.')
         return
     ver = versions[0]
     v = listing['version']
     patch('appStoreVersions', ver['id'], {'copyright': v['copyright']})
-    vloc = next(l for l in call('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations")['data'] if l['attributes']['locale'] == 'en-US')
+    vloc = next(l for l in all_pages(f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations")['data'] if l['attributes']['locale'] == 'en-US')
     patch('appStoreVersionLocalizations', vloc['id'], {'description': v['description'], 'keywords': v['keywords'],
           'promotionalText': v['promotional_text'], 'supportUrl': v['support_url'], 'marketingUrl': v['marketing_url']})
     print('Version', ver['attributes']['versionString'] + ': description, keywords, promotional text, URLs, copyright')
@@ -111,10 +111,10 @@ def main():
 def localized_screenshots(listing, locale):
     """One language's screenshots, on that language's page of the version being prepared (localizations() makes the page)"""
     app = get_app()
-    versions = call('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
+    versions = all_pages(f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
     if not versions:
         print('No version is being prepared, so the screenshots were left as they are.'); return
-    loc = next((l for l in call('GET', f"/v1/appStoreVersions/{versions[0]['id']}/appStoreVersionLocalizations")['data'] if l['attributes']['locale'] == locale), None)
+    loc = next((l for l in all_pages(f"/v1/appStoreVersions/{versions[0]['id']}/appStoreVersionLocalizations")['data'] if l['attributes']['locale'] == locale), None)
     if not loc:
         print(f'{locale}: no page for this language yet (the listing upload makes it); skipped'); return
     base = os.path.join(HERE, 'screenshots', 'l10n', locale)
@@ -129,7 +129,7 @@ def review_attachment(detail_id, path):
     Replaces whatever is attached (one uploaded by hand included) unless it is already this file."""
     blob = open(path, 'rb').read(); name = os.path.basename(path)
     try:
-        have = call('GET', f"/v1/appStoreReviewDetails/{detail_id}/appStoreReviewAttachments")['data']
+        have = all_pages(f"/v1/appStoreReviewDetails/{detail_id}/appStoreReviewAttachments")['data']
         if any(a['attributes'].get('fileName') == name and a['attributes'].get('fileSize') == len(blob) for a in have):
             print('App Review attachment: already', name); return
         for a in have:
@@ -146,11 +146,11 @@ def review_attachment(detail_id, path):
 
 def upload_screenshots(vloc_id, screenshots, base):
     """Replace each screenshot set on a version's language page with these files ({display type: [paths]})"""
-    sets = {s['attributes']['screenshotDisplayType']: s for s in call('GET', f"/v1/appStoreVersionLocalizations/{vloc_id}/appScreenshotSets")['data']}
+    sets = {s['attributes']['screenshotDisplayType']: s for s in all_pages(f"/v1/appStoreVersionLocalizations/{vloc_id}/appScreenshotSets")['data']}
     for display, files in screenshots.items():
         try:
             if display in sets:
-                for shot in call('GET', f"/v1/appScreenshotSets/{sets[display]['id']}/appScreenshots")['data']:
+                for shot in all_pages(f"/v1/appScreenshotSets/{sets[display]['id']}/appScreenshots")['data']:
                     call('DELETE', f"/v1/appScreenshots/{shot['id']}")
                 set_id = sets[display]['id']
             else:
@@ -187,7 +187,7 @@ def localizations(info, ver, listing):
         langs.append(t)
     # the app's name and subtitle in each language. Adding a language here makes App Store Connect add an empty page
     # for it to the version being prepared too, so the version's pages are read only after this
-    have_info = {l['attributes']['locale']: l for l in call('GET', f"/v1/appInfos/{info['id']}/appInfoLocalizations?limit=200")['data']}
+    have_info = {l['attributes']['locale']: l for l in all_pages(f"/v1/appInfos/{info['id']}/appInfoLocalizations?limit=200")['data']}
     for t in langs:
         loc, l = t['locale'], t['listing']
         a = {'name': l['name'], 'subtitle': l['subtitle'], 'privacyPolicyUrl': listing['app_info']['privacy_policy_url']}
@@ -198,7 +198,7 @@ def localizations(info, ver, listing):
         except ApiError as e:
             print('Language', loc, 'name not set:', e.code, e.body[:300])
     # the version's page in each language: description, keywords, promotional text, URLs
-    have_ver = {l['attributes']['locale']: l for l in call('GET', f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations?limit=200")['data']}
+    have_ver = {l['attributes']['locale']: l for l in all_pages(f"/v1/appStoreVersions/{ver['id']}/appStoreVersionLocalizations?limit=200")['data']}
     for t in langs:
         loc, l = t['locale'], t['listing']
         a = {'description': l['description'], 'keywords': l['keywords'], 'promotionalText': l['promotional_text'],
@@ -217,7 +217,7 @@ def accessibility(app_id, cfg):
     A newer part of the API: a failure is reported without stopping the listing."""
     if not cfg: return
     try:
-        have = {d['attributes']['deviceFamily']: d for d in request('GET', f'/v1/apps/{app_id}/accessibilityDeclarations')['data']}
+        have = {d['attributes']['deviceFamily']: d for d in all_pages_or_raise(f'/v1/apps/{app_id}/accessibilityDeclarations')['data']}
         for fam in cfg['devices']:
             attrs = dict(cfg['supports'])
             if fam in have:

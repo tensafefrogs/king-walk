@@ -11,6 +11,7 @@
 //   - the iOS and Android apps carry the same version number (ios/release.json, android/release.json)
 //   - nothing local or big is committed (videos go on the media branch)
 //   - release.json and beta.json are as App Store Connect takes them
+//   - the store scripts read App Store Connect's lists past their first page
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -110,6 +111,10 @@ check(!big.length, `no file in main is over ${MAX_MB} MB (make it smaller, or pu
 // reads them through): no emoji in the notes, no unknown settings, What's New for every language
 try { execFileSync("python3", ["-I", path.join(ROOT, "ios/store/release_config.py")], { stdio: "pipe" }); check(true); }
 catch (e) { check(false, "ios/release.json and ios/beta.json are as App Store Connect takes them (python3 ios/store/release_config.py)", e.stdout.toString().trim().split("\n")); }
+
+// App Store Connect lists read past their first page (asc.all_pages), as ios/store/check_pages.py checks
+try { execFileSync("python3", ["-I", path.join(ROOT, "ios/store/check_pages.py")], { stdio: "pipe" }); check(true); }
+catch (e) { check(false, "the store scripts read App Store Connect's lists to the end (python3 ios/store/check_pages.py)", e.stdout.toString().trim().split("\n")); }
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

@@ -8,7 +8,7 @@ usage: python3 ios/store/creative.py --discover   prints the asset library's ref
 Credentials as in asc.py. See listing.md, "Header and search results" and "App previews".
 """
 import hashlib, json, os, sys, time
-from asc import ApiError, app as get_app, call, upload_parts
+from asc import ApiError, app as get_app, call, upload_parts, all_pages
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -70,7 +70,7 @@ def upload(lib_id, kind, path, category, name):
 
 
 def place(loc_id, asset, kind, ptype, group):
-    existing = call('GET', f'/v1/appStoreVersionLocalizations/{loc_id}/placements?filter[placementType]={ptype}'
+    existing = all_pages(f'/v1/appStoreVersionLocalizations/{loc_id}/placements?filter[placementType]={ptype}'
                            f'&filter[placementGroup]={group}&include={kind}')
     for p in existing['data']:
         linked = (p['relationships'].get(kind, {}).get('data') or {}).get('id')
@@ -91,10 +91,10 @@ def main():
         return discover(app['id'])
     creative = json.load(open(os.path.join(HERE, 'listing.json'))).get('creative', [])
     if not creative: return
-    versions = call('GET', f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
+    versions = all_pages(f"/v1/apps/{app['id']}/appStoreVersions?filter[appStoreState]=PREPARE_FOR_SUBMISSION,DEVELOPER_REJECTED,REJECTED,METADATA_REJECTED")['data']
     if not versions:
         print('No version is being prepared, so the creative assets were left as they are.'); return
-    loc = next(l for l in call('GET', f"/v1/appStoreVersions/{versions[0]['id']}/appStoreVersionLocalizations")['data']
+    loc = next(l for l in all_pages(f"/v1/appStoreVersions/{versions[0]['id']}/appStoreVersionLocalizations")['data']
                if l['attributes']['locale'] == 'en-US')
     lib = call('GET', f"/v1/apps/{app['id']}/assetLibrary")['data']['id']
     for c in creative:   # {"file", "kind": image|video, "category", "name", "placements": [[type, group], ...]}

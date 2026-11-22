@@ -1,0 +1,4 @@
+# List reads that stop at their first page, kept on purpose or not moved yet (ios/store/check_pages.py).
+# This list can only shrink: the check fails on a new one, and on one listed here that's gone.
+# a to-one relationship (a challenge localization's image), named at run time, so the check can't tell it isn't a list
+gamecenter.py: {relationship}

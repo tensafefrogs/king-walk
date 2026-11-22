@@ -26,7 +26,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 |---|---|---|---|---|---|---|
 | 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Run the layout check on the sizes that break first, in CI | test |
 | 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
-| 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | One paginated list helper, plus a lint rule; a model of the release steps (Phase 4) | architecture + lint + model |
+| 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | Pagination enforced (all_pages + check_pages.py); a model of the release steps (Phase 4) | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Enforced: release_config.py, run on every push | parse at the boundary |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
@@ -175,10 +175,28 @@ part-way. One time, App Review refused the version.
   - Why not TLA+ or Hypothesis: the logic is in Python already, and a stdlib random walk against a fake avoids a
     new dependency and a second spec language.
 
-**Proof:**
-- Pagination: the lint flags `creative.py` at `644dd9f^`; on `644dd9f` it passes, for that line.
-- Model: at `05a1059^`, the queued build gets expired; at `78036b6^`, a submission happens while assets are
-  processing. Both pass today.
+**Status (pagination): enforced** (architecture + lint).
+- `asc.all_pages(path)` follows `links.next` 200 at a time and returns one response (`data` and `included`);
+  `asc.first_page(path)` says on purpose that one page is enough (used once, for the status report's recent
+  submissions).
+- `ios/store/check_pages.py` (AST, run by parity.js) fails on any `call('GET', …)` or `request('GET', …)` of a list:
+  a path ending in a plural collection, or in a relationship named at run time. Its error names the line and the
+  fix. A path with `sort=` (newest first on purpose) is allowed.
+- All 36 list reads found were moved to `all_pages`. Three were latent: `gamecenter.py`'s `all_related` read 200
+  at most, and the version and review-submission lists read 20 and 10. The baseline (`check_pages.baseline`) holds
+  one entry, a to-one image read the check can't tell from a list.
+
+**Proof (pagination):** the check on `644dd9f^` flags `creative.py:47`, the library read that missed the header
+art past the first 200 images:
+
+```
+creative.py:47 reads the list {relationship} with call() or request(), which stops at its first page: use asc.all_pages(path), ...
+```
+
+On `644dd9f`, that line is gone (it followed `links.next` by hand); the other reads it still flags there were moved
+in this change. Today: no findings.
+
+**Status (state): see Phase 4** (the release model, below).
 
 ## §4. `ios/release.json` has text App Store Connect refuses
 
@@ -459,4 +477,5 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §8: not enforced, by the owner's decision.
 - §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
 - §10, §11: proofs recorded.
+- §3 pagination: enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`.
 - §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.

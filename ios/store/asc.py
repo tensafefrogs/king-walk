@@ -57,6 +57,33 @@ def call(method, path, body=None):
         sys.exit(str(e))
 
 
+def all_pages(path, fail=call):
+    """Every item of an App Store Connect list, as one response ({"data": [...], "included": [...]}): asks for 200 at a
+    time and follows links.next. A list read with call() alone stops at its first page (50 items unless asked), and
+    the scripts once missed what was past it (the header art past the library's first 200 images, uploaded again:
+    409). testing/parity.js fails a list read that doesn't come through here (ios/store/check_pages.py).
+    fail=request raises ApiError instead of exiting, as request() does."""
+    url = path if 'limit=' in path else path + ('&' if '?' in path else '?') + 'limit=200'
+    out = {'data': [], 'included': []}
+    while url:
+        page = fail('GET', url)
+        d = page.get('data') or []
+        out['data'] += d if isinstance(d, list) else [d]          # a to-one relationship answers with one item
+        out['included'] += page.get('included') or []
+        url = (page.get('links') or {}).get('next')
+    return out
+
+
+def first_page(path):
+    """One page of a list, on purpose: a report showing a few recent items, where the rest doesn't matter"""
+    return call('GET', path)
+
+
+def all_pages_or_raise(path):
+    """all_pages(), raising ApiError rather than exiting (as request() does)"""
+    return all_pages(path, request)
+
+
 def patch(kind, id_, attributes=None, relationships=None):
     data = {'type': kind, 'id': id_}
     if attributes: data['attributes'] = attributes

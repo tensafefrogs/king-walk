@@ -15,7 +15,7 @@ If a step fails here (a new part of Apple's API), it says so; the same can be do
 the app → Features → Game Center (see listing.md, "Game Center").
 """
 import json, os, sys
-from asc import ApiError, app as get_app, log, request, upload_parts
+from asc import ApiError, app as get_app, log, request, upload_parts, all_pages_or_raise
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PREFIX = 'kingwalk.'
@@ -65,8 +65,9 @@ def post_with(kind, attrs, parent_kind, parent_id, rel_names, what):
 def all_related(path, names, many=True):
     for name in names:
         try:
-            r = request('GET', f'{path}/{name}' + ('?limit=200' if many else ''))
-            return r['data'] if isinstance(r.get('data'), list) else ([r['data']] if r.get('data') else [])
+            if many: return all_pages_or_raise(f'{path}/{name}')['data']
+            r = request('GET', f'{path}/{name}')
+            return [r['data']] if r.get('data') else []
         except ApiError as e:
             if e.code == 404: continue
             raise
@@ -111,12 +112,12 @@ def report_challenges(did):
     for c in every(f'/v1/gameCenterDetails/{did}/gameCenterChallenges'):
         vid = c['attributes'].get('vendorIdentifier')
         try:
-            versions = request('GET', f"/v1/gameCenterChallenges/{c['id']}/versions?limit=50")['data']
+            versions = all_pages_or_raise(f"/v1/gameCenterChallenges/{c['id']}/versions")['data']
         except ApiError as e:
             log(' ', vid, 'versions: error', e.code); continue
         for v in versions:
             try:
-                locs = request('GET', f"/v1/gameCenterChallengeVersions/{v['id']}/localizations?limit=50")['data']
+                locs = all_pages_or_raise(f"/v1/gameCenterChallengeVersions/{v['id']}/localizations")['data']
             except ApiError as e:
                 locs = []; log('   localizations: error', e.code, e.body[:200])
             log(' ', vid, 'version', v['id'][:8], json.dumps(v.get('attributes')), f'{len(locs)} languages')

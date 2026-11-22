@@ -17,7 +17,7 @@ Credentials as in asc.py. The release workflow (.github/workflows/release.yml) r
 Not covered by the API: App Review's messages (Resolution Center) and replies to them, App Privacy answers.
 """
 import datetime, json, os, sys, time
-from asc import ApiError, app as get_app, call, create, log, patch, rel, request, upload_parts
+from asc import ApiError, app as get_app, call, create, log, patch, rel, request, upload_parts, all_pages, all_pages_or_raise, first_page
 from release_config import load as load_config, notes_for, refused
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -36,7 +36,7 @@ def vstate(v):
 
 
 def versions(app_id):
-    return call('GET', f'/v1/apps/{app_id}/appStoreVersions?filter[platform]=IOS&limit=20&include=build')
+    return all_pages(f'/v1/apps/{app_id}/appStoreVersions?filter[platform]=IOS&include=build')
 
 
 def builds(app_id, version=None, number=None, limit=10):
@@ -83,10 +83,10 @@ def plain_notes(text):
 
 
 def testflight(app_id, build, cfg):
-    groups = {g['attributes']['name']: g for g in call('GET', f'/v1/apps/{app_id}/betaGroups?limit=50')['data']}
+    groups = {g['attributes']['name']: g for g in all_pages(f'/v1/apps/{app_id}/betaGroups')['data']}
     notes = plain_notes(cfg.get('whats_new', ''))
     if notes:   # "What to Test", shown to testers
-        locs = call('GET', f"/v1/builds/{build['id']}/betaBuildLocalizations")['data']
+        locs = all_pages(f"/v1/builds/{build['id']}/betaBuildLocalizations")['data']
         en = next((l for l in locs if l['attributes']['locale'] == 'en-US'), None)
         if en: patch('betaBuildLocalizations', en['id'], {'whatsNew': notes})
         else: create('betaBuildLocalizations', {'locale': 'en-US', 'whatsNew': notes}, {'build': rel('builds', build['id'])})
@@ -136,7 +136,7 @@ def test_information(app_id):
     Store Connect → TestFlight → Test Information. The description comes from listing.json. Says what's missing."""
     try:
         listing = json.load(open(os.path.join(HERE, 'listing.json')))
-        locs = request('GET', f'/v1/apps/{app_id}/betaAppLocalizations')['data']
+        locs = all_pages_or_raise(f'/v1/apps/{app_id}/betaAppLocalizations')['data']
         en = next((l for l in locs if l['attributes'].get('locale') == 'en-US'), None)
         text = listing['version']['promotional_text']
         if en and not en['attributes'].get('description'):
@@ -144,7 +144,7 @@ def test_information(app_id):
         elif not en:
             request('POST', '/v1/betaAppLocalizations', {'data': {'type': 'betaAppLocalizations', 'attributes': {'locale': 'en-US', 'description': text},
                     'relationships': {'app': {'data': {'type': 'apps', 'id': app_id}}}}})
-        en = next((l for l in request('GET', f'/v1/apps/{app_id}/betaAppLocalizations')['data'] if l['attributes'].get('locale') == 'en-US'), None)
+        en = next((l for l in all_pages_or_raise(f'/v1/apps/{app_id}/betaAppLocalizations')['data'] if l['attributes'].get('locale') == 'en-US'), None)
         detail = request('GET', f'/v1/apps/{app_id}/betaAppReviewDetail')['data']['attributes']
         missing = [what for what, ok in [('feedback email', en and en['attributes'].get('feedbackEmail')),
                    ('contact first name', detail.get('contactFirstName')), ('contact last name', detail.get('contactLastName')),
@@ -197,8 +197,8 @@ def app_store_version(app_id, version, release_type):
 
 
 def open_submission(app_id):
-    subs = call('GET', f'/v1/reviewSubmissions?filter[app]={app_id}&filter[platform]=IOS'
-                       '&filter[state]=READY_FOR_REVIEW,WAITING_FOR_REVIEW,IN_REVIEW,UNRESOLVED_ISSUES&limit=10')['data']
+    subs = all_pages(f'/v1/reviewSubmissions?filter[app]={app_id}&filter[platform]=IOS'
+                       '&filter[state]=READY_FOR_REVIEW,WAITING_FOR_REVIEW,IN_REVIEW,UNRESOLVED_ISSUES')['data']
     return next(iter(subs), None)
 
 
@@ -218,9 +218,9 @@ def stuck_screenshots(v, fix=False):
     can stay at UPLOAD_COMPLETE for good, and deleting it and uploading the same file again is the usual cure."""
     import hashlib
     files = {os.path.basename(p): p for ps in json.load(open(os.path.join(HERE, 'listing.json')))['screenshots'].values() for p in ps}
-    for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
-        for st in call('GET', f"/v1/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets")['data']:
-            shots = call('GET', f"/v1/appScreenshotSets/{st['id']}/appScreenshots")['data']
+    for loc in all_pages(f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
+        for st in all_pages(f"/v1/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets")['data']:
+            shots = all_pages(f"/v1/appScreenshotSets/{st['id']}/appScreenshots")['data']
             order, changed = [x['id'] for x in shots], False
             for sh in shots:
                 state = (sh['attributes'].get('assetDeliveryState') or {}).get('state')
@@ -253,7 +253,7 @@ def submit_for_review(app_id, v):
     # to be submitted yet"): wait and retry both
     for attempt in range(30):
         try:
-            items = call('GET', f"/v1/reviewSubmissions/{s['id']}/items?include=appStoreVersion")['data']
+            items = all_pages(f"/v1/reviewSubmissions/{s['id']}/items?include=appStoreVersion")['data']
             if not any((i['relationships'].get('appStoreVersion', {}).get('data') or {}).get('id') == v['id'] for i in items):
                 create('reviewSubmissionItems', relationships={'reviewSubmission': rel('reviewSubmissions', s['id']),
                                                               'appStoreVersion': rel('appStoreVersions', v['id'])})
@@ -303,7 +303,7 @@ def app_store(app_id, build, cfg):
         wn = cfg.get('whats_new') or ''
         if wn:
             done = []
-            for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
+            for loc in all_pages(f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
                 lang = loc['attributes']['locale']
                 notes = plain_notes(notes_for(wn, lang))
                 if not notes: continue
@@ -350,7 +350,7 @@ def status():
         bn = (included(vr, 'builds', b['id']) or {}).get('attributes', {}).get('version', '') if b else ''
         lines.append(f"| {v['attributes']['versionString']} | {vstate(v)} | {v['attributes'].get('releaseType', '')} | {bn} |")
     lines += ['', '## App Review', '']
-    subs = call('GET', f'/v1/reviewSubmissions?filter[app]={app_id}&filter[platform]=IOS&limit=5')['data']
+    subs = first_page(f'/v1/reviewSubmissions?filter[app]={app_id}&filter[platform]=IOS&limit=5')['data']   # the latest few, for the report
     if subs:
         lines += ['| State | Submitted |', '| --- | --- |']
         for s in subs:
@@ -360,9 +360,9 @@ def status():
     lines += ['', '## Recent builds', '', '| Build | Version | Processing | Uploaded | TestFlight (external) | Groups |', '| --- | --- | --- | --- | --- | --- |']
     br = builds(app_id, limit=6)
     in_group = {}   # build id -> group names (Apple only lists a group's builds, not a build's groups)
-    for g in call('GET', f'/v1/apps/{app_id}/betaGroups?limit=50')['data']:
+    for g in all_pages(f'/v1/apps/{app_id}/betaGroups')['data']:
         try:
-            for b in request('GET', f"/v1/betaGroups/{g['id']}/builds?limit=50")['data']:
+            for b in all_pages_or_raise(f"/v1/betaGroups/{g['id']}/builds")['data']:
                 in_group.setdefault(b['id'], []).append(g['attributes']['name'])
         except ApiError as e:   # the status shouldn't fail over a column
             log(f"Couldn't list the builds in {g['attributes']['name']}: {e.code}")
@@ -375,7 +375,7 @@ def status():
         groups = '' if at.get('expired') else ', '.join(in_group.get(b['id'], []))
         lines.append(f"| {at['version']} | {ver} | {at['processingState']}{' (expired)' if at.get('expired') else ''} | {fmt_time(at.get('uploadedDate'))} | {ext} | {groups} |")
     lines += ['', '## TestFlight groups', '']
-    for g in call('GET', f'/v1/apps/{app_id}/betaGroups?limit=50')['data']:
+    for g in all_pages(f'/v1/apps/{app_id}/betaGroups')['data']:
         ga = g['attributes']
         lines.append(f"- {ga['name']}: {'internal' if ga.get('isInternalGroup') else 'external'}"
                      + (f", public link: {ga.get('publicLink')}" if ga.get('publicLinkEnabled') and ga.get('publicLink') else ', public link on' if ga.get('publicLinkEnabled') else ''))
