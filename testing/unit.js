@@ -276,10 +276,11 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     startDaily(); for (let i = 0; i < 60 && (locked || !DAILY || idx < 1); i++) await wait(100);
     const hide = h => { Object.defineProperty(document, "hidden", { configurable: true, get: () => h }); document.dispatchEvent(new Event("visibilitychange")); };
     DAILY.spent = 30; DAILY.t0 = Date.now() - 5000;          /* 35 s played so far */
-    hide(true); const away = { t0: DAILY.t0, saved: q.daily.now && q.daily.now.t, k: q.daily.now && q.daily.now.k };
-    await wait(1200); hide(false);
-    const back = { cover: !$("dailyCover").hidden, locked, title: $("dcTitle").textContent, time: $("dcTime").textContent, sub: $("dcSub").textContent, clock: DAILY.t0 };
-    $("dcGo").click(); const going = { cover: !$("dailyCover").hidden, locked, clock: DAILY.t0 > 0 };
+    hide(true); const away = { spent: dailySpent(), saved: q.daily.now && q.daily.now.t, k: q.daily.now && q.daily.now.k };
+    await wait(1200); away.later = dailySpent(); hide(false);
+    const back = { cover: !$("dailyCover").hidden, locked, title: $("dcTitle").textContent, time: $("dcTime").textContent, sub: $("dcSub").textContent, spent: dailySpent() };
+    await wait(1100); back.later = dailySpent();
+    $("dcGo").click(); const going = { cover: !$("dailyCover").hidden, locked }; await wait(1100); going.ticks = dailySpent() > back.later;
     /* the player's first move, then the reply: their turn again, two moves on */
     tryMove(cur.pz.moves[1].slice(0, 2), cur.pz.moves[1].slice(2, 4)); for (let i = 0; i < 40 && locked; i++) await wait(100);
     const kAfter = idx, fen = game.fen(), saved = { ...q.daily.now };
@@ -288,9 +289,9 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     $("dcGo").click(); leaveDaily(); delete q.daily.now;
     return { away, back, going, kAfter, fen, saved, again, moves: cur && cur.pz.moves.length };
   });
-  check(pz.away.t0 === 0 && pz.away.saved >= 35 && pz.away.k === 1, "the daily, hidden: its clock stops and it's saved with its place", pz.away);
-  check(pz.back.cover && pz.back.locked && pz.back.title === "Paused" && /0:3[5-6]/.test(pz.back.time) && !pz.back.sub && pz.back.clock === 0, "back to the game: the daily waits under Paused, the clock stopped", pz.back);
-  check(!pz.going.cover && !pz.going.locked && pz.going.clock, "Continue: the cover goes, the clock runs", pz.going);
+  check(pz.away.later === pz.away.spent && pz.away.saved >= 35 && pz.away.k === 1, "the daily, hidden: its clock stops and it's saved with its place", pz.away);
+  check(pz.back.cover && pz.back.locked && pz.back.title === "Paused" && /0:3[5-6]/.test(pz.back.time) && !pz.back.sub && pz.back.later === pz.back.spent, "back to the game: the daily waits under Paused, the clock stopped", pz.back);
+  check(!pz.going.cover && !pz.going.locked && pz.going.ticks, "Continue: the cover goes, the clock runs", pz.going);
   check(pz.again.cover && pz.again.sub === "Pick up where you left off." && pz.again.idx === pz.kAfter && pz.again.fen === pz.fen && pz.again.spent >= 35 && pz.saved.k === pz.kAfter,
     "the daily, left and opened again: the same position and time, under the cover", { kAfter: pz.kAfter, saved: pz.saved, again: pz.again });
   // the daily's clock: in the status bar while it's played, the time so far; a tap pauses it; gone once it's done

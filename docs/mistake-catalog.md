@@ -549,30 +549,79 @@ runs after the push. §2 closes that for the website.
 - **First-day signing and key setup** (the four release runs on 11-14 01:03–01:20): one-time setup, not repeated.
 - **Apple's 500** on 11-17: their side.
 
-## Order for Phase 2 (one PR each)
+## Phase 3: comments
 
-1. §2, tests before `main` (the ruleset, and the status file off `main`).
-2. §9, the repo file check (tiny).
-3. §4, the release.json loader and check.
-4. §3, the pagination helper and lint, with a baseline.
-5. §1, the layout job in CI (needs timing first).
-6. §6, then §5: the clock, then the daily model (Phase 4).
-7. §7, the shared save cases and the Swift test, then the two-device model (Phase 4).
+- Rules in `CLAUDE.md` now enforced by a check were cut back to what the check doesn't cover:
+  - The layout entry under "Mistakes to avoid" now points at the `layout` job and only asks for the languages
+    the job leaves out.
+  - The save entry points at `save-cases.json` and `sync-model.js`.
+  - `ios/README.md`'s emoji entry points at `release_config.py`.
+- "Committing with a failing test" stays as written until the `main` ruleset exists. Then it goes, with a pointer
+  to §2.
+- Code comments: the constraint comments in the files changed here were encoded and moved:
+  - "never Simplified for Traditional" is now `release_config.notes_for`, used by release.py and the check.
+  - "SaveRank below is the same rule" is now the shared cases.
 
-Proof runs for §10 and §11 go in with §2's PR, since they need no code.
+  The page's other comments explain why rather than restate the code. With the page this large, a sweep for
+  restating comments would be churn for little value, so it was not done.
 
-## Status
+## Phase 5: brittle tests
 
-Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before this catalog.
+One test pinned an internal field: the daily's pause test checked `DAILY.t0 === 0` ("the clock stopped"). It now
+checks what the player sees: `dailySpent()` doesn't move while the game is hidden, nor under the Paused card, and
+moves after Continue.
 
-- §2: in progress. The status file is off `main` and the workflow check is in parity.js; enforced once the owner
-  creates the ruleset and the proof above has run.
-- §8: not enforced, by the owner's decision.
-- §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
-- §10, §11: proofs recorded.
-- §1: enforced (the `layout` job), proven on `adf7899^`; the iPad scroll (`fd44f9a`) unproven.
-- §5: enforced (daily-model.js), proven on `cb08c29^`, `fe15eb9^`, `99c1408^`; found and fixed two new bugs.
-- §6: enforced (unit.js's fixed clock), proven on `48d589d`.
-- §7: enforced (shared cases, Swift job with a mutant, sync model), proven with the pre-`fe15eb9` rule.
-- §3: pagination enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`; state enforced (release_model.py), proven on `05a1059^` and `78036b6^`; found that `78036b6`'s fix never worked, fixed.
-- §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.
+Shown to catch the bug it guards: with the line that stops the clock on hide removed, it fails:
+
+```
+FAIL the daily, hidden: its clock stops and it's saved with its place {"spent":35,"saved":35,"k":1,"later":36}
+```
+
+No test was deleted. The rest of unit.js and smoke.js check outcomes through the page's own functions, and
+none guards security, privacy or billing behaviour in a way that would need replacing.
+
+## CI time
+
+The Test workflow's `smoke` job was about 5 minutes and is about the same now. parity.js gained the repo, release,
+pagination, sync and release-model checks, which add about 1 second.
+
+Four jobs now run beside it, so a push waits no longer than before:
+
+| Job | Time |
+|---|---|
+| `layout` | about 1.5 minutes with setup (47 s of checks) |
+| `daily-model` | about 1 minute (36 s) |
+| `save-rank` | about 30 seconds |
+
+`unit.js` on a fixed clock takes the same 3.5 minutes. Total runner time per push is up by about 3 minutes;
+waiting time is unchanged.
+
+## Final report
+
+| § | Class | Status | Check | Proof |
+|---|---|---|---|---|
+| 1 | Layout at a screen or text size | Enforced; one case unproven | `layout` job (`testing/layout.js`) | `adf7899^` fails; `fd44f9a` (the iPad scroll) doesn't reproduce in Chromium |
+| 2 | Red pushes reach `main` | Partly enforced: waiting on the owner's ruleset | workflows never push to `main` (parity.js); ruleset requires `smoke` | parity on `3108604`'s release.yml fails; the ruleset proof runs once it exists |
+| 3 | Release scripts assume App Store Connect | Enforced | `asc.all_pages` + `check_pages.py`; `release_model.py` | `644dd9f^`, `05a1059^`, `78036b6^` fail |
+| 4 | release.json text App Store Connect refuses | Enforced | `release_config.py` (parity.js; release.py loads through it) | `c8d4575`, `d5eac30`, `c3757d3` fail |
+| 5 | Daily state across days | Enforced | `daily-model` job (`testing/daily-model.js`) | `cb08c29^`, `fe15eb9^`, `99c1408^` fail |
+| 6 | Tests that depend on the date | Enforced | unit.js on a fixed clock | `48d589d`'s test fails at 2026-11-15 00:30, passes a week later |
+| 7 | Two devices' saves | Enforced | `save-cases.json` (unit.js, `save-rank` job with a mutant), `sync-model.js` | the pre-`fe15eb9` rule fails 7 cases and loses progress in the model |
+| 8 | Submitting without the owner's go-ahead | Not enforced: the owner's decision | — | — |
+| 9 | Files that don't belong in git | Enforced | parity.js | `85df665`, `9b58c65` fail; video part unproven |
+| 10 | A workflow uses a file it didn't fetch | Enforced (before this work) | parity.js | `cddbcbd` fails |
+| 11 | Website and apps drift | Enforced (before this work) | parity.js | `46dff1a^` fails |
+| 12 | A string missing from a language | Enforced (before this work) | unit.js; §2 keeps it off `main` | — |
+
+Bugs the new checks found and this work fixed:
+- finishing a daily after midnight crashed before its card;
+- a daily started while hidden counted the time away;
+- `78036b6`'s submission retry never covered adding the version to the submission;
+- 1.0.3's Bengali What's New lost its zero-width joiners;
+- a Python cache file was still tracked;
+- three App Store Connect lists read only their first page.
+
+Left for the owner:
+- Create the `main` ruleset (required checks `smoke`; also `layout`, `daily-model` and `save-rank` once they've
+  run on `main`).
+- Then the §2 proof can run, and the failing-test rule in CLAUDE.md can go.
