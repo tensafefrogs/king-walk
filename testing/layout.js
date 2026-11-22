@@ -19,13 +19,16 @@ const VP = [
   /* the app follows the iPhone's text size by zooming the page: an iPhone 16 Pro (402 x 874 points) at the largest
      standard size (x1.3) and the largest accessibility size (x2) leaves the page this many CSS pixels */
   ['text-xxxl', 309, 672, 1], ['text-ax5', 201, 437, 1],
+  /* the app on an older iPad sideways: the status bar's safe area (Chromium has none of its own, so it's set through
+     Chrome's emulation); the page once scrolled a little there because the board didn't leave room for it */
+  ['app-ipad-9-land', 1024, 768, 1, '', { top: 20, bottom: 0, left: 0, right: 0 }], ['app-ipad-10-land', 1080, 810, 1, '', { top: 24, bottom: 20, left: 0, right: 0 }],
 ];
 const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP,ar-SA').split(',');
 const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
 const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help'];
 (async () => {
   const srv = await server.start(), b = await chromium.launch(), issues = [];
-  for (const [name, w, h, mobile, q = ''] of VP.filter(v => !ONLY || ONLY.includes(v[0]))) for (const lang of LANGS) {
+  for (const [name, w, h, mobile, q = '', insets] of VP.filter(v => !ONLY || ONLY.includes(v[0]))) for (const lang of LANGS) {
     /* touch sizes play as Chrome on an iPhone or iPad, with the app on sale and a puzzle finished, so the App Store
        suggestions (the bar, the settings rows, the cards' lines) show and get checked too */
     const ua = !mobile ? undefined : 'Mozilla/5.0 (' + (/ipad/.test(name) ? 'iPad; CPU OS 26_1' : 'iPhone; CPU iPhone OS 26_1') + ' like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/140.0 Mobile/15E148 Safari/604.1';
@@ -35,6 +38,7 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
     /* the text-size sizes only happen in the app: play them as the app (no App Store suggestions, the app's settings) */
     if (/^text-/.test(name)) await ctx.addInitScript(() => { window.kingWalkApp = { platform: 'iphone', gameCenter: true, widget: true, reminders: true }; window.webkit = { messageHandlers: { kingwalk: { postMessage() {} } } }; });
     const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
+    if (insets) await (await ctx.newCDPSession(p)).send('Emulation.setSafeAreaInsetsOverride', { insets });
     await p.goto(srv.url + 'index.html' + q); await p.waitForTimeout(800);
     await p.evaluate(() => { try { const s = JSON.parse(localStorage.getItem('chess-climb-v1')); s.players[0].n = 3; localStorage.setItem('chess-climb-v1', JSON.stringify(s)); } catch (e) {} });
     await p.goto(srv.url + 'index.html' + q); await p.waitForFunction(() => typeof cur !== 'undefined' && cur && !locked, null, { timeout: 20000 }).catch(() => {});

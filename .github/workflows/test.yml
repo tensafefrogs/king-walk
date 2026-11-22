@@ -18,3 +18,25 @@ jobs:
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - run: node testing/smoke.js
       - run: node testing/unit.js
+
+  # the layout check (testing/layout.js) on the sizes that broke before, in English and German (long words), beside the
+  # tests: each size runs as its own process at the same time, so it takes about as long as the slowest one
+  layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
+      - name: Layout on the sizes that break first
+        run: |
+          pids=()
+          for size in phone-320 phone-375-land ipad-slideover duo-book text-ax5 app-ipad-10-land; do
+            LAYOUT_OUT=testing/out/$size node testing/layout.js en-US,de-DE $size > testing/out-$size.txt 2>&1 & pids+=($!)
+          done
+          fail=0; for p in "${pids[@]}"; do wait $p || fail=1; done
+          for f in testing/out-*.txt; do echo "== $f"; cat "$f"; done
+          exit $fail
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: {name: layout-problems, path: testing/out/}

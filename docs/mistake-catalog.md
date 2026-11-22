@@ -24,7 +24,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 
 | Rank (section) | Mistake class | Times | How bad | Score | Proposal | Level |
 |---|---|---|---|---|---|---|
-| 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Run the layout check on the sizes that break first, in CI | test |
+| 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Enforced: the Test workflow's `layout` job | test |
 | 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
 | 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | Pagination enforced (all_pages + check_pages.py); a model of the release steps (Phase 4) | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
@@ -68,23 +68,36 @@ another size (phone sideways, the smallest phones, large text, older iPads, long
 looking at screenshots by hand. `testing/layout.js` (from `1fa8888`) catches most of these, but it takes about 12
 minutes per language for every size, so it runs by hand and isn't in CI.
 
-**Proposal (test):** a CI job that runs `layout.js` on English and one long language (German) at the sizes that
-broke before: `phone-320`, `phone-375-land`, `ipad-9-land`, `text-ax5`, `duo-book`. It runs as its own job beside
-the Test job, so it adds no waiting time. Its target is under 2 minutes; if it takes longer, cut the sizes. A
-layout problem fails the build with the size, the element and the overflow in pixels (layout.js already reports
-these).
+**Status: enforced** (test), as the Test workflow's `layout` job.
+- It runs `testing/layout.js` in English and German at the sizes that broke before: `phone-320`,
+  `phone-375-land`, `ipad-slideover`, `duo-book`, `text-ax5` and `app-ipad-10-land`. Each size is its own process,
+  all at once: 46 seconds locally.
+- It runs beside the `smoke` job, so a push waits no longer than before. On failure, the job keeps the screenshots
+  as an artifact.
+- layout.js gained two app sizes with the iPad status bar's safe area (`app-ipad-9-land`, `app-ipad-10-land`),
+  through Chrome's `Emulation.setSafeAreaInsetsOverride`.
 
 Why a test: the layout depends on the browser's rendering, which no type or lint rule can see.
 
 **Proof:**
-- `adf7899^`: the cards sideways should fail at `phone-375-land`.
-- `fd44f9a^`: the iPad case should fail at `ipad-9-land`. That is only if layout.js reproduces the app's safe
-  areas there; otherwise this case is marked unproven.
 
-Run the current layout.js against the old `index.html` for each.
+```
+adf7899^ phone-375-land en-US   problems in 5 views:
+  3 | .cele-card does not fit                | done-card rank-card award-card
+  3 | .cele-card button off screen: .sh / .go | done-card rank-card award-card
+  2 | board not fully on screen              | base daily
+adf7899  phone-375-land en-US   no layout problems found
+```
 
-**Limits:** Chromium can't see Safari's zoom (`0719156`) or the app's text-size zoom exactly. These stay with the
-player's screenshot (CLAUDE.md says so).
+**Unproven:** the older iPad's slight scroll (`fd44f9a`). With the safe area emulated, the board fits inside the
+screen both before and after the fix (bottom at 754 of 810 before, 708 after), and the page scrolls by design in
+both (there's content below the board). The scroll came from the app's web view, which Chromium doesn't reproduce.
+That case stays with a player's screenshot.
+
+**Limits:** Chromium can't see Safari's zoom (`0719156`) or the app's text-size zoom exactly.
+
+**To do for the owner:** add `layout` to the ruleset's required checks beside `smoke`, so a layout problem also
+keeps a commit off `main`.
 
 ## §2. Pushes to `main` while the tests fail; the website deploys anyway
 
@@ -477,5 +490,6 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §8: not enforced, by the owner's decision.
 - §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
 - §10, §11: proofs recorded.
+- §1: enforced (the `layout` job), proven on `adf7899^`; the iPad scroll (`fd44f9a`) unproven.
 - §3 pagination: enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`.
 - §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.
