@@ -59,9 +59,12 @@ def main():
     # Age rating: every question None (or No), except the ones listed in listing.json
     decl = call('GET', f"/v1/appInfos/{info['id']}/ageRatingDeclaration")['data']
     yes_no = {'advertising', 'gambling', 'lootBox', 'messagingAndChat', 'parentalControls', 'ageAssurance', 'unrestrictedWebAccess',
-              'userGeneratedContent', 'healthOrWellnessTopics', 'socialMedia', 'socialMediaAgeRestricted'}
+              'userGeneratedContent', 'healthOrWellnessTopics', 'socialMedia', 'socialMediaAgeRestricted',
+              'datingAndRelationships', 'sharedLocation'}
     skip = {'kidsAgeBand', 'ageRatingOverride', 'ageRatingOverrideV2', 'koreaAgeRatingOverride', 'gracRatingClassificationNumber',
             'developerAgeRatingInfoUrl'}
+    # Apple adds questions now and then: one it already answers with true/false is a yes/no question too
+    yes_no |= {k for k, v in decl['attributes'].items() if isinstance(v, bool)}
     answers = {k: (False if k in yes_no else 'NONE') for k in decl['attributes'] if k not in skip}
     answers.update(listing['age_rating'])
     patch('ageRatingDeclarations', decl['id'], answers)

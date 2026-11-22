@@ -1,7 +1,7 @@
 {
   "version": "1.0.4",
   "xcode27": true,
-  "build": true,
+  "build": false,
   "testflight": {
     "groups": [
       "Internal",
@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead (2026-11-22): build 1.0.4 from main, submit it to App Review and release it on approval. It fits older iPads held sideways and sends the stats to King Walk's own GoatCounter site (1.0.3 was built before the move). Afterwards this file goes back to 1.0.5, TestFlight only."
+  "note": "Owner's go-ahead (2026-11-22): build 1.0.4 from main (build 2611220327, uploaded 2026-11-22; reused, as the first run stopped at the age rating), submit it to App Review and release it on approval. It fits older iPads held sideways and sends the stats to King Walk's own GoatCounter site (1.0.3 was built before the move). Afterwards this file goes back to 1.0.5, TestFlight only."
 }
