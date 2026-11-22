@@ -4,7 +4,7 @@
 usage: python3 ios/store/release.py status
        python3 ios/store/release.py release [--build-number N]
        python3 ios/store/release.py pending
-  status   writes ios/store/status.md: versions, App Review, recent builds and TestFlight groups
+  status   writes ios/store/status.md (published to the status branch by scripts/status.py): versions, App Review, recent builds and TestFlight groups
   release  does what ios/release.json asks (see ios/README.md, "Releasing from the repo"):
            waits for the build to finish processing, gives it to the TestFlight groups (submitting it for beta
            review when a group is external), attaches it to the App Store version (creating the version if needed),

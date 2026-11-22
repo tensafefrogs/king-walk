@@ -9,6 +9,7 @@
 //   - every achievement the game awards is in Game Center's list (ios/store/gamecenter.json), which Google Play Games'
 //     list is made from (android/store/playgames.py), and the other way round
 //   - the iOS and Android apps carry the same version number (ios/release.json, android/release.json)
+//   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
 const ROOT = path.join(__dirname, "..");
@@ -81,6 +82,14 @@ for (const f of fs.readdirSync(path.join(ROOT, ".github/workflows"))) {
   const wf = read(".github/workflows/" + f);
   if (/upload_listing|release\.py release|creative\.py|cp -R[^\n]*\bpress\b/.test(wf))
     check(/scripts\/media\.py fetch/.test(wf), `${f} fetches the videos before it uses them (python3 scripts/media.py fetch)`);
+}
+
+// main takes only commits whose tests passed on another branch first (the repository's rules), which a workflow's own
+// commit can't do: a workflow pushes only to its own branch (status, media, android-screenshots), named in the push
+for (const f of fs.readdirSync(path.join(ROOT, ".github/workflows"))) {
+  const pushes = [...read(".github/workflows/" + f).matchAll(/git push[^\n]*/g)].map(m => m[0]);
+  const bad = pushes.filter(l => !/\S+:(refs\/heads\/)?([\w.-]+)/.test(l) || /:(refs\/heads\/)?main\b/.test(l));
+  check(!bad.length, `${f} pushes only to its own branch, never main (push to HEAD:<branch>, as scripts/status.py does; main refuses commits whose tests haven't passed)`, bad);
 }
 
 // one version number for both apps

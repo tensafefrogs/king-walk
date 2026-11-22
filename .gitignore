@@ -19,3 +19,6 @@ press/king-walk-sizzle.mp4
 press/king-walk-sizzle-vertical.mp4
 android/store/screenshots/raw/
 android/store/screenshots/l10n/
+
+# where the app stands in App Store Connect: on the status branch (python3 scripts/status.py fetch)
+ios/store/status.md

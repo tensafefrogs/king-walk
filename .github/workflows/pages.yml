@@ -27,6 +27,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: The videos (the media branch, as media.json names them)
         run: python3 scripts/media.py fetch
+      - name: Where the app stands in App Store Connect (the status branch; the site's App Store line reads it)
+        run: python3 scripts/status.py fetch
       - name: Assemble the site
         env:
           GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}

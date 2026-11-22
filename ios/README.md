@@ -82,7 +82,7 @@ Pushes to `main` that change the app or `index.html` also run a simulator build 
 
 ## Releasing from the repo
 
-`ios/release.json` drives releases, so anyone with push access (or Claude) can ship without clicking through App Store Connect. When it changes on `main`, the **App Store release** workflow does what it says, then writes `ios/store/status.md` (versions, App Review state, recent builds, TestFlight groups) and commits it. Every 6 hours it refreshes the status. It does nothing until the secrets are set.
+`ios/release.json` drives releases, so anyone with push access (or Claude) can ship without clicking through App Store Connect. When it changes on `main`, the **App Store release** workflow does what it says, then writes `ios/store/status.md` (versions, App Review state, recent builds, TestFlight groups) and adds it to the `status` branch (`python3 scripts/status.py fetch` puts it in place; it's not on `main`, which takes only commits whose tests passed first). Every 6 hours it refreshes the status. It does nothing until the secrets are set.
 
 ```json
 {
@@ -127,7 +127,7 @@ Not possible through Apple's API, so still done in App Store Connect: reading an
 - **Screenshots still processing.** Right after the listing upload, App Store Connect refuses the submission until the new screenshots are processed; `submit_for_review` waits and retries (up to 15 minutes). Localized screenshots can only be added while the version is editable; a language without its own shows the English ones.
 - **Two workflows at once.** The App Store listing workflow (`store.yml`) and this one both edit App Store Connect. Let a listing run finish before pushing a release.
 - **Shipping a fix without what else is on `main`.** Make a branch from the commit the last build came from (the release run's commit), add only the fix (and any release tool fixes), set `release.json` there, push the branch, and start the App Store release workflow on that branch (Actions → App Store release → Run workflow, or the API with `ref`). The build is made from the branch. 1.0.2's third build was made this way (`release-1.0.2`).
-- **Reading a run's log.** Logs are long; the useful lines start with `App Store:`, `TestFlight:`, `Language`, `Screenshots:` and API errors (`failed with 409`, then `"code"` and `"detail"`). `store/status.md` is rewritten at the end of every run.
+- **Reading a run's log.** Logs are long; the useful lines start with `App Store:`, `TestFlight:`, `Language`, `Screenshots:` and API errors (`failed with 409`, then `"code"` and `"detail"`). `store/status.md` is rewritten at the end of every run (on the `status` branch: `python3 scripts/status.py fetch`).
 
 ## Working on a Mac (optional)
 

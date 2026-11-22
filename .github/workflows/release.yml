@@ -3,7 +3,8 @@
 #   1. if "build" is true, builds the app from main and uploads it (the iOS app workflow, as version "version")
 #   2. ios/store/release.py release: waits for processing, then TestFlight groups, the App Store version, the listing,
 #      submission for review and release, as the file asks
-#   3. ios/store/release.py status: writes ios/store/status.md and commits it
+#   3. ios/store/release.py status: writes ios/store/status.md, and scripts/status.py adds it to the branch `status`
+#      (main takes only commits whose tests passed elsewhere first, which a workflow's commit can't do)
 # Every 6 hours it refreshes the status, and goes ahead with an App Store step that was waiting for another version
 # to get through review (only one version can be in review at a time). Fields and examples: ios/README.md, "Releasing from the repo".
 name: App Store release
@@ -97,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
-      contents: write   # to commit ios/store/status.md
+      contents: write   # to add ios/store/status.md to the status branch
     env:
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID || vars.ASC_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID || vars.ASC_ISSUER_ID }}
@@ -107,6 +108,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: The videos (the App Store preview and the App Review attachment; the media branch, as media.json names them)
         run: python3 scripts/media.py fetch
+      - name: The last status (the status branch), so an unchanged one isn't added again
+        run: python3 scripts/status.py fetch
       - run: pip install pyjwt cryptography
       - name: TestFlight only (ios/beta.json)
         if: needs.plan.outputs.act == 'true' && needs.plan.outputs.beta == 'true'
@@ -120,14 +123,6 @@ jobs:
       - name: Status
         if: always()
         run: python3 ios/store/release.py status
-      - name: Commit the status
+      - name: Publish the status (the status branch)
         if: always()
-        run: |
-          git config user.name 'App Store status'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add ios/store/status.md
-          git diff --cached --quiet && exit 0
-          git commit -m 'App Store status' -q
-          # a run that finished first may have committed an older status: this one is newer, so it wins (-X theirs in a rebase)
-          for i in 1 2 3; do git pull --rebase -X theirs -q && git push -q && exit 0; sleep 5; done
-          exit 1
+        run: python3 scripts/status.py publish

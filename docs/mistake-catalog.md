@@ -25,14 +25,14 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 | Rank (section) | Mistake class | Times | How bad | Score | Proposal | Level |
 |---|---|---|---|---|---|---|
 | 1 (§1) | A screen size or text size breaks the layout | 11 | 3 | 33 | Run the layout check on the sizes that break first, in CI | test |
-| 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | The website deploy waits for the tests | architecture |
+| 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
 | 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | One paginated list helper, plus a lint rule; a model of the release steps (Phase 4) | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Check release.json and beta.json on every push, before any build | test (parse at the boundary) |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | A repo check: size limit and forbidden paths | lint |
 | 7 (§12) | A string missing from a language | 2 | 2 | 4 | Already enforced (unit.js); §2 stops it reaching the site | test |
 | 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Shared test cases run by the page's rule and the Swift rule; a two-device model (Phase 4) | test + model |
-| 9 (§8) | Submitting to the App Store without the owner's go-ahead | 1 | 3 | 3 → kept, production incident | A GitHub environment the owner approves, on the steps that submit and release | architecture |
+| 9 (§8) | Submitting to the App Store without the owner's go-ahead | 1 | 3 | 3 → kept, production incident | Not enforced: the owner's decision | — |
 | 10 (§6) | Tests that depend on today's date | 2 | 1 | 2 | One injectable clock, used by the model in §5 | architecture (with §5) |
 | 11 (§10) | A workflow uses a file it didn't fetch | 1 run (a release) | 2 | 2 → kept, release failed | Already enforced (parity.js) | test |
 | 12 (§11) | The website and the two apps drift apart | 1+ | 2 | 2 | Already enforced (parity.js) | test |
@@ -102,24 +102,35 @@ CLAUDE.md already says "Committing with a failing test" is a mistake that happen
 
 **How it was caught:** the Test workflow, after the push. Each time, the website was already deployed.
 
-**Proposal (architecture):** the deploy can't run without green tests.
-- `pages.yml` calls the tests as a reusable workflow (`test.yml` gets `workflow_call`).
-- Its deploy job `needs` them.
-- The 6-hourly rebuild runs them too, or reuses the last green result for that commit.
+**Decision (owner, 2026-11-22):** require the tests before `main`.
 
-This adds no new check; it changes what the deploy depends on. Pushing red stays possible, but players don't get
-it.
+**Enforcement (architecture):** a repository ruleset on `main` requires the Test workflow's check (`smoke`, the job
+that runs parity, smoke and unit) to have passed. GitHub then refuses any push to `main` of a commit whose check
+hasn't passed on another branch first. Work goes to a branch; once its Test run is green, the same commit is pushed
+to `main` (or merged through a PR). Nobody is on the bypass list, so an agent pushing with the owner's credentials
+is held to it too.
 
-A stronger option is branch protection on `main` that requires the Test check, with work on branches and PRs.
-That changes how the owner works, so it is the owner's call; I recommend the deploy dependency either way.
+Why this level: a red commit can't reach `main`, so the deploy, the 6-hourly rebuild and the app builds (which
+bundle `main`) all get only tested code. No deploy-ordering change is needed.
 
-**CI time:** the deploy waits about 5 minutes for the tests (today it starts at once). The Test workflow itself
-is unchanged.
+What it needed first: the App Store release workflow committed `ios/store/status.md` to `main` from Actions every 6
+hours, which the ruleset would refuse. That file now lives on its own `status` branch (`scripts/status.py`, as
+`scripts/media.py` does for the videos), and parity.js fails any workflow that pushes to `main`:
 
-**Proof:**
-- On `c60539e`, the tests fail, so the deploy job is skipped. Shown by running pages.yml's job graph on a branch
-  at that commit, without deploying (a dry-run input).
-- On `17549af`, it deploys.
+> release.yml pushes only to its own branch, never main (push to HEAD:<branch>, as scripts/status.py does; main
+> refuses commits whose tests haven't passed)
+
+That check, run on `main`'s release.yml before this change (`3108604`): `22 passed, 1 failed`, the line above; after:
+`23 passed, 0 failed`.
+
+The ruleset itself is a repository setting, which only the owner can create (steps in the PR).
+
+**CI time:** none added to the Test workflow. A change waits for its Test run (about 5 minutes) before it can go
+to `main`.
+
+**Proof (after the ruleset exists):** recreate `c60539e`'s mistake on a branch from `main`: the share text changed
+without its unit test (put back the previous expectation in `testing/unit.js`). Its Test run fails, and `git push
+origin HEAD:main` is refused. The current commit, after its green run, is accepted.
 
 ## §3. The release scripts assume what App Store Connect returns or accepts
 
@@ -283,20 +294,10 @@ and the session instructions.
 
 **How it was caught:** by looking at what the cancelled run had done.
 
-**Proposal (architecture):** put the steps that submit and release in a job with a GitHub environment
-(`app-store`) whose protection rule requires the owner's approval.
-- Building and TestFlight stay automatic.
-- A submission waits until the owner clicks Approve in GitHub, for that run.
-- An agent can still edit release.json, but nothing reaches App Review without the owner's click.
-- The same applies to Google Play's production track later.
-
-The owner has to create the environment and add themselves as reviewer (Settings → Environments). This changes how
-releases are approved, so it needs the owner's yes before Phase 2.
-
-**Proof:** a workflow check in parity.js fails when a step calls `release.py` with submit or release outside a
-job on the `app-store` environment. It fails on today's `release.yml` and passes after. The real proof is the
-next release run waiting for approval. I can't reproduce the 11-16 incident itself; this is the closest real
-evidence.
+**Status: not enforced, by the owner's decision** (2026-11-22): the owner is fine with Claude handling App Store
+submissions from release.json, so no approval gate. The proposal was a GitHub environment (`app-store`) with the
+owner as required reviewer on the steps that submit and release. Revisit if a version is submitted against the
+owner's wishes again.
 
 ## §9. Files that don't belong in git
 
@@ -396,18 +397,20 @@ runs after the push. §2 closes that for the website.
 
 ## Order for Phase 2 (one PR each)
 
-1. §2, the deploy waits for the tests (small; stops the most player-visible repeat).
+1. §2, tests before `main` (the ruleset, and the status file off `main`).
 2. §9, the repo file check (tiny).
 3. §4, the release.json loader and check.
 4. §3, the pagination helper and lint, with a baseline.
 5. §1, the layout job in CI (needs timing first).
 6. §6, then §5: the clock, then the daily model (Phase 4).
 7. §7, the shared save cases and the Swift test, then the two-device model (Phase 4).
-8. §8, the approval environment, once the owner agrees and creates it.
 
 Proof runs for §10 and §11 go in with §2's PR, since they need no code.
 
 ## Status
 
-Phase 1 written 2026-11-22. Nothing new is enforced yet; §10, §11 and §12 were already enforced before this
-catalog.
+Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before this catalog.
+
+- §2: in progress. The status file is off `main` and the workflow check is in parity.js; enforced once the owner
+  creates the ruleset and the proof above has run.
+- §8: not enforced, by the owner's decision.
