@@ -28,7 +28,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 | 2 (§2) | Pushes to `main` while the tests fail; the website deploys anyway | 9 runs (4 causes) | 3 | 27 | `main` takes only commits whose tests passed (ruleset); no workflow pushes to `main` | architecture |
 | 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | One paginated list helper, plus a lint rule; a model of the release steps (Phase 4) | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
-| 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Check release.json and beta.json on every push, before any build | test (parse at the boundary) |
+| 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Enforced: release_config.py, run on every push | parse at the boundary |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
 | 7 (§12) | A string missing from a language | 2 | 2 | 4 | Already enforced (unit.js); §2 stops it reaching the site | test |
 | 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Shared test cases run by the page's rule and the Swift rule; a two-device model (Phase 4) | test + model |
@@ -182,33 +182,51 @@ part-way. One time, App Review refused the version.
 
 ## §4. `ios/release.json` has text App Store Connect refuses
 
-**What goes wrong:** the TestFlight or App Store notes in release.json have an emoji, or a language has no What's
-New. App Store Connect refuses it after the 10-minute build.
+**What goes wrong:** the TestFlight or App Store notes in release.json have an emoji; App Store Connect refuses it
+(409 INVALID_TEXT) after the 10-minute build.
 
 **Where:**
-- `c8d4575` and `d5eac30`: 🧊 in What to Test, 409 INVALID_TEXT, twice. The fix, `57c389f`, filters them.
-- `c3757d3`: ♟️ in What's New, 409 INVALID_TEXT. The fix, `efd7001`, filters more.
-- `efd7001`'s run: 409 ATTRIBUTE.REQUIRED for `whatsNew` in some languages.
+- `c8d4575` and `d5eac30`: 🧊 in What to Test. The first fix, `57c389f`, filtered such characters out.
+- `c3757d3`: ♟️ in What's New. The second fix, `efd7001`, filtered more.
 
 The rule "no emoji in What's New or TestFlight notes" is also in the owner's standing instructions and
-`ios/README.md`.
+`ios/README.md`. (The run on `efd7001` then failed on a missing What's New; that was the empty language pages of
+§3, fixed in `9a4bf4c`, not this file.)
 
 **How it was caught:** failed release runs, after the build.
 
-**Proposal (parse at the boundary, run as a test):**
-- A `release_config.py` that loads `release.json` and `beta.json` into a checked structure:
-  - the fields release.py knows;
-  - What's New for every language the listing has;
-  - text without the characters App Store Connect refuses (the same rule as `plain_notes`, which moves there);
-  - lengths within Apple's limits.
-- release.py uses only that loader. parity.js runs it on every push, so a bad release.json fails Test in seconds
-  rather than the release after a build.
-- Error example: "ios/release.json app_store.whats_new.de-DE: '♟' (U+265F) is refused by App Store Connect as
-  INVALID_TEXT; write the notes without emoji."
-- The silent dropping in `plain_notes` becomes an error at push time. The notes read as written, not with holes
-  in them.
+**Status: enforced** (parse at the boundary, run as a test). `ios/store/release_config.py` loads and checks
+release.json and beta.json:
+- the settings release.py knows (a misspelt one is an error; a renamed `app_store_…` is a held version, kept);
+- true/false fields;
+- notes without the characters App Store Connect refuses, each named with its code point;
+- notes within 4000 characters;
+- What's New for every store language when submitting.
 
-**Proof:** `c3757d3` (♟️) and `c8d4575` (🧊) fail, and `efd7001`'s missing What's New fails. Their fixes pass.
+release.py reads the files only through `load()`. parity.js runs the check on every push, so a bad file fails the
+Test workflow in seconds and, with §2, never reaches `main`. Example error:
+
+```
+app_store.whats_new.en-US: '♟' (U+265F), '️' (U+FE0F) refused by App Store Connect as INVALID_TEXT; write the notes without emoji
+```
+
+Why this level: one loader is the only way release.py gets its settings, so no path skips the check; it can't be
+a type, since the input is a JSON file.
+
+**Proof** (`release_config.check` on each commit's release.json):
+
+```
+c8d4575  testflight.whats_new: '🧊' (U+1F9CA) refused by App Store Connect as INVALID_TEXT; write the notes without emoji
+d5eac30  (the same)
+57c389f  ok
+c3757d3  47 problems: app_store.whats_new.<each language> and testflight.whats_new: '♟' (U+265F), '️' (U+FE0F) refused ...
+efd7001  ok
+```
+
+Run over every release.json and beta.json in history, it flagged nothing else, after one correction. The old
+filter (and the first draft of this check) treated the zero-width joiner U+200D as emoji. Bengali uses it to join
+letters, so 1.0.3's Bengali What's New (`9640524` to `d961fa3`) went to the App Store with letters split. The
+check no longer refuses U+200D; the emoji it joins are refused on their own.
 
 ## §5. Daily puzzle state across days, pauses and links
 
@@ -441,3 +459,4 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §8: not enforced, by the owner's decision.
 - §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
 - §10, §11: proofs recorded.
+- §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.

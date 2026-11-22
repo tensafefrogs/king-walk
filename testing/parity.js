@@ -10,6 +10,7 @@
 //     list is made from (android/store/playgames.py), and the other way round
 //   - the iOS and Android apps carry the same version number (ios/release.json, android/release.json)
 //   - nothing local or big is committed (videos go on the media branch)
+//   - release.json and beta.json are as App Store Connect takes them
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -104,6 +105,11 @@ const videos = tracked.filter(t => /\.(mp4|mov|m4v|webm)$/i.test(t.file)).map(t 
 check(!videos.length, "no videos in main: they go on the media branch (python3 scripts/media.py publish; add the path to its FILES)", videos);
 const big = tracked.filter(t => t.mode !== "160000" && fs.existsSync(path.join(ROOT, t.file)) && fs.statSync(path.join(ROOT, t.file)).size > MAX_MB * 1048576).map(t => t.file);
 check(!big.length, `no file in main is over ${MAX_MB} MB (make it smaller, or put it on the media branch with scripts/media.py)`, big);
+
+// ios/release.json and beta.json as App Store Connect will take them (ios/store/release_config.py, which release.py
+// reads them through): no emoji in the notes, no unknown settings, What's New for every language
+try { execFileSync("python3", ["-I", path.join(ROOT, "ios/store/release_config.py")], { stdio: "pipe" }); check(true); }
+catch (e) { check(false, "ios/release.json and ios/beta.json are as App Store Connect takes them (python3 ios/store/release_config.py)", e.stdout.toString().trim().split("\n")); }
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

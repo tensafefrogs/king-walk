@@ -18,6 +18,7 @@ Not covered by the API: App Review's messages (Resolution Center) and replies to
 """
 import datetime, json, os, sys, time
 from asc import ApiError, app as get_app, call, create, log, patch, rel, request, upload_parts
+from release_config import load as load_config, notes_for, refused
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..', '..')
@@ -73,10 +74,8 @@ def wait_for_build(app_id, version, number, minutes=45):
 # ---------- TestFlight ----------
 
 def plain_notes(text):
-    """Release notes as App Store Connect takes them: it turns down emoji as INVALID_TEXT, failing the release: those
-    outside the Basic Multilingual Plane (🧊, 🔥) and the older symbols inside it drawn as emoji (♟️, ⏱, ✅, U+2600-27BF,
-    and the emoji variation selector); they're dropped, with a warning."""
-    refused = lambda c: ord(c) > 0xFFFF or 0x2600 <= ord(c) <= 0x27BF or 0x2B00 <= ord(c) <= 0x2BFF or ord(c) in (0xFE0F, 0x200D, 0x231A, 0x231B, 0x23F0, 0x23F1, 0x23F2, 0x23F3)
+    """Release notes as App Store Connect takes them. release_config.load() already refuses the characters it turns
+    down; this drops any that get past it (a hand-made call), with a warning, rather than fail after the build."""
     kept = ''.join(c for c in text if not refused(c))
     if kept != text:
         log('Release notes: dropped characters App Store Connect refuses:', ' '.join(sorted({c for c in text if refused(c)})))
@@ -302,12 +301,11 @@ def app_store(app_id, build, cfg):
             except Exception as e: log(f'App Store: the header art or app preview could not be placed ({e}); see creative.py')
         # What's New: one text for every language, or {"en-US": ..., "de-DE": ...} (a language without one gets en-US's)
         wn = cfg.get('whats_new') or ''
-        wn = wn if isinstance(wn, dict) else ({'en-US': wn} if wn else {})
         if wn:
             done = []
             for loc in call('GET', f"/v1/appStoreVersions/{v['id']}/appStoreVersionLocalizations?limit=200")['data']:
                 lang = loc['attributes']['locale']
-                notes = plain_notes(wn.get(lang) or (lang != 'zh-Hant' and wn.get(lang.split('-')[0])) or wn.get('en-US', ''))   # never Simplified for Traditional
+                notes = plain_notes(notes_for(wn, lang))
                 if not notes: continue
                 try:
                     request('PATCH', f"/v1/appStoreVersionLocalizations/{loc['id']}",
@@ -393,7 +391,7 @@ def status():
 def pending():
     """The 6-hourly run: an App Store step that waited for another version to get through review and release.
     Acts only while this version doesn't exist yet or is still being prepared, so it never resubmits a rejection."""
-    cfg = json.load(open(os.path.join(ROOT, 'ios', 'release.json')))
+    cfg = load_config('release')
     store = cfg.get('app_store')
     if not store: return
     app_id = get_app()['id']; version = cfg['version']
@@ -410,7 +408,7 @@ def pending():
 
 
 def release(build_number):
-    cfg = json.load(open(os.path.join(ROOT, 'ios', 'release.json')))
+    cfg = load_config('release')
     a = get_app(); app_id = a['id']
     log(f"Release: {json.dumps(cfg)}")
     if cfg.get('release_now'):
@@ -424,7 +422,7 @@ def release(build_number):
 def beta(build_number):
     """A TestFlight-only build from ios/beta.json (a version ahead of the one release.json is taking to the App Store):
     gives it to its groups and never touches the App Store, so a queued App Store step in release.json is unaffected."""
-    cfg = json.load(open(os.path.join(ROOT, 'ios', 'beta.json')))
+    cfg = load_config('beta')
     a = get_app(); app_id = a['id']
     log(f"Beta: {json.dumps(cfg)}")
     testflight(app_id, wait_for_build(app_id, cfg['version'], build_number), cfg['testflight'])

@@ -119,7 +119,7 @@ Not possible through Apple's API, so still done in App Store Connect: reading an
 
 ### Things that have gone wrong (and what to do instead)
 
-- **Emoji in What's New or What to Test.** App Store Connect refuses them as `INVALID_TEXT` and the run fails. `plain_notes` in `release.py` drops the ones it knows (emoji beyond the Basic Multilingual Plane, the older symbols ♟️ ⏱ ✅, the emoji variation selector), but write notes without emoji.
+- **Emoji in What's New or What to Test.** App Store Connect refuses them as `INVALID_TEXT` and the run failed after the build (three times). `ios/store/release_config.py` now checks release.json and beta.json on every push (the Test workflow, through parity.js), naming each character; release.py reads them only through it.
 - **A push to `release.json` always runs a release.** With `"build": true` it builds again (about 10 minutes). After a failed run whose build uploaded fine, set `"build": false` to reuse it.
 - **Cancelling a run doesn't take back what it already did.** A submission happens within seconds of its step starting; a cancel came too late once. To hold a version, change `release.json` first (rename `app_store`, or `"submit": false`) and push, then look at `store/status.md` or the run's log for what actually happened.
 - **Swapping the build of a version in review** works only with the same version number: set `"replace_in_review": true` and the same `version`. A new number waits behind the version in review.
