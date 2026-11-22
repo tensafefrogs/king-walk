@@ -9,6 +9,7 @@
 //   - every achievement the game awards is in Game Center's list (ios/store/gamecenter.json), which Google Play Games'
 //     list is made from (android/store/playgames.py), and the other way round
 //   - the iOS and Android apps carry the same version number (ios/release.json, android/release.json)
+//   - nothing local or big is committed (videos go on the media branch)
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -91,6 +92,18 @@ for (const f of fs.readdirSync(path.join(ROOT, ".github/workflows"))) {
   const bad = pushes.filter(l => !/\S+:(refs\/heads\/)?([\w.-]+)/.test(l) || /:(refs\/heads\/)?main\b/.test(l));
   check(!bad.length, `${f} pushes only to its own branch, never main (push to HEAD:<branch>, as scripts/status.py does; main refuses commits whose tests haven't passed)`, bad);
 }
+
+// what git holds: nothing local (agent worktrees, Python caches) and nothing big. The videos live on the media branch
+// (scripts/media.py); a large file in main stays in every clone for good (main's history once reached 1 GB of them)
+const MAX_MB = 5;          // the biggest legitimate files are the store header art, about 4.4 MB
+const tracked = execFileSync("git", ["ls-files", "-s", "-z"], { cwd: ROOT }).toString().split("\0").filter(Boolean)
+  .map(l => { const [meta, file] = l.split("\t"); return { mode: meta.split(" ")[0], file }; });
+const local = tracked.filter(t => t.mode === "160000" || /(^|\/)(\.claude|__pycache__|node_modules|\.gradle)\/|\.pyc$|\.DS_Store$/.test(t.file)).map(t => t.file);
+check(!local.length, "nothing local is committed (git rm --cached it and add it to .gitignore)", local);
+const videos = tracked.filter(t => /\.(mp4|mov|m4v|webm)$/i.test(t.file)).map(t => t.file);
+check(!videos.length, "no videos in main: they go on the media branch (python3 scripts/media.py publish; add the path to its FILES)", videos);
+const big = tracked.filter(t => t.mode !== "160000" && fs.existsSync(path.join(ROOT, t.file)) && fs.statSync(path.join(ROOT, t.file)).size > MAX_MB * 1048576).map(t => t.file);
+check(!big.length, `no file in main is over ${MAX_MB} MB (make it smaller, or put it on the media branch with scripts/media.py)`, big);
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

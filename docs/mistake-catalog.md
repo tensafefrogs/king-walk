@@ -29,7 +29,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 | 3 (§3) | The release scripts assume what App Store Connect returns or accepts | 9 | 2–3 | 22 | One paginated list helper, plus a lint rule; a model of the release steps (Phase 4) | architecture + lint + model |
 | 4 (§5) | Daily puzzle state across days, pauses and links | 6 | 3 | 18 | A model-based test of the daily with a fake clock (Phase 4) | model |
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Check release.json and beta.json on every push, before any build | test (parse at the boundary) |
-| 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | A repo check: size limit and forbidden paths | lint |
+| 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
 | 7 (§12) | A string missing from a language | 2 | 2 | 4 | Already enforced (unit.js); §2 stops it reaching the site | test |
 | 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Shared test cases run by the page's rule and the Swift rule; a two-device model (Phase 4) | test + model |
 | 9 (§8) | Submitting to the App Store without the owner's go-ahead | 1 | 3 | 3 → kept, production incident | Not enforced: the owner's decision | — |
@@ -319,8 +319,23 @@ history reached 1 GB), an agent worktree, Python caches.
 Its error names the file and says where it goes instead (`python3 scripts/media.py publish` for videos,
 .gitignore for local files). It takes milliseconds.
 
-**Proof:** at `85df665` it fails on `.claude/worktrees/agent-…`; at `72f41f4` it passes. The video commits are no
-longer in history, so that part is unproven: it can only be shown by committing a video on a branch.
+**Status: enforced** by `testing/parity.js` (lint level: a check over `git ls-files`, milliseconds). Size limit 5
+MB: the largest legitimate files are the store header art, about 4.4 MB. Gitlinks (an agent worktree is committed
+as one) count as local.
+
+**Proof** (the check alone, run on each commit's checkout):
+
+```
+85df665  FAIL nothing local is committed (git rm --cached it and add it to .gitignore)
+         [".claude/worktrees/agent-aa038f033662c6292","ios/store/__pycache__/asc.cpython-313.pyc"]
+72f41f4  FAIL nothing local is committed ... ["ios/store/__pycache__/asc.cpython-313.pyc"]
+9b58c65^ 3 passed, 0 failed
+9b58c65  FAIL nothing local is committed ... ["ios/store/__pycache__/asc.cpython-313.pyc"]
+```
+
+It found a mistake still in the repo: `9b58c65` committed a Python cache, and `923b6da` ("Ignore Python caches")
+ignored new ones without untracking it. The same change removes it; with it removed, the check passes. The video
+part is unproven on real history (those commits were removed from it in `0eaf1cd`).
 
 ## §10. A workflow uses a file it didn't fetch
 
@@ -332,7 +347,12 @@ attachment step. Fixed in `1b44d80`.
 
 **Status: enforced** since `1b44d80` by parity.js ("fetches the videos before it uses them").
 
-**Proof still to record:** parity.js today, run on `cddbcbd`'s release.yml, fails; on `1b44d80`, it passes.
+**Proof** (the check alone):
+
+```
+cddbcbd  FAIL release.yml fetches the videos before it uses them (python3 scripts/media.py fetch)
+1b44d80  3 passed, 0 failed
+```
 
 ## §11. The website and the two apps drift apart
 
@@ -344,7 +364,12 @@ checks were written alongside the code they check.
 
 **Status: enforced** by `testing/parity.js`, which runs first on every push.
 
-**Proof still to record:** parity.js on `46dff1a^` with the version check fails (1.0.4 vs 1.0.0).
+**Proof** (the version check alone):
+
+```
+46dff1a^ FAIL the iOS and Android apps have the same version number {"ios":"1.0.4","android":"1.0.0"}
+46dff1a  1 passed, 0 failed
+```
 
 ## §12. A string missing from a language
 
@@ -414,3 +439,5 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §2: in progress. The status file is off `main` and the workflow check is in parity.js; enforced once the owner
   creates the ruleset and the proof above has run.
 - §8: not enforced, by the owner's decision.
+- §9: enforced (parity.js), proven on `85df665` and `9b58c65`.
+- §10, §11: proofs recorded.
