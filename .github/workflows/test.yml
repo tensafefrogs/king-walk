@@ -50,3 +50,19 @@ jobs:
         with: {node-version: 22}
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - run: node testing/daily-model.js
+
+  # the app's save rule (ios/KingWalk/SaveRank.swift) against the same cases as the page's (testing/save-cases.json),
+  # then a copy with one comparison flipped, which the cases must catch: about 1 minute
+  save-rank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - name: SaveRank against the shared cases
+        run: swiftc ios/KingWalk/SaveRank.swift testing/SaveRankCases.swift -o /tmp/save-rank && /tmp/save-rank testing/save-cases.json
+      - name: The cases catch a SaveRank that drifts (progress compared the wrong way)
+        run: |
+          sed 's/return A.progress > B.progress/return A.progress < B.progress/' ios/KingWalk/SaveRank.swift > /tmp/SaveRankMutant.swift
+          ! cmp -s ios/KingWalk/SaveRank.swift /tmp/SaveRankMutant.swift || { echo "the mutation didn't apply: update this step"; exit 1; }
+          swiftc /tmp/SaveRankMutant.swift testing/SaveRankCases.swift -o /tmp/save-rank-mutant
+          if /tmp/save-rank-mutant testing/save-cases.json; then echo "the cases didn't notice SaveRank changing"; exit 1; fi

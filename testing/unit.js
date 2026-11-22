@@ -228,13 +228,10 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     recordDaily(D, n, "g", 9, true); renderDaily(); const done = !dot.hidden && dot.classList.contains("done");
     Object.assign(D, JSON.parse(keep)); renderDaily(); return { waiting, done }; });
   check(badge.waiting && badge.done, "the Daily button shows a dot while waiting and a check when done", badge);
-  // two devices' saves: more progress wins, an empty save never does, a newer Start over does
-  const sv = await p.evaluate(() => {
-    const mk = (n, days, since, extra) => Object.assign({ v: 2, updatedAt: Date.now(), players: [Object.assign(newPlayer(600), { n, since, daily: Object.assign(newDaily(), { days: Object.fromEntries(Array.from({ length: days }, (_, i) => [i + 1, { m: "g", t: 5, ok: true }])) }) })] }, extra);
-    const old = mk(50, 3, 1000), stale = mk(40, 3, 1000, { updatedAt: Date.now() + 99999 }), fresh = mk(0, 0, 5000), freshPlayed = mk(2, 0, 5000), reset = mk(0, 0, 9000, { reset: true });
-    return { more: betterSave(old, stale), staleLoses: !betterSave(stale, old), emptyLoses: !betterSave(fresh, old), smallNewInstall: !betterSave(freshPlayed, old), resetWins: betterSave(reset, old), oldVsReset: !betterSave(old, reset) };
-  });
-  check(Object.values(sv).every(Boolean), "which device's save to keep", sv);
+  // two devices' saves: the cases both rules are checked against (betterSave here, SaveRank in Swift in the save-rank job)
+  const saveCases = JSON.parse(fs.readFileSync(path.join(__dirname, "save-cases.json"), "utf8")).cases;
+  const sv = await p.evaluate(cases => cases.map(c => ({ what: c.what, got: betterSave(cleanState(c.a) || c.a, cleanState(c.b) || c.b), want: c.a_wins })), saveCases);
+  for (const c of sv) check(c.got === c.want, "which device's save to keep: " + c.what, c);
   const cl = await p.evaluate(() => { const before = me().n; const other = JSON.parse(JSON.stringify(S)); other.players[0].n = before + 40; other.players[0].rating = 1777;
     kingWalkCloud(JSON.stringify(other)); const took = me().rating; const worse = JSON.parse(JSON.stringify(S)); worse.players[0].n = 1; worse.players[0].rating = 401; kingWalkCloud(JSON.stringify(worse)); kingWalkCloud("not json");
     return { took, kept: me().rating }; });

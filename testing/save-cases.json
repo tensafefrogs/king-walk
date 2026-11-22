@@ -1,0 +1,544 @@
+{
+ "about": "Which of two saves to keep, for both rules: betterSave in index.html (unit.js) and SaveRank in ios/KingWalk/SaveRank.swift (the Test workflow's save-rank job). Each case: should a replace b.",
+ "cases": [
+  {
+   "what": "more progress wins over a copy written later (iCloud kept the last write once: fe15eb9)",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000099999,
+    "players": [
+     {
+      "n": 40,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": true
+  },
+  {
+   "what": "a copy written later with less progress doesn't replace more",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000099999,
+    "players": [
+     {
+      "n": 40,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  },
+  {
+   "what": "an empty save never replaces progress",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000099999,
+    "players": [
+     {
+      "n": 0,
+      "since": 5000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  },
+  {
+   "what": "a new install with a few puzzles doesn't replace an older, bigger history",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000099999,
+    "players": [
+     {
+      "n": 2,
+      "since": 5000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  },
+  {
+   "what": "a newer Start over replaces the old history",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 0,
+      "since": 9000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ],
+    "reset": true
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": true
+  },
+  {
+   "what": "an old history doesn't undo a newer Start over",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 0,
+      "since": 9000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ],
+    "reset": true
+   },
+   "a_wins": false
+  },
+  {
+   "what": "an older Start over doesn't replace a newer history",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 0,
+      "since": 500,
+      "daily": {
+       "days": {}
+      }
+     }
+    ],
+    "reset": true
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 50,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  },
+  {
+   "what": "daily puzzles count as progress",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 10,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "2": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "3": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "4": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        },
+        "5": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 12,
+      "since": 1000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "a_wins": true
+  },
+  {
+   "what": "equal progress: more than 5 seconds newer wins",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000006000,
+    "players": [
+     {
+      "n": 20,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 20,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": true
+  },
+  {
+   "what": "equal progress: within 5 seconds, the copy in place stays",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000004000,
+    "players": [
+     {
+      "n": 20,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 20,
+      "since": 1000,
+      "daily": {
+       "days": {
+        "1": {
+         "m": "g",
+         "t": 30,
+         "ok": true
+        }
+       }
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  },
+  {
+   "what": "anything replaces a save with no player",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 1,
+      "since": 1000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "players": []
+   },
+   "a_wins": true
+  },
+  {
+   "what": "a save with no player replaces nothing",
+   "a": {
+    "v": 2,
+    "players": []
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 1,
+      "since": 1000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "a_wins": false
+  }
+ ]
+}

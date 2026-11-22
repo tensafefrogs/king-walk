@@ -31,7 +31,7 @@ deploy failed or was blocked; 1 means only CI or the developer lost time.
 | 5 (§4) | `ios/release.json` has text App Store Connect refuses | 4 runs | 2 | 8 | Enforced: release_config.py, run on every push | parse at the boundary |
 | 6 (§9) | Files that don't belong in git | 3 | 2–3 | 8 | Enforced: parity.js checks what git holds | lint |
 | 7 (§12) | A string missing from a language | 2 | 2 | 4 | Already enforced (unit.js); §2 stops it reaching the site | test |
-| 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Shared test cases run by the page's rule and the Swift rule; a two-device model (Phase 4) | test + model |
+| 8 (§7) | Two devices' saves: the wrong copy wins | 1 (lost progress) | 3 | 3 → kept, data loss | Enforced: save-cases.json for both rules; sync-model.js | test + model |
 | 9 (§8) | Submitting to the App Store without the owner's go-ahead | 1 | 3 | 3 → kept, production incident | Not enforced: the owner's decision | — |
 | 10 (§6) | Tests that depend on today's date | 2 | 1 | 2 | Enforced: unit.js on a fixed clock | architecture (tests) |
 | 11 (§10) | A workflow uses a file it didn't fetch | 1 run (a release) | 2 | 2 → kept, release failed | Already enforced (parity.js) | test |
@@ -350,19 +350,39 @@ and only prose says so.
 
 **Where:** `fe15eb9` (found in review before launch; a data-loss bug). The two-places rule is in CLAUDE.md.
 
-**Proposal:**
-- **Test:** `testing/save-cases.json` holds pairs of saves and the one that should win.
-  - `unit.js` runs `betterSave` on them.
-  - A Swift test in the iOS app workflow (macOS, already runs) runs `SaveRank` on the same file.
-  - A new case goes in one place and both rules must pass it.
-- **Model (Phase 4):** two devices and iCloud, with writes arriving late, twice and out of order. The property:
-  the rated count and dailies played never go down. It reproduces last-writer-wins.
+**Status: enforced** (architecture + test + model).
+- **One set of cases for both rules.** `testing/save-cases.json` holds 12 pairs of saves and which should win.
+  `unit.js` runs the page's `betterSave` on them. The Test workflow's `save-rank` job compiles `SaveRank` (moved to
+  its own file, `ios/KingWalk/SaveRank.swift`, so it builds on Linux) with `testing/SaveRankCases.swift` and runs
+  the same cases. A change to either rule that the other doesn't share fails one of them.
+- **Proof that the cases catch drift, on every run.** The same job compiles a copy of `SaveRank` with the progress
+  comparison flipped, and fails unless the cases catch it.
+- **The model (Phase 4).** `testing/sync-model.js` plays two devices through iCloud:
+  - play and daily puzzles on either device;
+  - writes reaching iCloud in any order;
+  - copies delivered late, twice, or older after newer;
+  - coming back to the app.
 
-Architecture alternative: the app asks the page to decide and drops SaveRank. That's cleaner, but larger and it
-touches the app's launch path; I propose the shared cases first.
+  It uses the page's real `betterSave`, read from `index.html`, and SaveStore's write and offer steps. The property:
+  once everything has arrived, both devices hold the same save, with the most progress any device reached. It
+  runs 2000 sequences in under a second, from parity.js.
+  - Why a hand-written model and not TLA+: one rule and three steps, in the language the rule is written in, run
+    on the real function. The rule can't drift from the model, since it's read from the source. SaveStore's steps
+    are written out in the model (`persist`, `adopt`); a change there needs the model changed too, which the file
+    says at the top.
 
-**Proof:** with the current file, the pre-`fe15eb9` rule (last writer wins) fails the cases where an older copy
-has more progress. A changed `SaveRank` (one condition flipped) fails the Swift test while `betterSave` passes.
+**Proof:**
+
+```
+the cases, on the rule before fe15eb9 (newest write wins): 7 of 12 fail, first:
+  "more progress wins over a copy written later (iCloud kept the last write once: fe15eb9)"
+MODEL_RULE=newest node testing/sync-model.js
+  FAIL progress lost or the devices disagree (seed 1): the most any device reached 12, the devices end with 11 and 11, iCloud 11
+node testing/sync-model.js
+  2000 runs of 40 steps (rule: page): every rule held
+```
+
+The Swift side's proof is the mutant step in every `save-rank` run (shown in the PR's CI log).
 
 ## §8. Submitting to the App Store without the owner's go-ahead
 
@@ -525,5 +545,6 @@ Phase 1 written 2026-11-22; §10, §11 and §12 were already enforced before thi
 - §1: enforced (the `layout` job), proven on `adf7899^`; the iPad scroll (`fd44f9a`) unproven.
 - §5: enforced (daily-model.js), proven on `cb08c29^`, `fe15eb9^`, `99c1408^`; found and fixed two new bugs.
 - §6: enforced (unit.js's fixed clock), proven on `48d589d`.
+- §7: enforced (shared cases, Swift job with a mutant, sync model), proven with the pre-`fe15eb9` rule.
 - §3 pagination: enforced (asc.all_pages, check_pages.py), proven on `644dd9f^`.
 - §4: enforced (release_config.py), proven on `c8d4575`, `d5eac30`, `c3757d3`.
