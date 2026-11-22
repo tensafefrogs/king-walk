@@ -7,9 +7,18 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.4: on TestFlight; App Store submission waits for the go-ahead)
+### Next app version (1.0.5: nothing yet)
 
 - Nothing yet.
+
+### 1.0.4 (submitted 2026-11-22 with the owner's go-ahead; released when Apple approves)
+
+- **Fits sideways on older iPads:** on a 9.7" or 10.2" iPad held sideways the game no longer scrolls a little: the
+  board leaves room for the status bar. (Live on the website since 2026-11-21.)
+- The anonymous play counts go to King Walk's own GoatCounter site, like the website's (1.0.3 still sends them to the
+  old shared one; `testing/stats.py` can add both).
+
+What's New: "Fits better on older iPads held sideways, and small fixes." (in all 46 store languages, `ios/release.json`)
 
 ### Android app (new; not on Google Play yet)
 
@@ -32,9 +41,6 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Website only (live on kingwalk.app)
 
-- **Fits sideways on older iPads:** on a 9.7" or 10.2" iPad held sideways, and on any wide screen where the board's
-  size comes from the height, the page no longer scrolls a little. The board now leaves room for the status bar and
-  home indicator (in the app) and is 2 pixels smaller. Live on the website; reaches the iOS app with the next build.
 - **Android phones hear about the Android app,** once it's on Google Play: the same bar, end-of-page line and settings
   links that point iPhones to the App Store point Android browsers to Google Play ("King Walk for Android"), with
   Google Play Games in place of Game Center. Until the website build finds the app's Google Play page, nothing changes.

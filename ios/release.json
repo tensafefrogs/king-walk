@@ -1,7 +1,7 @@
 {
   "version": "1.0.4",
   "xcode27": true,
-  "build": false,
+  "build": true,
   "testflight": {
     "groups": [
       "Internal",
@@ -10,9 +10,61 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.4: the same as 1.0.3 for now. Tell me anything that's broken or reads wrong."
+    "whats_new": "1.0.4 from main: fits older iPads held sideways (no slight scroll), and the stats go to King Walk's own counter. Tell me anything that's broken or reads wrong."
   },
-  "app_store": null,
+  "app_store": {
+    "submit": true,
+    "release": "after_approval",
+    "replace_in_review": false,
+    "whats_new": {
+      "en-US": "Fits better on older iPads held sideways, and small fixes.",
+      "ar-SA": "عرض أفضل على أجهزة iPad الأقدم عند إمساكها بالعرض، وإصلاحات صغيرة.",
+      "bn-BD": "পুরোনো iPad আড়াআড়ি ধরলে এখন আরও ভালোভাবে আঁটে, আর ছোটখাটো সংশোধন।",
+      "ca": "S'ajusta millor als iPad antics en horitzontal, i petites correccions.",
+      "cs": "Lepší zobrazení na starších iPadech na šířku a drobné opravy.",
+      "da": "Passer bedre på ældre iPads i liggende format, og små rettelser.",
+      "de": "Passt besser auf ältere iPads im Querformat, dazu kleine Korrekturen.",
+      "el": "Ταιριάζει καλύτερα σε παλαιότερα iPad σε οριζόντιο προσανατολισμό, και μικρές διορθώσεις.",
+      "es": "Se ve mejor en los iPad más antiguos en horizontal, y pequeñas correcciones.",
+      "es-ES": "Se ve mejor en los iPad más antiguos en horizontal, y pequeñas correcciones.",
+      "fi": "Sopii paremmin vanhemmille iPadeille vaakasuunnassa, sekä pieniä korjauksia.",
+      "fr": "S'affiche mieux sur les anciens iPad tenus à l'horizontale, et petites corrections.",
+      "gu-IN": "જૂના iPad આડા પકડો ત્યારે હવે વધુ સારી રીતે બંધબેસે છે, અને નાના સુધારા.",
+      "he": "מתאים יותר לאייפדים ישנים במצב לרוחב, ותיקונים קטנים.",
+      "hi": "पुराने iPad को आड़ा पकड़ने पर अब बेहतर फ़िट होता है, और छोटे सुधार।",
+      "hr": "Bolje pristaje na starije iPade u vodoravnom položaju, i sitni popravci.",
+      "hu": "Jobban elfér a régebbi iPadeken fekvő helyzetben, és apróbb javítások.",
+      "id": "Lebih pas di iPad lama dalam posisi mendatar, dan perbaikan kecil.",
+      "it": "Si adatta meglio agli iPad meno recenti in orizzontale, e piccole correzioni.",
+      "ja": "古い iPad を横向きで使うときの表示を改善し、細かな不具合を修正しました。",
+      "kn-IN": "ಹಳೆಯ iPad ಅನ್ನು ಅಡ್ಡವಾಗಿ ಹಿಡಿದಾಗ ಈಗ ಉತ್ತಮವಾಗಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ, ಮತ್ತು ಸಣ್ಣ ಸರಿಪಡಿಕೆಗಳು.",
+      "ko": "오래된 iPad를 가로로 들었을 때 화면에 더 잘 맞고, 자잘한 문제를 고쳤습니다.",
+      "ml-IN": "പഴയ iPad-കൾ തിരശ്ചീനമായി പിടിക്കുമ്പോൾ ഇപ്പോൾ നന്നായി യോജിക്കുന്നു, ചെറിയ പരിഹാരങ്ങളും.",
+      "mr-IN": "जुने iPad आडवे धरल्यावर आता अधिक चांगले बसते, आणि लहान दुरुस्त्या.",
+      "ms": "Lebih muat pada iPad lama dalam kedudukan melintang, dan pembaikan kecil.",
+      "nl": "Past beter op oudere iPads in liggende stand, plus kleine verbeteringen.",
+      "no": "Passer bedre på eldre iPader i liggende format, og små rettelser.",
+      "or-IN": "ପୁରୁଣା iPad ଆଡ଼ କରି ଧରିଲେ ଏବେ ଭଲ ଭାବେ ଖାପ ଖାଏ, ଏବଂ ଛୋଟ ସଂଶୋଧନ।",
+      "pa-IN": "ਪੁਰਾਣੇ iPad ਨੂੰ ਲੇਟਵਾਂ ਫੜਨ 'ਤੇ ਹੁਣ ਬਿਹਤਰ ਫਿੱਟ ਹੁੰਦਾ ਹੈ, ਅਤੇ ਛੋਟੇ ਸੁਧਾਰ।",
+      "pl": "Lepiej mieści się na starszych iPadach w poziomie, do tego drobne poprawki.",
+      "pt": "Encaixa melhor em iPads mais antigos na horizontal, e pequenas correções.",
+      "pt-PT": "Ajusta-se melhor aos iPad mais antigos na horizontal, e pequenas correções.",
+      "ro": "Se potrivește mai bine pe iPad-urile mai vechi ținute orizontal, plus mici remedieri.",
+      "ru": "Лучше помещается на старых iPad в горизонтальной ориентации, и небольшие исправления.",
+      "sk": "Lepšie zobrazenie na starších iPadoch na šírku a drobné opravy.",
+      "sl-SI": "Bolje se prilega starejšim iPadom v ležeči postavitvi, in manjši popravki.",
+      "sv": "Passar bättre på äldre iPads i liggande läge, och små rättningar.",
+      "ta-IN": "பழைய iPad-ஐ கிடைமட்டமாகப் பிடிக்கும்போது இப்போது சரியாகப் பொருந்துகிறது, சிறு திருத்தங்களும்.",
+      "te-IN": "పాత iPadలను అడ్డంగా పట్టుకున్నప్పుడు ఇప్పుడు బాగా సరిపోతుంది, చిన్న సవరణలు కూడా.",
+      "th": "แสดงผลพอดีขึ้นบน iPad รุ่นเก่าเมื่อถือแนวนอน และแก้ไขเล็กน้อย",
+      "tr": "Eski iPad'lerde yatay tutulduğunda daha iyi sığıyor, ayrıca küçük düzeltmeler.",
+      "uk": "Краще вміщується на старіших iPad у горизонтальній орієнтації, і дрібні виправлення.",
+      "ur-PK": "پرانے iPad کو آڑا پکڑنے پر اب بہتر طور پر سماتا ہے، اور چھوٹی اصلاحات۔",
+      "vi": "Hiển thị vừa vặn hơn trên iPad đời cũ khi cầm ngang, cùng một số sửa lỗi nhỏ.",
+      "zh": "在横向握持的旧款 iPad 上显示更合适，并修复了一些小问题。",
+      "zh-Hant": "在橫向握持的舊款 iPad 上顯示更合適，並修正了一些小問題。"
+    }
+  },
   "release_now": false,
-  "note": "1.0.4: everything on main after 1.0.3 (nothing yet: 1.0.3 in review, build 2611181939, has all changes so far). On TestFlight; the App Store step waits for the owner's go-ahead for 1.0.4 (then set app_store, as for 1.0.3, and build again from main)."
+  "note": "Owner's go-ahead (2026-11-22): build 1.0.4 from main, submit it to App Review and release it on approval. It fits older iPads held sideways and sends the stats to King Walk's own GoatCounter site (1.0.3 was built before the move). Afterwards this file goes back to 1.0.5, TestFlight only."
 }
