@@ -76,6 +76,13 @@ const gcBoards = new Set(gc.leaderboards.map(l => l.id));
 check(!diff(boards, gcBoards).length, "every leaderboard the game reports to is in Game Center's list", diff(boards, gcBoards));
 check(fs.readdirSync(path.join(ROOT, "ios/store/gamecenter")).length >= gcIds.size + gcBoards.size, "every achievement and leaderboard has its picture (ios/store/gamecenter/, for both stores)");
 
+// the videos aren't in main (scripts/media.py): a workflow that uploads store material or builds the site fetches them
+for (const f of fs.readdirSync(path.join(ROOT, ".github/workflows"))) {
+  const wf = read(".github/workflows/" + f);
+  if (/upload_listing|release\.py release|creative\.py|cp -R[^\n]*\bpress\b/.test(wf))
+    check(/scripts\/media\.py fetch/.test(wf), `${f} fetches the videos before it uses them (python3 scripts/media.py fetch)`);
+}
+
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;
 check(iv === av, "the iOS and Android apps have the same version number (ios/release.json, android/release.json)", { ios: iv, android: av });

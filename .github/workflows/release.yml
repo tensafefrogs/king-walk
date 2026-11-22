@@ -105,6 +105,8 @@ jobs:
       BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
       - uses: actions/checkout@v4
+      - name: The videos (the App Store preview and the App Review attachment; the media branch, as media.json names them)
+        run: python3 scripts/media.py fetch
       - run: pip install pyjwt cryptography
       - name: TestFlight only (ios/beta.json)
         if: needs.plan.outputs.act == 'true' && needs.plan.outputs.beta == 'true'
