@@ -249,7 +249,7 @@ function translations() {
     const before = JSON.stringify(me().daily.days[n]); $("againBtn").click(); await new Promise(r2 => setTimeout(r2, 1500));
     r.practice = DAILY && DAILY.mode; while (!done) { if (!locked) { const m = cur.pz.moves[idx]; commit(m.slice(0, 2), "a1", ""); showAnswer(); } await new Promise(r2 => setTimeout(r2, 400)); }
     r.kept = JSON.stringify(me().daily.days[n]) === before; DAILY = null; return r; });
-  check(dc.card && dc.title === "Today's puzzle: done" && dc.sharedOnTap === 0 && dc.sharedFromCard === 1 && dc.closed, "a done daily shows its card, Share is on the card", dc);
+  check(dc.card && dc.title === "Solved!" && dc.sharedOnTap === 0 && dc.sharedFromCard === 1 && dc.closed, "a done daily shows its card, Share is on the card", dc);
   check(dc.board.review === "review" && dc.board.done && dc.board.buttons && dc.practice === "practice" && dc.kept, "the done daily's board, and Try again as practice that leaves the result alone", dc);
   // the mode switch: Daily on while the daily is played (coral frame, the daily's card), Puzzles back
   const ms = await p.evaluate(async () => { const n = dayNumber(); delete me().daily.days[n]; DAILY = null; done = true; renderDaily();
@@ -307,7 +307,7 @@ function translations() {
     return { marks, share: dailyShareText(n) };
   });
   check(mk.marks === "grsx", "a worse daily mark wins, and a second wrong try on a move is its own mark", mk.marks);
-  check(/^\u265f\ufe0f King Walk Daily #\d+\n🟩💡🟨🟧🟥  \u23f1 1:07\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), a square per move (Duolingo's colours, a bulb for a hint), time, streak", mk.share);
+  check(/^\u265f\ufe0f King Walk Daily #\d+\n\u23f1 1:07  🟩💡🟨🟧🟥\n\ud83d\udd25 2/.test(mk.share), "the daily share: number (no weekday), time, a square per move (Duolingo's colours, a bulb for a hint), streak", mk.share);
   // damaged daily data is cleaned
   const cd = await p.evaluate(() => cleanDaily({ streak: -3, best: "x", last: 5, days: { 3: { m: "gzz", t: 5 }, 4: { m: "gy", t: 1e9, ok: 1 }, x: {} }, now: { n: 6, m: "<b>" } }));
   check(cd.streak === 0 && cd.best === 0 && !cd.days[3] && cd.days[4].t === 86400 && cd.days[4].ok === true && !cd.now, "damaged daily data is cleaned", cd);

@@ -308,6 +308,7 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
 .cele-piece { transform-box: fill-box; transform-origin: 50% 100%; animation: cele-pop 0.7s 0.62s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
 .cele-kind { margin: 14px 0 0; font: 800 13px var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--p-teal); animation: cele-up 0.4s 0.75s ease-out both; }
 .cele-title { margin: 2px 12px 0; font: 700 clamp(30px, 9vw, 40px)/1.05 var(--font-display); color: var(--p-ink); text-wrap: balance; word-break: auto-phrase; }
+.cele-title.small { font-size: clamp(24px, 7vw, 30px); }
 .cele-title .w { display: inline-block; max-width: 100%; font-weight: inherit; }          /* a word: kept on one line if it fits */
 .cele-title span { display: inline-block; animation: cele-slam 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both; white-space: pre; }
 .cele-text { margin: 8px 22px 0; font: 600 15px/1.4 var(--font-body); color: var(--p-deep); animation: cele-up 0.4s 1.1s ease-out both; }
@@ -2036,7 +2037,7 @@ function burst(canvas, x, y) {
 }
 /* A card over the game: the poster, a small heading, a title, a few lines, Share and a close button. A celebration
    (loud) swipes in with confetti, sound and haptics; an info card (the daily puzzle done) just appears. */
-function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, preview }) {
+function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, preview, small }) {
   const back = document.activeElement;
   const el = document.createElement("div"); el.className = "cele scrim" + (loud ? "" : " quiet"); el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-labelledby", "celeTitle");
   el.innerHTML = `${loud ? '<div class="cele-swipe" aria-hidden="true"><i></i><i></i><i></i></div><div class="cele-lines" aria-hidden="true"></div>' : ""}
@@ -2055,6 +2056,7 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, pre
       h.append(w);
     } }
   else h.textContent = title;
+  h.classList.toggle("small", !!small);          /* a smaller title, where the card's own content (the share preview) matters more */
   const tx = el.querySelector(".cele-text");
   [].concat(text).forEach((line, i) => { if (i) tx.append(document.createElement("br")); tx.append(line); });
   /* what Share sends, as it will read (the squares say the rest, so it's hidden from screen readers) */
@@ -2106,7 +2108,7 @@ function showDailyDone(after) {
   const p = me(), n = dayNumber(), r = dailyDone(p, n); if (!r) return;
   const st = dailyStreak(p), left = Math.max(1, Math.round((dayDate(n + 1) - Date.now()) / 60000));
   track("daily/done-card");
-  openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: T("Today's puzzle: done"), closeLabel: T("Close"),
+  openCard({ art: { number: st || 1, daily: true }, kind: T("Daily puzzle #{n}", { n }), title: r.ok ? T("Solved!") : T("That was the answer"), small: true, closeLabel: T("Close"),
     /* the time and the streak are in the preview of the share below (with the squares, one per move); a screen
        reader, which skips the preview, hears them here */
     text: [heard(fmtTime(r.t) + (st >= 2 ? ", " + T("{n} days in a row", { n: st }) : "") + ". ", T("Come back tomorrow for the next one")),
@@ -2321,7 +2323,7 @@ function finishDaily(solved) {
 const fmtTime = t => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
 const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };          /* first try, a hint (the hint button's bulb), one wrong try, more, shown */
 /* Like:   ♟️ King Walk Daily #12
-           🟩💡🟩  ⏱ 1:07
+           ⏱ 1:07  🟩💡🟩
            🔥 5
            kingwalk.app/#daily
    One square per move, as in Duolingo: green first try, yellow after one wrong try, orange after more, red shown, and
@@ -2330,7 +2332,7 @@ const SQUARE = { g: "🟩", y: "💡", r: "🟨", s: "🟧", x: "🟥" };       
 function dailyShareText(n, award) {
   const p = me(), r = dailyDone(p, n); if (!r) return "";
   const lines = ["\u265f\ufe0f King Walk Daily #" + n];          /* ♟️: the one chess piece with an emoji form, so it shows in colour everywhere; the number says which day */
-  lines.push(Array.from(r.m, c => SQUARE[c]).join("") + "  ⏱ " + fmtTime(r.t));
+  lines.push("⏱ " + fmtTime(r.t) + "  " + Array.from(r.m, c => SQUARE[c]).join(""));
   const st = p.daily.last === n ? p.daily.streak : 0;
   if (st >= 2 || award) lines.push([st >= 2 ? "🔥 " + st : "", award ? "🏆 " + award : ""].filter(Boolean).join("  "));
   /* the link opens today's puzzle on the website, free, even from the app: whoever taps it can play the same one */
