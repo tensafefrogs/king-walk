@@ -343,7 +343,7 @@
   "Pins": "Vezivanja",
   "Discovered attacks": "Otkriveni napadi",
   "Pawns that promote": "Promocije pješaka",
-  "Luring a piece": "Mamljenje figure",
+  "Luring a piece": "Navlačenje i odvlačenje",
   "Loose pieces": "Nebranjene figure",
   "Back-rank mates": "Matovi na zadnjem redu",
   "Defending": "Obrana",
