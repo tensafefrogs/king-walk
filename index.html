@@ -1462,18 +1462,32 @@ async function pickCoached(p, target) {
 /* ---------- sound ---------- */
 /* Browsers, iOS above all, only start audio from inside a tap or key press. So the audio is set up on the
    first one, and woken again on later ones if the page was in the background. */
-let actx = null;
+let actx = null, audioSeen = null, audioStuck = 0;
+/* iOS can leave the audio silent after an interruption (a notification, Siri, another app's sound): the context then
+   either won't resume, or says "running" while its clock stands still and nothing plays. A player heard the sound stop
+   after a few puzzles. So each tap checks: a clock that hasn't moved in over a second, or a context that wouldn't
+   wake on two taps, is replaced by a new one (inside the tap, where iOS allows it). sound/restart counts how often. */
+function newAudio() {
+  actx = new (window.AudioContext || window.webkitAudioContext)();
+  const src = actx.createBufferSource(); src.buffer = actx.createBuffer(1, 1, 22050); src.connect(actx.destination); src.start(0);   /* a silent blip unlocks iOS */
+  audioSeen = null; audioStuck = 0;
+}
 function wakeAudio() {
   if (!S.sound) return;
   /* "ambient": the game's sounds are effects, not media. They mix with the player's music, follow the ring switch,
      and don't put the game in iOS's Now Playing (which showed a sound icon in the Dynamic Island). */
   try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
   try {
-    if (!actx) {
-      actx = new (window.AudioContext || window.webkitAudioContext)();
-      const src = actx.createBufferSource(); src.buffer = actx.createBuffer(1, 1, 22050); src.connect(actx.destination); src.start(0);   /* a silent blip unlocks iOS */
+    if (actx && document.visibilityState === "visible") {
+      const now = performance.now(), seen = audioSeen;
+      const stalled = seen && actx.state === "running" && now - seen.at > 1000 && actx.currentTime - seen.t < 0.05;
+      if (actx.state !== "running" && seen) audioStuck++;
+      if (actx.state === "closed" || stalled || audioStuck >= 2) { try { actx.close(); } catch (e) {} actx = null; track("sound/restart"); }
     }
-    if (actx.state !== "running") actx.resume();
+    if (!actx) newAudio();
+    if (actx.state !== "running") { const r = actx.resume(); if (r && r.catch) r.catch(() => {}); }
+    audioSeen = { t: actx.currentTime, at: performance.now() };
+    if (actx.state === "running") audioStuck = 0;
   } catch (e) {}
 }
 for (const ev of ["pointerup", "touchend", "click", "keydown"]) window.addEventListener(ev, wakeAudio, { capture: true, passive: true });
@@ -2510,16 +2524,23 @@ function renderDaily() {
   /* the daily's card: the number and day, the last seven days, the streak */
   const dn = DAILY.n, full = new Intl.DateTimeFormat(LOCALE, { weekday: "long" }), narrow = new Intl.DateTimeFormat(LOCALE, { weekday: "narrow" });
   $("diTitle").textContent = T("Daily puzzle #{n}", { n: dn }); $("diDay").textContent = full.format(dayDate(dn));
-  const wk = $("diWeek"); wk.textContent = "";
+  /* the seven days: built when the week changes (a new daily, the language), else updated in place. A new circle replays
+     the week's pop-in (it runs while the daily is open), so rebuilding on every redraw (the puzzle loading, a result,
+     the minute check) made the week pop in again and again; today's own "done" animation comes from its class */
+  const wk = $("diWeek"), weekKey = dn + "|" + LOCALE;
+  if (wk.dataset.week !== weekKey || wk.children.length !== 7) {
+    wk.textContent = ""; wk.dataset.week = weekKey;
+    for (let k = dn - 6; k <= dn; k++) {
+      const li = document.createElement("li"), i = document.createElement("i"); i.setAttribute("aria-hidden", "true");
+      li.style.setProperty("--d", k - dn + 6); li.append(i, narrow.format(dayDate(k))); wk.append(li);
+    }
+  }
   for (let k = dn - 6; k <= dn; k++) {
-    const r = k > 0 && p.daily.days[k], li = document.createElement("li"), i = document.createElement("i");
+    const r = k > 0 && p.daily.days[k], li = wk.children[k - dn + 6], i = li.firstChild;
     li.className = (r ? (r.fz ? "fz" : r.ok ? "ok" : "miss") : "") + (k === dn ? " today" : "")
-      + (k === dn && r && weekShown.n === dn && !weekShown.had ? " now-ok" : "");          /* today's result just came in */
-    li.style.setProperty("--d", k - dn + 6);
-    i.textContent = r ? (r.fz ? "\u2744" : r.ok ? "\u2713" : "\u00d7") : ""; i.setAttribute("aria-hidden", "true");
-    li.append(i, narrow.format(dayDate(k)));
+      + (k === dn && r && weekShown.n === dn && !weekShown.had ? " now-ok" : k === dn && r && li.classList.contains("now-ok") ? " now-ok" : "");          /* today's result just came in (kept, so its animation doesn't restart) */
+    i.textContent = r ? (r.fz ? "\u2744" : r.ok ? "\u2713" : "\u00d7") : "";
     li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.fz ? T("Streak freeze") : r.ok ? T("solved") : T("missed")) : T("not played")));
-    wk.append(li);
   }
   weekShown = { n: dn, had: !!p.daily.days[dn] };
   /* the streak: in words from 2 days ("{n} days in a row" needs a plural), plus freezes held */

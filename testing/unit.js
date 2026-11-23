@@ -299,6 +299,32 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   check(cc.picks.every(a => a === "pin" || a === "skewer") && new Set(cc.picks).size === 2 && !cc.offRoll && !cc.onAny, "coached choice: weak areas in turn, about 3 in 10, never on Any kind", cc);
   check(cc.holds > 300 && cc.holds < 500 && cc.kept.join() === "any,true" && cc.old[0] === "coached" && cc.old[1] === undefined, "the holdback: about 1 new player in 10 on Any kind, kept in the save; older players on Coached", cc);
+  // the sound comes back when iOS leaves the audio silent: a context whose clock stands still, or that won't resume over
+  // two taps, is replaced on the next tap; a healthy one is kept
+  const snd = await p.evaluate(async () => {
+    const out = {}, made = [];
+    class Fake { constructor() { made.push(this); this.state = "running"; this.frozen = false; this.t0 = performance.now(); }
+      get currentTime() { return this.frozen ? 0 : (performance.now() - this.t0) / 1000; }
+      get destination() { return {}; } createBuffer() { return {}; } createBufferSource() { return { connect() {}, start() {} }; }
+      resume() { if (this.wontWake) return Promise.resolve(); this.state = "running"; return Promise.resolve(); } close() { this.state = "closed"; } }
+    const keep = [window.AudioContext, actx, S.sound], nap = ms => new Promise(r => setTimeout(r, ms));
+    window.AudioContext = Fake; actx = null; S.sound = true;
+    wakeAudio(); await nap(1300); wakeAudio(); out.healthy = made.length;          /* the clock moves: kept */
+    actx.frozen = true; await nap(1300); wakeAudio(); out.stalled = made.length;          /* the clock stood still: a new one */
+    actx.state = "suspended"; actx.wontWake = true; wakeAudio(); await nap(200); wakeAudio(); out.wontWake = made.length;          /* won't resume twice: a new one */
+    [window.AudioContext, actx, S.sound] = keep;
+    return out;
+  });
+  check(snd.healthy === 1 && snd.stalled === 2 && snd.wontWake === 3, "sound: a silent audio context (clock stopped, or won't resume) is replaced on a tap; a working one is kept", snd);
+  // the daily's week isn't rebuilt on every redraw (each new circle replayed the pop-in): the same circles stay
+  const ww = await page();
+  const wkr = await ww.p.evaluate(async () => {
+    startDaily(); for (let t = 0; t < 60 && !(DAILY && cur && cur.daily); t++) await new Promise(r => setTimeout(r, 100));
+    const first = [...$("diWeek").children]; renderDaily(); renderPanel(); renderDaily();
+    return { same: [...$("diWeek").children].every((li, i) => li === first[i]), n: first.length };
+  });
+  await ww.ctx.close();
+  check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });

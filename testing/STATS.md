@@ -62,6 +62,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `gamecenter` | The Game Center button is pressed (app only) | menu |
 | `rate-ask` | The app asks iOS to show the rating prompt (iOS may not show it) | `maybeAskForRating()` |
 | `sound-off`, `haptics-off` | Sound or haptics turned off | menu |
+| `sound/restart` | The game's sound had gone silent (iOS stopped the audio after an interruption) and was started again on a tap | `wakeAudio()` |
 | `reset` | Start over | menu |
 | `save-code/copy`, `save-code/load` | The save code is copied or loaded | menu → Advanced |
 | `icloud/newer` | The app found more progress in iCloud (another device played) and switched to it | `kingWalkCloud()` |

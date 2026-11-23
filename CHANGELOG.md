@@ -13,6 +13,10 @@ Nothing yet.
 
 ### 1.0.5 (on TestFlight, build 2611230426, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
 
+- **Sound that stopped comes back:** on iPhone the game's sounds could stop for good after a few puzzles (iOS left the
+  audio silent after an interruption, such as a notification). The next tap now starts it again. (Also on the website.)
+- **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
+  minute while it was open. It now animates once, as the daily opens. (Also on the website.)
 - **A coach that learns your weak spots:** after each puzzle the game
   notes, on the device, how you did at that kind of puzzle (forks, pins, checkmates, 15 kinds in all) against what
   your rating expected. After about 30 puzzles, a Coach section under Progress shows what to **work on**, each with a
