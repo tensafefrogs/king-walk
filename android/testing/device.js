@@ -204,6 +204,11 @@ async function report() {
   const tile = await sh(`dumpsys package ${PKG} | grep -c "android.service.quicksettings.action.QS_TILE"`).catch(() => "0");
   check(parseInt(tile, 10) > 0, "the Today's puzzle Quick Settings tile is offered", tile.trim());
 
+  // no advertising ID: the app is in Google Play's Families program and says No to it in Play Console (the manifest removes
+  // the permission, so no library can bring it in)
+  const adId = await sh(`dumpsys package ${PKG} | grep -c "permission.AD_ID"`).catch(() => "0");
+  check(parseInt(adId, 10) === 0, "the app doesn't ask for the advertising ID", adId.trim());
+
   // the app shortcut (touch and hold the icon): Today's puzzle
   const shortcuts = await sh(`dumpsys shortcut | grep -A3 "Package: ${PKG}" | head -20; dumpsys shortcut | grep -c "id=daily"`);
   check(/[1-9]\s*$/.test(shortcuts), "the Today's puzzle shortcut is published", shortcuts.trim().slice(-300));

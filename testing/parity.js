@@ -31,6 +31,10 @@ const android = read("android/app/src/main/java/kingwalk/android/MainActivity.kt
 
 // messages
 const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app language (Languages.kt); iOS has no page picker tie-in
+// the Android app never asks for the advertising ID (no ads; Google Play's Families program): its manifest removes the
+// permission any library might add, and Play Console's answer is No. device.js checks the installed app too
+{ const man = fs.readFileSync(path.join(ROOT, "android/app/src/main/AndroidManifest.xml"), "utf8");
+  check(/<uses-permission android:name="com\.google\.android\.gms\.permission\.AD_ID" tools:node="remove" \/>/.test(man) && /xmlns:tools=/.test(man), "the Android app removes the advertising ID permission"); }
 const NATIVE = ["set", "remove", "clear", "copy"];          // sent by the apps' own scripts (the save's copy, the clipboard)
 const pageOps = new Set([...html.matchAll(/op: *"([a-z_]+)"/g)].map(m => m[1]));
 const iosOps = new Set([...ios.matchAll(/case "([a-z_]+)"/g)].map(m => m[1]));
