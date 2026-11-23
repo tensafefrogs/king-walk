@@ -250,6 +250,55 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   check(co.hint[0] === 1 && co.hint[1] < -0.4 && co.strength > 0, "the coach: a hint counts half a solve, against what the rating expects", { hint: co.hint, strength: co.strength });
   check(JSON.stringify(co.cleaned) === JSON.stringify({ sac: [3, -3], pin: [2, 1], skewer: [20, 20] }) && JSON.stringify(co.round) === JSON.stringify({ pin: [2.5, -0.75] }), "the coach's save is cleaned: known areas, numbers in range", co.cleaned);
   check(JSON.stringify(co.fresh) === "{}" && co.played && typeof co.played === "object", "the coach: a new player (Start over) starts with no record", co);
+  // the coach card and a practice set: learning at first; then Work on with Practise, Strong at, and the areas
+  // marked; a set of 10 of one area at half the rating change, hints allowed, a miss not ending it, the normal game's
+  // puzzle kept waiting, the set's card at the end
+  { const w = await page();
+    const ps = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), q = me(); delete q.place; q.n = 5; renderPanel();
+      const learning = $("coachBody").innerText;
+      q.n = 40; q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1], skewer: [9, -1], sac: [3, -2] }; renderPanel();
+      const card = { work: [...document.querySelectorAll("#coachBody .co-row b")].map(b => b.textContent), marks: [...document.querySelectorAll("#coachBody .co-mark")].map(m => m.className.split(" ")[1]) };
+      const waiting = JSON.stringify(q.now), halves = [];
+      startPractice("pin"); let missed = false;
+      for (let k = 0; k < 10; k++) {
+        for (let t = 0; t < 80 && (locked || !cur || !RUN); t++) await nap(100);
+        const pz = cur.pz, before = q.rating, n = q.n, inArea = puzzleAreas(pz).includes("pin");
+        if (k === 1) { showHint(); }
+        if (k === 2) { showAnswer(); missed = true; }
+        while (!done) { for (let t = 0; t < 80 && locked && !done; t++) await nap(100); if (done) break; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(50); }
+        for (let t = 0; t < 30 && !done; t++) await nap(100);
+        const score = k === 2 ? 0 : k === 1 ? 0.5 : 1, full = ratingChange(before, pz.r, score, n);
+        halves.push({ inArea, got: q.rating - before, want: score === 1 ? Math.max(1, Math.round(full / 2)) : Math.round(full / 2), areasShown: !!document.querySelector("#pzInfo .pz-areas") });
+        await nap(1200);
+        if (k < 9) $("nextBtn").click();
+      }
+      await nap(1500);          /* the set's card waits for any achievement's card to close */
+      for (let t = 0; t < 8; t++) { const t1 = document.querySelector(".cele:not(.out) .cele-title"); if (!t1 || / of 10$/.test(t1.textContent)) break; document.querySelector(".cele:not(.out) .go").click(); await nap(1200); }
+      const end = { over: RUN && RUN.over, card: (document.querySelector(".cele:not(.out) .cele-title") || {}).textContent, chip: $("stLevel").textContent };
+      return { learning, card, halves, missed, end, keptWaiting: JSON.stringify(q.now) === waiting, coachPin: q.coach.pin[0] };
+    });
+    await w.ctx.close();
+    check(/learning your game/.test(ps.learning), "the coach: learning at first", ps.learning);
+    check(ps.card.work.join() === "Pins,Skewers" && ps.card.marks.includes("up") && ps.card.marks.includes("down"), "the coach card: Work on the weak areas, the known ones marked", ps.card);
+    check(ps.halves.every(h => h.inArea && h.got === h.want && h.areasShown), "a practice set: 10 puzzles of the area, half the rating change, its areas shown after each", ps.halves);
+    check(ps.end.over && ps.end.card === "9 of 10" && ps.end.chip === "Pins 10/10", "a practice set ends with its card: the solves out of 10 (a hint counts, the answer doesn't)", ps.end);
+    check(ps.keptWaiting && ps.coachPin > 10, "a practice set keeps the normal game's puzzle waiting and adds to the coach's record", ps); }
+  // coached choice: about 3 in 10 new puzzles from the weak areas once the coach is ready, none on Any kind; a new
+  // player on Any kind 1 time in 10 (the holdback), kept in the save; a player from before the coach on Coached
+  const cc = await p.evaluate(async () => {
+    const q = me(), keep = JSON.stringify(q), orig = Math.random; delete q.place; q.n = 40; q.choice = "coached";
+    q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1], skewer: [9, -1] };
+    const picks = []; for (let k = 0; k < 6; k++) { Math.random = () => 0.05; const c = await pickCoached(q, q.rating); Math.random = orig; picks.push(c && puzzleAreas(c.pz).includes(c.coached) ? c.coached : null); q.n++; }
+    Math.random = () => 0.5; const offRoll = await pickCoached(q, q.rating); Math.random = orig;
+    q.choice = "any"; Math.random = () => 0.05; const onAny = await pickCoached(q, q.rating); Math.random = orig;
+    let holds = 0; for (let k = 0; k < 4000; k++) if (coachChoiceForNew().holdback) holds++;
+    const kept = cleanState({ players: [{ rating: 900, choice: "any", holdback: true }] }).players[0], old = cleanState({ players: [{ rating: 900, n: 50 }] }).players[0];
+    Object.assign(S.players[S.cur], JSON.parse(keep));
+    return { picks, offRoll, onAny, holds, kept: [kept.choice, kept.holdback], old: [old.choice, old.holdback] };
+  });
+  check(cc.picks.every(a => a === "pin" || a === "skewer") && new Set(cc.picks).size === 2 && !cc.offRoll && !cc.onAny, "coached choice: weak areas in turn, about 3 in 10, never on Any kind", cc);
+  check(cc.holds > 300 && cc.holds < 500 && cc.kept.join() === "any,true" && cc.old[0] === "coached" && cc.old[1] === undefined, "the holdback: about 1 new player in 10 on Any kind, kept in the save; older players on Coached", cc);
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });

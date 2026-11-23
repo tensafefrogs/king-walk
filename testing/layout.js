@@ -25,7 +25,7 @@ const VP = [
 ];
 const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP,ar-SA').split(',');
 const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
-const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help'];
+const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help', 'coach', 'practice'];
 (async () => {
   const srv = await server.start(), b = await chromium.launch(), issues = [];
   for (const [name, w, h, mobile, q = '', insets] of VP.filter(v => !ONLY || ONLY.includes(v[0]))) for (const lang of LANGS) {
@@ -60,6 +60,10 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
         if (st === 'dialog') { $('pasteCode').click(); await sleep(500); }
         if (st === 'promote') { askPromotion(() => {}, () => {}); await sleep(400); }
         if (st === 'runs') { const d = document.querySelector('.runs'); if (d) d.open = true; await sleep(400); }
+        /* the coach once it's ready (the longest names in Work on, and All areas open), and a practice set's dialog */
+        if (st === 'coach' || st === 'practice') { const q = me(); delete q.place; q.n = Math.max(q.n, 40); q.coach = { clear: [12, -3], lure: [10, -2], attack: [9, -1], between: [9, 2], promo: [9, 1.5], disc: [9, 0.1] }; renderPanel(); }
+        if (st === 'coach') { const a = document.querySelector('.co-all'); if (a) a.open = true; const c = $('coachBox'); if (c) c.scrollIntoView(); await sleep(400); }
+        if (st === 'practice') { askPractice('clear'); await sleep(500); }
         if (st === 'help') { const hb = $('helpBtn'); if (hb) hb.click(); await sleep(500); }
         const vw = innerWidth, vh = innerHeight, out = [];
         if (document.documentElement.scrollWidth > vw + 1) out.push('page scrolls sideways (' + document.documentElement.scrollWidth + ' > ' + vw + ')');

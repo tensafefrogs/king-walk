@@ -13,10 +13,14 @@ does better or worse at than their rating expects, and mixes in more of what the
    practice sets (under 40 puzzles in a band): pins, discovered attacks, luring, defending, quiet moves and skewers in
    the lowest bands (400-700); back-rank mates from 1200 up (none at 2300-2400); skewers from 2000 up; in-between moves
    and clearing the way below 900. Offer Practise only where the player's level has enough.
-2. **The coach card, each puzzle's areas after it, practice sets at half rating.** Still open with the owner: whether
-   the coach ships before or after puzzle rush, and the final area names.
-3. **Coached puzzle choice, on by default**, with Settings → Puzzle choice: Coached / Any kind, and a holdback (1 in 10
-   new players start on Any kind for a month; then compare and remove it).
+2. **The coach card, each puzzle's areas after it, practice sets at half rating (done; the coach before puzzle rush,
+   the brief's area names: the owner, 23 November).**
+3. **Coached puzzle choice, on by default (done)**, with Settings, Puzzle choice: Coached / Any kind, and a holdback.
+   **Around 23 December 2026: compare and remove the holdback** (`COACH_HOLDBACK` in `index.html`): `coach-back/7d`
+   against `back/7d`, and the holdback's own returns (`testing/STATS.md`, The coach). With the first app version that has the
+   coach (1.0.6; 1.0.5, queued now, doesn't): the listing's "A coach that learns your weak spots", and store screenshots
+   and press kit showing the coach card (`ios/store/screenshots.js` should pose a player whose coach is ready). Not
+   before: 1.0.5's submission uploads the repo's screenshots.
 4. **Nudges**, after the stats from 2 and 3: on the daily's card, after a miss, and "Today's focus" on the widgets.
 
 iOS, in order of impact for the effort (November 2026):

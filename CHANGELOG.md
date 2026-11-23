@@ -9,9 +9,18 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
-- **Groundwork for the coach (nothing on screen yet; on the website now):** after each puzzle the game notes, on the
-  device, how the player did at that kind of puzzle (forks, pins, checkmates and so on) against what their rating
-  expected. The coach that shows it comes next; this way it has something to say from the day it appears.
+- **A coach that learns your weak spots (on the website now; reaches the apps in 1.0.6):** after each puzzle the game
+  notes, on the device, how you did at that kind of puzzle (forks, pins, checkmates, 15 kinds in all) against what
+  your rating expected. After about 30 puzzles, a Coach section under Progress shows what to **work on**, each with a
+  one-line explanation and **Practise**, and what you're **strong at**; All areas shows every kind marked better than,
+  about as, or worse than expected. No numbers, no account, nothing leaves the device.
+- **Practice sets:** Practise starts 10 puzzles of that kind at your level. Hints and Answer are there and a miss
+  doesn't end it; each puzzle counts half toward your rating. The set ends with "7 of 10" and whether that kind is
+  getting better.
+- **Coached puzzle choice, on by default:** once the coach knows your game, about 3 in 10 new puzzles come from what
+  you're working on, a little easier than usual, and count fully. Settings, Puzzle choice: Coached or Any kind. About
+  1 new player in 10 starts on Any kind for the first month, to measure the coach.
+- **Each puzzle's kinds after it:** next to the Lichess link once the puzzle is over ("Pins · Back-rank mates").
 
 ### 1.0.5 (queued 2026-11-23 with the owner's go-ahead: built from main and on TestFlight now; submitted once 1.0.4 is released, released on approval; all of it already on the website)
 

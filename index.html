@@ -274,6 +274,8 @@ html.kbd .btn:focus-visible, html.kbd .switch:focus-visible, html.kbd .qbtn:focu
 }
 .seg button { position: relative; z-index: 1; border: 0; background: none; cursor: pointer; min-height: 34px; padding: 0 4px; font-size: 14px; line-height: 1.15; hyphens: auto; overflow-wrap: anywhere; color: var(--muted); border-radius: 7px; transition: color 0.2s; }
 .seg button[aria-pressed="true"] { color: var(--accent); }
+.seg.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.seg.two::before { width: calc((100% - 6px) / 2); }
 details > summary { cursor: pointer; font: 600 14px var(--font-display); color: var(--muted); list-style: none; display: flex; align-items: center; gap: 6px; border-radius: 6px; }
 details > summary::-webkit-details-marker { display: none; }
 details > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform 0.22s var(--ease-out); margin-inline-start: 2px; }
@@ -381,6 +383,24 @@ html.reduce-motion .cele-rays { animation: none; }
 html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs > summary { color: var(--muted); min-height: 34px; }
+/* the coach: what to work on (with Practise), what the player is strong at, and every known area behind a tap */
+.coach { display: grid; gap: 10px; }
+.coach .note { font-size: 14px; }
+.co-sub { font: 700 13px var(--font-display); color: var(--muted); margin: 6px 0 -4px; }
+.coach .label + div > .co-sub:first-child { margin-top: 0; }
+.co-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }          /* the button drops below when there's no room beside */
+.co-row div { flex: 1 1 11em; min-width: 0; }
+.co-row b { display: block; font: 700 15px var(--font-display); }
+.co-row span { display: block; font-size: 13px; color: var(--muted); }
+.co-row .btn { flex: none; max-width: 100%; white-space: normal; }
+.co-all ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.co-all li { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 14px; }
+.co-all li span:first-child { flex: 1 1 8em; min-width: 0; }
+.co-mark { font: 700 12px var(--font-display); padding: 2px 8px; border-radius: 999px; max-width: 100%; }
+.co-mark.up { color: var(--good); background: color-mix(in srgb, var(--good) 14%, transparent); }
+.co-mark.even { color: var(--muted); background: var(--tile); }
+.co-mark.down { color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
+html.placing .coach { display: none; }
 /* the first puzzle's hint */
 .tip { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; padding-block: 8px; padding-inline: 14px 6px; border-radius: var(--r-ctl); background: var(--gold-soft); font: 600 15px/1.3 var(--font-display); animation: rise 0.3s var(--ease-out) both; }
 .tip[hidden] { display: none; }
@@ -913,6 +933,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           </div>
         </div>
         <p class="note" id="modeNote" aria-live="polite"></p>
+        <div class="setrow"><span>Puzzle choice</span>
+          <div class="seg two" id="choiceSeg">
+            <button type="button" data-choice="coached" aria-pressed="true">Coached</button>
+            <button type="button" data-choice="any" aria-pressed="false">Any kind</button>
+          </div>
+        </div>
+        <p class="note" id="choiceNote" aria-live="polite"></p>
         <div class="setrow"><span id="langLabel">Language</span><select id="langSel" aria-labelledby="langLabel"></select></div>
         <div class="setrow"><span>Progress</span><span class="row"><button type="button" id="shareBtn" class="btn small">Share</button><button type="button" id="resetBtn" class="btn small">Start over</button></span></div>
         <div class="setrow" id="remindRow" hidden><span id="remindLabel">Daily reminder</span><select id="remindSel" aria-labelledby="remindLabel"></select></div>
@@ -1041,6 +1068,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <summary><span class="label">Rank streaks</span><span class="runs-sum" id="runsSum"></span></summary>
         <div class="run-row" id="runRow"></div>
       </details>
+      <div class="coach" id="coachBox" aria-labelledby="coachLabel">
+        <p class="label" id="coachLabel">Coach</p>
+        <div id="coachBody"></div>
+      </div>
       <div class="chart-box">
         <div class="chart-wrap">
           <svg class="chart" id="chart" viewBox="0 0 300 64" preserveAspectRatio="none" role="img" aria-label="Rating over time"></svg>
@@ -1214,7 +1245,37 @@ function coachRecord(p, pz, score, level, w = 1) {
   const c = p.coach || (p.coach = {}), r3 = v => Math.round(v * 1000) / 1000;
   for (const a of areas) { const [n, s] = c[a] || [0, 0]; c[a] = [r3(n * COACH_DECAY + w), r3(s * COACH_DECAY + w * surprise)]; }
 }
+/* Puzzle choice: Coached mixes in the weak areas; Any kind picks by difficulty only. A new player starts on Any kind
+   1 time in 10 for the first month (holdback: true), to measure the coach against; everyone else, and every
+   player from before the coach, on Coached. Remove the holdback once it's been compared (ROADMAP.md). */
+const COACH_HOLDBACK = 0.1;
+const coachChoiceForNew = () => Math.random() < COACH_HOLDBACK ? { choice: "any", holdback: true } : { choice: "coached" };
 const coachStrength = (p, a) => { const v = p.coach && p.coach[a]; return v && v[0] > 0 ? v[1] / v[0] : 0; };
+/* what the player sees: each area's name and one plain line on what it is */
+const AREA_NAME = {
+  fork: () => T("Forks"), mate: () => T("Checkmates"), attack: () => T("Attacking the king"), sac: () => T("Sacrifices"), pin: () => T("Pins"),
+  disc: () => T("Discovered attacks"), promo: () => T("Pawns that promote"), lure: () => T("Luring a piece"), loose: () => T("Loose pieces"),
+  backrank: () => T("Back-rank mates"), defend: () => T("Defending"), skewer: () => T("Skewers"), quiet: () => T("Quiet moves"),
+  between: () => T("In-between moves"), clear: () => T("Clearing the way"),
+};
+const AREA_DESC = {
+  fork: () => T("One piece attacks two at once."), mate: () => T("Find the move or moves that end the game."),
+  attack: () => T("Open up the king and go after it."), sac: () => T("Give up material to get something better."),
+  pin: () => T("A piece can't move without exposing a more valuable one behind it."), disc: () => T("Move one piece to uncover an attack by another."),
+  promo: () => T("Push a pawn through to make a new queen."), lure: () => T("Force a defender away, or draw a piece onto a bad square."),
+  loose: () => T("Win a piece that's undefended or can't escape."), backrank: () => T("Checkmate a king trapped behind its own pawns."),
+  defend: () => T("Find the move that saves the position."), skewer: () => T("Attack a valuable piece so the one behind it falls."),
+  quiet: () => T("The winning move isn't a check or a capture."), between: () => T("Slip in a stronger move before the expected one."),
+  clear: () => T("Move a piece out of the way, or block or remove a defender."),
+};
+/* the coach speaks once it has enough to go on: an area is known after about 8 puzzles' worth of results, and the coach
+   is ready after about 30 rated puzzles with 3 areas known. Weak: the up to 3 known areas furthest below what the rating
+   expects; strong: the 2 furthest above. */
+const COACH_KNOWN = 8, COACH_READY_N = 30, COACH_MARK = 0.05;
+const coachKnown = p => Object.keys(AREAS).filter(a => p.coach && p.coach[a] && p.coach[a][0] >= COACH_KNOWN);
+const coachReady = p => !p.place && p.n >= COACH_READY_N && coachKnown(p).length >= 3;
+const coachWeak = p => coachKnown(p).filter(a => coachStrength(p, a) < 0).sort((a, b) => coachStrength(p, a) - coachStrength(p, b)).slice(0, 3);
+const coachStrong = p => coachKnown(p).filter(a => coachStrength(p, a) > 0).sort((a, b) => coachStrength(p, b) - coachStrength(p, a)).slice(0, 2);
 /* the saved record, rebuilt so a damaged save can't break it: known areas only, n from 0 to COACH_MAX, |s| <= n */
 function cleanCoach(c) {
   const q = {}; if (!c || typeof c !== "object") return q;
@@ -1227,7 +1288,7 @@ function cleanCoach(c) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace(), coach: {} };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace(), coach: {}, ...coachChoiceForNew() };
 }
 function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
 const FREEZE_MAX = 2;          /* streak freezes a player can hold */
@@ -1263,6 +1324,7 @@ function cleanState(raw) {
     q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
     q.daily = cleanDaily(p.daily);
     q.coach = cleanCoach(p.coach);
+    q.choice = p.choice === "any" ? "any" : "coached"; if (p.holdback === true) q.holdback = true; else delete q.holdback;
     q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
@@ -1337,12 +1399,13 @@ async function puzzleAt(b, i) { if (!(i >= 0 && i < bandSize(b))) return null; c
 /* Puzzles in band b that pass ok(pz, i), from its chunks in random order, stopping at the first chunk that has any:
    every chunk spans the band's whole rating range, so this downloads one chunk, more only when they run dry. skip(i)
    passes over chunks with nothing left (all seen) without downloading them. Returns [[b, i, pz], ...]. */
-async function findInBand(b, ok, skip = () => false) {
+async function findInBand(b, ok, skip = () => false, maxLoads = Infinity) {
   const size = bandSize(b), n = Math.ceil(size / CHUNK), order = [...Array(n).keys()];
   for (let k = n - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [order[k], order[j]] = [order[j], order[k]]; }
   for (const k of order) {
     let open = false; for (let i = k * CHUNK; i < Math.min(size, (k + 1) * CHUNK) && !open; i++) open = !skip(i);
     if (!open) continue;
+    if (maxLoads-- <= 0) break;
     const list = await loadChunk(b, k), out = [];
     list.forEach((pz, j) => { const i = k * CHUNK + j; if (!skip(i) && ok(pz, i)) out.push([b, i, pz]); });
     if (out.length) return out;
@@ -1367,6 +1430,7 @@ async function pickPuzzle(resume) {
     } catch (e) {}          /* the file did not load: leave the second try queued */
   }
   const target = clamp(Math.round(p.place ? p.place.r + gauss() * 25 : p.rating + MODES[p.mode] + gauss() * 40), MIN_R, MAX_R);
+  const coached = await pickCoached(p, target); if (coached) return coached;
   for (const w of [50, 120, 250, 500, 2200]) {          /* widen the search until something unseen turns up */
     const cands = [];
     for (let b = bandOf(target - w); b <= bandOf(target + w); b += 100) {
@@ -1378,6 +1442,19 @@ async function pickPuzzle(resume) {
   p.seen = {}; seenCache = {};          /* every puzzle seen: start the list over */
   const b = bandOf(target), i = Math.floor(Math.random() * bandSize(b));
   return { band: b, i, pz: await puzzleAt(b, i), size: bandSize(b), review: false };
+}
+
+/* Coached play: about 3 in 10 new puzzles come from the weak areas, taking turns, aimed 50 below the usual target.
+   Only from a chunk or two near that rating: when none turns up, the usual choice goes ahead, with no extra downloads. */
+const COACH_SHARE = 0.3;
+async function pickCoached(p, target) {
+  if (p.choice === "any" || !coachReady(p) || Math.random() >= COACH_SHARE) return null;
+  const weak = coachWeak(p); if (!weak.length) return null;
+  const area = weak[p.n % weak.length], aim = clamp(target - 50, MIN_R, MAX_R), b = bandOf(aim), bits = seenBits(b, bandSize(b));
+  const cands = await findInBand(b, pz => Math.abs(pz.r - aim) <= 120 && puzzleAreas(pz).includes(area), i => isSeen(bits, i), 2);
+  if (!cands.length) return null;
+  const [bb, i, pz] = cands[Math.floor(Math.random() * cands.length)];
+  return { band: bb, i, pz, size: bandSize(bb), review: false, coached: area };
 }
 
 /* ---------- sound ---------- */
@@ -1780,13 +1857,13 @@ async function nextPuzzle() {
   locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
-  $("playBtns").classList.toggle("run", !!RUN);
+  $("playBtns").classList.toggle("run", !!RUN && !RUN.area);
   renderDaily();
   $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
   let pick;
-  try { [pick] = await Promise.all([RUN ? pickRunPuzzle() : DAILY ? dailyPuzzle(DAILY.n) : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
+  try { [pick] = await Promise.all([RUN ? (RUN.area ? pickPracticePuzzle() : pickRunPuzzle()) : DAILY ? dailyPuzzle(DAILY.n) : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
     setStatus("bad", T("The puzzles could not load"), T("Check the connection"), "bad");
@@ -1803,11 +1880,11 @@ async function nextPuzzle() {
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
   const practice = !!DAILY && DAILY.mode === "practice";          /* Try again on the daily: a chip says it's practice */
-  $("stLevel").textContent = RUN ? rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN : practice ? T("Practice") : T("Second try");
+  $("stLevel").textContent = RUN ? (RUN.area ? AREA_NAME[RUN.area]() + " " + (RUN.step + 1) + "/" + PRACTICE_LEN : rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN) : practice ? T("Practice") : T("Second try");
   $("stLevel").hidden = !cur.review && !RUN && !practice;
   renderPuzzleInfo();
   if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), DAILY.mode === "practice" ? T("Practice: your daily result stays the same") : "", "wait");
-  else setStatus("info", RUN ? T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN }) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
+  else setStatus("info", RUN ? (RUN.area ? T("{area} practice, puzzle {n} of {total}", { area: AREA_NAME[RUN.area](), n: RUN.step + 1, total: PRACTICE_LEN }) : T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN })) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   if (DAILY && DAILY.mode === "review") { showDailyFinal(); return; }
   /* the daily, picked up where it was left: its moves so far, straight onto the board, under the Continue cover */
@@ -1878,12 +1955,12 @@ function commit(from, to, promo) {
       const h = game.history({ verbose: true }).pop(); lastMove = h ? [h.from, h.to] : [];
       if (o) o.el.classList.remove("nope");
       syncPieces({ from: to, to: from }); paint(); locked = false;
-      if (RUN) showAnswer();          /* one miss ends a streak: show the solution */
+      if (RUN && !RUN.area) showAnswer();          /* one miss ends a streak: show the solution */
     }, 820);
   }
 }
 function showHint() {
-  if (locked || done || hintLevel >= 2 || RUN) return;
+  if (locked || done || hintLevel >= 2 || (RUN && !RUN.area)) return;
   hintLevel++; track("hint/" + hintLevel);
   const want = cur.pz.moves[idx];
   hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
@@ -1891,7 +1968,7 @@ function showHint() {
   setButtons(true); paint(); markNow(); dailyMark("y"); haptic("hint");
 }
 function showAnswer() {
-  if (locked || done || (RUN && !failed)) return;
+  if (locked || done || (RUN && !RUN.area && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false); track("answer");
   if (DAILY) for (let k = idx; k < cur.pz.moves.length; k += 2) dailyMark("x", k);
   setStatus("info", T("Watch the answer"), "", "wait");
@@ -1916,7 +1993,7 @@ const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (
 /* The puzzle is over: update the rating, save, and show the result. */
 function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
-  if (RUN) { finishRun(solvedIt && !failed && !hintLevel); return; }
+  if (RUN && !RUN.area) { finishRun(solvedIt && !failed && !hintLevel); return; }
   if (DAILY) { finishDaily(solvedIt); return; }
   const p = me(), before = p.rating, level = p.place ? p.place.r : p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
@@ -1929,6 +2006,7 @@ function finish(solvedIt) {
       else p.place = pl;
     } else {
       delta = ratingChange(p.rating, cur.pz.r, score, p.n);
+      if (RUN && RUN.area) delta = score === 1 ? Math.max(1, Math.round(delta / 2)) : Math.round(delta / 2);          /* practice: half */
       p.rating = Math.max(RATING_FLOOR, p.rating + delta);
       p.hist.push(p.rating); if (p.hist.length > 300) p.hist.shift();
       p.peak = Math.max(p.peak, p.rating);
@@ -1941,7 +2019,7 @@ function finish(solvedIt) {
   if (score < 1 && !cur.review) {          /* a missed puzzle comes back once, about 30 new puzzles later */
     p.review.push({ b: cur.band, i: cur.i, due: p.n + REVIEW_GAP, tries: 1 }); if (p.review.length > 20) p.review.shift();
   }
-  delete p.now;
+  if (!RUN) delete p.now;          /* a practice set keeps the normal game's puzzle waiting */
   save();
   if (!cur.review && PLAYED_MARKS.includes(p.n)) track("played/" + p.n);
   for (let i = peakRankBefore + 1; i <= rankIndex(p.peak); i++) track("rank/" + RANKS[i][1].toLowerCase());
@@ -1974,12 +2052,50 @@ function finish(solvedIt) {
   else { void d.offsetWidth; d.classList.add("show"); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
+  showAreas();
+  if (RUN && RUN.area) stepPractice(score);
   if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(placed ? undefined : before);
   if (rankUp) { const cu = document.querySelector(".lad.cur"); if (cu) restart(cu, "pop"); }
   if (delta) restart($("rate"), "bump");
   if (score === 1) restart($("stStreak"), "bump");
   $("nextBtn").focus({ preventScroll: true });
+}
+
+/* ---------- the coach card ----------
+   Before the coach is ready, one line says it's learning. Then: Work on (the weak areas, each with Practise), Strong
+   at, and every known area behind a tap, marked better than, about as, or worse than the rating expects. No numbers:
+   every puzzle is matched to the player's level, so a percentage would mislead. */
+function renderCoach() {
+  const p = me(), box = $("coachBody"); box.textContent = "";
+  const line = (cls, text) => { const el = document.createElement("p"); el.className = cls; el.textContent = text; box.append(el); return el; };
+  if (!coachReady(p)) { line("note", T("Your coach is learning your game. Play about 30 puzzles to see your strong and weak spots.")); return; }
+  try { if (!localStorage.getItem("kw-coach-ready")) { localStorage.setItem("kw-coach-ready", "1"); track("coach/ready"); } } catch (e) {}
+  const weak = coachWeak(p), strong = coachStrong(p);
+  line("co-sub", T("Work on"));
+  if (!weak.length) line("note", T("Nothing stands out to work on right now. Keep going."));
+  for (const a of weak) {
+    const row = document.createElement("div"); row.className = "co-row";
+    const txt = document.createElement("div"), b = document.createElement("b"), d = document.createElement("span");
+    b.textContent = AREA_NAME[a](); d.textContent = AREA_DESC[a](); txt.append(b, d);
+    const go = document.createElement("button"); go.type = "button"; go.className = "btn small"; go.textContent = T("Practise");
+    go.setAttribute("aria-label", T("Practise") + ": " + AREA_NAME[a]());
+    go.addEventListener("click", () => askPractice(a));
+    row.append(txt, go); box.append(row);
+  }
+  if (strong.length) { line("co-sub", T("Strong at")); line("note", strong.map(a => AREA_NAME[a]()).join(" \u00b7 ")); }
+  const all = document.createElement("details"); all.className = "co-all";
+  const sum = document.createElement("summary"); sum.textContent = T("All areas"); all.append(sum);
+  all.addEventListener("toggle", () => { if (all.open) track("coach/open"); });
+  const ul = document.createElement("ul"); ul.className = "body";
+  for (const a of coachKnown(p)) {
+    const v = coachStrength(p, a), k = v > COACH_MARK ? "up" : v < -COACH_MARK ? "down" : "even";
+    const li = document.createElement("li"), name = document.createElement("span"), m = document.createElement("span");
+    name.textContent = AREA_NAME[a](); m.className = "co-mark " + k;
+    m.textContent = k === "up" ? T("Better than expected") : k === "down" ? T("Worse than expected") : T("About as expected");
+    li.append(name, m); ul.append(li);
+  }
+  all.append(ul); box.append(all);
 }
 
 /* ---------- awards ----------
@@ -2350,7 +2466,7 @@ function finishDaily(solved) {
     sfx.rank(); haptic("rank"); restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   } else setStatus("bad", T("That was the answer"), T("Come back tomorrow for the next one"), "turn");
-  dailyDoneButtons();
+  dailyDoneButtons(); showAreas();
   renderPanel(); sendDaily();
   d.mode = "review";          /* counted: from here it's the result to look at (d: renderPanel drops a daily from before midnight) */
   setTimeout(() => whenNoCard(() => showDailyDone(awards, d.n)), REDUCED ? 600 : 1500);          /* the day's card, then any achievement it earned */
@@ -2510,6 +2626,48 @@ function startRun(ri) {
   nextPuzzle();
 }
 function leaveRun() { RUN = null; resumeMain = true; nextPuzzle(); }
+/* ---------- practice sets ----------
+   10 puzzles of one area at the player's level, on RUN with RUN.area set. Unlike a rank streak, hints and Answer are
+   there and a miss doesn't end it; each puzzle goes through finish like any other, at half the rating change. */
+const PRACTICE_LEN = 10;
+function askPractice(a) {
+  openDialog({ title: T("Practice: {area}", { area: AREA_NAME[a]() }), text: T("10 puzzles of {area}. Practice counts half toward your rating.", { area: AREA_NAME[a]() }),
+    buttons: [{ label: T("Close") }, { label: T("Start"), primary: true, onClick: () => startPractice(a) }] });
+}
+function startPractice(a) {
+  DAILY = null;
+  RUN = { area: a, step: 0, good: 0, used: new Set(), over: false, from: coachStrength(me(), a) };
+  if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
+  track("coach/practice/" + a);
+  window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+  nextPuzzle();
+}
+/* unseen puzzles of the area near the player's target first, widening as the normal game does; then seen ones */
+async function pickPracticePuzzle() {
+  const p = me(), target = clamp(Math.round(p.rating + MODES[p.mode] - 50 + gauss() * 40), MIN_R, MAX_R);
+  const inArea = pz => puzzleAreas(pz).includes(RUN.area) && !RUN.used.has(pz.id);
+  for (const fresh of [true, false]) for (const w of [50, 120, 250, 500, 2200]) {
+    const cands = [];
+    for (let b = bandOf(target - w); b <= bandOf(target + w); b += 100) {
+      const bits = seenBits(b, bandSize(b));
+      cands.push(...await findInBand(b, pz => Math.abs(pz.r - target) <= w && inArea(pz), i => fresh && isSeen(bits, i)));
+    }
+    if (cands.length) { const [b, i, pz] = cands[Math.floor(Math.random() * cands.length)]; RUN.used.add(pz.id); return { band: b, i, pz, size: bandSize(b), review: false }; }
+  }
+  throw new Error("no puzzle for the practice set");
+}
+/* a practice puzzle is over (finish has scored it): count it; after the tenth, the set's card */
+function stepPractice(score) {
+  const r = RUN; r.step++; if (score > 0) r.good++;
+  $("stLevel").textContent = AREA_NAME[r.area]() + " " + r.step + "/" + PRACTICE_LEN; $("stLevel").hidden = false;
+  if (r.step < PRACTICE_LEN) return;
+  r.over = true; $("nextLabel").textContent = T("Back to puzzles");
+  track("coach/practice-done/" + r.area + "/" + r.good);
+  const better = coachStrength(me(), r.area) > r.from + 0.01;
+  setTimeout(() => whenNoCard(() => openDialog({ title: T("{n} of {total}", { n: r.good, total: PRACTICE_LEN }),
+    text: better ? T("{area}: getting better.", { area: AREA_NAME[r.area]() }) : T("{area} will come up again in your puzzles.", { area: AREA_NAME[r.area]() }),
+    buttons: [{ label: T("Back to puzzles"), onClick: () => { if (RUN && RUN.area) leaveRun(); } }, { label: T("Practise again"), primary: true, onClick: () => startPractice(r.area) }] })), REDUCED ? 300 : 900);          /* after any achievement's card */
+}
 /* a puzzle in a streak is over: count it, or end the run */
 function finishRun(clean) {
   const r = RUN, rk = RANKS[r.rank], p = me();
@@ -2544,7 +2702,7 @@ function finishRun(clean) {
   $("nextLabel").textContent = (r.over ? T("Back to puzzles") : T("Next puzzle"));
   $("againBtn").hidden = !r.over;
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
-  renderPanel();
+  showAreas(); renderPanel();
   $("nextBtn").focus({ preventScroll: true });
 }
 function renderRuns() {
@@ -2743,6 +2901,12 @@ function renderSetup() {
   }
   const turn = document.createElement("div"); turn.textContent = (game.turn() === "w" ? T("White moves next.") : T("Black moves next.")); box.append(turn);
 }
+/* after a puzzle (never before or during it): its areas, beside the Lichess link */
+function showAreas() {
+  const areas = cur && cur.pz ? puzzleAreas(cur.pz) : []; if (!areas.length) return;
+  const box = $("pzInfo"), sp = document.createElement("span"); sp.className = "pz-areas";
+  sp.textContent = " " + areas.map(a => AREA_NAME[a]()).join(" \u00b7 "); box.append(sp);
+}
 function renderPuzzleInfo() {
   const box = $("pzInfo"), a = document.createElement("a");
   a.href = "https://lichess.org/training/" + encodeURIComponent(cur.pz.id); a.target = "_blank"; a.rel = "noopener"; a.textContent = "#" + cur.pz.id;
@@ -2782,6 +2946,9 @@ function renderPanel(fromRating) {
   $("stAcc").textContent = p.last.length ? Math.round(p.last.reduce((a, b) => a + b, 0) / p.last.length * 100) + "%" : "-";
   for (const b of $("modeSeg").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.mode === p.mode));
   $("modeSeg").style.setProperty("--i", MODE_INDEX[p.mode]);
+  for (const b of $("choiceSeg").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.choice === p.choice));
+  $("choiceSeg").style.setProperty("--i", p.choice === "any" ? 1 : 0);
+  $("choiceNote").textContent = p.choice === "any" ? T("Any kind: puzzles of every kind, chosen only by how hard they are.") : T("Coached mixes in more of what you're working on.");
   $("modeNote").textContent = MODE_NOTE[p.mode]() + " " + (placing ? T("It starts once your level is found.") : T("Your rating is fair in any mode."));
   $("soundBtn").setAttribute("aria-pressed", String(S.sound));
   $("hapticsBtn").setAttribute("aria-pressed", String(S.haptics !== false));
@@ -2795,7 +2962,7 @@ function renderPanel(fromRating) {
     '<polygon points="4,64 ' + line + ' 296,64" fill="url(#cg)" stroke="none"/>' +
     '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
   const dot = $("chartDot"); dot.style.left = (X(h.length - 1) / 300 * 100) + "%"; dot.style.top = (Y(h[h.length - 1]) / 64 * 100) + "%";
-  renderRuns(); renderDaily(); renderRemind(); renderLang();
+  renderRuns(); renderCoach(); renderDaily(); renderRemind(); renderLang();
 }
 
 $("hintBtn").addEventListener("click", showHint);
@@ -2809,13 +2976,14 @@ $("puzzlesBtn").addEventListener("click", () => { if (!DAILY) return; haptic("to
 $("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY) { if (dailyDone(me()) && done) showDailyDone(); return; } haptic("toggle"); startDaily(); });
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
-$("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else startRun(RUN ? RUN.rank : 0); });
-$("endRunBtn").addEventListener("click", () => { if (RUN) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
+$("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else if (RUN && RUN.area) startPractice(RUN.area); else startRun(RUN ? RUN.rank : 0); });
+$("endRunBtn").addEventListener("click", () => { if (RUN) { track(RUN.area ? "coach/practice-quit/" + RUN.area : "run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
 $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); else track("sound-off"); haptic("toggle"); });
 $("leftyBtn").addEventListener("click", () => { S.lefty = !S.lefty; save(); renderPanel(); haptic("toggle"); track(S.lefty ? "lefty-on" : "lefty-off"); });
 $("hapticsBtn").addEventListener("click", () => { S.haptics = S.haptics === false; save(); renderPanel(); if (S.haptics) haptic("toggle"); else track("haptics-off"); });
+$("choiceSeg").addEventListener("click", e => { const b = e.target.closest("button"), p = me(); if (b && b.dataset.choice && p.choice !== b.dataset.choice) { p.choice = b.dataset.choice; save(); renderPanel(); haptic("toggle"); track("coach/choice/" + p.choice); } });
 $("modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b && MODES[b.dataset.mode] !== undefined && me().mode !== b.dataset.mode) { me().mode = b.dataset.mode; save(); renderPanel(); haptic("toggle"); track("mode/" + b.dataset.mode); } });
 $("shareBtn").addEventListener("click", () => shareProgress($("shareBtn")));
 $("shareRankBtn").addEventListener("click", () => shareProgress($("shareRankBtn"), lastResult));
@@ -3118,8 +3286,10 @@ renderPanel();
   else {
     if (!p.since) { p.since = Date.now(); save(); }          /* a save from before this was recorded: count from now */
     const days = (Date.now() - p.since) / 864e5;
-    [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); } });
+    [[1, 1], [7, 2], [30, 4]].forEach(([d, bit]) => { if (days >= d && !(p.back & bit)) { p.back |= bit; save(); track("back/" + d + "d"); if (p.choice !== "any") track("coach-back/" + d + "d"); } });
   }
+  /* the coach's choice, once per device (the holdback's share is measured against it), then on each change */
+  try { if (!localStorage.getItem("kw-coach-choice")) { localStorage.setItem("kw-coach-choice", "1"); track("coach/choice/" + p.choice); if (p.holdback) track("coach/holdback"); } } catch (e) {}
   if (!S.awards) { S.awards = earnedAwards(p); if (S.updatedAt) save(); }
   checkFreezes();
   if (APP) setTimeout(() => { reportProgress(p); sendDaily(); }, 1500);          /* after Game Center has had a moment to sign in */

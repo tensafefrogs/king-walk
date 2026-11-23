@@ -30,6 +30,14 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `run/end/<rank>/<n>` | A rank streak ends on a miss after n solves | `finishRun()` |
 | `run/cleared/<rank>` | All 15 puzzles of a rank streak solved | `finishRun()` |
 | `run/quit/<rank>` | End streak pressed during a run | the End streak button |
+| `coach/ready` | The coach card first shows strong and weak areas on this device (about 30 puzzles, 3 areas known) | `renderCoach()` |
+| `coach/open` | All areas opened on the coach card | the All areas line |
+| `coach/practice/<area>` | A practice set of one area starts (`fork`, `pin`, … as in `AREAS`) | `startPractice()` |
+| `coach/practice-done/<area>/<n>` | A practice set ends, n of 10 solved | `stepPractice()` |
+| `coach/practice-quit/<area>` | End pressed during a practice set | the End button |
+| `coach/choice/<coached\|any>` | The puzzle choice, once per device at startup, then each time it's changed in Settings | startup, the Puzzle choice buttons |
+| `coach/holdback` | This player is in the holdback (started on Any kind; about 1 new player in 10), once per device | startup |
+| `coach-back/1d`, `coach-back/7d`, `coach-back/30d` | As `back/...`, for players on Coached | startup |
 | `daily/start` | Today's daily puzzle starts | `startDaily()` |
 | `daily/resume` | Today's daily puzzle starts again after leaving it | `startDaily()` |
 | `daily/later` | The player leaves the daily puzzle before finishing it | `leaveDaily()` |
@@ -63,6 +71,9 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 - **Funnel:** `start` → `played/1` → `played/10` → `played/50` → `played/100`. The drop from `start` to `played/1` shows people who left before finishing a puzzle; from `played/1` to `played/10`, people who tried it and didn't stay.
 - **Retention:** `back/1d`, `back/7d` and `back/30d` as a share of `start` from the period before (a week earlier for `back/7d`).
 - **Difficulty:** how many reach each `rank/...`, and `mode/easy` versus `mode/hard`. Since placement (November 2026), `placed/...` against `start` shows where new players begin; fewer `mode/hard` from new players is the sign it's working.
+- **The coach:** `coach-back/7d` against `back/7d` (Coached returns as a share of all returns), with `coach/holdback`
+  against `coach/choice/any` for the holdback's size: if Coached players come back more than the holdback, the coach
+  helps. `coach/practice-done/<area>/<n>` shows whether practice sets go well (most should land around 6 to 8 of 10).
 - **Platforms:** `platform/...` counts, and the web against the apps (`king-walk/` against `king-walk-ios/` and `king-walk-android/`).
 
 GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Open the GoatCounter dashboard and filter by `king-walk`.
