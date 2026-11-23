@@ -2,6 +2,8 @@
 
 A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ from `main` (GitHub Pages, deployed by `.github/workflows/pages.yml`), plus an iOS app in `ios/` and an Android app in `android/` (`android/README.md`; not on Google Play yet). It is separate from Spark, but the iOS wrapper and release tooling follow Spark's (tensafefrogs/spark, `ios/`).
 
+How the repo fits together, how a change gets to `main`, and which check covers what: `docs/README.md` (one page; read it first).
+
 ## Working on it
 
 - `main` is the website (and what the apps bundle), and it takes only a commit whose tests have already passed on GitHub: push to a branch, wait for its **Test** run to pass, then push the same commit to `main` (`git push origin HEAD:main`; the repository's rules refuse it otherwise). Test first: `node testing/parity.js` (seconds: the website, the iOS app and the Android app in step), `node testing/smoke.js` (plays puzzles on the web and in simulated iOS and Android apps) and `node testing/unit.js` (the rules one by one, and that every language has every string); GitHub runs all three on every push.
