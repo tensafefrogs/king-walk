@@ -555,10 +555,12 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
 .dcover { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; border-radius: inherit; background: rgba(20, 63, 56, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .dcover[hidden] { display: none; }
 /* the daily's clock, at the end of the status bar while it's played; a tap pauses it */
-.end-set { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; margin-inline-start: 6px; }          /* end a practice set, beside its chip */
-.end-set .ic { width: 15px; height: 15px; }
+/* a practice set's chip is its own End button: "Pins 3/10 ✕" (asks first) */
+.end-set { gap: 5px; border: 0; margin: 0; padding-inline-end: 7px; cursor: pointer; min-height: 28px; }
+.end-set .ic { width: 12px; height: 12px; flex: none; opacity: 0.8; }
+@media (hover: hover) { .end-set:hover { filter: brightness(0.96); } }
 /* the biggest text sizes: a chip (and the ✕) take a line of their own under the words, which keep the whole width */
-@media (max-width: 280px) { .status:has(#stLevel:not([hidden])) { flex-wrap: wrap; row-gap: 4px; } .status:has(#stLevel:not([hidden])) .st-text { flex: 1 1 calc(100% - 40px); } }
+@media (max-width: 280px) { .status:has(#stLevel:not([hidden]), .end-set:not([hidden])) { flex-wrap: wrap; row-gap: 4px; } .status:has(#stLevel:not([hidden]), .end-set:not([hidden])) .st-text { flex: 1 1 calc(100% - 40px); } }
 .dtimer { flex: none; border: 0; margin: 0; padding: 4px 10px; border-radius: 999px; background: var(--tile); color: var(--fg); font: 700 15px/1.2 var(--font-display); font-variant-numeric: tabular-nums; white-space: nowrap; cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
 .dtimer[hidden] { display: none; }
 .dtimer.paused { color: var(--muted); }
@@ -1007,7 +1009,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="status" id="status" aria-live="polite">
       <span class="st-ic" id="stIc"></span>
       <span class="st-text"><span class="st-main" id="stMain">Getting the puzzles ready</span><span class="st-sub" id="stSub"></span></span>
-      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><button type="button" class="dtimer end-set" id="endSetBtn" aria-label="End practice" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="delta" id="delta"></span><button type="button" class="dtimer" id="dTimer" role="timer" aria-live="off" hidden></button></span>
+      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><button type="button" class="chip accent end-set" id="endSetBtn" aria-label="End practice" hidden><span id="endSetTxt"></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="delta" id="delta"></span><button type="button" class="dtimer" id="dTimer" role="timer" aria-live="off" hidden></button></span>
     </div>
 
     <div class="frame" id="frame">
@@ -2712,9 +2714,12 @@ function startRun(ri) {
   nextPuzzle();
 }
 function leaveRun() { RUN = null; showEndSet(); resumeMain = true; nextPuzzle(); }
-/* a practice set can be ended at any point (the ✕ beside its chip, asked once): the puzzles played still count, the
+/* a practice set can be ended at any point (its chip, "Pins 3/10 ✕", asks once): the puzzles played still count, the
    one on the board is dropped, and the normal game's waiting puzzle comes back */
-const showEndSet = () => { $("endSetBtn").hidden = !(RUN && RUN.area && !RUN.over); };
+const showEndSet = () => {          /* during a set the chip is the End button; once it's over, the plain chip again */
+  const on = !!(RUN && RUN.area && !RUN.over); $("endSetBtn").hidden = !on;
+  if (on) { $("endSetTxt").textContent = $("stLevel").textContent; $("stLevel").hidden = true; }
+};
 function askEndPractice() {
   if (!RUN || !RUN.area || RUN.over) return;
   const a = RUN.area;
@@ -2755,7 +2760,7 @@ async function pickPracticePuzzle() {
 function stepPractice(score) {
   const r = RUN; r.step++; if (score > 0) r.good++;
   $("stLevel").textContent = AREA_NAME[r.area]() + " " + r.step + "/" + PRACTICE_LEN; $("stLevel").hidden = false;
-  if (r.step < PRACTICE_LEN) return;
+  if (r.step < PRACTICE_LEN) { showEndSet(); return; }
   r.over = true; showEndSet(); $("nextLabel").textContent = T("Back to puzzles");
   track("coach/practice-done/" + r.area + "/" + r.good);
   const better = coachStrength(me(), r.area) > r.from + 0.01;
