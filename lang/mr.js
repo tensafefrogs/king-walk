@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "कोणतेही: सर्व प्रकारची कोडी, फक्त किती कठीण आहेत यावरून निवडलेली.",
   "Your coach is ready": "तुमचा कोच तयार आहे",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "आता त्याला तुमच्या जमेच्या आणि कमकुवत बाजू माहीत आहेत. तो प्रगतीमध्ये, तुमच्या रेटिंगखाली सापडेल.",
-  "Show me": "दाखवा"
+  "Show me": "दाखवा",
+  "End practice": "सराव संपवा",
+  "End this practice set?": "हा सराव संच संपवायचा?",
+  "The puzzles you've played still count.": "तुम्ही खेळलेली कोडी तरीही मोजली जातील.",
+  "Keep practising": "सराव सुरू ठेवा"
 };

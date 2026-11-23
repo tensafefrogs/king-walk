@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "ಯಾವುದೇ ರೀತಿ: ಎಲ್ಲ ರೀತಿಯ ಒಗಟುಗಳು, ಎಷ್ಟು ಕಷ್ಟ ಎಂಬುದನ್ನು ಮಾತ್ರ ನೋಡಿ ಆಯ್ಕೆ.",
   "Your coach is ready": "ನಿಮ್ಮ ಕೋಚ್ ಸಿದ್ಧ",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ಈಗ ಅದಕ್ಕೆ ನಿಮ್ಮ ಬಲ ಮತ್ತು ದೌರ್ಬಲ್ಯಗಳು ತಿಳಿದಿವೆ. ಪ್ರಗತಿಯಲ್ಲಿ, ನಿಮ್ಮ ರೇಟಿಂಗ್‌ನ ಕೆಳಗೆ ಅದು ಸಿಗುತ್ತದೆ.",
-  "Show me": "ತೋರಿಸಿ"
+  "Show me": "ತೋರಿಸಿ",
+  "End practice": "ಅಭ್ಯಾಸ ಮುಗಿಸಿ",
+  "End this practice set?": "ಈ ಅಭ್ಯಾಸ ಸೆಟ್ ಮುಗಿಸಬೇಕೇ?",
+  "The puzzles you've played still count.": "ನೀವು ಆಡಿದ ಒಗಟುಗಳು ಇನ್ನೂ ಲೆಕ್ಕಕ್ಕೆ ಬರುತ್ತವೆ.",
+  "Keep practising": "ಅಭ್ಯಾಸ ಮುಂದುವರಿಸಿ"
 };

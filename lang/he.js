@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "כל סוג: חידות מכל הסוגים, שנבחרות רק לפי רמת הקושי.",
   "Your coach is ready": "המאמן מוכן",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "עכשיו הוא מכיר את הנקודות החזקות והחלשות שלך. הוא נמצא בהתקדמות, מתחת לדירוג.",
-  "Show me": "הראו לי"
+  "Show me": "הראו לי",
+  "End practice": "סיום תרגול",
+  "End this practice set?": "לסיים את סבב התרגול?",
+  "The puzzles you've played still count.": "החידות ששוחקו עד עכשיו עדיין נספרות.",
+  "Keep practising": "להמשיך לתרגל"
 };

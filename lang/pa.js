@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "ਕੋਈ ਵੀ ਕਿਸਮ: ਹਰ ਕਿਸਮ ਦੀਆਂ ਪਹੇਲੀਆਂ, ਸਿਰਫ਼ ਇਸ ਮੁਤਾਬਕ ਚੁਣੀਆਂ ਕਿ ਉਹ ਕਿੰਨੀਆਂ ਔਖੀਆਂ ਹਨ।",
   "Your coach is ready": "ਤੁਹਾਡਾ ਕੋਚ ਤਿਆਰ ਹੈ",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ਹੁਣ ਉਹ ਤੁਹਾਡੀਆਂ ਤਕੜੀਆਂ ਅਤੇ ਕਮਜ਼ੋਰ ਥਾਵਾਂ ਜਾਣਦਾ ਹੈ। ਉਹ ਤਰੱਕੀ ਵਿੱਚ, ਤੁਹਾਡੀ ਰੇਟਿੰਗ ਦੇ ਹੇਠਾਂ ਮਿਲੇਗਾ।",
-  "Show me": "ਵਿਖਾਓ"
+  "Show me": "ਵਿਖਾਓ",
+  "End practice": "ਅਭਿਆਸ ਖ਼ਤਮ ਕਰੋ",
+  "End this practice set?": "ਕੀ ਇਹ ਅਭਿਆਸ ਸੈੱਟ ਖ਼ਤਮ ਕਰਨਾ ਹੈ?",
+  "The puzzles you've played still count.": "ਤੁਸੀਂ ਜੋ ਪਹੇਲੀਆਂ ਖੇਡੀਆਂ, ਉਹ ਫਿਰ ਵੀ ਗਿਣੀਆਂ ਜਾਣਗੀਆਂ।",
+  "Keep practising": "ਅਭਿਆਸ ਜਾਰੀ ਰੱਖੋ"
 };

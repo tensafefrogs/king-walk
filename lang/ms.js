@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Semua jenis: teka-teki semua jenis, dipilih hanya mengikut tahap kesukaran.",
   "Your coach is ready": "Jurulatih anda sudah sedia",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Kini ia tahu kekuatan dan kelemahan anda. Anda akan menemuinya di Kemajuan, di bawah rating anda.",
-  "Show me": "Tunjukkan"
+  "Show me": "Tunjukkan",
+  "End practice": "Tamatkan latihan",
+  "End this practice set?": "Tamatkan set latihan ini?",
+  "The puzzles you've played still count.": "Teka-teki yang telah anda main tetap dikira.",
+  "Keep practising": "Teruskan berlatih"
 };

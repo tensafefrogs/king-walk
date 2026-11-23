@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Katere koli: uganke vseh vrst, izbrane samo po težavnosti.",
   "Your coach is ready": "Tvoj trener je pripravljen",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Zdaj pozna tvoje močne in šibke točke. Najdeš ga pod Napredek, pod svojim ratingom.",
-  "Show me": "Pokaži mi"
+  "Show me": "Pokaži mi",
+  "End practice": "Končaj vadbo",
+  "End this practice set?": "Želiš končati ta niz vadbe?",
+  "The puzzles you've played still count.": "Že odigrane uganke še vedno štejejo.",
+  "Keep practising": "Vadi naprej"
 };

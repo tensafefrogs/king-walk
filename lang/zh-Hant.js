@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "任何類型：各種類型的謎題，只依難度挑選。",
   "Your coach is ready": "你的教練準備好了",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "教練現在知道你的強項和弱項了。在「進度」裡，你的積分下方。",
-  "Show me": "帶我去看"
+  "Show me": "帶我去看",
+  "End practice": "結束練習",
+  "End this practice set?": "要結束這組練習嗎？",
+  "The puzzles you've played still count.": "已經做過的謎題仍然算數。",
+  "Keep practising": "繼續練習"
 };

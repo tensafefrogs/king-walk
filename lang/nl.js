@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle soorten: puzzels van elke soort, alleen gekozen op moeilijkheid.",
   "Your coach is ready": "Je coach is klaar",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Hij kent nu je sterke en zwakke punten. Je vindt hem onder Voortgang, onder je rating.",
-  "Show me": "Laat zien"
+  "Show me": "Laat zien",
+  "End practice": "Oefenen stoppen",
+  "End this practice set?": "Deze oefenreeks stoppen?",
+  "The puzzles you've played still count.": "De puzzels die je hebt gespeeld tellen gewoon mee.",
+  "Keep practising": "Verder oefenen"
 };

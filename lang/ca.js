@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Qualsevol: problemes de tota mena, triats només per la dificultat.",
   "Your coach is ready": "El teu entrenador ja està a punt",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Ara ja coneix els teus punts forts i febles. El trobaràs a Progrés, sota la teva puntuació.",
-  "Show me": "Ensenya-m'ho"
+  "Show me": "Ensenya-m'ho",
+  "End practice": "Acaba la pràctica",
+  "End this practice set?": "Vols acabar aquesta sèrie de pràctica?",
+  "The puzzles you've played still count.": "Els problemes que has jugat continuen comptant.",
+  "Keep practising": "Continua practicant"
 };

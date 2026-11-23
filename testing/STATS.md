@@ -34,7 +34,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `coach/open` | All areas opened on the coach card | the All areas line |
 | `coach/practice/<area>` | A practice set of one area starts (`fork`, `pin`, … as in `AREAS`) | `startPractice()` |
 | `coach/practice-done/<area>/<n>` | A practice set ends, n of 10 solved | `stepPractice()` |
-| `coach/practice-quit/<area>` | End pressed during a practice set | the End button |
+| `coach/practice-quit/<area>` | A practice set ended early (the ✕ beside its chip, then End practice) | `askEndPractice()` |
 | `coach/choice/<coached\|any>` | The puzzle choice, once per device at startup, then each time it's changed in Settings | startup, the Puzzle choice buttons |
 | `coach/holdback` | This player is in the holdback (started on Any kind; about 1 new player in 10), once per device | startup |
 | `coach-back/1d`, `coach-back/7d`, `coach-back/30d` | As `back/...`, for players on Coached | startup |

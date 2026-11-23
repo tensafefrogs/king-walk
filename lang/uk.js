@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Будь-які: задачі всіх тем, дібрані лише за складністю.",
   "Your coach is ready": "Твій тренер готовий",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Тепер він знає твої сильні й слабкі сторони. Він у розділі «Прогрес», під твоїм рейтингом.",
-  "Show me": "Покажи"
+  "Show me": "Покажи",
+  "End practice": "Завершити тренування",
+  "End this practice set?": "Завершити це тренування?",
+  "The puzzles you've played still count.": "Розв’язані задачі все одно зараховуються.",
+  "Keep practising": "Тренуватися далі"
 };

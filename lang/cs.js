@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Jakékoli: úlohy všech druhů, vybrané jen podle obtížnosti.",
   "Your coach is ready": "Tvůj trenér je připravený",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Teď už zná tvé silné a slabé stránky. Najdeš ho v Postupu, pod svým ratingem.",
-  "Show me": "Ukaž mi to"
+  "Show me": "Ukaž mi to",
+  "End practice": "Ukončit trénink",
+  "End this practice set?": "Ukončit tuto sadu tréninku?",
+  "The puzzles you've played still count.": "Úlohy, které máš za sebou, se pořád počítají.",
+  "Keep practising": "Trénovat dál"
 };

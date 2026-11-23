@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Οποιοσδήποτε: γρίφοι κάθε είδους, επιλεγμένοι μόνο με βάση τη δυσκολία.",
   "Your coach is ready": "Ο προπονητής σου είναι έτοιμος",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Τώρα ξέρει τα δυνατά και τα αδύναμα σημεία σου. Θα τον βρεις στην Πρόοδο, κάτω από τη βαθμολογία σου.",
-  "Show me": "Δείξε μου"
+  "Show me": "Δείξε μου",
+  "End practice": "Τέλος εξάσκησης",
+  "End this practice set?": "Να τελειώσει αυτή η σειρά εξάσκησης;",
+  "The puzzles you've played still count.": "Οι γρίφοι που έπαιξες μετράνε κανονικά.",
+  "Keep practising": "Συνέχισε την εξάσκηση"
 };

@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Orice fel: probleme de toate felurile, alese doar după dificultate.",
   "Your coach is ready": "Antrenorul tău e gata",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Acum îți știe punctele tari și slabe. Îl găsești la Progres, sub ratingul tău.",
-  "Show me": "Arată-mi"
+  "Show me": "Arată-mi",
+  "End practice": "Încheie antrenamentul",
+  "End this practice set?": "Închei această serie de antrenament?",
+  "The puzzles you've played still count.": "Problemele jucate deja se pun în continuare.",
+  "Keep practising": "Continuă antrenamentul"
 };

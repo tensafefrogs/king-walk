@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "なんでも：すべての種類のパズルを、難しさだけで選びます。",
   "Your coach is ready": "コーチの準備ができました",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "あなたの得意と苦手がわかりました。進行状況の、レーティングの下にいます。",
-  "Show me": "見てみる"
+  "Show me": "見てみる",
+  "End practice": "練習を終える",
+  "End this practice set?": "この練習セットを終えますか？",
+  "The puzzles you've played still count.": "解いた問題はそのまま記録されます。",
+  "Keep practising": "練習を続ける"
 };

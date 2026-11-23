@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle slags: opgaver af enhver slags, valgt kun efter, hvor svære de er.",
   "Your coach is ready": "Din coach er klar",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Den kender nu dine stærke og svage sider. Du finder den under Fremskridt, under din rating.",
-  "Show me": "Vis mig"
+  "Show me": "Vis mig",
+  "End practice": "Afslut træning",
+  "End this practice set?": "Vil du afslutte denne træningsrunde?",
+  "The puzzles you've played still count.": "De opgaver, du har spillet, tæller stadig.",
+  "Keep practising": "Fortsæt træningen"
 };

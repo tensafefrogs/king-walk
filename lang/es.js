@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Cualquier tipo: problemas de todo tipo, elegidos solo por su dificultad.",
   "Your coach is ready": "Tu entrenador está listo",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Ya conoce tus puntos fuertes y débiles. Lo encontrarás en Progreso, debajo de tu puntuación.",
-  "Show me": "Muéstramelo"
+  "Show me": "Muéstramelo",
+  "End practice": "Terminar práctica",
+  "End this practice set?": "¿Terminar esta serie de práctica?",
+  "The puzzles you've played still count.": "Los problemas que has jugado siguen contando.",
+  "Keep practising": "Seguir practicando"
 };

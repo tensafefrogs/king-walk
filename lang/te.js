@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "ఏ రకమైనా: అన్ని రకాల పజిల్స్, ఎంత కష్టమో దాన్ని బట్టి మాత్రమే ఎంపిక.",
   "Your coach is ready": "మీ కోచ్ సిద్ధం",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ఇప్పుడు దానికి మీ బలాలు, బలహీనతలు తెలుసు. పురోగతిలో, మీ రేటింగ్ కింద అది కనిపిస్తుంది.",
-  "Show me": "చూపించు"
+  "Show me": "చూపించు",
+  "End practice": "అభ్యాసం ముగించండి",
+  "End this practice set?": "ఈ అభ్యాస సెట్‌ను ముగించాలా?",
+  "The puzzles you've played still count.": "మీరు ఆడిన పజిల్స్ ఇంకా లెక్కలోకి వస్తాయి.",
+  "Keep practising": "అభ్యాసం కొనసాగించండి"
 };

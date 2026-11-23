@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "ทุกแบบ: โจทย์ทุกประเภท เลือกตามความยากเท่านั้น",
   "Your coach is ready": "โค้ชของคุณพร้อมแล้ว",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ตอนนี้โค้ชรู้จุดแข็งและจุดอ่อนของคุณแล้ว ดูได้ที่ความคืบหน้า ใต้เรตติ้งของคุณ",
-  "Show me": "ดูเลย"
+  "Show me": "ดูเลย",
+  "End practice": "จบการฝึก",
+  "End this practice set?": "จบชุดฝึกนี้เลยไหม",
+  "The puzzles you've played still count.": "โจทย์ที่เล่นไปแล้วยังนับอยู่",
+  "Keep practising": "ฝึกต่อ"
 };

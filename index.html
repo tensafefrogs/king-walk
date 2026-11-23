@@ -555,6 +555,10 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
 .dcover { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; border-radius: inherit; background: rgba(20, 63, 56, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .dcover[hidden] { display: none; }
 /* the daily's clock, at the end of the status bar while it's played; a tap pauses it */
+.end-set { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; margin-inline-start: 6px; }          /* end a practice set, beside its chip */
+.end-set .ic { width: 15px; height: 15px; }
+/* the biggest text sizes: a chip (and the ✕) take a line of their own under the words, which keep the whole width */
+@media (max-width: 280px) { .status:has(#stLevel:not([hidden])) { flex-wrap: wrap; row-gap: 4px; } .status:has(#stLevel:not([hidden])) .st-text { flex: 1 1 calc(100% - 40px); } }
 .dtimer { flex: none; border: 0; margin: 0; padding: 4px 10px; border-radius: 999px; background: var(--tile); color: var(--fg); font: 700 15px/1.2 var(--font-display); font-variant-numeric: tabular-nums; white-space: nowrap; cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
 .dtimer[hidden] { display: none; }
 .dtimer.paused { color: var(--muted); }
@@ -1003,7 +1007,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="status" id="status" aria-live="polite">
       <span class="st-ic" id="stIc"></span>
       <span class="st-text"><span class="st-main" id="stMain">Getting the puzzles ready</span><span class="st-sub" id="stSub"></span></span>
-      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><span class="delta" id="delta"></span><button type="button" class="dtimer" id="dTimer" role="timer" aria-live="off" hidden></button></span>
+      <span class="st-end"><span class="chip accent" id="stLevel" hidden>Second try</span><button type="button" class="dtimer end-set" id="endSetBtn" aria-label="End practice" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="delta" id="delta"></span><button type="button" class="dtimer" id="dTimer" role="timer" aria-live="off" hidden></button></span>
     </div>
 
     <div class="frame" id="frame">
@@ -1930,7 +1934,7 @@ async function nextPuzzle() {
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
   const practice = !!DAILY && DAILY.mode === "practice";          /* Try again on the daily: a chip says it's practice */
   $("stLevel").textContent = RUN ? (RUN.area ? AREA_NAME[RUN.area]() + " " + (RUN.step + 1) + "/" + PRACTICE_LEN : rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN) : practice ? T("Practice") : T("Second try");
-  $("stLevel").hidden = !cur.review && !RUN && !practice;
+  $("stLevel").hidden = !cur.review && !RUN && !practice; showEndSet();
   renderPuzzleInfo();
   if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), DAILY.mode === "practice" ? T("Practice: your daily result stays the same") : "", "wait");
   else setStatus("info", RUN ? (RUN.area ? T("{area} practice, puzzle {n} of {total}", { area: AREA_NAME[RUN.area](), n: RUN.step + 1, total: PRACTICE_LEN }) : T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN })) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
@@ -2707,7 +2711,16 @@ function startRun(ri) {
   window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
   nextPuzzle();
 }
-function leaveRun() { RUN = null; resumeMain = true; nextPuzzle(); }
+function leaveRun() { RUN = null; showEndSet(); resumeMain = true; nextPuzzle(); }
+/* a practice set can be ended at any point (the ✕ beside its chip, asked once): the puzzles played still count, the
+   one on the board is dropped, and the normal game's waiting puzzle comes back */
+const showEndSet = () => { $("endSetBtn").hidden = !(RUN && RUN.area && !RUN.over); };
+function askEndPractice() {
+  if (!RUN || !RUN.area || RUN.over) return;
+  const a = RUN.area;
+  openDialog({ title: T("End this practice set?"), text: T("The puzzles you've played still count."),
+    buttons: [{ label: T("Keep practising") }, { label: T("End practice"), primary: true, onClick: () => { if (RUN && RUN.area === a) { track("coach/practice-quit/" + a); leaveRun(); } } }] });
+}
 /* ---------- practice sets ----------
    10 puzzles of one area at the player's level, on RUN with RUN.area set. Unlike a rank streak, hints and Answer are
    there and a miss doesn't end it; each puzzle goes through finish like any other, at half the rating change. */
@@ -2743,7 +2756,7 @@ function stepPractice(score) {
   const r = RUN; r.step++; if (score > 0) r.good++;
   $("stLevel").textContent = AREA_NAME[r.area]() + " " + r.step + "/" + PRACTICE_LEN; $("stLevel").hidden = false;
   if (r.step < PRACTICE_LEN) return;
-  r.over = true; $("nextLabel").textContent = T("Back to puzzles");
+  r.over = true; showEndSet(); $("nextLabel").textContent = T("Back to puzzles");
   track("coach/practice-done/" + r.area + "/" + r.good);
   const better = coachStrength(me(), r.area) > r.from + 0.01;
   setTimeout(() => whenNoCard(() => openDialog({ title: T("{n} of {total}", { n: r.good, total: PRACTICE_LEN }),
@@ -3059,7 +3072,8 @@ $("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY) { i
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
 $("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else if (RUN && RUN.area) startPractice(RUN.area); else startRun(RUN ? RUN.rank : 0); });
-$("endRunBtn").addEventListener("click", () => { if (RUN) { track(RUN.area ? "coach/practice-quit/" + RUN.area : "run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
+$("endRunBtn").addEventListener("click", () => { if (RUN && !RUN.area) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
+$("endSetBtn").addEventListener("click", askEndPractice);
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
 $("soundBtn").addEventListener("click", () => { S.sound = !S.sound; save(); renderPanel(); wakeAudio(); if (S.sound) setTimeout(sfx.move, 60); else track("sound-off"); haptic("toggle"); });

@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "ഏതുതരവും: എല്ലാത്തരം പസിലുകളും, എത്ര പ്രയാസമുണ്ടെന്ന് മാത്രം നോക്കി തിരഞ്ഞെടുക്കുന്നു.",
   "Your coach is ready": "നിങ്ങളുടെ കോച്ച് തയ്യാർ",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ഇപ്പോൾ അതിന് നിങ്ങളുടെ ശക്തിയും ദൗർബല്യങ്ങളും അറിയാം. പുരോഗതിയിൽ, നിങ്ങളുടെ റേറ്റിങ്ങിന് താഴെ അത് കാണാം.",
-  "Show me": "കാണിക്കൂ"
+  "Show me": "കാണിക്കൂ",
+  "End practice": "പരിശീലനം നിർത്തുക",
+  "End this practice set?": "ഈ പരിശീലന സെറ്റ് നിർത്തണോ?",
+  "The puzzles you've played still count.": "നിങ്ങൾ കളിച്ച പസിലുകൾ ഇപ്പോഴും കണക്കിലെടുക്കും.",
+  "Keep practising": "പരിശീലനം തുടരുക"
 };

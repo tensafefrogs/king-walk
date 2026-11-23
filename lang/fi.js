@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Mitä vain: kaikenlaisia tehtäviä, valittu vain vaikeuden mukaan.",
   "Your coach is ready": "Valmentajasi on valmis",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Se tuntee nyt vahvuutesi ja heikkoutesi. Löydät sen Edistymisestä, vahvuuslukusi alta.",
-  "Show me": "Näytä"
+  "Show me": "Näytä",
+  "End practice": "Lopeta harjoitus",
+  "End this practice set?": "Lopetetaanko tämä harjoitussarja?",
+  "The puzzles you've played still count.": "Pelaamasi tehtävät lasketaan silti.",
+  "Keep practising": "Jatka harjoittelua"
 };

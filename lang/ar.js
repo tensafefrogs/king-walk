@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "أي نوع: ألغاز من كل الأنواع، تُختار حسب صعوبتها فقط.",
   "Your coach is ready": "مدرّبك جاهز",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "صار يعرف نقاط قوتك وضعفك. ستجده في التقدم، تحت تقييمك.",
-  "Show me": "أرِني"
+  "Show me": "أرِني",
+  "End practice": "إنهاء التدريب",
+  "End this practice set?": "هل تريد إنهاء مجموعة التدريب؟",
+  "The puzzles you've played still count.": "الألغاز التي لعبتها ما زالت محسوبة.",
+  "Keep practising": "واصل التدريب"
 };

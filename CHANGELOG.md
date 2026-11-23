@@ -25,6 +25,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   week) and go out once it's back online, two a second at most so GoatCounter isn't flooded. (Also on the website.)
 - **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
   minute while it was open. It now animates once, as the daily opens. (Also on the website.)
+- **End a practice set early:** a ✕ beside the practice chip ("Pins 3/10") asks, then goes back to your puzzles; the
+  puzzles played still count. (Also on the website.)
 - **Hints, move by move:** every move of a puzzle has its own two hints, the piece to move and then the arrow (a second
   hint used to stay an arrow for the rest of the puzzle, and two used them up). Any hint still makes it a hint solve.
   (Also on the website.)

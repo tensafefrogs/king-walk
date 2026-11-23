@@ -389,5 +389,9 @@
   "Any kind: puzzles of every kind, chosen only by how hard they are.": "Bármilyen: mindenféle feladvány, csak a nehézség alapján válogatva.",
   "Your coach is ready": "Az edződ készen áll",
   "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Már ismeri az erős és gyenge pontjaidat. Az Előrehaladás alatt találod, az értékszámod alatt.",
-  "Show me": "Mutasd"
+  "Show me": "Mutasd",
+  "End practice": "Gyakorlás vége",
+  "End this practice set?": "Befejezed ezt a gyakorlókört?",
+  "The puzzles you've played still count.": "A már lejátszott feladványok továbbra is számítanak.",
+  "Keep practising": "Gyakorlás folytatása"
 };

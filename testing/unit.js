@@ -275,15 +275,34 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
       }
       await nap(1500);          /* the set's card waits for any achievement's card to close */
       for (let t = 0; t < 8; t++) { const t1 = document.querySelector(".cele:not(.out) .cele-title"); if (!t1 || / of 10$/.test(t1.textContent)) break; document.querySelector(".cele:not(.out) .go").click(); await nap(1200); }
-      const end = { over: RUN && RUN.over, card: (document.querySelector(".cele:not(.out) .cele-title") || {}).textContent, chip: $("stLevel").textContent };
+      const end = { over: RUN && RUN.over, card: (document.querySelector(".cele:not(.out) .cele-title") || {}).textContent, chip: $("stLevel").textContent, endShown: !$("endSetBtn").hidden };
       return { learning, card, halves, missed, end, keptWaiting: JSON.stringify(q.now) === waiting, coachPin: q.coach.pin[0] };
     });
     await w.ctx.close();
     check(/learning your game/.test(ps.learning), "the coach: learning at first", ps.learning);
     check(ps.card.work.join() === "Pins,Skewers" && ps.card.marks.includes("up") && ps.card.marks.includes("down"), "the coach card: Work on the weak areas, the known ones marked", ps.card);
     check(ps.halves.every(h => h.inArea && h.got === h.want && h.areasShown), "a practice set: 10 puzzles of the area, half the rating change, its areas shown after each", ps.halves);
-    check(ps.end.over && ps.end.card === "9 of 10" && ps.end.chip === "Pins 10/10", "a practice set ends with its card: the solves out of 10 (a hint counts, the answer doesn't)", ps.end);
+    check(ps.end.over && !ps.end.endShown && ps.end.card === "9 of 10" && ps.end.chip === "Pins 10/10", "a practice set ends with its card: the solves out of 10 (a hint counts, the answer doesn't)", ps.end);
     check(ps.keptWaiting && ps.coachPin > 10, "a practice set keeps the normal game's puzzle waiting and adds to the coach's record", ps); }
+  // a practice set can be ended early: the ✕ beside its chip asks first; Keep practising goes on, End practice goes back
+  // to the normal game's waiting puzzle. Not there in normal play or a rank streak
+  { const w = await page();
+    const es = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), q = me(); delete q.place; q.n = 40; q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1] };
+      const waiting = JSON.stringify(q.now), out = { normal: !$("endSetBtn").hidden };
+      startPractice("pin"); for (let t = 0; t < 80 && (locked || !RUN); t++) await nap(100);
+      out.shown = !$("endSetBtn").hidden; out.label = $("endSetBtn").getAttribute("aria-label");
+      $("endSetBtn").click(); await nap(400); const dlg = document.querySelector(".cele:not(.out)");
+      out.ask = dlg && dlg.querySelector(".cele-title").textContent; dlg.querySelector(".sh").click(); await nap(500);
+      out.kept = !!(RUN && RUN.area === "pin") && !$("endSetBtn").hidden;
+      $("endSetBtn").click(); await nap(400); document.querySelector(".cele:not(.out) .go").click(); await nap(400);
+      for (let t = 0; t < 80 && (locked || !cur); t++) await nap(100);
+      out.ended = RUN === null && $("endSetBtn").hidden && JSON.stringify(q.now) === waiting;
+      startRun(0); for (let t = 0; t < 80 && (locked || !RUN); t++) await nap(100); out.streak = !$("endSetBtn").hidden; leaveRun();
+      return out; });
+    await w.ctx.close();
+    check(!es.normal && es.shown && es.label === "End practice" && es.ask === "End this practice set?" && es.kept, "a practice set: the ✕ beside its chip asks before ending; Keep practising goes on", es);
+    check(es.ended && !es.streak, "End practice goes back to the waiting puzzle; no ✕ in normal play or a rank streak", es); }
   // coached choice: about 3 in 10 new puzzles from the weak areas once the coach is ready, none on Any kind; a new
   // player on Any kind 1 time in 10 (the holdback), kept in the save; a player from before the coach on Coached
   const cc = await p.evaluate(async () => {
