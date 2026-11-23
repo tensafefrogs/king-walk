@@ -3,7 +3,8 @@
 
 release.py reads them only through load(), and testing/parity.js runs this file on every push, so a file App Store
 Connect would turn down fails the Test workflow in seconds rather than the release after a 10-minute build. Three
-release runs failed that way (emoji in the notes: 🧊 twice, ♟️ once). Every problem is named with its fix.
+release runs failed that way (emoji in the notes: 🧊 twice, ♟️ once). Release notes also never name other apps (the
+owner). Every problem is named with its fix.
 
   python3 ios/store/release_config.py          checks both files (exit 1 and the problems if any)
 """
@@ -12,6 +13,8 @@ import json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..', '..')
 NOTES_MAX = 4000          # App Store Connect's limit for What's New and What to Test
+# other apps and sites, never named in release notes (the owner): King Walk's notes speak for themselves
+OTHER_APPS = ('Duolingo', 'Wordle', 'Lichess', 'Chess.com', 'Chessable', 'ChessKid', 'Chesscom')
 
 
 class ConfigError(Exception):
@@ -30,6 +33,9 @@ def refused(c):
 def _notes(where, text, problems):
     if not isinstance(text, str):
         problems.append(f'{where}: should be text'); return
+    named = [a for a in OTHER_APPS if a.lower() in text.lower()]
+    if named:
+        problems.append(f'{where}: names {", ".join(named)}; release notes never mention other apps or sites (describe the change itself)')
     bad = sorted({c for c in text if refused(c)})
     if bad:
         problems.append(f'{where}: ' + ', '.join(f"'{c}' (U+{ord(c):04X})" for c in bad)

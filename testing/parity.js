@@ -175,6 +175,10 @@ for (const b of fs.readdirSync(path.join(ROOT, "p")).filter(d => /^\d+$/.test(d)
 const unknownTags = areaTags.filter(t => !themesSeen.has(t));
 check(!unknownTags.length, "every Lichess theme the coach maps is one the puzzles carry", unknownTags);
 
+// the Android app's release notes never name other apps either (as release_config.py checks the iOS ones)
+{ const notes = String(JSON.parse(read("android/release.json")).notes || ""), named = ["Duolingo", "Wordle", "Lichess", "Chess.com", "Chessable", "ChessKid"].filter(a => notes.toLowerCase().includes(a.toLowerCase()));
+  check(!named.length, "android/release.json's notes don't name other apps or sites", named); }
+
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;
 check(iv === av, "the iOS and Android apps have the same version number (ios/release.json, android/release.json)", { ios: iv, android: av });

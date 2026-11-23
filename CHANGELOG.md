@@ -34,10 +34,10 @@ Nothing yet.
 - **Coached puzzle choice, on by default:** once the coach knows your game, about 3 in 10 new puzzles come from what
   you're working on, a little easier than usual, and count fully. Settings, Puzzle choice: Coached or Any kind. About
   1 new player in 10 starts on Any kind for the first month, to measure the coach.
-- **Each puzzle's kinds after it:** next to the Lichess link once the puzzle is over ("Pins · Back-rank mates").
+- **Each puzzle's kinds after it:** next to the puzzle's link once it's over ("Pins · Back-rank mates").
 
 
-- **The daily's share, previewed and in Duolingo's colours:** the card at the end of the daily shows exactly what Share
+- **The daily's share, previewed, in clearer colours:** the card at the end of the daily shows exactly what Share
   sends: the day's number, one square per move and the time, and the streak. The squares: 🟩 first try, 🟨 after one
   wrong try, 🟧 after more, 🟥 answer shown, 💡 solved with a hint (they were 🟩, 🟥 for any wrong try, ⬛ shown).
   The first line has the weekday again ("King Walk Daily #10 · Sunday", in the player's language), since the day says
