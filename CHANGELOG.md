@@ -9,7 +9,11 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
-- **A coach that learns your weak spots (on the website now; reaches the apps in 1.0.6):** after each puzzle the game
+Nothing yet.
+
+### 1.0.5 (queued 2026-11-23 with the owner's go-ahead, then rebuilt the same day with the coach, the owner's call to avoid waiting a review cycle: on TestFlight; submitted once 1.0.4 is released, released on approval; all of it already on the website)
+
+- **A coach that learns your weak spots:** after each puzzle the game
   notes, on the device, how you did at that kind of puzzle (forks, pins, checkmates, 15 kinds in all) against what
   your rating expected. After about 30 puzzles, a Coach section under Progress shows what to **work on**, each with a
   one-line explanation and **Practise**, and what you're **strong at**; All areas shows every kind marked better than,
@@ -22,7 +26,6 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   1 new player in 10 starts on Any kind for the first month, to measure the coach.
 - **Each puzzle's kinds after it:** next to the Lichess link once the puzzle is over ("Pins · Back-rank mates").
 
-### 1.0.5 (queued 2026-11-23 with the owner's go-ahead: built from main and on TestFlight now; submitted once 1.0.4 is released, released on approval; all of it already on the website)
 
 - **The daily's share, previewed and in Duolingo's colours:** the card at the end of the daily shows exactly what Share
   sends: the day's number, one square per move and the time, and the streak. The squares: 🟩 first try, 🟨 after one
@@ -37,8 +40,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 - **The day's card comes first:** an achievement the daily earns (such as a 3-day streak) now celebrates after the
   daily's card is closed, so the card and its Share are always the first thing after the daily.
 
-What's New: "A new card at the end of the daily puzzle shows what Share sends, with a colour for each move. Plus fixes
-for the daily puzzle." (in all 46 store languages, with each language's own name for the daily puzzle and Share; `ios/release.json`)
+What's New: "Meet your coach: King Walk now learns which kinds of puzzle you're strong at and which to work on, with
+practice sets of 10. Plus a new card at the end of the daily puzzle that shows what Share sends." (in all 46 store
+languages, `ios/release.json`). The App Store and Google Play descriptions gain "A coach that learns your weak spots,
+with practice sets to work on them", and the screenshots show the coach under Progress.
 
 ### 1.0.4 (in App Review since 2026-11-22, build 2611220327; released automatically when Apple approves)
 

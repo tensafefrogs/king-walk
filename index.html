@@ -1288,7 +1288,7 @@ function cleanCoach(c) {
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace(), coach: {}, ...coachChoiceForNew() };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace(), coach: {}, choice: "coached" };
 }
 function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
 const FREEZE_MAX = 2;          /* streak freezes a player can hold */
@@ -1335,7 +1335,9 @@ function cleanState(raw) {
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
-let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, remind: -1, rateAsked: 0, players: [newPlayer(START_RATING)] };
+/* a player starting out: newPlayer, plus the holdback's roll (only here and at Start over, not each time a save loads) */
+const freshPlayer = () => Object.assign(newPlayer(START_RATING), coachChoiceForNew());
+let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, remind: -1, rateAsked: 0, players: [freshPlayer()] };
 /* Two copies of the save (the iOS app's iCloud copy, from another device): keep the one with more progress (rated
    puzzles plus daily puzzles played). A save with no progress never replaces one with some, so a fresh install
    that hasn't heard from iCloud yet can't wipe it; a newer Start over (S.reset) replaces an older history.
@@ -3156,7 +3158,7 @@ $("resetBtn").addEventListener("click", () => {
   const b = $("resetBtn");
   if (b.dataset.armed) {
     resetIdle();
-    replaceProgress(Object.assign(S, { players: [newPlayer(START_RATING)], cur: 0, awards: [], reset: true })); track("reset");
+    replaceProgress(Object.assign(S, { players: [freshPlayer()], cur: 0, awards: [], reset: true })); track("reset");
     return;
   }
   b.classList.add("danger"); b.textContent = T("Erase progress?"); b.disabled = true;

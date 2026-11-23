@@ -12,7 +12,10 @@ function savedPlayer(to = 1112) {
   return { v: 2, updatedAt: Date.now(), cur: 0, sound: false, haptics: true, rateAsked: Date.now(), players: [{
     name: "Player 1", rating: h[h.length - 1], n: 180, solved: 117, streak: 4, best: 13, peak: Math.max(...h), hist: h,
     last: [1, 1, 0, 1, 1, 0.5, 1, 1, 1, 0, 1, 1, 1, 0.5, 1, 1, 0, 1, 1, 1], seen: {}, review: [], mode: "normal",
-    since: Date.now() - 40 * 864e5, back: 7, runs: { p: 15, n: 15, b: 9 }, daily: dailyWeek() }] };
+    since: Date.now() - 40 * 864e5, back: 7, runs: { p: 15, n: 15, b: 9 }, daily: dailyWeek(),
+    /* the coach, ready: two kinds to work on, two strong. On Any kind, so the seeded puzzles stay the ones the captions
+       describe (Coached would draw differently) */
+    coach: { pin: [11, -2.2], skewer: [9, -1.1], fork: [14, 2.4], mate: [16, 1.8], backrank: [9, 0.3], sac: [8, 0.1] }, choice: "any" }] };
 }
 // six daily puzzles solved in a row up to the day before SHOT_DATE
 function dailyWeek() {

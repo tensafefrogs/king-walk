@@ -17,10 +17,9 @@ does better or worse at than their rating expects, and mixes in more of what the
    the brief's area names: the owner, 23 November).**
 3. **Coached puzzle choice, on by default (done)**, with Settings, Puzzle choice: Coached / Any kind, and a holdback.
    **Around 23 December 2026: compare and remove the holdback** (`COACH_HOLDBACK` in `index.html`): `coach-back/7d`
-   against `back/7d`, and the holdback's own returns (`testing/STATS.md`, The coach). With the first app version that has the
-   coach (1.0.6; 1.0.5, queued now, doesn't): the listing's "A coach that learns your weak spots", and store screenshots
-   and press kit showing the coach card (`ios/store/screenshots.js` should pose a player whose coach is ready). Not
-   before: 1.0.5's submission uploads the repo's screenshots.
+   against `back/7d`, and the holdback's own returns (`testing/STATS.md`, The coach). The coach ships in 1.0.5 (rebuilt with it, the owner's call),
+   with the listing's new line and screenshots showing it. A screenshot of its own (Work on with Practise) would sell it
+   better than the corner of the progress card the current ones show.
 4. **Nudges**, after the stats from 2 and 3: on the daily's card, after a miss, and "Today's focus" on the widgets.
 
 iOS, in order of impact for the effort (November 2026):
