@@ -14,6 +14,7 @@
 //   - the store scripts read App Store Connect's lists past their first page
 //   - two devices sharing a save through iCloud lose no progress (testing/sync-model.js)
 //   - release.py's TestFlight and submission steps hold up against a pretend App Store Connect
+//   - the puzzle bands are unchanged (testing/puzzles.lock.json), as the daily and saves depend on them
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -126,6 +127,23 @@ catch (e) { check(false, "two devices' saves: no progress lost through iCloud (n
 // submission waits for screenshots to process; a request the model doesn't know fails it, so it moves with release.py
 try { execFileSync("python3", ["-I", path.join(ROOT, "ios/store/release_model.py")], { stdio: "pipe" }); check(true); }
 catch (e) { check(false, "release.py keeps every queued version's build and waits for processing (python3 ios/store/release_model.py)", (e.stdout.toString() + e.stderr.toString()).trim().split("\n").slice(-4)); }
+
+// the puzzles: the daily puzzle and saves find a puzzle by its band, its place in the band and the band's size, and the
+// app versions already out pick the daily from their own copy of p/. Any change to a band (order, count, a puzzle's
+// moves) makes the website and those apps disagree on the day's puzzle, so each band's content is locked here
+const LOCK = path.join(ROOT, "testing/puzzles.lock.json");
+const bandsNow = {};
+for (const b of fs.readdirSync(path.join(ROOT, "p")).filter(d => /^\d+$/.test(d)).sort((a, b) => a - b)) {
+  const files = fs.readdirSync(path.join(ROOT, "p", b)).filter(f => /^\d+\.txt$/.test(f)).sort((x, y) => parseInt(x) - parseInt(y));
+  const lines = files.map(f => read(`p/${b}/${f}`)).join("").split("\n").filter(Boolean);
+  bandsNow[b] = { n: lines.length, sha256: require("crypto").createHash("sha256").update(lines.join("\n")).digest("hex").slice(0, 16) };
+}
+if (process.argv.includes("--lock-puzzles")) { fs.writeFileSync(LOCK, JSON.stringify(bandsNow, null, 1) + "\n"); console.log("puzzles locked:", LOCK); }
+const locked = fs.existsSync(LOCK) ? JSON.parse(fs.readFileSync(LOCK, "utf8")) : {};
+const moved = Object.keys({ ...locked, ...bandsNow }).filter(b => JSON.stringify(locked[b]) !== JSON.stringify(bandsNow[b]));
+check(!moved.length, "the puzzle bands are as the apps already out have them: a changed band (order, count or a puzzle) gives the website a " +
+  "different daily puzzle from those apps, and moves saves and second tries to other puzzles. If the change is meant (with a plan for the " +
+  "apps), run node testing/parity.js --lock-puzzles and say so in the commit", moved.map(b => ({ band: b, locked: locked[b], now: bandsNow[b] })));
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

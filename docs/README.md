@@ -31,7 +31,7 @@ The website deploys from `main` in about a minute. App releases are separate: ed
 
 | What changed | Run | Also in CI |
 |---|---|---|
-| Anything | `node testing/parity.js` (seconds): website and both apps in step, release.json, store scripts, saves model, committed files | `smoke` |
+| Anything | `node testing/parity.js` (seconds): website and both apps in step, release.json, store scripts, saves model, committed files, the puzzle bands | `smoke` |
 | Game behaviour | `node testing/smoke.js` (plays puzzles on the web and in simulated apps), `node testing/unit.js` (3.5 min, on a fixed clock) | `smoke` |
 | Anything on screen | `node testing/layout.js <langs> <sizes>` (screenshots in `testing/out/`) | `layout` (en, de; 6 sizes) |
 | The daily puzzle | `node testing/daily-model.js` (random play across days) | `daily-model` |

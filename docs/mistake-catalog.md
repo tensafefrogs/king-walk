@@ -557,9 +557,12 @@ runs after the push. §2 closes that for the website.
 - **The owner's IDs in code:** they were moved out in `62d9a22`, at the start, and haven't come back.
   - A check needs the values, which are Actions variables. A workflow step could grep for them cheaply if this
     ever recurs.
-- **Reordering a puzzle band:** high impact (the daily would differ between app versions) but it has never
-  happened. Note for later: a committed list of each band's chunk hashes that may only grow would catch it in
-  milliseconds.
+- **Changing a puzzle band:** it has never happened, but it would be high impact: the daily would differ between
+  the website and the apps already out, and saves would point at other puzzles. At the owner's request it is enforced
+  anyway, by parity.js against `testing/puzzles.lock.json` (each band's count and a hash of its puzzles in order).
+  The lock matches the bands of every released version (checked against the files before `0719156`, when they were
+  cut into chunks). Unproven on real history, since there's no past instance; two puzzles swapped in a copy of band
+  1000 fail it.
 - **CHANGELOG, STATS.md and README kept in step:** prose rules with no reliable signal (which commits are
   "player-visible" is a judgement). A check would misfire often and be ignored.
 - **The age rating's booleans** (`cddbcbd`): Apple changed the API; once. §3's model doesn't cover Apple changing
