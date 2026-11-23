@@ -11,7 +11,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 Nothing yet.
 
-### 1.0.5 (on TestFlight, build 2611230426, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
+### 1.0.5 (on TestFlight, build 2611231441, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
 
 - **Sound that stopped comes back:** on iPhone the game's sounds could stop for good after a few puzzles (iOS left the
   audio silent after an interruption, such as a notification). The next tap now starts it again. (Also on the website.)
@@ -20,6 +20,8 @@ Nothing yet.
   (Also on the website.)
 - **The store pages say it plainly:** the apps play fully offline, with every puzzle on the device (the description,
   the promotional text and the search keywords, in every language).
+- **Stats made offline aren't lost:** play counts made without a connection wait on the device (up to 1,000, for a
+  week) and go out once it's back online, two a second at most so GoatCounter isn't flooded. (Also on the website.)
 - **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
   minute while it was open. It now animates once, as the daily opens. (Also on the website.)
 - **A coach that learns your weak spots:** after each puzzle the game

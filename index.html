@@ -1566,12 +1566,15 @@ const PLATFORM = (() => {
 const TRACK_PREFIX = APP ? (APP.os === "android" ? "king-walk-android/" : "king-walk-ios/") : "king-walk/";
 /* The queue: events wait in the device's storage until they can go out, so play without a connection (on a plane, in
    the underground) is counted once the device is back online. Within limits: at most STATS_MAX events wait (the oldest
-   go first), and none older than STATS_DAYS days (GoatCounter counts an event on the day it arrives, so a late one is
-   counted a day or two late; much later would just be noise). Each event leaves the queue as it's sent. (In the iOS
+   go first; a week offline is a few hundred), and none older than STATS_DAYS days (GoatCounter counts an event on the
+   day it arrives, so a late one is counted late; much later would just be noise). They go out one at a time, one every
+   STATS_GAP ms: GoatCounter's public /count takes 4 a second from a player and drops the rest, so a long queue never
+   arrives as a burst (its batch API needs a secret token, which a public page can't carry). Each event leaves the queue
+   as it's sent; what's left when the game closes goes the next time it's open. (In the iOS
    app the page's storage is mirrored to iCloud with the save, so a fresh install restored from it while another device
    still had events waiting could send those too: rare, and a few events at most.) */
-const STATS_KEY = "kw-stats", STATS_MAX = 100, STATS_DAYS = 3;
-let trackQ = [], trackTimer = 0;
+const STATS_KEY = "kw-stats", STATS_MAX = 1000, STATS_DAYS = 7, STATS_GAP = 500;
+let trackQ = [], trackTimer = 0, trackNext = 0;
 try { const q = JSON.parse(localStorage.getItem(STATS_KEY)); if (Array.isArray(q)) trackQ = q.filter(e => Array.isArray(e) && typeof e[0] === "string" && e[0].length < 80 && isFinite(e[1])); } catch (e) {}
 function saveTrackQ() { try { if (trackQ.length) localStorage.setItem(STATS_KEY, JSON.stringify(trackQ)); else localStorage.removeItem(STATS_KEY); } catch (e) {} }
 function track(name) {
@@ -1592,10 +1595,11 @@ function loadStatsScript() {          /* (again): the script didn't load, e.g. t
 function flushTrack() {
   const old = Date.now() - STATS_DAYS * 864e5, before = trackQ.length;
   trackQ = trackQ.filter(e => e[1] >= old); if (trackQ.length !== before) saveTrackQ();
-  if (!trackQ.length) return;
+  if (!trackQ.length || trackNext) return;          /* trackNext: the next send is already timed */
   const gc = window.goatcounter;
   if (navigator.onLine !== false && gc && gc.count) {
-    try { while (trackQ.length) { const [n] = trackQ.shift(); saveTrackQ(); gc.count({ path: TRACK_PREFIX + n, title: n, event: true }); } } catch (e) {}
+    try { const [n] = trackQ.shift(); saveTrackQ(); gc.count({ path: TRACK_PREFIX + n, title: n, event: true }); } catch (e) {}
+    trackNext = setTimeout(() => { trackNext = 0; flushTrack(); }, STATS_GAP);
     return;
   }
   if (navigator.onLine !== false) loadStatsScript();

@@ -347,30 +347,32 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     const [c, h, m] = cel;
     check(c.conf === 1 && c.glow && c.bounce && h.conf === 0 && h.glow && h.bounce && m.conf === 0 && !m.glow && m.bounce,
       "every solve is celebrated: clean with confetti, with a hint the glow and bounce, after a miss the bounce", cel); }
-  // stats wait on the device while it's offline and go out, in order, once it's back online; at most 100 wait and none
-  // older than 3 days
+  // stats wait on the device while it's offline and go out, in order, once it's back online, one at a time (GoatCounter
+  // takes 4 a second from a player); at most 1000 wait and none older than 7 days
   { const ctx = await b.newContext(), sp = await ctx.newPage();
     await sp.route(/zgo\.at|goatcounter/, r => r.abort());
     await sp.route("**/config.js", r => r.fulfill({ contentType: "application/javascript", body: 'window.KING_WALK_CONFIG={goatcounter:"https://example.goatcounter.com/count"};' }));
-    await sp.addInitScript(() => { window.__sent = []; window.goatcounter = { count: e => window.__sent.push(e.title) }; });
+    await sp.addInitScript(() => { window.__sent = []; window.goatcounter = { count: e => window.__sent.push([e.title, performance.now()]) }; });
     await sp.goto(srv.url); await sp.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 });
-    await sp.evaluate(() => { window.__sent = []; });
+    await sp.evaluate(() => new Promise(r => setTimeout(r, 1500))).then(() => sp.evaluate(() => { window.__sent = []; }));
     await ctx.setOffline(true);
-    const off = await sp.evaluate(() => { track("test/one"); track("test/two"); return { sent: window.__sent.slice(), stored: JSON.parse(localStorage.getItem("kw-stats") || "[]").map(e => e[0]) }; });
+    const off = await sp.evaluate(() => { for (let k = 0; k < 8; k++) track("test/" + k); return { sent: window.__sent.length, stored: JSON.parse(localStorage.getItem("kw-stats") || "[]").map(e => e[0]) }; });
     await ctx.setOffline(false);
-    await sp.waitForFunction(() => window.__sent.includes("test/two"), null, { timeout: 5000 }).catch(() => {});
-    const on = await sp.evaluate(() => ({ sent: window.__sent.filter(n => n.startsWith("test/")), left: localStorage.getItem("kw-stats") }));
+    await sp.waitForFunction(() => window.__sent.some(e => e[0] === "test/7"), null, { timeout: 15000 }).catch(() => {});
+    const on = await sp.evaluate(() => { const s = window.__sent.filter(e => e[0].startsWith("test/")), gaps = s.slice(1).map((e, i) => e[1] - s[i][1]);
+      return { sent: s.map(e => e[0]), minGap: Math.round(Math.min(...gaps)), left: localStorage.getItem("kw-stats") }; });
     await ctx.setOffline(true);
     const lim = await sp.evaluate(() => {
-      for (let k = 0; k < 150; k++) track("test/many-" + k);
+      for (let k = 0; k < 1200; k++) track("test/many-" + k);
       const kept = (JSON.parse(localStorage.getItem("kw-stats")) || []).map(e => e[0]);
-      trackQ.unshift(["test/stale", Date.now() - 4 * 864e5]); flushTrack();
-      return { n: kept.length, first: kept[0], last: kept[kept.length - 1], stale: trackQ.some(e => Array.isArray(e) && e[0] === "test/stale") };
+      trackQ.unshift(["test/stale", Date.now() - 8 * 864e5]); trackQ.push(["test/week", Date.now() - 6 * 864e5]); flushTrack();
+      return { n: kept.length, first: kept[0], last: kept[kept.length - 1], stale: trackQ.some(e => e[0] === "test/stale"), week: trackQ.some(e => e[0] === "test/week") };
     });
     await ctx.close();
-    check(!off.sent.length && off.stored.join() === "test/one,test/two", "stats: offline, events wait in the device's storage", off);
-    check(on.sent.join() === "test/one,test/two" && on.left === null, "stats: back online, the waiting events go out in order and leave the queue", on);
-    check(lim.n === 100 && lim.first === "test/many-50" && lim.last === "test/many-149" && !lim.stale, "stats: at most 100 wait (the oldest go first) and none older than 3 days", lim); }
+    check(!off.sent && off.stored.join() === "test/0,test/1,test/2,test/3,test/4,test/5,test/6,test/7", "stats: offline, events wait in the device's storage", off);
+    check(on.sent.join() === off.stored.join() && on.left === null, "stats: back online, the waiting events go out in order and leave the queue", on);
+    check(on.minGap >= 450, "stats: they go out one at a time, at most 2 a second (GoatCounter takes 4), never as a burst", on);
+    check(lim.n === 1000 && lim.first === "test/many-200" && lim.last === "test/many-1199" && !lim.stale && lim.week, "stats: at most 1000 wait (the oldest go first) and none older than 7 days", lim); }
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });
@@ -640,6 +642,7 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   for (const [locale, want] of [["sw-KE", "lang-wanted/sw"], ["de-DE", null]]) {
     const w = await page("", () => { Object.defineProperty(window, "KING_WALK_CONFIG", { get: () => ({ goatcounter: "https://example.invalid/count" }), set() {} });
       window.counted = []; Object.defineProperty(window, "goatcounter", { get: () => ({ count: o => window.counted.push(o.title) }), set() {} }); }, { locale });
+    await w.p.waitForFunction(() => !trackQ.length, null, { timeout: 10000 }).catch(() => {});          // events go out two a second
     const got = await w.p.evaluate(() => window.counted.filter(t => /^lang/.test(t)));
     check(want ? got.includes(want) : !got.some(t => t.startsWith("lang-wanted")), `${locale}: ${want || "no lang-wanted"}`, got);
     await w.ctx.close();
