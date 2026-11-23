@@ -39,7 +39,7 @@ async function run(b, url, app) {
   for (let i = 0; i < 3; i++) { await solve(p); await p.evaluate(() => $("nextBtn").click()); }
   const share = await p.evaluate(() => shareText(lastResult));
   await p.waitForTimeout(1200);          // the first-solve celebration comes a moment after the solve
-  const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], n: me().n, solved: me().solved, rating: me().rating, level: me().place && me().place.r, shown: $("rating").textContent, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
+  const r = await p.evaluate(() => ({ celebrated: window.celebrated || [], coach: Object.keys(me().coach || {}).length, n: me().n, solved: me().solved, rating: me().rating, level: me().place && me().place.r, shown: $("rating").textContent, haptics: !$("hapticsRow").hidden, gc: !$("gcRow").hidden,
     sent: window.sent ? window.sent.map(m => m.op + (m.kind ? ":" + m.kind : m.id ? ":" + m.id : m.board ? ":" + m.board : "")) : null, help: $("helpSaved").textContent,
     os: APP && APP.os, prefix: TRACK_PREFIX, remind: !$("remindRow").hidden, back: typeof kingWalkBack === "function" }));
   // a wrong move, a hint and the answer
@@ -71,6 +71,7 @@ async function run(b, url, app) {
     const name = app === "ios" ? "iOS app (simulated)" : app === "android" ? "Android app (simulated)" : "web";
     const check = (ok, what) => { if (!ok) { bad++; console.log("FAIL", name, what); } };
     check(r.n === 3 && r.solved === 3, "three puzzles solved: " + JSON.stringify(r));
+    check(r.coach > 0, "the coach recorded the solved puzzles' areas: " + JSON.stringify(r.coach));
     check(r.level > 600 && r.rating === 600 && r.shown === "?", "placement: three clean solves raise the level being tried, the rating stays hidden: " + JSON.stringify([r.level, r.rating, r.shown]));
     check(r.celebrated.includes("First Steps"), "the first clean solve is celebrated: " + JSON.stringify(r.celebrated));
     check(after.n === 4 && after.streak === 0 && after.review === 1, "a missed puzzle counts as a miss and comes back: " + JSON.stringify(after));

@@ -4,6 +4,21 @@ What's planned for King Walk, and what's on hold. Done features move out of this
 
 ## Next
 
+**The coach (in progress, from the owner's brief of 22 November 2026).** The game learns which kinds of puzzle a player
+does better or worse at than their rating expects, and mixes in more of what they're working on, with practice sets of
+10. All of it is arithmetic on the save; nothing leaves the device.
+
+1. **Results by area (done, no visible change).** 15 areas from the puzzles' themes (`AREAS` in `index.html`), scored
+   against the rating's expectation with older results fading, saved in `coach`. Thin areas to keep in mind for
+   practice sets (under 40 puzzles in a band): pins, discovered attacks, luring, defending, quiet moves and skewers in
+   the lowest bands (400-700); back-rank mates from 1200 up (none at 2300-2400); skewers from 2000 up; in-between moves
+   and clearing the way below 900. Offer Practise only where the player's level has enough.
+2. **The coach card, each puzzle's areas after it, practice sets at half rating.** Still open with the owner: whether
+   the coach ships before or after puzzle rush, and the final area names.
+3. **Coached puzzle choice, on by default**, with Settings → Puzzle choice: Coached / Any kind, and a holdback (1 in 10
+   new players start on Any kind for a month; then compare and remove it).
+4. **Nudges**, after the stats from 2 and 3: on the daily's card, after a miss, and "Today's focus" on the widgets.
+
 iOS, in order of impact for the effort (November 2026):
 
 1. **Today's puzzle on the Home Screen (two or three days).** The daily widget shows the position itself: the board drawn from the puzzle (SwiftUI, from the FEN the app already has), whose move, mate in n; a tap opens it. A puzzle in view is a stronger nudge than a number, and it shows in StandBy and on the Lock Screen too.
@@ -26,7 +41,6 @@ Android (the app is built: `android/README.md`; it launches once Google Play is 
 
 ## On hold
 
-- **Practice by theme, and a weak-spots coach.** Every puzzle is tagged (fork, pin, back-rank mate and so on), and the game knows which ones a player misses. A theme picker would let players practise one idea. A coach note would point at their weakest theme ("you miss pins most; here are 10"). No AI is needed: the data is already in the save.
 - **"Why does this work?" explanations.** After a puzzle, a short plain explanation of the winning idea. In the app this could come from Apple's on-device model (the Foundation Models framework), working from the known solution line so it can't make up moves. App only; check its chess claims before shipping. In China mainland it counts as AI-generated content: turn it off there, or the App Compliance answers change (ios/store/launch.md).
 
 ## Not yet

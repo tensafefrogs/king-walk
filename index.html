@@ -1190,12 +1190,44 @@ function toggleSection(btn, section) {
   section.classList.toggle("open", open); section.toggleAttribute("inert", !open); btn.setAttribute("aria-expanded", String(open));
 }
 
+/* ---------- the coach: how the player does at each kind of puzzle ----------
+   Each puzzle's Lichess themes (pz.th) map to a few areas (forks, pins, ...). After a puzzle, each of its areas
+   gets the result minus what the player's rating expected (the same expectation as ratingChange), with older
+   results fading: n = n x 0.95 + w, s = s x 0.95 + w x surprise. Strength is s / n: above 0, better than the rating
+   expects; below 0, worse. All of it is arithmetic on the save; nothing leaves the device. */
+const AREAS = {
+  fork: ["fork"], mate: ["mate", "mateIn1", "mateIn2", "mateIn3", "mateIn4", "mateIn5", "smotheredMate"],
+  attack: ["kingsideAttack", "queensideAttack", "exposedKing"], sac: ["sacrifice"], pin: ["pin"],
+  disc: ["discoveredAttack", "doubleCheck"], promo: ["advancedPawn", "promotion", "underPromotion"], lure: ["deflection", "attraction"],
+  loose: ["hangingPiece", "trappedPiece"], backrank: ["backRankMate"], defend: ["defensiveMove"], skewer: ["skewer", "xRayAttack"],
+  quiet: ["quietMove", "zugzwang"], between: ["intermezzo"], clear: ["clearance", "interference", "capturingDefender"],
+};
+const AREA_OF = {}; for (const [a, tags] of Object.entries(AREAS)) for (const t of tags) AREA_OF[t] = a;
+const COACH_DECAY = 0.95, COACH_MAX = 20;          /* n can't pass 1 / (1 - decay) = 20 */
+/* the areas a puzzle belongs to, each once, in the order of AREAS */
+const puzzleAreas = pz => { const got = new Set((pz.th || []).map(t => AREA_OF[t]).filter(Boolean)); return Object.keys(AREAS).filter(a => got.has(a)); };
+/* score: 1 clean, 0.5 with a hint, 0 missed; level: the player's rating before the puzzle (the placement level while
+   placing); w: 1, or 0.5 for a second try */
+function coachRecord(p, pz, score, level, w = 1) {
+  const areas = puzzleAreas(pz); if (!areas.length) return;
+  const surprise = score - 1 / (1 + Math.pow(10, (pz.r - level) / 400));
+  const c = p.coach || (p.coach = {}), r3 = v => Math.round(v * 1000) / 1000;
+  for (const a of areas) { const [n, s] = c[a] || [0, 0]; c[a] = [r3(n * COACH_DECAY + w), r3(s * COACH_DECAY + w * surprise)]; }
+}
+const coachStrength = (p, a) => { const v = p.coach && p.coach[a]; return v && v[0] > 0 ? v[1] / v[0] : 0; };
+/* the saved record, rebuilt so a damaged save can't break it: known areas only, n from 0 to COACH_MAX, |s| <= n */
+function cleanCoach(c) {
+  const q = {}; if (!c || typeof c !== "object") return q;
+  for (const a of Object.keys(AREAS)) { const v = c[a]; if (!Array.isArray(v) || !isFinite(v[0]) || !isFinite(v[1]) || +v[0] <= 0) continue;
+    const n = Math.min(+v[0], COACH_MAX); q[a] = [n, clamp(+v[1], -n, n)]; }
+  return q;
+}
 /* ---------- saved state (this browser only) ----------
    The storage key and the players list are kept from earlier versions so existing progress still loads.
    Only one player is used now. */
 const LS_KEY = "chess-climb-v1";
 function newPlayer(rating) {
-  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace() };
+  return { name: "Player 1", rating, n: 0, solved: 0, streak: 0, best: 0, peak: rating, hist: [rating], last: [], seen: {}, review: [], mode: "normal", since: Date.now(), back: 0, runs: {}, daily: newDaily(), place: newPlace(), coach: {} };
 }
 function newDaily() { return { streak: 0, best: 0, last: 0, freezes: 0, days: {} }; }
 const FREEZE_MAX = 2;          /* streak freezes a player can hold */
@@ -1230,6 +1262,7 @@ function cleanState(raw) {
     else if (q.n > 0) delete q.place;          /* played before placement existed: already placed */
     q.since = isFinite(p.since) && +p.since > 0 ? +p.since : 0; q.back = count(p.back);
     q.daily = cleanDaily(p.daily);
+    q.coach = cleanCoach(p.coach);
     q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
@@ -1888,6 +1921,7 @@ function finish(solvedIt) {
   const p = me(), before = p.rating, level = p.place ? p.place.r : p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
   let delta = 0, placed = false;
+  coachRecord(p, cur.pz, score, level, cur.review ? 0.5 : 1);          /* a second try counts half */
   if (!cur.review) {          /* second tries are practice and leave the rating alone */
     if (p.place) {          /* placement: the rating stays hidden and still until the level is found */
       const pl = placeStep(p.place, score);
@@ -2301,6 +2335,7 @@ function finishDaily(solved) {
     dailyDoneButtons(); $("againBtn").focus({ preventScroll: true }); return;
   }
   const d = DAILY, p = me(), D = p.daily, t = dailySpent(), moves = (cur.pz.moves.length) >> 1;
+  coachRecord(p, cur.pz, !solved || failed ? 0 : hintLevel ? 0.5 : 1, p.place ? p.place.r : p.rating);
   /* solved: the moves played (a different mate can end it early); shown: every move */
   const m = Array.from({ length: solved ? Math.max(1, d.marks.length) : moves }, (_, j) => d.marks[j] || (solved ? "g" : "x")).join("");
   const froze = recordDaily(D, d.n, m, t, solved); save();
@@ -2478,6 +2513,7 @@ function leaveRun() { RUN = null; resumeMain = true; nextPuzzle(); }
 /* a puzzle in a streak is over: count it, or end the run */
 function finishRun(clean) {
   const r = RUN, rk = RANKS[r.rank], p = me();
+  coachRecord(p, cur.pz, clean ? 1 : 0, p.place ? p.place.r : p.rating); save();          /* a streak allows no hints: clean or missed */
   if (clean) {
     r.step++;
     if (r.step > (p.runs[rk[2]] || 0)) { p.runs[rk[2]] = r.step; save(); }

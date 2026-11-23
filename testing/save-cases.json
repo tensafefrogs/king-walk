@@ -539,6 +539,46 @@
     ]
    },
    "a_wins": false
+  },
+  {
+   "what": "the coach's record doesn't decide: more progress wins over a bigger record",
+   "a": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 10,
+      "since": 1000,
+      "daily": {
+       "days": {}
+      },
+      "coach": {
+       "pin": [
+        20,
+        5
+       ],
+       "fork": [
+        20,
+        -3
+       ]
+      }
+     }
+    ]
+   },
+   "b": {
+    "v": 2,
+    "updatedAt": 1800000000000,
+    "players": [
+     {
+      "n": 20,
+      "since": 1000,
+      "daily": {
+       "days": {}
+      }
+     }
+    ]
+   },
+   "a_wins": false
   }
  ]
 }

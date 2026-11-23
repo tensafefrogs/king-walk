@@ -9,7 +9,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
-Nothing yet.
+- **Groundwork for the coach (nothing on screen yet; on the website now):** after each puzzle the game notes, on the
+  device, how the player did at that kind of puzzle (forks, pins, checkmates and so on) against what their rating
+  expected. The coach that shows it comes next; this way it has something to say from the day it appears.
 
 ### 1.0.5 (queued 2026-11-23 with the owner's go-ahead: built from main and on TestFlight now; submitted once 1.0.4 is released, released on approval; all of it already on the website)
 

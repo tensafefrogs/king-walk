@@ -232,6 +232,30 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   const saveCases = JSON.parse(fs.readFileSync(path.join(__dirname, "save-cases.json"), "utf8")).cases;
   const sv = await p.evaluate(cases => cases.map(c => ({ what: c.what, got: betterSave(cleanState(c.a) || c.a, cleanState(c.b) || c.b), want: c.a_wins })), saveCases);
   for (const c of sv) check(c.got === c.want, "which device's save to keep: " + c.what, c);
+  // the coach: themes to areas, the score against the rating's expectation with older results fading, second tries
+  // at half weight, the save cleaned, Start over clearing it
+  const co = await p.evaluate(() => {
+    const areas = puzzleAreas({ th: ["endgame", "pin", "backRankMate", "mateIn2", "crushing", "castling"] }), none = puzzleAreas({ th: ["middlegame", "long", "enPassant"] });
+    const pl = newPlayer(1500), pz = { r: 1500, th: ["pin"] };
+    coachRecord(pl, pz, 1, 1500); const one = pl.coach.pin.slice();
+    coachRecord(pl, pz, 1, 1500); const two = pl.coach.pin.slice();
+    coachRecord(pl, pz, 0, 1500, 0.5); const half = pl.coach.pin.slice();
+    const hint = newPlayer(1500); coachRecord(hint, { r: 1100, th: ["fork"] }, 0.5, 1500);          /* expected about 0.91: a hint on an easy one is below it */
+    const cleaned = cleanCoach({ pin: [2, 1], bogus: [1, 1], fork: ["x", 1], mate: [-1, 0], skewer: [50, 99], sac: [3, -9] });
+    const round = cleanState({ players: [Object.assign(newPlayer(900), { coach: { pin: [2.5, -0.75] } })] }).players[0].coach;
+    return { areas, none, one, two, half, hint: hint.coach.fork, strength: coachStrength(pl, "pin"), cleaned, round, fresh: newPlayer(600).coach, played: me().coach };
+  });
+  check(co.areas.join() === "mate,pin,backrank" && !co.none.length, "the coach: a puzzle's themes map to its areas; phase and result tags don't", co.areas);
+  check(co.one.join() === "1,0.5" && co.two.join() === "1.95,0.975" && co.half.join() === "2.353,0.676", "the coach: score minus expectation, older results fading, a second try at half weight", [co.one, co.two, co.half]);
+  check(co.hint[0] === 1 && co.hint[1] < -0.4 && co.strength > 0, "the coach: a hint counts half a solve, against what the rating expects", { hint: co.hint, strength: co.strength });
+  check(JSON.stringify(co.cleaned) === JSON.stringify({ sac: [3, -3], pin: [2, 1], skewer: [20, 20] }) && JSON.stringify(co.round) === JSON.stringify({ pin: [2.5, -0.75] }), "the coach's save is cleaned: known areas, numbers in range", co.cleaned);
+  check(JSON.stringify(co.fresh) === "{}" && co.played && typeof co.played === "object", "the coach: a new player (Start over) starts with no record", co);
+  // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
+  // constant the cleaning needs, defined further down, once made every reload start over)
+  { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });
+    await w.p.reload(); await w.p.waitForFunction(() => typeof cur !== "undefined" && cur, null, { timeout: 15000 });
+    const back = await w.p.evaluate(() => ({ n: me().n, coach: me().coach })); await w.ctx.close();
+    check(back.n === 7 && back.coach.pin && back.coach.pin[0] === 3, "progress and the coach's record are still there after a reload", back); }
   const cl = await p.evaluate(() => { const before = me().n; const other = JSON.parse(JSON.stringify(S)); other.players[0].n = before + 40; other.players[0].rating = 1777;
     kingWalkCloud(JSON.stringify(other)); const took = me().rating; const worse = JSON.parse(JSON.stringify(S)); worse.players[0].n = 1; worse.players[0].rating = 401; kingWalkCloud(JSON.stringify(worse)); kingWalkCloud("not json");
     return { took, kept: me().rating }; });
