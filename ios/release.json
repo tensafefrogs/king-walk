@@ -1,7 +1,7 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "xcode27": true,
-  "build": false,
+  "build": true,
   "testflight": {
     "groups": [
       "Internal",
@@ -10,9 +10,61 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.4 from main: fits older iPads held sideways (no slight scroll), and the stats go to King Walk's own counter. Tell me anything that's broken or reads wrong."
+    "whats_new": "1.0.5 from main: a new card at the end of the daily puzzle that shows what Share sends, in Duolingo-style colours, with the time first and the weekday; achievements after the day's card; a daily finished after midnight gets its card. Tell me anything that's broken or reads wrong."
   },
-  "app_store": null,
+  "app_store": {
+    "submit": true,
+    "release": "after_approval",
+    "replace_in_review": false,
+    "whats_new": {
+      "en-US": "A new card at the end of the daily puzzle shows what Share sends, with a colour for each move. Plus fixes for the daily puzzle.",
+      "ar-SA": "بطاقة جديدة في نهاية لغز اليوم تعرض ما سترسله المشاركة، بلون لكل نقلة. مع إصلاحات للغز اليوم.",
+      "bn-BD": "দৈনিক পাজলের শেষে নতুন কার্ড দেখায় শেয়ার কী পাঠাবে, প্রতিটি চালের জন্য একটি রঙে। সঙ্গে দৈনিক পাজলের কিছু সংশোধন।",
+      "ca": "Una targeta nova al final del problema del dia mostra què envia Compartir, amb un color per a cada jugada. I correccions al problema del dia.",
+      "cs": "Nová karta na konci úlohy dne ukazuje, co odešle Sdílet, s barvou pro každý tah. A opravy úlohy dne.",
+      "da": "Et nyt kort efter dagens opgave viser, hvad Del sender, med en farve for hvert træk. Plus rettelser til dagens opgave.",
+      "de": "Eine neue Karte am Ende der Aufgabe des Tages zeigt, was Teilen sendet, mit einer Farbe für jeden Zug. Dazu Korrekturen bei der Aufgabe des Tages.",
+      "el": "Μια νέα κάρτα στο τέλος του γρίφου της ημέρας δείχνει τι στέλνει η Κοινοποίηση, με ένα χρώμα για κάθε κίνηση. Και διορθώσεις στον γρίφο της ημέρας.",
+      "es": "Una nueva tarjeta al final del problema del día muestra lo que envía Compartir, con un color para cada jugada. Y arreglos en el problema del día.",
+      "es-ES": "Una nueva tarjeta al final del problema del día muestra lo que envía Compartir, con un color para cada jugada. Y correcciones en el problema del día.",
+      "fi": "Uusi kortti päivän tehtävän lopussa näyttää, mitä Jaa lähettää, ja jokaisella siirrolla on oma värinsä. Lisäksi korjauksia päivän tehtävään.",
+      "fr": "Une nouvelle carte à la fin du problème du jour montre ce que Partager envoie, avec une couleur pour chaque coup. Et des corrections pour le problème du jour.",
+      "gu-IN": "દૈનિક કોયડાના અંતે નવું કાર્ડ બતાવે છે કે શેર કરો શું મોકલશે, દરેક ચાલ માટે એક રંગ સાથે. સાથે દૈનિક કોયડામાં સુધારા.",
+      "he": "כרטיס חדש בסוף החידה היומית מראה מה נשלח בשיתוף, עם צבע לכל מסע. ותיקונים בחידה היומית.",
+      "hi": "दैनिक पहेली के अंत में नया कार्ड दिखाता है कि शेयर करें क्या भेजेगा, हर चाल के लिए एक रंग के साथ। साथ ही दैनिक पहेली में सुधार।",
+      "hr": "Nova kartica na kraju dnevnog zadatka pokazuje što šalje Podijeli, s bojom za svaki potez. I ispravci dnevnog zadatka.",
+      "hu": "A napi feladvány végén egy új kártya mutatja, mit küld a Megosztás, minden lépéshez egy színnel. Valamint javítások a napi feladványban.",
+      "id": "Kartu baru di akhir puzzle harian menunjukkan apa yang dikirim Bagikan, dengan warna untuk setiap langkah. Plus perbaikan untuk puzzle harian.",
+      "it": "Una nuova scheda alla fine del problema del giorno mostra cosa invia Condividi, con un colore per ogni mossa. E correzioni al problema del giorno.",
+      "ja": "デイリーパズルの最後に、共有で送られる内容を表示する新しいカードが登場。一手ごとに色で示します。デイリーパズルの修正も。",
+      "kn-IN": "ದೈನಂದಿನ ಒಗಟಿನ ಕೊನೆಯಲ್ಲಿ ಹೊಸ ಕಾರ್ಡ್ ಹಂಚಿಕೊಳ್ಳಿ ಏನು ಕಳುಹಿಸುತ್ತದೆ ಎಂದು ತೋರಿಸುತ್ತದೆ, ಪ್ರತಿ ನಡೆಗೆ ಒಂದು ಬಣ್ಣದೊಂದಿಗೆ. ಜೊತೆಗೆ ದೈನಂದಿನ ಒಗಟಿನ ಸರಿಪಡಿಕೆಗಳು.",
+      "ko": "데일리 퍼즐을 마치면 공유로 보낼 내용을 보여 주는 새 카드가 나와요. 수마다 색으로 표시돼요. 데일리 퍼즐 수정도 함께.",
+      "ml-IN": "ഡെയ്‌ലി പസിലിന്റെ അവസാനം പുതിയ കാർഡ് പങ്കിടൂ എന്ത് അയയ്ക്കുമെന്ന് കാണിക്കുന്നു, ഓരോ നീക്കത്തിനും ഒരു നിറത്തോടെ. കൂടാതെ ഡെയ്‌ലി പസിലിലെ തിരുത്തലുകൾ.",
+      "mr-IN": "दैनिक कोड्याच्या शेवटी नवीन कार्ड दाखवते की शेअर करा काय पाठवेल, प्रत्येक चालीसाठी एका रंगासह. सोबत दैनिक कोड्यातील दुरुस्त्या.",
+      "ms": "Kad baharu di akhir teka-teki harian menunjukkan apa yang dihantar oleh Kongsi, dengan warna untuk setiap langkah. Serta pembetulan untuk teka-teki harian.",
+      "nl": "Een nieuwe kaart na de puzzel van de dag laat zien wat Delen verstuurt, met een kleur voor elke zet. Plus verbeteringen aan de puzzel van de dag.",
+      "no": "Et nytt kort etter dagens oppgave viser hva Del sender, med en farge for hvert trekk. Pluss rettelser i dagens oppgave.",
+      "or-IN": "ଦୈନିକ ପଜଲର ଶେଷରେ ନୂଆ କାର୍ଡ ଦେଖାଏ ସେୟାର କଣ ପଠାଇବ, ପ୍ରତ୍ୟେକ ଚାଲ ପାଇଁ ଗୋଟିଏ ରଙ୍ଗ ସହିତ। ସହିତ ଦୈନିକ ପଜଲରେ ସଂଶୋଧନ।",
+      "pa-IN": "ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ ਦੇ ਅੰਤ ਵਿੱਚ ਨਵਾਂ ਕਾਰਡ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਸਾਂਝਾ ਕਰੋ ਕੀ ਭੇਜੇਗਾ, ਹਰ ਚਾਲ ਲਈ ਇੱਕ ਰੰਗ ਨਾਲ। ਨਾਲ ਹੀ ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ ਵਿੱਚ ਸੁਧਾਰ।",
+      "pl": "Nowa karta na końcu zadania dnia pokazuje, co wyśle Udostępnij, z kolorem dla każdego ruchu. Do tego poprawki w zadaniu dnia.",
+      "pt": "Um novo cartão no fim do problema do dia mostra o que o Compartilhar envia, com uma cor para cada lance. E correções no problema do dia.",
+      "pt-PT": "Um novo cartão no fim do problema do dia mostra o que Partilhar envia, com uma cor para cada lance. E correções no problema do dia.",
+      "ro": "Un card nou la finalul problemei zilei arată ce trimite Distribuie, cu o culoare pentru fiecare mutare. Plus remedieri la problema zilei.",
+      "ru": "Новая карточка в конце задачи дня показывает, что отправит «Поделиться», с цветом для каждого хода. И исправления в задаче дня.",
+      "sk": "Nová karta na konci úlohy dňa ukazuje, čo odošle Zdieľať, s farbou pre každý ťah. A opravy úlohy dňa.",
+      "sl-SI": "Nova kartica na koncu dnevne uganke pokaže, kaj pošlje Deli, z barvo za vsako potezo. In popravki dnevne uganke.",
+      "sv": "Ett nytt kort efter dagens problem visar vad Dela skickar, med en färg för varje drag. Plus rättelser i dagens problem.",
+      "ta-IN": "தினசரி புதிரின் முடிவில் புதிய அட்டை பகிர் என்ன அனுப்பும் என்பதைக் காட்டுகிறது, ஒவ்வொரு நகர்வுக்கும் ஒரு நிறத்துடன். கூடவே தினசரி புதிரில் திருத்தங்கள்.",
+      "te-IN": "రోజువారీ పజిల్ చివర కొత్త కార్డు షేర్ ఏమి పంపుతుందో చూపిస్తుంది, ప్రతి ఎత్తుకు ఒక రంగుతో. అలాగే రోజువారీ పజిల్‌లో సవరణలు.",
+      "th": "การ์ดใหม่ตอนจบโจทย์ประจำวันแสดงสิ่งที่แชร์จะส่ง พร้อมสีสำหรับแต่ละตา และการแก้ไขโจทย์ประจำวัน",
+      "tr": "Günün bulmacasının sonundaki yeni kart, Paylaş'ın ne göndereceğini her hamle için bir renkle gösteriyor. Ayrıca günün bulmacasında düzeltmeler.",
+      "uk": "Нова картка наприкінці задачі дня показує, що надішле «Поділитися», з кольором для кожного ходу. І виправлення в задачі дня.",
+      "ur-PK": "روزانہ پزل کے آخر میں نیا کارڈ دکھاتا ہے کہ شیئر کریں کیا بھیجے گا، ہر چال کے لیے ایک رنگ کے ساتھ۔ ساتھ ہی روزانہ پزل میں درستیاں۔",
+      "vi": "Thẻ mới ở cuối câu đố hằng ngày cho thấy nội dung Chia sẻ sẽ gửi, mỗi nước đi một màu. Kèm các bản sửa lỗi cho câu đố hằng ngày.",
+      "zh": "每日谜题结束时的新卡片会显示分享的内容，每步棋用一种颜色标示。另有每日谜题的修复。",
+      "zh-Hant": "每日謎題結束時的新卡片會顯示分享的內容，每步棋以一種顏色標示。另有每日謎題的修正。"
+    }
+  },
   "release_now": false,
-  "note": "1.0.4 (build 2611220327) submitted 2026-11-22 03:59 UTC with the owner's go-ahead, released automatically on approval. Back to TestFlight only, no new build. The next version (1.0.5, here and in android/release.json) waits for the next change worth shipping and the owner's go-ahead."
+  "note": "Owner's go-ahead (2026-11-23): queue 1.0.5. Build it from main now and give it to TestFlight; its App Store step waits while 1.0.4 is in review, then submits on the first 6-hourly run after 1.0.4 is released, and releases on approval."
 }

@@ -7,7 +7,11 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.5: on the website now; reaches the app with the next build)
+### Next app version (1.0.6)
+
+Nothing yet.
+
+### 1.0.5 (queued 2026-11-23 with the owner's go-ahead: built from main and on TestFlight now; submitted once 1.0.4 is released, released on approval; all of it already on the website)
 
 - **The daily's share, previewed and in Duolingo's colours:** the card at the end of the daily shows exactly what Share
   sends: the day's number, one square per move and the time, and the streak. The squares: 🟩 first try, 🟨 after one
@@ -21,6 +25,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   spent away.
 - **The day's card comes first:** an achievement the daily earns (such as a 3-day streak) now celebrates after the
   daily's card is closed, so the card and its Share are always the first thing after the daily.
+
+What's New: "A new card at the end of the daily puzzle shows what Share sends, with a colour for each move. Plus fixes
+for the daily puzzle." (in all 46 store languages, with each language's own name for the daily puzzle and Share; `ios/release.json`)
 
 ### 1.0.4 (in App Review since 2026-11-22, build 2611220327; released automatically when Apple approves)
 
@@ -76,7 +83,7 @@ What's New: "Fits better on older iPads held sideways, and small fixes." (in all
   page, and settings rows for what only the app has (daily reminder, widgets, Game Center, iCloud). At most one a
   week, each kind at most once a month, × hides them for a month; people who already have the app see at most one a month.
 
-## 1.0.3 (in App Review; resubmitted 18 November 2026 with build 2611181939: the daily's clock and pause and resume; released on approval)
+## 1.0.3 (released; build 2611181939: the daily's clock and pause and resume)
 
 - **The daily puzzle pauses and picks up where you left off:** leave it (the app to the background, Puzzles, another
   tab) and its clock stops and the position is saved, with your marks and time, and in the app to iCloud, so it carries

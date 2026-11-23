@@ -1,10 +1,10 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "xcode27": true,
   "testflight": {
     "groups": [
       "Internal"
     ],
-    "whats_new": "Preview build of the version after 1.0.4, not for the App Store yet. Tell me anything that looks off."
+    "whats_new": "Preview build of the version after 1.0.5, not for the App Store yet. Tell me anything that looks off."
   }
 }
