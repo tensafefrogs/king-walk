@@ -77,7 +77,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
   helps. `coach/practice-done/<area>/<n>` shows whether practice sets go well (most should land around 6 to 8 of 10).
 - **Platforms:** `platform/...` counts, and the web against the apps (`king-walk/` against `king-walk-ios/` and `king-walk-android/`).
 
-GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Open the GoatCounter dashboard and filter by `king-walk`.
+GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Events made offline wait on the device (at most 100, none older than 3 days) and are sent once it's back online, so they're counted on the day they arrive: a day's counts can include a little of the day or two before. Open the GoatCounter dashboard and filter by `king-walk`.
 
 If you add, rename or remove a `track()` call, update this page and the events list in `README.md`.
 

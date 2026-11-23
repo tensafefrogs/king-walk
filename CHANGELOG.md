@@ -18,6 +18,8 @@ Nothing yet.
 - **Every solve is celebrated:** a puzzle solved with a hint gets the board's glow and the piece's bounce, and one
   solved after a wrong move the bounce (only a clean solve had any celebration). A clean solve keeps its confetti.
   (Also on the website.)
+- **The store pages say it plainly:** the apps play fully offline, with every puzzle on the device (the description,
+  the promotional text and the search keywords, in every language).
 - **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
   minute while it was open. It now animates once, as the daily opens. (Also on the website.)
 - **A coach that learns your weak spots:** after each puzzle the game

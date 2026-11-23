@@ -347,6 +347,30 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     const [c, h, m] = cel;
     check(c.conf === 1 && c.glow && c.bounce && h.conf === 0 && h.glow && h.bounce && m.conf === 0 && !m.glow && m.bounce,
       "every solve is celebrated: clean with confetti, with a hint the glow and bounce, after a miss the bounce", cel); }
+  // stats wait on the device while it's offline and go out, in order, once it's back online; at most 100 wait and none
+  // older than 3 days
+  { const ctx = await b.newContext(), sp = await ctx.newPage();
+    await sp.route(/zgo\.at|goatcounter/, r => r.abort());
+    await sp.route("**/config.js", r => r.fulfill({ contentType: "application/javascript", body: 'window.KING_WALK_CONFIG={goatcounter:"https://example.goatcounter.com/count"};' }));
+    await sp.addInitScript(() => { window.__sent = []; window.goatcounter = { count: e => window.__sent.push(e.title) }; });
+    await sp.goto(srv.url); await sp.waitForFunction(() => typeof cur !== "undefined" && cur && !locked, null, { timeout: 15000 });
+    await sp.evaluate(() => { window.__sent = []; });
+    await ctx.setOffline(true);
+    const off = await sp.evaluate(() => { track("test/one"); track("test/two"); return { sent: window.__sent.slice(), stored: JSON.parse(localStorage.getItem("kw-stats") || "[]").map(e => e[0]) }; });
+    await ctx.setOffline(false);
+    await sp.waitForFunction(() => window.__sent.includes("test/two"), null, { timeout: 5000 }).catch(() => {});
+    const on = await sp.evaluate(() => ({ sent: window.__sent.filter(n => n.startsWith("test/")), left: localStorage.getItem("kw-stats") }));
+    await ctx.setOffline(true);
+    const lim = await sp.evaluate(() => {
+      for (let k = 0; k < 150; k++) track("test/many-" + k);
+      const kept = (JSON.parse(localStorage.getItem("kw-stats")) || []).map(e => e[0]);
+      trackQ.unshift(["test/stale", Date.now() - 4 * 864e5]); flushTrack();
+      return { n: kept.length, first: kept[0], last: kept[kept.length - 1], stale: trackQ.some(e => Array.isArray(e) && e[0] === "test/stale") };
+    });
+    await ctx.close();
+    check(!off.sent.length && off.stored.join() === "test/one,test/two", "stats: offline, events wait in the device's storage", off);
+    check(on.sent.join() === "test/one,test/two" && on.left === null, "stats: back online, the waiting events go out in order and leave the queue", on);
+    check(lim.n === 100 && lim.first === "test/many-50" && lim.last === "test/many-149" && !lim.stale, "stats: at most 100 wait (the oldest go first) and none older than 3 days", lim); }
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });
