@@ -44,7 +44,7 @@ The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected
 ## Setting up Google Play (once)
 
 1. **Pick the package name.** It's the app's permanent ID on Google Play and can never change (for example `app.kingwalk`). Add it as the repository variable **`ANDROID_APPLICATION_ID`** (Settings → Secrets and variables → Actions → Variables). It stays out of the code, like the iOS bundle ID.
-2. **Create the app in Play Console:** Home → Create app. Name King Walk, default language English (United States), Game, Free.
+2. **Create the app in Play Console:** Home → Create app. Name King Walk, default language English (United States), Game, **Paid** ($0.99, as on the App Store). Choose Paid here: Google Play never lets an app that has been free become paid (the reverse is allowed). A paid app needs a payments profile (Play Console → Setup → Payments profile, with a bank account and tax details); the price goes in Monetize with Play → Products → App pricing, where Google fills in each country's local price.
 3. **Make the upload key** on your computer (keep the file and passwords somewhere safe; Google signs the app for players with its own key, so a lost upload key can be reset through Play Console):
    ```bash
    keytool -genkeypair -v -keystore king-walk-upload.jks -alias upload -keyalg RSA -keysize 4096 -validity 10000
@@ -62,7 +62,7 @@ The APK is in `app/build/outputs/apk/debug/`. With a phone or emulator connected
 
 ### Before the app can go to production
 
-- **Personal developer accounts** (made after November 2023) must run a closed test with **at least 12 testers opted in for 14 days in a row** before Play Console lets the app apply for production. Start the closed test early: the internal track doesn't count.
+- **Personal developer accounts** (made after November 2023) must run a closed test with **at least 12 testers opted in for 14 days in a row** before Play Console lets the app apply for production. Start the closed test early: the internal track doesn't count. The app is paid: internal testers install it free, but closed (and open) testers have to buy it, so give the closed testers a promo code for it (Monetize with Play → Promo codes; a code for a paid app gives it free).
 - **App content** (Policy → App content): privacy policy (the website's `privacy.html`), ads (none), content rating questionnaire, target audience, data safety. For data safety: the game sends anonymous counts to GoatCounter (`testing/STATS.md`), no account, nothing linked to a person; Google's form counts that as app interactions collected for analytics, not shared, not linked to the user.
 - **Store listing:** made and uploaded by the **Google Play listing** workflow (`android/store/listing.py`) once `PLAY_SERVICE_ACCOUNT_JSON` is set: the text in English (`android/store/listing.json`) and in the iOS app's 45 languages, the 512 px icon (`store/icon-512.png`), the feature graphic (`store/feature-1024x500.png`, `node ios/store/header.js --play`) and five phone screenshots (`store/screenshots/`, `node ios/store/screenshots.js android`). Play Console still asks for the category (Games → Puzzle), contact email and the App content forms by hand.
 
