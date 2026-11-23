@@ -9,7 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
-Nothing yet.
+- **Slovak and Romanian say "skewer" as their players do:** *napichnutia* and *frigărui* (they read "Röntgeny" and
+  "Atacuri liniare"), the terms their chess coaches and sites use; the Romanian store text too. (Live on the website.)
 
 ### 1.0.5 (on TestFlight, build 2611231441, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
 

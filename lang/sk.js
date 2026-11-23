@@ -347,7 +347,7 @@
   "Loose pieces": "Nekryté figúry",
   "Back-rank mates": "Maty na poslednom rade",
   "Defending": "Obrana",
-  "Skewers": "Röntgeny",
+  "Skewers": "Napichnutia",
   "Quiet moves": "Tiché ťahy",
   "In-between moves": "Medziťahy",
   "Clearing the way": "Uvoľnenie línií",

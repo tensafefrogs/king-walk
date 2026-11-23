@@ -56,6 +56,12 @@ Chinese. This page says how the game picks and loads them, how to add one, and t
 
 Machine translations ship; a native player reading one over is worth asking for, chess terms and tactic names first.
 
+Terms checked against how that language's chess coaches and sites use them (keep them when retranslating):
+
+- Slovak: skewer is *napichnutie* (plural *napichnutia*); the older school term *rentgenový útok* covers x-rays and
+  skewers together. Not *špíz*, which reads as a kitchen skewer.
+- Romanian: skewer is *frigăruie* (plural *frigărui*); *legătură* and *țintuire* mean a pin, not a skewer.
+
 ## The brief for translators
 
 Translators (people or agents) get the English keys with two or three existing translations beside them for context
