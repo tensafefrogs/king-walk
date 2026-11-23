@@ -386,5 +386,8 @@
   "Coached": "కోచ్ ప్రకారం",
   "Any kind": "ఏ రకమైనా",
   "Coached mixes in more of what you're working on.": "కోచ్ ప్రకారం అంటే, మీరు మెరుగుపరుస్తున్న రకం పజిల్స్ ఎక్కువగా వస్తాయి.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ఏ రకమైనా: అన్ని రకాల పజిల్స్, ఎంత కష్టమో దాన్ని బట్టి మాత్రమే ఎంపిక."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ఏ రకమైనా: అన్ని రకాల పజిల్స్, ఎంత కష్టమో దాన్ని బట్టి మాత్రమే ఎంపిక.",
+  "Your coach is ready": "మీ కోచ్ సిద్ధం",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ఇప్పుడు దానికి మీ బలాలు, బలహీనతలు తెలుసు. పురోగతిలో, మీ రేటింగ్ కింద అది కనిపిస్తుంది.",
+  "Show me": "చూపించు"
 };

@@ -18,7 +18,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `placed/<name>` | A new player's placement ends (their first puzzles found their level), with the rank they placed at: `pawn` … `king`. The ranks passed on the way also count as `rank/...` | `finish()` |
 | `back/1d`, `back/7d`, `back/30d` | The game is opened 1, 7 or 30 days or more after the player's first visit (once each) | startup |
 | `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed (shown as Relaxed, Balanced, Challenging) | the difficulty buttons |
-| `hint/1`, `hint/2` | The first and second hint on a puzzle (divide by `played` for how often they help) | `showHint()` |
+| `hint/1`, `hint/2` | The first (the piece) and second (the arrow) hint on a move; each of the player's moves has its own two since 1.0.5 (23 Nov 2026), so a puzzle can send several (before, at most one of each per puzzle) | `showHint()` |
 | `answer` | Answer pressed: the solution is shown | `showAnswer()` |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
 | `share/daily` | Share pressed after the daily puzzle (its coloured squares); `share` is then everything else (the progress summary) | `shareProgress()` |

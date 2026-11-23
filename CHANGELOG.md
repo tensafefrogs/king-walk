@@ -25,6 +25,12 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   week) and go out once it's back online, two a second at most so GoatCounter isn't flooded. (Also on the website.)
 - **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
   minute while it was open. It now animates once, as the daily opens. (Also on the website.)
+- **Hints, move by move:** every move of a puzzle has its own two hints, the piece to move and then the arrow (a second
+  hint used to stay an arrow for the rest of the puzzle, and two used them up). Any hint still makes it a hint solve.
+  (Also on the website.)
+- **"Your coach is ready":** once the coach knows enough (about 30 puzzles), a card says so after that puzzle, and its
+  button scrolls down to the coach under Progress and lights it up, so players learn where it lives. Once per player.
+  (Also on the website.)
 - **A coach that learns your weak spots:** after each puzzle the game
   notes, on the device, how you did at that kind of puzzle (forks, pins, checkmates, 15 kinds in all) against what
   your rating expected. After about 30 puzzles, a Coach section under Progress shows what to **work on**, each with a

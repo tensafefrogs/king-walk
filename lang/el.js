@@ -386,5 +386,8 @@
   "Coached": "Με προπονητή",
   "Any kind": "Οποιοσδήποτε",
   "Coached mixes in more of what you're working on.": "Με προπονητή: ανακατεύει περισσότερους γρίφους απ' όσα δουλεύεις.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Οποιοσδήποτε: γρίφοι κάθε είδους, επιλεγμένοι μόνο με βάση τη δυσκολία."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Οποιοσδήποτε: γρίφοι κάθε είδους, επιλεγμένοι μόνο με βάση τη δυσκολία.",
+  "Your coach is ready": "Ο προπονητής σου είναι έτοιμος",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Τώρα ξέρει τα δυνατά και τα αδύναμα σημεία σου. Θα τον βρεις στην Πρόοδο, κάτω από τη βαθμολογία σου.",
+  "Show me": "Δείξε μου"
 };

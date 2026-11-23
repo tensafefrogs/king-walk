@@ -386,5 +386,8 @@
   "Coached": "З тренером",
   "Any kind": "Будь-які",
   "Coached mixes in more of what you're working on.": "З тренером частіше трапляється те, над чим ти працюєш.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Будь-які: задачі всіх тем, дібрані лише за складністю."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Будь-які: задачі всіх тем, дібрані лише за складністю.",
+  "Your coach is ready": "Твій тренер готовий",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Тепер він знає твої сильні й слабкі сторони. Він у розділі «Прогрес», під твоїм рейтингом.",
+  "Show me": "Покажи"
 };

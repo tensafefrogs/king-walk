@@ -386,5 +386,8 @@
   "Coached": "Ikut jurulatih",
   "Any kind": "Semua jenis",
   "Coached mixes in more of what you're working on.": "Ikut jurulatih: lebih banyak teka-teki daripada tema yang sedang anda latih.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Semua jenis: teka-teki semua jenis, dipilih hanya mengikut tahap kesukaran."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Semua jenis: teka-teki semua jenis, dipilih hanya mengikut tahap kesukaran.",
+  "Your coach is ready": "Jurulatih anda sudah sedia",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Kini ia tahu kekuatan dan kelemahan anda. Anda akan menemuinya di Kemajuan, di bawah rating anda.",
+  "Show me": "Tunjukkan"
 };

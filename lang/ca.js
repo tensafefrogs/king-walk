@@ -386,5 +386,8 @@
   "Coached": "Amb entrenador",
   "Any kind": "Qualsevol",
   "Coached mixes in more of what you're working on.": "Amb entrenador barreja més problemes del que estàs treballant.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Qualsevol: problemes de tota mena, triats només per la dificultat."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Qualsevol: problemes de tota mena, triats només per la dificultat.",
+  "Your coach is ready": "El teu entrenador ja està a punt",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Ara ja coneix els teus punts forts i febles. El trobaràs a Progrés, sota la teva puntuació.",
+  "Show me": "Ensenya-m'ho"
 };

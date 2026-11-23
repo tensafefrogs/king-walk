@@ -386,5 +386,8 @@
   "Coached": "Edzői",
   "Any kind": "Bármilyen",
   "Coached mixes in more of what you're working on.": "Az Edzői több olyat kever bele, amin éppen dolgozol.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Bármilyen: mindenféle feladvány, csak a nehézség alapján válogatva."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Bármilyen: mindenféle feladvány, csak a nehézség alapján válogatva.",
+  "Your coach is ready": "Az edződ készen áll",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Már ismeri az erős és gyenge pontjaidat. Az Előrehaladás alatt találod, az értékszámod alatt.",
+  "Show me": "Mutasd"
 };

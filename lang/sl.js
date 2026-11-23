@@ -386,5 +386,8 @@
   "Coached": "S trenerjem",
   "Any kind": "Katere koli",
   "Coached mixes in more of what you're working on.": "S trenerjem primeša več tega, kar vadiš.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Katere koli: uganke vseh vrst, izbrane samo po težavnosti."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Katere koli: uganke vseh vrst, izbrane samo po težavnosti.",
+  "Your coach is ready": "Tvoj trener je pripravljen",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Zdaj pozna tvoje močne in šibke točke. Najdeš ga pod Napredek, pod svojim ratingom.",
+  "Show me": "Pokaži mi"
 };

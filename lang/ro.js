@@ -386,5 +386,8 @@
   "Coached": "Cu antrenor",
   "Any kind": "Orice fel",
   "Coached mixes in more of what you're working on.": "Cu antrenor amestecă mai multe probleme din ce exersezi acum.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Orice fel: probleme de toate felurile, alese doar după dificultate."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Orice fel: probleme de toate felurile, alese doar după dificultate.",
+  "Your coach is ready": "Antrenorul tău e gata",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Acum îți știe punctele tari și slabe. Îl găsești la Progres, sub ratingul tău.",
+  "Show me": "Arată-mi"
 };

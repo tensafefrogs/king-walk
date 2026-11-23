@@ -386,5 +386,8 @@
   "Coached": "教練推薦",
   "Any kind": "任何類型",
   "Coached mixes in more of what you're working on.": "教練推薦會多加入你正在加強的類型。",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "任何類型：各種類型的謎題，只依難度挑選。"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "任何類型：各種類型的謎題，只依難度挑選。",
+  "Your coach is ready": "你的教練準備好了",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "教練現在知道你的強項和弱項了。在「進度」裡，你的積分下方。",
+  "Show me": "帶我去看"
 };

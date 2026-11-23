@@ -386,5 +386,8 @@
   "Coached": "לפי המאמן",
   "Any kind": "כל סוג",
   "Coached mixes in more of what you're working on.": "לפי המאמן: יותר חידות בנושאים שעובדים עליהם.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "כל סוג: חידות מכל הסוגים, שנבחרות רק לפי רמת הקושי."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "כל סוג: חידות מכל הסוגים, שנבחרות רק לפי רמת הקושי.",
+  "Your coach is ready": "המאמן מוכן",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "עכשיו הוא מכיר את הנקודות החזקות והחלשות שלך. הוא נמצא בהתקדמות, מתחת לדירוג.",
+  "Show me": "הראו לי"
 };

@@ -386,5 +386,8 @@
   "Coached": "Con entrenador",
   "Any kind": "Cualquier tipo",
   "Coached mixes in more of what you're working on.": "Con entrenador salen más problemas de lo que estás trabajando.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Cualquier tipo: problemas de todo tipo, elegidos solo por su dificultad."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Cualquier tipo: problemas de todo tipo, elegidos solo por su dificultad.",
+  "Your coach is ready": "Tu entrenador está listo",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Ya conoce tus puntos fuertes y débiles. Lo encontrarás en Progreso, debajo de tu puntuación.",
+  "Show me": "Muéstramelo"
 };

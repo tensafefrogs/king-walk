@@ -386,5 +386,8 @@
   "Coached": "കോച്ച് പ്രകാരം",
   "Any kind": "ഏതുതരവും",
   "Coached mixes in more of what you're working on.": "കോച്ച് പ്രകാരം ആണെങ്കിൽ, നിങ്ങൾ മെച്ചപ്പെടുത്തുന്ന തരം പസിലുകൾ കൂടുതൽ വരും.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ഏതുതരവും: എല്ലാത്തരം പസിലുകളും, എത്ര പ്രയാസമുണ്ടെന്ന് മാത്രം നോക്കി തിരഞ്ഞെടുക്കുന്നു."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ഏതുതരവും: എല്ലാത്തരം പസിലുകളും, എത്ര പ്രയാസമുണ്ടെന്ന് മാത്രം നോക്കി തിരഞ്ഞെടുക്കുന്നു.",
+  "Your coach is ready": "നിങ്ങളുടെ കോച്ച് തയ്യാർ",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ഇപ്പോൾ അതിന് നിങ്ങളുടെ ശക്തിയും ദൗർബല്യങ്ങളും അറിയാം. പുരോഗതിയിൽ, നിങ്ങളുടെ റേറ്റിങ്ങിന് താഴെ അത് കാണാം.",
+  "Show me": "കാണിക്കൂ"
 };

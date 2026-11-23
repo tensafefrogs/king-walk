@@ -386,5 +386,8 @@
   "Coached": "কোচের পছন্দে",
   "Any kind": "যেকোনো ধরন",
   "Coached mixes in more of what you're working on.": "কোচের পছন্দে, তুমি যা নিয়ে কাজ করছ তার পাজল বেশি আসে।",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "যেকোনো ধরন: সব ধরনের পাজল, শুধু কতটা কঠিন তা দেখে বাছা।"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "যেকোনো ধরন: সব ধরনের পাজল, শুধু কতটা কঠিন তা দেখে বাছা।",
+  "Your coach is ready": "তোমার কোচ তৈরি",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "এখন সে তোমার জোর আর দুর্বলতা জানে। অগ্রগতিতে, তোমার রেটিংয়ের নিচে তাকে পাবে।",
+  "Show me": "দেখাও"
 };

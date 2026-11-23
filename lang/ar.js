@@ -386,5 +386,8 @@
   "Coached": "حسب المدرّب",
   "Any kind": "أي نوع",
   "Coached mixes in more of what you're working on.": "حسب المدرّب: مزيد من الألغاز فيما تعمل على تحسينه.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "أي نوع: ألغاز من كل الأنواع، تُختار حسب صعوبتها فقط."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "أي نوع: ألغاز من كل الأنواع، تُختار حسب صعوبتها فقط.",
+  "Your coach is ready": "مدرّبك جاهز",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "صار يعرف نقاط قوتك وضعفك. ستجده في التقدم، تحت تقييمك.",
+  "Show me": "أرِني"
 };

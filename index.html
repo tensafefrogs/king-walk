@@ -384,7 +384,10 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs > summary { color: var(--muted); min-height: 34px; }
 /* the coach: what to work on (with Practise), what the player is strong at, and every known area behind a tap */
-.coach { display: grid; gap: 10px; }
+.coach { display: grid; gap: 10px; border-radius: 14px; }
+.coach.spot { outline: 3px solid transparent; outline-offset: 8px; animation: coach-spot 2.8s var(--ease-out) 0.5s both; }          /* showCoach: "here it is" */
+@keyframes coach-spot { 0%, 100% { outline-color: transparent; outline-offset: 14px; } 15%, 75% { outline-color: var(--accent); outline-offset: 8px; } 45% { outline-color: color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 8px; } }
+@media (prefers-reduced-motion: reduce) { .coach.spot { animation-duration: 3s; animation-timing-function: steps(1); } }
 .coach .note { font-size: 14px; }
 .co-sub { font: 700 13px var(--font-display); color: var(--muted); margin: 6px 0 -4px; }
 .coach .label + div > .co-sub:first-child { margin-top: 0; }
@@ -1325,6 +1328,7 @@ function cleanState(raw) {
     q.daily = cleanDaily(p.daily);
     q.coach = cleanCoach(p.coach);
     q.choice = p.choice === "any" ? "any" : "coached"; if (p.holdback === true) q.holdback = true; else delete q.holdback;
+    if (p.coachMet === true) q.coachMet = true;          /* the "Your coach is ready" card was shown */
     q.runs = {}; if (p.runs && typeof p.runs === "object") for (const r of RANKS) if (p.runs[r[2]] > 0) q.runs[r[2]] = clamp(count(p.runs[r[2]]), 0, STREAK_LEN);
     if (p.now && BANDS.includes(p.now.b) && p.now.i >= 0) q.now = { b: p.now.b, i: count(p.now.i), review: !!p.now.review, tries: clamp(count(p.now.tries), 0, 3), f: !!p.now.f, h: clamp(count(p.now.h), 0, 2) };
     players.push(q);
@@ -1849,7 +1853,9 @@ function confetti(sq) {
 let cur = null;               /* the puzzle on the board: { band, i, pz, size, review, tries } */
 let idx = 0;                  /* index of the next move in cur.pz.moves */
 let locked = true;            /* true while the board should ignore the player */
-let done = false, failed = false, hintLevel = 0;
+/* hintLevel: the most hints asked on any one turn of this puzzle (any makes it a hint solve, scored 0.5); turnHint: the
+   hints on the player's current turn. Each turn starts again at the piece (1), then the arrow (2). */
+let done = false, failed = false, hintLevel = 0, turnHint = 0;
 let first = true;             /* true until the first puzzle is on the board */
 let puzzleGen = 0;            /* goes up with every load, so a slow older load can tell it has been replaced */
 let timers = [];
@@ -1882,8 +1888,8 @@ function fitBar() {
 }
 addEventListener("resize", () => fitBar());
 function setButtons(on) {
-  $("hintBtn").disabled = !on || hintLevel >= 2; $("answerBtn").disabled = !on;
-  $("hintLabel").textContent = (hintLevel === 0 ? T("Hint") : T("Hint 2"));
+  $("hintBtn").disabled = !on || turnHint >= 2; $("answerBtn").disabled = !on;
+  $("hintLabel").textContent = (turnHint === 0 ? T("Hint") : T("Hint 2"));
 }
 /* Remember a miss or a hint on the puzzle in progress, so a reload cannot wipe it out. */
 function markNow() { if (RUN || DAILY) return; const n = me().now; if (n) { n.f = failed; n.h = hintLevel; save(); } }
@@ -1897,7 +1903,7 @@ async function nextPuzzle() {
   const gen = ++puzzleGen, resume = first || resumeMain;
   resumeMain = false;
   clearTimers(); closePromo(); promoBar(); $("dailyCover").hidden = true;
-  locked = true; done = false; failed = false; hintLevel = 0; drag = null; pendingTap = null;
+  locked = true; done = false; failed = false; hintLevel = 0; turnHint = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
   $("playBtns").classList.toggle("run", !!RUN && !RUN.area);
@@ -1985,7 +1991,7 @@ function commit(from, to, promo) {
     if (mated || idx >= cur.pz.moves.length) { announce(said); later(() => finish(true), 260); return; }
     announce(T("{move}. Good move.", { move: said }));
     setStatus("good", T("Good move! Keep going."), "", "good");
-    later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; setButtons(true); showTurn(); }, 280); }, 560);
+    later(() => { playUci(cur.pz.moves[idx]); idx++; later(() => { locked = false; turnHint = 0; setButtons(true); showTurn(); }, 280); }, 560);          /* a new turn: its hints start at the piece again */
   } else {          /* wrong: show it, then take it back */
     failed = true; markNow(); dailyMark("r"); locked = true; wrongSq = to; lastMove = [];
     syncPieces({ from, to }); paint(); sfx.bad(); haptic("wrong");
@@ -2003,11 +2009,11 @@ function commit(from, to, promo) {
   }
 }
 function showHint() {
-  if (locked || done || hintLevel >= 2 || (RUN && !RUN.area)) return;
-  hintLevel++; track("hint/" + hintLevel);
+  if (locked || done || turnHint >= 2 || (RUN && !RUN.area)) return;
+  turnHint++; hintLevel = Math.max(hintLevel, turnHint); track("hint/" + turnHint);
   const want = cur.pz.moves[idx];
-  hintSq = hintLevel === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
-  setStatus("hint", (hintLevel === 1 ? T("Move the glowing piece") : T("Follow the arrow")), "", "hint");
+  hintSq = turnHint === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
+  setStatus("hint", (turnHint === 1 ? T("Move the glowing piece") : T("Follow the arrow")), "", "hint");
   setButtons(true); paint(); markNow(); dailyMark("y"); haptic("hint");
 }
 function showAnswer() {
@@ -2108,6 +2114,7 @@ function finish(solvedIt) {
   if (RUN && RUN.area) stepPractice(score);
   if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(placed ? undefined : before);
+  maybeMeetCoach(p);
   if (rankUp) { const cu = document.querySelector(".lad.cur"); if (cu) restart(cu, "pop"); }
   if (delta) restart($("rate"), "bump");
   if (score === 1) restart($("stStreak"), "bump");
@@ -2270,7 +2277,7 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, pre
     setTimeout(() => { el.remove(); if (then) then(); else if (back && back.focus) back.focus({ preventScroll: true }); }, 260); };
   const onKey = e => { if (e.key === "Escape") close(); };
   go.addEventListener("click", close);
-  sh.addEventListener("click", () => onShare(sh));
+  if (onShare) sh.addEventListener("click", () => onShare(sh)); else sh.remove();          /* an info card with nothing to share */
   document.addEventListener("keydown", onKey);
   document.body.append(el);
   if (loud) {
@@ -2279,6 +2286,22 @@ function openCard({ art, kind, title, text, closeLabel, onShare, loud, then, pre
   }
   setTimeout(() => go.focus({ preventScroll: true }), loud && !REDUCED ? 1300 : 50);
   return el;
+}
+/* The coach is ready (renderCoach shows the lists from now on): once per player, a card after the puzzle that did it,
+   whose button scrolls down to the coach and lights it up, so the player learns it's there below the rating. Not
+   during the daily or a rank streak (the next normal puzzle shows it), and after any award cards. */
+function maybeMeetCoach(p) {
+  if (p.coachMet || !coachReady(p) || DAILY || RUN) return;
+  p.coachMet = true; save();
+  setTimeout(() => whenNoCard(() => openCard({ art: { piece: RANKS[rankIndex(p.rating)][2] }, kind: T("Coach"), title: T("Your coach is ready"),
+    text: T("It knows your strong and weak spots now. You'll find it under Progress, below your rating."), closeLabel: T("Show me"),
+    then: showCoach })), REDUCED ? 600 : 1600);
+}
+function showCoach() {
+  const box = $("coachBox"); if (!box) return;
+  box.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
+  restart(box, "spot");
+  const first = box.querySelector("button"); if (first) setTimeout(() => first.focus({ preventScroll: true }), REDUCED ? 0 : 700);
 }
 /* the celebration screen, one award after another */
 /* Placement is over: one card with the rank and rating found, then any other new achievements */

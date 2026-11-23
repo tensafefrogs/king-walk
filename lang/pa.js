@@ -386,5 +386,8 @@
   "Coached": "ਕੋਚ ਮੁਤਾਬਕ",
   "Any kind": "ਕੋਈ ਵੀ ਕਿਸਮ",
   "Coached mixes in more of what you're working on.": "ਕੋਚ ਮੁਤਾਬਕ ਚੁਣਨ 'ਤੇ ਉਹ ਪਹੇਲੀਆਂ ਵੱਧ ਆਉਂਦੀਆਂ ਹਨ ਜਿਨ੍ਹਾਂ 'ਤੇ ਤੁਸੀਂ ਕੰਮ ਕਰ ਰਹੇ ਹੋ।",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ਕੋਈ ਵੀ ਕਿਸਮ: ਹਰ ਕਿਸਮ ਦੀਆਂ ਪਹੇਲੀਆਂ, ਸਿਰਫ਼ ਇਸ ਮੁਤਾਬਕ ਚੁਣੀਆਂ ਕਿ ਉਹ ਕਿੰਨੀਆਂ ਔਖੀਆਂ ਹਨ।"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ਕੋਈ ਵੀ ਕਿਸਮ: ਹਰ ਕਿਸਮ ਦੀਆਂ ਪਹੇਲੀਆਂ, ਸਿਰਫ਼ ਇਸ ਮੁਤਾਬਕ ਚੁਣੀਆਂ ਕਿ ਉਹ ਕਿੰਨੀਆਂ ਔਖੀਆਂ ਹਨ।",
+  "Your coach is ready": "ਤੁਹਾਡਾ ਕੋਚ ਤਿਆਰ ਹੈ",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ਹੁਣ ਉਹ ਤੁਹਾਡੀਆਂ ਤਕੜੀਆਂ ਅਤੇ ਕਮਜ਼ੋਰ ਥਾਵਾਂ ਜਾਣਦਾ ਹੈ। ਉਹ ਤਰੱਕੀ ਵਿੱਚ, ਤੁਹਾਡੀ ਰੇਟਿੰਗ ਦੇ ਹੇਠਾਂ ਮਿਲੇਗਾ।",
+  "Show me": "ਵਿਖਾਓ"
 };

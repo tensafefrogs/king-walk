@@ -386,5 +386,8 @@
   "Coached": "Coachet",
   "Any kind": "Alle typer",
   "Coached mixes in more of what you're working on.": "Coachet blander inn mer av det du øver på.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle typer: oppgaver av alle slag, valgt bare etter hvor vanskelige de er."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle typer: oppgaver av alle slag, valgt bare etter hvor vanskelige de er.",
+  "Your coach is ready": "Coachen din er klar",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Den kjenner nå de sterke og svake sidene dine. Du finner den under Framgang, under ratingen din.",
+  "Show me": "Vis meg"
 };

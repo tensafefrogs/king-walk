@@ -386,5 +386,8 @@
   "Coached": "பயிற்சியாளர் வழி",
   "Any kind": "எந்த வகையும்",
   "Coached mixes in more of what you're working on.": "பயிற்சியாளர் வழியில், நீங்கள் மேம்படுத்தும் வகைப் புதிர்கள் அதிகம் வரும்.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "எந்த வகையும்: எல்லா வகைப் புதிர்களும், கடினத்தை மட்டும் வைத்துத் தேர்ந்தெடுக்கப்படும்."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "எந்த வகையும்: எல்லா வகைப் புதிர்களும், கடினத்தை மட்டும் வைத்துத் தேர்ந்தெடுக்கப்படும்.",
+  "Your coach is ready": "உங்கள் பயிற்சியாளர் தயார்",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "இப்போது உங்கள் பலங்களும் பலவீனங்களும் அவருக்குத் தெரியும். முன்னேற்றத்தில், உங்கள் ரேட்டிங்கிற்குக் கீழே அவர் இருக்கிறார்.",
+  "Show me": "காட்டு"
 };

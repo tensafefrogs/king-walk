@@ -373,6 +373,48 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     check(on.sent.join() === off.stored.join() && on.left === null, "stats: back online, the waiting events go out in order and leave the queue", on);
     check(on.minGap >= 450, "stats: they go out one at a time, at most 2 a second (GoatCounter takes 4), never as a burst", on);
     check(lim.n === 1000 && lim.first === "test/many-200" && lim.last === "test/many-1199" && !lim.stale && lim.week, "stats: at most 1000 wait (the oldest go first) and none older than 7 days", lim); }
+  // the coach is ready: once per player, a card after that puzzle; its button scrolls down to the coach (below the
+  // board on a phone) and lights it up. Nothing to share on it; not shown again; kept in the save
+  { const w = await page("", null, { viewport: { width: 390, height: 844 } });
+    const r = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms));
+      const q = me(); delete q.place; q.n = 40; q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1], skewer: [9, -1] }; save();
+      const solve = async () => { while (!done) { for (let t = 0; t < 80 && locked && !done; t++) await nap(100); if (done) break; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(50); } };
+      const coachCard = async ms => { for (let t = 0; t < ms / 100; t++) { const c = document.querySelector(".cele"); const title = c && c.querySelector(".cele-title").textContent;
+          if (title === T("Your coach is ready")) return c; if (c) c.querySelector(".go").click(); await nap(100); } return null; };
+      window.scrollTo(0, 0); await solve();
+      const card = await coachCard(6000), out = { card: !!card, share: !!(card && card.querySelector(".sh")), met: me().coachMet === true,
+        saved: JSON.parse(localStorage.getItem(LS_KEY)).players[0].coachMet === true };
+      if (card) { card.querySelector(".go").click(); await nap(1600);
+        const box = $("coachBox"), rc = box.getBoundingClientRect();
+        Object.assign(out, { spot: box.classList.contains("spot"), inView: rc.top >= 0 && rc.top < innerHeight, scrolled: scrollY > 0 || document.scrollingElement.scrollTop > 0, ready: !!box.querySelector(".co-sub") }); }
+      $("nextBtn").click(); for (let t = 0; t < 80 && (locked || done); t++) await nap(100); await solve();
+      out.again = !!(await coachCard(3000));
+      out.clean = cleanState({ players: [{ rating: 900, coachMet: true }] }).players[0].coachMet === true && cleanState({ players: [{ rating: 900 }] }).players[0].coachMet === undefined;
+      return out; });
+    await w.ctx.close();
+    check(r.card && !r.share && r.met && r.saved, "the coach is ready: a card says so once, with nothing to share, and the save remembers it", r);
+    check(r.spot && r.inView && r.scrolled && r.ready, "Show me scrolls down to the coach and lights it up", r);
+    check(!r.again && r.clean, "the coach card isn't shown again; the save keeps coachMet", r); }
+  // hints go move by move: on each of the player's moves the first hint is the piece, the second the arrow; any hint
+  // makes it a hint solve
+  { const w = await page();
+    const h = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), wait = async () => { for (let t = 0; t < 80 && locked && !done; t++) await nap(100); };
+      for (let k = 0; k < 30 && cur.pz.moves.length - idx < 3; k++) { $("answerBtn").click(); for (let t = 0; t < 120 && !done; t++) await nap(100); await nap(400);
+        document.querySelectorAll(".cele .go").forEach(b => b.click()); $("nextBtn").click(); for (let t = 0; t < 80 && (locked || done); t++) await nap(100); }
+      await wait(); const out = { moves: cur.pz.moves.length - idx };
+      showHint(); out.first = hintSq.length; out.label = $("hintLabel").textContent;
+      showHint(); out.second = hintSq.length; out.used = $("hintBtn").disabled;
+      let m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(100); await wait();
+      out.next = { enabled: !$("hintBtn").disabled, label: $("hintLabel").textContent, sq: hintSq.length };
+      showHint(); out.next.first = hintSq.length; out.next.status = $("status").textContent;
+      while (!done) { await wait(); if (done) break; m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(50); }
+      for (let t = 0; t < 30 && !lastResult; t++) await nap(100);
+      out.half = hintLevel === 2 && failed === false; return out; });
+    await w.ctx.close();
+    check(h.moves >= 3 && h.first === 1 && h.second === 2 && h.used, "hints: on a move, the first lights the piece and the second adds the arrow, then none", h);
+    check(h.next.enabled && h.next.label === "Hint" && h.next.sq === 0 && h.next.first === 1 && h.half, "hints: the next move starts again at the piece; any hint makes it a hint solve", h); }
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });

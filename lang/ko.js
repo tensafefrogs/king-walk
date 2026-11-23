@@ -386,5 +386,8 @@
   "Coached": "코치 추천",
   "Any kind": "모든 종류",
   "Coached mixes in more of what you're working on.": "코치 추천은 연습 중인 분야를 더 많이 섞어 줘요.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "모든 종류: 난이도만 보고 모든 종류의 퍼즐을 골라요."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "모든 종류: 난이도만 보고 모든 종류의 퍼즐을 골라요.",
+  "Your coach is ready": "코치가 준비됐어요",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "이제 내 강점과 약점을 알아요. 진행 상황에서 레이팅 아래에 있어요.",
+  "Show me": "보러 가기"
 };

@@ -386,5 +386,8 @@
   "Coached": "Valmennettu",
   "Any kind": "Mitä vain",
   "Coached mixes in more of what you're working on.": "Valmennettu sekoittaa joukkoon enemmän sitä, mitä harjoittelet.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Mitä vain: kaikenlaisia tehtäviä, valittu vain vaikeuden mukaan."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Mitä vain: kaikenlaisia tehtäviä, valittu vain vaikeuden mukaan.",
+  "Your coach is ready": "Valmentajasi on valmis",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Se tuntee nyt vahvuutesi ja heikkoutesi. Löydät sen Edistymisestä, vahvuuslukusi alta.",
+  "Show me": "Näytä"
 };

@@ -386,5 +386,8 @@
   "Coached": "کوچ کے مطابق",
   "Any kind": "کوئی بھی قسم",
   "Coached mixes in more of what you're working on.": "کوچ کے مطابق: جن پر آپ کام کر رہے ہیں، وہ پزلز زیادہ آئیں گے۔",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "کوئی بھی قسم: ہر قسم کے پزلز، صرف مشکل کے حساب سے چنے گئے۔"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "کوئی بھی قسم: ہر قسم کے پزلز، صرف مشکل کے حساب سے چنے گئے۔",
+  "Your coach is ready": "آپ کا کوچ تیار ہے",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "اب وہ آپ کی مضبوط اور کمزور جگہیں جانتا ہے۔ وہ پیش رفت میں، آپ کی ریٹنگ کے نیچے ملے گا۔",
+  "Show me": "دکھائیں"
 };

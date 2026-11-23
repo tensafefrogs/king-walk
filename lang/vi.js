@@ -386,5 +386,8 @@
   "Coached": "Theo HLV",
   "Any kind": "Bất kỳ",
   "Coached mixes in more of what you're working on.": "Theo HLV: thêm nhiều câu về chủ đề bạn đang luyện.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Bất kỳ: câu đố đủ mọi loại, chỉ chọn theo độ khó."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Bất kỳ: câu đố đủ mọi loại, chỉ chọn theo độ khó.",
+  "Your coach is ready": "Huấn luyện viên đã sẵn sàng",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Giờ huấn luyện viên đã biết điểm mạnh và điểm yếu của bạn. Bạn sẽ thấy ở mục Tiến trình, bên dưới điểm của bạn.",
+  "Show me": "Xem ngay"
 };

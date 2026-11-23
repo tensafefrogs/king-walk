@@ -386,5 +386,8 @@
   "Coached": "S trenérem",
   "Any kind": "Jakékoli",
   "Coached mixes in more of what you're working on.": "S trenérem dostaneš víc toho, na čem pracuješ.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Jakékoli: úlohy všech druhů, vybrané jen podle obtížnosti."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Jakékoli: úlohy všech druhů, vybrané jen podle obtížnosti.",
+  "Your coach is ready": "Tvůj trenér je připravený",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Teď už zná tvé silné a slabé stránky. Najdeš ho v Postupu, pod svým ratingem.",
+  "Show me": "Ukaž mi to"
 };

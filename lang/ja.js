@@ -386,5 +386,8 @@
   "Coached": "コーチのおすすめ",
   "Any kind": "なんでも",
   "Coached mixes in more of what you're working on.": "コーチのおすすめは、取り組み中の分野を多めに出題します。",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "なんでも：すべての種類のパズルを、難しさだけで選びます。"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "なんでも：すべての種類のパズルを、難しさだけで選びます。",
+  "Your coach is ready": "コーチの準備ができました",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "あなたの得意と苦手がわかりました。進行状況の、レーティングの下にいます。",
+  "Show me": "見てみる"
 };

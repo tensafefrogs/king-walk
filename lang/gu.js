@@ -386,5 +386,8 @@
   "Coached": "કોચ મુજબ",
   "Any kind": "કોઈ પણ પ્રકાર",
   "Coached mixes in more of what you're working on.": "કોચ મુજબ પસંદ કરો તો, તમે જેના પર કામ કરો છો તેના કોયડા વધુ આવે છે.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "કોઈ પણ પ્રકાર: દરેક પ્રકારના કોયડા, ફક્ત કેટલા અઘરા છે તેના આધારે પસંદ."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "કોઈ પણ પ્રકાર: દરેક પ્રકારના કોયડા, ફક્ત કેટલા અઘરા છે તેના આધારે પસંદ.",
+  "Your coach is ready": "તમારો કોચ તૈયાર છે",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "હવે તે તમારી મજબૂત અને નબળી બાજુ જાણે છે. તે તમને પ્રગતિમાં, તમારા રેટિંગની નીચે મળશે.",
+  "Show me": "બતાવો"
 };

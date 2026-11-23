@@ -386,5 +386,8 @@
   "Coached": "କୋଚ ଅନୁସାରେ",
   "Any kind": "ଯେକୌଣସି ପ୍ରକାର",
   "Coached mixes in more of what you're working on.": "କୋଚ ଅନୁସାରେ ବାଛିଲେ, ତୁମେ ଯାହା ଉପରେ କାମ କରୁଛ ତାହାର ପଜଲ ଅଧିକ ଆସେ।",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ଯେକୌଣସି ପ୍ରକାର: ସବୁ ପ୍ରକାର ପଜଲ, କେବଳ କେତେ କଷ୍ଟ ତାହା ଦେଖି ବଛାଯାଏ।"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ଯେକୌଣସି ପ୍ରକାର: ସବୁ ପ୍ରକାର ପଜଲ, କେବଳ କେତେ କଷ୍ଟ ତାହା ଦେଖି ବଛାଯାଏ।",
+  "Your coach is ready": "ତୁମ କୋଚ ପ୍ରସ୍ତୁତ",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ଏବେ ସେ ତୁମର ଶକ୍ତି ଓ ଦୁର୍ବଳତା ଜାଣେ। ପ୍ରଗତିରେ, ତୁମ ରେଟିଂ ତଳେ ତାକୁ ପାଇବ।",
+  "Show me": "ଦେଖାଅ"
 };

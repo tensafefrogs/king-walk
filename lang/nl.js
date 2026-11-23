@@ -386,5 +386,8 @@
   "Coached": "Met coach",
   "Any kind": "Alle soorten",
   "Coached mixes in more of what you're working on.": "Met coach krijg je meer van waar je aan werkt.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle soorten: puzzels van elke soort, alleen gekozen op moeilijkheid."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Alle soorten: puzzels van elke soort, alleen gekozen op moeilijkheid.",
+  "Your coach is ready": "Je coach is klaar",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Hij kent nu je sterke en zwakke punten. Je vindt hem onder Voortgang, onder je rating.",
+  "Show me": "Laat zien"
 };

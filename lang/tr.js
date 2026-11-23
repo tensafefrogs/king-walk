@@ -386,5 +386,8 @@
   "Coached": "Koçlu",
   "Any kind": "Her tür",
   "Coached mixes in more of what you're working on.": "Koçlu, üzerinde çalıştığın konulardan daha çok bulmaca katar.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Her tür: her türden bulmaca, yalnızca zorluğuna göre seçilir."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "Her tür: her türden bulmaca, yalnızca zorluğuna göre seçilir.",
+  "Your coach is ready": "Koçun hazır",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "Artık güçlü ve zayıf yönlerini biliyor. Onu İlerleme'de, puanının altında bulabilirsin.",
+  "Show me": "Göster"
 };

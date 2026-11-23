@@ -386,5 +386,8 @@
   "Coached": "ตามโค้ช",
   "Any kind": "ทุกแบบ",
   "Coached mixes in more of what you're working on.": "ตามโค้ช: ผสมโจทย์หมวดที่คุณกำลังฝึกเข้ามามากขึ้น",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ทุกแบบ: โจทย์ทุกประเภท เลือกตามความยากเท่านั้น"
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ทุกแบบ: โจทย์ทุกประเภท เลือกตามความยากเท่านั้น",
+  "Your coach is ready": "โค้ชของคุณพร้อมแล้ว",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ตอนนี้โค้ชรู้จุดแข็งและจุดอ่อนของคุณแล้ว ดูได้ที่ความคืบหน้า ใต้เรตติ้งของคุณ",
+  "Show me": "ดูเลย"
 };

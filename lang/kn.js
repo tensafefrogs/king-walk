@@ -386,5 +386,8 @@
   "Coached": "ಕೋಚ್ ಪ್ರಕಾರ",
   "Any kind": "ಯಾವುದೇ ರೀತಿ",
   "Coached mixes in more of what you're working on.": "ಕೋಚ್ ಪ್ರಕಾರ ಆರಿಸಿದರೆ, ನೀವು ಸುಧಾರಿಸುತ್ತಿರುವ ರೀತಿಯ ಒಗಟುಗಳು ಹೆಚ್ಚು ಬರುತ್ತವೆ.",
-  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ಯಾವುದೇ ರೀತಿ: ಎಲ್ಲ ರೀತಿಯ ಒಗಟುಗಳು, ಎಷ್ಟು ಕಷ್ಟ ಎಂಬುದನ್ನು ಮಾತ್ರ ನೋಡಿ ಆಯ್ಕೆ."
+  "Any kind: puzzles of every kind, chosen only by how hard they are.": "ಯಾವುದೇ ರೀತಿ: ಎಲ್ಲ ರೀತಿಯ ಒಗಟುಗಳು, ಎಷ್ಟು ಕಷ್ಟ ಎಂಬುದನ್ನು ಮಾತ್ರ ನೋಡಿ ಆಯ್ಕೆ.",
+  "Your coach is ready": "ನಿಮ್ಮ ಕೋಚ್ ಸಿದ್ಧ",
+  "It knows your strong and weak spots now. You'll find it under Progress, below your rating.": "ಈಗ ಅದಕ್ಕೆ ನಿಮ್ಮ ಬಲ ಮತ್ತು ದೌರ್ಬಲ್ಯಗಳು ತಿಳಿದಿವೆ. ಪ್ರಗತಿಯಲ್ಲಿ, ನಿಮ್ಮ ರೇಟಿಂಗ್‌ನ ಕೆಳಗೆ ಅದು ಸಿಗುತ್ತದೆ.",
+  "Show me": "ತೋರಿಸಿ"
 };
