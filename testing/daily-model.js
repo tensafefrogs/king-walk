@@ -4,9 +4,12 @@
 //   - a link (followed in the open game, or opened fresh) or the app opening the daily, with today's done, shows today's solved board, not a regular puzzle (cb08c29)
 //   - opening the daily with today's not done opens today's, even with yesterday's finished on the board (fe15eb9)
 //   - no streak freeze is spent while a daily is being played, even past midnight (fe15eb9)
-//   - the daily's clock doesn't run while it's paused or the game is hidden (fe15eb9)
+//   - the daily's clock doesn't run while it's paused or the game is hidden (fe15eb9), nor when the game is hidden
+//     right after the daily is opened, before its first move (found by this model, fixed in 08322ae)
 //   - a link or the app opening a finished daily shows its card, not a share sheet (fe15eb9)
 //   - an achievement the daily earns comes after the day's card, never before it (99c1408)
+//   - a practice set or a rank streak keeps the normal game's waiting puzzle (the coach's practice sets reuse the streak's
+//     machinery, and the normal game's puzzle stays in the save while one runs)
 //   - the day's result is kept: a solved day stays solved, and the streak counts the days in a row solved (an oracle
 //     kept by this test, from the rules in recordDaily's comment)
 // The page runs on Playwright's fake clock, so days pass in milliseconds and every run is the same for its seed.
@@ -26,7 +29,8 @@ const look = p => p.evaluate(() => {
   return { n, daily: DAILY && { n: DAILY.n, mode: DAILY.mode, paused: !!DAILY.paused }, done, locked, onDaily: !!(cur && cur.daily),
     curDaily: cur && cur.daily, spent: DAILY && typeof dailySpent === "function" && DAILY.mode === "play" ? dailySpent() : null,
     freezes: D.freezes || 0, streak: D.streak, last: D.last, days: Object.fromEntries(Object.entries(D.days).filter(([, v]) => !v.fz).map(([k, v]) => [k, !!v.ok])),
-    cards: window.__cards.slice(), shares: window.__shares, hidden: document.hidden };
+    cards: window.__cards.slice(), shares: window.__shares, hidden: document.hidden,
+    waiting: me().now ? me().now.b + "/" + me().now.i : null, run: typeof RUN !== "undefined" && RUN ? (RUN.area ? "practice" : "streak") : null };
 });
 
 /* animations and the computer's replies, on the fake clock; an error in the page's timers surfaces here */
@@ -47,25 +51,31 @@ const ACTIONS = {
   },
   async app(p) { await p.evaluate(() => window.kingWalkOpen && window.kingWalkOpen("daily")); await settle(p); },
   async good(p) {          /* the next right move */
-    await p.evaluate(() => { if (!DAILY || done || locked || !cur || !cur.daily) return; const m = cur.pz.moves[idx]; if (m) commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); });
+    await p.evaluate(() => { if (!(DAILY || RUN) || done || locked || !cur) return; const m = cur.pz.moves[idx]; if (m) commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); });
     await settle(p);
   },
   async solve(p) { for (let i = 0; i < 6; i++) await ACTIONS.good(p); },
   async wrong(p) {          /* a legal move that isn't the answer and doesn't mate */
     await p.evaluate(() => {
-      if (!DAILY || done || locked || !cur || !cur.daily) return;
+      if (!(DAILY || RUN) || done || locked || !cur) return;
       const want = cur.pz.moves[idx];
       for (const m of game.moves({ verbose: true })) if (m.from + m.to !== want.slice(0, 4) && !m.flags.includes("p")) {
         const g = new Chess(game.fen()); g.move(m); if (!g.in_checkmate()) { tryMove(m.from, m.to); return; } }
     });
     await settle(p);
   },
-  async hint(p) { await p.evaluate(() => { if (DAILY && !done && !locked) showHint(); }); await settle(p, 500); },
-  async answer(p) { await p.evaluate(() => { if (DAILY && !done && !locked && cur && cur.daily) showAnswer(); }); await settle(p, 8000); },
+  async hint(p) { await p.evaluate(() => { if ((DAILY || RUN) && !done && !locked) showHint(); }); await settle(p, 500); },
+  async answer(p) { await p.evaluate(() => { if ((DAILY || RUN) && !done && !locked && cur) showAnswer(); }); await settle(p, 8000); },
+  async away(p) {          /* open the daily and switch apps at once, before its first move has played */
+    await p.evaluate(() => $("dailyBtn").click()); await p.clock.runFor(100);
+    await p.evaluate(() => { window.__hidden = true; document.dispatchEvent(new Event("visibilitychange")); }); await settle(p, 500);
+  },
   async hide(p) { await p.evaluate(() => { window.__hidden = true; document.dispatchEvent(new Event("visibilitychange")); }); await settle(p, 500); },
   async show(p) { await p.evaluate(() => { window.__hidden = false; document.dispatchEvent(new Event("visibilitychange")); }); await settle(p, 500); },
   async resume(p) { await p.evaluate(() => { const b = document.getElementById("dcGo"); if (b && !document.getElementById("dailyCover").hidden) b.click(); }); await settle(p, 500); },
-  async leave(p) { await p.evaluate(() => { if (typeof leaveDaily === "function" && DAILY) leaveDaily(); }); await settle(p); },
+  async leave(p) { await p.evaluate(() => { if (typeof leaveDaily === "function" && DAILY) leaveDaily(); else if (typeof leaveRun === "function" && RUN) leaveRun(); }); await settle(p); },
+  async practise(p) { await p.evaluate(() => { if (typeof startPractice !== "function") return; const w = coachWeak(me()); startPractice(w[0] || "fork"); }); await settle(p); },          /* a practice set (the coach) */
+  async streak(p) { await p.evaluate(() => typeof startRun === "function" && startRun(0)); await settle(p); },          /* a Pawn rank streak */
   async close(p) { await closeCards(p); },
   async reload(p) { await p.reload(); await p.waitForFunction(() => typeof cur !== "undefined" && cur, null, { timeout: 20000 }); await settle(p); },
   async minutes(p) { await p.clock.fastForward(7 * MIN); await settle(p, 500); },
@@ -76,7 +86,7 @@ const ACTIONS = {
   async days(p, r) { await p.clock.fastForward((2 + Math.floor(r() * 2)) * DAY); await settle(p, 61e3); },
 };
 /* more playing than anything else, as players do */
-const WEIGHTS = { button: 5, link: 2, visit: 2, app: 2, good: 8, solve: 5, wrong: 3, hint: 1, answer: 1, hide: 2, show: 2, resume: 3, leave: 1, close: 4, reload: 1, minutes: 2, midnight: 4, days: 1 };
+const WEIGHTS = { away: 2, practise: 2, streak: 1, button: 5, link: 2, visit: 2, app: 2, good: 8, solve: 5, wrong: 3, hint: 1, answer: 1, hide: 2, show: 2, resume: 3, leave: 1, close: 4, reload: 1, minutes: 2, midnight: 4, days: 1 };
 const BAG = Object.entries(WEIGHTS).flatMap(([k, w]) => Array(w).fill(k));
 
 /* the oracle: the days solved, from what the test did */
@@ -108,9 +118,15 @@ async function run(b, url, seed) {
   await settle(p);
   const fail = (what, detail) => problems.push({ seed, step: trail.length, what, detail, trail: trail.slice() });
   const solvedDays = new Set();
+  /* a player whose coach is ready, so Practise has kinds to offer (an older page without the coach ignores it) */
+  await p.evaluate(() => { const q = me(); delete q.place; q.n = Math.max(q.n, 40); q.coach = { pin: [10, -3], skewer: [9, -1], fork: [9, 2], mate: [12, 1] }; save(); });
+  let heldWaiting;          /* the normal game's puzzle when a practice set or streak began */
   let before = await look(p);
   for (let s = 0; s < STEPS && !problems.length; s++) {
-    const a = BAG[Math.floor(r() * BAG.length)];
+    let a = BAG[Math.floor(r() * BAG.length)];
+    /* a hidden game gets no taps: while hidden, only coming back, time passing or a reload */
+    if (before.hidden && !["show", "minutes", "midnight", "days", "reload", "hide", "away"].includes(a)) a = "show";
+    if (before.hidden && a === "away") a = "minutes";
     trail.push(a);
     const ts = Date.now(); await ACTIONS[a](p, r);
     if (process.env.MODEL_DEBUG) console.log(seed, s, a, Date.now() - ts, "ms");
@@ -139,6 +155,10 @@ async function run(b, url, seed) {
       const n = now.daily ? now.daily.n : now.n, want = oracleStreak(solvedDays, n);
       if (now.streak !== want && !(now.freezes < before.freezes || before.freezes > 0)) fail("the streak isn't the days in a row solved", { day: n, streak: now.streak, want, solved: [...solvedDays].sort() });
     }
+    /* a practice set or a rank streak keeps the normal game's puzzle waiting, untouched until it ends */
+    if (!before.run && now.run) heldWaiting = before.waiting;
+    if (before.run && now.run && heldWaiting && now.waiting !== heldWaiting)
+      fail("a practice set or rank streak lost the normal game's waiting puzzle", { was: heldWaiting, now: now.waiting, run: now.run });
     if (errs.length) fail("the page threw", errs.slice(0, 3));
     before = now;
   }

@@ -18,6 +18,9 @@ Nothing yet.
   your rating expected. After about 30 puzzles, a Coach section under Progress shows what to **work on**, each with a
   one-line explanation and **Practise**, and what you're **strong at**; All areas shows every kind marked better than,
   about as, or worse than expected. No numbers, no account, nothing leaves the device.
+- **Progress reads top to bottom:** the rank, the three numbers and the rating chart together (how am I doing), then
+  the coach and rank streaks (what to do next). On iPhone Duo the coach has its own row propped up like a laptop, and
+  sits under the chart on the notes page held like a book.
 - **Practice sets:** Practise starts 10 puzzles of that kind at your level. Hints and Answer are there and a miss
   doesn't end it; each puzzle counts half toward your rating. The set ends with "7 of 10" and whether that kind is
   getting better.

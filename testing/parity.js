@@ -15,6 +15,7 @@
 //   - two devices sharing a save through iCloud lose no progress (testing/sync-model.js)
 //   - release.py's TestFlight and submission steps hold up against a pretend App Store Connect
 //   - the puzzle bands are unchanged (testing/puzzles.lock.json), as the daily and saves depend on them
+//   - every stat the game sends is documented; the coach's kinds have names, descriptions and real themes
 //   - no workflow pushes to main (main takes only commits whose tests passed first)
 // usage: node testing/parity.js
 const fs = require("fs"), path = require("path"), vm = require("vm"), { execFileSync } = require("child_process");
@@ -144,6 +145,35 @@ const moved = Object.keys({ ...locked, ...bandsNow }).filter(b => JSON.stringify
 check(!moved.length, "the puzzle bands are as the apps already out have them: a changed band (order, count or a puzzle) gives the website a " +
   "different daily puzzle from those apps, and moves saves and second tries to other puzzles. If the change is meant (with a plan for the " +
   "apps), run node testing/parity.js --lock-puzzles and say so in the commit", moved.map(b => ({ band: b, locked: locked[b], now: bandsNow[b] })));
+
+// every stat the game sends is documented: each track() event name (or its fixed start, before a value is added) is in
+// testing/STATS.md and in README.md's list, as CLAUDE.md asks. The names: the string at the start of a track() call
+// and at each branch of a ?: inside it
+const events = new Set();
+for (const m of html.matchAll(/\btrack\(([^;\n]*?)\)(?:;|\s*[,}])/g)) {
+  const arg = m[1];
+  for (const lit of arg.matchAll(/(?:^|\?\s*|:\s*)"([^"]+)"/g)) events.add(lit[1]);
+}
+const statsDoc = read("testing/STATS.md"), readme = read("README.md");
+const undocumented = [...events].filter(e => !statsDoc.includes("`" + e.replace(/\/$/, "/")) && !statsDoc.includes("`" + e));
+const notInReadme = [...events].filter(e => !readme.includes("`" + e));
+check(events.size > 30 && !undocumented.length, "every stat the game sends is described in testing/STATS.md (add a row for it)", undocumented);
+check(!notInReadme.length, "every stat the game sends is in README.md's list of events", notInReadme);
+
+// the coach's kinds of puzzle: each has a name and a description for the player, and every Lichess theme it maps is
+// one the puzzles really carry (a misspelt theme would map nothing, silently)
+const areasSrc = block(html, "const AREAS = {", "};");
+const areaIds = [...areasSrc.matchAll(/^\s*(?:,\s*)?(\w+): \[|,\s*(\w+): \[/gm)].map(m => m[1] || m[2]).filter(Boolean);
+const areaTags = [...areasSrc.matchAll(/"(\w+)"/g)].map(m => m[1]);
+const named = new Set([...block(html, "const AREA_NAME = {", "};").matchAll(/(\w+): \(\) => T\(/g)].map(m => m[1]));
+const described = new Set([...block(html, "const AREA_DESC = {", "};").matchAll(/(\w+): \(\) => T\(/g)].map(m => m[1]));
+check(areaIds.length === 15 && areaIds.every(a => named.has(a) && described.has(a)) && named.size === areaIds.length && described.size === areaIds.length,
+  "every kind of puzzle the coach knows has a name and a description, and nothing else does", { areaIds, named: [...named], described: [...described] });
+const themesSeen = new Set();
+for (const b of fs.readdirSync(path.join(ROOT, "p")).filter(d => /^\d+$/.test(d)))
+  for (const f of fs.readdirSync(path.join(ROOT, "p", b))) for (const line of read(`p/${b}/${f}`).split("\n")) { const t = line.split("\t")[4]; if (t) for (const x of t.split(" ")) themesSeen.add(x); }
+const unknownTags = areaTags.filter(t => !themesSeen.has(t));
+check(!unknownTags.length, "every Lichess theme the coach maps is one the puzzles carry", unknownTags);
 
 // one version number for both apps
 const iv = JSON.parse(read("ios/release.json")).version, av = JSON.parse(read("android/release.json")).version;

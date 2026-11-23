@@ -152,11 +152,11 @@ html.fold-h .menu.open { background: var(--bg); }
 html.fold-h .status { width: auto; justify-self: stretch; margin: 0 var(--u) var(--gap); }
 html.fold-h .progress { width: auto; justify-self: stretch; align-self: start; max-height: calc(100% - var(--u)); overflow: auto; margin: 0 var(--u);
   display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.2fr); column-gap: 18px; row-gap: 6px; align-items: start;
-  grid-template-areas: "head head head" "ladder stats chart" "rank stats chart" "runs runs runs" "info info info"; }
+  grid-template-areas: "head head head" "ladder stats chart" "rank stats chart" "coach coach coach" "runs runs runs" "info info info"; }
 html.fold-h .progress > :nth-child(1) { grid-area: head; }
 html.fold-h .progress > .ladder { grid-area: ladder; }
 html.fold-h .progress > .rank-txt { grid-area: rank; } html.fold-h .progress > .stats { grid-area: stats; align-self: center; flex-direction: column; }
-html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; }
+html.fold-h .progress > .chart-box { grid-area: chart; align-self: center; } html.fold-h .progress > .runs { grid-area: runs; } html.fold-h .progress > .coach { grid-area: coach; }
 html.fold-h .run-btn { grid-template-columns: auto auto; column-gap: 4px; align-items: center; } html.fold-h .run-btn svg.badge { width: 30px; grid-row: span 2; } html.fold-h .progress > .note { grid-area: info; }
 html.fold-h .frame { width: var(--bw); align-self: center; justify-self: start; }
 html.fold-h .actions { width: auto; align-self: center; justify-self: end; margin-left: var(--u); max-width: 420px; }
@@ -1064,14 +1064,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="stat"><b id="stStreak">0</b><span>in a row</span></div>
         <div class="stat"><b id="stAcc">-</b><span>of last 20</span></div>
       </div>
-      <details class="runs" id="runsBox">
-        <summary><span class="label">Rank streaks</span><span class="runs-sum" id="runsSum"></span></summary>
-        <div class="run-row" id="runRow"></div>
-      </details>
-      <div class="coach" id="coachBox" aria-labelledby="coachLabel">
-        <p class="label" id="coachLabel">Coach</p>
-        <div id="coachBody"></div>
-      </div>
       <div class="chart-box">
         <div class="chart-wrap">
           <svg class="chart" id="chart" viewBox="0 0 300 64" preserveAspectRatio="none" role="img" aria-label="Rating over time"></svg>
@@ -1079,6 +1071,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
         <div class="chart-cap"><span>rating over time</span></div>
       </div>
+      <div class="coach" id="coachBox" aria-labelledby="coachLabel">
+        <p class="label" id="coachLabel">Coach</p>
+        <div id="coachBody"></div>
+      </div>
+      <details class="runs" id="runsBox">
+        <summary><span class="label">Rank streaks</span><span class="runs-sum" id="runsSum"></span></summary>
+        <div class="run-row" id="runRow"></div>
+      </details>
       <p class="note" id="pzInfo"></p>
       <div class="daily-info" id="dailyInfo">
         <div class="card-head"><p class="label" id="diTitle">Daily puzzle</p><span class="daily-day" id="diDay"></span></div>
