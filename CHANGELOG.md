@@ -15,6 +15,9 @@ Nothing yet.
 
 - **Sound that stopped comes back:** on iPhone the game's sounds could stop for good after a few puzzles (iOS left the
   audio silent after an interruption, such as a notification). The next tap now starts it again. (Also on the website.)
+- **Every solve is celebrated:** a puzzle solved with a hint gets the board's glow and the piece's bounce, and one
+  solved after a wrong move the bounce (only a clean solve had any celebration). A clean solve keeps its confetti.
+  (Also on the website.)
 - **The daily's week stays put:** the row of the last seven days popped in again after the daily started, and once a
   minute while it was open. It now animates once, as the daily opens. (Also on the website.)
 - **A coach that learns your weak spots:** after each puzzle the game

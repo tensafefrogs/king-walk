@@ -2056,8 +2056,17 @@ function finish(solvedIt) {
     restart(frameEl, "won");
     if (lastMove[1]) { confetti(lastMove[1]); const o = els.get(lastMove[1]); if (o) restart(o.el, "win"); }
   }
-  else if (score === 0.5) { setStatus("good", T("Solved with a hint"), "", "good"); sfx.good(); haptic("solve"); }
-  else if (solvedIt) setStatus("bad", T("Solved after a miss"), cur.review ? "" : T("It will come back later"), "turn");
+  /* solved with a hint, or after a miss: a smaller celebration (the board's glow and the piece's bounce, no confetti),
+     so every solve feels like one and a clean solve still feels best */
+  else if (score === 0.5) {
+    setStatus("good", T("Solved with a hint"), rankUp ? T("New rank: {rank}", { rank: rankName(rankIndex(p.rating)) }) : "", "good");
+    rankUp ? sfx.rank() : sfx.good(); haptic(rankUp ? "rank" : "solve"); restart(frameEl, "won");
+    const o = lastMove[1] && els.get(lastMove[1]); if (o) restart(o.el, "win");
+  }
+  else if (solvedIt) {
+    setStatus("bad", T("Solved after a miss"), cur.review ? "" : T("It will come back later"), "turn");
+    sfx.move(); const o = lastMove[1] && els.get(lastMove[1]); if (o) restart(o.el, "win");
+  }
   else setStatus("bad", T("That was the answer"), cur.review ? "" : T("It will come back later"), "turn");
   $("stLevel").textContent = T("Second try"); $("stLevel").hidden = true;
   $("nextLabel").textContent = T("Next puzzle");

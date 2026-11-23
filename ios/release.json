@@ -10,7 +10,7 @@
         "public_link": true
       }
     ],
-    "whats_new": "1.0.5 again, for testing: the sound comes back by itself if iOS left it silent (it stopped after a few puzzles), and the daily's week no longer pops in again after the daily starts. Plus the coach under Progress and the daily's new card. Tell me anything that's broken or reads wrong."
+    "whats_new": "1.0.5 again, for testing: the sound comes back by itself if iOS left it silent (it stopped after a few puzzles); the daily's week no longer pops in again after the daily starts; a solve with a hint or after a wrong move now gets a smaller celebration too. Plus the coach under Progress and the daily's new card. Tell me anything that's broken or reads wrong."
   },
   "release_now": false,
   "note": "HOLD (owner, 2026-11-23): 1.0.5 is on TestFlight only while the owner tests it; this build adds the sound and daily-week fixes. Nothing goes to App Review until the owner says so; then rename app_store_held back to app_store and push.",

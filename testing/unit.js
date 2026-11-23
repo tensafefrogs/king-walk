@@ -325,6 +325,28 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // every solve is celebrated: a clean one with confetti, the board's glow and the piece's bounce; with a hint, the glow
+  // and the bounce; after a wrong move, the bounce
+  { const w = await page();
+    const cel = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), out = [];
+      for (const how of ["clean", "hint", "miss"]) {
+        for (let t = 0; t < 80 && (locked || done); t++) await nap(100);
+        let conf = 0; const orig = window.confetti; window.confetti = sq => { conf++; };
+        if (how === "hint") showHint();
+        if (how === "miss") { const want = cur.pz.moves[idx]; for (const m of game.moves({ verbose: true })) if (m.from + m.to !== want.slice(0, 4) && !m.flags.includes("p")) { const g = new Chess(game.fen()); g.move(m); if (!g.in_checkmate()) { tryMove(m.from, m.to); break; } } await nap(1200); }
+        while (!done) { for (let t = 0; t < 80 && locked && !done; t++) await nap(100); if (done) break; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(50); }
+        await nap(500);
+        const piece = lastMove[1] && els.get(lastMove[1]);
+        out.push({ how, conf, glow: frameEl.classList.contains("won"), bounce: !!(piece && piece.el.classList.contains("win")) });
+        window.confetti = orig; document.querySelectorAll(".cele .go").forEach(b => b.click()); await nap(600); $("nextBtn").click();
+      }
+      return out;
+    });
+    await w.ctx.close();
+    const [c, h, m] = cel;
+    check(c.conf === 1 && c.glow && c.bounce && h.conf === 0 && h.glow && h.bounce && m.conf === 0 && !m.glow && m.bounce,
+      "every solve is celebrated: clean with confetti, with a hint the glow and bounce, after a miss the bounce", cel); }
   // a save with a coach record loads again after a reload (the save is read before most of the page's script runs: a
   // constant the cleaning needs, defined further down, once made every reload start over)
   { const w = await page(); await w.p.evaluate(() => { const q = me(); q.n = 7; q.coach = { pin: [3, 0.5] }; save(); });
