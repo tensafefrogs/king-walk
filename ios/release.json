@@ -1,7 +1,7 @@
 {
   "version": "1.0.5",
   "xcode27": true,
-  "build": true,
+  "build": false,
   "testflight": {
     "groups": [
       "Internal",
@@ -12,7 +12,9 @@
     ],
     "whats_new": "1.0.5 again, from main with the coach: after about 30 puzzles a Coach section under Progress shows what to work on (with Practise: 10 puzzles of that kind, at half rating) and what you're strong at; about 3 in 10 new puzzles come from what you're working on (Settings, Puzzle choice). Also the daily's new card. Tell me anything that's broken or reads wrong."
   },
-  "app_store": {
+  "release_now": false,
+  "note": "HOLD (owner, 2026-11-23): 1.0.4 is live; 1.0.5 (build 2611230426, with the coach) stays on TestFlight only while the owner tests it. Nothing goes to App Review until the owner says so; then rename app_store_held back to app_store and push.",
+  "app_store_held": {
     "submit": true,
     "release": "after_approval",
     "replace_in_review": false,
@@ -64,7 +66,5 @@
       "zh": "认识你的教练：King Walk 现在会摸清你擅长哪类谜题、哪类需要加强，并提供每组 10 题的专项练习。另外，每日谜题结束时新增一张卡片，让你看到“分享”会发送什么。",
       "zh-Hant": "認識你的教練：King Walk 現在會摸清你擅長哪類謎題、哪類需要加強，並提供每組 10 題的專項練習。另外，每日謎題結束時新增一張卡片，讓你看到「分享」會傳送什麼。"
     }
-  },
-  "release_now": false,
-  "note": "Owner's go-ahead (2026-11-23): replace the queued 1.0.5 with a build from main that has the coach (1.0.5 isn't submitted yet, so no review is lost); built again after the coach moved under the rating chart, so the app matches its screenshots. On TestFlight; its App Store step waits while 1.0.4 is in review, then submits on the first 6-hourly run after 1.0.4 is released, and releases on approval."
+  }
 }

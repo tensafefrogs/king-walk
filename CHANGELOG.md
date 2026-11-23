@@ -11,7 +11,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 Nothing yet.
 
-### 1.0.5 (queued 2026-11-23 with the owner's go-ahead, then rebuilt the same day with the coach, the owner's call to avoid waiting a review cycle: on TestFlight; submitted once 1.0.4 is released, released on approval; all of it already on the website)
+### 1.0.5 (on TestFlight, build 2611230426, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
 
 - **A coach that learns your weak spots:** after each puzzle the game
   notes, on the device, how you did at that kind of puzzle (forks, pins, checkmates, 15 kinds in all) against what
@@ -48,7 +48,7 @@ practice sets of 10. Plus a new card at the end of the daily puzzle that shows w
 languages, `ios/release.json`). The App Store and Google Play descriptions gain "A coach that learns your weak spots,
 with practice sets to work on them", and the screenshots show the coach under Progress.
 
-### 1.0.4 (in App Review since 2026-11-22, build 2611220327; released automatically when Apple approves)
+### 1.0.4 (released 23 November 2026, build 2611220327)
 
 - **Fits sideways on older iPads:** on a 9.7" or 10.2" iPad held sideways the game no longer scrolls a little: the
   board leaves room for the status bar. (Live on the website since 2026-11-21.)
