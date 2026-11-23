@@ -23,7 +23,7 @@ jobs:
       ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
       PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: What would be sent
         run: python3 android/store/listing.py --dry-run
       - name: Upload

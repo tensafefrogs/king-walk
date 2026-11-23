@@ -11,8 +11,8 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: {node-version: 22}
       - run: node testing/parity.js          # the website, the iOS app and the Android app in step (fast: first)
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
@@ -24,8 +24,8 @@ jobs:
   layout:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: {node-version: 22}
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - name: Layout on the sizes that break first
@@ -37,7 +37,7 @@ jobs:
           fail=0; for p in "${pids[@]}"; do wait $p || fail=1; done
           for f in testing/out-*.txt; do echo "== $f"; cat "$f"; done
           exit $fail
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with: {name: layout-problems, path: testing/out/}
 
@@ -45,8 +45,8 @@ jobs:
   daily-model:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: {node-version: 22}
       - run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
       - run: node testing/daily-model.js
@@ -56,7 +56,7 @@ jobs:
   save-rank:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: swift --version
       - name: SaveRank against the shared cases
         run: swiftc ios/KingWalk/SaveRank.swift testing/SaveRankCases.swift -o /tmp/save-rank && /tmp/save-rank testing/save-cases.json

@@ -41,7 +41,7 @@ jobs:
       beta: ${{ steps.read.outputs.beta }}
       ready: ${{ steps.read.outputs.ready }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - id: read
         env:
           EVENT: ${{ github.event_name }}
@@ -105,7 +105,7 @@ jobs:
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
       BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: The videos (the App Store preview and the App Review attachment; the media branch, as media.json names them)
         run: python3 scripts/media.py fetch
       - name: The last status (the status branch), so an unchanged one isn't added again

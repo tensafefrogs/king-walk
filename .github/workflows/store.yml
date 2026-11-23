@@ -33,7 +33,7 @@ jobs:
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
       BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: The videos (the app preview; media branch, as media.json names them)
         run: python3 scripts/media.py fetch
       - name: Check the secrets are set
@@ -72,8 +72,8 @@ jobs:
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
       BUNDLE_ID: ${{ vars.BUNDLE_ID }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Playwright, and fonts for Japanese, Korean and Chinese
@@ -82,7 +82,7 @@ jobs:
           sudo apt-get install -y fonts-noto-cjk
       - name: Make the screenshots
         run: node ios/store/screenshots.js --lang ${{ matrix.locale }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: screenshots-${{ matrix.locale }}
           path: ios/store/screenshots/l10n/${{ matrix.locale }}/*.png

@@ -24,7 +24,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: The videos (the media branch, as media.json names them)
         run: python3 scripts/media.py fetch
       - name: Where the app stands in App Store Connect (the status branch; the site's App Store line reads it)
@@ -142,7 +142,7 @@ jobs:
           # the page in each language (kingwalk.app/de/…), with hreflang links and sitemap entries (scripts/langpages.py)
           python3 scripts/langpages.py _site "$SITE_URL"
           du -sh _site
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -154,4 +154,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
