@@ -148,22 +148,40 @@ def apply():
                           'name': bundle(a['name'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('name')),
                           'description': bundle(a['before'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('before'))}}
 
+    token_of = {}          # the token Play Games gives each item (listed with it); an update sends it back
     def update(body, item_id):
-        """a body for an update: the item's id (Google reads it from here, not the address) and a new token (a token is a
-        request key: the one an item was made with, sent again with other arguments, is refused, 410 UpdateTokenInvalid)"""
-        import uuid
-        return dict(body, id=item_id, token='kingwalk-update-' + uuid.uuid4().hex)
+        """a body for an update: the item's id (Google reads it from here, not the address) and the item's own token from
+        Google (the one it was made with, or a new one, was refused: 410 UpdateTokenInvalid)"""
+        return dict(body, id=item_id, token=token_of.get(item_id) or body.get('token'))
+
+    def make(kind, body, what):
+        """POST a new item; one Google refuses for a language code is made again in English, with a warning"""
+        r = call('POST', f'{API}/applications/{app}/{kind}', what, fatal=False, json=body)
+        if not isinstance(r, dict) and r.status_code == 400 and 'locale' in r.text:
+            print(f'::warning::{what}: Google refused a language code; made in English only (add its translations in Play Console)')
+            english_only = json.loads(json.dumps(body))
+            for f in ('name', 'description'):
+                b = english_only['draft'].get(f)
+                if b: b['translations'] = b['translations'][:1]
+            sfx = english_only['draft'].get('scoreFormat', {}).get('suffix', {})
+            for k in sfx: sfx[k]['translations'] = sfx[k]['translations'][:1]
+            r = call('POST', f'{API}/applications/{app}/{kind}', what, fatal=False, json=english_only)
+        if not isinstance(r, dict): sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
+        if not r.get('id'): sys.exit(f"::error::{what}: Google sent back no id (fields: {sorted(r)}); nothing more made")
+        token_of[r['id']] = r.get('token')
+        return r
 
     ids = {'achievements': {}, 'leaderboards': {}}
     found = every('achievements')
     # what Play Games has already: shown, and nothing more made if an id is missing or a name is there twice (the second
     # and third real runs got an achievement back with an empty id; this run says what Google returns before going on)
-    for x in found: print('Play Games has achievement:', repr(english(x)), 'id', repr(x.get('id')), 'fields', sorted(x))
+    for x in found: print('Play Games has achievement:', repr(english(x)), 'id', repr(x.get('id')), 'token', repr(x.get('token')), 'fields', sorted(x))
     names = [english(x) for x in found]
     if any(not x.get('id') for x in found) or len(set(names)) < len(names):
         sys.exit('::error::Play Games lists an achievement without an id, or one name twice (above): check Play Console → Play Games '
                  'Services → Achievements and delete the extra drafts before running this again')
     have = {english(a): a['id'] for a in found}
+    token_of.update({x['id']: x.get('token') for x in found})
     for a in GC['achievements']:          # made by an earlier run whose image didn't go up
         it = next((x for x in found if english(x) == a['name']), None)
         if it and not has_icon(it): icon(it['id'], 'ACHIEVEMENT_ICON', a['id'] + '.png')
@@ -172,24 +190,30 @@ def apply():
     first = GC['achievements'][0]
     if first['name'] not in have:
         SKIP.update(loc for loc, _ in translations())
-        made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {first['id']}", json=achievement(0, first))
-        if not made.get('id'): sys.exit(f"::error::Google made {first['id']} but sent back no id (fields: {sorted(made)}); nothing more made")
+        made = make('achievements', achievement(0, first), f"Making achievement {first['id']}")
         have[first['name']] = made['id']; icon(made['id'], 'ACHIEVEMENT_ICON', first['id'] + '.png'); print('made achievement', first['id'])
         SKIP.clear()
-    every_lang, refused = [loc for loc, _ in translations()], set()
+    every_lang, refused, updates = [loc for loc, _ in translations()], set(), True
     for loc in every_lang:          # English and this one language only
         SKIP.clear(); SKIP.update(set(every_lang) - {loc})
         r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc}', fatal=False, json=update(achievement(0, first), have[first['name']]))
-        if not isinstance(r, dict):
-            if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} failed ({r.status_code}): {r.text[:1500]}')
-            refused.add(loc); print(f'::warning::Play Games takes no {loc} text; that language shows English')
+        if isinstance(r, dict):
+            if r.get('token'): token_of[have[first['name']]] = r['token']          # a new token for the next update
+            continue
+        if r.status_code == 410 or 'token' in r.text.lower():          # Google won't take updates from here: go on without them
+            updates = False
+            print(f"::warning::Play Games refused an update ({r.status_code}: {r.text[:200]}); {first['id']} stays in English "
+                  'for now (add its translations in Play Console), and the rest are made with every language, any refused one in English')
+            break
+        if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} failed ({r.status_code}): {r.text[:1500]}')
+        refused.add(loc); print(f'::warning::Play Games takes no {loc} text; that language shows English')
     SKIP.clear(); SKIP.update(refused)
-    # an update names its achievement in the body too: Google reads the id from there ("achievement with ID  was not found")
-    call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=update(achievement(0, first), have[first['name']]))
+    if updates:          # an update names its achievement in the body too: Google reads the id from there
+        r = call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=update(achievement(0, first), have[first['name']]))
     for i, a in enumerate(GC['achievements']):
         if a['name'] in have:
             ids['achievements'][a['id']] = have[a['name']]; continue
-        made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {a['id']}", json=achievement(i, a))
+        made = make('achievements', achievement(i, a), f"Making achievement {a['id']}")
         ids['achievements'][a['id']] = made['id']
         icon(made['id'], 'ACHIEVEMENT_ICON', a['id'] + '.png')
         print('made achievement', a['id'])
@@ -208,7 +232,7 @@ def apply():
                           'scoreFormat': {'numberFormatStyle': 'NUMERIC', 'numDecimalPlaces': 0,
                                           'suffix': {'one': suffix('suffix_singular', l['suffix_singular'].strip()),
                                                      'other': suffix('suffix', l['suffix'].strip())}}}}
-        made = call('POST', f'{API}/applications/{app}/leaderboards', f"Making leaderboard {l['id']}", json=body)
+        made = make('leaderboards', body, f"Making leaderboard {l['id']}")
         ids['leaderboards'][l['id']] = made['id']
         icon(made['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')
         print('made leaderboard', l['id'])

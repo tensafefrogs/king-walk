@@ -6,7 +6,7 @@ are tried, and the id map is complete. No account or network. testing/parity.js 
 import sys, types, json, io, contextlib, os
 # a fake Google: refuses some languages' text, is busy (503) the first time an image is sent, never takes one image,
 # and lists what was made, as Google does, so a second run can find it
-BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); tokens = set()
+BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); UPDATES = [True]          # UPDATES[0] False: every update refused, as a 410
 NEVER = 'leaderboard-rating.png'
 class R:
     def __init__(self, code, body): self.status_code = code; self._b = body; self.text = json.dumps(body); self.content = b'x'
@@ -16,14 +16,14 @@ class S:
     def request(self, method, url, timeout=0, json=None, params=None, data=None, headers=None):
         kind = 'achievements' if '/achievements' in url else 'leaderboards'
         if method == 'GET':
-            return R(200, {'items': [{'id': i, 'draft': dict(m['draft'], **({'iconUrl': 'x'} if i in icons else {}))}
+            return R(200, {'items': [{'id': i, 'token': m['token'], 'draft': dict(m['draft'], **({'iconUrl': 'x'} if i in icons else {}))}
                                      for i, m in made.items() if m['_kind'] == kind]})
         if '/images/' in url:          # only the www.googleapis.com media upload works here; it is busy once
             if not url.startswith('https://www.googleapis.com/') or (params or {}).get('uploadType') != 'media':
                 return R(503, {'error': 'Service Unavailable'})
             if busy: busy.pop(); return R(503, {'error': 'Service Unavailable'})
             rid = url.split('/images/')[1].split('/')[0]
-            if made.get(rid, {}).get('token') == 'kingwalk-' + NEVER[len('leaderboard-'):-4]: return R(503, {'error': 'Service Unavailable'})
+            if made.get(rid, {}).get('_made') == 'kingwalk-' + NEVER[len('leaderboard-'):-4]: return R(503, {'error': 'Service Unavailable'})
             try:
                 from PIL import Image
                 sizes.add(Image.open(io.BytesIO(data)).size)
@@ -35,13 +35,14 @@ class S:
             if b and any(t['locale'] in BAD for t in b['translations']):
                 return R(400, {'error': {'message': 'Invalid name with value . Reason: Localized string has invalid locale code.'}})
         if method == 'POST':
-            i = f'id{len(made)}'; made[i] = dict(json, _kind=kind); tokens.add(json.get('token')); return R(200, {'id': i})
-        if (json or {}).get('token') in tokens:          # a token goes with one request only (410 UpdateTokenInvalid)
-            return R(410, {'error': {'message': 'The passed token does not match the arguments of the request.'}})
-        tokens.add((json or {}).get('token'))
+            i = f'id{len(made)}'; t = f'srv-{i}-0'; made[i] = dict(json, _kind=kind, _made=json.get('token'), token=t); return R(200, {'id': i, 'token': t})
         if (json or {}).get('id') != url.rstrip('/').split('/')[-1]:          # Google reads an update's id from its body
             return R(404, {'error': {'message': 'The requested achievement definition with ID  was not found.'}})
-        puts.append(url); return R(200, {})
+        item = made[json['id']]
+        if not UPDATES[0] or json.get('token') != item['token']:          # an update sends the item's token from Google
+            return R(410, {'error': {'message': 'The passed token does not match the arguments of the request.'}})
+        item['token'] = item['token'].rsplit('-', 1)[0] + '-' + str(int(item['token'].rsplit('-', 1)[1]) + 1)
+        puts.append(url); return R(200, {'id': json['id'], 'token': item['token']})
 g = types.ModuleType('google'); oa = types.ModuleType('google.oauth2'); sa = types.ModuleType('google.oauth2.service_account')
 sa.Credentials = types.SimpleNamespace(from_service_account_info=lambda *a, **k: None)
 tr = types.ModuleType('google.auth.transport.requests'); tr.AuthorizedSession = S
@@ -81,4 +82,12 @@ before = len(made); made[''] = dict(made['id0'])
 try: run(); problems.append('went on with an achievement listed without an id')
 except SystemExit: pass
 if len(made) != before + 1: problems.append('made something after an empty id')
+# Google refuses every update (as the real fifth and sixth runs did): the rest are still made, with every language,
+# and any refused for a language code is made again in English
+made.clear(); icons.clear(); UPDATES[0] = False
+o3 = run()
+locs3 = {t['locale'] for m in made.values() for t in m['draft']['name']['translations']}
+if len(made) != n: problems.append(f'with updates refused, made {len(made)} of {n}')
+if BAD & locs3: problems.append('with updates refused, a refused language was kept')
+if 'refused an update' not in o3: problems.append('a refused update is not reported')
 print('ok' if not problems else 'FAIL ' + '; '.join(problems))
