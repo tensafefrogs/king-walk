@@ -148,6 +148,12 @@ def apply():
                           'name': bundle(a['name'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('name')),
                           'description': bundle(a['before'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('before'))}}
 
+    def update(body, item_id):
+        """a body for an update: the item's id (Google reads it from here, not the address) and a new token (a token is a
+        request key: the one an item was made with, sent again with other arguments, is refused, 410 UpdateTokenInvalid)"""
+        import uuid
+        return dict(body, id=item_id, token='kingwalk-update-' + uuid.uuid4().hex)
+
     ids = {'achievements': {}, 'leaderboards': {}}
     found = every('achievements')
     # what Play Games has already: shown, and nothing more made if an id is missing or a name is there twice (the second
@@ -173,13 +179,13 @@ def apply():
     every_lang, refused = [loc for loc, _ in translations()], set()
     for loc in every_lang:          # English and this one language only
         SKIP.clear(); SKIP.update(set(every_lang) - {loc})
-        r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc}', fatal=False, json=dict(achievement(0, first), id=have[first['name']]))
+        r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc}', fatal=False, json=update(achievement(0, first), have[first['name']]))
         if not isinstance(r, dict):
             if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} failed ({r.status_code}): {r.text[:1500]}')
             refused.add(loc); print(f'::warning::Play Games takes no {loc} text; that language shows English')
     SKIP.clear(); SKIP.update(refused)
     # an update names its achievement in the body too: Google reads the id from there ("achievement with ID  was not found")
-    call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=dict(achievement(0, first), id=have[first['name']]))
+    call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=update(achievement(0, first), have[first['name']]))
     for i, a in enumerate(GC['achievements']):
         if a['name'] in have:
             ids['achievements'][a['id']] = have[a['name']]; continue

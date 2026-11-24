@@ -6,7 +6,7 @@ are tried, and the id map is complete. No account or network. testing/parity.js 
 import sys, types, json, io, contextlib, os
 # a fake Google: refuses some languages' text, is busy (503) the first time an image is sent, never takes one image,
 # and lists what was made, as Google does, so a second run can find it
-BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set()
+BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); tokens = set()
 NEVER = 'leaderboard-rating.png'
 class R:
     def __init__(self, code, body): self.status_code = code; self._b = body; self.text = json.dumps(body); self.content = b'x'
@@ -35,7 +35,10 @@ class S:
             if b and any(t['locale'] in BAD for t in b['translations']):
                 return R(400, {'error': {'message': 'Invalid name with value . Reason: Localized string has invalid locale code.'}})
         if method == 'POST':
-            i = f'id{len(made)}'; made[i] = dict(json, _kind=kind); return R(200, {'id': i})
+            i = f'id{len(made)}'; made[i] = dict(json, _kind=kind); tokens.add(json.get('token')); return R(200, {'id': i})
+        if (json or {}).get('token') in tokens:          # a token goes with one request only (410 UpdateTokenInvalid)
+            return R(410, {'error': {'message': 'The passed token does not match the arguments of the request.'}})
+        tokens.add((json or {}).get('token'))
         if (json or {}).get('id') != url.rstrip('/').split('/')[-1]:          # Google reads an update's id from its body
             return R(404, {'error': {'message': 'The requested achievement definition with ID  was not found.'}})
         puts.append(url); return R(200, {})
