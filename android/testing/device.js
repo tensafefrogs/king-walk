@@ -58,9 +58,18 @@ async function report() {
   // notifications allowed up front: the permission dialog is Android's, not the game's
   await sh(`pm grant ${PKG} android.permission.POST_NOTIFICATIONS`).catch(() => {});
 
+  /* start the app and attach to its page. Right after the phone's per-app language changes and the app is stopped,
+     Playwright sometimes never sees the new WebView (twice in November 2026, at the German step, with nothing in the
+     app's log): then stop it and start it once more. A page that does open is still checked as before */
   const open = async (how = `-n ${ACTIVITY}`) => {
-    await sh(`am start -W ${how}`);
-    return attach();
+    for (let tries = 1; ; tries++) {
+      await sh(`am start -W ${how}`);
+      try { return await attach(); } catch (e) {
+        if (tries >= 2 || !/Timeout/i.test(e.message)) throw e;
+        console.log("note: the app's WebView didn't show up; stopping the app and starting it again");
+        await sh(`am force-stop ${PKG}`); await sleep(3000);
+      }
+    }
   };
   /** the game's page in the app's WebView, once it's ready */
   attach = async () => {
