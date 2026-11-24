@@ -46,6 +46,9 @@ const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app langu
   const game = ["/"].concat(langs.concat(variants).map(t => `/${t}/`)), missed = game.filter(p => !claims(p));
   const other = ["/press/", "/privacy.html", "/terms.html", "/support.html", "/404.html", "/index.html"].concat(fs.readdirSync(ROOT).filter(d => !d.startsWith(".") && fs.statSync(path.join(ROOT, d)).isDirectory()).map(d => `/${d}/`)), taken = other.filter(claims);
   check(!missed.length && !taken.length, "the Android app opens the game's and language pages' links, and no other page's", { missed, taken }); }
+// Play Games setup (android/store/playgames.py apply) against a fake Google that refuses some languages
+{ let out = ""; try { out = execFileSync("python3", ["-I", path.join(ROOT, "testing/playgames-fake.py")], { encoding: "utf8" }).trim(); } catch (e) { out = String(e.stdout || e.message); }
+  check(out === "ok", "Play Games setup makes every achievement and leaderboard, dropping languages Google refuses", out.slice(-300)); }
 // the website publishes its hidden files: .well-known/assetlinks.json (links that open the Android app) and .nojekyll;
 // the Pages upload action drops anything starting with a dot unless include-hidden-files is on
 check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".github/workflows/pages.yml")), "the website build publishes .well-known (assetlinks.json)");

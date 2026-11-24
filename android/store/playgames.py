@@ -22,18 +22,21 @@ IOS = os.path.join(HERE, '..', '..', 'ios', 'store')
 GC = json.load(open(os.path.join(IOS, 'gamecenter.json')))
 API = 'https://gamesconfiguration.googleapis.com/games/v1configuration'
 UPLOAD = 'https://gamesconfiguration.googleapis.com/upload/games/v1configuration'
-# App Store locales to Google Play's (Play uses language-REGION for most)
-PLAY_LOCALE = {'ar-SA': 'ar', 'he': 'iw-IL', 'id': 'id', 'no': 'no-NO', 'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW', 'es-MX': 'es-419',
-               'ja': 'ja-JP', 'ko': 'ko-KR', 'ru': 'ru-RU', 'pl': 'pl-PL', 'tr': 'tr-TR', 'th': 'th', 'vi': 'vi', 'uk': 'uk', 'cs': 'cs-CZ',
-               'sk': 'sk', 'hr': 'hr', 'hu': 'hu-HU', 'ro': 'ro', 'el': 'el-GR', 'ca': 'ca', 'sv': 'sv-SE', 'da': 'da-DK', 'fi': 'fi-FI',
-               'it': 'it-IT', 'ms': 'ms', 'hi': 'hi-IN'}
+# App Store locales to Google Play's: the store listing's table (listing.py), which Google took for 44 languages; a
+# language without a Play listing (Odia) is left out. apply() still tries each language once and drops any Play Games
+# refuses ("Localized string has invalid locale code" stopped the first run on its first achievement, before anything
+# was made)
+sys.path.insert(0, HERE)
+from listing import PLAY as PLAY_LOCALE          # noqa: E402
+SKIP = set()          # languages Play Games refused (apply fills it)
 
 
 def translations():
     out = []
     for f in sorted(glob.glob(os.path.join(IOS, 'l10n', '*.json'))):
         t = json.load(open(f))
-        out.append((PLAY_LOCALE.get(t['locale'], t['locale']), t.get('gamecenter', {})))
+        loc = PLAY_LOCALE.get(t['locale'])
+        if loc and loc not in SKIP: out.append((loc, t.get('gamecenter', {})))
     return out
 
 
@@ -65,9 +68,11 @@ def apply():
     creds = service_account.Credentials.from_service_account_info(json.loads(info), scopes=['https://www.googleapis.com/auth/androidpublisher'])
     s = AuthorizedSession(creds)
 
-    def call(method, url, what, **kw):
+    def call(method, url, what, fatal=True, **kw):
         r = s.request(method, url, timeout=120, **kw)
-        if r.status_code >= 300: sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
+        if r.status_code >= 300:
+            if fatal: sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
+            return r
         return r.json() if r.content else {}
 
     def every(kind):
@@ -88,17 +93,36 @@ def apply():
         for t in ((item.get('draft') or item.get('published') or {}).get('name') or {}).get('translations', []):
             if t.get('locale', '').startswith('en'): return t.get('value')
 
-    ids = {'achievements': {}, 'leaderboards': {}}
-    have = {english(a): a['id'] for a in every('achievements')}
-    for i, a in enumerate(GC['achievements']):
-        if a['name'] in have:
-            ids['achievements'][a['id']] = have[a['name']]; continue
-        body = {'kind': 'gamesConfiguration#achievementConfiguration', 'token': 'kingwalk-' + a['id'], 'achievementType': 'STANDARD',
+    def achievement(i, a):
+        return {'kind': 'gamesConfiguration#achievementConfiguration', 'token': 'kingwalk-' + a['id'], 'achievementType': 'STANDARD',
                 'initialState': 'HIDDEN' if a.get('hidden') else 'REVEALED',
                 'draft': {'kind': 'gamesConfiguration#achievementConfigurationDetail', 'pointValue': a['points'], 'sortRank': i + 1,
                           'name': bundle(a['name'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('name')),
                           'description': bundle(a['before'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('before'))}}
-        made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {a['id']}", json=body)
+
+    ids = {'achievements': {}, 'leaderboards': {}}
+    have = {english(a): a['id'] for a in every('achievements')}
+    # The languages Play Games takes: the first achievement, made (or found) in English, is saved once with English and
+    # each other language; a language it refuses is left out of everything
+    first = GC['achievements'][0]
+    if first['name'] not in have:
+        SKIP.update(loc for loc, _ in translations())
+        made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {first['id']}", json=achievement(0, first))
+        have[first['name']] = made['id']; icon(made['id'], 'ACHIEVEMENT_ICON', first['id'] + '.png'); print('made achievement', first['id'])
+        SKIP.clear()
+    every_lang, refused = [loc for loc, _ in translations()], set()
+    for loc in every_lang:          # English and this one language only
+        SKIP.clear(); SKIP.update(set(every_lang) - {loc})
+        r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc}', fatal=False, json=achievement(0, first))
+        if not isinstance(r, dict):
+            if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} failed ({r.status_code}): {r.text[:1500]}')
+            refused.add(loc); print(f'::warning::Play Games takes no {loc} text; that language shows English')
+    SKIP.clear(); SKIP.update(refused)
+    call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=achievement(0, first))
+    for i, a in enumerate(GC['achievements']):
+        if a['name'] in have:
+            ids['achievements'][a['id']] = have[a['name']]; continue
+        made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {a['id']}", json=achievement(i, a))
         ids['achievements'][a['id']] = made['id']
         icon(made['id'], 'ACHIEVEMENT_ICON', a['id'] + '.png')
         print('made achievement', a['id'])
