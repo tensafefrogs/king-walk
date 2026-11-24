@@ -8,7 +8,7 @@ on:
   push:
     branches: [main]
     paths: ['android/store/listing.json', 'android/store/listing.py', 'android/store/icon-512.png', 'android/store/feature-1024x500.png',
-            'android/store/screenshots/*.png', 'ios/store/l10n/*', 'ios/store/listing.json', '.github/workflows/play-listing.yml']
+            'android/store/screenshots/*.png', 'ios/store/l10n/*', 'ios/store/listing.json', 'ios/store/screenshots.js', '.github/workflows/play-listing.yml']
   workflow_dispatch:
 
 concurrency:
@@ -16,14 +16,65 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  upload:
+  # The App Store languages with a Google Play listing (android/store/listing.py), when Google Play is set up
+  locales:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    outputs:
+      list: ${{ steps.l.outputs.list }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: l
+        env:
+          READY: ${{ vars.ANDROID_APPLICATION_ID != '' && secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
+        run: echo "list=$([ "$READY" = true ] && python3 android/store/listing.py --locales || echo '[]')" | tee -a "$GITHUB_OUTPUT"
+
+  # Each language's phone and tablet screenshots: the game in that language with its captions (ios/store/l10n), made
+  # here rather than kept in the repo, as the App Store's are (store.yml). One job per language, side by side
+  screenshots:
+    needs: locales
+    if: needs.locales.outputs.list != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: ${{ fromJSON(needs.locales.outputs.list) }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Playwright, and fonts for Japanese, Korean and Chinese
+        run: |
+          npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Make the screenshots
+        run: node ios/store/screenshots.js android tablet --lang ${{ matrix.locale }}
+      - uses: actions/upload-artifact@v6
+        with:
+          name: play-shots-${{ matrix.locale }}
+          path: android/store/screenshots/l10n/${{ matrix.locale }}/*.png
+          retention-days: 7
+
+  upload:
+    needs: [locales, screenshots]
+    if: always() && needs.locales.result == 'success'          # a language whose screenshots failed keeps English's
+    runs-on: ubuntu-latest
+    timeout-minutes: 45          # every language's pictures: about 700 uploads
     env:
       ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
       PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v7
+        if: needs.screenshots.result != 'skipped'
+        with:
+          pattern: play-shots-*
+          path: shots
+      - name: Each language's screenshots where listing.py looks for them
+        run: |
+          mkdir -p android/store/screenshots/l10n
+          for d in shots/play-shots-*; do [ -d "$d" ] && mv "$d" "android/store/screenshots/l10n/${d#shots/play-shots-}"; done; true
       - name: What would be sent
         run: python3 android/store/listing.py --dry-run
       - name: Upload

@@ -51,13 +51,28 @@ def listings():
     return out
 
 
+def pictures(folder, english=False):
+    """a listing's pictures in folder: the phone screenshots (android-<n>.png) and the tablet ones (tablet-<n>.png, for
+    both of Play's tablet sizes); English also has the icon and the feature graphic. Empty when there are none"""
+    phone, tablet = (sorted(glob.glob(os.path.join(folder, f'{k}-*.png'))) for k in ('android', 'tablet'))
+    out = {}
+    if english: out.update(icon=[os.path.join(HERE, 'icon-512.png')], featureGraphic=[os.path.join(HERE, 'feature-1024x500.png')])
+    if phone: out['phoneScreenshots'] = phone
+    if tablet: out.update(sevenInchScreenshots=tablet, tenInchScreenshots=tablet)
+    return out
+
+
 def main():
     data = listings()
-    shots = sorted(glob.glob(os.path.join(HERE, 'screenshots', 'android-*.png')))
-    images = {'icon': [os.path.join(HERE, 'icon-512.png')], 'featureGraphic': [os.path.join(HERE, 'feature-1024x500.png')], 'phoneScreenshots': shots}
+    if '--locales' in sys.argv:          # the App Store locales with a Play listing: the workflow makes their screenshots
+        print(json.dumps(sorted(PLAY))); return
+    images = {'en-US': pictures(os.path.join(HERE, 'screenshots'), english=True)}
+    for loc, lang in PLAY.items():          # each language's own screenshots, where the workflow made them
+        own = pictures(os.path.join(HERE, 'screenshots', 'l10n', loc))
+        if own and lang in data: images[lang] = own
     if '--dry-run' in sys.argv:
-        for lang, d in data.items(): print(lang, {k: len(v) for k, v in d.items()})
-        for k, v in images.items(): print(k, [os.path.basename(x) for x in v])
+        for lang, d in data.items(): print(lang, {k: len(v) for k, v in d.items()}, {k: len(v) for k, v in images.get(lang, {}).items()})
+        for k, v in images['en-US'].items(): print(k, [os.path.basename(x) for x in v])
         return
     from google.oauth2 import service_account
     from google.auth.transport.requests import AuthorizedSession
@@ -80,16 +95,19 @@ def main():
               'the service account (android/README.md, Setting up Google Play). Nothing uploaded.')
         return
     edit = ok(r, 'Starting an edit')['id']
+    video = {'video': EN['video']} if EN.get('video') else {}          # the promo video: a YouTube link, the same in every language
     for lang, d in data.items():
-        if ok(s.put(f'{api}/edits/{edit}/listings/{lang}', json={'language': lang, **d}), f'The {lang} listing', fatal=lang == 'en-US') is not None:
+        if ok(s.put(f'{api}/edits/{edit}/listings/{lang}', json={'language': lang, **d, **video}), f'The {lang} listing', fatal=lang == 'en-US') is not None:
             print('listing:', lang)
-    for kind, files in images.items():          # English's pictures, which Play shows for every language without its own
-        ok(s.delete(f'{api}/edits/{edit}/listings/en-US/{kind}'), f'Clearing {kind}')
-        for f in files:
-            with open(f, 'rb') as fh:
-                ok(s.post(f'https://androidpublisher.googleapis.com/upload/androidpublisher/v3/applications/{pkg}/edits/{edit}/listings/en-US/{kind}',
-                          params={'uploadType': 'media'}, data=fh, headers={'Content-Type': 'image/png'}), f'Uploading {os.path.basename(f)}')
-        print('images:', kind, len(files))
+    # English's pictures, which Play shows for every language without its own, then each language's screenshots
+    for lang, kinds in images.items():
+        for kind, files in kinds.items():
+            ok(s.delete(f'{api}/edits/{edit}/listings/{lang}/{kind}'), f'Clearing {lang} {kind}')
+            for f in files:
+                with open(f, 'rb') as fh:
+                    ok(s.post(f'https://androidpublisher.googleapis.com/upload/androidpublisher/v3/applications/{pkg}/edits/{edit}/listings/{lang}/{kind}',
+                              params={'uploadType': 'media'}, data=fh, headers={'Content-Type': 'image/png'}), f'Uploading {lang} {os.path.basename(f)}')
+        print('images:', lang, {k: len(v) for k, v in kinds.items()})
     ok(s.post(f'{api}/edits/{edit}:commit'), 'Saving the listing')
     print('Google Play listing updated')
 

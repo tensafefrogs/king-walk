@@ -1,6 +1,6 @@
 // Makes the App Store screenshots: loads the game with a saved player partway up the ranks, poses five moments,
 // captures the screen at the exact device size, then frames each with a caption.
-// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table|android] [--lang <locale>]   (default: all devices,
+// usage: node ios/store/screenshots.js [iphone|ipad|duo-inner|duo-book|duo-table|android|tablet] [--lang <locale>]   (default: all devices,
 //        in English). Needs Playwright.
 // Output: ios/store/screenshots/<device>-<n>.png (captioned, upload these) and raw/<device>-<n>.png.
 // --lang de-DE (a file in l10n/): the game in that language with the captions from that file's "screenshots", saved to
@@ -23,10 +23,13 @@ const DEVICES = {   // App Store sizes: iPhone 6.9" 1320x2868, iPad 13" 2064x275
   "duo-table": { viewport: { width: 951, height: 669 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, q: "?fold=h" },
   // Google Play's phone screenshots: 1080x2160 (Play takes at most 2:1), saved to android/store/screenshots/
   android: { viewport: { width: 360, height: 720 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+  // Google Play's tablet screenshots, 1600x2560: one set for both its 7-inch and 10-inch slots (7-inch: 320-3840 px a
+  // side, 10-inch: 1080-7680, both at most 2:1), saved beside the phone ones
+  tablet: { viewport: { width: 800, height: 1280 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
 };
 const FRAME = { iphone: { cap: 34, sub: 19, top: 0.17, r: 30 }, ipad: { cap: 56, sub: 28, top: 0.15, r: 22 },   // caption sizes, caption band height, corner radius
   "duo-inner": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-book": { cap: 40, sub: 22, top: 0.17, r: 26 }, "duo-table": { cap: 38, sub: 21, top: 0.15, r: 22 },
-  android: { cap: 28, sub: 16, top: 0.2, r: 26 } };
+  android: { cap: 28, sub: 16, top: 0.2, r: 26 }, tablet: { cap: 46, sub: 24, top: 0.15, r: 22 } };
 // captions that say what a half-open iPhone Duo does, in place of the usual ones
 const CAPTIONS = {
   "duo-book": { 1: { caption: "Fold it like a <b>book</b>", sub: "Board on one page. Notes on the other." } },
@@ -49,7 +52,7 @@ const out = LOCALE ? path.join(__dirname, "screenshots", "l10n", LOCALE) : path.
 fs.mkdirSync(raw, { recursive: true });
 /* where a device's pictures go: Google Play's beside the Android app's other store files */
 const PLAY = LOCALE ? path.join(__dirname, "..", "..", "android", "store", "screenshots", "l10n", LOCALE) : path.join(__dirname, "..", "..", "android", "store", "screenshots");
-const outFor = name => name === "android" ? PLAY : out, rawFor = name => path.join(outFor(name), "raw");
+const outFor = name => name === "android" || name === "tablet" ? PLAY : out, rawFor = name => path.join(outFor(name), "raw");
 const FONT_DIR = path.join(__dirname, "..", "..", "fonts");
 // the captions use the game's own fonts: its @font-face rules for the weights they use (Fredoka 600 and Nunito 700), each script's file inlined, so a caption in any language is drawn as the game draws it
 const CAPTION_FONTS = (fs.readFileSync(path.join(__dirname, "..", "..", "index.html"), "utf8").match(/@font-face\{[^}]*\}/g) || [])

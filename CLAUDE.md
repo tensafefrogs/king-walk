@@ -40,7 +40,7 @@ How the repo fits together, how a change gets to `main`, and which check covers 
 After any change that alters what's on screen (layout, text in the panels, colors, the board, pieces), regenerate the store screenshots in the same change and look at them before committing:
 
 ```
-node ios/store/screenshots.js      # iPhone, iPad, iPhone Duo and Google Play's Android phone
+node ios/store/screenshots.js      # iPhone, iPad, iPhone Duo, and Google Play's Android phone and tablet
 python3 scripts/press-kit.py       # the press page's small copies
 python3 scripts/producthunt.py     # the Product Hunt gallery and thumbnail
 ```
