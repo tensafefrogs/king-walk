@@ -52,7 +52,7 @@ sa.Credentials = types.SimpleNamespace(from_service_account_info=lambda *a, **k:
 tr = types.ModuleType('google.auth.transport.requests'); tr.AuthorizedSession = S
 for n, m in {'google': g, 'google.oauth2': oa, 'google.oauth2.service_account': sa, 'google.auth': types.ModuleType('google.auth'),
              'google.auth.transport': types.ModuleType('google.auth.transport'), 'google.auth.transport.requests': tr}.items(): sys.modules[n] = m
-os.environ.update(ANDROID_PLAY_GAMES_APP_ID='123', PLAY_SERVICE_ACCOUNT_JSON='{}')
+os.environ.update(ANDROID_PLAY_GAMES_APP_ID='123', PLAY_SERVICE_ACCOUNT_JSON='{}', PLAYGAMES_UPLOAD_IMAGES='1')          # the upload path, as if Google took images again
 import tempfile; os.chdir(tempfile.mkdtemp())          # playgames-images/ lands here
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'android', 'store')); import playgames
 playgames.time.sleep = lambda s: None          # no waiting between tries here
@@ -105,4 +105,9 @@ for i, a in enumerate(playgames.GC['achievements']):
 o4 = run()
 short = [i for i, m in made.items() if m['_kind'] == 'achievements' and len(m['draft']['name']['translations']) < 20]
 if short: problems.append(f'{len(short)} achievements still in English only')
+# as it runs for real (no image uploads: Google's image API is deprecated): nothing sent, every image saved
+made.clear(); icons.clear(); os.environ.pop('PLAYGAMES_UPLOAD_IMAGES'); import shutil; shutil.rmtree('playgames-images', ignore_errors=True)
+o5 = run()
+if icons: problems.append('an image was sent with uploads off')
+if len(os.listdir('playgames-images')) != n: problems.append(f"{len(os.listdir('playgames-images'))} of {n} images saved for Play Console")
 print('ok' if not problems else 'FAIL ' + '; '.join(problems))

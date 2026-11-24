@@ -92,7 +92,11 @@ def apply():
     # while the calls around it worked; so each way Google documents is tried in turn on the first image and the one
     # that works is kept. If none does, no more are tried this run, and each image is saved at 512 x 512 under
     # playgames-images/ (named for its item) to add by hand in Play Console; the workflow keeps that folder.
-    no_icon, way, broken = [], [], []
+    no_icon, way = [], []
+    # Google marks this API's image upload "deprecated and being removed... attempting to use this API causes errors"
+    # (developer.android.com, ImageConfigurations: upload), and every real try got 503: so images aren't sent unless
+    # PLAYGAMES_UPLOAD_IMAGES=1, and each is saved for Play Console instead
+    broken = [] if os.environ.get('PLAYGAMES_UPLOAD_IMAGES') == '1' else [1]
     WAYS = [('media', UPLOAD), ('media', 'https://www.googleapis.com/upload/games/v1configuration'), ('multipart', UPLOAD)]
     SAVE = os.path.join(os.getcwd(), 'playgames-images')
 
@@ -258,7 +262,7 @@ def apply():
         ids['leaderboards'][l['id']] = made['id']
         icon(made['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')
         print('made leaderboard', l['id'])
-    if no_icon: print(f'::warning::Without their images for now ({len(no_icon)}), saved in playgames-images/ to add in Play Console:', ', '.join(no_icon))
+    if no_icon: print(f'::notice::{len(no_icon)} images to add in Play Console (Play Games Services → each achievement and leaderboard → Icon), saved in playgames-images/ (the run\'s artifact):', ', '.join(no_icon))
     print('Set the repository variable ANDROID_PLAY_GAMES_IDS to:')
     print(json.dumps(ids, separators=(',', ':')))
 
