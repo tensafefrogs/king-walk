@@ -7,7 +7,7 @@ import sys, types, json, io, contextlib, os
 import copy
 # a fake Google: refuses some languages' text, is busy (503) the first time an image is sent, never takes one image,
 # and lists what was made, as Google does, so a second run can find it
-BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); created = {}; UPDATES = [True]          # UPDATES[0] False: every update refused, as a 410
+BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); created = {}; UPDATES = [True]; limited = [1]; tries_of = {}          # UPDATES[0] False: every update refused, as a 410
 NEVER = 'leaderboard-rating.png'
 class R:
     def __init__(self, code, body): self.status_code = code; self._b = body; self.text = json.dumps(body); self.content = b'x'
@@ -33,6 +33,10 @@ class S:
             icons[rid] = 1; return R(200, {})
         if json['draft'].get('scoreFormat') and not json['draft']['scoreFormat'].get('numberFormatType'):
             return R(400, {'error': {'message': 'Invalid numberFormatType with value . Reason: No leaderboard score format type specified.'}})
+        if method == 'PUT' and limited: limited.pop(); return R(403, {'error': {'message': 'Rate Limit Exceeded', 'errors': [{'reason': 'rateLimitExceeded'}]}})
+        for t in json['draft']['name']['translations']: tries_of[t['locale']] = tries_of.get(t['locale'], 0) + 1
+        if any(t['locale'].split('-')[0].split('_')[0] == 'ar' for t in json['draft']['name']['translations']):          # not one of the game's languages
+            return R(400, {'error': {'message': 'The locale ar in the name field is not supported by the application.', 'errors': [{'reason': 'UnsupportedLocale'}]}})
         for f in ('name', 'description'):          # like the real one: a regional code (de-DE) is refused, the language (de) taken
             b = json['draft'].get(f)
             if b and any(t['locale'] in BAD or ('-' in t['locale'] and t['locale'] != 'en-US') for t in b['translations']):
@@ -62,6 +66,7 @@ def run():
     with contextlib.redirect_stdout(out): playgames.apply()
     return out.getvalue()
 o = run()
+ar_tries = sum(v for k, v in tries_of.items() if k.split('-')[0].split('_')[0] == 'ar')          # in this first run
 locs = {t['locale'] for m in made.values() for t in m['draft']['name']['translations']}
 ids = json.loads(o.strip().splitlines()[-1])
 n = len(playgames.GC['achievements']) + len(playgames.GC['leaderboards'])
@@ -95,6 +100,9 @@ if len(made) != n: problems.append(f'with updates refused, made {len(made)} of {
 if BAD & locs3: problems.append('with updates refused, a refused language was kept')
 if 'refused an update' not in o3: problems.append('a refused update is not reported')
 if 'de' not in locs or 'de-DE' in locs: problems.append('German not found in the form Google takes (de)')
+if 'ar' in locs: problems.append('Arabic sent although the game has no Arabic')
+if 'add the game' not in o: problems.append('no word on adding languages to the game in Play Console')
+if ar_tries > 1: problems.append(f'Arabic tried {ar_tries} times after UnsupportedLocale')
 # an earlier run left the achievements in English only (as the seventh real run did): their languages are added
 made.clear(); icons.clear(); UPDATES[0] = True
 for i, a in enumerate(playgames.GC['achievements']):

@@ -74,7 +74,8 @@ def apply():
         for attempt in range(tries):          # Google's busy answers (429, 5xx) are tried again
             if kw.get('data') is not None and hasattr(kw['data'], 'seek'): kw['data'].seek(0)
             r = s.request(method, url, timeout=120, **kw)
-            if r.status_code not in (429, 500, 502, 503, 504) or attempt == tries - 1: break
+            busy = r.status_code in (429, 500, 502, 503, 504) or (r.status_code == 403 and 'rateLimitExceeded' in r.text)          # 403 Rate Limit Exceeded: the eighth run
+            if not busy or attempt == tries - 1: break
             time.sleep(5 * (attempt + 1))
         if r.status_code >= 300:
             if fatal: sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
@@ -206,6 +207,7 @@ def apply():
         out = [loc, base, loc.replace('-', '_')]
         return [f for i, f in enumerate(out) if f not in out[:i] and f not in CODE.values()]
     for loc in every_lang:          # English and this one language only
+        time.sleep(0.5)          # spaced out: Google's rate limit (403) stopped the eighth run partway
         SKIP.clear(); SKIP.update(set(every_lang) - {loc})
         for form in forms(loc):
             CODE[loc] = form
@@ -218,6 +220,13 @@ def apply():
                 updates = False; break
             if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} as {form} failed ({r.status_code}): {r.text[:1500]}')
             if not said: said.append(1); print(f'Google, refusing {loc} as {form}: {r.text[:600]}')
+            if 'UnsupportedLocale' in r.text:          # the code is fine; the language isn't one of the game's (eighth run)
+                if 'unsupported' not in said:
+                    said.append('unsupported')
+                    print('::warning::Play Games takes only the languages added to the game: Play Console → Play Games Services → '
+                          'Setup and management → Configuration, add the game\'s languages there, then run this again to add their text')
+                CODE.pop(loc, None); refused.add(loc); print(f'::warning::{loc} is not one of the game\'s languages in Play Games yet; it shows English')
+                break
         else:
             CODE.pop(loc, None); refused.add(loc); print(f'::warning::Play Games takes no {loc} text in any form tried; that language shows English')
         if not updates:
