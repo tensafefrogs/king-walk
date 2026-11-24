@@ -145,6 +145,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          # .well-known/assetlinks.json (the Android app's links) and .nojekyll start with a dot, and this action leaves
+          # such files out unless asked: both were missing from the live site until November 2026 (testing/parity.js)
+          include-hidden-files: true
 
   deploy:
     needs: build
