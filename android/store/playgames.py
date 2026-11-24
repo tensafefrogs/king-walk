@@ -15,7 +15,7 @@ and ANDROID_PLAY_GAMES_APP_ID. It has not been run against Google yet: check its
 (Grow users → Play Games Services → Setup and management) before publishing the Play Games project. Items stay drafts
 until the project is published there.
 """
-import glob, json, os, sys
+import glob, json, os, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IOS = os.path.join(HERE, '..', '..', 'ios', 'store')
@@ -65,11 +65,16 @@ def apply():
     app = os.environ.get('ANDROID_PLAY_GAMES_APP_ID', '').strip()
     info = os.environ.get('PLAY_SERVICE_ACCOUNT_JSON', '').strip()
     if not app or not info: sys.exit('::error::Needs ANDROID_PLAY_GAMES_APP_ID and PLAY_SERVICE_ACCOUNT_JSON (android/README.md)')
+    SKIP.clear()          # a run starts by trying every language again
     creds = service_account.Credentials.from_service_account_info(json.loads(info), scopes=['https://www.googleapis.com/auth/androidpublisher'])
     s = AuthorizedSession(creds)
 
     def call(method, url, what, fatal=True, **kw):
-        r = s.request(method, url, timeout=120, **kw)
+        for attempt in range(4):          # Google's busy answers (503 on the first image, Nov 2026) are tried again
+            if kw.get('data') is not None and hasattr(kw['data'], 'seek'): kw['data'].seek(0)
+            r = s.request(method, url, timeout=120, **kw)
+            if r.status_code not in (429, 500, 502, 503, 504) or attempt == 3: break
+            time.sleep(5 * (attempt + 1))
         if r.status_code >= 300:
             if fatal: sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
             return r
@@ -82,12 +87,18 @@ def apply():
             items += r.get('items', []); token = r.get('nextPageToken')
             if not token: return items
 
+    no_icon = []
     def icon(resource, image_type, name):
+        """an item's image; one Google won't take after its retries is reported, and the next run tries it again"""
         path = os.path.join(IOS, 'gamecenter', name)
         if os.path.exists(path):
             with open(path, 'rb') as f:
-                call('POST', f'{UPLOAD}/images/{resource}/imageType/{image_type}', f'Uploading {name}', params={'uploadType': 'media'},
-                     data=f, headers={'Content-Type': 'image/png'})
+                r = call('POST', f'{UPLOAD}/images/{resource}/imageType/{image_type}', f'Uploading {name}', fatal=False, params={'uploadType': 'media'},
+                         data=f, headers={'Content-Type': 'image/png'})
+            if not isinstance(r, dict): no_icon.append(name); print(f'::warning::{name} not uploaded ({r.status_code}); run this again to add it')
+
+    def has_icon(item):
+        return bool((item.get('draft') or {}).get('iconUrl') or (item.get('published') or {}).get('iconUrl'))
 
     def english(item):
         for t in ((item.get('draft') or item.get('published') or {}).get('name') or {}).get('translations', []):
@@ -101,7 +112,11 @@ def apply():
                           'description': bundle(a['before'], lambda t: t.get('achievements', {}).get(a['id'], {}).get('before'))}}
 
     ids = {'achievements': {}, 'leaderboards': {}}
-    have = {english(a): a['id'] for a in every('achievements')}
+    found = every('achievements')
+    have = {english(a): a['id'] for a in found}
+    for a in GC['achievements']:          # made by an earlier run whose image didn't go up
+        it = next((x for x in found if english(x) == a['name']), None)
+        if it and not has_icon(it): icon(it['id'], 'ACHIEVEMENT_ICON', a['id'] + '.png')
     # The languages Play Games takes: the first achievement, made (or found) in English, is saved once with English and
     # each other language; a language it refuses is left out of everything
     first = GC['achievements'][0]
@@ -126,7 +141,11 @@ def apply():
         ids['achievements'][a['id']] = made['id']
         icon(made['id'], 'ACHIEVEMENT_ICON', a['id'] + '.png')
         print('made achievement', a['id'])
-    have = {english(l): l['id'] for l in every('leaderboards')}
+    found = every('leaderboards')
+    have = {english(l): l['id'] for l in found}
+    for l in GC['leaderboards']:
+        it = next((x for x in found if english(x) == l['name']), None)
+        if it and not has_icon(it): icon(it['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')
     for i, l in enumerate(GC['leaderboards']):
         if l['name'] in have:
             ids['leaderboards'][l['id']] = have[l['name']]; continue
@@ -141,6 +160,7 @@ def apply():
         ids['leaderboards'][l['id']] = made['id']
         icon(made['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')
         print('made leaderboard', l['id'])
+    if no_icon: print('::warning::Without their images for now:', ', '.join(no_icon))
     print('Set the repository variable ANDROID_PLAY_GAMES_IDS to:')
     print(json.dumps(ids, separators=(',', ':')))
 
