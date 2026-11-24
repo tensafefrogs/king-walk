@@ -1,6 +1,6 @@
 # King Walk
 
-A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ from `main` (GitHub Pages, deployed by `.github/workflows/pages.yml`), plus an iOS app in `ios/` and an Android app in `android/` (`android/README.md`; not on Google Play yet). It is separate from Spark, but the iOS wrapper and release tooling follow Spark's (tensafefrogs/spark, `ios/`).
+A single-file chess puzzle game (`index.html`), live at https://kingwalk.app/ from `main` (GitHub Pages, deployed by `.github/workflows/pages.yml`), plus an iOS app in `ios/` and an Android app in `android/` (`android/README.md`; $0.99 on Google Play, in internal testing: a closed test of 12 testers for 14 days comes before production). It is separate from Spark, but the iOS wrapper and release tooling follow Spark's (tensafefrogs/spark, `ios/`).
 
 How the repo fits together, how a change gets to `main`, and which check covers what: `docs/README.md` (one page; read it first).
 
