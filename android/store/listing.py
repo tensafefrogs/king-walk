@@ -20,11 +20,12 @@ ROOT = os.path.join(HERE, '..', '..')
 IOS = os.path.join(ROOT, 'ios', 'store')
 EN = json.load(open(os.path.join(HERE, 'listing.json')))
 IOS_EN = json.load(open(os.path.join(IOS, 'listing.json')))['version']['description']
-# the App Store's locale names as Google Play's
+# the App Store's locale names as Google Play's. Not Odia (or-IN): Google Play has no Odia listing ("The requested language
+# is not currently supported: or", November 2026); its players see the English one
 PLAY = {'ar-SA': 'ar', 'bn-BD': 'bn-BD', 'ca': 'ca', 'cs': 'cs-CZ', 'da': 'da-DK', 'de-DE': 'de-DE', 'el': 'el-GR', 'es-ES': 'es-ES',
         'es-MX': 'es-419', 'fi': 'fi-FI', 'fr-FR': 'fr-FR', 'gu-IN': 'gu', 'he': 'iw-IL', 'hi': 'hi-IN', 'hr': 'hr', 'hu': 'hu-HU',
         'id': 'id', 'it': 'it-IT', 'ja': 'ja-JP', 'kn-IN': 'kn-IN', 'ko': 'ko-KR', 'ml-IN': 'ml-IN', 'mr-IN': 'mr-IN', 'ms': 'ms',
-        'nl-NL': 'nl-NL', 'no': 'no-NO', 'or-IN': 'or', 'pa-IN': 'pa', 'pl': 'pl-PL', 'pt-BR': 'pt-BR', 'pt-PT': 'pt-PT', 'ro': 'ro',
+        'nl-NL': 'nl-NL', 'no': 'no-NO', 'pa-IN': 'pa', 'pl': 'pl-PL', 'pt-BR': 'pt-BR', 'pt-PT': 'pt-PT', 'ro': 'ro',
         'ru': 'ru-RU', 'sk': 'sk', 'sl-SI': 'sl', 'sv': 'sv-SE', 'ta-IN': 'ta-IN', 'te-IN': 'te-IN', 'th': 'th', 'tr': 'tr-TR',
         'uk': 'uk', 'ur-PK': 'ur', 'vi': 'vi', 'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW'}
 IPHONE_ONLY = ('Game Center', 'StandBy')          # English lines to leave out; the same lines go in each translation
