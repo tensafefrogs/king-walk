@@ -35,6 +35,17 @@ const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app langu
 // already has them and the push lists none (the Android release never ran on ec60285). Compare before and after instead
 { const uses = fs.readdirSync(path.join(ROOT, ".github/workflows")).filter(f => /event\.commits/.test(read(".github/workflows/" + f)));
   check(!uses.length, "no workflow reads github.event.commits (empty for commits already pushed to a branch)", uses); }
+// the Android app's links (App Links) claim the game and its language pages only: the press kit, the policies and the
+// site's other pages open in the browser. Android's pathPattern: "." is any one character
+{ const man = read("android/app/src/main/AndroidManifest.xml"), f = man.slice(man.indexOf('autoVerify="true"'), man.indexOf("</intent-filter>", man.indexOf('autoVerify="true"')));
+  const pats = [...f.matchAll(/android:path="([^"]+)"/g)].map(m => "^" + m[1].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$")
+    .concat([...f.matchAll(/android:pathPattern="([^"]+)"/g)].map(m => "^" + m[1] + "$")).map(r => new RegExp(r));
+  const claims = p => pats.some(r => r.test(p));
+  const page = read("index.html"), langs = JSON.parse(page.match(/var LANGS = (\[[^\]]+\])/)[1]).filter(t => t !== "en");
+  const variants = JSON.parse(read("scripts/langpages.py").match(/^VARIANTS = (\[[^\]]*\])/m)[1].replace(/'/g, '"'));
+  const game = ["/"].concat(langs.concat(variants).map(t => `/${t}/`)), missed = game.filter(p => !claims(p));
+  const other = ["/press/", "/privacy.html", "/terms.html", "/support.html", "/404.html", "/index.html"].concat(fs.readdirSync(ROOT).filter(d => !d.startsWith(".") && fs.statSync(path.join(ROOT, d)).isDirectory()).map(d => `/${d}/`)), taken = other.filter(claims);
+  check(!missed.length && !taken.length, "the Android app opens the game's and language pages' links, and no other page's", { missed, taken }); }
 // the website publishes its hidden files: .well-known/assetlinks.json (links that open the Android app) and .nojekyll;
 // the Pages upload action drops anything starting with a dot unless include-hidden-files is on
 check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".github/workflows/pages.yml")), "the website build publishes .well-known (assetlinks.json)");
