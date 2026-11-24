@@ -31,6 +31,30 @@ env:
   ANDROID_PLAY_GAMES_IDS: ${{ vars.ANDROID_PLAY_GAMES_IDS }}
 
 jobs:
+  # Whether to build and release: by hand with "release" ticked, or a push to main that changes android/release.json.
+  # Worked out from the push's before and after, not the push's list of commits: commits pushed to main after their branch's
+  # Test run (the repo's rule) are already known to GitHub, so the push lists none and the release never ran (ec60285).
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.plan.outputs.release }}
+    steps:
+      - uses: actions/checkout@v5
+        with: {fetch-depth: 0}
+      - id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          ASKED: ${{ inputs.release }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" = workflow_dispatch ]; then release=$([ "$ASKED" = true ] && echo true || echo false)
+          else
+            if git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then changed=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
+            else changed=$(git diff --name-only HEAD~1 HEAD); fi          # a new branch, or history rewritten: the last commit
+            release=$(echo "$changed" | grep -qx 'android/release.json' && echo true || echo false)
+          fi
+          echo "release=$release" | tee -a "$GITHUB_OUTPUT"
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -132,10 +156,8 @@ jobs:
   # by hand with "release" ticked, or (as the iOS app's release.json does) a push to main that changes
   # android/release.json once the upload key is set; Google Play production still needs "track": "production"
   release:
-    if: >-
-      (github.event_name == 'workflow_dispatch' && inputs.release) ||
-      (github.event_name == 'push' && contains(toJSON(github.event.commits.*.modified), 'android/release.json'))
-    needs: emulator
+    if: needs.plan.outputs.release == 'true'
+    needs: [plan, emulator]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

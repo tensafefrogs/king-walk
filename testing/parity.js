@@ -31,6 +31,10 @@ const android = read("android/app/src/main/java/kingwalk/android/MainActivity.kt
 
 // messages
 const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app language (Languages.kt); iOS has no page picker tie-in
+// no workflow decides what to do from github.event.commits: commits reach main after their branch's Test run, so GitHub
+// already has them and the push lists none (the Android release never ran on ec60285). Compare before and after instead
+{ const uses = fs.readdirSync(path.join(ROOT, ".github/workflows")).filter(f => /event\.commits/.test(read(".github/workflows/" + f)));
+  check(!uses.length, "no workflow reads github.event.commits (empty for commits already pushed to a branch)", uses); }
 // the website publishes its hidden files: .well-known/assetlinks.json (links that open the Android app) and .nojekyll;
 // the Pages upload action drops anything starting with a dot unless include-hidden-files is on
 check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".github/workflows/pages.yml")), "the website build publishes .well-known (assetlinks.json)");
