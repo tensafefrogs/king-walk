@@ -69,11 +69,11 @@ def apply():
     creds = service_account.Credentials.from_service_account_info(json.loads(info), scopes=['https://www.googleapis.com/auth/androidpublisher'])
     s = AuthorizedSession(creds)
 
-    def call(method, url, what, fatal=True, **kw):
-        for attempt in range(4):          # Google's busy answers (503 on the first image, Nov 2026) are tried again
+    def call(method, url, what, fatal=True, tries=4, **kw):
+        for attempt in range(tries):          # Google's busy answers (429, 5xx) are tried again
             if kw.get('data') is not None and hasattr(kw['data'], 'seek'): kw['data'].seek(0)
             r = s.request(method, url, timeout=120, **kw)
-            if r.status_code not in (429, 500, 502, 503, 504) or attempt == 3: break
+            if r.status_code not in (429, 500, 502, 503, 504) or attempt == tries - 1: break
             time.sleep(5 * (attempt + 1))
         if r.status_code >= 300:
             if fatal: sys.exit(f'::error::{what} failed ({r.status_code}): {r.text[:1500]}')
@@ -87,15 +87,52 @@ def apply():
             items += r.get('items', []); token = r.get('nextPageToken')
             if not token: return items
 
-    no_icon = []
+    # Images. Every real run's first upload got 503 four times over (media upload on gamesconfiguration.googleapis.com),
+    # while the calls around it worked; so each way Google documents is tried in turn on the first image and the one
+    # that works is kept. If none does, no more are tried this run, and each image is saved at 512 x 512 under
+    # playgames-images/ (named for its item) to add by hand in Play Console; the workflow keeps that folder.
+    no_icon, way, broken = [], [], []
+    WAYS = [('media', UPLOAD), ('media', 'https://www.googleapis.com/upload/games/v1configuration'), ('multipart', UPLOAD)]
+    SAVE = os.path.join(os.getcwd(), 'playgames-images')
+
+    def png(path):
+        """the image as Play Games takes it: 512 x 512 PNG (the leaderboards' are drawn at 1024 for Game Center)"""
+        data = open(path, 'rb').read()
+        try:
+            from PIL import Image
+            import io
+            im = Image.open(io.BytesIO(data))
+            if im.size != (512, 512):
+                out = io.BytesIO(); im.convert('RGB').resize((512, 512), Image.LANCZOS).save(out, 'PNG'); data = out.getvalue()
+        except ImportError:
+            pass
+        return data
+
+    def send(how, base, resource, image_type, data):
+        url = f'{base}/images/{resource}/imageType/{image_type}'
+        if how == 'media':
+            return call('POST', url, 'Uploading an image', fatal=False, tries=2, params={'uploadType': 'media'}, data=data, headers={'Content-Type': 'image/png'})
+        b = 'kingwalk' + 'x' * 12
+        body = (f'--{b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{{}}\r\n--{b}\r\nContent-Type: image/png\r\n\r\n').encode() + data + f'\r\n--{b}--\r\n'.encode()
+        return call('POST', url, 'Uploading an image', fatal=False, tries=2, params={'uploadType': 'multipart'}, data=body,
+                    headers={'Content-Type': f'multipart/related; boundary={b}'})
+
     def icon(resource, image_type, name):
-        """an item's image; one Google won't take after its retries is reported, and the next run tries it again"""
+        """an item's image, the way Google last took one; one it won't take is saved for Play Console"""
         path = os.path.join(IOS, 'gamecenter', name)
-        if os.path.exists(path):
-            with open(path, 'rb') as f:
-                r = call('POST', f'{UPLOAD}/images/{resource}/imageType/{image_type}', f'Uploading {name}', fatal=False, params={'uploadType': 'media'},
-                         data=f, headers={'Content-Type': 'image/png'})
-            if not isinstance(r, dict): no_icon.append(name); print(f'::warning::{name} not uploaded ({r.status_code}); run this again to add it')
+        if not os.path.exists(path): return
+        data = png(path)
+        if not broken:
+            for how, base in (way or WAYS):
+                r = send(how, base, resource, image_type, data)
+                if isinstance(r, dict):
+                    if not way: way.append((how, base)); print(f'Images go up as {how} uploads to {base}')
+                    return
+                print(f'::warning::{name}: {how} upload to {base} answered {r.status_code}')
+            if not way: broken.append(1); print('::warning::No way of uploading images worked: the rest are saved for Play Console')
+        no_icon.append(name)
+        os.makedirs(SAVE, exist_ok=True)
+        open(os.path.join(SAVE, name), 'wb').write(data)
 
     def has_icon(item):
         return bool((item.get('draft') or {}).get('iconUrl') or (item.get('published') or {}).get('iconUrl'))
@@ -169,7 +206,7 @@ def apply():
         ids['leaderboards'][l['id']] = made['id']
         icon(made['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')
         print('made leaderboard', l['id'])
-    if no_icon: print('::warning::Without their images for now:', ', '.join(no_icon))
+    if no_icon: print(f'::warning::Without their images for now ({len(no_icon)}), saved in playgames-images/ to add in Play Console:', ', '.join(no_icon))
     print('Set the repository variable ANDROID_PLAY_GAMES_IDS to:')
     print(json.dumps(ids, separators=(',', ':')))
 

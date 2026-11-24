@@ -6,7 +6,7 @@ are tried, and the id map is complete. No account or network. testing/parity.js 
 import sys, types, json, io, contextlib, os
 # a fake Google: refuses some languages' text, is busy (503) the first time an image is sent, never takes one image,
 # and lists what was made, as Google does, so a second run can find it
-BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]
+BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set()
 NEVER = 'leaderboard-rating.png'
 class R:
     def __init__(self, code, body): self.status_code = code; self._b = body; self.text = json.dumps(body); self.content = b'x'
@@ -18,10 +18,18 @@ class S:
         if method == 'GET':
             return R(200, {'items': [{'id': i, 'draft': dict(m['draft'], **({'iconUrl': 'x'} if i in icons else {}))}
                                      for i, m in made.items() if m['_kind'] == kind]})
-        if '/images/' in url:
+        if '/images/' in url:          # only the www.googleapis.com media upload works here; it is busy once
+            if not url.startswith('https://www.googleapis.com/') or (params or {}).get('uploadType') != 'media':
+                return R(503, {'error': 'Service Unavailable'})
             if busy: busy.pop(); return R(503, {'error': 'Service Unavailable'})
-            if getattr(data, 'name', '').endswith(NEVER): return R(503, {'error': 'Service Unavailable'})
-            icons[url.split('/images/')[1].split('/')[0]] = 1; return R(200, {})
+            rid = url.split('/images/')[1].split('/')[0]
+            if made.get(rid, {}).get('token') == 'kingwalk-' + NEVER[len('leaderboard-'):-4]: return R(503, {'error': 'Service Unavailable'})
+            try:
+                from PIL import Image
+                sizes.add(Image.open(io.BytesIO(data)).size)
+            except ImportError:
+                pass
+            icons[rid] = 1; return R(200, {})
         for f in ('name', 'description'):
             b = json['draft'].get(f)
             if b and any(t['locale'] in BAD for t in b['translations']):
@@ -37,6 +45,7 @@ tr = types.ModuleType('google.auth.transport.requests'); tr.AuthorizedSession = 
 for n, m in {'google': g, 'google.oauth2': oa, 'google.oauth2.service_account': sa, 'google.auth': types.ModuleType('google.auth'),
              'google.auth.transport': types.ModuleType('google.auth.transport'), 'google.auth.transport.requests': tr}.items(): sys.modules[n] = m
 os.environ.update(ANDROID_PLAY_GAMES_APP_ID='123', PLAY_SERVICE_ACCOUNT_JSON='{}')
+import tempfile; os.chdir(tempfile.mkdtemp())          # playgames-images/ lands here
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'android', 'store')); import playgames
 playgames.time.sleep = lambda s: None          # no waiting between tries here
 
@@ -57,6 +66,9 @@ if len(made['id0']['draft']['name']['translations']) != 1: problems.append('firs
 if len(locs) < 30: problems.append(f'only {len(locs)} languages')
 if len(icons) != n - 1: problems.append(f'{len(icons)} images up (a busy answer should be tried again; one never taken)')
 if NEVER not in o: problems.append('the image Google never took is not reported')
+if not os.path.exists(os.path.join('playgames-images', NEVER)): problems.append('the image Google never took is not saved for Play Console')
+if 'Images go up as media uploads to https://www.googleapis.com' not in o: problems.append('the way that works was not found')
+if sizes and sizes != {(512, 512)}: problems.append(f'images sent at {sizes}, not 512 x 512')
 # a second run (to add what's missing): finds everything, makes nothing again, same ids
 o2 = run(); ids2 = json.loads(o2.strip().splitlines()[-1])
 if len(made) != n: problems.append(f'the second run made more ({len(made)})')
