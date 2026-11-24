@@ -50,6 +50,11 @@ def bundle(english, pick):
     return {'kind': 'gamesConfiguration#localizedStringBundle', 'translations': items}
 
 
+def plural(one, other):
+    """a score's units in every plural form Google asks for (it refuses a suffix missing any): the plural text for all but one"""
+    return {'zero': other, 'one': one, 'two': other, 'few': other, 'many': other, 'other': other}
+
+
 def listing():
     print('Achievements (Play Console → Play Games Services → Achievements → Add achievement; icon from ios/store/gamecenter/<id>.png):')
     for i, a in enumerate(GC['achievements']):
@@ -265,8 +270,8 @@ def apply():
                 'draft': {'kind': 'gamesConfiguration#leaderboardConfigurationDetail', 'sortRank': i + 1,
                           'name': bundle(l['name'], lambda t: t.get('leaderboards', {}).get(l['id'], {}).get('name')),
                           'scoreFormat': {'numberFormatType': 'NUMERIC', 'numDecimalPlaces': 0,
-                                          'suffix': {'one': suffix('suffix_singular', l['suffix_singular'].strip()),
-                                                     'other': suffix('suffix', l['suffix'].strip())}}}}
+                                          'suffix': plural(suffix('suffix_singular', l['suffix_singular'].strip()),
+                                                           suffix('suffix', l['suffix'].strip()))}}}
         made = make('leaderboards', body, f"Making leaderboard {l['id']}")
         ids['leaderboards'][l['id']] = made['id']
         icon(made['id'], 'LEADERBOARD_ICON', 'leaderboard-' + l['id'] + '.png')

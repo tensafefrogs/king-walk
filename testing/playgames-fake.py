@@ -33,6 +33,9 @@ class S:
             icons[rid] = 1; return R(200, {})
         if json['draft'].get('scoreFormat') and not json['draft']['scoreFormat'].get('numberFormatType'):
             return R(400, {'error': {'message': 'Invalid numberFormatType with value . Reason: No leaderboard score format type specified.'}})
+        sfx = (json['draft'].get('scoreFormat') or {}).get('suffix')
+        if sfx is not None and set(sfx) != {'zero', 'one', 'two', 'few', 'many', 'other'}:          # Google wants every plural form
+            return R(400, {'error': {'message': 'Invalid suffix with value . Reason: Localized string field is missing.'}})
         if method == 'PUT' and limited: limited.pop(); return R(403, {'error': {'message': 'Rate Limit Exceeded', 'errors': [{'reason': 'rateLimitExceeded'}]}})
         for t in json['draft']['name']['translations']: tries_of[t['locale']] = tries_of.get(t['locale'], 0) + 1
         if any(t['locale'].split('-')[0].split('_')[0] == 'ar' for t in json['draft']['name']['translations']):          # not one of the game's languages
