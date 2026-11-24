@@ -54,6 +54,8 @@ class MainActivity : ComponentActivity() {
         WebViewAssetLoader.Builder().addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this)).build()
     }
 
+    // Play Games' own screens (achievements, leaderboards) close at once unless started for a result: they check who asked
+    private val playGamesScreen = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
     private val askNotifications = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         Reminders.reschedule(this)
         tellPage("window.kingWalkReminders&&kingWalkReminders($granted)")
@@ -241,7 +243,7 @@ class MainActivity : ComponentActivity() {
             "lang" -> Languages.set(this, body.optString("tag"))          // the app then opens again in it
             "achieve" -> PlayGames.achieve(this, body.optString("id"))
             "score" -> PlayGames.score(this, body.optString("board"), body.optLong("value"))
-            "gamecenter" -> PlayGames.show(this, body.optJSONArray("labels")?.let { a -> List(a.length()) { a.optString(it) } } ?: emptyList())
+            "gamecenter" -> PlayGames.show(this, body.optJSONArray("labels")?.let { a -> List(a.length()) { a.optString(it) } } ?: emptyList()) { playGamesScreen.launch(it) }
             "haptic" -> Haptics.play(web, body.optString("kind"))
             "share" -> share(body.optString("text"))
             "review" -> review()

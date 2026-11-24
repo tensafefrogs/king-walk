@@ -56,6 +56,12 @@ check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".g
 // permission any library might add, and Play Console's answer is No. device.js checks the installed app too
 { const man = fs.readFileSync(path.join(ROOT, "android/app/src/main/AndroidManifest.xml"), "utf8");
   check(/<uses-permission android:name="com\.google\.android\.gms\.permission\.AD_ID" tools:node="remove" \/>/.test(man) && /xmlns:tools=/.test(man), "the Android app removes the advertising ID permission"); }
+// Play Games' achievements and leaderboards screens check which app started them, and close before showing when started
+// with a plain startActivity (no caller): the app starts them for a result, through an activity result launcher
+{ const pg = read("android/app/src/main/java/kingwalk/android/PlayGames.kt"), main = read("android/app/src/main/java/kingwalk/android/MainActivity.kt");
+  check(!/startActivity\(/.test(pg) && /fun show\([^)]*open: \(Intent\) -> Unit\)/.test(pg)
+        && /(\w+) = registerForActivityResult\(ActivityResultContracts\.StartActivityForResult\(\)\)[\s\S]*PlayGames\.show\([\s\S]*?\{ \1\.launch\(it\) \}/.test(main),
+        "the Android app opens Play Games' achievements and leaderboards for a result (they close at once otherwise)"); }
 const NATIVE = ["set", "remove", "clear", "copy"];          // sent by the apps' own scripts (the save's copy, the clipboard)
 const pageOps = new Set([...html.matchAll(/op: *"([a-z_]+)"/g)].map(m => m[1]));
 const iosOps = new Set([...ios.matchAll(/case "([a-z_]+)"/g)].map(m => m[1]));

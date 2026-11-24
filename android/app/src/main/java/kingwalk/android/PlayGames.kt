@@ -3,6 +3,8 @@ package kingwalk.android
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import com.google.android.gms.games.PlayGames
 import com.google.android.gms.games.PlayGamesSdk
 import org.json.JSONObject
@@ -43,14 +45,18 @@ object PlayGames {
         if (enabled && play.isNotEmpty() && value > 0) PlayGames.getLeaderboardsClient(activity).submitScore(play, value)
     }
 
-    /** the page's Play Games button: achievements or leaderboards, named by the page in the player's language */
-    fun show(activity: Activity, labels: List<String>) {
+    /**
+     * the page's Play Games button: achievements or leaderboards, named by the page in the player's language. [open]
+     * starts Play's screen for a result: started any other way, Play's screen sees no caller and closes before it shows.
+     */
+    fun show(activity: Activity, labels: List<String>, open: (Intent) -> Unit) {
         if (!enabled) return
         val names = if (labels.size == 2) labels.toTypedArray() else arrayOf("Achievements", "Leaderboards")
         AlertDialog.Builder(activity).setTitle("Google Play Games").setItems(names) { _, which ->
             val intent = if (which == 0) PlayGames.getAchievementsClient(activity).achievementsIntent
             else PlayGames.getLeaderboardsClient(activity).allLeaderboardsIntent
-            intent.addOnSuccessListener { activity.startActivity(it) }
+            intent.addOnSuccessListener { open(it) }
+                .addOnFailureListener { Log.w("KingWalk", "Play Games couldn't open its screen", it) }
         }.show()
     }
 }
