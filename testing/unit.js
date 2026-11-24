@@ -344,6 +344,22 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // the week's solved and missed marks are drawn in the middle of their circles, not typed: a ✓ or × isn't in the game's
+  // fonts, so each phone used its own fallback, at its own height (a player saw the ✓ sit high)
+  { const w = await page();
+    const mk = await w.p.evaluate(async () => {
+      startDaily(); for (let t = 0; t < 60 && !(DAILY && cur && cur.daily); t++) await new Promise(r => setTimeout(r, 100));
+      const p = me(), dn = DAILY.n, out = [];
+      for (const [c, rec] of [["ok", { m: "g", t: 30, ok: true }], ["miss", { m: "r", t: 30, ok: false }], ["fz", { fz: true }]]) {          /* yesterday, as each */
+        p.daily.days[dn - 1] = rec; renderDaily(); await new Promise(r => setTimeout(r, 700));
+        const li = $("diWeek").children[5], i = li.firstChild, m = getComputedStyle(i, "::after");
+        out.push({ c, dn, cls: li.className, text: i.textContent, drawn: li.classList.contains(c) && m.content !== "none" && m.content !== "normal" && parseFloat(m.width) > 8 && m.maskImage !== "none" ? 1 : 0 });
+      }
+      delete p.daily.days[dn - 1]; return out;
+    });
+    await w.ctx.close();
+    const [ok, miss, fz] = mk;
+    check(ok.text === "" && ok.drawn && miss.text === "" && miss.drawn && fz.text === "\u2744" && fz.cls.includes("fz") && !fz.drawn, "the daily's week draws its ✓ and × (centred, the same on every phone) and keeps the ❄", mk); }
   // every solve is celebrated: a clean one with confetti, the board's glow and the piece's bounce; with a hint, the glow
   // and the bounce; after a wrong move, the bounce
   { const w = await page();

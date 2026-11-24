@@ -9,6 +9,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
+- **The daily week's ✓ and × sit in the middle of their circles:** they were letters from each phone's own fallback
+  font and sat high on some phones; they're drawn now, the same everywhere. (Live on the website.)
+- **Android: Play Games' achievements and leaderboards open** from the menu's Google Play Games row (tapping either did
+  nothing). (Waits for the next Android build.)
 - **Slovak and Romanian say "skewer" as their players do:** *napichnutia* and *frigărui* (they read "Röntgeny" and
   "Atacuri liniare"), the terms their chess coaches and sites use; the Romanian store text too. (Live on the website.)
 

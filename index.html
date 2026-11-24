@@ -452,6 +452,9 @@ html.fold-h.daily .progress { display: block; }
 .week li { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: var(--muted); }
 .week i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font: 700 14px var(--font-display); font-style: normal; color: var(--p-ink); }
 .week .ok i { background: var(--p-gold); border-color: var(--p-gold); }
+.week .ok i::after, .week .miss i::after { content: ""; width: 15px; height: 15px; background: currentColor; -webkit-mask: var(--mark) center / contain no-repeat; mask: var(--mark) center / contain no-repeat; }
+.week .ok i { --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.2 8.6l3.1 3.1 6.5-7' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.week .miss i { --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 4.5l7 7m0-7l-7 7' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); }
 .progress.swap > * { animation: rise var(--t-in) var(--ease-out) both; }          /* switching between puzzles and the daily */
 .progress.swap .week i { animation: popIn 0.3s var(--spring) both; animation-delay: calc(var(--d, 0) * 35ms + 60ms); }
 .week li.now-ok i { animation: dayDone 0.6s var(--spring) both; }          /* today's circle, as the daily is solved */
@@ -2604,7 +2607,7 @@ function renderDaily() {
     const r = k > 0 && p.daily.days[k], li = wk.children[k - dn + 6], i = li.firstChild;
     li.className = (r ? (r.fz ? "fz" : r.ok ? "ok" : "miss") : "") + (k === dn ? " today" : "")
       + (k === dn && r && weekShown.n === dn && !weekShown.had ? " now-ok" : k === dn && r && li.classList.contains("now-ok") ? " now-ok" : "");          /* today's result just came in (kept, so its animation doesn't restart) */
-    i.textContent = r ? (r.fz ? "\u2744" : r.ok ? "\u2713" : "\u00d7") : "";
+    i.textContent = r && r.fz ? "\u2744" : "";          /* solved and missed are drawn (.week .ok i::after): a text ✓ or × comes from each device's fallback font, at its own height */
     li.setAttribute("aria-label", full.format(dayDate(k)) + ": " + (r ? (r.fz ? T("Streak freeze") : r.ok ? T("solved") : T("missed")) : T("not played")));
   }
   weekShown = { n: dn, had: !!p.daily.days[dn] };
