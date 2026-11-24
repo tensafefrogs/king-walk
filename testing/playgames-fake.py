@@ -28,6 +28,8 @@ class S:
                 return R(400, {'error': {'message': 'Invalid name with value . Reason: Localized string has invalid locale code.'}})
         if method == 'POST':
             i = f'id{len(made)}'; made[i] = dict(json, _kind=kind); return R(200, {'id': i})
+        if (json or {}).get('id') != url.rstrip('/').split('/')[-1]:          # Google reads an update's id from its body
+            return R(404, {'error': {'message': 'The requested achievement definition with ID  was not found.'}})
         puts.append(url); return R(200, {})
 g = types.ModuleType('google'); oa = types.ModuleType('google.oauth2'); sa = types.ModuleType('google.oauth2.service_account')
 sa.Credentials = types.SimpleNamespace(from_service_account_info=lambda *a, **k: None)
