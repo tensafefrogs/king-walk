@@ -4,9 +4,10 @@ text (as Google refused one on the first real run): every achievement and leader
 are dropped with a warning and never sent again, the first achievement is made in English alone before the languages
 are tried, and the id map is complete. No account or network. testing/parity.js runs it; prints ok or FAIL."""
 import sys, types, json, io, contextlib, os
+import copy
 # a fake Google: refuses some languages' text, is busy (503) the first time an image is sent, never takes one image,
 # and lists what was made, as Google does, so a second run can find it
-BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); UPDATES = [True]          # UPDATES[0] False: every update refused, as a 410
+BAD = {'pa', 'ur', 'pa-IN', 'ur-PK'}; made = {}; puts = []; icons = {}; busy = [1]; sizes = set(); created = {}; UPDATES = [True]          # UPDATES[0] False: every update refused, as a 410
 NEVER = 'leaderboard-rating.png'
 class R:
     def __init__(self, code, body): self.status_code = code; self._b = body; self.text = json.dumps(body); self.content = b'x'
@@ -30,18 +31,21 @@ class S:
             except ImportError:
                 pass
             icons[rid] = 1; return R(200, {})
-        for f in ('name', 'description'):
+        if json['draft'].get('scoreFormat') and not json['draft']['scoreFormat'].get('numberFormatType'):
+            return R(400, {'error': {'message': 'Invalid numberFormatType with value . Reason: No leaderboard score format type specified.'}})
+        for f in ('name', 'description'):          # like the real one: a regional code (de-DE) is refused, the language (de) taken
             b = json['draft'].get(f)
-            if b and any(t['locale'] in BAD for t in b['translations']):
+            if b and any(t['locale'] in BAD or ('-' in t['locale'] and t['locale'] != 'en-US') for t in b['translations']):
                 return R(400, {'error': {'message': 'Invalid name with value . Reason: Localized string has invalid locale code.'}})
         if method == 'POST':
-            i = f'id{len(made)}'; t = f'srv-{i}-0'; made[i] = dict(json, _kind=kind, _made=json.get('token'), token=t); return R(200, {'id': i, 'token': t})
+            i = f'id{len(made)}'; t = f'srv-{i}-0'; created[i] = copy.deepcopy(json); made[i] = dict(json, _kind=kind, _made=json.get('token'), token=t); return R(200, {'id': i, 'token': t})
         if (json or {}).get('id') != url.rstrip('/').split('/')[-1]:          # Google reads an update's id from its body
             return R(404, {'error': {'message': 'The requested achievement definition with ID  was not found.'}})
         item = made[json['id']]
         if not UPDATES[0] or json.get('token') != item['token']:          # an update sends the item's token from Google
             return R(410, {'error': {'message': 'The passed token does not match the arguments of the request.'}})
         item['token'] = item['token'].rsplit('-', 1)[0] + '-' + str(int(item['token'].rsplit('-', 1)[1]) + 1)
+        item['draft'] = json['draft']
         puts.append(url); return R(200, {'id': json['id'], 'token': item['token']})
 g = types.ModuleType('google'); oa = types.ModuleType('google.oauth2'); sa = types.ModuleType('google.oauth2.service_account')
 sa.Credentials = types.SimpleNamespace(from_service_account_info=lambda *a, **k: None)
@@ -66,7 +70,7 @@ if len(made) != n: problems.append(f'made {len(made)} of {n}')
 if BAD & locs: problems.append(f'used refused {BAD & locs}')
 if len(ids['achievements']) != len(playgames.GC['achievements']) or len(ids['leaderboards']) != len(playgames.GC['leaderboards']): problems.append('id map incomplete')
 if not all(('no ' + b + ' text') in o for b in BAD & {l for l, _ in playgames.translations()} | {'pa', 'ur'}): problems.append('no warning for a refused language')
-if len(made['id0']['draft']['name']['translations']) != 1: problems.append('first achievement not made in English alone')
+if len(created['id0']['draft']['name']['translations']) != 1: problems.append('first achievement not made in English alone')
 if len(locs) < 30: problems.append(f'only {len(locs)} languages')
 if len(icons) != n - 1: problems.append(f'{len(icons)} images up (a busy answer should be tried again; one never taken)')
 if NEVER not in o: problems.append('the image Google never took is not reported')
@@ -90,4 +94,15 @@ locs3 = {t['locale'] for m in made.values() for t in m['draft']['name']['transla
 if len(made) != n: problems.append(f'with updates refused, made {len(made)} of {n}')
 if BAD & locs3: problems.append('with updates refused, a refused language was kept')
 if 'refused an update' not in o3: problems.append('a refused update is not reported')
+if 'de' not in locs or 'de-DE' in locs: problems.append('German not found in the form Google takes (de)')
+# an earlier run left the achievements in English only (as the seventh real run did): their languages are added
+made.clear(); icons.clear(); UPDATES[0] = True
+for i, a in enumerate(playgames.GC['achievements']):
+    playgames.SKIP.update(l for l, _ in playgames.translations())
+    body = {'draft': {'name': playgames.bundle(a['name'], lambda t: None), 'description': playgames.bundle(a['before'], lambda t: None)}, 'token': 'kingwalk-' + a['id']}
+    playgames.SKIP.clear()
+    made[f'id{i}'] = dict(body, _kind='achievements', _made=body['token'], token=f'srv-id{i}-0')
+o4 = run()
+short = [i for i, m in made.items() if m['_kind'] == 'achievements' and len(m['draft']['name']['translations']) < 20]
+if short: problems.append(f'{len(short)} achievements still in English only')
 print('ok' if not problems else 'FAIL ' + '; '.join(problems))

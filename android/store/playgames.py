@@ -29,6 +29,7 @@ UPLOAD = 'https://gamesconfiguration.googleapis.com/upload/games/v1configuration
 sys.path.insert(0, HERE)
 from listing import PLAY as PLAY_LOCALE          # noqa: E402
 SKIP = set()          # languages Play Games refused (apply fills it)
+CODE = {}          # a language's code in the form Play Games takes, where it isn't the listing's (apply finds it)
 
 
 def translations():
@@ -45,7 +46,7 @@ def bundle(english, pick):
     items = [{'kind': 'gamesConfiguration#localizedString', 'locale': 'en-US', 'value': english}]
     for loc, t in translations():
         v = pick(t)
-        if v: items.append({'kind': 'gamesConfiguration#localizedString', 'locale': loc, 'value': v})
+        if v: items.append({'kind': 'gamesConfiguration#localizedString', 'locale': CODE.get(loc, loc), 'value': v})
     return {'kind': 'gamesConfiguration#localizedStringBundle', 'translations': items}
 
 
@@ -65,7 +66,7 @@ def apply():
     app = os.environ.get('ANDROID_PLAY_GAMES_APP_ID', '').strip()
     info = os.environ.get('PLAY_SERVICE_ACCOUNT_JSON', '').strip()
     if not app or not info: sys.exit('::error::Needs ANDROID_PLAY_GAMES_APP_ID and PLAY_SERVICE_ACCOUNT_JSON (android/README.md)')
-    SKIP.clear()          # a run starts by trying every language again
+    SKIP.clear(); CODE.clear()          # a run starts by trying every language again
     creds = service_account.Credentials.from_service_account_info(json.loads(info), scopes=['https://www.googleapis.com/auth/androidpublisher'])
     s = AuthorizedSession(creds)
 
@@ -193,23 +194,44 @@ def apply():
         made = make('achievements', achievement(0, first), f"Making achievement {first['id']}")
         have[first['name']] = made['id']; icon(made['id'], 'ACHIEVEMENT_ICON', first['id'] + '.png'); print('made achievement', first['id'])
         SKIP.clear()
-    every_lang, refused, updates = [loc for loc, _ in translations()], set(), True
+    # Each language in the forms its code might take (the seventh real run had every listing code, de-DE and fr-FR
+    # included, refused as "invalid locale code" while en-US was taken): the first form Google takes is kept
+    every_lang, refused, updates, said = [loc for loc, _ in translations()], set(), True, []
+    def forms(loc):
+        base = loc.split('-')[0]
+        out = [loc, base, loc.replace('-', '_')]
+        return [f for i, f in enumerate(out) if f not in out[:i] and f not in CODE.values()]
     for loc in every_lang:          # English and this one language only
         SKIP.clear(); SKIP.update(set(every_lang) - {loc})
-        r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc}', fatal=False, json=update(achievement(0, first), have[first['name']]))
-        if isinstance(r, dict):
-            if r.get('token'): token_of[have[first['name']]] = r['token']          # a new token for the next update
-            continue
-        if r.status_code == 410 or 'token' in r.text.lower():          # Google won't take updates from here: go on without them
-            updates = False
+        for form in forms(loc):
+            CODE[loc] = form
+            r = call('PUT', f"{API}/achievements/{have[first['name']]}", f'Trying {loc} as {form}', fatal=False, json=update(achievement(0, first), have[first['name']]))
+            if isinstance(r, dict):
+                if r.get('token'): token_of[have[first['name']]] = r['token']          # a new token for the next update
+                if form != loc: print(f'Play Games takes {loc} as {form}')
+                break
+            if r.status_code == 410 or 'token' in r.text.lower():          # Google won't take updates from here: go on without them
+                updates = False; break
+            if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} as {form} failed ({r.status_code}): {r.text[:1500]}')
+            if not said: said.append(1); print(f'Google, refusing {loc} as {form}: {r.text[:600]}')
+        else:
+            CODE.pop(loc, None); refused.add(loc); print(f'::warning::Play Games takes no {loc} text in any form tried; that language shows English')
+        if not updates:
+            CODE.pop(loc, None)
             print(f"::warning::Play Games refused an update ({r.status_code}: {r.text[:200]}); {first['id']} stays in English "
                   'for now (add its translations in Play Console), and the rest are made with every language, any refused one in English')
             break
-        if 'locale' not in r.text: sys.exit(f'::error::Trying {loc} failed ({r.status_code}): {r.text[:1500]}')
-        refused.add(loc); print(f'::warning::Play Games takes no {loc} text; that language shows English')
     SKIP.clear(); SKIP.update(refused)
     if updates:          # an update names its achievement in the body too: Google reads the id from there
         r = call('PUT', f"{API}/achievements/{have[first['name']]}", f"Saving achievement {first['id']} in every language", json=update(achievement(0, first), have[first['name']]))
+    if updates:          # achievements an earlier run made with fewer languages (the seventh made them all in English)
+        expected = lambda i, a: len(achievement(i, a)['draft']['name']['translations'])
+        for i, a in enumerate(GC['achievements']):
+            it = next((x for x in found if english(x) == a['name']), None)
+            if i and it and len(((it.get('draft') or {}).get('name') or {}).get('translations', [])) < expected(i, a):
+                r = call('PUT', f"{API}/achievements/{it['id']}", f"Adding the languages to {a['id']}", json=update(achievement(i, a), it['id']))
+                if r.get('token'): token_of[it['id']] = r['token']
+                print('added the languages to', a['id'])
     for i, a in enumerate(GC['achievements']):
         if a['name'] in have:
             ids['achievements'][a['id']] = have[a['name']]; continue
@@ -229,7 +251,7 @@ def apply():
         body = {'kind': 'gamesConfiguration#leaderboardConfiguration', 'token': 'kingwalk-' + l['id'], 'scoreOrder': 'LARGER_IS_BETTER',
                 'draft': {'kind': 'gamesConfiguration#leaderboardConfigurationDetail', 'sortRank': i + 1,
                           'name': bundle(l['name'], lambda t: t.get('leaderboards', {}).get(l['id'], {}).get('name')),
-                          'scoreFormat': {'numberFormatStyle': 'NUMERIC', 'numDecimalPlaces': 0,
+                          'scoreFormat': {'numberFormatType': 'NUMERIC', 'numDecimalPlaces': 0,
                                           'suffix': {'one': suffix('suffix_singular', l['suffix_singular'].strip()),
                                                      'other': suffix('suffix', l['suffix'].strip())}}}}
         made = make('leaderboards', body, f"Making leaderboard {l['id']}")
