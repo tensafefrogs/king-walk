@@ -113,6 +113,13 @@ def apply():
 
     ids = {'achievements': {}, 'leaderboards': {}}
     found = every('achievements')
+    # what Play Games has already: shown, and nothing more made if an id is missing or a name is there twice (the second
+    # and third real runs got an achievement back with an empty id; this run says what Google returns before going on)
+    for x in found: print('Play Games has achievement:', repr(english(x)), 'id', repr(x.get('id')), 'fields', sorted(x))
+    names = [english(x) for x in found]
+    if any(not x.get('id') for x in found) or len(set(names)) < len(names):
+        sys.exit('::error::Play Games lists an achievement without an id, or one name twice (above): check Play Console → Play Games '
+                 'Services → Achievements and delete the extra drafts before running this again')
     have = {english(a): a['id'] for a in found}
     for a in GC['achievements']:          # made by an earlier run whose image didn't go up
         it = next((x for x in found if english(x) == a['name']), None)
@@ -123,6 +130,7 @@ def apply():
     if first['name'] not in have:
         SKIP.update(loc for loc, _ in translations())
         made = call('POST', f'{API}/applications/{app}/achievements', f"Making achievement {first['id']}", json=achievement(0, first))
+        if not made.get('id'): sys.exit(f"::error::Google made {first['id']} but sent back no id (fields: {sorted(made)}); nothing more made")
         have[first['name']] = made['id']; icon(made['id'], 'ACHIEVEMENT_ICON', first['id'] + '.png'); print('made achievement', first['id'])
         SKIP.clear()
     every_lang, refused = [loc for loc, _ in translations()], set()

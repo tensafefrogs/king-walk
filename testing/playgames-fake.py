@@ -59,4 +59,9 @@ if NEVER not in o: problems.append('the image Google never took is not reported'
 o2 = run(); ids2 = json.loads(o2.strip().splitlines()[-1])
 if len(made) != n: problems.append(f'the second run made more ({len(made)})')
 if ids2 != ids: problems.append('the second run printed other ids')
+# Google lists an achievement with an empty id (as the real second and third runs saw): stop, make nothing
+before = len(made); made[''] = dict(made['id0'])
+try: run(); problems.append('went on with an achievement listed without an id')
+except SystemExit: pass
+if len(made) != before + 1: problems.append('made something after an empty id')
 print('ok' if not problems else 'FAIL ' + '; '.join(problems))
