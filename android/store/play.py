@@ -48,5 +48,12 @@ release = {'name': f"{cfg['version']} ({code})", 'versionCodes': [str(code)], 's
 if cfg.get('notes'): release['releaseNotes'] = [{'language': 'en-US', 'text': cfg['notes'][:500]}]
 track = cfg.get('track', 'internal')
 ok(s.put(f'{API}/edits/{edit}/tracks/{track}', json={'track': track, 'releases': [release]}), f'Putting it on the {track} track')
-ok(s.post(f'{API}/edits/{edit}:commit'), 'Saving the edit')
+r = s.post(f'{API}/edits/{edit}:commit')
+if r.status_code >= 300 and release['status'] != 'draft' and 'draft' in r.text.lower():
+    # Google takes only drafts until it has reviewed the app: leave this one for Play Console's Start rollout
+    print(f"::warning::Google took the {track} release only as a draft ({r.text[:300]}); start it in Play Console")
+    release['status'] = 'draft'
+    ok(s.put(f'{API}/edits/{edit}/tracks/{track}', json={'track': track, 'releases': [release]}), f'Putting it on the {track} track as a draft')
+    r = s.post(f'{API}/edits/{edit}:commit')
+ok(r, 'Saving the edit')
 print(f"Uploaded {cfg['version']} ({code}) to the {track} track as {release['status']}")

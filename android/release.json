@@ -1,7 +1,7 @@
 {
   "version": "1.0.5",
   "upload": true,
-  "track": "internal",
-  "status": "draft",
+  "track": "alpha",
+  "status": "completed",
   "notes": "Test build: a practice set ends early from its chip, hints go move by move (the piece, then the arrow), and a card says when the coach is ready. Rated puzzles that find your level, the daily puzzle and its streak, rank streaks, reminders, and 45 languages."
 }
