@@ -62,6 +62,12 @@ check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".g
   check(!/startActivity\(/.test(pg) && /fun show\([^)]*open: \(Intent\) -> Unit\)/.test(pg)
         && /(\w+) = registerForActivityResult\(ActivityResultContracts\.StartActivityForResult\(\)\)[\s\S]*PlayGames\.show\([\s\S]*?\{ \1\.launch\(it\) \}/.test(main),
         "the Android app opens Play Games' achievements and leaderboards for a result (they close at once otherwise)"); }
+// only the Android build that goes to Google Play sends stats: the emulator's debug build has no GoatCounter address,
+// or every CI run counts as new Android players (it did: most of a week's Android players were the emulator)
+{ const wf = read(".github/workflows/android.yml"), jobs = wf.split(/\n  (?=[a-z]+:\n)/), rel = jobs.find(j => /^release:/.test(j)) || "";
+  const uses = jobs.filter(j => /GOATCOUNTER_URL/.test(j)).map(j => j.split(":")[0]);
+  check(uses.length === 1 && uses[0] === "release" && /GOATCOUNTER_URL:[\s\S]*?run: android\/scripts\/prepare-web\.sh/.test(rel),
+        "only the Android release build gets the stats address (the emulator's runs aren't counted)", uses); }
 const NATIVE = ["set", "remove", "clear", "copy"];          // sent by the apps' own scripts (the save's copy, the clipboard)
 const pageOps = new Set([...html.matchAll(/op: *"([a-z_]+)"/g)].map(m => m[1]));
 const iosOps = new Set([...ios.matchAll(/case "([a-z_]+)"/g)].map(m => m[1]));

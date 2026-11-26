@@ -25,7 +25,6 @@ defaults:
 
 env:
   ANDROID_APPLICATION_ID: ${{ vars.ANDROID_APPLICATION_ID }}
-  GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
   SITE_URL: ${{ vars.SITE_URL }}
   ANDROID_PLAY_GAMES_APP_ID: ${{ vars.ANDROID_PLAY_GAMES_APP_ID }}
   ANDROID_PLAY_GAMES_IDS: ${{ vars.ANDROID_PLAY_GAMES_IDS }}
@@ -184,6 +183,9 @@ jobs:
           echo "ANDROID_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
       - name: Copy the game into the app
         if: env.NO_KEY != '1'
+        env:   # the stats address only here, in the build players get: the debug build the emulator plays has none, so
+               # its runs aren't counted as players
+          GOATCOUNTER_URL: ${{ vars.GOATCOUNTER_URL }}
         run: android/scripts/prepare-web.sh
       - name: Signed bundle
         if: env.NO_KEY != '1'
