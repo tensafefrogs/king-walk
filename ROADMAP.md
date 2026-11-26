@@ -4,6 +4,68 @@ What's planned for King Walk, and what's on hold. Done features move out of this
 
 ## Next
 
+**Learning by playing (proposed; the owner's brief of 26 November 2026).** Move King Walk toward a coach you improve with
+just by playing, built only on methods with good research behind them, so the website can say so honestly. Nothing here
+is built yet. In order:
+
+1. **Solve times, kept on the device.** Today only the daily has a clock; a normal puzzle's time isn't kept. Time each
+   puzzle from the player's first turn to the solve, stopped while the game is hidden (the daily's pause code already
+   does this), and keep it in the save: the last time per puzzle in the review list, and a running median per area for
+   the coach. Private: no time is sent to GoatCounter, not even rounded. Uses: the speed rule in 2, slow-but-right
+   counted as shaky by the coach, and later a player's own "usual time" per area.
+2. **Spaced repetition for missed puzzles (the owner's plan).** Today a missed puzzle comes back once, 30 new puzzles
+   later (`REVIEW_GAP`, at most 20 waiting), and is then forgotten.
+   - A puzzle missed, or solved with a hint, goes into the review list. It comes back after 1 day, then 3, 7, 14 and 30.
+     Solved cleanly and quickly: the next, longer gap. Solved slowly or with a hint: the same gap again. Missed again:
+     back to 1 day. Solved cleanly at the 30-day step: learned, and it leaves the list.
+   - Reviews are mixed into normal play, no separate screen: at most about 1 puzzle in 5 is a review, so a backlog never
+     takes over. Order of choice: due reviews (within that limit), then the coach's weak areas, then new puzzles.
+   - Gaps are counted in days, not puzzles (memory fades with time), with a few new puzzles required in between so a
+     player who plays 50 in a sitting doesn't see a review twice in an hour.
+   - Speed is the Woodpecker part: a puzzle moves up only if solved cleanly and faster than the first time, or in under
+     about 30 seconds (needs 1).
+   - The rating stays out of it, as for second tries now (the player has seen the puzzle); reviews feed the coach at half
+     weight.
+   - Not doing (owner, 26 November): a "4 puzzles to review" line and Review now button on the coach card. The status
+     line's "You've seen this one before" is enough.
+   - The list grows from 20 entries to a few hundred (a few bytes each); existing second tries move in at the 1-day step.
+   - Measure it: the share of reviews solved at each step (an event per step and result), which is also the honest
+     evidence for 6.
+3. **Keep the success rate where learning is fastest.** Research on learning by trial suggests about 85% success
+   (Wilson and others, 2019): too easy teaches little, too hard discourages. Check today's rate per player from the
+   save and steer the puzzle choice's target toward it, rather than a fixed offset from the rating. The stats showed
+   new iOS players stopping after one or two puzzles: worth checking whether their first ones are too hard.
+4. **Mix areas rather than block them (interleaving).** Mixed practice beats one-kind-at-a-time for telling which
+   method a problem needs (Rohrer and Taylor, 2007), and a real game never says "this is a fork". The coached choice
+   already mixes; practice sets are all one area. Option: practice sets mostly of the area with a few others mixed in,
+   and the theme name hidden until the puzzle is over (it gives the answer away).
+5. **A similar puzzle soon after a miss.** After a miss, the next puzzle or two of the same theme near the same rating,
+   so the idea is used again while it's fresh (varied practice, for transfer to new positions), before the spaced
+   review brings back the same position days later.
+6. **Show progress that's real, then say so.** Per area, the player's results over time on the coach card, and for the
+   website only claims the numbers support. Safe now: "Missed puzzles come back on a spaced-repetition schedule, a study
+   method backed by decades of memory research" (once 2 ships). Not until measured: anything like "improve X% faster".
+   A short "How King Walk teaches" page could cite the research: spacing (Cepeda and others, 2006 and 2008), retrieval
+   practice (Roediger and Karpicke, 2006), interleaving (Rohrer and Taylor, 2007), desirable difficulties (Bjork, 1994),
+   pattern recognition in chess (Chase and Simon, 1973; Gobet and Simon), and the 85% rule (Wilson and others, 2019).
+   Check each citation before publishing it (these are from memory).
+7. **Later, from the same research:** "why it works" explanations (On hold below) are the feedback half; asking how sure
+   the player is before a move (confidence training) is backed too, but adds a tap to every puzzle, so only as an
+   option.
+
+**Openings (later; from the owner's question of 26 November).**
+- *What the data has.* Lichess's puzzle file has an `OpeningTags` column (the opening and variation of the game a
+  puzzle came from, for puzzles from the opening phase: 3,085 of our 53,000, about 6%, carry the `opening` theme).
+  `scripts/puzzles.py` drops it today. It can't go into the puzzle chunks without changing every chunk's hash
+  (`testing/puzzles.lock.json`); a separate small file of id to opening would leave the bands alone.
+- *Open sources.* lichess-org/chess-openings: about 3,500 named openings with ECO codes and moves, public domain (CC0).
+  The Lichess game database (database.lichess.org) is CC0 too, for how often each move is played at each level; its
+  opening explorer is an online service with rate limits, so a bundled table made from the dumps suits an offline game
+  better.
+- *Features it allows.* An "Openings" area in the coach (puzzles from the openings a player meets); "name that opening"
+  as a quick quiz; and a repertoire trainer that drills a player's chosen lines with the same spaced repetition as 2
+  (moves instead of positions). The trainer is the biggest of these and the most coaching-like.
+
 **The coach (in progress, from the owner's brief of 22 November 2026).** The game learns which kinds of puzzle a player
 does better or worse at than their rating expects, and mixes in more of what they're working on, with practice sets of
 10. All of it is arithmetic on the save; nothing leaves the device.
