@@ -91,7 +91,7 @@ def main():
     section('How far they get (of new players)', [(f'played {n}', f'played/{n}', 'start') for n in (1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500)])
     section('Ranks reached (of new players)', [(r, f'rank/{r}', 'start') for r in ('knight', 'bishop', 'rook', 'queen', 'king')])
     section('Placed at (of new players)', [(r, f'placed/{r}', 'start') for r in ('pawn', 'knight', 'bishop', 'rook', 'queen', 'king')])
-    section('Daily puzzle', [('started', 'daily/start'), ('solved', 'daily/solved', 'daily/start'), ('answer shown', 'daily/missed', 'daily/start'),
+    section('Daily puzzle', [('started', 'daily/start'), ('solved', 'daily/solved', 'daily/start'), ('answer shown', 'daily/missed', 'daily/start'), ('  after a move or hint', 'daily/missed/tried', 'daily/missed'), ('  without trying', 'daily/missed/untried', 'daily/missed'), ('  started as a first puzzle', 'daily/start/new-player', 'daily/start'),
         ('left to finish later', 'daily/later', 'daily/start'), ('came back to it', 'daily/resume', 'daily/start'),
         ('done card seen', 'daily/done-card'), ('tried again (practice)', 'daily/practice'), ('shared', 'share/daily', 'daily/solved'),
         ('opened from a shared link', 'link/daily'), ('opened from widget/Siri/etc.', 'open/daily')]

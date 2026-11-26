@@ -2028,6 +2028,7 @@ function showHint() {
 function showAnswer() {
   if (locked || done || (RUN && !RUN.area && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false); track("answer");
+  if (DAILY && DAILY.mode === "play") DAILY.tried = DAILY.marks.some(Boolean) || hintLevel > 0;          /* any move or hint before the answer (stats) */
   if (DAILY) for (let k = idx; k < cur.pz.moves.length; k += 2) dailyMark("x", k);
   setStatus("info", T("Watch the answer"), "", "wait");
   const step = () => {
@@ -2413,6 +2414,7 @@ function startDaily() {
   DAILY = { n, mode: "play", marks: now ? now.m.replace(/_/g, " ").split("").map(c => c === " " ? "" : c) : [], spent: now ? now.t : 0, t0: 0, k: now ? now.k || 0 : 0 };
   p.daily.now = { n, m: now ? now.m : "", t: DAILY.spent, k: DAILY.k }; save();
   track(now ? "daily/resume" : "daily/start");
+  if (!now && !p.n) track("daily/start/new-player");          /* the daily before any other puzzle: no first-move tip yet */
   renderDaily();
   window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
   nextPuzzle();
@@ -2541,6 +2543,7 @@ function finishDaily(solved) {
   const froze = recordDaily(D, d.n, m, t, solved); save();
   if (froze) track("daily/freeze-earned");
   track(solved ? "daily/solved" : "daily/missed");
+  if (!solved) track(d.tried ? "daily/missed/tried" : "daily/missed/untried");          /* gave up after trying, or showed it straight away */
   if (solved && [3, 7, 14, 30, 50, 100, 365].includes(D.streak)) track("daily/streak/" + D.streak);
   if (APP && APP.gameCenter && solved) APP.post({ op: "score", board: "daily_streak", value: D.streak });
   const awards = checkAwards(p, undefined, true);          /* celebrated after the day's card */

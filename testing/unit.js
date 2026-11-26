@@ -344,6 +344,23 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // the daily's answer says whether the player tried first (a move or a hint) or showed it straight away, and a daily
+  // played before any other puzzle is counted: they tell a too-hard daily from one players didn't know how to start
+  { const w = await page();
+    const ev = await w.p.evaluate(async () => {
+      const sent = [], keep = track; track = n => { sent.push(n); };
+      const nap = ms => new Promise(r => setTimeout(r, ms)), ready = async () => { for (let t = 0; t < 100 && !(DAILY && cur && cur.daily && !locked); t++) await nap(100); };
+      const out = {};
+      me().n = 0; startDaily(); await ready(); showAnswer(); for (let t = 0; t < 100 && !done; t++) await nap(100);
+      out.fresh = sent.filter(n => n.startsWith("daily/")); sent.length = 0;
+      delete me().daily.days[DAILY.n]; delete me().daily.now; me().daily.streak = 0; me().n = 5; DAILY = null;
+      startDaily(); await ready(); showHint(); await nap(200); showAnswer(); for (let t = 0; t < 100 && !done; t++) await nap(100);
+      out.hinted = sent.filter(n => n.startsWith("daily/")); track = keep; return out;
+    });
+    await w.ctx.close();
+    check(ev.fresh.includes("daily/start/new-player") && ev.fresh.includes("daily/missed/untried") && !ev.fresh.includes("daily/missed/tried")
+          && ev.hinted.includes("daily/missed/tried") && !ev.hinted.includes("daily/start/new-player"),
+          "the daily's answer is counted as tried (a move or hint first) or untried, and a daily played first is counted", ev); }
   // the week's solved and missed marks are drawn in the middle of their circles, not typed: a ✓ or × isn't in the game's
   // fonts, so each phone used its own fallback, at its own height (a player saw the ✓ sit high)
   { const w = await page();
