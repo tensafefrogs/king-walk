@@ -5,6 +5,6 @@
     "groups": [
       "Internal"
     ],
-    "whats_new": "Preview build of the version after 1.0.5, not for the App Store yet. Tell me anything that looks off."
+    "whats_new": "1.0.6 preview, TestFlight only (1.0.5 is in App Review). New: missed puzzles come back on a schedule (after 1, 3, 7, 14 and 30 days; mixed into play, at most 1 in 5); the coach card has one button, Practise my weak spots, for a mixed session of 10 that doesn't say which kind each puzzle is; your rating counts up or down after each puzzle. Tell me anything that looks off."
   }
 }
