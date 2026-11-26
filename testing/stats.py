@@ -2,10 +2,12 @@
 """King Walk's player report from GoatCounter: who starts, how far they get, the daily puzzle, achievements and rank
 streaks, hints and sharing. testing/STATS.md says what each event means.
 
-usage: python3 testing/stats.py [--since 2026-11-10] [--until 2026-11-16] [--days 7] [--app | --android | --web | --both]
+usage: python3 testing/stats.py [--since 2026-11-10] [--until 2026-11-16] [--days 7] [--app | --testflight | --android | --web | --both]
   --since/--until  a date range (UTC days, inclusive); default: the last 7 days (--days to change)
-  --web, --app, --android  the website (king-walk/...), the iOS app (king-walk-ios/...) or the Android app
-                   (king-walk-android/...); --both (the default) shows them side by side, Android once it has any counts
+  --web, --app, --testflight, --android  the website (king-walk/...), the iOS app from the App Store (king-walk-ios/...),
+                   the iOS app from TestFlight (king-walk-testflight/..., from 1.0.5; before, in the app's counts) or the
+                   Android app (king-walk-android/...); --both (the default) shows them side by side, TestFlight and
+                   Android once they have any counts
 Needs GOATCOUNTER_TOKEN (GoatCounter > Settings > API, "Read statistics" only) and GOATCOUNTER_URL, the same count address
 the website uses (https://<site>.goatcounter.com/count), in the environment. After moving to a new GoatCounter site, list
 both addresses (new then old, a space between): app versions built before the move keep sending to the old one, and
@@ -18,7 +20,7 @@ import argparse, datetime, json, os, re, sys, time, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
-PREFIX = {'web': 'king-walk/', 'app': 'king-walk-ios/', 'android': 'king-walk-android/'}
+PREFIX = {'web': 'king-walk/', 'app': 'king-walk-ios/', 'testflight': 'king-walk-testflight/', 'android': 'king-walk-android/'}
 
 
 def fetch(start, end):
@@ -58,14 +60,15 @@ def fetch_site(url, start, end):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--since'); ap.add_argument('--until'); ap.add_argument('--days', type=int, default=7)
-    g = ap.add_mutually_exclusive_group(); g.add_argument('--web', action='store_true'); g.add_argument('--app', action='store_true'); g.add_argument('--android', action='store_true'); g.add_argument('--both', action='store_true')
+    g = ap.add_mutually_exclusive_group(); g.add_argument('--web', action='store_true'); g.add_argument('--app', action='store_true'); g.add_argument('--android', action='store_true'); g.add_argument('--testflight', action='store_true'); g.add_argument('--both', action='store_true')
     a = ap.parse_args()
     today = datetime.datetime.now(datetime.timezone.utc).date()
     end = datetime.date.fromisoformat(a.until) if a.until else today
     start = datetime.date.fromisoformat(a.since) if a.since else end - datetime.timedelta(days=a.days - 1)
     raw = fetch(start.isoformat(), (end + datetime.timedelta(days=1)).isoformat())
     c = {k: {e[len(p):]: n for e, n in raw.items() if e.startswith(p)} for k, p in PREFIX.items()}
-    cols = ['web'] if a.web else ['app'] if a.app else ['android'] if a.android else ['web', 'app'] + (['android'] if c['android'] else [])
+    cols = (['web'] if a.web else ['app'] if a.app else ['android'] if a.android else ['testflight'] if a.testflight
+            else ['web', 'app'] + [k for k in ('testflight', 'android') if c[k]])
     gc = json.load(open(os.path.join(ROOT, 'ios', 'store', 'gamecenter.json')))
     print(f'King Walk, {start} to {end} (UTC)\n')
     print(f"  {'':<34}" + '  '.join(f'{k:>7}      ' for k in cols) + '\n')

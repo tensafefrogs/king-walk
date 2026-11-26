@@ -393,5 +393,9 @@
   "End practice": "Akhiri latihan",
   "End this practice set?": "Akhiri set latihan ini?",
   "The puzzles you've played still count.": "Puzzle yang sudah kamu mainkan tetap dihitung.",
-  "Keep practising": "Lanjut berlatih"
+  "Keep practising": "Lanjut berlatih",
+  "Show the answer?": "Lihat jawabannya?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Puzzle hari ini akan dihitung gagal, dan runtunan harianmu mulai lagi dari awal.",
+  "Keep trying": "Coba terus",
+  "Show answer": "Tunjukkan jawaban"
 };

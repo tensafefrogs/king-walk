@@ -361,6 +361,31 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     check(ev.fresh.includes("daily/start/new-player") && ev.fresh.includes("daily/missed/untried") && !ev.fresh.includes("daily/missed/tried")
           && ev.hinted.includes("daily/missed/tried") && !ev.hinted.includes("daily/start/new-player"),
           "the daily's answer is counted as tried (a move or hint first) or untried, and a daily played first is counted", ev); }
+  // the daily's Answer asks first (it ends the day and the streak): Keep trying leaves the puzzle as it was, Show answer
+  // shows it; a normal puzzle's Answer shows it at once. A daily played as the very first puzzle shows the how-to-move tip
+  { const w = await page();
+    const r = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), out = {};
+      $("answerBtn").click(); await nap(300); out.normalShown = failed && !document.querySelector(".dlg"); for (let t = 0; t < 100 && !done; t++) await nap(100);
+      me().n = 0; S.tip = false; startDaily(); for (let t = 0; t < 100 && !(DAILY && cur && cur.daily && !locked); t++) await nap(100);
+      out.tip = !$("tip").hidden;
+      $("answerBtn").click(); await nap(300);
+      const dlg = document.querySelector(".dlg"); out.asked = !!dlg && !failed;
+      out.title = dlg && dlg.querySelector("h2").textContent; if (!dlg) return out;
+      [...dlg.querySelectorAll("button")].find(b => b.textContent === T("Keep trying")).click(); await nap(400);
+      out.kept = !failed && !done && !document.querySelector(".dlg") && !me().daily.days[DAILY.n];
+      $("answerBtn").click(); await nap(300);
+      [...document.querySelectorAll(".dlg button")].find(b => b.textContent === T("Show answer")).click(); await nap(300);
+      out.shown = failed; return out;
+    });
+    await w.ctx.close();
+    check(r.normalShown && r.tip && r.asked && r.title === "Show the answer?" && r.kept && r.shown,
+          "the daily's Answer asks first (Keep trying changes nothing), a normal one doesn't; a first daily shows the how-to-move tip", r); }
+  // the iOS app from TestFlight sends its stats apart from the App Store's (testers aren't players)
+  { const prefix = async ch => { const w = await page("", `window.webkit={messageHandlers:{kingwalk:{postMessage(){}}}};window.kingWalkApp={platform:"iphone"${ch ? `,channel:"${ch}"` : ""}}`);
+      const v = await w.p.evaluate(() => TRACK_PREFIX); await w.ctx.close(); return v; };
+    const tf = await prefix("testflight"), store = await prefix("appstore"), old = await prefix("");
+    check(tf === "king-walk-testflight/" && store === "king-walk-ios/" && old === "king-walk-ios/", "the iOS app's stats: TestFlight apart, the App Store (and older apps) as before", { tf, store, old }); }
   // the week's solved and missed marks are drawn in the middle of their circles, not typed: a ✓ or × isn't in the game's
   // fonts, so each phone used its own fallback, at its own height (a player saw the ✓ sit high)
   { const w = await page();

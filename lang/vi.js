@@ -393,5 +393,9 @@
   "End practice": "Kết thúc luyện tập",
   "End this practice set?": "Kết thúc lượt luyện tập này?",
   "The puzzles you've played still count.": "Các câu đố bạn đã giải vẫn được tính.",
-  "Keep practising": "Tiếp tục luyện tập"
+  "Keep practising": "Tiếp tục luyện tập",
+  "Show the answer?": "Xem đáp án?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Câu đố hôm nay sẽ bị tính là bỏ lỡ, và chuỗi hằng ngày của bạn sẽ bắt đầu lại.",
+  "Keep trying": "Tiếp tục thử",
+  "Show answer": "Xem đáp án"
 };

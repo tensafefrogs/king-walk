@@ -393,5 +393,9 @@
   "End practice": "Încheie antrenamentul",
   "End this practice set?": "Închei această serie de antrenament?",
   "The puzzles you've played still count.": "Problemele jucate deja se pun în continuare.",
-  "Keep practising": "Continuă antrenamentul"
+  "Keep practising": "Continuă antrenamentul",
+  "Show the answer?": "Vezi soluția?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Problema de azi va conta ca ratată, iar seria ta zilnică o ia de la capăt.",
+  "Keep trying": "Mai încearcă",
+  "Show answer": "Arată soluția"
 };

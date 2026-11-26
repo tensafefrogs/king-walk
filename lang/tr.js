@@ -393,5 +393,9 @@
   "End practice": "Antrenmanı bitir",
   "End this practice set?": "Bu antrenman setini bitirmek istiyor musun?",
   "The puzzles you've played still count.": "Oynadığın bulmacalar yine de sayılır.",
-  "Keep practising": "Antrenmana devam et"
+  "Keep practising": "Antrenmana devam et",
+  "Show the answer?": "Cevap gösterilsin mi?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Bugünkü bulmaca kaçırılmış sayılır ve günlük serin yeniden başlar.",
+  "Keep trying": "Denemeye devam et",
+  "Show answer": "Cevabı göster"
 };

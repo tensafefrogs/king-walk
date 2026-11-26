@@ -3,5 +3,5 @@
   "upload": true,
   "track": "alpha",
   "status": "completed",
-  "notes": "Test build: Play Games' achievements and leaderboards now open from the menu, and the daily week's marks sit in the middle of their circles. Also: achievements and leaderboards in Google Play Games, practice sets that end early from their chip, hints move by move, and a card when the coach is ready."
+  "notes": "Test build: on the daily puzzle, Answer asks first (it ends the day and your streak), and a daily played as your very first puzzle shows how to move a piece. Also: Play Games achievements and leaderboards, practice sets that end early from their chip, hints move by move, and a card when the coach is ready."
 }

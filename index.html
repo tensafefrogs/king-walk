@@ -335,7 +335,8 @@ details > .body { margin-top: 10px; animation: rise 0.28s var(--ease-out) both; 
   .cele-card:not(.dlg) .cele-app { font-size: 12.5px; margin-top: 8px; }
   .cele-card:not(.dlg) .cele-btns { margin: 12px 16px 16px; }
 }
-.cele-btns button { overflow-wrap: break-word; font: 700 16px/1.15 var(--font-display); border-radius: 14px; border: 3px solid var(--p-ink); padding: 10px 18px; cursor: pointer; box-shadow: 4px 4px 0 var(--p-ink); }
+.cele-btns button { overflow-wrap: break-word; word-break: keep-all; max-width: 100%;          /* Chinese, Japanese and Korean labels stay whole (to a row of their own) rather than break after any character; never wider than the row, where they break again */
+   font: 700 16px/1.15 var(--font-display); border-radius: 14px; border: 3px solid var(--p-ink); padding: 10px 18px; cursor: pointer; box-shadow: 4px 4px 0 var(--p-ink); }
 .cele-btns .go { background: var(--p-gold); color: var(--p-ink); flex: 1; }
 .cele-btns .sh { background: var(--p-cream); color: var(--p-ink); }
 .cele-btns button:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-ink); }
@@ -1576,7 +1577,8 @@ const PLATFORM = (() => {
   } catch (e) {}
   return "other";
 })();
-const TRACK_PREFIX = APP ? (APP.os === "android" ? "king-walk-android/" : "king-walk-ios/") : "king-walk/";
+/* the iOS app from TestFlight (and Xcode) counts apart from the App Store's, so testers don't read as players (since 1.0.5) */
+const TRACK_PREFIX = APP ? (APP.os === "android" ? "king-walk-android/" : APP.channel === "testflight" ? "king-walk-testflight/" : "king-walk-ios/") : "king-walk/";
 /* The queue: events wait in the device's storage until they can go out, so play without a connection (on a plane, in
    the underground) is counted once the device is back online. Within limits: at most STATS_MAX events wait (the oldest
    go first; a week offline is a few hundred), and none older than STATS_DAYS days (GoatCounter counts an event on the
@@ -1983,7 +1985,7 @@ function tryMove(from, to) {
   commit(from, to, "");
 }
 /* the very first puzzle: one line on how to play, until the first move or the close button */
-function showTip() { $("tip").hidden = !!S.tip || me().n > 0 || !!RUN || !!DAILY; }
+function showTip() { $("tip").hidden = !!S.tip || me().n > 0 || !!RUN || !!(DAILY && DAILY.mode !== "play"); }          /* a daily as the first puzzle gets it too */
 function hideTip() { if (S.tip) return; hideSoft($("tip")); S.tip = true; save(); }
 function commit(from, to, promo) {
   hideTip();
@@ -3075,7 +3077,15 @@ $("hintBtn").addEventListener("click", showHint);
 $("dcGo").addEventListener("click", resumeDaily);
 $("dTimer").addEventListener("click", () => { if (!DAILY || DAILY.mode !== "play" || done) return; if (DAILY.paused) resumeDaily(); else if (locked) DAILY.pauseWhenReady = true; else { pauseDaily(false); track("daily/pause"); } renderTimer(); });
 $("tipX").addEventListener("click", () => { hideTip(); track("tip/closed"); });
-$("answerBtn").addEventListener("click", showAnswer);
+$("answerBtn").addEventListener("click", askAnswer);
+/* the daily's answer ends the day (and the streak), so it asks first; everywhere else Answer shows it at once */
+function askAnswer() {
+  if (!(DAILY && DAILY.mode === "play")) return showAnswer();
+  if (locked || done) return;
+  const n = DAILY.n;
+  openDialog({ title: T("Show the answer?"), text: T("Today's puzzle will count as missed, and your daily streak starts again."),
+    buttons: [{ label: T("Keep trying") }, { label: T("Show answer"), primary: true, onClick: () => { if (DAILY && DAILY.n === n && DAILY.mode === "play") showAnswer(); } }] });
+}
 $("nextBtn").addEventListener("click", () => { if (RUN && RUN.over) leaveRun(); else if (DAILY && done) leaveDaily(); else nextPuzzle(); });          /* not done: a failed load, try again */
 /* Puzzles | Daily: the side that's off switches to it; the daily, when it's done, shows its card */
 $("puzzlesBtn").addEventListener("click", () => { if (!DAILY) return; haptic("toggle"); leaveDaily(); });

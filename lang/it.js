@@ -393,5 +393,9 @@
   "End practice": "Termina allenamento",
   "End this practice set?": "Terminare questa serie di allenamento?",
   "The puzzles you've played still count.": "I problemi che hai giocato contano comunque.",
-  "Keep practising": "Continua ad allenarti"
+  "Keep practising": "Continua ad allenarti",
+  "Show the answer?": "Vedere la soluzione?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Il problema di oggi conterà come mancato e la tua serie giornaliera ricomincerà da capo.",
+  "Keep trying": "Continua a provare",
+  "Show answer": "Mostra la soluzione"
 };

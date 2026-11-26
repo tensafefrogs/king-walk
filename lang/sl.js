@@ -393,5 +393,9 @@
   "End practice": "Končaj vadbo",
   "End this practice set?": "Želiš končati ta niz vadbe?",
   "The puzzles you've played still count.": "Že odigrane uganke še vedno štejejo.",
-  "Keep practising": "Vadi naprej"
+  "Keep practising": "Vadi naprej",
+  "Show the answer?": "Prikažem rešitev?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Današnja naloga bo štela kot zgrešena, tvoj dnevni niz pa se začne znova.",
+  "Keep trying": "Poskušaj naprej",
+  "Show answer": "Pokaži rešitev"
 };

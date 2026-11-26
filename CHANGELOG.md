@@ -9,15 +9,23 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
+- Nothing yet: everything so far is in the 1.0.5 build below.
+
+### 1.0.5 (on TestFlight, a new build from 2026-11-26 with the coach, the daily's Answer question and the fixes below; held from App Review while the owner tests it; all of it already on the website)
+
 - **The daily week's ✓ and × sit in the middle of their circles:** they were letters from each phone's own fallback
   font and sat high on some phones; they're drawn now, the same everywhere. (Live on the website.)
 - **Android: Play Games' achievements and leaderboards open** from the menu's Google Play Games row (tapping either did
-  nothing). (Waits for the next Android build.)
+  nothing). (On the Android closed test since 1.0.5 build 29925921.)
 - **Slovak and Romanian say "skewer" as their players do:** *napichnutia* and *frigărui* (they read "Röntgeny" and
   "Atacuri liniare"), the terms their chess coaches and sites use; the Romanian store text too. (Live on the website.)
-
-### 1.0.5 (on TestFlight, build 2611231441, with the coach; held from App Review while the owner tests it, 2026-11-23; all of it already on the website)
-
+- **The daily puzzle's Answer asks first:** it ends the day and the daily streak, so it now asks ("Show the answer?"), with
+  Keep trying to go back to the puzzle. In the iOS app's first weeks the daily ended with the answer shown far more often
+  than solved, even on easy days. (Live on the website.)
+- **A daily played as the very first puzzle shows how to move a piece,** the tip the first normal puzzle has. (Live on the
+  website.)
+- **Dialog buttons in Chinese, Japanese and Korean stay whole** on a narrow phone, on a row of their own, rather than
+  breaking after any character. (Live on the website.)
 - **Sound that stopped comes back:** on iPhone the game's sounds could stop for good after a few puzzles (iOS left the
   audio silent after an interruption, such as a notification). The next tap now starts it again. (Also on the website.)
 - **Every solve is celebrated:** a puzzle solved with a hint gets the board's glow and the piece's bounce, and one

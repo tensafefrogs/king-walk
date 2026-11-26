@@ -393,5 +393,9 @@
   "End practice": "סיום תרגול",
   "End this practice set?": "לסיים את סבב התרגול?",
   "The puzzles you've played still count.": "החידות ששוחקו עד עכשיו עדיין נספרות.",
-  "Keep practising": "להמשיך לתרגל"
+  "Keep practising": "להמשיך לתרגל",
+  "Show the answer?": "להציג את הפתרון?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "החידה של היום תיחשב כלא פתורה, והרצף היומי יתחיל מחדש.",
+  "Keep trying": "להמשיך לנסות",
+  "Show answer": "להציג פתרון"
 };

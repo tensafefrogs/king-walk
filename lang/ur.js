@@ -393,5 +393,9 @@
   "End practice": "مشق ختم کریں",
   "End this practice set?": "کیا یہ مشق کا سیٹ ختم کرنا ہے؟",
   "The puzzles you've played still count.": "جو پزلز آپ نے کھیلیں، وہ پھر بھی گنی جائیں گی۔",
-  "Keep practising": "مشق جاری رکھیں"
+  "Keep practising": "مشق جاری رکھیں",
+  "Show the answer?": "جواب دیکھیں؟",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "آج کا پزل چُوکا ہوا شمار ہوگا، اور آپ کا روزانہ کا سلسلہ دوبارہ شروع ہوگا۔",
+  "Keep trying": "کوشش جاری رکھیں",
+  "Show answer": "جواب دکھائیں"
 };

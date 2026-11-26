@@ -393,5 +393,9 @@
   "End practice": "Τέλος εξάσκησης",
   "End this practice set?": "Να τελειώσει αυτή η σειρά εξάσκησης;",
   "The puzzles you've played still count.": "Οι γρίφοι που έπαιξες μετράνε κανονικά.",
-  "Keep practising": "Συνέχισε την εξάσκηση"
+  "Keep practising": "Συνέχισε την εξάσκηση",
+  "Show the answer?": "Να δείξω τη λύση;",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Ο σημερινός γρίφος θα μετρήσει ως χαμένος και το καθημερινό σου σερί θα ξεκινήσει από την αρχή.",
+  "Keep trying": "Συνέχισε να προσπαθείς",
+  "Show answer": "Δείξε τη λύση"
 };

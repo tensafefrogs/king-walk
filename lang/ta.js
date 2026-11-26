@@ -393,5 +393,9 @@
   "End practice": "பயிற்சியை முடி",
   "End this practice set?": "இந்தப் பயிற்சித் தொகுப்பை முடிக்கவா?",
   "The puzzles you've played still count.": "நீங்கள் விளையாடிய புதிர்கள் இன்னும் கணக்கில் சேரும்.",
-  "Keep practising": "பயிற்சியைத் தொடர்"
+  "Keep practising": "பயிற்சியைத் தொடர்",
+  "Show the answer?": "பதிலைப் பார்க்கவா?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "இன்றைய புதிர் தவறவிட்டதாகக் கணக்கிடப்படும், உங்கள் தினசரி தொடர் மீண்டும் தொடங்கும்.",
+  "Keep trying": "முயற்சியைத் தொடருங்கள்",
+  "Show answer": "பதிலைக் காட்டு"
 };

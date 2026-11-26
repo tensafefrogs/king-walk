@@ -1,7 +1,7 @@
 // Layout check: every screen size we support (phones upright and sideways, iPad full, split and Slide Over,
 // desktop, iPhone Duo propped up and held like a book, the app with the biggest text sizes) x a few languages (long words: de, ru; tall script: ja;
 // right to left: ar)
-// x every overlay (menu, the daily, its done card, celebrations, the paste dialog, the promotion picker, rank streaks,
+// x every overlay (menu, the daily, its Answer question, its done card, celebrations, the paste dialog, the promotion picker, rank streaks,
 // help). It reports the page scrolling sideways, text spilling out of buttons and labels, a card or dialog (or one of
 // its buttons) that doesn't fit the screen, and the board not fully on screen. Screenshots of each problem go to
 // testing/out/.
@@ -25,7 +25,7 @@ const VP = [
 ];
 const LANGS = (process.argv[2] || 'en-US,de-DE,ru-RU,ja-JP,ar-SA').split(',');
 const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
-const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help', 'coach', 'practice'];
+const STATES = ['base', 'menu', 'daily', 'daily-answer', 'done-card', 'rank-card', 'award-card', 'dialog', 'promote', 'runs', 'help', 'coach', 'practice'];
 (async () => {
   const srv = await server.start(), b = await chromium.launch(), issues = [];
   for (const [name, w, h, mobile, q = '', insets] of VP.filter(v => !ONLY || ONLY.includes(v[0]))) for (const lang of LANGS) {
@@ -53,6 +53,8 @@ const STATES = ['base', 'menu', 'daily', 'done-card', 'rank-card', 'award-card',
         await sleep(300);
         if (st === 'menu') { toggleSection($('menuBtn'), $('menu')); document.querySelectorAll('#menu details').forEach(d => d.open = true); await sleep(500); }
         if (st === 'daily') { startDaily(); await sleep(1500); }
+        /* the daily played as the very first puzzle (the how-to-move tip), with Answer's question open */
+        if (st === 'daily-answer') { const q = me(), D = q.daily, n = dayNumber(); delete D.days[n]; q.n = 0; S.tip = false; startDaily(); await sleep(1500); if (typeof askAnswer === 'function') askAnswer(); await sleep(500); }
         try { localStorage.removeItem('kw-promo'); } catch (e) {}          /* each card gets its App Store line, whatever the weekly limit */
         if (st === 'done-card') { const D = me().daily, n = dayNumber(); if (!D.days[n]) recordDaily(D, n, 'gyg', 83, true); showDailyDone(); await sleep(700); }
         if (st === 'rank-card') { celebrate(['rank_queen']); await sleep(700); }

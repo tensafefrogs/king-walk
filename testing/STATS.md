@@ -4,7 +4,7 @@ The game sends a few anonymous events to GoatCounter (no cookies, nothing linked
 
 ## Events
 
-Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the website, `king-walk-ios` for the iOS app and `king-walk-android` for the Android app (not on Google Play yet; `testing/stats.py` shows it beside the others once it has counts, or alone with `--android`). Events are only sent where the GoatCounter address is set (the `GOATCOUNTER_URL` Actions variable, written into `config.js`); a copy of the repo sends none. The website's page view is counted too (`/king-walk/`); the app doesn't count one.
+Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the website, `king-walk-ios` for the iOS app from the App Store, `king-walk-testflight` for the iOS app from TestFlight or Xcode (since 1.0.5; older TestFlight builds counted as `king-walk-ios`, so testers made up most of its launch-week players; `--testflight` alone) and `king-walk-android` for the Android app (not on Google Play yet; `testing/stats.py` shows it beside the others once it has counts, or alone with `--android`). Events are only sent where the GoatCounter address is set (the `GOATCOUNTER_URL` Actions variable, written into `config.js`); a copy of the repo sends none. The website's page view is counted too (`/king-walk/`); the app doesn't count one.
 
 | Event | Sent when | Code (index.html) |
 | --- | --- | --- |

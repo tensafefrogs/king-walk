@@ -393,5 +393,9 @@
   "End practice": "অনুশীলন শেষ করো",
   "End this practice set?": "এই অনুশীলন সেট শেষ করবে?",
   "The puzzles you've played still count.": "যে পাজলগুলো খেলেছ, সেগুলো তবুও গোনা হবে।",
-  "Keep practising": "অনুশীলন চালিয়ে যাও"
+  "Keep practising": "অনুশীলন চালিয়ে যাও",
+  "Show the answer?": "উত্তর দেখবে?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "আজকের পাজলটি না-পারা হিসেবে গোনা হবে, আর তোমার দৈনিক স্ট্রিক আবার শুরু হবে।",
+  "Keep trying": "চেষ্টা চালিয়ে যাও",
+  "Show answer": "উত্তর দেখাও"
 };

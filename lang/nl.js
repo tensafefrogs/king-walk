@@ -393,5 +393,9 @@
   "End practice": "Oefenen stoppen",
   "End this practice set?": "Deze oefenreeks stoppen?",
   "The puzzles you've played still count.": "De puzzels die je hebt gespeeld tellen gewoon mee.",
-  "Keep practising": "Verder oefenen"
+  "Keep practising": "Verder oefenen",
+  "Show the answer?": "Antwoord laten zien?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "De puzzel van vandaag telt dan als gemist en je dagelijkse reeks begint opnieuw.",
+  "Keep trying": "Blijf proberen",
+  "Show answer": "Toon antwoord"
 };

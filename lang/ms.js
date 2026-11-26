@@ -393,5 +393,9 @@
   "End practice": "Tamatkan latihan",
   "End this practice set?": "Tamatkan set latihan ini?",
   "The puzzles you've played still count.": "Teka-teki yang telah anda main tetap dikira.",
-  "Keep practising": "Teruskan berlatih"
+  "Keep practising": "Teruskan berlatih",
+  "Show the answer?": "Lihat jawapan?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Teka-teki hari ini akan dikira terlepas, dan rentetan harian anda bermula semula.",
+  "Keep trying": "Terus mencuba",
+  "Show answer": "Tunjukkan jawapan"
 };

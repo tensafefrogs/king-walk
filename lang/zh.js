@@ -393,5 +393,9 @@
   "End practice": "结束练习",
   "End this practice set?": "要结束这组练习吗？",
   "The puzzles you've played still count.": "已经做过的题仍然算数。",
-  "Keep practising": "继续练习"
+  "Keep practising": "继续练习",
+  "Show the answer?": "要看答案吗？",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "今天的题会算作未解出，你的每日连胜也会重新开始。",
+  "Keep trying": "继续尝试",
+  "Show answer": "看答案"
 };

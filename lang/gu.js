@@ -393,5 +393,9 @@
   "End practice": "અભ્યાસ પૂરો કરો",
   "End this practice set?": "આ અભ્યાસ સેટ પૂરો કરવો છે?",
   "The puzzles you've played still count.": "તમે રમેલા કોયડા હજુ પણ ગણાશે.",
-  "Keep practising": "અભ્યાસ ચાલુ રાખો"
+  "Keep practising": "અભ્યાસ ચાલુ રાખો",
+  "Show the answer?": "જવાબ જોવો છે?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "આજનો કોયડો ચૂકેલો ગણાશે, અને તમારી દૈનિક સ્ટ્રીક ફરી શરૂ થશે.",
+  "Keep trying": "પ્રયત્ન ચાલુ રાખો",
+  "Show answer": "જવાબ બતાવો"
 };

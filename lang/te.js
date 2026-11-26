@@ -393,5 +393,9 @@
   "End practice": "అభ్యాసం ముగించండి",
   "End this practice set?": "ఈ అభ్యాస సెట్‌ను ముగించాలా?",
   "The puzzles you've played still count.": "మీరు ఆడిన పజిల్స్ ఇంకా లెక్కలోకి వస్తాయి.",
-  "Keep practising": "అభ్యాసం కొనసాగించండి"
+  "Keep practising": "అభ్యాసం కొనసాగించండి",
+  "Show the answer?": "సమాధానం చూడాలా?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "ఈ రోజు పజిల్ మిస్ అయినట్లు లెక్కించబడుతుంది, మీ రోజువారీ వరుస మళ్లీ మొదలవుతుంది.",
+  "Keep trying": "ప్రయత్నం కొనసాగించండి",
+  "Show answer": "సమాధానం చూపించు"
 };

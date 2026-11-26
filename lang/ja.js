@@ -393,5 +393,9 @@
   "End practice": "練習を終える",
   "End this practice set?": "この練習セットを終えますか？",
   "The puzzles you've played still count.": "解いた問題はそのまま記録されます。",
-  "Keep practising": "練習を続ける"
+  "Keep practising": "練習を続ける",
+  "Show the answer?": "答えを見ますか？",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "今日のパズルは不正解として記録され、毎日の連続記録は最初からになります。",
+  "Keep trying": "もう少し考える",
+  "Show answer": "答えを見る"
 };

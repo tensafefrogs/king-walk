@@ -393,5 +393,9 @@
   "End practice": "إنهاء التدريب",
   "End this practice set?": "هل تريد إنهاء مجموعة التدريب؟",
   "The puzzles you've played still count.": "الألغاز التي لعبتها ما زالت محسوبة.",
-  "Keep practising": "واصل التدريب"
+  "Keep practising": "واصل التدريب",
+  "Show the answer?": "هل تريد عرض الحل؟",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "سيُحسب لغز اليوم كأنك لم تحله، وتبدأ سلسلتك اليومية من جديد.",
+  "Keep trying": "واصل المحاولة",
+  "Show answer": "اعرض الحل"
 };

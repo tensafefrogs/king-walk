@@ -393,5 +393,9 @@
   "End practice": "Завершити тренування",
   "End this practice set?": "Завершити це тренування?",
   "The puzzles you've played still count.": "Розв’язані задачі все одно зараховуються.",
-  "Keep practising": "Тренуватися далі"
+  "Keep practising": "Тренуватися далі",
+  "Show the answer?": "Показати відповідь?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Сьогоднішня задача зарахується як нерозв’язана, а твоя щоденна серія почнеться знову.",
+  "Keep trying": "Пробувати далі",
+  "Show answer": "Показати відповідь"
 };

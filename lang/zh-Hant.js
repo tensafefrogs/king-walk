@@ -393,5 +393,9 @@
   "End practice": "結束練習",
   "End this practice set?": "要結束這組練習嗎？",
   "The puzzles you've played still count.": "已經做過的謎題仍然算數。",
-  "Keep practising": "繼續練習"
+  "Keep practising": "繼續練習",
+  "Show the answer?": "要看答案嗎？",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "今天的謎題會算作未解出，你的每日連勝也會重新開始。",
+  "Keep trying": "繼續嘗試",
+  "Show answer": "看答案"
 };

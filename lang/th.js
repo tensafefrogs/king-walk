@@ -393,5 +393,9 @@
   "End practice": "จบการฝึก",
   "End this practice set?": "จบชุดฝึกนี้เลยไหม",
   "The puzzles you've played still count.": "โจทย์ที่เล่นไปแล้วยังนับอยู่",
-  "Keep practising": "ฝึกต่อ"
+  "Keep practising": "ฝึกต่อ",
+  "Show the answer?": "ดูเฉลยไหม?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "โจทย์วันนี้จะนับว่าพลาด และสตรีครายวันของคุณจะเริ่มนับใหม่",
+  "Keep trying": "ลองต่อ",
+  "Show answer": "ดูเฉลย"
 };

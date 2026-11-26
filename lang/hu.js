@@ -393,5 +393,9 @@
   "End practice": "Gyakorlás vége",
   "End this practice set?": "Befejezed ezt a gyakorlókört?",
   "The puzzles you've played still count.": "A már lejátszott feladványok továbbra is számítanak.",
-  "Keep practising": "Gyakorlás folytatása"
+  "Keep practising": "Gyakorlás folytatása",
+  "Show the answer?": "Megmutassuk a megoldást?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "A mai feladat kihagyottnak számít, és a napi sorozatod elölről kezdődik.",
+  "Keep trying": "Próbálkozom még",
+  "Show answer": "Megoldás mutatása"
 };

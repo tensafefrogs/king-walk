@@ -39,6 +39,16 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         view = webView
     }
 
+    /// How this copy was installed: "testflight" (TestFlight, or built by Xcode) or "appstore". A TestFlight build's
+    /// receipt is the sandbox one; the App Store's isn't. Read once, as the page needs it before its first stat.
+    static let channel: String = {
+        #if DEBUG
+        return "testflight"
+        #else
+        return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" ? "testflight" : "appstore"
+        #endif
+    }()
+
     /// The scripts that run as the page loads: the save (from the current items, so a reload never brings back an
     /// older copy), what the app offers, and app-like touches
     private func installScripts(_ content: WKUserContentController) {
@@ -47,7 +57,8 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         // what the app offers the page, read by APP in index.html. platform is for the analytics event platform/<name>
         // (an iPad app on a Mac reports an iPad otherwise)
         let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "mac" : UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
-        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',gameCenter:true,widget:true,reminders:true};",
+        // channel: TestFlight's stats are counted apart from the App Store's (testers aren't players: index.html, TRACK_PREFIX)
+        content.addUserScript(WKUserScript(source: "window.kingWalkApp={platform:'\(platform)',channel:'\(Self.channel)',gameCenter:true,widget:true,reminders:true};",
                                            injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // feel like an app: no pinch zoom, no text selection or long-press callouts (except in the save code box).
         // The viewport also carries the Larger Text scale (kingWalkViewport, below): the page is laid out at the web view's

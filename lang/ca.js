@@ -393,5 +393,9 @@
   "End practice": "Acaba la pràctica",
   "End this practice set?": "Vols acabar aquesta sèrie de pràctica?",
   "The puzzles you've played still count.": "Els problemes que has jugat continuen comptant.",
-  "Keep practising": "Continua practicant"
+  "Keep practising": "Continua practicant",
+  "Show the answer?": "Vols veure la solució?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "El trencaclosques d'avui comptarà com a fallat i la teva ratxa diària tornarà a començar.",
+  "Keep trying": "Continua provant",
+  "Show answer": "Mostra la solució"
 };

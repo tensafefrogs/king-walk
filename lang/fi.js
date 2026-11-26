@@ -393,5 +393,9 @@
   "End practice": "Lopeta harjoitus",
   "End this practice set?": "Lopetetaanko tämä harjoitussarja?",
   "The puzzles you've played still count.": "Pelaamasi tehtävät lasketaan silti.",
-  "Keep practising": "Jatka harjoittelua"
+  "Keep practising": "Jatka harjoittelua",
+  "Show the answer?": "Näytetäänkö ratkaisu?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Tämän päivän tehtävä lasketaan ratkaisemattomaksi, ja päivittäinen putkesi alkaa alusta.",
+  "Keep trying": "Yritä vielä",
+  "Show answer": "Näytä ratkaisu"
 };

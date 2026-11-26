@@ -393,5 +393,9 @@
   "End practice": "Avslutt trening",
   "End this practice set?": "Vil du avslutte denne treningsrunden?",
   "The puzzles you've played still count.": "Oppgavene du har spilt, teller fortsatt.",
-  "Keep practising": "Fortsett å trene"
+  "Keep practising": "Fortsett å trene",
+  "Show the answer?": "Vise løsningen?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Dagens oppgave teller som ikke løst, og den daglige rekken din starter på nytt.",
+  "Keep trying": "Prøv videre",
+  "Show answer": "Vis løsningen"
 };

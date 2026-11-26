@@ -393,5 +393,9 @@
   "End practice": "Ukončiť tréning",
   "End this practice set?": "Ukončiť túto sadu tréningu?",
   "The puzzles you've played still count.": "Úlohy, ktoré máš za sebou, sa stále rátajú.",
-  "Keep practising": "Trénovať ďalej"
+  "Keep practising": "Trénovať ďalej",
+  "Show the answer?": "Ukázať riešenie?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "Dnešná úloha sa započíta ako nevyriešená a tvoja denná séria začne odznova.",
+  "Keep trying": "Skúšať ďalej",
+  "Show answer": "Ukázať riešenie"
 };

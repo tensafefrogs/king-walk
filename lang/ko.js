@@ -393,5 +393,9 @@
   "End practice": "연습 끝내기",
   "End this practice set?": "이 연습 세트를 끝낼까요?",
   "The puzzles you've played still count.": "지금까지 푼 퍼즐은 그대로 반영돼요.",
-  "Keep practising": "계속 연습하기"
+  "Keep practising": "계속 연습하기",
+  "Show the answer?": "정답을 볼까요?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "오늘 퍼즐은 실패로 기록되고, 매일 연속 기록은 처음부터 다시 시작돼요.",
+  "Keep trying": "계속 풀어 보기",
+  "Show answer": "정답 보기"
 };

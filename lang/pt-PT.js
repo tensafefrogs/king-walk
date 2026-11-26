@@ -83,5 +83,9 @@
   "Open in {browser}": "Abrir no {browser}",
   "To bring your puzzles along, copy your save code first: Settings, Advanced.": "Para levares os teus problemas, copia primeiro o teu código de gravação: Definições, Avançado.",
   "Progress is saved on this device, and your phone's Google backup keeps a copy for your next phone. There are no accounts.": "O progresso fica guardado neste dispositivo, e a cópia de segurança da Google do teu telemóvel mantém uma cópia para o teu próximo telemóvel. Não há contas.",
-  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "O progresso fica guardado neste dispositivo. Para o levares para outro lado, como o site, copia o teu código de gravação e cola-o lá."
+  "Progress is saved on this device. To move it somewhere else, such as the website, copy your save code, then paste it there.": "O progresso fica guardado neste dispositivo. Para o levares para outro lado, como o site, copia o teu código de gravação e cola-o lá.",
+  "Show the answer?": "Ver a solução?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "O desafio de hoje vai contar como falhado, e a tua sequência diária recomeça.",
+  "Keep trying": "Continuar a tentar",
+  "Show answer": "Ver a solução"
 };

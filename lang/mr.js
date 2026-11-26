@@ -393,5 +393,9 @@
   "End practice": "सराव संपवा",
   "End this practice set?": "हा सराव संच संपवायचा?",
   "The puzzles you've played still count.": "तुम्ही खेळलेली कोडी तरीही मोजली जातील.",
-  "Keep practising": "सराव सुरू ठेवा"
+  "Keep practising": "सराव सुरू ठेवा",
+  "Show the answer?": "उत्तर पाहायचे?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "आजचे कोडे चुकलेले म्हणून मोजले जाईल, आणि तुमचा रोजचा स्ट्रीक पुन्हा सुरू होईल.",
+  "Keep trying": "प्रयत्न सुरू ठेवा",
+  "Show answer": "उत्तर दाखवा"
 };

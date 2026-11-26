@@ -393,5 +393,9 @@
   "End practice": "ଅଭ୍ୟାସ ଶେଷ କର",
   "End this practice set?": "ଏହି ଅଭ୍ୟାସ ସେଟ ଶେଷ କରିବ?",
   "The puzzles you've played still count.": "ତୁମେ ଖେଳିଥିବା ପଜଲ ତଥାପି ଗଣାଯିବ।",
-  "Keep practising": "ଅଭ୍ୟାସ ଜାରି ରଖ"
+  "Keep practising": "ଅଭ୍ୟାସ ଜାରି ରଖ",
+  "Show the answer?": "ଉତ୍ତର ଦେଖିବ କି?",
+  "Today's puzzle will count as missed, and your daily streak starts again.": "ଆଜିର ପଜଲ୍ ଛାଡ଼ିଦିଆ ବୋଲି ଗଣାଯିବ, ଏବଂ ତୁମର ଦୈନିକ ଷ୍ଟ୍ରିକ ପୁଣି ଆରମ୍ଭ ହେବ।",
+  "Keep trying": "ଚେଷ୍ଟା ଜାରି ରଖ",
+  "Show answer": "ଉତ୍ତର ଦେଖାଅ"
 };
