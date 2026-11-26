@@ -56,6 +56,8 @@ The game sends anonymous events to GoatCounter. `testing/STATS.md` lists each ev
 
 Every change a player would notice goes into `CHANGELOG.md` under **Unreleased** in the same commit (say whether it's live on the website or waits for the app). When an app version is submitted, move its part under that version's heading and draft its What's New from there; the owner reads it to plan release notes and posts between releases.
 
+**Release notes** (TestFlight's What to Test, `testflight.whats_new` in `ios/release.json` and `ios/beta.json`, and the App Store's What's New, `app_store.whats_new`) are for players and testers, not for us. Say only what changed and what to try, in plain words, one short line per change. Nothing internal: no review or hold status, build numbers, workflows, branches or which build came before. Put the newest first under "New in this build:", then the changes from the last few days under "Also recently:", so someone who missed an update still learns what changed; say "Improved" or "Fixed" where a change is to something already there. What's New covers everything since the last App Store version, without the asks to test. No emoji (App Store Connect refuses them) and no other apps' names.
+
 The launch checklist and post drafts are in `ios/store/launch.md`. To ship, edit `ios/release.json` and push to `main`; the App Store release workflow builds, uploads, submits and releases as it says (fields in `ios/README.md`, "Releasing from the repo"). `ios/store/status.md` shows where the app stands. Don't submit for review or release to the App Store without the owner's go-ahead for that version.
 
 ## Game Center

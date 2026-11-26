@@ -5,6 +5,6 @@
     "groups": [
       "Internal"
     ],
-    "whats_new": "1.0.6 preview, TestFlight only. New in this build: a tidier progress card (a line between each part; the coach's Work on list in one panel with Practise my weak spots under it; what you're strong at as green tags), and every rank streak in full colour, since all of them can be played at any rank. Also in 1.0.6: missed puzzles come back on a schedule (after 1, 3, 7, 14 and 30 days), one mixed Practise my weak spots session, and your rating counting up or down after each puzzle. Tell me anything that looks off."
+    "whats_new": "New in this build:\n- Improved: the progress card is tidier. Each part has its own section, the coach lists what to work on in one panel, and what you're strong at shows as green tags.\n- Fixed: rank streaks you haven't tried looked locked. Every streak can be played at any rank, so try going back for an easier one.\n\nAlso recently:\n- New: missed puzzles come back after 1, 3, 7, 14 and 30 days. Miss one or use a hint, and it returns tomorrow.\n- New: Practise my weak spots on the coach card starts a mixed set of 10 that doesn't tell you which kind each puzzle is.\n- New: your rating counts up or down after each puzzle.\n\nPlease try a practice set and a rank streak, and tell me anything that looks off."
   }
 }
