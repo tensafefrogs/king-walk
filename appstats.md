@@ -1,6 +1,6 @@
 # App Store numbers: King Walk
 
-Updated 2026-11-26 01:06 UTC by `ios/store/appstats.py` (the App Store release workflow, every 6 hours). Not edited by hand.
+Updated 2026-11-26 03:26 UTC by `ios/store/appstats.py` (the App Store release workflow, every 6 hours). Not edited by hand.
 
 Analytics counts only people who share analytics with developers, so they run low; Units are every purchase (Sales and Trends). Recent days fill in a day or two late.
 
@@ -20,7 +20,9 @@ Analytics counts only people who share analytics with developers, so they run lo
 | 2026-11-14 Sat |  |  |  |  |  |  |  |
 | 2026-11-13 Fri |  |  |  |  |  |  |  |
 | 2026-11-12 Thu |  |  |  |  |  |  |  |
-| **Total** | **0** | **0** | **0** | **0** | **0** | **** |  |
+| **Total** | **0** | **0** | **0** | **0** | **0** |  |  |
 
-- Asked Apple for the analytics reports just now: they start in a day or two.
+- No App Downloads Standard days yet.
+- No App Sessions Standard days yet.
+- No App Store Discovery and Engagement Standard days yet.
 - Sales and Trends skipped: set the ASC_VENDOR_NUMBER Actions variable (App Store Connect > Payments and Financial Reports, the number at the top left).
