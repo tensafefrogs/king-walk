@@ -103,6 +103,8 @@ def main():
     section('Achievements (first time earned)', [(a_['name'], f"award/{a_['id']}") for a_ in gc['achievements']])
     section('Rank streaks', [x for r in ('pawn', 'knight', 'bishop', 'rook', 'queen', 'king')
         for x in ((f'{r}: started', f'run/start/{r}'), (f'{r}: cleared', f'run/cleared/{r}', f'run/start/{r}'), (f'{r}: quit', f'run/quit/{r}', f'run/start/{r}'))])
+    section('Spaced repetition (reviews finished, by step: 0 is the 1-day review, 4 the 30-day one)',
+            [(f'step {k}: {w}', f'review/{w}/{k}') for k in range(5) for w in ('up', 'same', 'reset', 'learned') if w != 'learned' or k == 4])
     section('Help (times used; the game counts milestones, not every puzzle, so compare these over time)', [('first hint', 'hint/1'), ('second hint', 'hint/2'), ('answer shown', 'answer')])
     section('Sharing', [('progress', 'share'), ('daily result', 'share/daily'), ('an achievement', 'share/award'), ('placement', 'share/placed')])
     section('Settings and other', [(e, e) for e in ('mode/easy', 'mode/normal', 'mode/hard', 'remind/8', 'remind/12', 'remind/18', 'remind/20', 'remind/off',

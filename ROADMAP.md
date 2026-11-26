@@ -8,13 +8,15 @@ What's planned for King Walk, and what's on hold. Done features move out of this
 just by playing, built only on methods with good research behind them, so the website can say so honestly. Nothing here
 is built yet. In order:
 
-1. **Solve times, kept on the device.** Today only the daily has a clock; a normal puzzle's time isn't kept. Time each
+1. **Solve times, kept on the device (started 26 November: each puzzle has its own clock now, used only by the review
+   list's speed rule; the coach's use of it is still to do).** Before, only the daily had a clock. Time each
    puzzle from the player's first turn to the solve, stopped while the game is hidden (the daily's pause code already
    does this), and keep it in the save: the last time per puzzle in the review list, and a running median per area for
    the coach. Private: no time is sent to GoatCounter, not even rounded. Uses: the speed rule in 2, slow-but-right
    counted as shaky by the coach, and later a player's own "usual time" per area.
-2. **Spaced repetition for missed puzzles (the owner's plan).** Today a missed puzzle comes back once, 30 new puzzles
-   later (`REVIEW_GAP`, at most 20 waiting), and is then forgotten.
+2. **Spaced repetition for missed puzzles (the owner's plan; built 26 November 2026, on the website, in the apps from
+   1.0.6).** Before, a missed puzzle came back once, 30 new puzzles later, and was then forgotten. Next: check the
+   `review/...` counts after a few weeks (the share solved at each step), then the website's wording (6).
    - A puzzle missed, or solved with a hint, goes into the review list. It comes back after 1 day, then 3, 7, 14 and 30.
      Solved cleanly and quickly: the next, longer gap. Solved slowly or with a hint: the same gap again. Missed again:
      back to 1 day. Solved cleanly at the 30-day step: learned, and it leaves the list.

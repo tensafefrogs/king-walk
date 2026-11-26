@@ -20,6 +20,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `mode/<easy\|normal\|hard>` | The puzzle difficulty is changed (shown as Relaxed, Balanced, Challenging) | the difficulty buttons |
 | `hint/1`, `hint/2` | The first (the piece) and second (the arrow) hint on a move; each of the player's moves has its own two since 1.0.5 (23 Nov 2026), so a puzzle can send several (before, at most one of each per puzzle) | `showHint()` |
 | `answer` | Answer pressed: the solution is shown | `showAnswer()` |
+| `review/up/<step>`, `review/same/<step>`, `review/reset/<step>`, `review/learned/<step>` | A spaced-repetition review finished (since 26 Nov 2026 on the website; the apps from 1.0.6). `<step>` is where it was (0 to 4: due after 1, 3, 7, 14, 30 days); up: solved cleanly and quickly, so the next, longer gap; same: slowly or with a hint; reset: missed, back to 1 day; learned: solved at the last step, off the list. The share solved at each step is the evidence for spaced repetition working | `finish()` |
 | `share` | Share is pressed (under the board after a puzzle, or in the menu) | `shareProgress()` |
 | `share/daily` | Share pressed after the daily puzzle (its coloured squares); `share` is then everything else (the progress summary) | `shareProgress()` |
 | `award/<id>` | An award is earned for the first time (the ids in `ios/store/gamecenter.json`, e.g. `award/rank_knight`, `award/clear_pawn`) | `checkAwards()` |

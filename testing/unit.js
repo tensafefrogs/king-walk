@@ -344,6 +344,73 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // spaced repetition: the schedule (1, 3, 7, 14, 30 days; up when clean and quick, the same when slow or with a hint,
+  // back to 1 day on a miss, learned and gone after the last step), when a review is due (its day, enough new puzzles
+  // since, at most 1 in 5), old saves' second tries moving in, and a miss coming back in play the next day
+  { const w = await page();
+    const sr = await w.p.evaluate(async () => {
+      const p = me(), today = dayIndex(), out = {};
+      p.review = []; addReview(p, 1000, 5, 40); addReview(p, 1000, 5, 40);
+      const r = p.review[0]; out.added = p.review.length === 1 && r.s === 0 && r.d === today + 1 && r.a === p.n + 3 && r.ft === 40;
+      const steps = [];
+      steps.push(reviewResult(p, 1000, 5, 1, 12), r.s, r.d - today);          /* clean, quick: up to 3 days */
+      steps.push(reviewResult(p, 1000, 5, 1, 50), r.s, r.d - today);          /* clean but slower than the first time: same */
+      steps.push(reviewResult(p, 1000, 5, 1, 35), r.s);                       /* clean, over 30 s but faster than the first 40: up */
+      steps.push(reviewResult(p, 1000, 5, 0.5, 5), r.s);                      /* with a hint: same */
+      steps.push(reviewResult(p, 1000, 5, 0, 5), r.s, r.d - today);           /* missed: back to 1 day */
+      out.steps = steps;
+      r.s = 4; out.learned = reviewResult(p, 1000, 5, 1, 5) === "learned" && p.review.length === 0;
+      /* due: its day, its puzzles, one in five, the longest overdue first */
+      p.review = [{ b: 1000, i: 1, s: 0, d: today, a: p.n, ft: 0 }, { b: 1000, i: 2, s: 2, d: today - 3, a: p.n, ft: 0 }, { b: 1000, i: 3, s: 0, d: today + 1, a: 0, ft: 0 }, { b: 1000, i: 4, s: 0, d: today - 9, a: p.n + 1, ft: 0 }];
+      p.sinceReview = 4; out.pick = (dueReview(p) || {}).i;
+      p.sinceReview = 3; out.tooSoon = dueReview(p) === null;
+      /* an old save's second tries */
+      const st = cleanState({ players: [{ rating: 900, n: 50, review: [{ b: 900, i: 7, due: 62, tries: 1 }] }] });
+      out.migrated = JSON.stringify(st.players[0].review[0]) === JSON.stringify({ b: 900, i: 7, s: 0, d: Math.max(1, today), a: 62, ft: 0 });
+      /* in play: a missed puzzle is listed for tomorrow; when it's due it comes up, a clean quick solve moves it up, the rating stays */
+      p.review = []; p.sinceReview = 9;
+      const nap = ms => new Promise(r => setTimeout(r, ms)), settle = async () => { for (let t = 0; t < 100 && (locked || !cur); t++) await nap(100); };
+      await settle(); const first = { b: cur.band, i: cur.i }; showAnswer(); for (let t = 0; t < 100 && !done; t++) await nap(100);
+      out.listed = p.review.length === 1 && p.review[0].b === first.b && p.review[0].i === first.i && p.review[0].d === today + 1;
+      p.review[0].d = today; p.review[0].a = p.n; p.sinceReview = 4;
+      $("nextBtn").click(); await nap(300); await settle();
+      out.came = cur.review === true && cur.band === first.b && cur.i === first.i;
+      const before = p.rating;
+      for (let g = 0; g < 20 && !done; g++) { await settle(); if (done) break; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(400); }
+      out.state = { done, failed, review: p.review, sinceReview: p.sinceReview, rating: p.rating, before };
+      out.moved = p.review.length === 1 && p.review[0].s === 1 && p.review[0].d === today + 3 && p.rating === before && p.sinceReview === 0;
+      return out;
+    });
+    await w.ctx.close();
+    check(sr.added && JSON.stringify(sr.steps) === JSON.stringify(["up", 1, 3, "same", 1, 3, "up", 2, "same", 2, "reset", 0, 1]) && sr.learned,
+          "spaced repetition: listed once at 1 day; up when clean and quick (or faster than the first try), the same when slow or hinted, back to 1 day on a miss, learned after 30 days", sr);
+    check(sr.pick === 2 && sr.tooSoon, "spaced repetition: a review is due on its day after enough new puzzles, the longest overdue first, at most 1 puzzle in 5", sr);
+    check(sr.migrated, "spaced repetition: an old save's second tries move in at the 1-day step", sr);
+    check(sr.listed && sr.came && sr.moved, "spaced repetition in play: a miss is listed for tomorrow, comes back when due, and a clean quick solve moves it to 3 days without touching the rating", sr); }
+  // a puzzle's clock stops while the game is hidden
+  { const w = await page();
+    const ck = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms));
+      cur.clock = null; startClock(); await nap(1200);
+      Object.defineProperty(document, "hidden", { configurable: true, get: () => true }); document.dispatchEvent(new Event("visibilitychange"));
+      await nap(2500);
+      Object.defineProperty(document, "hidden", { configurable: true, get: () => false }); document.dispatchEvent(new Event("visibilitychange"));
+      await nap(1200); return solveSeconds();
+    });
+    await w.ctx.close();
+    check(ck >= 2 && ck <= 3, "a puzzle's clock stops while the game is hidden (2-3 s counted of about 5)", ck); }
+  // puzzles added at a band's end leave the daily as it was (it picks from the frozen DAILY_SIZES), so the website and
+  // the app versions already out keep the same day's puzzle
+  { const w = await page();
+    const dd = await w.p.evaluate(async () => {
+      const ids = async () => { const out = []; for (let n = 1; n <= 40; n++) out.push((await dailyPuzzle(n)).pz.id); return out; };
+      const before = await ids(), keep = {};
+      for (const b in PUZZLES) { keep[b] = PUZZLES[b].n; PUZZLES[b].n += 450; }          /* as if 450 puzzles were added to every band */
+      const after = await ids(); for (const b in keep) PUZZLES[b].n = keep[b];
+      return { same: before.every((id, i) => id === after[i]), before: before.slice(0, 3), after: after.slice(0, 3) };
+    });
+    await w.ctx.close();
+    check(dd.same, "puzzles added at a band's end leave the daily puzzle as it was (40 days)", dd); }
   // the daily's answer says whether the player tried first (a move or a hint) or showed it straight away, and a daily
   // played before any other puzzle is counted: they tell a too-hard daily from one players didn't know how to start
   { const w = await page();

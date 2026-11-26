@@ -1176,7 +1176,12 @@ function localizePage() {
 const BANDS = []; for (let b = 400; b <= 2400; b += 100) BANDS.push(b);   /* one puzzle file per 100 rating points */
 const MIN_R = 400, MAX_R = 2499;
 const START_RATING = 600;
-const REVIEW_GAP = 30;                 /* new puzzles between a miss and its one second try */
+/* Spaced repetition: a puzzle missed or solved with a hint comes back after 1 day, then 3, 7, 14 and 30. Solved cleanly
+   and quickly (in REVIEW_FAST seconds or faster than the first time): the next gap; slowly or with a hint: the same gap;
+   missed: back to 1 day; solved cleanly and quickly at the last step: learned, and it leaves the list. At most one puzzle
+   in REVIEW_EVERY is a review, and REVIEW_BETWEEN new puzzles come between two showings of the same one. Reviews leave
+   the rating alone and count half for the coach (cur.review). Gaps are calendar days (dayIndex), not puzzles. */
+const REVIEW_GAPS = [1, 3, 7, 14, 30], REVIEW_MAX = 300, REVIEW_EVERY = 5, REVIEW_BETWEEN = 3, REVIEW_FAST = 30;
 const MODES = { easy: -300, normal: -50, hard: 100 };                     /* puzzle rating minus player rating */
 const MODE_INDEX = { easy: 0, normal: 1, hard: 2 };
 /* what each mode means in practice: the share solved at its offset, by the Elo odds ratingChange uses (0.85, 0.57, 0.36) */
@@ -1329,7 +1334,13 @@ function cleanState(raw) {
     if (!q.hist.length) q.hist = [q.rating];
     if (Array.isArray(p.last)) q.last = p.last.filter(v => v === 0 || v === 0.5 || v === 1).slice(-20);
     if (p.seen && typeof p.seen === "object") for (const b of BANDS) if (typeof p.seen[b] === "string" && p.seen[b].length < 4000) q.seen[b] = p.seen[b];
-    if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(0, 20).map(r => ({ b: r.b, i: count(r.i), due: count(r.due), tries: clamp(count(r.tries), 0, 3) }));
+    /* the review list: { b, i, s (step in REVIEW_GAPS), d (day due), a (due no sooner than this many puzzles played), ft
+       (seconds the first try took) }. A save from before spaced repetition has second tries ({ due: puzzles played }):
+       they move in at the first step, due today, after the same number of puzzles */
+    if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(-REVIEW_MAX).map(r => "d" in r
+      ? { b: r.b, i: count(r.i), s: clamp(count(r.s), 0, REVIEW_GAPS.length - 1), d: count(r.d), a: count(r.a), ft: clamp(count(r.ft), 0, 86400) }
+      : { b: r.b, i: count(r.i), s: 0, d: Math.max(1, dayIndex()), a: count(r.due), ft: 0 });
+    if (isFinite(p.sinceReview)) q.sinceReview = clamp(count(p.sinceReview), 0, 1e6);
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
     const pl = p.place;
     if (pl && typeof pl === "object" && isFinite(pl.r)) q.place = { r: clamp(Math.round(+pl.r), MIN_R, 2400), step: clamp(count(pl.step), PLACE_MIN, PLACE_STEP), dir: Math.sign(+pl.dir || 0), turns: count(pl.turns), k: clamp(count(pl.k), 0, PLACE_MAX) };
@@ -1431,19 +1442,48 @@ async function findInBand(b, ok, skip = () => false, maxLoads = Infinity) {
 const bandOf = r => clamp(Math.floor(r / 100) * 100, 400, 2400);
 function gauss() { let s = 0; for (let i = 0; i < 6; i++) s += Math.random(); return (s - 3) / 0.7071; }
 
-/* Choose the next puzzle: the one in progress (after a reload), then a due second try, then an unseen puzzle near the target rating. */
+/* the review to show now, if any: due (its day has come and enough new puzzles since), at most one puzzle in REVIEW_EVERY;
+   the longest overdue first */
+function dueReview(p, today = dayIndex()) {
+  if ((p.sinceReview ?? REVIEW_EVERY) < REVIEW_EVERY - 1) return null;
+  let best = null;
+  for (const r of p.review) if (r.d <= today && r.a <= p.n && (!best || r.d < best.d || (r.d === best.d && r.s < best.s))) best = r;
+  return best;
+}
+/* a puzzle missed or solved with a hint joins the review list (once), at the first step */
+function addReview(p, b, i, secs) {
+  if (p.review.some(r => r.b === b && r.i === i)) return;
+  p.review.push({ b, i, s: 0, d: dayIndex() + REVIEW_GAPS[0], a: p.n + REVIEW_BETWEEN, ft: secs });
+  while (p.review.length > REVIEW_MAX) {          /* full: the one nearest to learned goes */
+    let k = 0; p.review.forEach((r, j) => { if (r.s > p.review[k].s) k = j; }); p.review.splice(k, 1);
+  }
+}
+/* a review's result moves it along the schedule; returns "up", "same", "reset" or "learned" (or "" if it wasn't listed) */
+function reviewResult(p, b, i, score, secs) {
+  const k = p.review.findIndex(r => r.b === b && r.i === i); if (k < 0) return "";
+  const r = p.review[k], fast = secs <= REVIEW_FAST || (r.ft > 0 && secs < r.ft);
+  let out = "same";
+  if (score === 0) { r.s = 0; out = "reset"; }
+  else if (score === 1 && fast) {
+    if (r.s >= REVIEW_GAPS.length - 1) { p.review.splice(k, 1); return "learned"; }
+    r.s++; out = "up";
+  }
+  r.d = dayIndex() + REVIEW_GAPS[r.s]; r.a = p.n + REVIEW_BETWEEN;
+  return out;
+}
+/* Choose the next puzzle: the one in progress (after a reload), then a due review, then an unseen puzzle near the target rating. */
 async function pickPuzzle(resume) {
   const p = me();
   if (resume && p.now) {
     try { const pz = await puzzleAt(p.now.b, p.now.i); if (pz) return { band: p.now.b, i: p.now.i, pz, size: bandSize(p.now.b), review: p.now.review, tries: p.now.tries, resumed: true }; } catch (e) {}
   }
-  const rv = p.review[0];
-  if (rv && rv.due <= p.n) {
+  const rv = dueReview(p);
+  if (rv) {
     try {
       const pz = await puzzleAt(rv.b, rv.i);
-      if (p.review[0] === rv) p.review.shift();
-      if (pz) return { band: rv.b, i: rv.i, pz, size: bandSize(rv.b), review: true, tries: rv.tries };
-    } catch (e) {}          /* the file did not load: leave the second try queued */
+      if (pz) return { band: rv.b, i: rv.i, pz, size: bandSize(rv.b), review: true, tries: 0 };
+      p.review.splice(p.review.indexOf(rv), 1);          /* no such puzzle any more */
+    } catch (e) {}          /* the file did not load: leave the review where it is */
   }
   const target = clamp(Math.round(p.place ? p.place.r + gauss() * 25 : p.rating + MODES[p.mode] + gauss() * 40), MIN_R, MAX_R);
   const coached = await pickCoached(p, target); if (coached) return coached;
@@ -1955,7 +1995,7 @@ async function nextPuzzle() {
   }
   later(() => {
     playUci(cur.pz.moves[0]); idx = 1;
-    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY && !DAILY.paused && !document.hidden) DAILY.t0 = Date.now(); showTip(); }, 300);          /* hidden by now: it starts on Continue */
+    later(() => { locked = false; setButtons(true); showTurn(); renderSetup(); if (DAILY && !DAILY.paused && !document.hidden) DAILY.t0 = Date.now(); startClock(); showTip(); }, 300);          /* hidden by now: it starts on Continue */
   }, REDUCED ? 300 : 760);
 }
 
@@ -2041,6 +2081,14 @@ function showAnswer() {
   later(step, 350);
 }
 
+/* A puzzle's own clock, from the player's first turn to the end, stopped while the game is hidden: the seconds go into the
+   review list (the speed rule) and nowhere else; they stay on the device. */
+function startClock() { if (cur && !cur.clock) cur.clock = { spent: 0, t0: document.hidden ? 0 : Date.now() }; }
+function solveSeconds() { const c = cur && cur.clock; return c ? Math.round((c.spent + (c.t0 ? Date.now() - c.t0 : 0)) / 1000) : 0; }
+document.addEventListener("visibilitychange", () => {
+  const c = cur && cur.clock; if (!c || done) return;
+  if (document.hidden) { if (c.t0) { c.spent += Date.now() - c.t0; c.t0 = 0; } } else if (!c.t0) c.t0 = Date.now();
+});
 /* Elo: the change in the player's rating after a puzzle rated puzzleRating, for score 1 (clean), 0.5 (hint) or 0 (miss).
    It moves fast for the first puzzles so it finds the player's level, then settles; a clean solve always gains. */
 const RATING_FLOOR = 300;
@@ -2077,8 +2125,14 @@ function finish(solvedIt) {
     markSeen(cur.band, cur.i, cur.size);
   }
   if (score === 1) { p.solved++; p.streak++; p.best = Math.max(p.best, p.streak); } else if (score === 0) p.streak = 0;
-  if (score < 1 && !cur.review) {          /* a missed puzzle comes back once, about 30 new puzzles later */
-    p.review.push({ b: cur.band, i: cur.i, due: p.n + REVIEW_GAP, tries: 1 }); if (p.review.length > 20) p.review.shift();
+  const secs = solveSeconds();
+  if (cur.review) {          /* a review moves along its schedule (spaced repetition, REVIEW_GAPS) */
+    const step = (p.review.find(r => r.b === cur.band && r.i === cur.i) || {}).s, how = reviewResult(p, cur.band, cur.i, score, secs);
+    p.sinceReview = 0;
+    if (how) track((how === "learned" ? "review/learned/" : how === "up" ? "review/up/" : how === "reset" ? "review/reset/" : "review/same/") + step);
+  } else {
+    if (!RUN) p.sinceReview = (p.sinceReview ?? REVIEW_EVERY) + 1;
+    if (score < 1) addReview(p, cur.band, cur.i, secs);          /* missed, or solved with a hint: it comes back tomorrow */
   }
   if (!RUN) delete p.now;          /* a practice set keeps the normal game's puzzle waiting */
   save();
@@ -2390,9 +2444,13 @@ function dropStaleDaily() { if (DAILY && done && DAILY.n !== dayNumber()) DAILY 
 const dayDate = n => { const u = new Date(DAILY_EPOCH + (n - 1) * 864e5); return new Date(u.getUTCFullYear(), u.getUTCMonth(), u.getUTCDate()); };
 const dayKey = n => { const d = dayDate(n); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
 function hash32(n) { n = Math.imul((n | 0) ^ 0x9e3779b9, 0x85ebca6b); n ^= n >>> 13; n = Math.imul(n, 0xc2b2ae35); n ^= n >>> 16; return n >>> 0; }
+/* The daily picks from each band's first DAILY_SIZES[band] puzzles: the sizes when the apps first shipped, frozen, so
+   puzzles added at a band's end (scripts/puzzles.py) never change the day's puzzle between the website and app versions
+   already out. Never change these numbers. */
+const DAILY_SIZES = {"400":3000,"500":3000,"600":3000,"700":3000,"800":3000,"900":3000,"1000":3000,"1100":3000,"1200":3000,"1300":3000,"1400":3000,"1500":3000,"1600":3000,"1700":3000,"1800":3000,"1900":3000,"2000":1000,"2100":1000,"2200":1000,"2300":1000,"2400":1000};
 async function dailyPuzzle(n) {
   const [lo, hi] = DAILY_RANGE[dayDate(n).getDay()], h = hash32(n), bands = (bandOf(hi) - bandOf(lo)) / 100 + 1;
-  const band = bandOf(lo) + 100 * (h % bands), size = bandSize(band), start = hash32(h) % size;
+  const band = bandOf(lo) + 100 * (h % bands), size = DAILY_SIZES[band] || bandSize(band), start = hash32(h) % size;
   for (let k = 0; k < size; k++) {          /* the first one from a fixed spot that's in range and at most 4 moves (the same for everyone, every version) */
     const i = (start + k) % size, pz = await puzzleAt(band, i);
     if (pz.r >= lo && pz.r <= hi && pz.moves.length <= 8) return { band, i, pz, size, review: false, daily: n };

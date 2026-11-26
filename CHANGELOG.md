@@ -9,7 +9,11 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
-- Nothing yet: everything so far is in the 1.0.5 build below.
+- **Missed puzzles come back on a spaced-repetition schedule:** a puzzle missed or solved with a hint returns after 1
+  day, then 3, 7, 14 and 30 days. Solved cleanly and quickly it moves to the next gap; slowly or with a hint it waits the
+  same gap again; missed, it starts over at 1 day; solved at the 30-day step it's learned and leaves the list. Reviews mix
+  into normal play (at most 1 puzzle in 5) and leave the rating alone. Before, a miss came back once, 30 puzzles later.
+  (Live on the website.)
 
 ### 1.0.5 (on TestFlight, a new build from 2026-11-26 with the coach, the daily's Answer question and the fixes below; held from App Review while the owner tests it; all of it already on the website)
 
