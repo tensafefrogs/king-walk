@@ -88,11 +88,15 @@ If you add, rename or remove a `track()` call, update this page and the events l
 ## Moving to another GoatCounter site
 
 King Walk moved to its own site, kingwalk.goatcounter.com, on 20 November 2026 (the website that day, the app from 1.0.4),
-and its history from the shared site (geoffstearns.goatcounter.com) was imported there, so the report reads kingwalk
-alone: `GOATCOUNTER_URL=https://kingwalk.goatcounter.com/count`. App builds from before the move keep sending a few
-events to the shared site until players update; to bring those over, export the shared site (Settings > Export), run
-`python3 -I scripts/goatcounter-filter.py <export.zip> <out.zip> --since <the day after the last import>` and import
-`out.zip` in the kingwalk site. Imports so far: everything up to 20 November 2026 (first import).
+and its history from the shared site (geoffstearns.goatcounter.com) up to 19 November was imported there. App builds
+from before the move (1.0.3 and older) keep sending to the shared site until players update: in their first week that
+was more than half the app's new players. So the report reads both, the shared site only from the first day not
+imported:
+`GOATCOUNTER_URL="https://kingwalk.goatcounter.com/count https://geoffstearns.goatcounter.com/count@2026-11-20"`.
+Without the `@` date the days before the move would count twice. To import the shared site's later events instead,
+export it (Settings > Export), run `python3 -I scripts/goatcounter-filter.py <export.zip> <out.zip> --since <the first
+day not imported>`, import `out.zip` in the kingwalk site, and move the `@` date past it. Imports so far: everything up
+to 19 November 2026 (checked day by day: from 20 November each site has its own events).
 
 The website and the app send to the address in the `GOATCOUNTER_URL` Actions variable, read when they're built (the
 website on every push, the app with each build). To move King Walk to a site of its own:
@@ -104,5 +108,6 @@ website on every push, the app with each build). To move King Walk to a site of 
 3. Bring the history over: export the old site and import King Walk's part in the new one
    (`scripts/goatcounter-filter.py`). App versions built before the change keep sending to the old site until players
    update; import their events later the same way, with `--since` so nothing is imported twice. (The report can also
-   add sites together, `GOATCOUNTER_URL="<new> <old>"`, but not once the history is imported: it would count it twice.)
+   add sites together, `GOATCOUNTER_URL="<new> <old>@<first day not imported>"`; without the date it counts the imported
+   history twice.)
 4. Update `privacy.html` if it names the GoatCounter site.

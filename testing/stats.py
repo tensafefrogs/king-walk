@@ -9,7 +9,8 @@ usage: python3 testing/stats.py [--since 2026-11-10] [--until 2026-11-16] [--day
 Needs GOATCOUNTER_TOKEN (GoatCounter > Settings > API, "Read statistics" only) and GOATCOUNTER_URL, the same count address
 the website uses (https://<site>.goatcounter.com/count), in the environment. After moving to a new GoatCounter site, list
 both addresses (new then old, a space between): app versions built before the move keep sending to the old one, and
-their counts are added together. In a cloud session the token can be the network secret for each host instead (set
+their counts are added together. Once the old site's history is imported into the new one, give the old address the first
+day not imported (<old address>@2026-11-20), so the imported days aren't counted twice. In a cloud session the token can be the network secret for each host instead (set
 GOATCOUNTER_TOKEN=proxy-injected).
 The achievements are read from ios/store/gamecenter.json, so new ones show up by themselves.
 """
@@ -21,13 +22,17 @@ PREFIX = {'web': 'king-walk/', 'app': 'king-walk-ios/', 'android': 'king-walk-an
 
 
 def fetch(start, end):
-    """Every event's count over the days, added up over the GoatCounter sites in GOATCOUNTER_URL: several addresses
-    (spaces or commas between them) while the game moves to a new site and app versions already out still send to the
-    old one."""
+    """Every event's count over the days, added up over the GoatCounter sites in GOATCOUNTER_URL (spaces or commas
+    between them): after a move to a new site, app versions already out still send to the old one. An address can end in
+    @<date> (https://old.goatcounter.com/count@2026-11-20): that site is read only from that day, the first day not
+    imported into the new site, so imported history isn't counted twice."""
     url = os.environ.get('GOATCOUNTER_URL', '').strip() or sys.exit('Set GOATCOUNTER_URL, e.g. https://example.goatcounter.com/count')
     counts = {}
     for one in re.split(r'[\s,]+', url):
-        for path, n in fetch_site(one, start, end).items(): counts[path] = counts.get(path, 0) + n
+        one, _, since = one.partition('@')
+        lo = max(start, since) if since else start          # ISO dates compare as text
+        if lo >= end: continue          # the whole range is before this site's first day
+        for path, n in fetch_site(one, lo, end).items(): counts[path] = counts.get(path, 0) + n
     return counts
 
 
