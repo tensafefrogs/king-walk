@@ -37,10 +37,12 @@ is built yet. In order:
    (Wilson and others, 2019): too easy teaches little, too hard discourages. Check today's rate per player from the
    save and steer the puzzle choice's target toward it, rather than a fixed offset from the rating. The stats showed
    new iOS players stopping after one or two puzzles: worth checking whether their first ones are too hard.
-4. **Mix areas rather than block them (interleaving).** Mixed practice beats one-kind-at-a-time for telling which
-   method a problem needs (Rohrer and Taylor, 2007), and a real game never says "this is a fork". The coached choice
-   already mixes; practice sets are all one area. Option: practice sets mostly of the area with a few others mixed in,
-   and the theme name hidden until the puzzle is over (it gives the answer away).
+4. **Mix areas rather than block them (interleaving; decided and built 26 November 2026, the owner's brief of 25 November).**
+   Mixed practice beats one-kind-at-a-time for telling which method a problem needs (Rohrer and Taylor, 2007), and a
+   real game never says "this is a fork". Practice is now one session, Practise my weak spots: 10 puzzles, about 6 from
+   the weak areas and 4 chosen as in normal play, shuffled, with no area named until each is over; a thin area's slot
+   goes to another weak area, then a normal puzzle. Due reviews stay in normal play. Next: `coach/practice-done/<n>`
+   against the old per-area sets.
 5. **A similar puzzle soon after a miss.** After a miss, the next puzzle or two of the same theme near the same rating,
    so the idea is used again while it's fresh (varied practice, for transfer to new positions), before the spaced
    review brings back the same position days later.
@@ -54,6 +56,19 @@ is built yet. In order:
 7. **Later, from the same research:** "why it works" explanations (On hold below) are the feedback half; asking how sure
    the player is before a move (confidence training) is backed too, but adds a tap to every puzzle, so only as an
    option.
+
+**Coach programs (proposed in the owner's brief of 25 November; ask the owner before building either).**
+- *Cycles (Woodpecker-style).* Opt in, for players who want a fixed set to repeat faster each time, apart from spaced
+  repetition (which brings misses back for everyone). A set of 50 or 100 at the player's level, about half from weak
+  areas, mixed. Cycle 1 has no target; each later one aims at half the previous time ("Cycle 3: 42 min, aim for 21"). A
+  progress screen with each cycle's time and solved count; a cycle can span days; misses also go into spaced
+  repetition. Called "Cycles" in the game; "Woodpecker-style" only in describing it, never the book's name as the
+  feature's, nor any suggestion that its authors are involved. Uses the puzzle clock (item 1).
+- *Flash drill.* From perceptual learning (training fast recognition, as for reading medical images; Kellman's
+  perceptual learning modules). 3 minutes: a position shows for about 3 seconds, then one question, "Tap the piece
+  that moves" (the solution's first player move) or "What's the idea?" with 3 area names to choose from. Instant
+  right or wrong, a score at the end, no rating change; feeds the coach at a small weight (0.25), since a look isn't
+  a solve. Measure: sessions started and finished, and whether Flash players' solve rates in their weak areas rise.
 
 **Openings (later; from the owner's question of 26 November).**
 - *What the data has.* Lichess's puzzle file has an `OpeningTags` column (the opening and variation of the game a

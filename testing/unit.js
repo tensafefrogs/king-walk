@@ -250,58 +250,77 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   check(co.hint[0] === 1 && co.hint[1] < -0.4 && co.strength > 0, "the coach: a hint counts half a solve, against what the rating expects", { hint: co.hint, strength: co.strength });
   check(JSON.stringify(co.cleaned) === JSON.stringify({ sac: [3, -3], pin: [2, 1], skewer: [20, 20] }) && JSON.stringify(co.round) === JSON.stringify({ pin: [2.5, -0.75] }), "the coach's save is cleaned: known areas, numbers in range", co.cleaned);
   check(JSON.stringify(co.fresh) === "{}" && co.played && typeof co.played === "object", "the coach: a new player (Start over) starts with no record", co);
-  // the coach card and a practice set: learning at first; then Work on with Practise, Strong at, and the areas
-  // marked; a set of 10 of one area at half the rating change, hints allowed, a miss not ending it, the normal game's
-  // puzzle kept waiting, the set's card at the end
+  // the coach card and a practice session: learning at first; then Work on (no button per row) with one Practise my weak
+  // spots, Strong at, and the areas marked; a mixed session of 10 (6 weak-area slots and 4 normal, shuffled, no area
+  // named) at half the rating change, hints allowed, a miss not ending it, the normal game's puzzle kept waiting, and its
+  // card splitting the score by area
   { const w = await page();
     const ps = await w.p.evaluate(async () => {
       const nap = ms => new Promise(r => setTimeout(r, ms)), q = me(); delete q.place; q.n = 5; renderPanel();
       const learning = $("coachBody").innerText;
       q.n = 40; q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1], skewer: [9, -1], sac: [3, -2] }; renderPanel();
-      const card = { work: [...document.querySelectorAll("#coachBody .co-row b")].map(b => b.textContent), marks: [...document.querySelectorAll("#coachBody .co-mark")].map(m => m.className.split(" ")[1]) };
-      const waiting = JSON.stringify(q.now), halves = [];
-      startPractice("pin"); let missed = false;
+      const card = { work: [...document.querySelectorAll("#coachBody .co-row b")].map(b => b.textContent), marks: [...document.querySelectorAll("#coachBody .co-mark")].map(m => m.className.split(" ")[1]),
+        rowButtons: document.querySelectorAll("#coachBody .co-row button").length, go: [...document.querySelectorAll("#coachBody .co-go")].map(b => b.textContent) };
+      const waiting = JSON.stringify(q.now), halves = [], statuses = [];
+      document.querySelector("#coachBody .co-go").click(); await nap(400);
+      const ask = document.querySelector(".cele:not(.out) .cele-title").textContent; document.querySelector(".cele:not(.out) .go").click(); await nap(300);
+      const slots = RUN.practice.slots.join(""); let missed = false;
       for (let k = 0; k < 10; k++) {
         for (let t = 0; t < 80 && (locked || !cur || !RUN); t++) await nap(100);
-        const pz = cur.pz, before = q.rating, n = q.n, inArea = puzzleAreas(pz).includes("pin");
+        const pz = cur.pz, before = q.rating, n = q.n, inArea = ["pin", "skewer"].includes(cur.area) && puzzleAreas(pz).includes(cur.area); statuses.push($("stMain").textContent + " | " + $("endSetTxt").textContent);
         if (k === 1) { showHint(); }
         if (k === 2) { showAnswer(); missed = true; }
         while (!done) { for (let t = 0; t < 80 && locked && !done; t++) await nap(100); if (done) break; const m = cur.pz.moves[idx]; commit(m.slice(0, 2), m.slice(2, 4), m[4] || ""); await nap(50); }
         for (let t = 0; t < 30 && !done; t++) await nap(100);
         const score = k === 2 ? 0 : k === 1 ? 0.5 : 1, full = ratingChange(before, pz.r, score, n);
-        halves.push({ inArea, got: q.rating - before, want: score === 1 ? Math.max(1, Math.round(full / 2)) : Math.round(full / 2), areasShown: !!document.querySelector("#pzInfo .pz-areas") });
+        halves.push({ inArea, got: q.rating - before, want: score === 1 ? Math.max(1, Math.round(full / 2)) : Math.round(full / 2), areasShown: !!document.querySelector("#pzInfo .pz-areas") || !puzzleAreas(pz).length });          /* a puzzle in no area has no line */
         await nap(1200);
         if (k < 9) $("nextBtn").click();
       }
       await nap(1500);          /* the set's card waits for any achievement's card to close */
       for (let t = 0; t < 8; t++) { const t1 = document.querySelector(".cele:not(.out) .cele-title"); if (!t1 || / of 10$/.test(t1.textContent)) break; document.querySelector(".cele:not(.out) .go").click(); await nap(1200); }
-      const end = { over: RUN && RUN.over, card: (document.querySelector(".cele:not(.out) .cele-title") || {}).textContent, chip: $("stLevel").textContent, endShown: !$("endSetBtn").hidden, chipShown: !$("stLevel").hidden };
-      return { learning, card, halves, missed, end, keptWaiting: JSON.stringify(q.now) === waiting, coachPin: q.coach.pin[0] };
+      const end = { over: RUN && RUN.over, card: (document.querySelector(".cele:not(.out) .cele-title") || {}).textContent, text: (document.querySelector(".cele:not(.out) .cele-text") || {}).textContent, chip: $("stLevel").textContent, endShown: !$("endSetBtn").hidden, chipShown: !$("stLevel").hidden };
+      const tally = Object.entries(RUN.practice.byArea).reduce((t, [, v]) => t + v[1], 0);
+      return { learning, card, ask, slots, statuses, halves, missed, end, tally, keptWaiting: JSON.stringify(q.now) === waiting, coachPin: q.coach.pin[0] };
     });
     await w.ctx.close();
     check(/learning your game/.test(ps.learning), "the coach: learning at first", ps.learning);
-    check(ps.card.work.join() === "Pins,Skewers" && ps.card.marks.includes("up") && ps.card.marks.includes("down"), "the coach card: Work on the weak areas, the known ones marked", ps.card);
-    check(ps.halves.every(h => h.inArea && h.got === h.want && h.areasShown), "a practice set: 10 puzzles of the area, half the rating change, its areas shown after each", ps.halves);
-    check(ps.end.over && !ps.end.endShown && ps.end.chipShown && ps.end.card === "9 of 10" && ps.end.chip === "Pins 10/10", "a practice set ends with its card: the solves out of 10 (a hint counts, the answer doesn't)", ps.end);
-    check(ps.keptWaiting && ps.coachPin > 10, "a practice set keeps the normal game's puzzle waiting and adds to the coach's record", ps); }
+    check(ps.card.work.join() === "Pins,Skewers" && ps.card.marks.includes("up") && ps.card.marks.includes("down") && ps.card.rowButtons === 0 && ps.card.go.join() === "Practise my weak spots" && ps.ask === "Practise my weak spots",
+          "the coach card: Work on the weak areas with no button each, one Practise my weak spots (asks first), the known ones marked", ps.card);
+    check(ps.slots.split("w").length - 1 === 6 && ps.slots.length === 10 && ps.halves.filter(h => h.inArea).length >= 5 && ps.halves.every(h => h.got === h.want && h.areasShown),
+          "a practice session: 6 weak-area slots and 4 others, shuffled; half the rating change, the areas shown after each", { slots: ps.slots, halves: ps.halves });
+    check(ps.statuses.every((t, k) => t.endsWith(" | Practice " + (k + 1) + "/10") && !/Pins|Skewers/.test(t)), "a practice session names no area while it's played (its chip says Practice n/10)", ps.statuses);
+    check(ps.end.over && !ps.end.endShown && ps.end.chipShown && ps.end.card === "9 of 10" && ps.end.chip === "Practice 10/10" && ps.tally === 10 && /(Pins|Skewers): \d+ of \d+/.test(ps.end.text),
+          "a practice session ends with its card: the solves out of 10 (a hint counts, the answer doesn't), split by area", ps.end);
+    check(ps.keptWaiting && ps.coachPin > 10, "a practice session keeps the normal game's puzzle waiting and adds to the coach's record", ps); }
+  // a weak area with nothing near the player's level gives its slot to a normal puzzle; the card lists the rest as Others
+  { const w = await page();
+    const th = await w.p.evaluate(async () => {
+      RUN = { practice: { slots: ["w"], weak: ["no-such-area"], turn: 0, from: {}, byArea: {} }, step: 0, good: 0, used: new Set(), over: false };
+      const pick = await pickPracticePuzzle(); const P = RUN.practice; RUN = null;
+      const sum = practiceSummary({ weak: ["pin", "fork"], from: { pin: -99, fork: 99 }, byArea: { pin: [3, 4], "": [2, 4] } });
+      return { area: pick.area, got: !!pick.pz, sum };
+    });
+    await w.ctx.close();
+    check(th.got && th.area === "" && th.sum === "Pins: 3 of 4 \u00b7 Others: 2 of 4\nPins: getting better.", "a practice session: a thin weak area's slot goes to a normal puzzle; the card reads Pins: 3 of 4 · Others: 2 of 4", th); }
   // a practice set can be ended early: the ✕ beside its chip asks first; Keep practising goes on, End practice goes back
   // to the normal game's waiting puzzle. Not there in normal play or a rank streak
   { const w = await page();
     const es = await w.p.evaluate(async () => {
       const nap = ms => new Promise(r => setTimeout(r, ms)), q = me(); delete q.place; q.n = 40; q.coach = { pin: [10, -3], fork: [9, 2], mate: [12, 0.1] };
       const waiting = JSON.stringify(q.now), out = { normal: !$("endSetBtn").hidden };
-      startPractice("pin"); for (let t = 0; t < 80 && (locked || !RUN); t++) await nap(100);
+      startPractice(); for (let t = 0; t < 80 && (locked || !RUN); t++) await nap(100);
       out.shown = !$("endSetBtn").hidden && $("stLevel").hidden; out.pill = $("endSetBtn").textContent; out.label = $("endSetBtn").getAttribute("aria-label");
       $("endSetBtn").click(); await nap(400); const dlg = document.querySelector(".cele:not(.out)");
       out.ask = dlg && dlg.querySelector(".cele-title").textContent; dlg.querySelector(".sh").click(); await nap(500);
-      out.kept = !!(RUN && RUN.area === "pin") && !$("endSetBtn").hidden;
+      out.kept = !!(RUN && RUN.practice) && !$("endSetBtn").hidden;
       $("endSetBtn").click(); await nap(400); document.querySelector(".cele:not(.out) .go").click(); await nap(400);
       for (let t = 0; t < 80 && (locked || !cur); t++) await nap(100);
       out.ended = RUN === null && $("endSetBtn").hidden && JSON.stringify(q.now) === waiting;
       startRun(0); for (let t = 0; t < 80 && (locked || !RUN); t++) await nap(100); out.streak = !$("endSetBtn").hidden; leaveRun();
       return out; });
     await w.ctx.close();
-    check(!es.normal && es.shown && es.label === "End practice" && es.pill === "Pins 1/10" && es.ask === "End this practice set?" && es.kept, "a practice set: its chip (Pins 1/10 ✕) is the End button and asks first; Keep practising goes on", es);
+    check(!es.normal && es.shown && es.label === "End practice" && es.pill === "Practice 1/10" && es.ask === "End this practice set?" && es.kept, "a practice session: its chip (Practice 1/10 ✕) is the End button and asks first; Keep practising goes on", es);
     check(es.ended && !es.streak, "End practice goes back to the waiting puzzle; no ✕ in normal play or a rank streak", es); }
   // coached choice: about 3 in 10 new puzzles from the weak areas once the coach is ready, none on Any kind; a new
   // player on Any kind 1 time in 10 (the holdback), kept in the save; a player from before the coach on Coached

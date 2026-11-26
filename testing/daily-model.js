@@ -30,7 +30,7 @@ const look = p => p.evaluate(() => {
     curDaily: cur && cur.daily, spent: DAILY && typeof dailySpent === "function" && DAILY.mode === "play" ? dailySpent() : null,
     freezes: D.freezes || 0, streak: D.streak, last: D.last, days: Object.fromEntries(Object.entries(D.days).filter(([, v]) => !v.fz).map(([k, v]) => [k, !!v.ok])),
     cards: window.__cards.slice(), shares: window.__shares, hidden: document.hidden,
-    waiting: me().now ? me().now.b + "/" + me().now.i : null, run: typeof RUN !== "undefined" && RUN ? (RUN.area ? "practice" : "streak") : null };
+    waiting: me().now ? me().now.b + "/" + me().now.i : null, run: typeof RUN !== "undefined" && RUN ? (RUN.practice || RUN.area ? "practice" : "streak") : null };
 });
 
 /* animations and the computer's replies, on the fake clock; an error in the page's timers surfaces here */
@@ -74,7 +74,7 @@ const ACTIONS = {
   async show(p) { await p.evaluate(() => { window.__hidden = false; document.dispatchEvent(new Event("visibilitychange")); }); await settle(p, 500); },
   async resume(p) { await p.evaluate(() => { const b = document.getElementById("dcGo"); if (b && !document.getElementById("dailyCover").hidden) b.click(); }); await settle(p, 500); },
   async leave(p) { await p.evaluate(() => { if (typeof leaveDaily === "function" && DAILY) leaveDaily(); else if (typeof leaveRun === "function" && RUN) leaveRun(); }); await settle(p); },
-  async practise(p) { await p.evaluate(() => { if (typeof startPractice !== "function") return; const w = coachWeak(me()); startPractice(w[0] || "fork"); }); await settle(p); },          /* a practice set (the coach) */
+  async practise(p) { await p.evaluate(() => { if (typeof startPractice !== "function") return; startPractice(); }); await settle(p); },          /* a practice set (the coach) */
   async streak(p) { await p.evaluate(() => typeof startRun === "function" && startRun(0)); await settle(p); },          /* a Pawn rank streak */
   async close(p) { await closeCards(p); },
   async reload(p) { await p.reload(); await p.waitForFunction(() => typeof cur !== "undefined" && cur, null, { timeout: 20000 }); await settle(p); },

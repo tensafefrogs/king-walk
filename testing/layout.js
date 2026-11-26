@@ -65,7 +65,7 @@ const STATES = ['base', 'menu', 'daily', 'daily-answer', 'done-card', 'rank-card
         /* the coach once it's ready (the longest names in Work on, and All areas open), and a practice set's dialog */
         if (st === 'coach' || st === 'practice') { const q = me(); delete q.place; q.n = Math.max(q.n, 40); q.coach = { clear: [12, -3], lure: [10, -2], attack: [9, -1], between: [9, 2], promo: [9, 1.5], disc: [9, 0.1] }; renderPanel(); }
         if (st === 'coach') { const a = document.querySelector('.co-all'); if (a) a.open = true; const c = $('coachBox'); if (c) c.scrollIntoView(); await sleep(400); }
-        if (st === 'practice') { askPractice('clear'); await sleep(500); }
+        if (st === 'practice') { askPractice(); await sleep(500); }
         if (st === 'help') { const hb = $('helpBtn'); if (hb) hb.click(); await sleep(500); }
         const vw = innerWidth, vh = innerHeight, out = [];
         if (document.documentElement.scrollWidth > vw + 1) out.push('page scrolls sideways (' + document.documentElement.scrollWidth + ' > ' + vw + ')');

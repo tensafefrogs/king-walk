@@ -87,5 +87,7 @@
   "Show the answer?": "Ver a solução?",
   "Today's puzzle will count as missed, and your daily streak starts again.": "O desafio de hoje vai contar como falhado, e a tua sequência diária recomeça.",
   "Keep trying": "Continuar a tentar",
-  "Show answer": "Ver a solução"
+  "Show answer": "Ver a solução",
+  "Practise my weak spots": "Treinar os meus pontos fracos",
+  "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemas, sobretudo do que estás a treinar. O treino conta pela metade na tua pontuação."
 };

@@ -9,6 +9,10 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
+- **Practice mixes it up:** the coach card's Work on list has one button, Practise my weak spots, instead of one per
+  kind of puzzle. A session is 10 puzzles: about 6 from what you're working on and 4 others, shuffled, and nothing says
+  which kind each one is, so you have to spot it as in a real game. The end card shows how each kind went
+  ("Pins: 3 of 4 · Others: 2 of 4"). (Live on the website.)
 - **Missed puzzles come back on a spaced-repetition schedule:** a puzzle missed or solved with a hint returns after 1
   day, then 3, 7, 14 and 30 days. Solved cleanly and quickly it moves to the next gap; slowly or with a hint it waits the
   same gap again; missed, it starts over at 1 day; solved at the 30-day step it's learned and leaves the list. Reviews mix

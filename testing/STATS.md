@@ -33,9 +33,9 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 | `run/quit/<rank>` | End streak pressed during a run | the End streak button |
 | `coach/ready` | The coach card first shows strong and weak areas on this device (about 30 puzzles, 3 areas known) | `renderCoach()` |
 | `coach/open` | All areas opened on the coach card | the All areas line |
-| `coach/practice/<area>` | A practice set of one area starts (`fork`, `pin`, … as in `AREAS`) | `startPractice()` |
-| `coach/practice-done/<area>/<n>` | A practice set ends, n of 10 solved | `stepPractice()` |
-| `coach/practice-quit/<area>` | A practice set ended early (its chip, "Pins 3/10 ✕", then End practice) | `askEndPractice()` |
+| `coach/practice` | A practice session starts (Practise my weak spots, or Practise again): 10 mixed puzzles, about 6 from the weak areas. Since 26 Nov 2026 (website; the apps from 1.0.6); before, `coach/practice/<area>`, one area per set: don't add the two together in a report | `startPractice()` |
+| `coach/practice-done/<n>` | A practice session ends, n of 10 solved (before 26 Nov 2026: `coach/practice-done/<area>/<n>`) | `stepPractice()` |
+| `coach/practice-quit` | A practice session ended early (its chip, "Practice 3/10 ✕", then End practice; before 26 Nov 2026: `coach/practice-quit/<area>`) | `askEndPractice()` |
 | `coach/choice/<coached\|any>` | The puzzle choice, once per device at startup, then each time it's changed in Settings | startup, the Puzzle choice buttons |
 | `coach/holdback` | This player is in the holdback (started on Any kind; about 1 new player in 10), once per device | startup |
 | `coach-back/1d`, `coach-back/7d`, `coach-back/30d` | As `back/...`, for players on Coached | startup |
@@ -77,7 +77,7 @@ Every event is named `<prefix>/<event>`. The prefix is `king-walk` for the websi
 - **Difficulty:** how many reach each `rank/...`, and `mode/easy` versus `mode/hard`. Since placement (November 2026), `placed/...` against `start` shows where new players begin; fewer `mode/hard` from new players is the sign it's working.
 - **The coach:** `coach-back/7d` against `back/7d` (Coached returns as a share of all returns), with `coach/holdback`
   against `coach/choice/any` for the holdback's size: if Coached players come back more than the holdback, the coach
-  helps. `coach/practice-done/<area>/<n>` shows whether practice sets go well (most should land around 6 to 8 of 10).
+  helps. `coach/practice-done/<n>` shows whether practice sessions go well (most should land around 6 to 8 of 10).
 - **Platforms:** `platform/...` counts, and the web against the apps (`king-walk/` against `king-walk-ios/` and `king-walk-android/`).
 
 GoatCounter counts unique visitors per event per day, so treat the numbers as approximate. Events made offline wait on the device (at most 1000, none older than 7 days) and are sent once it's back online, one every half second (GoatCounter takes at most 4 a second from a player), so they're counted on the day they arrive: a day's counts can include some of the week before. Open the GoatCounter dashboard and filter by `king-walk`.

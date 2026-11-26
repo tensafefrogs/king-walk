@@ -396,6 +396,7 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 .co-row div { flex: 1 1 11em; min-width: 0; }
 .co-row b { display: block; font: 700 15px var(--font-display); }
 .co-row span { display: block; font-size: 13px; color: var(--muted); }
+.co-go { margin-top: 4px; align-self: flex-start; }          /* Practise my weak spots, under the list */
 .co-row .btn { flex: none; max-width: 100%; white-space: normal; }
 .co-all ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .co-all li { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 14px; }
@@ -1957,13 +1958,13 @@ async function nextPuzzle() {
   locked = true; done = false; failed = false; hintLevel = 0; turnHint = 0; drag = null; pendingTap = null;
   sel = null; lastMove = []; hintSq = []; wrongSq = null; overSq = null;
   $("doneBtns").hidden = true; $("againBtn").hidden = true; $("playBtns").hidden = false; if (!first) restart($("playBtns"), "enter"); fitBar();
-  $("playBtns").classList.toggle("run", !!RUN && !RUN.area);
+  $("playBtns").classList.toggle("run", !!RUN && !RUN.practice);
   renderDaily();
   $("delta").className = "delta"; frameEl.classList.remove("won", "ok", "miss", "shake");
   setButtons(false);
   if (!first) piecesEl.classList.add("leaving");
   let pick;
-  try { [pick] = await Promise.all([RUN ? (RUN.area ? pickPracticePuzzle() : pickRunPuzzle()) : DAILY ? dailyPuzzle(DAILY.n) : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
+  try { [pick] = await Promise.all([RUN ? (RUN.practice ? pickPracticePuzzle() : pickRunPuzzle()) : DAILY ? dailyPuzzle(DAILY.n) : pickPuzzle(resume), new Promise(r => setTimeout(r, first ? 0 : 170))]); } catch (e) {
     if (gen !== puzzleGen) return;
     boardEl.classList.remove("loading"); piecesEl.classList.remove("leaving"); $("stLevel").hidden = true;
     setStatus("bad", T("The puzzles could not load"), T("Check the connection"), "bad");
@@ -1980,11 +1981,11 @@ async function nextPuzzle() {
   boardEl.classList.remove("loading");
   buildSquares(); dealPieces(); paint(); piecesEl.classList.remove("leaving");
   const practice = !!DAILY && DAILY.mode === "practice";          /* Try again on the daily: a chip says it's practice */
-  $("stLevel").textContent = RUN ? (RUN.area ? AREA_NAME[RUN.area]() + " " + (RUN.step + 1) + "/" + PRACTICE_LEN : rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN) : practice ? T("Practice") : T("Second try");
+  $("stLevel").textContent = RUN ? (RUN.practice ? T("Practice") + " " + (RUN.step + 1) + "/" + PRACTICE_LEN : rankName(RUN.rank) + " " + (RUN.step + 1) + "/" + STREAK_LEN) : practice ? T("Practice") : T("Second try");
   $("stLevel").hidden = !cur.review && !RUN && !practice; showEndSet();
   renderPuzzleInfo();
   if (DAILY) setStatus("info", T("Daily puzzle #{n}", { n: DAILY.n }), DAILY.mode === "practice" ? T("Practice: your daily result stays the same") : "", "wait");
-  else setStatus("info", RUN ? (RUN.area ? T("{area} practice, puzzle {n} of {total}", { area: AREA_NAME[RUN.area](), n: RUN.step + 1, total: PRACTICE_LEN }) : T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN })) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
+  else setStatus("info", RUN ? (RUN.practice ? T("Practice, puzzle {n} of {total}", { n: RUN.step + 1, total: PRACTICE_LEN }) : T("{rank} streak, puzzle {n} of {total}", { rank: rankName(RUN.rank), n: RUN.step + 1, total: STREAK_LEN })) : cur.review ? T("You've seen this one before") : (orient === "w" ? T("Black moves first") : T("White moves first")), RUN ? T("No hints. One miss ends the run.") : cur.review ? T("Second try") : "", "wait");
   renderSetup();
   if (DAILY && DAILY.mode === "review") { showDailyFinal(); return; }
   /* the daily, picked up where it was left: its moves so far, straight onto the board, under the Continue cover */
@@ -2055,12 +2056,12 @@ function commit(from, to, promo) {
       const h = game.history({ verbose: true }).pop(); lastMove = h ? [h.from, h.to] : [];
       if (o) o.el.classList.remove("nope");
       syncPieces({ from: to, to: from }); paint(); locked = false;
-      if (RUN && !RUN.area) showAnswer();          /* one miss ends a streak: show the solution */
+      if (RUN && !RUN.practice) showAnswer();          /* one miss ends a streak: show the solution */
     }, 820);
   }
 }
 function showHint() {
-  if (locked || done || turnHint >= 2 || (RUN && !RUN.area)) return;
+  if (locked || done || turnHint >= 2 || (RUN && !RUN.practice)) return;
   turnHint++; hintLevel = Math.max(hintLevel, turnHint); track("hint/" + turnHint);
   const want = cur.pz.moves[idx];
   hintSq = turnHint === 1 ? [want.slice(0, 2)] : [want.slice(0, 2), want.slice(2, 4)];
@@ -2068,7 +2069,7 @@ function showHint() {
   setButtons(true); paint(); markNow(); dailyMark("y"); haptic("hint");
 }
 function showAnswer() {
-  if (locked || done || (RUN && !RUN.area && !failed)) return;
+  if (locked || done || (RUN && !RUN.practice && !failed)) return;
   failed = true; markNow(); locked = true; sel = null; hintSq = []; paint(); setButtons(false); track("answer");
   if (DAILY && DAILY.mode === "play") DAILY.tried = DAILY.marks.some(Boolean) || hintLevel > 0;          /* any move or hint before the answer (stats) */
   if (DAILY) for (let k = idx; k < cur.pz.moves.length; k += 2) dailyMark("x", k);
@@ -2102,7 +2103,7 @@ const rankIndex = r => { let ri = 0; for (let i = 0; i < RANKS.length; i++) if (
 /* The puzzle is over: update the rating, save, and show the result. */
 function finish(solvedIt) {
   done = true; locked = true; clearTimers(); sel = null; hintSq = []; overSq = null; paint();
-  if (RUN && !RUN.area) { finishRun(solvedIt && !failed && !hintLevel); return; }
+  if (RUN && !RUN.practice) { finishRun(solvedIt && !failed && !hintLevel); return; }
   if (DAILY) { finishDaily(solvedIt); return; }
   const p = me(), before = p.rating, level = p.place ? p.place.r : p.rating, rankBefore = rankIndex(p.rating), peakRankBefore = rankIndex(p.peak);
   const score = failed ? 0 : hintLevel ? 0.5 : 1;          /* clean solve, hint solve, or miss */
@@ -2115,7 +2116,7 @@ function finish(solvedIt) {
       else p.place = pl;
     } else {
       delta = ratingChange(p.rating, cur.pz.r, score, p.n);
-      if (RUN && RUN.area) delta = score === 1 ? Math.max(1, Math.round(delta / 2)) : Math.round(delta / 2);          /* practice: half */
+      if (RUN && RUN.practice) delta = score === 1 ? Math.max(1, Math.round(delta / 2)) : Math.round(delta / 2);          /* practice: half */
       p.rating = Math.max(RATING_FLOOR, p.rating + delta);
       p.hist.push(p.rating); if (p.hist.length > 300) p.hist.shift();
       p.peak = Math.max(p.peak, p.rating);
@@ -2177,7 +2178,7 @@ function finish(solvedIt) {
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
   $("playBtns").hidden = true; $("doneBtns").hidden = false; fitBar(); restart($("doneBtns"), "enter");
   showAreas();
-  if (RUN && RUN.area) stepPractice(score);
+  if (RUN && RUN.practice) stepPractice(score);
   if (score === 1 && !rankUp) maybeAskForRating(p);
   renderPanel(placed ? undefined : before);
   maybeMeetCoach(p);
@@ -2203,10 +2204,11 @@ function renderCoach() {
     const row = document.createElement("div"); row.className = "co-row";
     const txt = document.createElement("div"), b = document.createElement("b"), d = document.createElement("span");
     b.textContent = AREA_NAME[a](); d.textContent = AREA_DESC[a](); txt.append(b, d);
-    const go = document.createElement("button"); go.type = "button"; go.className = "btn small"; go.textContent = T("Practise");
-    go.setAttribute("aria-label", T("Practise") + ": " + AREA_NAME[a]());
-    go.addEventListener("click", () => askPractice(a));
-    row.append(txt, go); box.append(row);
+    row.append(txt); box.append(row);
+  }
+  if (weak.length) {          /* one session for all of them (mixed practice), rather than a set per area */
+    const go = document.createElement("button"); go.type = "button"; go.className = "btn co-go"; go.textContent = T("Practise my weak spots");
+    go.addEventListener("click", askPractice); box.append(go);
   }
   if (strong.length) { line("co-sub", T("Strong at")); line("note", strong.map(a => AREA_NAME[a]()).join(" \u00b7 ")); }
   const all = document.createElement("details"); all.className = "co-all";
@@ -2783,56 +2785,87 @@ function leaveRun() { RUN = null; showEndSet(); resumeMain = true; nextPuzzle();
 /* a practice set can be ended at any point (its chip, "Pins 3/10 ✕", asks once): the puzzles played still count, the
    one on the board is dropped, and the normal game's waiting puzzle comes back */
 const showEndSet = () => {          /* during a set the chip is the End button; once it's over, the plain chip again */
-  const on = !!(RUN && RUN.area && !RUN.over); $("endSetBtn").hidden = !on;
+  const on = !!(RUN && RUN.practice && !RUN.over); $("endSetBtn").hidden = !on;
   if (on) { $("endSetTxt").textContent = $("stLevel").textContent; $("stLevel").hidden = true; }
 };
 function askEndPractice() {
-  if (!RUN || !RUN.area || RUN.over) return;
-  const a = RUN.area;
+  if (!RUN || !RUN.practice || RUN.over) return;
+  const run = RUN;
   openDialog({ title: T("End this practice set?"), text: T("The puzzles you've played still count."),
-    buttons: [{ label: T("Keep practising") }, { label: T("End practice"), primary: true, onClick: () => { if (RUN && RUN.area === a) { track("coach/practice-quit/" + a); leaveRun(); } } }] });
+    buttons: [{ label: T("Keep practising") }, { label: T("End practice"), primary: true, onClick: () => { if (RUN === run) { track("coach/practice-quit"); leaveRun(); } } }] });
 }
-/* ---------- practice sets ----------
-   10 puzzles of one area at the player's level, on RUN with RUN.area set. Unlike a rank streak, hints and Answer are
-   there and a miss doesn't end it; each puzzle goes through finish like any other, at half the rating change. */
-const PRACTICE_LEN = 10;
-function askPractice(a) {
-  openDialog({ title: T("Practice: {area}", { area: AREA_NAME[a]() }), text: T("10 puzzles of {area}. Practice counts half toward your rating.", { area: AREA_NAME[a]() }),
-    buttons: [{ label: T("Close") }, { label: T("Start"), primary: true, onClick: () => startPractice(a) }] });
+/* ---------- practice sessions ----------
+   10 puzzles, mixed: about 6 from the player's weak areas (taking turns) and 4 chosen as in normal play, in a shuffled
+   order, with nothing saying which is which, so the player has to see what each position needs (interleaving: mixing
+   kinds of problem teaches telling them apart; one kind at a time gives the answer away). A weak area with too few
+   puzzles near the player's level gives its turn to another weak area, then to a normal puzzle. On RUN with
+   RUN.practice set; hints and Answer are there, a miss doesn't end it, each puzzle goes through finish at half the
+   rating change and full weight for the coach. Due reviews stay in normal play. */
+const PRACTICE_LEN = 10, PRACTICE_WEAK = 6;
+function askPractice() {
+  openDialog({ title: T("Practise my weak spots"), text: T("10 puzzles, mostly from what you're working on. Practice counts half toward your rating."),
+    buttons: [{ label: T("Close") }, { label: T("Start"), primary: true, onClick: () => startPractice() }] });
 }
-function startPractice(a) {
+/* extra: an area to count as weak for this session (a "more like this" offer, such as after the daily) */
+function startPractice(extra) {
+  const p = me(), weak = coachWeak(p).slice();
+  if (extra && AREAS.includes(extra) && !weak.includes(extra)) weak.unshift(extra);
+  const slots = Array.from({ length: PRACTICE_LEN }, (_, k) => k < PRACTICE_WEAK && weak.length ? "w" : "o");
+  for (let k = slots.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [slots[k], slots[j]] = [slots[j], slots[k]]; }
+  const from = {}; for (const a of weak) from[a] = coachStrength(p, a);
   DAILY = null;
-  RUN = { area: a, step: 0, good: 0, used: new Set(), over: false, from: coachStrength(me(), a) };
+  RUN = { practice: { slots, weak, turn: 0, from, byArea: {} }, step: 0, good: 0, used: new Set(), over: false };
   if ($("menu").classList.contains("open")) toggleSection($("menuBtn"), $("menu"));
-  track("coach/practice/" + a);
+  track("coach/practice");
   window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
   nextPuzzle();
 }
-/* unseen puzzles of the area near the player's target first, widening as the normal game does; then seen ones */
-async function pickPracticePuzzle() {
-  const p = me(), target = clamp(Math.round(p.rating + MODES[p.mode] - 50 + gauss() * 40), MIN_R, MAX_R);
-  const inArea = pz => puzzleAreas(pz).includes(RUN.area) && !RUN.used.has(pz.id);
-  for (const fresh of [true, false]) for (const w of [50, 120, 250, 500, 2200]) {
+/* a puzzle near target passing ok, unseen first, then seen; within maxW of the target (null: nothing that close) */
+async function pickNear(target, ok, maxW) {
+  for (const fresh of [true, false]) for (const w of [50, 120, 250, 500, 2200].filter(w => w <= maxW)) {
     const cands = [];
     for (let b = bandOf(target - w); b <= bandOf(target + w); b += 100) {
       const bits = seenBits(b, bandSize(b));
-      cands.push(...await findInBand(b, pz => Math.abs(pz.r - target) <= w && inArea(pz), i => fresh && isSeen(bits, i)));
+      cands.push(...await findInBand(b, pz => Math.abs(pz.r - target) <= w && ok(pz), i => fresh && isSeen(bits, i)));
     }
     if (cands.length) { const [b, i, pz] = cands[Math.floor(Math.random() * cands.length)]; RUN.used.add(pz.id); return { band: b, i, pz, size: bandSize(b), review: false }; }
   }
-  throw new Error("no puzzle for the practice set");
+  return null;
 }
-/* a practice puzzle is over (finish has scored it): count it; after the tenth, the set's card */
+/* the next slot's puzzle: a weak area's (aimed 50 below the usual target, within 250 of it), or a normal one; the area
+   it counts under on the session's card goes in pick.area */
+async function pickPracticePuzzle() {
+  const p = me(), P = RUN.practice, slot = P.slots[RUN.step] || "o", fresh = pz => !RUN.used.has(pz.id);
+  if (slot === "w") for (let k = 0; k < P.weak.length; k++) {
+    const a = P.weak[(P.turn + k) % P.weak.length];
+    const target = clamp(Math.round(p.rating + MODES[p.mode] - 50 + gauss() * 40), MIN_R, MAX_R);
+    const pick = await pickNear(target, pz => fresh(pz) && puzzleAreas(pz).includes(a), 250);
+    if (pick) { P.turn = (P.turn + k + 1) % P.weak.length; pick.area = a; return pick; }
+  }
+  const target = clamp(Math.round(p.place ? p.place.r + gauss() * 25 : p.rating + MODES[p.mode] + gauss() * 40), MIN_R, MAX_R);
+  const pick = await pickNear(target, fresh, 2200);
+  if (!pick) throw new Error("no puzzle for the practice session");
+  pick.area = P.weak.find(a => puzzleAreas(pick.pz).includes(a)) || "";
+  return pick;
+}
+/* a practice puzzle is over (finish has scored it): count it, by area for the card; after the tenth, the card */
 function stepPractice(score) {
-  const r = RUN; r.step++; if (score > 0) r.good++;
-  $("stLevel").textContent = AREA_NAME[r.area]() + " " + r.step + "/" + PRACTICE_LEN; $("stLevel").hidden = false;
+  const r = RUN, P = r.practice, k = cur.area || "", t = P.byArea[k] || (P.byArea[k] = [0, 0]);
+  r.step++; if (score > 0) { r.good++; t[0]++; } t[1]++;
+  $("stLevel").textContent = T("Practice") + " " + r.step + "/" + PRACTICE_LEN; $("stLevel").hidden = false;
   if (r.step < PRACTICE_LEN) { showEndSet(); return; }
   r.over = true; showEndSet(); $("nextLabel").textContent = T("Back to puzzles");
-  track("coach/practice-done/" + r.area + "/" + r.good);
-  const better = coachStrength(me(), r.area) > r.from + 0.01;
-  setTimeout(() => whenNoCard(() => openDialog({ title: T("{n} of {total}", { n: r.good, total: PRACTICE_LEN }),
-    text: better ? T("{area}: getting better.", { area: AREA_NAME[r.area]() }) : T("{area} will come up again in your puzzles.", { area: AREA_NAME[r.area]() }),
-    buttons: [{ label: T("Back to puzzles"), onClick: () => { if (RUN && RUN.area) leaveRun(); } }, { label: T("Practise again"), primary: true, onClick: () => startPractice(r.area) }] })), REDUCED ? 300 : 900);          /* after any achievement's card */
+  track("coach/practice-done/" + r.good);
+  setTimeout(() => whenNoCard(() => openDialog({ title: T("{n} of {total}", { n: r.good, total: PRACTICE_LEN }), text: practiceSummary(P),
+    buttons: [{ label: T("Back to puzzles"), onClick: () => { if (RUN && RUN.practice) leaveRun(); } }, { label: T("Practise again"), primary: true, onClick: () => startPractice() }] })), REDUCED ? 300 : 900);          /* after any achievement's card */
+}
+/* the card's text: each weak area that came up, then the rest ("Pins: 3 of 4 · Forks: 2 of 2 · Others: 2 of 4"), and a
+   line for each weak area the coach now rates higher than at the start */
+function practiceSummary(P) {
+  const parts = P.weak.filter(a => P.byArea[a]).map(a => T("{area}: {n} of {total}", { area: AREA_NAME[a](), n: P.byArea[a][0], total: P.byArea[a][1] }));
+  if (P.byArea[""]) parts.push(T("Others: {n} of {total}", { n: P.byArea[""][0], total: P.byArea[""][1] }));
+  const better = P.weak.filter(a => P.byArea[a] && coachStrength(me(), a) > P.from[a] + 0.01).map(a => T("{area}: getting better.", { area: AREA_NAME[a]() }));
+  return [parts.join(" \u00b7 "), ...better].join("\n");
 }
 /* a puzzle in a streak is over: count it, or end the run */
 function finishRun(clean) {
@@ -3150,8 +3183,8 @@ $("puzzlesBtn").addEventListener("click", () => { if (!DAILY) return; haptic("to
 $("dailyBtn").addEventListener("click", () => { dropStaleDaily(); if (DAILY) { if (dailyDone(me()) && done) showDailyDone(); return; } haptic("toggle"); startDaily(); });
 $("remindSel").addEventListener("change", () => { S.remind = +$("remindSel").value; save(); track(S.remind < 0 ? "remind/off" : "remind/" + S.remind); sendDaily(); });
 setInterval(() => { checkFreezes(); renderDaily(); }, 60000);          /* a new day: a freeze may be needed */
-$("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else if (RUN && RUN.area) startPractice(RUN.area); else startRun(RUN ? RUN.rank : 0); });
-$("endRunBtn").addEventListener("click", () => { if (RUN && !RUN.area) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
+$("againBtn").addEventListener("click", () => { if (DAILY) practiceDaily(); else if (RUN && RUN.practice) startPractice(); else startRun(RUN ? RUN.rank : 0); });
+$("endRunBtn").addEventListener("click", () => { if (RUN && !RUN.practice) { track("run/quit/" + RANKS[RUN.rank][1].toLowerCase()); leaveRun(); } });
 $("endSetBtn").addEventListener("click", askEndPractice);
 $("menuBtn").addEventListener("click", () => toggleSection($("menuBtn"), $("menu")));
 $("helpBtn").addEventListener("click", () => toggleSection($("helpBtn"), $("rankHelp")));
