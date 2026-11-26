@@ -66,5 +66,6 @@ with contextlib.redirect_stdout(io.StringIO()):
     appstats.write('2026-11-20', '2026-11-21', an, sa, [], '2026-11-22 06:00 UTC'); again = open(appstats.OUT).read()
     appstats.write('2026-11-20', '2026-11-21', an, {}, [], '2026-11-22 12:00 UTC'); changed = open(appstats.OUT).read()
 if '| 2026-11-20 Fri | 40 | 9 | 4 | 1 | 30 | 4 | 0.60 EUR, 2.10 USD |' not in first or '**52**' not in first: problems.append(('table', first))
+if '****' in changed: problems.append(('empty total in bold', changed))
 if again != first or changed == first or '12:00' not in changed: problems.append(('rewrite only on change', again == first, changed == first))
 print('ok' if not problems else problems)

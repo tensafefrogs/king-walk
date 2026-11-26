@@ -134,7 +134,7 @@ def write(first, last, an, sa, notes, now):
         p = '' if not s else ', '.join(f'{v:.2f} {cur}' for cur, v in sorted(s['proceeds'].items()))
         lines.append(f'| {k} {d.strftime("%a")} | ' + ' | '.join(cells) + f' | {u} | {p} |')
         d -= datetime.timedelta(days=1)
-    lines.append('| **Total** | ' + ' | '.join(f'**{total[c]}**' for c, _ in cols) + f' | **{units if sa else ""}** | '
+    lines.append('| **Total** | ' + ' | '.join(f'**{total[c]}**' for c, _ in cols) + f' | {f"**{units}**" if sa else ""} | '
                  + ', '.join(f'**{v:.2f} {cur}**' for cur, v in sorted(money.items())) + ' |')
     if notes: lines += [''] + [f'- {n}' for n in notes]
     text = '\n'.join(lines) + '\n'
