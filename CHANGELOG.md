@@ -7,7 +7,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ## Unreleased
 
-### Next app version (1.0.6)
+### Next app version (1.0.6; on TestFlight for Internal as build 2611261302, 2026-11-26)
 
 - **Your rating counts up (or down) after each puzzle,** number by number over a second or two like a flip board, in
   green or red, and the badge beside "Solved!" counts from +0 to the points won. (Live on the website.)
@@ -21,7 +21,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   into normal play (at most 1 puzzle in 5) and leave the rating alone. Before, a miss came back once, 30 puzzles later.
   (Live on the website.)
 
-### 1.0.5 (submitted to App Review 2026-11-26, build 2611260318, released on approval; all of it already on the website)
+### 1.0.5 (released 2026-11-26, build 2611260318; all of it already on the website)
 
 - **The daily week's ✓ and × sit in the middle of their circles:** they were letters from each phone's own fallback
   font and sat high on some phones; they're drawn now, the same everywhere. (Live on the website.)
