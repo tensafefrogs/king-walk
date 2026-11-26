@@ -9,6 +9,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6; on TestFlight for Internal as build 2611261302, 2026-11-26)
 
+- **A tidier progress card:** a thin line between progress, the coach, rank streaks and the puzzle's source; the areas
+  to work on grouped in one panel with Practise my weak spots under them; what you're strong at as green tags. (Live on
+  the website.)
 - **Your rating counts up (or down) after each puzzle,** number by number over a second or two like a flip board, in
   green or red, and the badge beside "Solved!" counts from +0 to the points won. (Live on the website.)
 - **Practice mixes it up:** the coach card's Work on list has one button, Practise my weak spots, instead of one per

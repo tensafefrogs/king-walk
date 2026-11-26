@@ -385,18 +385,26 @@ html.kbd .run-btn:focus-visible { outline: 3px solid var(--gold); outline-offset
 @media (hover: hover) { .run-btn:hover svg.badge { transform: translateY(-2px) rotate(-3deg); } }
 .runs > summary { color: var(--muted); min-height: 34px; }
 /* the coach: what to work on (with Practise), what the player is strong at, and every known area behind a tap */
-.coach { display: grid; gap: 10px; border-radius: 14px; }
-.coach.spot { outline: 3px solid transparent; outline-offset: 8px; animation: coach-spot 2.8s var(--ease-out) 0.5s both; }          /* showCoach: "here it is" */
+.coach { display: grid; gap: 8px; }
+/* the card's sections (progress, coach, rank streaks, the puzzle's source) each under a hairline, evenly spaced */
+.progress > .coach, .progress > .runs, .progress > #pzInfo { border-top: 1px solid var(--line); padding-top: 14px; }
+.progress > #pzInfo { font-size: 12px; }
+.progress > #pzInfo:empty { display: none; }
+.coach.spot { border-radius: 14px; outline: 3px solid transparent; outline-offset: 8px; animation: coach-spot 2.8s var(--ease-out) 0.5s both; }          /* showCoach: "here it is" */
 @keyframes coach-spot { 0%, 100% { outline-color: transparent; outline-offset: 14px; } 15%, 75% { outline-color: var(--accent); outline-offset: 8px; } 45% { outline-color: color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 8px; } }
 @media (prefers-reduced-motion: reduce) { .coach.spot { animation-duration: 3s; animation-timing-function: steps(1); } }
 .coach .note { font-size: 14px; }
-.co-sub { font: 700 13px var(--font-display); color: var(--muted); margin: 6px 0 -4px; }
+.co-sub { font: 600 13px var(--font-display); color: var(--muted); margin: 6px 0 0; }          /* Work on, Strong at: small headings, the list under them */
 .coach .label + div > .co-sub:first-child { margin-top: 0; }
-.co-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }          /* the button drops below when there's no room beside */
+.co-work { display: grid; background: var(--tile); border-radius: 14px; padding: 4px 14px 14px; }          /* what to work on, and how */
+.co-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 0; }
+.co-row + .co-row { border-top: 1px solid var(--line); }
 .co-row div { flex: 1 1 11em; min-width: 0; }
 .co-row b { display: block; font: 700 15px var(--font-display); }
-.co-row span { display: block; font-size: 13px; color: var(--muted); }
-.co-go { margin-top: 4px; align-self: flex-start; }          /* Practise my weak spots, under the list */
+.co-row span { display: block; font-size: 13px; color: var(--muted); margin-top: 1px; }
+.co-go { margin-top: 6px; width: 100%; white-space: normal; }          /* Practise my weak spots, under the list */
+.co-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 4px; }
+.co-chips .co-mark { font-size: 13px; padding: 4px 10px; }
 .co-row .btn { flex: none; max-width: 100%; white-space: normal; }
 .co-all ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .co-all li { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 14px; }
@@ -2206,17 +2214,23 @@ function renderCoach() {
   const weak = coachWeak(p), strong = coachStrong(p);
   line("co-sub", T("Work on"));
   if (!weak.length) line("note", T("Nothing stands out to work on right now. Keep going."));
-  for (const a of weak) {
-    const row = document.createElement("div"); row.className = "co-row";
-    const txt = document.createElement("div"), b = document.createElement("b"), d = document.createElement("span");
-    b.textContent = AREA_NAME[a](); d.textContent = AREA_DESC[a](); txt.append(b, d);
-    row.append(txt); box.append(row);
+  else {          /* the weak areas in one panel, with the one session for all of them (mixed practice) under them */
+    const panel = document.createElement("div"); panel.className = "co-work";
+    for (const a of weak) {
+      const row = document.createElement("div"); row.className = "co-row";
+      const txt = document.createElement("div"), b = document.createElement("b"), d = document.createElement("span");
+      b.textContent = AREA_NAME[a](); d.textContent = AREA_DESC[a](); txt.append(b, d);
+      row.append(txt); panel.append(row);
+    }
+    const go = document.createElement("button"); go.type = "button"; go.className = "btn primary co-go"; go.textContent = T("Practise my weak spots");
+    go.addEventListener("click", askPractice); panel.append(go); box.append(panel);
   }
-  if (weak.length) {          /* one session for all of them (mixed practice), rather than a set per area */
-    const go = document.createElement("button"); go.type = "button"; go.className = "btn co-go"; go.textContent = T("Practise my weak spots");
-    go.addEventListener("click", askPractice); box.append(go);
+  if (strong.length) {
+    line("co-sub", T("Strong at"));
+    const chips = document.createElement("p"); chips.className = "co-chips";
+    for (const a of strong) { const c = document.createElement("span"); c.className = "co-mark up"; c.textContent = AREA_NAME[a](); chips.append(c); }
+    box.append(chips);
   }
-  if (strong.length) { line("co-sub", T("Strong at")); line("note", strong.map(a => AREA_NAME[a]()).join(" \u00b7 ")); }
   const all = document.createElement("details"); all.className = "co-all";
   const sum = document.createElement("summary"); sum.textContent = T("All areas"); all.append(sum);
   all.addEventListener("toggle", () => { if (all.open) track("coach/open"); });
