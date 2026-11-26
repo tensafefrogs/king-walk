@@ -15,7 +15,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
   into normal play (at most 1 puzzle in 5) and leave the rating alone. Before, a miss came back once, 30 puzzles later.
   (Live on the website.)
 
-### 1.0.5 (on TestFlight, a new build from 2026-11-26 with the coach, the daily's Answer question and the fixes below; held from App Review while the owner tests it; all of it already on the website)
+### 1.0.5 (submitted to App Review 2026-11-26, build 2611260318, released on approval; all of it already on the website)
 
 - **The daily week's ✓ and × sit in the middle of their circles:** they were letters from each phone's own fallback
   font and sat high on some phones; they're drawn now, the same everywhere. (Live on the website.)

@@ -13,7 +13,7 @@
     "whats_new": "1.0.5 again, for testing. New in this build: on the daily puzzle, Answer asks first, since it ends the day and your streak (Keep trying goes back to the puzzle); a daily played as your very first puzzle shows how to move a piece; buttons in Chinese, Japanese and Korean dialogs no longer break mid-word. From the last build: practice sets can be ended early from their chip, hints go move by move (the piece, then the arrow), a card says when the coach is ready, the sound comes back if iOS left it silent, and play counts made offline are sent once you're back online. Tell me anything that's broken or reads wrong."
   },
   "app_store": {
-    "submit": false,
+    "submit": true,
     "release": "after_approval",
     "replace_in_review": false,
     "whats_new": {
@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead to submit 1.0.5 (2026-11-26). Step 1 of 2: make the 1.0.5 version and attach the newest build (the one from 2026-11-26, with the daily's Answer question), without submitting, so the listing workflow can add each language's screenshots while it's editable. Step 2 sets submit to true; it's released when Apple approves it."
+  "note": "Owner's go-ahead to submit 1.0.5 (2026-11-26). Step 2 of 2: submit 1.0.5 (build 2611260318) to App Review with each language's screenshots in place; released automatically when Apple approves it."
 }
