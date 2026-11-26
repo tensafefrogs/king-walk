@@ -49,6 +49,9 @@ const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app langu
 // Play Games setup (android/store/playgames.py apply) against a fake Google that refuses some languages
 { let out = ""; try { out = execFileSync("python3", ["-I", path.join(ROOT, "testing/playgames-fake.py")], { encoding: "utf8" }).trim(); } catch (e) { out = String(e.stdout || e.message); }
   check(out === "ok", "Play Games setup makes every achievement and leaderboard, dropping languages Google refuses", out.slice(-300)); }
+// the App Store numbers (ios/store/appstats.py) against a fake App Store Connect
+{ let out = ""; try { out = execFileSync("python3", ["-I", path.join(ROOT, "testing/appstats-fake.py")], { encoding: "utf8" }).trim(); } catch (e) { out = String(e.stdout || e.message); }
+  check(out === "ok", "App Store numbers: analytics asked for once, then added up by day; sales count the app, not updates", out.slice(-300)); }
 // the stats report adds GoatCounter sites up, reading an old site only from the first day not imported into the new one
 { let out = ""; try { out = execFileSync("python3", ["-I", path.join(ROOT, "testing/stats-sites.py")], { encoding: "utf8" }).trim(); } catch (e) { out = String(e.stdout || e.message); }
   check(out === "ok", "the stats report reads an old GoatCounter site only from its @date (imported days count once)", out.slice(-300)); }

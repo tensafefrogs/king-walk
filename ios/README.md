@@ -82,7 +82,7 @@ Pushes to `main` that change the app or `index.html` also run a simulator build 
 
 ## Releasing from the repo
 
-`ios/release.json` drives releases, so anyone with push access (or Claude) can ship without clicking through App Store Connect. When it changes on `main`, the **App Store release** workflow does what it says, then writes `ios/store/status.md` (versions, App Review state, recent builds, TestFlight groups) and adds it to the `status` branch (`python3 scripts/status.py fetch` puts it in place; it's not on `main`, which takes only commits whose tests passed first). Every 6 hours it refreshes the status. It does nothing until the secrets are set.
+`ios/release.json` drives releases, so anyone with push access (or Claude) can ship without clicking through App Store Connect. When it changes on `main`, the **App Store release** workflow does what it says, then writes `ios/store/status.md` (versions, App Review state, recent builds, TestFlight groups) and adds it to the `status` branch (`python3 scripts/status.py fetch` puts it in place; it's not on `main`, which takes only commits whose tests passed first). Every 6 hours it refreshes the status. It does nothing until the secrets are set. The same runs write `ios/store/appstats.md` (`store/appstats.py`): impressions, product page views, downloads and sessions from Apple's analytics reports (the first run asks Apple for them; they start a day or two later), and units and proceeds from Sales and Trends once the `ASC_VENDOR_NUMBER` variable is set (Payments and Financial Reports, top left).
 
 ```json
 {

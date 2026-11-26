@@ -22,3 +22,4 @@ android/store/screenshots/l10n/
 
 # where the app stands in App Store Connect: on the status branch (python3 scripts/status.py fetch)
 ios/store/status.md
+ios/store/appstats.md

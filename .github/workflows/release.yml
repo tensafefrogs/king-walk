@@ -123,6 +123,12 @@ jobs:
       - name: Status
         if: always()
         run: python3 ios/store/release.py status
+      - name: App Store numbers (ios/store/appstats.py; a failure here doesn't fail the run)
+        if: always()
+        continue-on-error: true
+        env:
+          ASC_VENDOR_NUMBER: ${{ vars.ASC_VENDOR_NUMBER }}
+        run: python3 ios/store/appstats.py
       - name: Publish the status (the status branch)
         if: always()
         run: python3 scripts/status.py publish

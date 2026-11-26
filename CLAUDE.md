@@ -23,6 +23,7 @@ How the repo fits together, how a change gets to `main`, and which check covers 
 
 - What changed and what's waiting for the app: `CHANGELOG.md`. What's planned: `ROADMAP.md`.
 - Where the app stands in App Store Connect: `ios/store/status.md`, which lives on the `status` branch (`python3 scripts/status.py fetch` puts it in place; rewritten by every release run and every 6 hours), then the run's log on GitHub (Actions → App Store release).
+- App Store numbers (impressions, page views, downloads, sessions, units and proceeds by day): `ios/store/appstats.md`, on the same `status` branch, written by `ios/store/appstats.py` in the same runs.
 - Releasing, its settings and what has gone wrong before: `ios/README.md`, "Releasing from the repo". The store listing and its languages: `ios/store/listing.md`.
 - Languages: how they're loaded, how to add one and the brief for translators: `LANGUAGES.md`.
 - The stats and what each event means: `testing/STATS.md`; `python3 testing/stats.py` (needs `GOATCOUNTER_TOKEN` and `GOATCOUNTER_URL`).
