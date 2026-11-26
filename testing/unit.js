@@ -363,6 +363,13 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // every rank streak is open at any rank: one not tried yet is drawn in full colour like the others, not greyed (it
+  // read as locked, so a strong player didn't see they could go back for the Pawn streak)
+  { const w = await page();
+    const rs = await w.p.evaluate(() => { const q = me(); q.runs = {}; renderPanel();
+      return [...document.querySelectorAll("#runRow .run-btn")].map(b => ({ cls: b.className, filter: getComputedStyle(b.querySelector(".scene")).filter, op: getComputedStyle(b.querySelector(".scene")).opacity, disabled: b.disabled })); });
+    await w.ctx.close();
+    check(rs.length === 6 && rs.every(r => r.cls.includes("untried") && r.filter === "none" && r.op === "1" && !r.disabled), "rank streaks: every one open, and one not tried yet isn't greyed out", rs); }
   // the rating and the badge count like a flip board: every whole number shows, over 1 to 2 s, green going up and
   // red going down, ending on the new value; the badge goes +0, +1, ... (or −0, −1, ...)
   { const w = await page();

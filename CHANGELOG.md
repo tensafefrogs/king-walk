@@ -9,6 +9,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6; on TestFlight for Internal as build 2611261302, 2026-11-26)
 
+- **Every rank streak looks open:** one you haven't tried was grey, which read as locked, so a strong player who
+  placed at Bishop couldn't tell they can go back for the Pawn streak any time. They're all in full colour now; the
+  empty ring shows it's not tried yet. (On the branch, not yet on the website.)
 - **A tidier progress card:** a thin line between progress, the coach, rank streaks and the puzzle's source; the areas
   to work on grouped in one panel with Practise my weak spots under them; what you're strong at as green tags. (Live on
   the website.)
