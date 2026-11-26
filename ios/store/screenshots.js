@@ -95,6 +95,7 @@ async function capture(b, name) {
   await shot(g.p, name, 1); await g.ctx.close();
   // 2: solved, with confetti, the rating going up and the puzzle's themes
   g = await newGame(b, name, false, SEEDS[2]);
+  await g.p.evaluate(() => { countTo = (el, from, to, fmt = String) => { el.textContent = fmt(to); }; });          /* the rating's flip-board count, at its end (the shot comes mid-confetti) */
   await solve(g.p); await g.p.waitForTimeout(420); await shot(g.p, name, 2); await g.ctx.close();
   // 3: two hints showing
   g = await newGame(b, name, false, SEEDS[3]);

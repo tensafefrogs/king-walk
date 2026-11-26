@@ -363,6 +363,28 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
   });
   await ww.ctx.close();
   check(wkr.same && wkr.n === 7, "the daily's week keeps its circles when redrawn (no pop-in replay)", wkr);
+  // the rating and the badge count like a flip board: every whole number shows, over 1 to 2 s, green going up and
+  // red going down, ending on the new value; the badge goes +0, +1, ... (or −0, −1, ...)
+  { const w = await page();
+    const ct = await w.p.evaluate(async () => {
+      const nap = ms => new Promise(r => setTimeout(r, ms)), watch = async (el, ms) => { const seen = [], cls = new Set(), t0 = performance.now(); let end = 0;
+        while (performance.now() - t0 < ms) { const v = el.textContent; if (seen[seen.length - 1] !== v) { seen.push(v); end = performance.now() - t0; } el.classList.forEach(c => cls.add(c)); await nap(10); }
+        return { seen, end, cls: [...cls], after: el.className }; };
+      const el = $("rating"); countTo(el, 1000, 1012); const up = await watch(el, 2500);
+      countTo(el, 1012, 1004); const down = await watch(el, 2500);
+      const d = $("delta"), signed = v => "+" + Math.abs(v); countTo(d, 0, 9, signed); const badge = await watch(d, 2500);
+      return { up, down, badge };
+    });
+    await w.ctx.close();
+    const nums = a => a.map(Number), steps = a => nums(a).every((v, k) => !k || Math.abs(v - nums(a)[k - 1]) === 1);
+    check(ct.up.seen.length === 13 && ct.up.seen[0] === "1000" && steps(ct.up.seen) && ct.up.seen.at(-1) === "1012" && ct.up.end >= 850 && ct.up.end <= 2100 && ct.up.cls.includes("c-up") && !/counting/.test(ct.up.after),
+          "the rating counts up one by one over about a second (green while it goes), ending on the new value", ct.up);
+    check(ct.down.seen.at(-1) === "1004" && steps(ct.down.seen) && ct.down.cls.includes("c-down"), "the rating counts down one by one (red while it goes)", ct.down);
+    check(ct.badge.seen.join() === "+1,+2,+3,+4,+5,+6,+7,+8,+9" || ct.badge.seen.join() === "+0,+1,+2,+3,+4,+5,+6,+7,+8,+9", "the badge counts +0 to +9", ct.badge.seen); }
+  { const w = await page("", null, { reducedMotion: "reduce" });
+    const rm = await w.p.evaluate(() => { countTo($("rating"), 1000, 1012); return $("rating").textContent; });
+    await w.ctx.close();
+    check(rm === "1012", "with reduced motion the rating shows the new value at once", rm); }
   // spaced repetition: the schedule (1, 3, 7, 14, 30 days; up when clean and quick, the same when slow or with a hint,
   // back to 1 day on a miss, learned and gone after the last step), when a review is due (its day, enough new puzzles
   // since, at most 1 in 5), old saves' second tries moving in, and a miss coming back in play the next day

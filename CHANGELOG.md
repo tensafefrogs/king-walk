@@ -9,6 +9,8 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6)
 
+- **Your rating counts up (or down) after each puzzle,** number by number over a second or two like a flip board, in
+  green or red, and the badge beside "Solved!" counts from +0 to the points won. (Live on the website.)
 - **Practice mixes it up:** the coach card's Work on list has one button, Practise my weak spots, instead of one per
   kind of puzzle. A session is 10 puzzles: about 6 from what you're working on and 4 others, shuffled, and nothing says
   which kind each one is, so you have to spot it as in a real game. The end card shows how each kind went

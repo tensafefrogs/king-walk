@@ -541,6 +541,10 @@ html.fold-h .appbar, html.fold-v .appbar, html.fold-h .appfoot, html.fold-v .app
 .delta { font: 700 16px var(--font-display); font-variant-numeric: tabular-nums; padding: 3px 10px; border-radius: 999px; background: var(--tile); color: var(--muted); }
 .delta:not(.show) { display: none; }
 .delta.show { animation: popIn 0.36s var(--spring) both; }
+/* a number counting (countTo): each new value drops in like a flip board, coloured by the way it's going */
+.tick, .delta.show.tick { display: inline-block; animation: tick 0.09s ease-out; }
+@keyframes tick { from { transform: translateY(-0.22em); opacity: 0.55; } to { transform: none; opacity: 1; } }
+.rate-txt b.counting.c-up { color: var(--good); } .rate-txt b.counting.c-down { color: var(--bad); }
 .delta.up { background: var(--card); color: var(--good); }
 .delta.down { background: var(--card); color: var(--bad); }
 
@@ -2171,8 +2175,10 @@ function finish(solvedIt) {
   $("stLevel").textContent = T("Second try"); $("stLevel").hidden = true;
   $("nextLabel").textContent = T("Next puzzle");
   const d = $("delta");
-  d.textContent = cur.review ? T("practice") : (delta > 0 ? "+" : "") + delta;
+  const signed = v => (delta > 0 ? "+" : delta < 0 ? "\u2212" : "") + Math.abs(v);          /* the sign of the whole change, from +0 or −0 */
   d.className = "delta" + (cur.review ? "" : delta > 0 ? " up" : delta < 0 ? " down" : "");
+  if (cur.review) d.textContent = T("practice");
+  else if (!(p.place || placed)) { d.textContent = signed(0); const run = d.textContent; setTimeout(() => { if (d.textContent === run && !d.hidden) countTo(d, 0, delta, signed); }, REDUCED ? 0 : 360); }          /* once the badge has popped in */
   if (p.place || placed) d.textContent = "";          /* placement: no points to show */
   else { void d.offsetWidth; d.classList.add("show"); }
   lastResult = { rankUp, delta: cur.review ? 0 : delta, score, review: !!cur.review };
@@ -3112,18 +3118,25 @@ function renderPuzzleInfo() {
   const [before, after] = T("This puzzle: {link} on Lichess, rated {r}.", { r: cur.pz.r }).split("{link}");
   box.textContent = ""; box.append(before, a, after || "");
 }
-let tweenId = 0;
-function tweenNumber(el, from, to) {
-  const id = ++tweenId;
-  if (REDUCED || from === to) { el.textContent = to; return; }
-  const t0 = performance.now(), dur = 700;
+/* A number counting from one value to another like a flip board: every whole number shows (about 80 ms each, 1 to
+   2 s in all), each one dropping in (.tick), green while it goes up and red while it goes down. fmt writes it (the
+   delta's sign); reduced motion shows the end at once. Each element runs one count at a time. */
+const tweens = new WeakMap();
+function countTo(el, from, to, fmt = String) {
+  const id = (tweens.get(el) || 0) + 1; tweens.set(el, id);
+  el.classList.remove("counting", "c-up", "c-down");
+  if (REDUCED || from === to) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), dur = clamp(Math.abs(to - from) * 80, 1000, 2000);
+  el.classList.add("counting", to > from ? "c-up" : "c-down");
+  let shown = null;
   (function step(t) {
-    if (id !== tweenId) return;
-    const k = Math.min(1, (t - t0) / dur);
-    el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 4)));
-    if (k < 1) requestAnimationFrame(step);
+    if (tweens.get(el) !== id) return;
+    const k = Math.min(1, (t - t0) / dur), v = Math.round(from + (to - from) * (0.5 - Math.cos(Math.PI * k) / 2));
+    if (v !== shown) { shown = v; el.textContent = fmt(v); el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); }
+    if (k < 1) requestAnimationFrame(step); else el.classList.remove("counting", "c-up", "c-down");
   })(t0);
 }
+const tweenNumber = (el, from, to) => countTo(el, from, to);
 /* Rating, rank ladder, stats, chart and settings. `fromRating` makes the number count up from the old value. */
 function renderPanel(fromRating) {
   const p = me();
