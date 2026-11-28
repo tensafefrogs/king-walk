@@ -11,7 +11,7 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - Nothing yet.
 
-### 1.0.6 (owner's go-ahead to submit and release, 2026-11-28; all of it on the website)
+### 1.0.6 (submitted to App Review 2026-11-28, released on approval; all of it on the website)
 
 - **How it works is up to date:** it explains the review schedule for missed puzzles (it still said they came back
   once), two hints on every move, the coach and Practise my weak spots, and that rank streaks are open at any rank.
