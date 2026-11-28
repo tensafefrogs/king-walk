@@ -26,7 +26,6 @@
   "Cancel": "Cancel·lar",
   "Practice": "Pràctica",
   "Practice: your daily result stays the same": "Pràctica: el teu resultat del dia no canvia",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "La primera pista il·lumina la peça que cal moure. La segona dibuixa una fletxa fins on va. Resoldre amb pista compta la meitat.",
   "Follow the arrow": "Segueix la fletxa",
   "Move the glowing piece": "Mou la peça que brilla",
   "Puzzles or the daily puzzle": "Problemes o el problema del dia",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 problemes resolts sense errors ni pistes.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk necessita JavaScript activat per funcionar.</p>",
   "A Thousand Puzzles": "Mil problemes",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Un problema fallat torna una vegada, uns 30 problemes després, per a un segon intent. Els segons intents no canvien la teva puntuació.",
   "A streak freeze kept your {n}-day streak going.": "Un protector de ratxa ha mantingut viva la teva ratxa de {n} dies.",
   "About": "Quant a",
   "Achievement": "Assoliment",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Ratxa de rang",
   "Rank streaks": "Ratxes de rang",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Ratxes de rang (a Progrés): 15 problemes cada cop més difícils. Sense pistes, una errada i fora. La teva puntuació ni se n'assabenta.",
   "Ranks": "Rangs",
   "Rating over time": "Evolució de la puntuació",
   "Reload the page": "Recarrega la pàgina",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemes, sobretot del que estàs treballant. La pràctica compta la meitat per a la teva puntuació.",
   "Practice, puzzle {n} of {total}": "Pràctica, problema {n} de {total}",
   "{area}: {n} of {total}": "{area}: {n} de {total}",
-  "Others: {n} of {total}": "Altres: {n} de {total}"
+  "Others: {n} of {total}": "Altres: {n} de {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Cada jugada té dues pistes: la primera il·lumina la peça que cal moure i la segona dibuixa una fletxa fins on va. Resoldre amb pista compta la meitat.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Un problema que falles, o que resols amb pista, torna l'endemà i després al cap de 3, 7, 14 i 30 dies. Si el resols de pressa, triga més a tornar; si el falles, torna a començar. Aquests repassos no canvien la teva puntuació.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Després d'uns 30 problemes, el teu entrenador (a Progrés) mostra els teus punts forts i què has de treballar. «Practica els punts febles» et dona 10 problemes barrejats, sobretot d'aquests, sense dir quin és quin. La pràctica compta la meitat per a la teva puntuació.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Ratxes de rang (a Progrés): 15 problemes cada cop més difícils, oberts a qualsevol rang. Sense pistes, una errada i fora. La teva puntuació ni se n'assabenta."
 };

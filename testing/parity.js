@@ -55,6 +55,24 @@ const PLATFORM_ONLY = { lang: "android" };          // the phone's per-app langu
 // the stats report adds GoatCounter sites up, reading an old site only from the first day not imported into the new one
 { let out = ""; try { out = execFileSync("python3", ["-I", path.join(ROOT, "testing/stats-sites.py")], { encoding: "utf8" }).trim(); } catch (e) { out = String(e.stdout || e.message); }
   check(out === "ok", "the stats report reads an old GoatCounter site only from its @date (imported days count once)", out.slice(-300)); }
+// the in-game help (How it works, and the ranks under Progress' ?) says what the game does: each number it gives is the
+// one in the code, so a change to a rule fails here until the help says it too (CLAUDE.md, "The help")
+{ const help = (html.match(/<ul class="body help">([\s\S]*?)<\/ul>/) || [, ""])[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  const ranks = (html.match(/<div class="explain">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/) || [, ""])[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  const num = re => { const m = html.match(re); return m ? JSON.parse(m[1]) : undefined; };
+  const gaps = num(/const REVIEW_GAPS = (\[[^\]]*\])/), streak = num(/const STREAK_LEN = (\d+)/), practice = num(/PRACTICE_LEN = (\d+)/),
+    coachN = num(/COACH_READY_N = (\d+)/), freezes = num(/const FREEZE_MAX = (\d+)/), every = num(/D\.streak % (\d+) === 0/),
+    rankList = (html.match(/const RANKS = (\[[^;]*\]);/) || [, "[]"])[1].replace(/"/g, '"');
+  const R = JSON.parse(rankList), wrong = [];
+  const want = (ok, what) => { if (!ok) wrong.push(what); };
+  want(gaps && gaps[0] === 1 && help.includes("comes back the next day, then after " + gaps.slice(1, -1).join(", ") + " and " + gaps.at(-1) + " days"), "review gaps " + JSON.stringify(gaps));
+  want(help.includes("Rank streaks (under Progress): " + streak + " puzzles"), "rank streak length " + streak);
+  want(help.includes("gives you " + practice + " mixed puzzles"), "practice session length " + practice);
+  want(help.includes("After about " + coachN + " puzzles your coach"), "coach ready after " + coachN);
+  want(help.includes("Every " + every + " days in a row earns a streak freeze (you can hold " + freezes + ")"), "streak freezes " + every + "/" + freezes);
+  want(help.includes("Each move has two hints"), "two hints per move");
+  want(ranks.includes(R.slice(1, -1).map(r => r[1] + " at " + r[0]).join(", ") + " and " + R.at(-1)[1] + " at " + R.at(-1)[0]), "rank thresholds");
+  check(!wrong.length, "the in-game help gives the numbers the game uses (spaced repetition, rank streaks, practice, the coach, streak freezes, hints, ranks)", wrong); }
 // the website publishes its hidden files: .well-known/assetlinks.json (links that open the Android app) and .nojekyll;
 // the Pages upload action drops anything starting with a dot unless include-hidden-files is on
 check(/upload-pages-artifact@[\s\S]*?include-hidden-files:\s*true/.test(read(".github/workflows/pages.yml")), "the website build publishes .well-known (assetlinks.json)");

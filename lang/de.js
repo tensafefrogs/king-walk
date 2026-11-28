@@ -26,7 +26,6 @@
   "Cancel": "Abbrechen",
   "Practice": "Übung",
   "Practice: your daily result stays the same": "Übung: Dein Tagesergebnis bleibt, wie es ist",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Der erste Tipp lässt die Figur leuchten, die ziehen soll. Der zweite zeigt mit einem Pfeil ihr Zielfeld. Mit Tipp gelöst zählt halb.",
   "Follow the arrow": "Folge dem Pfeil",
   "Move the glowing piece": "Zieh die leuchtende Figur",
   "Puzzles or the daily puzzle": "Aufgaben oder die Aufgabe des Tages",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 Aufgaben ohne Fehler und ohne Tipps gelöst.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk braucht aktiviertes JavaScript.</p>",
   "A Thousand Puzzles": "Tausend Aufgaben",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Eine verpasste Aufgabe kommt einmal wieder, etwa 30 Aufgaben später, für einen zweiten Versuch. Zweite Versuche ändern deine Wertung nicht.",
   "A streak freeze kept your {n}-day streak going.": "Ein Serienschutz hat deine Serie von {n} Tagen gerettet.",
   "About": "Info",
   "Achievement": "Erfolg",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rang-Serie",
   "Rank streaks": "Rang-Serien",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rang-Serien (unter Fortschritt): 15 Aufgaben, die immer schwerer werden. Keine Tipps, ein Fehler und du bist raus. Deine Wertung kriegt davon nichts mit.",
   "Ranks": "Ränge",
   "Rating over time": "Wertungsverlauf",
   "Reload the page": "Lade die Seite neu",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 Aufgaben, vor allem zu dem, woran du arbeitest. Übung zählt halb für deine Wertung.",
   "Practice, puzzle {n} of {total}": "Übung, Aufgabe {n} von {total}",
   "{area}: {n} of {total}": "{area}: {n} von {total}",
-  "Others: {n} of {total}": "Andere: {n} von {total}"
+  "Others: {n} of {total}": "Andere: {n} von {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Jeder Zug hat zwei Tipps: Der erste lässt die Figur leuchten, die ziehen soll, der zweite zeigt mit einem Pfeil ihr Zielfeld. Mit Tipp gelöst zählt halb.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Eine Aufgabe, die du verpasst oder mit Tipp löst, kommt am nächsten Tag wieder, dann nach 3, 7, 14 und 30 Tagen. Löst du sie schnell, wartet sie länger; verpasst du sie, fängt sie von vorn an. Diese Wiederholungen ändern deine Wertung nicht.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Nach etwa 30 Aufgaben zeigt dein Coach (unter Fortschritt), worin du stark bist und woran du arbeiten solltest. „Schwächen üben“ gibt dir 10 gemischte Aufgaben, vor allem dazu, ohne zu sagen, welche welche ist. Übung zählt halb für deine Wertung.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rang-Serien (unter Fortschritt): 15 Aufgaben, die immer schwerer werden, offen bei jedem Rang. Keine Tipps, ein Fehler und du bist raus. Deine Wertung kriegt davon nichts mit."
 };

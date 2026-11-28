@@ -26,7 +26,6 @@
   "Cancel": "Annuleren",
   "Practice": "Oefenen",
   "Practice: your daily result stays the same": "Oefenen: je dagresultaat blijft hetzelfde",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "De eerste tip laat het stuk oplichten dat moet zetten. De tweede tekent een pijl naar het doelveld. Met een tip opgelost telt voor de helft.",
   "Follow the arrow": "Volg de pijl",
   "Move the glowing piece": "Zet het oplichtende stuk",
   "Puzzles or the daily puzzle": "Puzzels of de puzzel van de dag",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 puzzels opgelost zonder fouten en zonder hints.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk heeft JavaScript nodig om te werken.</p>",
   "A Thousand Puzzles": "Duizend puzzels",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Een gemiste puzzel komt één keer terug, ongeveer 30 puzzels later, voor een tweede poging. Tweede pogingen veranderen je rating niet.",
   "A streak freeze kept your {n}-day streak going.": "Een reeksbevriezer hield je reeks van {n} dagen in stand.",
   "About": "Over",
   "Achievement": "Prestatie",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rangreeks",
   "Rank streaks": "Rangreeksen",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rangreeksen (onder Voortgang): 15 puzzels die steeds moeilijker worden. Geen hints, één fout en je ligt eruit. Je rating merkt er niks van.",
   "Ranks": "Rangen",
   "Rating over time": "Rating door de tijd",
   "Reload the page": "Laad de pagina opnieuw",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 puzzels, vooral waar je aan werkt. Oefenen telt voor de helft mee voor je rating.",
   "Practice, puzzle {n} of {total}": "Oefenen, puzzel {n} van {total}",
   "{area}: {n} of {total}": "{area}: {n} van {total}",
-  "Others: {n} of {total}": "Overige: {n} van {total}"
+  "Others: {n} of {total}": "Overige: {n} van {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Elke zet heeft twee tips: de eerste laat het stuk oplichten dat moet zetten, de tweede tekent een pijl naar het doelveld. Met een tip opgelost telt voor de helft.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Een puzzel die je mist of met een tip oplost, komt de volgende dag terug, daarna na 3, 7, 14 en 30 dagen. Los je hem snel op, dan wacht hij langer; mis je hem, dan begint hij opnieuw. Deze herhalingen veranderen je rating niet.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Na ongeveer 30 puzzels laat je coach (onder Voortgang) zien waar je sterk in bent en waar je aan moet werken. 'Oefen mijn zwakke punten' geeft je 10 gemengde puzzels, vooral daaruit, zonder te zeggen welke welke is. Oefenen telt voor de helft mee voor je rating.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rangreeksen (onder Voortgang): 15 puzzels die steeds moeilijker worden, open bij elke rang. Geen hints, één fout en je ligt eruit. Je rating merkt er niks van."
 };

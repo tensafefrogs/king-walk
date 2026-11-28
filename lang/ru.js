@@ -26,7 +26,6 @@
   "Cancel": "Отмена",
   "Practice": "Тренировка",
   "Practice: your daily result stays the same": "Тренировка: результат дня не меняется",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Первая подсказка подсвечивает фигуру, которой нужно ходить. Вторая рисует стрелку к её полю. Решение с подсказкой засчитывается наполовину.",
   "Follow the arrow": "Следуйте за стрелкой",
   "Move the glowing piece": "Ходите светящейся фигурой",
   "Puzzles or the daily puzzle": "Задачи или задача дня",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 задач решено без ошибок и без подсказок.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">Для работы King Walk нужно включить JavaScript.</p>",
   "A Thousand Puzzles": "Тысяча задач",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Нерешённая задача вернётся один раз, примерно через 30 задач, для второй попытки. Вторые попытки не меняют ваш рейтинг.",
   "A streak freeze kept your {n}-day streak going.": "Заморозка спасла вашу серию (дней подряд: {n}).",
   "About": "Об игре",
   "Achievement": "Достижение",
@@ -188,7 +186,6 @@
   "Rank": "Звание",
   "Rank streak": "Серия по званию",
   "Rank streaks": "Серии по званиям",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Серии по званиям (в разделе «Прогресс»): 15 задач, и каждая труднее предыдущей. Без подсказок, одна ошибка — и вы вылетели. Рейтинг они не трогают.",
   "Ranks": "Звания",
   "Rating over time": "Динамика рейтинга",
   "Reload the page": "Перезагрузите страницу",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 задач, в основном на то, над чем вы работаете. Тренировка идёт в рейтинг наполовину.",
   "Practice, puzzle {n} of {total}": "Тренировка, задача {n} из {total}",
   "{area}: {n} of {total}": "{area}: {n} из {total}",
-  "Others: {n} of {total}": "Другие: {n} из {total}"
+  "Others: {n} of {total}": "Другие: {n} из {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "У каждого хода две подсказки: первая подсвечивает фигуру, которой нужно ходить, вторая рисует стрелку к её полю. Решение с подсказкой засчитывается наполовину.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Задача, которую вы не решили или решили с подсказкой, вернётся на следующий день, а потом через 3, 7, 14 и 30 дней. Решите быстро — вернётся позже; ошибётесь — всё начнётся заново. Эти повторения не меняют ваш рейтинг.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Примерно через 30 задач тренер (в разделе «Прогресс») покажет ваши сильные стороны и то, над чем работать. «Тренировать слабые места» даёт 10 перемешанных задач, в основном на это, не говоря, какая есть какая. Тренировка идёт в рейтинг наполовину.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Серии по званиям (в разделе «Прогресс»): 15 задач, и каждая труднее предыдущей, открыты при любом звании. Без подсказок, одна ошибка — и вы вылетели. Рейтинг они не трогают."
 };

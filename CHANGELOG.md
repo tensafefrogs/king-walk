@@ -9,6 +9,9 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 ### Next app version (1.0.6; on TestFlight for Internal as build 2611261302, 2026-11-26)
 
+- **How it works is up to date:** it explains the review schedule for missed puzzles (it still said they came back
+  once), two hints on every move, the coach and Practise my weak spots, and that rank streaks are open at any rank.
+  (On the branch, not yet on the website.)
 - **Every rank streak looks open:** one you haven't tried was grey, which read as locked, so a strong player who
   placed at Bishop couldn't tell they can go back for the Pawn streak any time. They're all in full colour now; the
   empty ring shows it's not tried yet. (On the branch, not yet on the website.)

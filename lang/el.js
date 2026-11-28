@@ -26,7 +26,6 @@
   "Cancel": "Ακύρωση",
   "Practice": "Εξάσκηση",
   "Practice: your daily result stays the same": "Εξάσκηση: το ημερήσιο αποτέλεσμα δεν αλλάζει",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Η πρώτη υπόδειξη φωτίζει το κομμάτι που πρέπει να κινηθεί. Η δεύτερη δείχνει με βέλος πού πηγαίνει. Η λύση με υπόδειξη μετράει μισή.",
   "Follow the arrow": "Ακολούθησε το βέλος",
   "Move the glowing piece": "Κίνησε το κομμάτι που λάμπει",
   "Puzzles or the daily puzzle": "Γρίφοι ή γρίφος της ημέρας",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 γρίφοι λυμένοι χωρίς λάθη και χωρίς υποδείξεις.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">Το King Walk χρειάζεται ενεργοποιημένη JavaScript για να λειτουργήσει.</p>",
   "A Thousand Puzzles": "Χίλιοι γρίφοι",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Ένας γρίφος που δεν έλυσες επιστρέφει μία φορά, περίπου 30 γρίφους αργότερα, για δεύτερη προσπάθεια. Οι δεύτερες προσπάθειες δεν αλλάζουν τη βαθμολογία σου.",
   "A streak freeze kept your {n}-day streak going.": "Ένα πάγωμα σερί κράτησε ζωντανό το σερί σου (μέρες στη σειρά: {n}).",
   "About": "Σχετικά",
   "Achievement": "Επίτευγμα",
@@ -188,7 +186,6 @@
   "Rank": "Βαθμίδα",
   "Rank streak": "Σερί βαθμίδας",
   "Rank streaks": "Σερί βαθμίδων",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Σερί βαθμίδων (στην Πρόοδο): 15 γρίφοι που δυσκολεύουν όσο προχωράς. Χωρίς υποδείξεις, ένα λάθος και βγαίνεις. Δεν επηρεάζουν τη βαθμολογία σου.",
   "Ranks": "Βαθμίδες",
   "Rating over time": "Εξέλιξη βαθμολογίας",
   "Reload the page": "Φόρτωσε ξανά τη σελίδα",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 γρίφοι, κυρίως από όσα δουλεύεις. Η εξάσκηση μετράει μισή στη βαθμολογία σου.",
   "Practice, puzzle {n} of {total}": "Εξάσκηση, γρίφος {n} από {total}",
   "{area}: {n} of {total}": "{area}: {n} από {total}",
-  "Others: {n} of {total}": "Άλλοι: {n} από {total}"
+  "Others: {n} of {total}": "Άλλοι: {n} από {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Κάθε κίνηση έχει δύο υποδείξεις: η πρώτη φωτίζει το κομμάτι που πρέπει να κινηθεί, η δεύτερη δείχνει με βέλος πού πηγαίνει. Η λύση με υπόδειξη μετράει μισή.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Ένας γρίφος που δεν λύνεις, ή λύνεις με υπόδειξη, επιστρέφει την επόμενη μέρα, μετά σε 3, 7, 14 και 30 μέρες. Αν τον λύσεις γρήγορα, αργεί περισσότερο· αν τον χάσεις, ξεκινά από την αρχή. Αυτές οι επαναλήψεις δεν αλλάζουν τη βαθμολογία σου.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Μετά από περίπου 30 γρίφους, ο προπονητής σου (στην Πρόοδο) δείχνει τα δυνατά σου σημεία και τι θέλει δουλειά. Η «Εξάσκηση στα αδύναμα σημεία» σού δίνει 10 ανακατεμένους γρίφους, κυρίως από αυτά, χωρίς να λέει ποιος είναι ποιος. Η εξάσκηση μετράει μισή στη βαθμολογία σου.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Σερί βαθμίδων (στην Πρόοδο): 15 γρίφοι που δυσκολεύουν όσο προχωράς, ανοιχτά σε κάθε βαθμίδα. Χωρίς υποδείξεις, ένα λάθος και βγαίνεις. Δεν επηρεάζουν τη βαθμολογία σου."
 };

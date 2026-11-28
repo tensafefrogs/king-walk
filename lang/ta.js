@@ -26,7 +26,6 @@
   "Cancel": "ரத்துசெய்",
   "Practice": "பயிற்சி",
   "Practice: your daily result stays the same": "பயிற்சி: உங்கள் இன்றைய முடிவு மாறாது",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "முதல் குறிப்பு நகர்த்த வேண்டிய காயை ஒளிரச் செய்யும். இரண்டாவது, அது போகும் இடத்துக்கு அம்புக்குறி வரையும். குறிப்புடன் தீர்த்தால் பாதி மதிப்புதான்.",
   "Follow the arrow": "அம்புக்குறியைப் பின்பற்றுங்கள்",
   "Move the glowing piece": "ஒளிரும் காயை நகர்த்துங்கள்",
   "Puzzles or the daily puzzle": "புதிர்கள் அல்லது தினசரி புதிர்",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 புதிர்கள் தவறோ குறிப்போ இல்லாமல் தீர்க்கப்பட்டன.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk இயங்க JavaScript இயக்கப்பட்டிருக்க வேண்டும்.</p>",
   "A Thousand Puzzles": "ஆயிரம் புதிர்கள்",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "தவறவிட்ட புதிர், சுமார் 30 புதிர்களுக்குப் பிறகு, இரண்டாவது முயற்சிக்காக ஒருமுறை திரும்ப வரும். இரண்டாவது முயற்சிகள் உங்கள் ரேட்டிங்கை மாற்றாது.",
   "A streak freeze kept your {n}-day streak going.": "தொடர் காப்பு உங்கள் {n} நாள் தொடரைக் காப்பாற்றியது.",
   "About": "அறிமுகம்",
   "Achievement": "சாதனை",
@@ -188,7 +186,6 @@
   "Rank": "நிலை",
   "Rank streak": "நிலைத் தொடர்",
   "Rank streaks": "நிலைத் தொடர்கள்",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "நிலைத் தொடர்கள் (முன்னேற்றம் பகுதியில்): போகப் போகக் கடினமாகும் 15 புதிர்கள். குறிப்புகள் இல்லை, ஒரு தவறு செய்தால் வெளியே. இவை உங்கள் ரேட்டிங்கைப் பாதிக்காது.",
   "Ranks": "நிலைகள்",
   "Rating over time": "காலப்போக்கில் ரேட்டிங்",
   "Reload the page": "பக்கத்தை மீண்டும் ஏற்றுங்கள்",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 புதிர்கள், பெரும்பாலும் நீங்கள் மேம்படுத்துபவற்றிலிருந்து. பயிற்சி உங்கள் ரேட்டிங்கில் பாதியாகக் கணக்கிடப்படும்.",
   "Practice, puzzle {n} of {total}": "பயிற்சி, புதிர் {total}-இல் {n}",
   "{area}: {n} of {total}": "{area}: {total}-இல் {n}",
-  "Others: {n} of {total}": "மற்றவை: {total}-இல் {n}"
+  "Others: {n} of {total}": "மற்றவை: {total}-இல் {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "ஒவ்வொரு நகர்த்தலுக்கும் இரண்டு குறிப்புகள்: முதலாவது நகர்த்த வேண்டிய காயை ஒளிரச் செய்யும், இரண்டாவது அது போகும் இடத்துக்கு அம்புக்குறி வரையும். குறிப்புடன் தீர்த்தால் பாதி மதிப்புதான்.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "நீங்கள் தவறவிட்ட அல்லது குறிப்புடன் தீர்த்த புதிர் மறுநாள், பிறகு 3, 7, 14, 30 நாட்களுக்குப் பிறகு திரும்ப வரும். விரைவாகத் தீர்த்தால் நீண்ட நேரம் காத்திருக்கும்; தவறவிட்டால் மீண்டும் தொடக்கத்திலிருந்து. இந்த மறுபார்வைகள் உங்கள் ரேட்டிங்கை மாற்றாது.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "சுமார் 30 புதிர்களுக்குப் பிறகு உங்கள் பயிற்சியாளர் (முன்னேற்றம் பகுதியில்) நீங்கள் வலிமையானவற்றையும் மேம்படுத்த வேண்டியவற்றையும் காட்டுவார். “பலவீனங்களைப் பயிற்சி செய்” உங்களுக்கு 10 கலந்த புதிர்களைத் தரும், பெரும்பாலும் அவற்றிலிருந்து, எது எது என்று சொல்லாமல். பயிற்சி உங்கள் ரேட்டிங்கில் பாதியாகக் கணக்கிடப்படும்.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "நிலைத் தொடர்கள் (முன்னேற்றம் பகுதியில்): போகப் போகக் கடினமாகும் 15 புதிர்கள், எந்த நிலையிலும் திறந்திருக்கும். குறிப்புகள் இல்லை, ஒரு தவறு செய்தால் வெளியே. இவை உங்கள் ரேட்டிங்கைப் பாதிக்காது."
 };

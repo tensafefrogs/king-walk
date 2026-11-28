@@ -26,7 +26,6 @@
   "Cancel": "Annuller",
   "Practice": "Øvelse",
   "Practice: your daily result stays the same": "Øvelse: dit daglige resultat ændrer sig ikke",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Første tip får brikken, der skal flyttes, til at lyse. Andet tip tegner en pil hen til feltet, den skal til. Løser du den med tip, tæller det halvt.",
   "Follow the arrow": "Følg pilen",
   "Move the glowing piece": "Flyt den lysende brik",
   "Puzzles or the daily puzzle": "Opgaver eller dagens opgave",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 opgaver løst uden fejl og uden tip.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk skal have JavaScript slået til for at køre.</p>",
   "A Thousand Puzzles": "Tusind opgaver",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "En opgave, du misser, kommer igen én gang, cirka 30 opgaver senere, så du kan prøve igen. Andet forsøg ændrer ikke din rating.",
   "A streak freeze kept your {n}-day streak going.": "Et stimeskjold holdt din stime på {n} dage i live.",
   "About": "Om",
   "Achievement": "Præstation",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rangstime",
   "Rank streaks": "Rangstimer",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rangstimer (under Fremskridt): 15 opgaver, der bliver sværere undervejs. Ingen tip, én fejl, og du er ude. De påvirker ikke din rating.",
   "Ranks": "Rangtrin",
   "Rating over time": "Rating over tid",
   "Reload the page": "Genindlæs siden",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 opgaver, mest fra det, du arbejder på. Øvelse tæller halvt i din rating.",
   "Practice, puzzle {n} of {total}": "Øvelse, opgave {n} af {total}",
   "{area}: {n} of {total}": "{area}: {n} af {total}",
-  "Others: {n} of {total}": "Andre: {n} af {total}"
+  "Others: {n} of {total}": "Andre: {n} af {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Hvert træk har to tip: det første får brikken, der skal flyttes, til at lyse, det andet tegner en pil hen til feltet, den skal til. Løser du den med tip, tæller det halvt.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "En opgave, du misser eller løser med tip, kommer igen dagen efter og så efter 3, 7, 14 og 30 dage. Løser du den hurtigt, venter den længere; misser du den, starter den forfra. Disse gentagelser ændrer ikke din rating.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Efter omkring 30 opgaver viser din coach (under Fremskridt), hvad du er stærk i, og hvad du skal arbejde med. »Øv dine svage punkter« giver dig 10 blandede opgaver, mest fra dem, uden at sige, hvilken er hvilken. Øvelse tæller halvt i din rating.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rangstimer (under Fremskridt): 15 opgaver, der bliver sværere undervejs, åbne på alle ranger. Ingen tip, én fejl, og du er ude. De påvirker ikke din rating."
 };

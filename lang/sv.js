@@ -26,7 +26,6 @@
   "Cancel": "Avbryt",
   "Practice": "Träning",
   "Practice: your daily result stays the same": "Träning: ditt dagliga resultat ändras inte",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Den första ledtråden lyser upp pjäsen som ska flyttas. Den andra ritar en pil dit den ska. Löser du med ledtråd räknas det som halvt.",
   "Follow the arrow": "Följ pilen",
   "Move the glowing piece": "Flytta den lysande pjäsen",
   "Puzzles or the daily puzzle": "Problem eller dagens problem",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 problem lösta utan misstag och utan ledtrådar.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk behöver JavaScript påslaget för att fungera.</p>",
   "A Thousand Puzzles": "Tusen problem",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Ett missat problem kommer tillbaka en gång, ungefär 30 problem senare, för ett andra försök. Andra försök ändrar inte din rating.",
   "A streak freeze kept your {n}-day streak going.": "Ett svitskydd höll din svit på {n} dagar vid liv.",
   "About": "Om",
   "Achievement": "Prestation",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rangsvit",
   "Rank streaks": "Rangsviter",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rangsviter (under Framsteg): 15 problem som blir svårare och svårare. Inga ledtrådar, en miss och du är ute. Din rating påverkas inte.",
   "Ranks": "Ranger",
   "Rating over time": "Rating över tid",
   "Reload the page": "Ladda om sidan",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problem, mest från det du jobbar med. Träning räknas till hälften i din rating.",
   "Practice, puzzle {n} of {total}": "Träning, problem {n} av {total}",
   "{area}: {n} of {total}": "{area}: {n} av {total}",
-  "Others: {n} of {total}": "Övriga: {n} av {total}"
+  "Others: {n} of {total}": "Övriga: {n} av {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Varje drag har två ledtrådar: den första lyser upp pjäsen som ska flyttas, den andra ritar en pil dit den ska. Löser du med ledtråd räknas det som halvt.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Ett problem du missar eller löser med ledtråd kommer tillbaka nästa dag, sedan efter 3, 7, 14 och 30 dagar. Löser du det snabbt väntar det längre; missar du börjar det om. De här repetitionerna ändrar inte din rating.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Efter ungefär 30 problem visar din coach (under Framsteg) vad du är stark på och vad du bör öva på. ”Öva mina svaga punkter” ger dig 10 blandade problem, mest därifrån, utan att säga vilket som är vilket. Träning räknas till hälften i din rating.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rangsviter (under Framsteg): 15 problem som blir svårare och svårare, öppna på alla rangsteg. Inga ledtrådar, en miss och du är ute. Din rating påverkas inte."
 };

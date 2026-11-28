@@ -26,7 +26,6 @@
   "Cancel": "إلغاء",
   "Practice": "تدريب",
   "Practice: your daily result stays the same": "تدريب: نتيجتك اليومية لن تتغير",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "التلميح الأول يضيء القطعة التي يجب تحريكها، والثاني يرسم سهمًا إلى وجهتها. الحل بتلميح يُحسب نصف حل.",
   "Follow the arrow": "اتبع السهم",
   "Move the glowing piece": "حرّك القطعة المضيئة",
   "Puzzles or the daily puzzle": "الألغاز أو لغز اليوم",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 لغزًا محلولًا دون أخطاء أو تلميحات.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">يحتاج King Walk إلى تفعيل JavaScript ليعمل.</p>",
   "A Thousand Puzzles": "ألف لغز",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "اللغز الفائت يعود مرة واحدة، بعد نحو 30 لغزًا، لمحاولة ثانية. المحاولات الثانية لا تغيّر تقييمك.",
   "A streak freeze kept your {n}-day streak going.": "حافظ تجميد السلسلة على سلسلتك (أيام متتالية: {n}).",
   "About": "حول اللعبة",
   "Achievement": "إنجاز",
@@ -188,7 +186,6 @@
   "Rank": "الرتبة",
   "Rank streak": "سلسلة الرتبة",
   "Rank streaks": "سلاسل الرتب",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "سلاسل الرتب (ضمن التقدم): 15 لغزًا تزداد صعوبة كلما تقدمت. بلا تلميحات، وخطأ واحد يُخرجك. ولا تؤثر في تقييمك.",
   "Ranks": "الرتب",
   "Rating over time": "التقييم عبر الوقت",
   "Reload the page": "أعد تحميل الصفحة",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 ألغاز، أغلبها مما تركّز عليه. يُحتسب التدريب بنصف القيمة في تقييمك.",
   "Practice, puzzle {n} of {total}": "تدريب، اللغز {n} من {total}",
   "{area}: {n} of {total}": "{area}: {n} من {total}",
-  "Others: {n} of {total}": "غيرها: {n} من {total}"
+  "Others: {n} of {total}": "غيرها: {n} من {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "لكل نقلة تلميحان: الأول يضيء القطعة التي يجب تحريكها، والثاني يرسم سهمًا إلى وجهتها. الحل بتلميح يُحسب نصف حل.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "اللغز الذي تخطئ فيه أو تحله بتلميح يعود في اليوم التالي، ثم بعد 3 و7 و14 و30 يومًا. إن حللته بسرعة انتظر مدة أطول، وإن أخطأت فيه بدأ من جديد. هذه المراجعات لا تغيّر تقييمك.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "بعد نحو 30 لغزًا يعرض مدربك (ضمن التقدم) نقاط قوتك وما تحتاج أن تركّز عليه. زر «تدرّب على نقاط ضعفك» يعطيك 10 ألغاز مختلطة، أغلبها منها، دون أن يقول أيّها أيّها. يُحتسب التدريب بنصف القيمة في تقييمك.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "سلاسل الرتب (ضمن التقدم): 15 لغزًا تزداد صعوبة كلما تقدمت، ومتاحة لكل الرتب. بلا تلميحات، وخطأ واحد يُخرجك. ولا تؤثر في تقييمك."
 };

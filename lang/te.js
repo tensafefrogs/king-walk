@@ -26,7 +26,6 @@
   "Cancel": "రద్దు చేయండి",
   "Practice": "ప్రాక్టీస్",
   "Practice: your daily result stays the same": "ప్రాక్టీస్: మీ రోజువారీ ఫలితం మారదు",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "మొదటి సూచన కదపాల్సిన పావును వెలిగిస్తుంది. రెండోది అది వెళ్లే చోటికి బాణం గీస్తుంది. సూచనతో పరిష్కరిస్తే సగమే లెక్క.",
   "Follow the arrow": "బాణాన్ని అనుసరించండి",
   "Move the glowing piece": "మెరుస్తున్న పావును కదపండి",
   "Puzzles or the daily puzzle": "పజిల్స్ లేదా రోజువారీ పజిల్",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 పజిల్స్ తప్పులు, సూచనలు లేకుండా పరిష్కరించారు.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk పని చేయాలంటే JavaScript ఆన్‌లో ఉండాలి.</p>",
   "A Thousand Puzzles": "వెయ్యి పజిల్స్",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "మిస్ అయిన పజిల్ సుమారు 30 పజిల్స్ తర్వాత, రెండో ప్రయత్నం కోసం ఒకసారి మళ్లీ వస్తుంది. రెండో ప్రయత్నాలు మీ రేటింగ్‌ను మార్చవు.",
   "A streak freeze kept your {n}-day streak going.": "వరుస కవచం మీ వరుసను కాపాడింది (వరుస రోజులు: {n}).",
   "About": "పరిచయం",
   "Achievement": "సాధన",
@@ -188,7 +186,6 @@
   "Rank": "ర్యాంక్",
   "Rank streak": "ర్యాంక్ వరుస",
   "Rank streaks": "ర్యాంక్ వరుసలు",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "ర్యాంక్ వరుసలు (పురోగతి విభాగంలో): ముందుకు వెళ్లే కొద్దీ కష్టమయ్యే 15 పజిల్స్. సూచనలు లేవు, ఒక్క తప్పు చేస్తే బయటకు. ఇవి మీ రేటింగ్‌ను ప్రభావితం చేయవు.",
   "Ranks": "ర్యాంక్‌లు",
   "Rating over time": "కాలక్రమంలో రేటింగ్",
   "Reload the page": "పేజీని రీలోడ్ చేయండి",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 పజిల్స్, ఎక్కువగా మీరు మెరుగుపరుచుకుంటున్న వాటి నుంచి. ప్రాక్టీస్ మీ రేటింగ్‌లో సగమే లెక్కకు వస్తుంది.",
   "Practice, puzzle {n} of {total}": "ప్రాక్టీస్, పజిల్ {total}లో {n}",
   "{area}: {n} of {total}": "{area}: {total}లో {n}",
-  "Others: {n} of {total}": "ఇతరాలు: {total}లో {n}"
+  "Others: {n} of {total}": "ఇతరాలు: {total}లో {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "ప్రతి ఎత్తుకూ రెండు సూచనలు: మొదటిది కదపాల్సిన పావును వెలిగిస్తుంది, రెండోది అది వెళ్లే చోటికి బాణం గీస్తుంది. సూచనతో పరిష్కరిస్తే సగమే లెక్క.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "మీరు మిస్ చేసిన లేదా సూచనతో పరిష్కరించిన పజిల్ మరుసటి రోజు, తర్వాత 3, 7, 14, 30 రోజులకు మళ్లీ వస్తుంది. త్వరగా పరిష్కరిస్తే ఎక్కువ కాలం ఆగుతుంది; మిస్ చేస్తే మళ్లీ మొదటి నుంచి. ఈ పునశ్చరణలు మీ రేటింగ్‌ను మార్చవు.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "సుమారు 30 పజిల్స్ తర్వాత మీ కోచ్ (పురోగతి విభాగంలో) మీరు దేనిలో బలంగా ఉన్నారో, దేనిపై పనిచేయాలో చూపిస్తారు. “బలహీనతలను ప్రాక్టీస్ చేయండి” మీకు 10 కలిపిన పజిల్స్ ఇస్తుంది, ఎక్కువగా వాటి నుంచే, ఏది ఏదో చెప్పకుండా. ప్రాక్టీస్ మీ రేటింగ్‌లో సగమే లెక్కకు వస్తుంది.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "ర్యాంక్ వరుసలు (పురోగతి విభాగంలో): ముందుకు వెళ్లే కొద్దీ కష్టమయ్యే 15 పజిల్స్, ఏ ర్యాంక్‌లోనైనా ఆడవచ్చు. సూచనలు లేవు, ఒక్క తప్పు చేస్తే బయటకు. ఇవి మీ రేటింగ్‌ను ప్రభావితం చేయవు."
 };

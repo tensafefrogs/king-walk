@@ -26,7 +26,6 @@
   "Cancel": "રદ કરો",
   "Practice": "પ્રેક્ટિસ",
   "Practice: your daily result stays the same": "પ્રેક્ટિસ: તમારું દૈનિક પરિણામ બદલાતું નથી",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "પહેલો સંકેત ચાલવાનું મહોરું ચમકાવે છે. બીજો સંકેત તે જ્યાં જશે ત્યાં સુધી તીર દોરે છે. સંકેત લઈને ઉકેલેલો કોયડો અડધો ગણાય છે.",
   "Follow the arrow": "તીરને અનુસરો",
   "Move the glowing piece": "ચમકતું મહોરું ચાલો",
   "Puzzles or the daily puzzle": "કોયડા કે દૈનિક કોયડો",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "કોઈ ભૂલ કે સંકેત વગર 50 કોયડા ઉકેલ્યા.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk ચલાવવા માટે JavaScript ચાલુ હોવી જરૂરી છે.</p>",
   "A Thousand Puzzles": "હજાર કોયડા",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "ચૂકી ગયેલો કોયડો લગભગ 30 કોયડા પછી બીજા પ્રયાસ માટે એક વાર પાછો આવે છે. બીજા પ્રયાસથી તમારું રેટિંગ બદલાતું નથી.",
   "A streak freeze kept your {n}-day streak going.": "સ્ટ્રીક ફ્રીઝે તમારી {n} દિવસની સ્ટ્રીક ચાલુ રાખી.",
   "About": "વિશે",
   "Achievement": "સિદ્ધિ",
@@ -188,7 +186,6 @@
   "Rank": "રેન્ક",
   "Rank streak": "રેન્ક સ્ટ્રીક",
   "Rank streaks": "રેન્ક સ્ટ્રીક",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "રેન્ક સ્ટ્રીક (પ્રગતિ વિભાગમાં): 15 કોયડા જે આગળ જતાં અઘરા થાય છે. કોઈ સંકેત નહીં, એક ભૂલ અને તમે બહાર. તેનાથી તમારું રેટિંગ બદલાતું નથી.",
   "Ranks": "રેન્ક",
   "Rating over time": "સમય સાથે રેટિંગ",
   "Reload the page": "પેજ ફરી લોડ કરો",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 કોયડા, મોટા ભાગના જેના પર તમે કામ કરો છો તેમાંથી. પ્રેક્ટિસ તમારા રેટિંગમાં અડધી ગણાય છે.",
   "Practice, puzzle {n} of {total}": "પ્રેક્ટિસ, કોયડો {n}/{total}",
   "{area}: {n} of {total}": "{area}: {total}માંથી {n}",
-  "Others: {n} of {total}": "અન્ય: {total}માંથી {n}"
+  "Others: {n} of {total}": "અન્ય: {total}માંથી {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "દરેક ચાલના બે સંકેત છે: પહેલો ચાલવાનું મહોરું ચમકાવે છે, બીજો તે જ્યાં જશે ત્યાં સુધી તીર દોરે છે. સંકેત લઈને ઉકેલેલો કોયડો અડધો ગણાય છે.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "જે કોયડો તમે ચૂકો અથવા સંકેત લઈને ઉકેલો, તે બીજા દિવસે પાછો આવે છે, પછી 3, 7, 14 અને 30 દિવસ પછી. ઝડપથી ઉકેલો તો વધુ રાહ જુએ છે; ચૂકો તો ફરી શરૂઆતથી. આ પુનરાવર્તનોથી તમારું રેટિંગ બદલાતું નથી.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "લગભગ 30 કોયડા પછી તમારો કોચ (પ્રગતિ વિભાગમાં) બતાવે છે કે તમે શેમાં મજબૂત છો અને શેના પર કામ કરવું. “નબળાં પાસાંની પ્રેક્ટિસ કરો” તમને 10 મિશ્ર કોયડા આપે છે, મોટા ભાગના તેમાંથી, કયો કયો છે તે કહ્યા વિના. પ્રેક્ટિસ તમારા રેટિંગમાં અડધી ગણાય છે.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "રેન્ક સ્ટ્રીક (પ્રગતિ વિભાગમાં): 15 કોયડા જે આગળ જતાં અઘરા થાય છે, કોઈ પણ રેન્કે ખુલ્લા. કોઈ સંકેત નહીં, એક ભૂલ અને તમે બહાર. તેનાથી તમારું રેટિંગ બદલાતું નથી."
 };

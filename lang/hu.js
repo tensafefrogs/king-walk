@@ -26,7 +26,6 @@
   "Cancel": "Mégse",
   "Practice": "Gyakorlás",
   "Practice: your daily result stays the same": "Gyakorlás: a napi eredményed nem változik",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Az első tipp kiemeli a figurát, amellyel lépni kell. A második nyilat rajzol oda, ahová lép. A tippel megoldott feladvány csak felet ér.",
   "Follow the arrow": "Kövesd a nyilat",
   "Move the glowing piece": "Lépj a világító figurával",
   "Puzzles or the daily puzzle": "Feladványok vagy a napi feladvány",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 feladvány megoldva hiba és tipp nélkül.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">A King Walk futtatásához kapcsold be a JavaScriptet.</p>",
   "A Thousand Puzzles": "Ezer feladvány",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Az elrontott feladvány egyszer visszatér, nagyjából 30 feladvánnyal később, egy második próbára. A második próbák nem változtatnak az értékszámodon.",
   "A streak freeze kept your {n}-day streak going.": "Egy sorozatvédő megmentette a sorozatodat ({n} nap).",
   "About": "Névjegy",
   "Achievement": "Eredmény",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rangsorozat",
   "Rank streaks": "Rangsorozatok",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rangsorozatok (az Előrehaladás alatt): 15 feladvány, egyre nehezebbek. Nincs tipp, egy hiba, és kiestél. Az értékszámodat nem érintik.",
   "Ranks": "Rangok",
   "Rating over time": "Értékszám alakulása",
   "Reload the page": "Töltsd újra az oldalt",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 feladvány, főleg abból, amin dolgozol. A gyakorlás fele súllyal számít az értékszámodba.",
   "Practice, puzzle {n} of {total}": "Gyakorlás, feladvány: {n}/{total}",
   "{area}: {n} of {total}": "{area}: {n}/{total}",
-  "Others: {n} of {total}": "Egyéb: {n}/{total}"
+  "Others: {n} of {total}": "Egyéb: {n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Minden lépéshez két tipp jár: az első kiemeli a figurát, amellyel lépni kell, a második nyilat rajzol oda, ahová lép. A tippel megoldott feladvány csak felet ér.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Az a feladvány, amit elrontasz vagy tippel oldasz meg, másnap visszajön, aztán 3, 7, 14 és 30 nap múlva. Ha gyorsan megoldod, tovább vár; ha elrontod, elölről kezdődik. Ezek az ismétlések nem változtatnak az értékszámodon.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Nagyjából 30 feladvány után az edződ (az Előrehaladás alatt) megmutatja, miben vagy erős és min dolgozz. A „Gyenge pontjaim gyakorlása” 10 vegyes feladványt ad, főleg ezekből, anélkül hogy elárulná, melyik melyik. A gyakorlás fele súllyal számít az értékszámodba.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rangsorozatok (az Előrehaladás alatt): 15 feladvány, egyre nehezebbek, bármely rangnál játszhatók. Nincs tipp, egy hiba, és kiestél. Az értékszámodat nem érintik."
 };

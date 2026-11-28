@@ -26,7 +26,6 @@
   "Cancel": "キャンセル",
   "Practice": "練習",
   "Practice: your daily result stays the same": "練習：今日の記録は変わりません",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "1つ目のヒントで動かす駒が光ります。2つ目は行き先まで矢印を描きます。ヒントを使って解くと半分の扱いです。",
   "Follow the arrow": "矢印のとおりに",
   "Move the glowing piece": "光っている駒を動かそう",
   "Puzzles or the daily puzzle": "パズルかデイリーパズル",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "ミスもヒントもなしで50問正解。",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walkを遊ぶにはJavaScriptを有効にしてください。</p>",
   "A Thousand Puzzles": "パズル1,000問",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "ミスしたパズルは、約30問後にもう一度だけ出題されます。再挑戦はレーティングに影響しません。",
   "A streak freeze kept your {n}-day streak going.": "連続記録フリーズで、{n}日連続の記録がつながりました。",
   "About": "情報",
   "Achievement": "達成項目",
@@ -188,7 +186,6 @@
   "Rank": "ランク",
   "Rank streak": "ランクチャレンジ",
   "Rank streaks": "ランクチャレンジ",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "ランクチャレンジ（「進行状況」から）：どんどん難しくなる15問。ヒントなし、1回ミスしたら即終了。レーティングはノーダメージ。",
   "Ranks": "ランク",
   "Rating over time": "レーティングの推移",
   "Reload the page": "ページを再読み込みしてください",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "苦手な種類を中心に10問。練習はレーティングに半分だけ反映されます。",
   "Practice, puzzle {n} of {total}": "練習、{n}/{total}問目",
   "{area}: {n} of {total}": "{area}：{n}/{total}",
-  "Others: {n} of {total}": "その他：{n}/{total}"
+  "Others: {n} of {total}": "その他：{n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "1手ごとにヒントは2つ。1つ目で動かす駒が光り、2つ目は行き先まで矢印を描きます。ヒントを使って解くと半分の扱いです。",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "ミスしたパズルやヒントを使って解いたパズルは、翌日、そのあと3日、7日、14日、30日後に再登場します。すばやく解けば間隔が延び、ミスすると最初からやり直しです。この復習はレーティングに影響しません。",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "約30問を解くと、コーチ（「進行状況」）が得意なことと苦手なことを教えてくれます。「苦手を練習する」では、主に苦手な種類から混ぜた10問を、どれがどれかを伏せて出題します。練習はレーティングに半分だけ反映されます。",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "ランクチャレンジ（「進行状況」から）：どんどん難しくなる15問。どのランクでも挑戦できます。ヒントなし、1回ミスしたら即終了。レーティングはノーダメージ。"
 };

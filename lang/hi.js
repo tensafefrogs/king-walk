@@ -26,7 +26,6 @@
   "Cancel": "रद्द करें",
   "Practice": "अभ्यास",
   "Practice: your daily result stays the same": "अभ्यास: आपका आज का नतीजा नहीं बदलेगा",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "पहला संकेत चलने वाले मोहरे को चमकाता है। दूसरा तीर से दिखाता है कि वह कहाँ जाएगा। संकेत लेकर हल करने पर आधा ही गिना जाता है।",
   "Follow the arrow": "तीर के हिसाब से चलें",
   "Move the glowing piece": "चमकता मोहरा चलें",
   "Puzzles or the daily puzzle": "पहेलियाँ या दैनिक पहेली",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 पहेलियाँ बिना गलती और बिना संकेत के हल कीं।",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk चलाने के लिए JavaScript चालू होना ज़रूरी है।</p>",
   "A Thousand Puzzles": "हज़ार पहेलियाँ",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "छूटी हुई पहेली लगभग 30 पहेलियों बाद एक बार फिर आती है, दूसरी कोशिश के लिए। दूसरी कोशिश से आपकी रेटिंग नहीं बदलती।",
   "A streak freeze kept your {n}-day streak going.": "स्ट्रीक फ़्रीज़ ने आपकी {n} दिन की स्ट्रीक बचा ली।",
   "About": "परिचय",
   "Achievement": "उपलब्धि",
@@ -188,7 +186,6 @@
   "Rank": "रैंक",
   "Rank streak": "रैंक स्ट्रीक",
   "Rank streaks": "रैंक स्ट्रीक",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "रैंक स्ट्रीक (प्रगति में): 15 पहेलियाँ जो आगे बढ़ते-बढ़ते कठिन होती जाती हैं। कोई संकेत नहीं, एक गलती और आप बाहर। इनका आपकी रेटिंग पर कोई असर नहीं पड़ता।",
   "Ranks": "रैंक",
   "Rating over time": "समय के साथ रेटिंग",
   "Reload the page": "पेज दोबारा लोड करें",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 पहेलियाँ, ज़्यादातर उन चीज़ों से जिन पर आप काम कर रहे हैं। अभ्यास आपकी रेटिंग में आधा गिना जाता है।",
   "Practice, puzzle {n} of {total}": "अभ्यास, {total} में से पहेली {n}",
   "{area}: {n} of {total}": "{area}: {total} में से {n}",
-  "Others: {n} of {total}": "बाकी: {total} में से {n}"
+  "Others: {n} of {total}": "बाकी: {total} में से {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "हर चाल के दो संकेत हैं: पहला चलने वाले मोहरे को चमकाता है, दूसरा तीर से दिखाता है कि वह कहाँ जाएगा। संकेत लेकर हल करने पर आधा ही गिना जाता है।",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "जो पहेली आपसे छूटे या जिसे आप संकेत लेकर हल करें, वह अगले दिन लौटती है, फिर 3, 7, 14 और 30 दिन बाद। जल्दी हल करें तो वह ज़्यादा देर बाद आती है; छूट जाए तो फिर से शुरू। इन दोहरावों से आपकी रेटिंग नहीं बदलती।",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "लगभग 30 पहेलियों के बाद आपका कोच (प्रगति में) दिखाता है कि आप किसमें मज़बूत हैं और किस पर काम करना है। “कमज़ोरियों का अभ्यास करें” आपको 10 मिली-जुली पहेलियाँ देता है, ज़्यादातर उन्हीं से, बिना बताए कि कौन-सी क्या है। अभ्यास आपकी रेटिंग में आधा गिना जाता है।",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "रैंक स्ट्रीक (प्रगति में): 15 पहेलियाँ जो आगे बढ़ते-बढ़ते कठिन होती जाती हैं, हर रैंक पर खुली। कोई संकेत नहीं, एक गलती और आप बाहर। इनका आपकी रेटिंग पर कोई असर नहीं पड़ता।"
 };

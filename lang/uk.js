@@ -26,7 +26,6 @@
   "Cancel": "Скасувати",
   "Practice": "Тренування",
   "Practice: your daily result stays the same": "Тренування: результат дня не зміниться",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Перша підказка підсвічує фігуру, якою треба ходити. Друга малює стрілку туди, куди вона піде. Розв’язок із підказкою зараховується наполовину.",
   "Follow the arrow": "Ходи за стрілкою",
   "Move the glowing piece": "Ходи фігурою, що світиться",
   "Puzzles or the daily puzzle": "Задачі або задача дня",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 задач розв’язано без помилок і без підказок.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">Для роботи King Walk потрібно ввімкнути JavaScript.</p>",
   "A Thousand Puzzles": "Тисяча задач",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Нерозв’язана задача повернеться один раз, приблизно через 30 задач, для другої спроби. Другі спроби не змінюють твій рейтинг.",
   "A streak freeze kept your {n}-day streak going.": "Заморозка врятувала твою серію (днів поспіль: {n}).",
   "About": "Про гру",
   "Achievement": "Досягнення",
@@ -188,7 +186,6 @@
   "Rank": "Звання",
   "Rank streak": "Серія за званням",
   "Rank streaks": "Серії за званнями",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Серії за званнями (у розділі «Прогрес»): 15 задач, кожна складніша за попередню. Без підказок, одна помилка — і ти вибуваєш. На рейтинг вони не впливають.",
   "Ranks": "Звання",
   "Rating over time": "Динаміка рейтингу",
   "Reload the page": "Перезавантаж сторінку",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 задач, переважно на те, над чим ти працюєш. Тренування йде в рейтинг наполовину.",
   "Practice, puzzle {n} of {total}": "Тренування, задача {n} з {total}",
   "{area}: {n} of {total}": "{area}: {n} з {total}",
-  "Others: {n} of {total}": "Інші: {n} з {total}"
+  "Others: {n} of {total}": "Інші: {n} з {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "У кожного ходу дві підказки: перша підсвічує фігуру, якою треба ходити, друга малює стрілку туди, куди вона піде. Розв’язок із підказкою зараховується наполовину.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Задача, яку ти не розв’язав або розв’язав із підказкою, повертається наступного дня, а потім через 3, 7, 14 і 30 днів. Розв’яжеш швидко — чекатиме довше; помилишся — почнеться заново. Ці повторення не змінюють твій рейтинг.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Приблизно після 30 задач тренер (у розділі «Прогрес») покаже твої сильні сторони і над чим працювати. «Тренувати слабкі місця» дає 10 перемішаних задач, здебільшого на це, не кажучи, яка є яка. Тренування йде в рейтинг наполовину.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Серії за званнями (у розділі «Прогрес»): 15 задач, кожна складніша за попередню, відкриті за будь-якого звання. Без підказок, одна помилка — і ти вибуваєш. На рейтинг вони не впливають."
 };

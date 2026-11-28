@@ -26,7 +26,6 @@
   "Cancel": "रद्द करा",
   "Practice": "सराव",
   "Practice: your daily result stays the same": "सराव: तुमचा आजचा निकाल बदलणार नाही",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "पहिला इशारा कोणता मोहरा हलवायचा ते उजळवतो. दुसरा तो कुठे जातो तिथपर्यंत बाण काढतो. इशारा घेऊन सोडवलेले कोडे अर्धेच धरले जाते.",
   "Follow the arrow": "बाणाप्रमाणे खेळा",
   "Move the glowing piece": "चमकणारा मोहरा हलवा",
   "Puzzles or the daily puzzle": "कोडी किंवा दैनिक कोडे",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 कोडी बिनचूक आणि इशाऱ्याशिवाय सोडवली.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk चालवण्यासाठी JavaScript चालू असणे आवश्यक आहे.</p>",
   "A Thousand Puzzles": "हजार कोडी",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "चुकलेले कोडे सुमारे 30 कोड्यांनंतर पुन्हा एकदा येते, दुसऱ्या प्रयत्नासाठी. दुसऱ्या प्रयत्नाने तुमचे रेटिंग बदलत नाही.",
   "A streak freeze kept your {n}-day streak going.": "स्ट्रीक फ्रीझमुळे तुमची {n} दिवसांची स्ट्रीक वाचली.",
   "About": "माहिती",
   "Achievement": "कामगिरी",
@@ -188,7 +186,6 @@
   "Rank": "दर्जा",
   "Rank streak": "दर्जा स्ट्रीक",
   "Rank streaks": "दर्जा स्ट्रीक",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "दर्जा स्ट्रीक (प्रगतीमध्ये): 15 कोडी, जी पुढे जाताना अवघड होत जातात. इशारे नाहीत, एक चूक आणि तुम्ही बाद. यांचा तुमच्या रेटिंगवर परिणाम होत नाही.",
   "Ranks": "दर्जे",
   "Rating over time": "काळानुसार रेटिंग",
   "Reload the page": "पेज रीलोड करा",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 कोडी, बहुतेक ज्यावर तुम्ही काम करत आहात त्यातून. सराव तुमच्या रेटिंगमध्ये अर्धा मोजला जातो.",
   "Practice, puzzle {n} of {total}": "सराव, {total} पैकी कोडे {n}",
   "{area}: {n} of {total}": "{area}: {total} पैकी {n}",
-  "Others: {n} of {total}": "इतर: {total} पैकी {n}"
+  "Others: {n} of {total}": "इतर: {total} पैकी {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "प्रत्येक चालीसाठी दोन इशारे: पहिला कोणता मोहरा हलवायचा ते उजळवतो, दुसरा तो कुठे जातो तिथपर्यंत बाण काढतो. इशारा घेऊन सोडवलेले कोडे अर्धेच धरले जाते.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "जे कोडे तुमचे चुकते किंवा इशारा घेऊन सुटते, ते दुसऱ्या दिवशी परत येते, मग 3, 7, 14 आणि 30 दिवसांनी. पटकन सोडवले तर ते जास्त थांबते; चुकले तर पुन्हा सुरुवातीपासून. या उजळण्यांनी तुमचे रेटिंग बदलत नाही.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "सुमारे 30 कोडी झाल्यावर तुमचा कोच (प्रगतीमध्ये) तुम्ही कशात भारी आहात आणि कशावर काम करायचे ते दाखवतो. “कमकुवत बाजूंचा सराव करा” तुम्हाला 10 मिश्र कोडी देते, बहुतेक त्यातूनच, कोणते कोणते ते न सांगता. सराव तुमच्या रेटिंगमध्ये अर्धा मोजला जातो.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "दर्जा स्ट्रीक (प्रगतीमध्ये): 15 कोडी, जी पुढे जाताना अवघड होत जातात, कोणत्याही दर्जावर खुली. इशारे नाहीत, एक चूक आणि तुम्ही बाद. यांचा तुमच्या रेटिंगवर परिणाम होत नाही."
 };

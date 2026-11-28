@@ -26,7 +26,6 @@
   "Cancel": "Odustani",
   "Practice": "Vježba",
   "Practice: your daily result stays the same": "Vježba: dnevni rezultat ostaje isti",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Prvi savjet osvijetli figuru kojom treba igrati. Drugi nacrta strelicu do polja na koje ide. Rješenje uz savjet vrijedi pola.",
   "Follow the arrow": "Prati strelicu",
   "Move the glowing piece": "Odigraj svijetlećom figurom",
   "Puzzles or the daily puzzle": "Zadaci ili dnevni zadatak",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 zadataka riješeno bez pogreške i bez savjeta.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">Za rad igre King Walk potrebno je uključiti JavaScript.</p>",
   "A Thousand Puzzles": "Tisuća zadataka",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Promašeni zadatak vraća se jednom, otprilike 30 zadataka kasnije, za drugi pokušaj. Drugi pokušaji ne mijenjaju tvoj rejting.",
   "A streak freeze kept your {n}-day streak going.": "Zamrzavanje je spasilo tvoj niz (dana zaredom: {n}).",
   "About": "O igri",
   "Achievement": "Postignuće",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Niz ranga",
   "Rank streaks": "Nizovi rangova",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Nizovi rangova (pod Napredak): 15 zadataka, svaki teži od prethodnog. Bez savjeta, jedan promašaj i ispadaš. Na rejting ne utječu.",
   "Ranks": "Rangovi",
   "Rating over time": "Rejting kroz vrijeme",
   "Reload the page": "Ponovno učitaj stranicu",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 zadataka, uglavnom iz onoga na čemu radiš. Vježba se računa upola u tvoj rejting.",
   "Practice, puzzle {n} of {total}": "Vježba, zadatak {n} od {total}",
   "{area}: {n} of {total}": "{area}: {n} od {total}",
-  "Others: {n} of {total}": "Ostalo: {n} od {total}"
+  "Others: {n} of {total}": "Ostalo: {n} od {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Svaki potez ima dva savjeta: prvi osvijetli figuru kojom treba igrati, drugi nacrta strelicu do polja na koje ide. Rješenje uz savjet vrijedi pola.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Zadatak koji promašiš ili riješiš uz savjet vraća se sljedeći dan, pa nakon 3, 7, 14 i 30 dana. Riješiš li ga brzo, čeka dulje; promašiš li ga, kreće ispočetka. Ta ponavljanja ne mijenjaju tvoj rejting.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Nakon otprilike 30 zadataka trener (pod Napredak) pokazuje u čemu si jak i na čemu trebaš raditi. „Vježbaj slabe točke” daje ti 10 izmiješanih zadataka, uglavnom iz toga, bez otkrivanja koji je koji. Vježba se računa upola u tvoj rejting.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Nizovi rangova (pod Napredak): 15 zadataka, svaki teži od prethodnog, otvoreni na svakom rangu. Bez savjeta, jedan promašaj i ispadaš. Na rejting ne utječu."
 };

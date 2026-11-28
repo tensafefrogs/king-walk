@@ -26,7 +26,6 @@
   "Cancel": "Annulla",
   "Practice": "Allenamento",
   "Practice: your daily result stays the same": "Allenamento: il risultato del giorno non cambia",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Il primo suggerimento illumina il pezzo da muovere. Il secondo disegna una freccia fino alla sua casa. Risolvere con un suggerimento vale metà.",
   "Follow the arrow": "Segui la freccia",
   "Move the glowing piece": "Muovi il pezzo che brilla",
   "Puzzles or the daily puzzle": "Problemi o il problema del giorno",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 problemi risolti senza errori e senza suggerimenti.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk ha bisogno di JavaScript attivo per funzionare.</p>",
   "A Thousand Puzzles": "Mille problemi",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Un problema sbagliato torna una volta, circa 30 problemi dopo, per un secondo tentativo. I secondi tentativi non cambiano il tuo punteggio.",
   "A streak freeze kept your {n}-day streak going.": "Un salvaserie ha tenuto viva la tua serie di {n} giorni.",
   "About": "Info",
   "Achievement": "Obiettivo",
@@ -188,7 +186,6 @@
   "Rank": "Grado",
   "Rank streak": "Serie per grado",
   "Rank streaks": "Serie per grado",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Serie per grado (in Progressi): 15 problemi sempre più difficili. Niente suggerimenti, un errore e sei fuori. Il tuo punteggio non se ne accorge nemmeno.",
   "Ranks": "Gradi",
   "Rating over time": "Punteggio nel tempo",
   "Reload the page": "Ricarica la pagina",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemi, soprattutto su ciò su cui stai lavorando. L'allenamento vale metà per il tuo punteggio.",
   "Practice, puzzle {n} of {total}": "Allenamento, problema {n} su {total}",
   "{area}: {n} of {total}": "{area}: {n} su {total}",
-  "Others: {n} of {total}": "Altri: {n} su {total}"
+  "Others: {n} of {total}": "Altri: {n} su {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Ogni mossa ha due suggerimenti: il primo illumina il pezzo da muovere, il secondo disegna una freccia fino alla sua casa. Risolvere con un suggerimento vale metà.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Un problema che sbagli, o risolvi con un suggerimento, torna il giorno dopo, poi dopo 3, 7, 14 e 30 giorni. Se lo risolvi in fretta aspetta di più; se lo sbagli ricomincia. Questi ripassi non cambiano il tuo punteggio.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Dopo una trentina di problemi, il tuo coach (in Progressi) mostra i tuoi punti forti e su cosa lavorare. «Allena i punti deboli» ti dà 10 problemi misti, soprattutto su quelli, senza dire quale è quale. L'allenamento vale metà per il tuo punteggio.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Serie per grado (in Progressi): 15 problemi sempre più difficili, aperte a ogni grado. Niente suggerimenti, un errore e sei fuori. Il tuo punteggio non se ne accorge nemmeno."
 };

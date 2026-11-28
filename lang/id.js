@@ -26,7 +26,6 @@
   "Cancel": "Batal",
   "Practice": "Latihan",
   "Practice: your daily result stays the same": "Latihan: hasil harianmu tidak berubah",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Petunjuk pertama menyalakan bidak yang harus digerakkan. Petunjuk kedua menggambar panah ke petak tujuannya. Selesai dengan petunjuk dihitung setengah.",
   "Follow the arrow": "Ikuti panahnya",
   "Move the glowing piece": "Gerakkan bidak yang menyala",
   "Puzzles or the daily puzzle": "Puzzle atau puzzle harian",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 puzzle selesai tanpa salah dan tanpa petunjuk.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk butuh JavaScript yang aktif untuk berjalan.</p>",
   "A Thousand Puzzles": "Seribu Puzzle",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Puzzle yang terlewat akan muncul lagi sekali, sekitar 30 puzzle kemudian, untuk percobaan kedua. Percobaan kedua tidak mengubah ratingmu.",
   "A streak freeze kept your {n}-day streak going.": "Pembeku runtunan menyelamatkan runtunan {n} harimu.",
   "About": "Tentang",
   "Achievement": "Pencapaian",
@@ -188,7 +186,6 @@
   "Rank": "Pangkat",
   "Rank streak": "Runtunan pangkat",
   "Rank streaks": "Runtunan pangkat",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Runtunan pangkat (di Progres): 15 puzzle yang makin lama makin sulit. Tanpa petunjuk, sekali salah langsung gugur. Tidak memengaruhi ratingmu.",
   "Ranks": "Pangkat",
   "Rating over time": "Rating dari waktu ke waktu",
   "Reload the page": "Muat ulang halaman",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 puzzle, kebanyakan dari yang sedang kamu latih. Latihan dihitung setengah untuk ratingmu.",
   "Practice, puzzle {n} of {total}": "Latihan, puzzle {n} dari {total}",
   "{area}: {n} of {total}": "{area}: {n} dari {total}",
-  "Others: {n} of {total}": "Lainnya: {n} dari {total}"
+  "Others: {n} of {total}": "Lainnya: {n} dari {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Setiap langkah punya dua petunjuk: yang pertama menyalakan bidak yang harus digerakkan, yang kedua menggambar panah ke petak tujuannya. Selesai dengan petunjuk dihitung setengah.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Puzzle yang kamu lewatkan, atau selesaikan dengan petunjuk, muncul lagi besoknya, lalu setelah 3, 7, 14, dan 30 hari. Selesaikan dengan cepat dan ia menunggu lebih lama; lewatkan dan ia mulai lagi. Ulangan ini tidak mengubah ratingmu.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Setelah sekitar 30 puzzle, pelatihmu (di Progres) menunjukkan kekuatanmu dan apa yang perlu dilatih. \"Latih kelemahanku\" memberimu 10 puzzle campuran, kebanyakan dari situ, tanpa memberi tahu yang mana. Latihan dihitung setengah untuk ratingmu.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Runtunan pangkat (di Progres): 15 puzzle yang makin lama makin sulit, terbuka di pangkat mana pun. Tanpa petunjuk, sekali salah langsung gugur. Tidak memengaruhi ratingmu."
 };

@@ -26,7 +26,6 @@
   "Cancel": "取消",
   "Practice": "練習",
   "Practice: your daily result stays the same": "練習：不影響今天的每日成績",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "第一個提示會點亮要走的棋子，第二個會畫出箭頭指向目的地。靠提示解出只算一半。",
   "Follow the arrow": "照著箭頭走",
   "Move the glowing piece": "移動發光的棋子",
   "Puzzles or the daily puzzle": "謎題或每日謎題",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "零失誤、不用提示，解出 50 道謎題。",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk 需要開啟 JavaScript 才能執行。</p>",
   "A Thousand Puzzles": "千題達成",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "解錯的謎題會在大約 30 題後再出現一次，讓你再挑戰一次。第二次挑戰不會影響你的積分。",
   "A streak freeze kept your {n}-day streak going.": "連勝保護卡幫你保住了 {n} 天的連勝。",
   "About": "關於",
   "Achievement": "成就",
@@ -188,7 +186,6 @@
   "Rank": "階級",
   "Rank streak": "階級挑戰",
   "Rank streaks": "階級挑戰",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "階級挑戰（在「進度」中）：15 道越來越難的謎題。不能用提示，錯一次就出局。完全不影響積分。",
   "Ranks": "階級",
   "Rating over time": "積分走勢",
   "Reload the page": "請重新整理頁面",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 道謎題，大多來自你需要加強的類型。練習只以一半計入積分。",
   "Practice, puzzle {n} of {total}": "練習，第 {n}/{total} 題",
   "{area}: {n} of {total}": "{area}：{n}/{total}",
-  "Others: {n} of {total}": "其他：{n}/{total}"
+  "Others: {n} of {total}": "其他：{n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "每一步有兩個提示：第一個會點亮要走的棋子，第二個會畫出箭頭指向目的地。靠提示解出只算一半。",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "解錯或靠提示解出的謎題會在隔天再出現，之後再隔 3、7、14、30 天出現。解得快就隔得更久；解錯就從頭開始。這些複習不會影響你的積分。",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "解了約 30 題後，教練（在「進度」中）會告訴你擅長什麼、需要加強什麼。「練習我的弱項」會給你 10 道混合謎題，大多來自這些類型，但不說哪題是哪種。練習只以一半計入積分。",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "階級挑戰（在「進度」中）：15 道越來越難的謎題，任何階級都能挑戰。不能用提示，錯一次就出局。完全不影響積分。"
 };

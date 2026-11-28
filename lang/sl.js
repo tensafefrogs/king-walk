@@ -26,7 +26,6 @@
   "Cancel": "Prekliči",
   "Practice": "Vaja",
   "Practice: your daily result stays the same": "Vaja: dnevni rezultat ostane enak",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Prvi namig osvetli figuro, s katero je treba potegniti. Drugi nariše puščico, kam gre. Rešitev z namigom šteje pol.",
   "Follow the arrow": "Sledi puščici",
   "Move the glowing piece": "Potegni s svetlečo figuro",
   "Puzzles or the daily puzzle": "Uganke ali dnevna uganka",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 ugank rešenih brez napak in brez namigov.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">Za delovanje King Walk mora biti vklopljen JavaScript.</p>",
   "A Thousand Puzzles": "Tisoč ugank",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Nerešena uganka se enkrat vrne, približno 30 ugank pozneje, za drugi poskus. Drugi poskusi ne spremenijo tvojega ratinga.",
   "A streak freeze kept your {n}-day streak going.": "Zamrznitev je rešila tvoj niz (dni zapored: {n}).",
   "About": "O igri",
   "Achievement": "Dosežek",
@@ -188,7 +186,6 @@
   "Rank": "Naziv",
   "Rank streak": "Niz naziva",
   "Rank streaks": "Nizi nazivov",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Nizi nazivov (pod Napredek): 15 ugank, vsaka težja od prejšnje. Brez namigov, ena napaka in izpadeš. Na rating ne vplivajo.",
   "Ranks": "Nazivi",
   "Rating over time": "Rating skozi čas",
   "Reload the page": "Znova naloži stran",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 ugank, večinoma iz tega, kar vadiš. Vaja šteje polovično za tvoj rating.",
   "Practice, puzzle {n} of {total}": "Vaja, uganka {n} od {total}",
   "{area}: {n} of {total}": "{area}: {n} od {total}",
-  "Others: {n} of {total}": "Drugo: {n} od {total}"
+  "Others: {n} of {total}": "Drugo: {n} od {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Vsaka poteza ima dva namiga: prvi osvetli figuro, s katero je treba potegniti, drugi nariše puščico, kam gre. Rešitev z namigom šteje pol.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Uganka, ki jo zgrešiš ali rešiš z namigom, se vrne naslednji dan, nato čez 3, 7, 14 in 30 dni. Reši jo hitro in počaka dlje; zgreši jo in začne znova. Ta ponavljanja ne spremenijo tvojega ratinga.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Po približno 30 ugankah ti trener (pod Napredek) pokaže, v čem si močan in kaj vaditi. »Vadi šibke točke« ti da 10 premešanih ugank, večinoma iz tega, ne da bi povedal, katera je katera. Vaja šteje polovično za tvoj rating.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Nizi nazivov (pod Napredek): 15 ugank, vsaka težja od prejšnje, odprti pri vsakem nazivu. Brez namigov, ena napaka in izpadeš. Na rating ne vplivajo."
 };

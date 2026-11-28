@@ -26,7 +26,6 @@
   "Cancel": "Zrušiť",
   "Practice": "Tréning",
   "Practice: your daily result stays the same": "Tréning: dnešný výsledok sa nezmení",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Prvá nápoveda zvýrazní figúru, ktorou treba ťahať. Druhá nakreslí šípku, kam ide. Riešenie s nápovedou sa počíta za polovicu.",
   "Follow the arrow": "Choď podľa šípky",
   "Move the glowing piece": "Ťahaj svietiacou figúrou",
   "Puzzles or the daily puzzle": "Úlohy alebo úloha dňa",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 úloh vyriešených bez chýb a bez nápovedy.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk potrebuje na spustenie zapnutý JavaScript.</p>",
   "A Thousand Puzzles": "Tisíc úloh",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Nevyriešená úloha sa raz vráti, asi o 30 úloh neskôr, na druhý pokus. Druhé pokusy tvoj rating nemenia.",
   "A streak freeze kept your {n}-day streak going.": "Zmrazenie zachránilo tvoju sériu (dní v rade: {n}).",
   "About": "O hre",
   "Achievement": "Úspech",
@@ -188,7 +186,6 @@
   "Rank": "Hodnosť",
   "Rank streak": "Séria hodnosti",
   "Rank streaks": "Série hodností",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Série hodností (v časti Postup): 15 úloh, každá ťažšia ako predošlá. Bez nápovedy, jedna chyba a končíš. Rating neovplyvňujú.",
   "Ranks": "Hodnosti",
   "Rating over time": "Vývoj ratingu",
   "Reload the page": "Obnov stránku",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 úloh, hlavne z toho, na čom pracuješ. Tréning sa do ratingu počíta napoly.",
   "Practice, puzzle {n} of {total}": "Tréning, úloha {n} z {total}",
   "{area}: {n} of {total}": "{area}: {n} z {total}",
-  "Others: {n} of {total}": "Ostatné: {n} z {total}"
+  "Others: {n} of {total}": "Ostatné: {n} z {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Každý ťah má dve nápovedy: prvá zvýrazní figúru, ktorou treba ťahať, druhá nakreslí šípku, kam ide. Riešenie s nápovedou sa počíta za polovicu.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Úloha, ktorú nevyriešiš alebo vyriešiš s nápovedou, sa vráti na druhý deň, potom o 3, 7, 14 a 30 dní. Vyrieš ju rýchlo a počká dlhšie; pokazíš ju a začne odznova. Tieto opakovania tvoj rating nemenia.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Asi po 30 úlohách ti tréner (v časti Postup) ukáže tvoje silné stránky a na čom pracovať. „Trénovať slabé miesta“ ti dá 10 premiešaných úloh, hlavne z nich, bez prezradenia, ktorá je ktorá. Tréning sa do ratingu počíta napoly.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Série hodností (v časti Postup): 15 úloh, každá ťažšia ako predošlá, otvorené v každej hodnosti. Bez nápovedy, jedna chyba a končíš. Rating neovplyvňujú."
 };

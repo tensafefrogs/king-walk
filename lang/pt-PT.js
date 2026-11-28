@@ -15,12 +15,10 @@
   "Copy all of this code, then choose Paste save code on the other device.": "Copia este código inteiro e depois escolhe Colar código de gravação no outro dispositivo.",
   "Paste the code from the other device. It replaces the progress here.": "Cola o código do outro dispositivo. Substitui o progresso que está aqui.",
   "Practice: your daily result stays the same": "Treino: o teu resultado do dia não muda",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "A primeira dica ilumina a peça a mover. A segunda desenha uma seta até à casa dela. Resolver com dica conta por metade.",
   "Follow the arrow": "Segue a seta",
   "Move the glowing piece": "Move a peça que brilha",
   "Solve today's to start a streak.": "Resolve o de hoje para começares uma sequência.",
   "Everyone gets the same puzzle today. Monday's is gentle; each day is harder, up to Sunday.": "Hoje toda a gente recebe o mesmo problema. O de segunda é tranquilo; cada dia fica mais difícil, até domingo.",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Um problema falhado volta uma vez, cerca de 30 problemas depois, para uma segunda tentativa. As segundas tentativas não mudam a tua pontuação.",
   "A streak freeze kept your {n}-day streak going.": "Um protetor de sequência manteve viva a tua sequência de {n} dias.",
   "Beating a puzzle rated above you earns a lot of points. Beating an easy one earns only a few. Missing an easy one costs more than missing a hard one.": "Resolver um problema com pontuação acima da tua dá muitos pontos. Resolver um fácil dá só alguns. Falhar um fácil custa mais do que falhar um difícil.",
   "Check the connection": "Verifica a ligação",
@@ -50,7 +48,6 @@
   "Pin": "Cravagem",
   "Progress is saved in this browser only. There are no accounts.": "O progresso fica guardado só neste navegador. Não há contas.",
   "Progress is saved on this device, with a copy in your iCloud account so it follows you to your iPhone and iPad. There are no accounts.": "O progresso fica guardado neste dispositivo, com uma cópia na tua conta do iCloud para te acompanhar no iPhone e no iPad. Não há contas.",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Sequências por patente (em Progresso): 15 problemas que ficam cada vez mais difíceis. Sem dicas: falhaste, estás fora. A tua pontuação nem dá por isso.",
   "Reload the page": "Recarrega a página",
   "Set up this puzzle on a real board": "Monta este problema num tabuleiro a sério",
   "Settings": "Definições",
@@ -89,5 +86,9 @@
   "Keep trying": "Continuar a tentar",
   "Show answer": "Ver a solução",
   "Practise my weak spots": "Treinar os meus pontos fracos",
-  "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemas, sobretudo do que estás a treinar. O treino conta pela metade na tua pontuação."
+  "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemas, sobretudo do que estás a treinar. O treino conta pela metade na tua pontuação.",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Cada lance tem duas dicas: a primeira ilumina a peça a mover, a segunda desenha uma seta até à casa dela. Resolver com dica conta por metade.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Um problema que falhas, ou resolves com dica, volta no dia seguinte e depois ao fim de 3, 7, 14 e 30 dias. Resolve-o depressa e demora mais a voltar; falha e recomeça. Estas revisões não mudam a tua pontuação.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Depois de uns 30 problemas, o teu treinador (em Progresso) mostra os teus pontos fortes e o que treinar. \"Treinar os meus pontos fracos\" dá-te 10 problemas misturados, sobretudo desses, sem dizer qual é qual. O treino conta pela metade na tua pontuação.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Sequências por patente (em Progresso): 15 problemas que ficam cada vez mais difíceis, abertas em qualquer patente. Sem dicas: falhaste, estás fora. A tua pontuação nem dá por isso."
 };

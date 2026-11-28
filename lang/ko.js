@@ -26,7 +26,6 @@
   "Cancel": "취소",
   "Practice": "연습",
   "Practice: your daily result stays the same": "연습: 오늘의 결과는 그대로예요",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "첫 번째 힌트는 움직일 기물을 밝혀 줍니다. 두 번째는 갈 칸까지 화살표를 그려요. 힌트를 쓰고 풀면 절반으로 계산돼요.",
   "Follow the arrow": "화살표를 따라가세요",
   "Move the glowing piece": "빛나는 기물을 움직이세요",
   "Puzzles or the daily puzzle": "퍼즐 또는 데일리 퍼즐",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "실수와 힌트 없이 퍼즐 50개 해결.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk를 실행하려면 JavaScript를 켜 주세요.</p>",
   "A Thousand Puzzles": "퍼즐 1,000개",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "틀린 퍼즐은 약 30문제 뒤에 한 번 더 나와요. 두 번째 시도는 레이팅에 영향을 주지 않아요.",
   "A streak freeze kept your {n}-day streak going.": "연속 기록 보호막 덕분에 {n}일 연속 기록이 이어졌어요.",
   "About": "정보",
   "Achievement": "성취",
@@ -188,7 +186,6 @@
   "Rank": "등급",
   "Rank streak": "등급 도전",
   "Rank streaks": "등급 도전",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "등급 도전(진행 상황에서): 갈수록 어려워지는 15문제. 힌트 없음, 한 번 틀리면 바로 탈락. 레이팅은 건드리지 않아요.",
   "Ranks": "등급",
   "Rating over time": "레이팅 변화",
   "Reload the page": "페이지를 새로고침하세요",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "보완할 점 위주로 퍼즐 10개. 연습은 레이팅에 절반만 반영돼요.",
   "Practice, puzzle {n} of {total}": "연습, {n}/{total}번째 퍼즐",
   "{area}: {n} of {total}": "{area}: {n}/{total}",
-  "Others: {n} of {total}": "기타: {n}/{total}"
+  "Others: {n} of {total}": "기타: {n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "수마다 힌트가 두 개예요. 첫 번째는 움직일 기물을 밝혀 주고, 두 번째는 갈 칸까지 화살표를 그려요. 힌트를 쓰고 풀면 절반으로 계산돼요.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "틀렸거나 힌트를 쓰고 푼 퍼즐은 다음 날, 그다음엔 3일, 7일, 14일, 30일 뒤에 다시 나와요. 빨리 풀면 더 오래 기다렸다 나오고, 틀리면 처음부터 다시 시작해요. 이 복습은 레이팅에 영향을 주지 않아요.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "퍼즐을 30개쯤 풀면 코치(진행 상황에서)가 강점과 보완할 점을 보여 줘요. '약점 연습하기'는 주로 그런 유형에서 섞은 퍼즐 10개를 어떤 유형인지 알려 주지 않고 내 줘요. 연습은 레이팅에 절반만 반영돼요.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "등급 도전(진행 상황에서): 갈수록 어려워지는 15문제, 어느 등급에서나 도전할 수 있어요. 힌트 없음, 한 번 틀리면 바로 탈락. 레이팅은 건드리지 않아요."
 };

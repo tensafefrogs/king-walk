@@ -26,7 +26,6 @@
   "Cancel": "റദ്ദാക്കൂ",
   "Practice": "പരിശീലനം",
   "Practice: your daily result stays the same": "പരിശീലനം: ഇന്നത്തെ ഫലം മാറില്ല",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "ആദ്യ സൂചന നീക്കേണ്ട കരുവിനെ തിളക്കും. രണ്ടാമത്തേത് അത് പോകേണ്ട കളത്തിലേക്ക് ഒരു അമ്പടയാളം വരയ്ക്കും. സൂചനയോടെ പരിഹരിച്ചാൽ പകുതിയേ കണക്കാക്കൂ.",
   "Follow the arrow": "അമ്പടയാളം പിന്തുടരൂ",
   "Move the glowing piece": "തിളങ്ങുന്ന കരു നീക്കൂ",
   "Puzzles or the daily puzzle": "പസിലുകൾ അല്ലെങ്കിൽ ഡെയ്‌ലി പസിൽ",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "തെറ്റുകളും സൂചനകളുമില്ലാതെ 50 പസിലുകൾ പരിഹരിച്ചു.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk പ്രവർത്തിക്കാൻ JavaScript ഓണാക്കണം.</p>",
   "A Thousand Puzzles": "ആയിരം പസിലുകൾ",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "നഷ്ടമായ പസിൽ ഏകദേശം 30 പസിലുകൾക്ക് ശേഷം ഒരിക്കൽ കൂടി വരും, രണ്ടാമതൊരു ശ്രമത്തിന്. രണ്ടാം ശ്രമങ്ങൾ നിങ്ങളുടെ റേറ്റിങ് മാറ്റില്ല.",
   "A streak freeze kept your {n}-day streak going.": "ഒരു സ്ട്രീക്ക് ഫ്രീസ് നിങ്ങളുടെ {n} ദിവസത്തെ സ്ട്രീക്ക് കാത്തു.",
   "About": "ഗെയിമിനെക്കുറിച്ച്",
   "Achievement": "നേട്ടം",
@@ -188,7 +186,6 @@
   "Rank": "റാങ്ക്",
   "Rank streak": "റാങ്ക് സ്ട്രീക്ക്",
   "Rank streaks": "റാങ്ക് സ്ട്രീക്കുകൾ",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "റാങ്ക് സ്ട്രീക്കുകൾ (\"പുരോഗതി\"യിൽ): ഒന്നിനൊന്ന് കടുപ്പം കൂടുന്ന 15 പസിലുകൾ. സൂചനകളില്ല, ഒരു പിഴവിൽ പുറത്ത്. ഇവ നിങ്ങളുടെ റേറ്റിങ്ങിനെ ബാധിക്കില്ല.",
   "Ranks": "റാങ്കുകൾ",
   "Rating over time": "കാലക്രമത്തിൽ റേറ്റിങ്",
   "Reload the page": "പേജ് റീലോഡ് ചെയ്യൂ",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 പസിലുകൾ, കൂടുതലും നിങ്ങൾ മെച്ചപ്പെടുത്തുന്നവയിൽ നിന്ന്. പരിശീലനം നിങ്ങളുടെ റേറ്റിങ്ങിൽ പകുതിയേ കണക്കാക്കൂ.",
   "Practice, puzzle {n} of {total}": "പരിശീലനം, പസിൽ {total}-ൽ {n}",
   "{area}: {n} of {total}": "{area}: {total}-ൽ {n}",
-  "Others: {n} of {total}": "മറ്റുള്ളവ: {total}-ൽ {n}"
+  "Others: {n} of {total}": "മറ്റുള്ളവ: {total}-ൽ {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "ഓരോ നീക്കത്തിനും രണ്ട് സൂചനകൾ: ആദ്യത്തേത് നീക്കേണ്ട കരുവിനെ തിളക്കും, രണ്ടാമത്തേത് അത് പോകേണ്ട കളത്തിലേക്ക് അമ്പടയാളം വരയ്ക്കും. സൂചനയോടെ പരിഹരിച്ചാൽ പകുതിയേ കണക്കാക്കൂ.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "നഷ്ടമായതോ സൂചനയോടെ പരിഹരിച്ചതോ ആയ പസിൽ പിറ്റേന്നും, പിന്നെ 3, 7, 14, 30 ദിവസങ്ങൾക്ക് ശേഷവും തിരിച്ചുവരും. വേഗം പരിഹരിച്ചാൽ കൂടുതൽ കാത്തിരിക്കും; നഷ്ടമായാൽ വീണ്ടും തുടക്കം മുതൽ. ഈ ആവർത്തനങ്ങൾ നിങ്ങളുടെ റേറ്റിങ് മാറ്റില്ല.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "ഏകദേശം 30 പസിലുകൾക്ക് ശേഷം നിങ്ങളുടെ കോച്ച് (പുരോഗതിയിൽ) നിങ്ങൾ മിടുക്കരായതും മെച്ചപ്പെടുത്തേണ്ടതും കാണിക്കും. “ദുർബലമായവ പരിശീലിക്കൂ” നിങ്ങൾക്ക് 10 കലർന്ന പസിലുകൾ തരും, കൂടുതലും അവയിൽ നിന്ന്, ഏതെന്ന് പറയാതെ. പരിശീലനം നിങ്ങളുടെ റേറ്റിങ്ങിൽ പകുതിയേ കണക്കാക്കൂ.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "റാങ്ക് സ്ട്രീക്കുകൾ (\"പുരോഗതി\"യിൽ): ഒന്നിനൊന്ന് കടുപ്പം കൂടുന്ന 15 പസിലുകൾ, ഏത് റാങ്കിലും കളിക്കാം. സൂചനകളില്ല, ഒരു പിഴവിൽ പുറത്ത്. ഇവ നിങ്ങളുടെ റേറ്റിങ്ങിനെ ബാധിക്കില്ല."
 };

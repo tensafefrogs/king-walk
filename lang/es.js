@@ -26,7 +26,6 @@
   "Cancel": "Cancelar",
   "Practice": "Práctica",
   "Practice: your daily result stays the same": "Práctica: tu resultado del día no cambia",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "La primera pista ilumina la pieza que hay que mover. La segunda dibuja una flecha hasta su casilla. Resolver con pista cuenta la mitad.",
   "Follow the arrow": "Sigue la flecha",
   "Move the glowing piece": "Mueve la pieza que brilla",
   "Puzzles or the daily puzzle": "Problemas o el problema del día",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 problemas resueltos sin errores ni pistas.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk necesita JavaScript activado para funcionar.</p>",
   "A Thousand Puzzles": "Mil problemas",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Un problema fallado vuelve una vez, unos 30 problemas después, para un segundo intento. Los segundos intentos no cambian tu puntuación.",
   "A streak freeze kept your {n}-day streak going.": "Un protector de racha mantuvo viva tu racha de {n} días.",
   "About": "Acerca de",
   "Achievement": "Logro",
@@ -188,7 +186,6 @@
   "Rank": "Rango",
   "Rank streak": "Racha de rango",
   "Rank streaks": "Rachas de rango",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rachas de rango (en Progreso): 15 problemas que se ponen cada vez más difíciles. Sin pistas, un fallo y fuera. Tu puntuación ni se entera.",
   "Ranks": "Rangos",
   "Rating over time": "Evolución de la puntuación",
   "Reload the page": "Recarga la página",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemas, sobre todo de lo que estás trabajando. La práctica cuenta la mitad para tu puntuación.",
   "Practice, puzzle {n} of {total}": "Práctica, problema {n} de {total}",
   "{area}: {n} of {total}": "{area}: {n} de {total}",
-  "Others: {n} of {total}": "Otros: {n} de {total}"
+  "Others: {n} of {total}": "Otros: {n} de {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Cada jugada tiene dos pistas: la primera ilumina la pieza que hay que mover y la segunda dibuja una flecha hasta su casilla. Resolver con pista cuenta la mitad.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Un problema que fallas, o resuelves con pista, vuelve al día siguiente y luego a los 3, 7, 14 y 30 días. Si lo resuelves rápido, tarda más en volver; si lo fallas, empieza de nuevo. Estos repasos no cambian tu puntuación.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Después de unos 30 problemas, tu entrenador (en Progreso) muestra tus puntos fuertes y lo que tienes que mejorar. «Practicar mis puntos débiles» te da 10 problemas mezclados, sobre todo de esos, sin decir cuál es cuál. La práctica cuenta la mitad para tu puntuación.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rachas de rango (en Progreso): 15 problemas que se ponen cada vez más difíciles, abiertas en cualquier rango. Sin pistas, un fallo y fuera. Tu puntuación ni se entera."
 };

@@ -26,7 +26,6 @@
   "Cancel": "ยกเลิก",
   "Practice": "ฝึกซ้อม",
   "Practice: your daily result stays the same": "ฝึกซ้อม: ผลรายวันของคุณไม่เปลี่ยน",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "คำใบ้แรกจะทำให้ตัวที่ต้องเดินเรืองแสง คำใบ้ที่สองจะวาดลูกศรไปยังช่องที่ต้องไป การแก้ด้วยคำใบ้นับเป็นครึ่งเดียว",
   "Follow the arrow": "เดินตามลูกศร",
   "Move the glowing piece": "เดินตัวที่เรืองแสง",
   "Puzzles or the daily puzzle": "โจทย์หรือโจทย์ประจำวัน",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "แก้โจทย์ 50 ข้อโดยไม่ผิดและไม่ใช้คำใบ้",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">ต้องเปิด JavaScript จึงจะเล่น King Walk ได้</p>",
   "A Thousand Puzzles": "พันโจทย์",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "โจทย์ที่พลาดจะกลับมาอีกครั้งหลังจากนั้นราว 30 ข้อ ให้ลองอีกรอบ การลองรอบสองไม่เปลี่ยนเรตติ้งของคุณ",
   "A streak freeze kept your {n}-day streak going.": "ตัวแช่แข็งสตรีครักษาสตรีค {n} วันของคุณไว้",
   "About": "เกี่ยวกับ",
   "Achievement": "ความสำเร็จ",
@@ -188,7 +186,6 @@
   "Rank": "ยศ",
   "Rank streak": "สตรีคประจำยศ",
   "Rank streaks": "สตรีคประจำยศ",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "สตรีคประจำยศ (ในหน้าความคืบหน้า): 15 โจทย์ที่ยากขึ้นเรื่อย ๆ ไม่มีคำใบ้ พลาดครั้งเดียวตกรอบ และไม่กระทบเรตติ้งของคุณ",
   "Ranks": "ยศ",
   "Rating over time": "เรตติ้งตามช่วงเวลา",
   "Reload the page": "โหลดหน้าใหม่",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 โจทย์ ส่วนใหญ่เป็นแบบที่คุณควรฝึก การฝึกซ้อมนับครึ่งเดียวต่อเรตติ้งของคุณ",
   "Practice, puzzle {n} of {total}": "ฝึกซ้อม ข้อ {n} จาก {total}",
   "{area}: {n} of {total}": "{area}: {n} จาก {total}",
-  "Others: {n} of {total}": "อื่น ๆ: {n} จาก {total}"
+  "Others: {n} of {total}": "อื่น ๆ: {n} จาก {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "แต่ละตาเดินมีคำใบ้สองขั้น: ขั้นแรกทำให้ตัวที่ต้องเดินเรืองแสง ขั้นที่สองวาดลูกศรไปยังช่องที่ต้องไป การแก้ด้วยคำใบ้นับเป็นครึ่งเดียว",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "โจทย์ที่คุณพลาดหรือแก้ด้วยคำใบ้จะกลับมาวันถัดไป แล้วอีกครั้งหลัง 3, 7, 14 และ 30 วัน แก้ได้เร็วก็จะเว้นนานขึ้น พลาดก็เริ่มนับใหม่ การทบทวนนี้ไม่เปลี่ยนเรตติ้งของคุณ",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "หลังเล่นราว 30 โจทย์ โค้ชของคุณ (ในหน้าความคืบหน้า) จะบอกว่าคุณเก่งเรื่องไหนและควรฝึกเรื่องไหน ปุ่ม \"ฝึกจุดอ่อน\" ให้โจทย์คละ 10 ข้อ ส่วนใหญ่มาจากเรื่องเหล่านั้น โดยไม่บอกว่าข้อไหนเป็นแบบไหน การฝึกซ้อมนับครึ่งเดียวต่อเรตติ้งของคุณ",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "สตรีคประจำยศ (ในหน้าความคืบหน้า): 15 โจทย์ที่ยากขึ้นเรื่อย ๆ เล่นได้ทุกยศ ไม่มีคำใบ้ พลาดครั้งเดียวตกรอบ และไม่กระทบเรตติ้งของคุณ"
 };

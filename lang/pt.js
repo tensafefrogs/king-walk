@@ -26,7 +26,6 @@
   "Cancel": "Cancelar",
   "Practice": "Treino",
   "Practice: your daily result stays the same": "Treino: seu resultado do dia não muda",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "A primeira dica ilumina a peça a mover. A segunda desenha uma seta até a casa dela. Resolver com dica conta pela metade.",
   "Follow the arrow": "Siga a seta",
   "Move the glowing piece": "Mova a peça que brilha",
   "Puzzles or the daily puzzle": "Problemas ou o problema do dia",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 problemas resolvidos sem erros e sem dicas.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk precisa do JavaScript ativado para funcionar.</p>",
   "A Thousand Puzzles": "Mil problemas",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Um problema errado volta uma vez, cerca de 30 problemas depois, para uma segunda tentativa. Segundas tentativas não mudam sua pontuação.",
   "A streak freeze kept your {n}-day streak going.": "Um protetor de sequência manteve viva sua sequência de {n} dias.",
   "About": "Sobre",
   "Achievement": "Conquista",
@@ -188,7 +186,6 @@
   "Rank": "Patente",
   "Rank streak": "Sequência por patente",
   "Rank streaks": "Sequências por patente",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Sequências por patente (em Progresso): 15 problemas que ficam cada vez mais difíceis. Sem dicas, errou, tá fora. Sua pontuação nem fica sabendo.",
   "Ranks": "Patentes",
   "Rating over time": "Pontuação ao longo do tempo",
   "Reload the page": "Recarregue a página",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 problemas, principalmente do que você está treinando. O treino conta pela metade na sua pontuação.",
   "Practice, puzzle {n} of {total}": "Treino, problema {n} de {total}",
   "{area}: {n} of {total}": "{area}: {n} de {total}",
-  "Others: {n} of {total}": "Outros: {n} de {total}"
+  "Others: {n} of {total}": "Outros: {n} de {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Cada lance tem duas dicas: a primeira ilumina a peça a mover, a segunda desenha uma seta até a casa dela. Resolver com dica conta pela metade.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Um problema que você erra, ou resolve com dica, volta no dia seguinte e depois após 3, 7, 14 e 30 dias. Resolva rápido e ele demora mais a voltar; erre e ele recomeça. Essas revisões não mudam sua pontuação.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Depois de uns 30 problemas, seu treinador (em Progresso) mostra seus pontos fortes e o que treinar. \"Treinar meus pontos fracos\" dá 10 problemas misturados, principalmente desses, sem dizer qual é qual. O treino conta pela metade na sua pontuação.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Sequências por patente (em Progresso): 15 problemas que ficam cada vez mais difíceis, abertas em qualquer patente. Sem dicas, errou, tá fora. Sua pontuação nem fica sabendo."
 };

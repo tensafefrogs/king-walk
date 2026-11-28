@@ -26,7 +26,6 @@
   "Cancel": "ರದ್ದುಮಾಡಿ",
   "Practice": "ಅಭ್ಯಾಸ",
   "Practice: your daily result stays the same": "ಅಭ್ಯಾಸ: ನಿಮ್ಮ ದೈನಂದಿನ ಫಲಿತಾಂಶ ಬದಲಾಗುವುದಿಲ್ಲ",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "ಮೊದಲ ಸುಳಿವು ನಡೆಸಬೇಕಾದ ಕಾಯಿಯನ್ನು ಬೆಳಗಿಸುತ್ತದೆ. ಎರಡನೆಯದು ಅದು ಹೋಗುವ ಕಡೆಗೆ ಬಾಣ ಎಳೆಯುತ್ತದೆ. ಸುಳಿವಿನೊಂದಿಗೆ ಬಿಡಿಸಿದರೆ ಅರ್ಧ ಮಾತ್ರ ಲೆಕ್ಕ.",
   "Follow the arrow": "ಬಾಣವನ್ನು ಅನುಸರಿಸಿ",
   "Move the glowing piece": "ಹೊಳೆಯುವ ಕಾಯಿಯನ್ನು ನಡೆಸಿ",
   "Puzzles or the daily puzzle": "ಒಗಟುಗಳು ಅಥವಾ ದೈನಂದಿನ ಒಗಟು",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 ಒಗಟುಗಳನ್ನು ತಪ್ಪು ಮತ್ತು ಸುಳಿವು ಇಲ್ಲದೆ ಬಿಡಿಸಲಾಗಿದೆ.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk ಚಲಿಸಲು JavaScript ಆನ್ ಆಗಿರಬೇಕು.</p>",
   "A Thousand Puzzles": "ಸಾವಿರ ಒಗಟುಗಳು",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "ತಪ್ಪಿದ ಒಗಟು ಸುಮಾರು 30 ಒಗಟುಗಳ ನಂತರ, ಎರಡನೇ ಪ್ರಯತ್ನಕ್ಕಾಗಿ ಒಮ್ಮೆ ಮರಳಿ ಬರುತ್ತದೆ. ಎರಡನೇ ಪ್ರಯತ್ನಗಳು ನಿಮ್ಮ ರೇಟಿಂಗ್ ಅನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ.",
   "A streak freeze kept your {n}-day streak going.": "ಸರಣಿ ಕವಚ ನಿಮ್ಮ ಸರಣಿಯನ್ನು ಉಳಿಸಿತು (ಸತತ ದಿನಗಳು: {n}).",
   "About": "ಪರಿಚಯ",
   "Achievement": "ಸಾಧನೆ",
@@ -188,7 +186,6 @@
   "Rank": "ಶ್ರೇಣಿ",
   "Rank streak": "ಶ್ರೇಣಿ ಸರಣಿ",
   "Rank streaks": "ಶ್ರೇಣಿ ಸರಣಿಗಳು",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "ಶ್ರೇಣಿ ಸರಣಿಗಳು (ಪ್ರಗತಿ ವಿಭಾಗದಲ್ಲಿ): ಮುಂದೆ ಹೋದಂತೆ ಕಠಿಣವಾಗುವ 15 ಒಗಟುಗಳು. ಸುಳಿವುಗಳಿಲ್ಲ, ಒಂದು ತಪ್ಪು ಮಾಡಿದರೆ ಹೊರಗೆ. ಇವು ನಿಮ್ಮ ರೇಟಿಂಗ್ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುವುದಿಲ್ಲ.",
   "Ranks": "ಶ್ರೇಣಿಗಳು",
   "Rating over time": "ಕಾಲಕ್ರಮದಲ್ಲಿ ರೇಟಿಂಗ್",
   "Reload the page": "ಪುಟವನ್ನು ಮರುಲೋಡ್ ಮಾಡಿ",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 ಒಗಟುಗಳು, ಹೆಚ್ಚಾಗಿ ನೀವು ಸುಧಾರಿಸುತ್ತಿರುವವುಗಳಿಂದ. ಅಭ್ಯಾಸವು ನಿಮ್ಮ ರೇಟಿಂಗ್‌ಗೆ ಅರ್ಧದಷ್ಟು ಎಣಿಕೆಯಾಗುತ್ತದೆ.",
   "Practice, puzzle {n} of {total}": "ಅಭ್ಯಾಸ, ಒಗಟು {total}ರಲ್ಲಿ {n}",
   "{area}: {n} of {total}": "{area}: {total}ರಲ್ಲಿ {n}",
-  "Others: {n} of {total}": "ಇತರೆ: {total}ರಲ್ಲಿ {n}"
+  "Others: {n} of {total}": "ಇತರೆ: {total}ರಲ್ಲಿ {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "ಪ್ರತಿ ನಡೆಗೆ ಎರಡು ಸುಳಿವುಗಳು: ಮೊದಲನೆಯದು ನಡೆಸಬೇಕಾದ ಕಾಯಿಯನ್ನು ಬೆಳಗಿಸುತ್ತದೆ, ಎರಡನೆಯದು ಅದು ಹೋಗುವ ಕಡೆಗೆ ಬಾಣ ಎಳೆಯುತ್ತದೆ. ಸುಳಿವಿನೊಂದಿಗೆ ಬಿಡಿಸಿದರೆ ಅರ್ಧ ಮಾತ್ರ ಲೆಕ್ಕ.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "ನೀವು ತಪ್ಪಿದ ಅಥವಾ ಸುಳಿವಿನೊಂದಿಗೆ ಬಿಡಿಸಿದ ಒಗಟು ಮರುದಿನ, ನಂತರ 3, 7, 14 ಮತ್ತು 30 ದಿನಗಳ ನಂತರ ಮರಳಿ ಬರುತ್ತದೆ. ಬೇಗ ಬಿಡಿಸಿದರೆ ಹೆಚ್ಚು ಕಾಯುತ್ತದೆ; ತಪ್ಪಿದರೆ ಮತ್ತೆ ಆರಂಭದಿಂದ. ಈ ಪುನರಾವರ್ತನೆಗಳು ನಿಮ್ಮ ರೇಟಿಂಗ್ ಅನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "ಸುಮಾರು 30 ಒಗಟುಗಳ ನಂತರ ನಿಮ್ಮ ಕೋಚ್ (ಪ್ರಗತಿ ವಿಭಾಗದಲ್ಲಿ) ನೀವು ಯಾವುದರಲ್ಲಿ ಬಲಶಾಲಿ, ಯಾವುದನ್ನು ಸುಧಾರಿಸಬೇಕು ಎಂದು ತೋರಿಸುತ್ತಾರೆ. “ದುರ್ಬಲ ಅಂಶಗಳನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ” ನಿಮಗೆ 10 ಬೆರೆತ ಒಗಟುಗಳನ್ನು ಕೊಡುತ್ತದೆ, ಹೆಚ್ಚಾಗಿ ಅವುಗಳಿಂದ, ಯಾವುದು ಯಾವುದು ಎಂದು ಹೇಳದೆ. ಅಭ್ಯಾಸವು ನಿಮ್ಮ ರೇಟಿಂಗ್‌ಗೆ ಅರ್ಧದಷ್ಟು ಎಣಿಕೆಯಾಗುತ್ತದೆ.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "ಶ್ರೇಣಿ ಸರಣಿಗಳು (ಪ್ರಗತಿ ವಿಭಾಗದಲ್ಲಿ): ಮುಂದೆ ಹೋದಂತೆ ಕಠಿಣವಾಗುವ 15 ಒಗಟುಗಳು, ಯಾವುದೇ ಶ್ರೇಣಿಯಲ್ಲಿ ಆಡಬಹುದು. ಸುಳಿವುಗಳಿಲ್ಲ, ಒಂದು ತಪ್ಪು ಮಾಡಿದರೆ ಹೊರಗೆ. ಇವು ನಿಮ್ಮ ರೇಟಿಂಗ್ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುವುದಿಲ್ಲ."
 };

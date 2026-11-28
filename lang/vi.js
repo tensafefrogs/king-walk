@@ -26,7 +26,6 @@
   "Cancel": "Hủy",
   "Practice": "Luyện tập",
   "Practice: your daily result stays the same": "Luyện tập: kết quả hôm nay không đổi",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Gợi ý thứ nhất làm sáng quân cần đi. Gợi ý thứ hai vẽ mũi tên tới ô nó cần đến. Giải có gợi ý chỉ được tính một nửa.",
   "Follow the arrow": "Đi theo mũi tên",
   "Move the glowing piece": "Đi quân đang sáng",
   "Puzzles or the daily puzzle": "Câu đố hoặc câu đố hằng ngày",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "Giải 50 câu đố không sai, không dùng gợi ý.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk cần bật JavaScript để chạy.</p>",
   "A Thousand Puzzles": "Một nghìn câu đố",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Câu đố bị bỏ lỡ sẽ quay lại một lần, khoảng 30 câu sau, để bạn thử lần nữa. Lần thử thứ hai không làm thay đổi điểm của bạn.",
   "A streak freeze kept your {n}-day streak going.": "Một lượt đóng băng đã giữ lại chuỗi {n} ngày của bạn.",
   "About": "Giới thiệu",
   "Achievement": "Thành tích",
@@ -188,7 +186,6 @@
   "Rank": "Cấp bậc",
   "Rank streak": "Chuỗi cấp bậc",
   "Rank streaks": "Chuỗi cấp bậc",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Chuỗi cấp bậc (trong mục Tiến trình): 15 câu đố khó dần. Không gợi ý, sai một lần là bị loại. Không ảnh hưởng đến điểm của bạn.",
   "Ranks": "Cấp bậc",
   "Rating over time": "Điểm theo thời gian",
   "Reload the page": "Tải lại trang",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 câu đố, chủ yếu về những gì bạn cần luyện. Luyện tập chỉ tính một nửa vào điểm của bạn.",
   "Practice, puzzle {n} of {total}": "Luyện tập, câu {n}/{total}",
   "{area}: {n} of {total}": "{area}: {n}/{total}",
-  "Others: {n} of {total}": "Khác: {n}/{total}"
+  "Others: {n} of {total}": "Khác: {n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Mỗi nước đi có hai gợi ý: gợi ý thứ nhất làm sáng quân cần đi, gợi ý thứ hai vẽ mũi tên tới ô nó cần đến. Giải có gợi ý chỉ được tính một nửa.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Câu đố bạn bỏ lỡ, hoặc giải nhờ gợi ý, sẽ quay lại vào hôm sau, rồi sau 3, 7, 14 và 30 ngày. Giải nhanh thì nó chờ lâu hơn; bỏ lỡ thì bắt đầu lại. Những lần ôn này không làm thay đổi điểm của bạn.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Sau khoảng 30 câu đố, huấn luyện viên của bạn (trong mục Tiến trình) cho biết bạn mạnh ở đâu và cần luyện gì. \"Luyện điểm yếu\" cho bạn 10 câu đố trộn lẫn, phần lớn từ những dạng đó, mà không nói câu nào là dạng gì. Luyện tập chỉ tính một nửa vào điểm của bạn.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Chuỗi cấp bậc (trong mục Tiến trình): 15 câu đố khó dần, mở ở mọi cấp bậc. Không gợi ý, sai một lần là bị loại. Không ảnh hưởng đến điểm của bạn."
 };

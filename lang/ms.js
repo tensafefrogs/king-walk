@@ -26,7 +26,6 @@
   "Cancel": "Batal",
   "Practice": "Latihan",
   "Practice: your daily result stays the same": "Latihan: keputusan harian anda tidak berubah",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Petunjuk pertama menyalakan buah yang perlu digerakkan. Petunjuk kedua melukis anak panah ke petak destinasinya. Selesai dengan petunjuk dikira separuh.",
   "Follow the arrow": "Ikut anak panah",
   "Move the glowing piece": "Gerakkan buah yang bercahaya",
   "Puzzles or the daily puzzle": "Teka-teki atau teka-teki harian",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 teka-teki diselesaikan tanpa kesilapan dan tanpa petunjuk.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk memerlukan JavaScript dihidupkan untuk berjalan.</p>",
   "A Thousand Puzzles": "Seribu Teka-teki",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Teka-teki yang terlepas akan kembali sekali, kira-kira 30 teka-teki kemudian, untuk cubaan kedua. Cubaan kedua tidak mengubah rating anda.",
   "A streak freeze kept your {n}-day streak going.": "Pembeku rentetan menyelamatkan rentetan {n} hari anda.",
   "About": "Perihal",
   "Achievement": "Pencapaian",
@@ -188,7 +186,6 @@
   "Rank": "Pangkat",
   "Rank streak": "Rentetan pangkat",
   "Rank streaks": "Rentetan pangkat",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rentetan pangkat (di bawah Kemajuan): 15 teka-teki yang makin sukar. Tiada petunjuk, sekali silap anda terkeluar. Ia tidak menjejaskan rating anda.",
   "Ranks": "Pangkat",
   "Rating over time": "Rating mengikut masa",
   "Reload the page": "Muat semula halaman",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 teka-teki, kebanyakannya daripada perkara yang anda latih. Latihan dikira separuh untuk rating anda.",
   "Practice, puzzle {n} of {total}": "Latihan, teka-teki {n} daripada {total}",
   "{area}: {n} of {total}": "{area}: {n} daripada {total}",
-  "Others: {n} of {total}": "Lain-lain: {n} daripada {total}"
+  "Others: {n} of {total}": "Lain-lain: {n} daripada {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Setiap langkah ada dua petunjuk: yang pertama menyalakan buah yang perlu digerakkan, yang kedua melukis anak panah ke petak destinasinya. Selesai dengan petunjuk dikira separuh.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Teka-teki yang anda terlepas, atau selesaikan dengan petunjuk, kembali keesokan harinya, kemudian selepas 3, 7, 14 dan 30 hari. Selesaikan dengan cepat dan ia menunggu lebih lama; terlepas lagi dan ia bermula semula. Ulang kaji ini tidak mengubah rating anda.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Selepas kira-kira 30 teka-teki, jurulatih anda (di bawah Kemajuan) menunjukkan kekuatan anda dan apa yang perlu dilatih. \"Latih kelemahan saya\" memberi anda 10 teka-teki bercampur, kebanyakannya daripada itu, tanpa memberitahu yang mana satu. Latihan dikira separuh untuk rating anda.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rentetan pangkat (di bawah Kemajuan): 15 teka-teki yang makin sukar, terbuka pada sebarang pangkat. Tiada petunjuk, sekali silap anda terkeluar. Ia tidak menjejaskan rating anda."
 };

@@ -26,7 +26,6 @@
   "Cancel": "ବାତିଲ",
   "Practice": "ଅଭ୍ୟାସ",
   "Practice: your daily result stays the same": "ଅଭ୍ୟାସ: ତୁମ ଦୈନିକ ଫଳାଫଳ ବଦଳିବ ନାହିଁ",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "ପ୍ରଥମ ସଙ୍କେତ ଚାଲିବାକୁ ଥିବା ଗୋଟିକୁ ଆଲୋକିତ କରେ। ଦ୍ୱିତୀୟଟି ସେ ଯିବା ଘର ପର୍ଯ୍ୟନ୍ତ ଏକ ତୀର ଆଙ୍କେ। ସଙ୍କେତ ନେଇ ସମାଧାନ କଲେ ଅଧା ଗଣାଯାଏ।",
   "Follow the arrow": "ତୀରକୁ ଅନୁସରଣ କର",
   "Move the glowing piece": "ଝଲସୁଥିବା ଗୋଟି ଚାଲ",
   "Puzzles or the daily puzzle": "ପଜଲ ବା ଦୈନିକ ପଜଲ",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "ଭୁଲ ଓ ସଙ୍କେତ ବିନା 50 ପଜଲ ସମାଧାନ।",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk ଚଳାଇବାକୁ JavaScript ଚାଲୁ କରିବା ଦରକାର।</p>",
   "A Thousand Puzzles": "ହଜାରେ ପଜଲ",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "ଛୁଟିଯାଇଥିବା ପଜଲ ପ୍ରାୟ 30ଟି ପଜଲ ପରେ ଥରେ ଫେରିଆସେ, ଦ୍ୱିତୀୟ ଚେଷ୍ଟା ପାଇଁ। ଦ୍ୱିତୀୟ ଚେଷ୍ଟା ତୁମ ରେଟିଂ ବଦଳାଏ ନାହିଁ।",
   "A streak freeze kept your {n}-day streak going.": "ଏକ ଷ୍ଟ୍ରିକ ଫ୍ରିଜ ତୁମର {n} ଦିନର ଷ୍ଟ୍ରିକ ବଞ୍ଚାଇଲା।",
   "About": "ବିଷୟରେ",
   "Achievement": "ସଫଳତା",
@@ -188,7 +186,6 @@
   "Rank": "ର‍୍ୟାଙ୍କ",
   "Rank streak": "ର‍୍ୟାଙ୍କ ଷ୍ଟ୍ରିକ",
   "Rank streaks": "ର‍୍ୟାଙ୍କ ଷ୍ଟ୍ରିକ",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "ର‍୍ୟାଙ୍କ ଷ୍ଟ୍ରିକ (\"ପ୍ରଗତି\" ଭିତରେ): 15ଟି ପଜଲ ଯାହା କ୍ରମେ କଠିନ ହୁଏ। ସଙ୍କେତ ନାହିଁ, ଗୋଟିଏ ଭୁଲରେ ତୁମେ ବାହାର। ଏଗୁଡ଼ିକ ତୁମ ରେଟିଂକୁ ଛୁଏଁ ନାହିଁ।",
   "Ranks": "ର‍୍ୟାଙ୍କ",
   "Rating over time": "ସମୟ ସହ ରେଟିଂ",
   "Reload the page": "ପେଜ ରିଲୋଡ କର",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10ଟି ପଜଲ, ଅଧିକାଂଶ ଯେଉଁଥିରେ ତୁମେ କାମ କରୁଛ ସେଥିରୁ। ଅଭ୍ୟାସ ତୁମ ରେଟିଂରେ ଅଧା ଗଣାଯାଏ।",
   "Practice, puzzle {n} of {total}": "ଅଭ୍ୟାସ, ପଜଲ {total}ରୁ {n}",
   "{area}: {n} of {total}": "{area}: {total}ରୁ {n}",
-  "Others: {n} of {total}": "ଅନ୍ୟାନ୍ୟ: {total}ରୁ {n}"
+  "Others: {n} of {total}": "ଅନ୍ୟାନ୍ୟ: {total}ରୁ {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "ପ୍ରତି ଚାଲରେ ଦୁଇଟି ସଙ୍କେତ: ପ୍ରଥମଟି ଚାଲିବାକୁ ଥିବା ଗୋଟିକୁ ଆଲୋକିତ କରେ, ଦ୍ୱିତୀୟଟି ସେ ଯିବା ଘର ପର୍ଯ୍ୟନ୍ତ ଏକ ତୀର ଆଙ୍କେ। ସଙ୍କେତ ନେଇ ସମାଧାନ କଲେ ଅଧା ଗଣାଯାଏ।",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "ଯେଉଁ ପଜଲ ତୁମେ ଛାଡ଼ିଦିଅ ବା ସଙ୍କେତ ନେଇ ସମାଧାନ କର, ତାହା ପରଦିନ ଫେରେ, ତା'ପରେ 3, 7, 14 ଓ 30 ଦିନ ପରେ। ଶୀଘ୍ର ସମାଧାନ କଲେ ଅଧିକ ଦିନ ଅପେକ୍ଷା କରେ; ଛାଡ଼ିଦେଲେ ପୁଣି ଆରମ୍ଭରୁ। ଏହି ପୁନରାବୃତ୍ତି ତୁମ ରେଟିଂ ବଦଳାଏ ନାହିଁ।",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "ପ୍ରାୟ 30ଟି ପଜଲ ପରେ ତୁମ କୋଚ (\"ପ୍ରଗତି\" ଭିତରେ) ଦେଖାନ୍ତି ତୁମେ କେଉଁଥିରେ ଦକ୍ଷ ଓ କେଉଁଥିରେ କାମ କରିବା ଦରକାର। \"ଦୁର୍ବଳ ଦିଗଗୁଡ଼ିକ ଅଭ୍ୟାସ କର\" ତୁମକୁ 10ଟି ମିଶ୍ରିତ ପଜଲ ଦିଏ, ଅଧିକାଂଶ ସେଥିରୁ, କେଉଁଟି କ'ଣ ନ କହି। ଅଭ୍ୟାସ ତୁମ ରେଟିଂରେ ଅଧା ଗଣାଯାଏ।",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "ର‍୍ୟାଙ୍କ ଷ୍ଟ୍ରିକ (\"ପ୍ରଗତି\" ଭିତରେ): 15ଟି ପଜଲ ଯାହା କ୍ରମେ କଠିନ ହୁଏ, ଯେକୌଣସି ର‍୍ୟାଙ୍କରେ ଖୋଲା। ସଙ୍କେତ ନାହିଁ, ଗୋଟିଏ ଭୁଲରେ ତୁମେ ବାହାର। ଏଗୁଡ଼ିକ ତୁମ ରେଟିଂକୁ ଛୁଏଁ ନାହିଁ।"
 };

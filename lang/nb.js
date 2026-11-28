@@ -26,7 +26,6 @@
   "Cancel": "Avbryt",
   "Practice": "Øving",
   "Practice: your daily result stays the same": "Øving: det daglige resultatet ditt endres ikke",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Første tips får brikken som skal flyttes, til å lyse. Andre tips tegner en pil dit den skal. Løser du den med tips, teller det halvt.",
   "Follow the arrow": "Følg pilen",
   "Move the glowing piece": "Flytt den lysende brikken",
   "Puzzles or the daily puzzle": "Oppgaver eller dagens oppgave",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 oppgaver løst uten feil og uten tips.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk trenger at JavaScript er slått på.</p>",
   "A Thousand Puzzles": "Tusen oppgaver",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "En oppgave du bommer på, kommer tilbake én gang, rundt 30 oppgaver senere, så du kan prøve igjen. Andre forsøk endrer ikke ratingen din.",
   "A streak freeze kept your {n}-day streak going.": "Et rekkeskjold holdt rekka di på {n} dager i live.",
   "About": "Om",
   "Achievement": "Prestasjon",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Rangrekke",
   "Rank streaks": "Rangrekker",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rangrekker (under Framgang): 15 oppgaver som blir vanskeligere underveis. Ingen tips, én bom og du er ute. De påvirker ikke ratingen din.",
   "Ranks": "Ranger",
   "Rating over time": "Rating over tid",
   "Reload the page": "Last inn siden på nytt",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 oppgaver, mest fra det du jobber med. Øving teller halvt på ratingen din.",
   "Practice, puzzle {n} of {total}": "Øving, oppgave {n} av {total}",
   "{area}: {n} of {total}": "{area}: {n} av {total}",
-  "Others: {n} of {total}": "Andre: {n} av {total}"
+  "Others: {n} of {total}": "Andre: {n} av {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Hvert trekk har to tips: det første får brikken som skal flyttes, til å lyse, det andre tegner en pil dit den skal. Løser du den med tips, teller det halvt.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "En oppgave du bommer på eller løser med tips, kommer tilbake dagen etter, så etter 3, 7, 14 og 30 dager. Løser du den raskt, venter den lenger; bommer du, starter den på nytt. Disse repetisjonene endrer ikke ratingen din.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Etter rundt 30 oppgaver viser coachen din (under Framgang) hva du er sterk på og hva du bør øve på. «Øv på svake punkter» gir deg 10 blandede oppgaver, mest fra dem, uten å si hvilken som er hvilken. Øving teller halvt på ratingen din.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rangrekker (under Framgang): 15 oppgaver som blir vanskeligere underveis, åpne på alle rangene. Ingen tips, én bom og du er ute. De påvirker ikke ratingen din."
 };

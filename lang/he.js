@@ -26,7 +26,6 @@
   "Cancel": "ביטול",
   "Practice": "אימון",
   "Practice: your daily result stays the same": "אימון: התוצאה היומית שלך לא משתנה",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "הרמז הראשון מאיר את הכלי שצריך להזיז. השני מצייר חץ למשבצת שאליה הוא הולך. פתרון עם רמז נחשב לחצי.",
   "Follow the arrow": "ללכת לפי החץ",
   "Move the glowing piece": "להזיז את הכלי הזוהר",
   "Puzzles or the daily puzzle": "חידות או החידה היומית",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 חידות נפתרו בלי טעויות ובלי רמזים.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">כדי לשחק ב־King Walk צריך להפעיל JavaScript.</p>",
   "A Thousand Puzzles": "אלף חידות",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "חידה שפוספסה חוזרת פעם אחת, בערך 30 חידות אחר כך, לניסיון נוסף. ניסיון שני לא משנה את הדירוג שלך.",
   "A streak freeze kept your {n}-day streak going.": "הקפאת רצף שמרה על הרצף שלך: {n} ימים.",
   "About": "אודות",
   "Achievement": "הישג",
@@ -188,7 +186,6 @@
   "Rank": "דרגה",
   "Rank streak": "רצף דרגה",
   "Rank streaks": "רצפי דרגה",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "רצפי דרגה (תחת ״התקדמות״): 15 חידות שהולכות ונעשות קשות יותר. בלי רמזים, פספוס אחד ובחוץ. הם לא משפיעים על הדירוג שלך.",
   "Ranks": "דרגות",
   "Rating over time": "הדירוג לאורך זמן",
   "Reload the page": "לטעון מחדש את הדף",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 חידות, בעיקר ממה שאתם עובדים עליו. אימון נספר כחצי בדירוג שלך.",
   "Practice, puzzle {n} of {total}": "אימון, חידה {n} מתוך {total}",
   "{area}: {n} of {total}": "{area}: {n} מתוך {total}",
-  "Others: {n} of {total}": "אחרות: {n} מתוך {total}"
+  "Others: {n} of {total}": "אחרות: {n} מתוך {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "לכל מסע יש שני רמזים: הראשון מאיר את הכלי שצריך להזיז, והשני מצייר חץ למשבצת שאליה הוא הולך. פתרון עם רמז נחשב לחצי.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "חידה שפספסת או פתרת עם רמז חוזרת למחרת, ואז אחרי 3, 7, 14 ו־30 ימים. פותרים אותה מהר, והיא מחכה יותר; מפספסים, והיא מתחילה מחדש. החזרות האלה לא משנות את הדירוג שלך.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "אחרי כ־30 חידות, המאמן (תחת ״התקדמות״) מראה במה את/ה חזק/ה ועל מה כדאי לעבוד. ״להתאמן על הנקודות החלשות״ נותן 10 חידות מעורבבות, בעיקר מהן, בלי לומר איזו היא איזו. אימון נספר כחצי בדירוג שלך.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "רצפי דרגה (תחת ״התקדמות״): 15 חידות שהולכות ונעשות קשות יותר, פתוחים בכל דרגה. בלי רמזים, פספוס אחד ובחוץ. הם לא משפיעים על הדירוג שלך."
 };

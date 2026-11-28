@@ -26,7 +26,6 @@
   "Cancel": "Vazgeç",
   "Practice": "Alıştırma",
   "Practice: your daily result stays the same": "Alıştırma: Günlük sonucun değişmez",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "İlk ipucu oynanacak taşı parlatır. İkincisi gideceği kareye bir ok çizer. İpucuyla çözmek yarım sayılır.",
   "Follow the arrow": "Oku takip et",
   "Move the glowing piece": "Parlayan taşı oyna",
   "Puzzles or the daily puzzle": "Bulmacalar ya da günün bulmacası",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "Hatasız ve ipucusuz 50 bulmaca çözüldü.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk'un çalışması için JavaScript'in açık olması gerekir.</p>",
   "A Thousand Puzzles": "Bin Bulmaca",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Kaçırılan bir bulmaca, yaklaşık 30 bulmaca sonra ikinci bir deneme için bir kez geri gelir. İkinci denemeler puanını değiştirmez.",
   "A streak freeze kept your {n}-day streak going.": "Bir seri dondurucu {n} günlük serini korudu.",
   "About": "Hakkında",
   "Achievement": "Başarım",
@@ -188,7 +186,6 @@
   "Rank": "Rütbe",
   "Rank streak": "Rütbe serisi",
   "Rank streaks": "Rütbe serileri",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Rütbe serileri (İlerleme bölümünde): Gittikçe zorlaşan 15 bulmaca. İpucu yok, tek hatada elenirsin. Puanını etkilemezler.",
   "Ranks": "Rütbeler",
   "Rating over time": "Zaman içinde puan",
   "Reload the page": "Sayfayı yenile",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 bulmaca, çoğu üzerinde çalıştığın konulardan. Alıştırma, puanına yarım sayılır.",
   "Practice, puzzle {n} of {total}": "Alıştırma, bulmaca {n}/{total}",
   "{area}: {n} of {total}": "{area}: {n}/{total}",
-  "Others: {n} of {total}": "Diğerleri: {n}/{total}"
+  "Others: {n} of {total}": "Diğerleri: {n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Her hamlenin iki ipucu var: ilki oynanacak taşı parlatır, ikincisi gideceği kareye bir ok çizer. İpucuyla çözmek yarım sayılır.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Kaçırdığın ya da ipucuyla çözdüğün bir bulmaca ertesi gün, sonra 3, 7, 14 ve 30 gün sonra geri gelir. Hızlı çözersen daha uzun bekler; kaçırırsan baştan başlar. Bu tekrarlar puanını değiştirmez.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Yaklaşık 30 bulmacadan sonra koçun (İlerleme bölümünde) neyde güçlü olduğunu ve neye çalışman gerektiğini gösterir. \"Zayıf yönlerimi çalış\" sana çoğu bunlardan olan 10 karışık bulmaca verir, hangisinin ne olduğunu söylemeden. Alıştırma, puanına yarım sayılır.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Rütbe serileri (İlerleme bölümünde): Gittikçe zorlaşan 15 bulmaca, her rütbede açık. İpucu yok, tek hatada elenirsin. Puanını etkilemezler."
 };

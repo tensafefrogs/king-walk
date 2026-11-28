@@ -26,7 +26,6 @@
   "Cancel": "Kumoa",
   "Practice": "Harjoitus",
   "Practice: your daily result stays the same": "Harjoitus: päivän tuloksesi ei muutu",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Ensimmäinen vihje saa siirrettävän nappulan hehkumaan. Toinen piirtää nuolen ruutuun, johon se menee. Vihjeen avulla ratkaistu tehtävä lasketaan puolikkaana.",
   "Follow the arrow": "Seuraa nuolta",
   "Move the glowing piece": "Siirrä hehkuvaa nappulaa",
   "Puzzles or the daily puzzle": "Tehtävät tai päivän tehtävä",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 tehtävää ratkaistu ilman virheitä ja vihjeitä.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk tarvitsee toimiakseen JavaScriptin.</p>",
   "A Thousand Puzzles": "Tuhat tehtävää",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "Ohi mennyt tehtävä palaa kerran, noin 30 tehtävän päästä, uutta yritystä varten. Uusintayritykset eivät muuta vahvuuslukuasi.",
   "A streak freeze kept your {n}-day streak going.": "Putkisuoja piti {n} päivän putkesi käynnissä.",
   "About": "Tietoja",
   "Achievement": "Saavutus",
@@ -188,7 +186,6 @@
   "Rank": "Arvo",
   "Rank streak": "Arvoputki",
   "Rank streaks": "Arvoputket",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Arvoputket (Edistyminen-kohdassa): 15 tehtävää, jotka vaikeutuvat edetessä. Ei vihjeitä, yksi virhe ja olet ulkona. Ne eivät vaikuta vahvuuslukuusi.",
   "Ranks": "Arvot",
   "Rating over time": "Vahvuusluku ajan mittaan",
   "Reload the page": "Lataa sivu uudelleen",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 tehtävää, enimmäkseen siitä, mitä harjoittelet. Harjoitus vaikuttaa vahvuuslukuusi puoliksi.",
   "Practice, puzzle {n} of {total}": "Harjoitus, tehtävä {n}/{total}",
   "{area}: {n} of {total}": "{area}: {n}/{total}",
-  "Others: {n} of {total}": "Muut: {n}/{total}"
+  "Others: {n} of {total}": "Muut: {n}/{total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Jokaisella siirrolla on kaksi vihjettä: ensimmäinen saa siirrettävän nappulan hehkumaan, toinen piirtää nuolen ruutuun, johon se menee. Vihjeen avulla ratkaistu tehtävä lasketaan puolikkaana.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "Tehtävä, joka menee ohi tai jonka ratkaiset vihjeellä, palaa seuraavana päivänä ja sitten 3, 7, 14 ja 30 päivän päästä. Ratkaise se nopeasti, niin se odottaa pidempään; mene ohi, niin se alkaa alusta. Nämä kertaukset eivät muuta vahvuuslukuasi.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "Noin 30 tehtävän jälkeen valmentajasi (Edistyminen-kohdassa) näyttää vahvuutesi ja sen, mitä harjoitella. ”Harjoittele heikkouksia” antaa 10 sekoitettua tehtävää, enimmäkseen niistä, kertomatta mikä on mikäkin. Harjoitus vaikuttaa vahvuuslukuusi puoliksi.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Arvoputket (Edistyminen-kohdassa): 15 tehtävää, jotka vaikeutuvat edetessä, avoinna joka arvolla. Ei vihjeitä, yksi virhe ja olet ulkona. Ne eivät vaikuta vahvuuslukuusi."
 };

@@ -26,7 +26,6 @@
   "Cancel": "বাতিল",
   "Practice": "অনুশীলন",
   "Practice: your daily result stays the same": "অনুশীলন: তোমার আজকের ফল বদলাবে না",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "প্রথম হিন্টে যে ঘুঁটি চালতে হবে সেটা জ্বলে ওঠে। দ্বিতীয়টায় একটা তীর দেখায় সেটা কোথায় যাবে। হিন্ট নিয়ে সমাধান করলে অর্ধেক ধরা হয়।",
   "Follow the arrow": "তীর ধরে চালো",
   "Move the glowing piece": "জ্বলজ্বলে ঘুঁটিটা চালো",
   "Puzzles or the daily puzzle": "পাজল নাকি দৈনিক পাজল",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "কোনো ভুল ও হিন্ট ছাড়া 50টি পাজল সমাধান।",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk চালাতে JavaScript চালু থাকতে হবে।</p>",
   "A Thousand Puzzles": "হাজার পাজল",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "মিস করা পাজল প্রায় 30টি পাজল পরে আরেকবার চেষ্টার জন্য একবার ফিরে আসে। দ্বিতীয় চেষ্টায় তোমার রেটিং বদলায় না।",
   "A streak freeze kept your {n}-day streak going.": "একটা স্ট্রিক ফ্রিজ তোমার {n} দিনের স্ট্রিক বাঁচিয়ে রেখেছে।",
   "About": "গেম সম্পর্কে",
   "Achievement": "অর্জন",
@@ -188,7 +186,6 @@
   "Rank": "র‍্যাঙ্ক",
   "Rank streak": "র‍্যাঙ্ক স্ট্রিক",
   "Rank streaks": "র‍্যাঙ্ক স্ট্রিক",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "র‍্যাঙ্ক স্ট্রিক (অগ্রগতিতে): 15টি পাজল, যা ক্রমেই কঠিন হয়। কোনো হিন্ট নেই, একটা মিস হলেই বাদ। এতে তোমার রেটিং বদলায় না।",
   "Ranks": "র‍্যাঙ্ক",
   "Rating over time": "সময়ের সঙ্গে রেটিং",
   "Reload the page": "পেজটা রিলোড করো",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10টি পাজল, বেশিরভাগই যেগুলো নিয়ে তুমি কাজ করছ। অনুশীলন তোমার রেটিংয়ে অর্ধেক গোনা হয়।",
   "Practice, puzzle {n} of {total}": "অনুশীলন, পাজল {n}/{total}",
   "{area}: {n} of {total}": "{area}: {total}টির মধ্যে {n}",
-  "Others: {n} of {total}": "অন্যান্য: {total}টির মধ্যে {n}"
+  "Others: {n} of {total}": "অন্যান্য: {total}টির মধ্যে {n}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "প্রতিটি চালে দুটি হিন্ট: প্রথমটায় যে ঘুঁটি চালতে হবে সেটা জ্বলে ওঠে, দ্বিতীয়টায় একটা তীর দেখায় সেটা কোথায় যাবে। হিন্ট নিয়ে সমাধান করলে অর্ধেক ধরা হয়।",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "যে পাজল মিস করো বা হিন্ট নিয়ে সমাধান করো, সেটা পরদিন ফিরে আসে, তারপর 3, 7, 14 আর 30 দিন পরে। তাড়াতাড়ি সমাধান করলে বেশি দিন পরে আসে; মিস করলে আবার শুরু থেকে। এই রিভিউগুলোতে তোমার রেটিং বদলায় না।",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "প্রায় 30টি পাজলের পর তোমার কোচ (অগ্রগতিতে) দেখায় তুমি কোথায় ভালো আর কী নিয়ে কাজ করতে হবে। “দুর্বল দিকগুলো অনুশীলন করো” তোমাকে 10টি মেশানো পাজল দেয়, বেশিরভাগই ওগুলো থেকে, কোনটা কী তা না বলে। অনুশীলন তোমার রেটিংয়ে অর্ধেক গোনা হয়।",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "র‍্যাঙ্ক স্ট্রিক (অগ্রগতিতে): 15টি পাজল, যা ক্রমেই কঠিন হয়, যেকোনো র‍্যাঙ্কে খেলা যায়। কোনো হিন্ট নেই, একটা মিস হলেই বাদ। এতে তোমার রেটিং বদলায় না।"
 };

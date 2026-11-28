@@ -26,7 +26,6 @@
   "Cancel": "Anulează",
   "Practice": "Antrenament",
   "Practice: your daily result stays the same": "Antrenament: rezultatul zilei rămâne același",
-  "The first hint lights up the piece to move. The second draws an arrow to where it goes. Solving with a hint counts as half.": "Primul indiciu luminează piesa care trebuie mutată. Al doilea desenează o săgeată spre locul unde merge. O rezolvare cu indiciu contează pe jumătate.",
   "Follow the arrow": "Urmează săgeata",
   "Move the glowing piece": "Mută piesa care strălucește",
   "Puzzles or the daily puzzle": "Probleme sau problema zilei",
@@ -57,7 +56,6 @@
   "50 puzzles solved with no mistakes and no hints.": "50 de probleme rezolvate fără greșeli și fără indicii.",
   "<p style=\"padding:16px;font-family:sans-serif\">King Walk needs JavaScript turned on to run.</p>": "<p style=\"padding:16px;font-family:sans-serif\">King Walk are nevoie de JavaScript activat ca să funcționeze.</p>",
   "A Thousand Puzzles": "O mie de probleme",
-  "A missed puzzle comes back once, about 30 puzzles later, for a second try. Second tries do not change your rating.": "O problemă ratată revine o singură dată, cam după 30 de probleme, pentru o a doua încercare. A doua încercare nu îți schimbă ratingul.",
   "A streak freeze kept your {n}-day streak going.": "O înghețare a seriei ți-a salvat seria (zile la rând: {n}).",
   "About": "Despre",
   "Achievement": "Realizare",
@@ -188,7 +186,6 @@
   "Rank": "Rang",
   "Rank streak": "Serie de rang",
   "Rank streaks": "Serii de rang",
-  "Rank streaks (under Progress): 15 puzzles that get harder as you go. No hints, one miss and you're out. They don't touch your rating.": "Serii de rang (la Progres): 15 probleme tot mai grele. Fără indicii, o greșeală și ai ieșit. Nu îți afectează ratingul.",
   "Ranks": "Ranguri",
   "Rating over time": "Evoluția ratingului",
   "Reload the page": "Reîncarcă pagina",
@@ -397,5 +394,9 @@
   "10 puzzles, mostly from what you're working on. Practice counts half toward your rating.": "10 probleme, mai ales din ce ai de lucrat. Antrenamentul contează pe jumătate pentru rating.",
   "Practice, puzzle {n} of {total}": "Antrenament, problema {n} din {total}",
   "{area}: {n} of {total}": "{area}: {n} din {total}",
-  "Others: {n} of {total}": "Altele: {n} din {total}"
+  "Others: {n} of {total}": "Altele: {n} din {total}",
+  "Each move has two hints. The first lights up the piece to move, the second draws an arrow to where it goes. Solving with a hint counts as half.": "Fiecare mutare are două indicii: primul luminează piesa care trebuie mutată, al doilea desenează o săgeată spre locul unde merge. O rezolvare cu indiciu contează pe jumătate.",
+  "A puzzle you miss, or solve with a hint, comes back the next day, then after 3, 7, 14 and 30 days. Solve it quickly and it waits longer; miss it and it starts again. These reviews don't change your rating.": "O problemă pe care o ratezi sau o rezolvi cu indiciu revine a doua zi, apoi după 3, 7, 14 și 30 de zile. Rezolv-o repede și așteaptă mai mult; ratează și o ia de la capăt. Aceste recapitulări nu îți schimbă ratingul.",
+  "After about 30 puzzles your coach (under Progress) shows what you're strong at and what to work on. Practise my weak spots gives you 10 mixed puzzles, mostly from those, without saying which is which. Practice counts half toward your rating.": "După vreo 30 de probleme, antrenorul tău (la Progres) îți arată la ce ești bun și la ce ai de lucrat. „Exersează punctele slabe” îți dă 10 probleme amestecate, mai ales din acestea, fără să spună care e care. Antrenamentul contează pe jumătate pentru rating.",
+  "Rank streaks (under Progress): 15 puzzles that get harder as you go, open at any rank. No hints, one miss and you're out. They don't touch your rating.": "Serii de rang (la Progres): 15 probleme tot mai grele, deschise la orice rang. Fără indicii, o greșeală și ai ieșit. Nu îți afectează ratingul."
 };
