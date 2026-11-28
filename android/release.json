@@ -1,7 +1,7 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "upload": true,
   "track": "alpha",
   "status": "completed",
-  "notes": "Test build: on the daily puzzle, Answer asks first (it ends the day and your streak), and a daily played as your very first puzzle shows how to move a piece. Also: Play Games achievements and leaderboards, practice sets that end early from their chip, hints move by move, and a card when the coach is ready."
+  "notes": "New: puzzles you miss come back after 1, 3, 7, 14 and 30 days. New: Practise my weak spots gives a mixed set of 10. New: your rating counts up or down after each puzzle. Improved: a tidier progress card, every rank streak open at any rank, and an up-to-date How it works."
 }
