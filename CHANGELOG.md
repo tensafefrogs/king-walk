@@ -11,8 +11,12 @@ Fixes players wouldn't notice, tooling and store plumbing stay out (the git log 
 
 - Nothing yet.
 
-### 1.0.6 (submitted to App Review 2026-11-28, released on approval; all of it on the website)
+### 1.0.6 (submitted to App Review 2026-11-28 with a build that replaced the first; released on approval; all of it on the website)
 
+- **Fixed: progress could start over after the update.** A save with a missed puzzle still waiting for its second try
+  (from before the review schedule) failed to load, and the game began a new player. It loads now, the second tries
+  becoming reviews, and a save that ever fails to load is kept aside so it can be recovered. On the website from 26
+  November until this fix; 1.0.6's first build had it too and was replaced before release. (Live on the website.)
 - **How it works is up to date:** it explains the review schedule for missed puzzles (it still said they came back
   once), two hints on every move, the coach and Practise my weak spots, and that rank streaks are open at any rank.
   (Live on the website.)

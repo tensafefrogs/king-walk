@@ -392,6 +392,23 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     const rm = await w.p.evaluate(() => { countTo($("rating"), 1000, 1012); return $("rating").textContent; });
     await w.ctx.close();
     check(rm === "1012", "with reduced motion the rating shows the new value at once", rm); }
+  // a save from before spaced repetition loads at startup, as a player updating has it: progress kept, its second tries
+  // moved in as reviews due now. (The first version read the save before dayIndex existed, threw, and started the player
+  // over; the unit test above called cleanState after the page had loaded, so it never saw that.) Nothing is set aside
+  // as unreadable
+  { const old = { v: 2, updatedAt: Date.now() - 864e5, cur: 0, sound: true, players: [{ name: "Player 1", rating: 1234, n: 77, solved: 60, streak: 3, best: 9, peak: 1300,
+      hist: [1100, 1234], last: [1, 0, 1], seen: {}, review: [{ b: 1200, i: 42, due: 70, tries: 1 }, { b: 900, i: 7, due: 99, tries: 1 }], mode: "normal", since: Date.now() - 9e8,
+      daily: { streak: 2, best: 4, last: 10, freezes: 1, days: { 10: { m: "gg", t: 40, ok: true } } }, runs: { p: 15 }, coach: { pin: [9, -2] }, choice: "coached" }] };
+    const w = await page("", `localStorage.setItem("chess-climb-v1", ${JSON.stringify(JSON.stringify(old))});`);
+    const ld = await w.p.evaluate(() => ({ n: me().n, rating: me().rating, review: me().review, daily: me().daily.streak, unread: localStorage.getItem("chess-climb-v1-unread") }));
+    await w.ctx.close();
+    check(ld.n === 77 && ld.rating === 1234 && ld.daily === 2 && ld.unread === null && ld.review.length === 2 && ld.review.every(r => r.s === 0 && r.d === 0) && ld.review[0].a === 70,
+          "an old save loads at startup with its progress, its second tries becoming reviews due now", ld); }
+  // a save that can't be read is set aside as it was before the fresh start (so it can be recovered), once
+  { const w = await page("", `localStorage.setItem("chess-climb-v1", '{"players": [{"rating": 1500, "n": 9}], "v": 2, "broken": ');`);
+    const un = await w.p.evaluate(() => ({ n: me().n, unread: localStorage.getItem("chess-climb-v1-unread") }));
+    await w.ctx.close();
+    check(un.n === 0 && /"rating": 1500/.test(un.unread || ""), "an unreadable save is kept aside (chess-climb-v1-unread) before the game starts fresh", un); }
   // spaced repetition: the schedule (1, 3, 7, 14, 30 days; up when clean and quick, the same when slow or with a hint,
   // back to 1 day on a miss, learned and gone after the last step), when a review is due (its day, enough new puzzles
   // since, at most 1 in 5), old saves' second tries moving in, and a miss coming back in play the next day
@@ -414,7 +431,7 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
       p.sinceReview = 3; out.tooSoon = dueReview(p) === null;
       /* an old save's second tries */
       const st = cleanState({ players: [{ rating: 900, n: 50, review: [{ b: 900, i: 7, due: 62, tries: 1 }] }] });
-      out.migrated = JSON.stringify(st.players[0].review[0]) === JSON.stringify({ b: 900, i: 7, s: 0, d: Math.max(1, today), a: 62, ft: 0 });
+      out.migrated = JSON.stringify(st.players[0].review[0]) === JSON.stringify({ b: 900, i: 7, s: 0, d: 0, a: 62, ft: 0 });
       /* in play: a missed puzzle is listed for tomorrow; when it's due it comes up, a clean quick solve moves it up, the rating stays */
       p.review = []; p.sinceReview = 9;
       const nap = ms => new Promise(r => setTimeout(r, ms)), settle = async () => { for (let t = 0; t < 100 && (locked || !cur); t++) await nap(100); };
@@ -433,7 +450,7 @@ if (isNaN(NOW)) { console.log("UNIT_NOW isn't a date:", process.env.UNIT_NOW); p
     check(sr.added && JSON.stringify(sr.steps) === JSON.stringify(["up", 1, 3, "same", 1, 3, "up", 2, "same", 2, "reset", 0, 1]) && sr.learned,
           "spaced repetition: listed once at 1 day; up when clean and quick (or faster than the first try), the same when slow or hinted, back to 1 day on a miss, learned after 30 days", sr);
     check(sr.pick === 2 && sr.tooSoon, "spaced repetition: a review is due on its day after enough new puzzles, the longest overdue first, at most 1 puzzle in 5", sr);
-    check(sr.migrated, "spaced repetition: an old save's second tries move in at the 1-day step", sr);
+    check(sr.migrated, "spaced repetition: an old save's second tries move in at the first step, due now", sr);
     check(sr.listed && sr.came && sr.moved, "spaced repetition in play: a miss is listed for tomorrow, comes back when due, and a clean quick solve moves it to 3 days without touching the rating", sr); }
   // a puzzle's clock stops while the game is hidden
   { const w = await page();

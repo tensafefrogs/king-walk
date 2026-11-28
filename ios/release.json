@@ -1,7 +1,7 @@
 {
   "version": "1.0.6",
   "xcode27": true,
-  "build": false,
+  "build": true,
   "testflight": {
     "groups": [
       "Internal",
@@ -10,12 +10,12 @@
         "public_link": true
       }
     ],
-    "whats_new": "New in this build:\n- Improved: How it works is up to date, with the review schedule, the coach and practice.\n\nAlso recently:\n- New: puzzles you miss come back after 1, 3, 7, 14 and 30 days.\n- New: Practise my weak spots on the coach card starts a mixed set of 10 that doesn't tell you which kind each puzzle is.\n- New: your rating counts up or down after each puzzle.\n- Improved: a tidier progress card, and every rank streak looks open, since all of them can be played at any rank.\n\nPlease try a practice set and a rank streak, and tell me anything that looks off."
+    "whats_new": "New in this build:\n- Fixed: after updating, progress could start over if a missed puzzle was waiting to come back.\n- Improved: How it works is up to date, with the review schedule, the coach and practice.\n\nAlso recently:\n- New: puzzles you miss come back after 1, 3, 7, 14 and 30 days.\n- New: Practise my weak spots on the coach card starts a mixed set of 10 that doesn't tell you which kind each puzzle is.\n- New: your rating counts up or down after each puzzle.\n- Improved: a tidier progress card, and every rank streak looks open, since all of them can be played at any rank.\n\nPlease try a practice set and a rank streak, and tell me anything that looks off."
   },
   "app_store": {
     "submit": true,
     "release": "after_approval",
-    "replace_in_review": false,
+    "replace_in_review": true,
     "whats_new": {
       "en-US": "New: Puzzles you miss come back after 1, 3, 7, 14 and 30 days, until you've got them.\nNew: Practise my weak spots gives you a mixed set of 10 from what your coach says to work on.\nNew: Your rating counts up or down after each puzzle.\nImproved: A tidier progress card, every rank streak open at any rank, and an up-to-date How it works.",
       "ar-SA": "جديد: الألغاز التي تخطئ فيها تعود بعد 1 و3 و7 و14 و30 يومًا حتى تتقنها.\nجديد: «تدرّب على نقاط ضعفك» يعطيك 10 ألغاز مختلطة مما يقول مدربك أن تركّز عليه.\nجديد: تقييمك يعدّ صعودًا أو نزولًا بعد كل لغز.\nتحسين: بطاقة تقدم أكثر ترتيبًا، وكل سلاسل الرتب متاحة لكل الرتب، وشرح «كيف تعمل» محدَّث.",
@@ -66,5 +66,5 @@
     }
   },
   "release_now": false,
-  "note": "Owner's go-ahead to submit and release 1.0.6 (2026-11-28). Step 2 of 2: submit 1.0.6 (the build made in step 1) to App Review with each language's screenshots in place; released automatically when Apple approves it."
+  "note": "Owner's go-ahead to submit and release 1.0.6 (2026-11-28). Replaces the build in review: a save from 1.0.5 with a second try waiting started the player over (fixed in loadLocal/cleanState). Builds 1.0.6 from main, withdraws the submission of build 2611280452 and submits the new build; released when Apple approves it."
 }

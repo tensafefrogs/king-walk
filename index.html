@@ -1353,7 +1353,7 @@ function cleanState(raw) {
        they move in at the first step, due today, after the same number of puzzles */
     if (Array.isArray(p.review)) q.review = p.review.filter(r => r && BANDS.includes(r.b) && r.i >= 0).slice(-REVIEW_MAX).map(r => "d" in r
       ? { b: r.b, i: count(r.i), s: clamp(count(r.s), 0, REVIEW_GAPS.length - 1), d: count(r.d), a: count(r.a), ft: clamp(count(r.ft), 0, 86400) }
-      : { b: r.b, i: count(r.i), s: 0, d: Math.max(1, dayIndex()), a: count(r.due), ft: 0 });
+      : { b: r.b, i: count(r.i), s: 0, d: 0, a: count(r.due), ft: 0 });          /* d 0: due now. Not dayIndex(): the save is read before it's defined */
     if (isFinite(p.sinceReview)) q.sinceReview = clamp(count(p.sinceReview), 0, 1e6);
     if (MODES[p.mode] !== undefined) q.mode = p.mode;
     const pl = p.place;
@@ -1373,7 +1373,16 @@ function cleanState(raw) {
     awards: Array.isArray(raw.awards) ? raw.awards.filter(a => typeof a === "string" && a.length < 40).slice(0, 64) : null, rateAsked: +raw.rateAsked || 0, players };
 }
 function writeLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
-function loadLocal() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY))); } catch (e) { return null; } }
+/* a save that can't be read (a bug, a damaged copy) is kept aside as it was, before the fresh start can save over it:
+   once at most, under LS_KEY + "-unread", so it can be recovered (and the stat says it happened) */
+function loadLocal() {
+  let raw = null;
+  try { raw = localStorage.getItem(LS_KEY); return cleanState(JSON.parse(raw)); }
+  catch (e) {
+    try { if (raw && !localStorage.getItem(LS_KEY + "-unread")) { localStorage.setItem(LS_KEY + "-unread", raw); setTimeout(() => track("save/unread"), 0); } } catch (e2) {}
+    return null;
+  }
+}
 /* a player starting out: newPlayer, plus the holdback's roll (only here and at Start over, not each time a save loads) */
 const freshPlayer = () => Object.assign(newPlayer(START_RATING), coachChoiceForNew());
 let S = loadLocal() || { v: 2, updatedAt: 0, cur: 0, sound: true, haptics: true, lefty: false, remind: -1, rateAsked: 0, players: [freshPlayer()] };
