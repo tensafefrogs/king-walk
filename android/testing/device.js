@@ -61,13 +61,19 @@ async function report() {
   /* start the app and attach to its page. Right after the phone's per-app language changes and the app is stopped,
      Playwright sometimes never sees the new WebView (twice in November 2026, at the German step, with nothing in the
      app's log): then stop it and start it once more. A page that does open is still checked as before */
+  /* Each try has 90 seconds: sometimes (about half the runs in late November 2026, at any of the restarts) neither the
+     WebView nor its page ever answers and nothing throws, so a try that hangs is given up on like one that fails */
+  const OPEN_LIMIT = 90 * 1000, OPEN_TRIES = 3;
+  const limit = (p, ms, what) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error(`Timeout: ${what} took over ${ms / 1000} s`)), ms))]);
   const open = async (how = `-n ${ACTIVITY}`) => {
     for (let tries = 1; ; tries++) {
-      await sh(`am start -W ${how}`);
-      try { return await attach(); } catch (e) {
-        if (tries >= 2 || !/Timeout/i.test(e.message)) throw e;
-        console.log("note: the app's WebView didn't show up; stopping the app and starting it again");
-        await sh(`am force-stop ${PKG}`); await sleep(3000);
+      try {
+        await limit(sh(`am start -W ${how}`), 30000, "starting the app");
+        return await limit(attach(), OPEN_LIMIT, "the app's page getting ready");
+      } catch (e) {
+        if (tries >= OPEN_TRIES || !/Timeout/i.test(e.message)) throw e;
+        console.log(`note: ${e.message}; stopping the app and starting it again (try ${tries + 1} of ${OPEN_TRIES})`);
+        await limit(sh(`am force-stop ${PKG}`), 30000, "stopping the app").catch(() => {}); await sleep(3000);
       }
     }
   };
@@ -75,11 +81,11 @@ async function report() {
   attach = async () => {
     // the app closed a moment ago can still be listed: if the page found is that one (it closes under us), look again
     for (let tries = 1; ; tries++) {
-      const view = await device.webView({ pkg: PKG }, { timeout: 60000 });
+      const view = await device.webView({ pkg: PKG }, { timeout: 40000 });
       const page = await view.page();
       try {
         // a puzzle ready to play, or today's daily already played (it opens on its result)
-        await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && (!locked || (typeof DAILY !== "undefined" && DAILY)), null, { timeout: 60000 });
+        await page.waitForFunction(() => typeof locked !== "undefined" && typeof cur !== "undefined" && cur && (!locked || (typeof DAILY !== "undefined" && DAILY)), null, { timeout: 40000 });
         return page;
       } catch (e) {
         if (tries >= 4 || !/closed/.test(e.message)) throw e;
